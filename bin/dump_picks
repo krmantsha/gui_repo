@@ -1,0 +1,365 @@
+#!/usr/bin/env seiscomp-python
+
+############################################################################
+# Copyright (C) 2016 by gempa GmbH                                         #
+#                                                                          #
+# All Rights Reserved.                                                     #
+#                                                                          #
+# NOTICE: All information contained herein is, and remains                 #
+# the property of gempa GmbH and its suppliers, if any. The intellectual   #
+# and technical concepts contained herein are proprietary to gempa GmbH    #
+# and its suppliers.                                                       #
+# Dissemination of this information or reproduction of this material       #
+# is strictly forbidden unless prior written permission is obtained        #
+# from gempa GmbH.                                                         #
+#                                                                          #
+#  Author: Enrico Ellguth, Dirk Roessler                                   #
+#  Email: enrico.ellguth@gempa.de, roessler@gempa.de                       #
+############################################################################
+
+from __future__ import absolute_import, division, print_function
+
+import datetime
+import sys
+
+from seiscomp3 import Core, DataModel, Logging, IO
+from seiscomp3.Client import Application
+
+
+
+def str2time(timestring):
+    """
+    Liberally accept many time string formats and convert them to a
+    seiscomp3.Core.Time
+    """
+
+    timestring = timestring.strip()
+    for c in ["-", "/", ":", "T", "Z"]:
+        timestring = timestring.replace(c, " ")
+    timestring = timestring.split()
+    assert 3 <= len(timestring) <= 6
+    timestring.extend((6-len(timestring))*["0"])
+    timestring = " ".join(timestring)
+
+    fmt = "%Y %m %d %H %M %S"
+    if timestring.find(".") != -1:
+        fmt += ".%f"
+
+    t = Core.Time()
+    t.fromString(timestring, fmt)
+    return t
+
+class DumpPicks(Application):
+    def __init__(self, argc, argv):
+        Application.__init__(self, argc, argv)
+        self.output = None
+        self.originID = None
+        self.bbox = None
+        self.tmin = None
+        self.tmax = None
+        self.noamp = False
+        self.automatic = False
+        self.manual = False
+        self.author = None
+
+        self.setMessagingEnabled(False)
+        self.setDatabaseEnabled(True, True)
+
+    def createCommandLineDescription(self):
+        self.commandline().addGroup("Dump")
+
+        self.commandline().addStringOption("Dump", "hours", "Start search hours before now. If set, --time-window and --start are ignored")
+
+        self.commandline().addStringOption("Dump", "start", "Start time of search until now. If set, --time-window is ignored.")
+
+        self.commandline().addStringOption(
+            "Dump", "time-window,t",
+            "specify time window (as one -properly quoted- string) "\
+            "times are of course UTC and separated by a tilde '~'"\
+            "Uses: 1970-01-01 00:00:00 to now if not set.")
+
+        self.commandline().addStringOption(
+            "Dump"," output,o", "output file (default is stdout)")
+
+        self.commandline().addStringOption(
+            "Dump", "region,r", "region rect \"lat0,lon0,lat1,lon1\"\nlatitude [degree]: "\
+            "-90 - +90\nlongitude [degree]: -180 - +180 or +0 - +360\n"\
+            "Uses: \"-90,-180,90,180\" if not set.")
+
+        self.commandline().addOption(
+            "Dump", "check-inventory,c", "Dump picks only when correspondig streams are found in inventory")
+
+        self.commandline().addStringOption(
+            "Dump", "origin,O", "originID. Dump all "
+            "picks associated with the origin that has the originID")
+
+        self.commandline().addOption(
+            "Dump", "manual,m", "Manual-only: Dump only manual picks")
+
+        self.commandline().addOption(
+            "Dump", "automatic,a", "Automatic-only: Dump only automatic picks")
+
+        self.commandline().addOption(
+            "Dump", "no-amp,n", "Do not dump amplitudes from picks. "\
+            "Amplitudes are not required for scanloc but for scautoloc.")
+
+        self.commandline().addStringOption("Dump", "author", "Filter picks by author")
+
+    def printUsage(self):
+
+        print("\ndump_picks - read picks from database and dump them to a\
+              file or to standard output\n")
+        print("Usage: dump_picks [options]")
+        Application.printUsage(self)
+
+        print("Examples:\n=========")
+        print("\nDump all picks within a region and a period of time:")
+        print("dump_picks -t \"2016-01-20 13:52:00~2016-01-20 13:57:00\" -d localhost/seiscomp -r \"-90,-180,90,180\"")
+
+        print("\nSearch 24 hours before now; dump only manual picks without amplitudes:")
+        print("dump_picks -d localhost/seiscomp --hours 24 -m -n\n")
+
+    def init(self):
+        if not Application.init(self):
+            return False
+
+        self.tmin = False
+        self.tmax = False
+        self.hours = False
+        self.start = False
+
+        try:
+            self.output = self.commandline().optionString("output")
+        except RuntimeError:
+            self.output = "-"
+
+        try:
+            self.originID = self.commandline().optionString("origin")
+        except RuntimeError:
+            self.originID = None
+
+        if not self.originID:
+            try:
+                boundingBox = self.commandline().optionString("region")
+                self.bbox = boundingBox.split(",")
+                if len(self.bbox) != 4:
+                    Logging.error("Invalid region given, expected lat0,lon0,lat1,lon1")
+                    return False
+            except RuntimeError:
+                Logging.debug("No region given - assuming global")
+                boundingBox = "-90,-180,90,180"
+                self.bbox = boundingBox.split(",")
+
+            try:
+                self.hours = float(self.commandline().optionString("hours"))
+            except RuntimeError:
+                self.hours = False
+
+            try:
+                self.start = self.commandline().optionString("start")
+            except RuntimeError:
+                self.start = False
+
+            if self.hours:
+                Logging.debug("Time window set by hours option: ignoring all other time parameters")
+                self.tmin = str2time(str(datetime.datetime.utcnow() - datetime.timedelta(hours=self.hours)))
+                self.tmax = str2time(str(datetime.datetime.utcnow()))
+                self.start = False
+
+            if self.start:
+                Logging.debug("Time window set by start option: ignoring --time-window")
+                self.tmin = str2time(self.start)
+                self.tmax = str2time(str(datetime.datetime.utcnow()))
+
+            if not self.start and not self.hours:
+                try:
+                    self.tmin, self.tmax = map(
+                        str2time,
+                        self.commandline().optionString("time-window").split("~"))
+                    Logging.debug("Time window set by time-window option")
+                except RuntimeError:
+                    Logging.debug("No time window given - assuming 1970-01-01 00:00:00 til now")
+                    self.tmin = str2time("1970-01-01 00:00:00")
+                    self.tmax = str2time(str(datetime.datetime.utcnow()))
+
+            Logging.debug("Considered time window: %s - %s" % (str(self.tmin), str(self.tmax)))
+
+            if float(self.bbox[1]) > 180. or float(self.bbox[3]) > 180.:
+                self.bbox[1] = str(float(self.bbox[1]) - 180)
+                self.bbox[3] = str(float(self.bbox[3]) - 180)
+
+        else:
+            Logging.debug("Search for picks is based on originID, ignoring region and time parameters.")
+
+        if self.commandline().hasOption("check-inventory"):
+            self.checkInventory = True
+            Logging.debug("Dump only picks for streams found in inventory")
+        else:
+            self.checkInventory = False
+            Logging.debug("Dump picks not considering the inventory")
+
+        if self.commandline().hasOption("no-amp"):
+            self.noamp = True
+            Logging.debug("Dump picks without amplitudes")
+        else:
+            self.noamp = False
+            Logging.debug("Dump picks with amplitudes")
+
+        if self.commandline().hasOption("manual"):
+            self.manual = True
+            Logging.debug("Dump only manual picks")
+        else:
+            self.manual = False
+            Logging.debug("Manual-only not considered.")
+
+        if self.commandline().hasOption("automatic"):
+            if not self.manual:
+                self.automatic = True
+                Logging.debug("Dump only automatic picks")
+            else:
+                Logging.error("EXIT - Script was started with competing options -a and -m")
+                print("EXIT - Script was started with competing options -a and -m")
+                return False
+        else:
+            self.automatic = False
+            Logging.debug("Automatic-only not considered.")
+
+        try:
+            self.author = self.commandline().optionString("author")
+        except RuntimeError:
+            self.author = None
+
+        return True
+
+    def run(self):
+        db = self.database()
+        def _T(name):
+            return db.convertColumnName(name)
+        def _time(time):
+            return db.timeToString(time)
+
+        colLat, colLon = _T('latitude'), _T('longitude')
+
+        dbq = self.query()
+        ep = DataModel.EventParameters()
+        picks = []
+
+        if self.originID:
+            for p in dbq.getPicks(self.originID):
+                picks.append(DataModel.Pick.Cast(p))
+
+            for p in picks:
+                dbq.loadComments(p)
+                ep.add(p)
+
+            if not self.noamp:
+                for a in dbq.getAmplitudesForOrigin(self.originID):
+                    amp = DataModel.Amplitude.Cast(a)
+                    ep.add(amp)
+
+        else:
+            fmt = "%Y-%m-%d %H:%M:%S"
+            if self.checkInventory:
+                q = "select distinct(PPick.%s), Pick.* " \
+                    "from PublicObject as PPick, Pick, Network, Station, SensorLocation " \
+                    "where PPick._oid=Pick._oid and Network._oid=Station._parent_oid and " \
+                          "Station._oid=SensorLocation._parent_oid and Station.%s >= %s and " \
+                          "Station.%s <= %s and Station.%s >= %s and Station.%s <= %s and " \
+                          "SensorLocation.%s=Pick.%s and SensorLocation.%s <= Pick.%s and " \
+                          "(SensorLocation.%s is null or SensorLocation.%s > Pick.%s) and " \
+                          "Station.%s=Pick.%s and Network.%s=Pick.%s and " \
+                          "Pick.%s >= '%s' and Pick.%s < '%s'" \
+                    "" % (_T("publicID"),
+                          colLat, self.bbox[0], colLat, self.bbox[2], colLon,
+                          self.bbox[1], colLon, self.bbox[3],
+                          _T("code"), _T("waveformID_locationCode"),
+                          _T("start"), _T("time_value"),
+                          _T("end"), _T("end"), _T("time_value"),
+                          _T("code"), _T("waveformID_stationCode"),
+                          _T("code"), _T("waveformID_networkCode"),
+                          _T("time_value"), self.tmin.toString(fmt),
+                          _T("time_value"), self.tmax.toString(fmt))
+            else:
+                q = "select distinct(PPick.%s), Pick.* " \
+                    "from PublicObject as PPick, Pick " \
+                    "where PPick._oid=Pick._oid and " \
+                          "Pick.%s >= '%s' and Pick.%s < '%s'" \
+                    "" % (_T("publicID"),
+                          _T("time_value"), self.tmin.toString(fmt),
+                          _T("time_value"), self.tmax.toString(fmt))
+
+            if self.manual:
+                q = q + " and Pick.evaluationMode = 'manual' "
+
+            if self.automatic:
+                q = q + " and Pick.evaluationMode = 'automatic' "
+
+            if self.author:
+                q = q + " and Pick.%s = '%s' " % (_T("creationInfo_author"), self.author)
+
+            for p in dbq.getObjectIterator(q, DataModel.Pick.TypeInfo()):
+                picks.append(DataModel.Pick.Cast(p))
+
+            for p in picks:
+                dbq.loadComments(p)
+                ep.add(p)
+
+            if not self.noamp:
+                if self.checkInventory:
+                    q = "select distinct(PAmplitude.%s), Amplitude.* " \
+                        "from PublicObject as PAmplitude, Amplitude, PublicObject \
+                        as PPick, Pick, Network, Station, SensorLocation " \
+                        "where PAmplitude._oid=Amplitude._oid and \
+                              PPick._oid=Pick._oid and Network._oid=Station._parent_oid and " \
+                              "Station._oid=SensorLocation._parent_oid and Station.%s >= %s and " \
+                              "Station.%s <= %s and Station.%s >= %s and Station.%s <= %s and " \
+                              "SensorLocation.%s=Pick.%s and SensorLocation.%s <= Pick.%s and " \
+                              "(SensorLocation.%s is null or SensorLocation.%s > Pick.%s) and " \
+                              "Station.%s=Pick.%s and Network.%s=Pick.%s and " \
+                              "Pick.%s >= '%s' and Pick.%s < '%s' and PPick.%s=Amplitude.%s" \
+                        "" % (_T("publicID"),
+                              colLat, self.bbox[0], colLat, self.bbox[2], colLon,
+                              self.bbox[1], colLon, self.bbox[3],
+                              _T("code"), _T("waveformID_locationCode"),
+                              _T("start"), _T("time_value"),
+                              _T("end"), _T("end"), _T("time_value"),
+                              _T("code"), _T("waveformID_stationCode"),
+                              _T("code"), _T("waveformID_networkCode"),
+                              _T("time_value"), self.tmin.toString(fmt),
+                              _T("time_value"), self.tmax.toString(fmt),
+                              _T("publicID"), _T("pickID"))
+                else:
+                    q = "select distinct(PAmplitude.%s), Amplitude.* " \
+                        "from PublicObject as PAmplitude, Amplitude, PublicObject as PPick, Pick " \
+                        "where PAmplitude._oid=Amplitude._oid and PPick._oid=Pick._oid and " \
+                        "Pick.%s >= '%s' and Pick.%s < '%s' and PPick.%s=Amplitude.%s" \
+                        "" % (_T("publicID"),
+                              _T("time_value"), self.tmin.toString(fmt),
+                              _T("time_value"), self.tmax.toString(fmt),
+                              _T("publicID"), _T("pickID"))
+
+                if self.manual:
+                    q = q + " and Pick.evaluationMode = 'manual' "
+                if self.automatic:
+                    q = q + " and Pick.evaluationMode = 'automatic' "
+
+                for a in dbq.getObjectIterator(q, DataModel.Amplitude.TypeInfo()):
+                    amp = DataModel.Amplitude.Cast(a)
+                    ep.add(amp)
+
+        ar = IO.XMLArchive()
+        ar.create(self.output)
+        ar.setFormattedOutput(True)
+        ar.writeObject(ep)
+        ar.close()
+
+        print("Saved %d picks" % len(picks), file=sys.stderr)
+        return True
+
+def main(argv):
+    app = DumpPicks(len(argv), argv)
+    return app()
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))

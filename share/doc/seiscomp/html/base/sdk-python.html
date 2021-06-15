@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html >
+  <head>
+    <meta charset="utf-8" />
+    <title>Python &#8212; SeisComP Release documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script type="text/javascript" src="../_static/seiscomp.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Packages" href="sdk-python-packages.html" />
+    <link rel="prev" title="Software Development Kit" href="sdk.html" /> 
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <div class="brand">
+          <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
+           <!-- span class="title">SeisComP Release</span -->
+          <span class="version">4.6.0</span>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <div class="container">
+        <div class="content"><a class="pull-right" id="sidebar-toggle">TOC</a>
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <ul>
+        <li class="right">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">
+            index
+          </a>
+        </li>
+        <li class="right">
+          <a href="sdk-python-packages.html" title="Packages"
+             accesskey="N">
+            next
+          </a>
+        </li>
+        <li class="right">
+          <a href="sdk.html" title="Software Development Kit"
+             accesskey="P">
+            previous
+          </a>
+        </li>
+        <li class="nav-item nav-item-0">
+          <a href="../index.html">Home</a>
+        </li>
+        <li class="nav-item nav-item-1">
+          <a href="sdk.html" accesskey="U">Software Development Kit</a>
+        </li> 
+      </ul>
+    </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="fitted content" id="anchors-container">
+        <div class="body" role="main">
+          
+  <div class="section" id="python">
+<span id="sdk-python"></span><h1>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sdk-python-packages.html">Packages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api-python.html">seiscomp.datamodel</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-python.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-python.html#reference">Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api-python-client.html">seiscomp.client</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-python-client.html#application-class">Application class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api-python-client.html#constructor">Constructor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-python-client.html#init">Init</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-python-client.html#run">Run</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-python-client.html#done">Done</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api-python-client.html#streamapplication-class">StreamApplication class</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sdk-python-examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sdk-python-examples.html#simple-messaging-client">Simple messaging client</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sdk-python-examples.html#summary">Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdk-python-examples.html#goal">Goal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdk-python-examples.html#script">Script</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sdk-python-examples.html#inventory-examples">Inventory examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sdk-python-examples.html#id1">Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdk-python-examples.html#id2">Goal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdk-python-examples.html#scripts">Scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sdk-python-examples.html#configured-streams-py">configured-streams.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sdk-python-examples.html#station-coordinates-py">station-coordinates.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sdk-python-examples.html#channel-gains-py">channel-gains.py</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sdk-python-examples.html#simple-waveform-client">Simple waveform client</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sdk-python-examples.html#id3">Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdk-python-examples.html#id4">Goal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdk-python-examples.html#id5">Script</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sdk-python-examples.html#waveform-client-and-record-filtering">Waveform client and record filtering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sdk-python-examples.html#id6">Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdk-python-examples.html#id7">Goal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdk-python-examples.html#id8">Script</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          <div id="anchors-bottom"></div>
+        </div>
+        
+      <div class="sidebar" role="navigation" aria-label="main navigation">
+        <div id="anchors-top"></div>
+        <div id="anchors" class="content">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="sdk.html"
+                        title="previous chapter">Software Development Kit</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="sdk-python-packages.html"
+                        title="next chapter">Packages</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/base/sdk-python.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <div class="horizontal layout content">
+        <a class="fade-in" href="https://www.gempa.de" target="_blank">
+          <img class="brand" src="../_static/brands/gempa.svg"/>
+        </a>
+        <div class="stretched align-center fitted content">
+          <div>
+		  Version <b>4.6.0</b> Release
+          </div>
+            <div class="copyright">
+              Copyright &copy; gempa GmbH, GFZ Potsdam.
+            </div>
+        </div>
+        <a class="fade-in" href="https://www.gfz-potsdam.de" target="_blank">
+          <img class="brand" src="../_static/brands/gfz.svg"/>
+        </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

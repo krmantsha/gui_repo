@@ -1,0 +1,300 @@
+.\" Man page generated from reStructuredText.
+.
+.TH "SCMASTER" "1" "Jun 04, 2021" "4.6.0" "SeisComP"
+.SH NAME
+scmaster \- SeisComP Documentation
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.sp
+\fBThe messaging system\fP
+.SH DESCRIPTION
+.sp
+scmaster is the implementation of the messaging
+mediator.
+.SH CONFIGURATION
+.nf
+\fBetc/defaults/global.cfg\fP
+\fBetc/defaults/scmaster.cfg\fP
+\fBetc/global.cfg\fP
+\fBetc/scmaster.cfg\fP
+\fB~/.seiscomp/global.cfg\fP
+\fB~/.seiscomp/scmaster.cfg\fP
+.fi
+.sp
+.sp
+scmaster inherits global options\&.
+.INDENT 0.0
+.TP
+.B defaultGroups
+Type: \fIlist:string\fP
+.sp
+The default set of message groups for each queue. Only used
+if a queues group list is unset (note: empty is not unset).
+Default is \fBAMPLITUDE, PICK, LOCATION, MAGNITUDE, FOCMECH, EVENT, QC, PUBLICATION, GUI, INVENTORY, CONFIG, LOGGING, SERVICE_REQUEST, SERVICE_PROVIDE, STATUS_GROUP\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B queues
+Type: \fIlist:string\fP
+.sp
+Enable messaging queues defined as profile in queues. The profile
+names are the final queue names.
+Default is \fBproduction, playback\fP\&.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBinterface.*\fP
+\fIControl the messaging interface. The default protocol is\fP
+\fI"scmp" but "scmps" (secure protocol) is\fP
+\fIused when valid SSL certificate and key are configured.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B interface.bind
+Type: \fIipbind\fP
+.sp
+Local bind address and port of the messaging system.
+0.0.0.0:18180 accepts connections from all clients, 127.0.0.1:18180
+only from localhost.
+Default is \fB0.0.0.0:18180\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B interface.acl
+Type: \fIlist:ipmask\fP
+.sp
+The IP access control list for clients which are allowed
+to connect to the interface.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B interface.socketPortReuse
+Type: \fIboolean\fP
+.sp
+SO_REUSEADDR socket option for the TCP listening socket.
+Default is \fBtrue\fP\&.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBinterface.ssl.*\fP
+\fISSL encryption is used if key and certificate are configured.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B interface.ssl.bind
+Type: \fIipbind\fP
+.sp
+Additional local bind address and port of the messaging system
+in case SSL encryption is active.
+Default is \fB0.0.0.0:\-1\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B interface.ssl.acl
+Type: \fIlist:ipmask\fP
+.sp
+The IP access control list for clients which are allowed
+to connect to the interface.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B interface.ssl.socketPortReuse
+Type: \fIboolean\fP
+.sp
+SO_REUSEADDR socket option for the TCP listening socket.
+Default is \fBtrue\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B interface.ssl.key
+Type: \fIpath\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B interface.ssl.certificate
+Type: \fIpath\fP
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBqueues.*\fP
+\fISet the parameters for each messaging queue. The queues are used\fP
+\fIwhen listed in the :confval:\(gaqueues\(ga parameter. Several queues\fP
+\fIcan be used in parallel. For queues with without databases leave\fP
+\fIthe processor parameters empty.\fP
+.UNINDENT
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBqueues.$name.*\fP
+$name is a placeholder for the name to be used.
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B queues.$name.groups
+Type: \fIlist:string\fP
+.sp
+Define the list of message groups added to the queue. If unset
+then the defaultGroups will be used. A queue will always
+add the default group "STATUS_GROUP". This
+parameter overrides defaultGroups.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B queues.$name.acl
+Type: \fIlist:ipmask\fP
+.sp
+The IP access control list for clients which are allowed
+to join the queue.
+Default is \fB0.0.0.0/0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B queues.$name.maximumPayloadSize
+Type: \fIint\fP
+.sp
+Unit: \fIB\fP
+.sp
+The maximum size in bytes of a message to be accepted.
+Clients which send larger messages will be disconnected.
+The default is 1MB.
+Default is \fB1048576\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B queues.$name.plugins
+Type: \fIlist:string\fP
+.sp
+List of plugins required by this queue. This is just a
+convenience parameter to improve configurations
+readability. The plugins can also be added to the
+global list of module plugins.
+.sp
+Example: dbstore
+.UNINDENT
+.INDENT 0.0
+.TP
+.B queues.$name.processors.messages
+Type: \fIstring\fP
+.sp
+Interface name. For now, use "dbstore" to
+use a database.
+.sp
+Use empty for testing or playbacks without a database.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBqueues.$name.processors.messages.dbstore.*\fP
+\fIDefine the database connection parameters.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B queues.$name.processors.messages.dbstore.driver
+Type: \fIstring\fP
+.sp
+Selected the database driver to use. Database drivers are
+available through plugins. The default plugin is dbmysql
+which supports the MYSQL database server. It is activated
+with the core.plugins parameter.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B queues.$name.processors.messages.dbstore.read
+Type: \fIstring\fP
+.sp
+Sets the database read connection which is reported to clients
+that connect to this server. If a remote setup should be
+implemented, ensure that the hostname is reachable from
+the remote computer.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B queues.$name.processors.messages.dbstore.write
+Type: \fIstring\fP
+.sp
+Sets the database write connection which is private to
+scmaster. A separate write connection enables different
+permissions on the database level for scmaster and
+clients.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B queues.$name.processors.messages.dbstore.strictVersionCheck
+Type: \fIboolean\fP
+.sp
+If enabled, the plugin will check the database schema version and refuse to start
+if the version doesn\(aqt match the latest version. If disabled and the an object
+needs to be stored which is incompatible with the database schema this object is
+lost. Leave this option enabled unless you know exactly what are you doing and what
+the consequences are.
+Default is \fBtrue\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B http.filebase
+Type: \fIpath\fP
+.sp
+The directory served by the http server at staticPath.
+Default is \fB@DATADIR@/scmaster/http/\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B http.staticPath
+Type: \fIstring\fP
+.sp
+The URL path at which html files and assets are available.
+All files under filebase will be served at this URL path.
+Default is \fB/\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B http.brokerPath
+Type: \fIstring\fP
+.sp
+The URL path at which the broker websocket is available.
+Default is \fB/\fP\&.
+.UNINDENT
+.SH AUTHOR
+gempa GmbH, GFZ Potsdam
+.SH COPYRIGHT
+gempa GmbH, GFZ Potsdam
+.\" Generated by docutils manpage writer.
+.

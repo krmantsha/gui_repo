@@ -1,0 +1,326 @@
+.\" Man page generated from reStructuredText.
+.
+.TH "SCQCV" "1" "Jun 04, 2021" "4.6.0" "SeisComP"
+.SH NAME
+scqcv \- SeisComP Documentation
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.sp
+\fBQuality control view.\fP
+.SH DESCRIPTION
+.sp
+scqcv provides both, a brief overview of the seismometer network status and a
+detailed view of specific stream parameters. Quality Control (QC) parameters,
+determined by scqc and sent via messaging system, are received and displayed.
+.sp
+scqcv allows to interactively disable or to enable streams for automatic data processing
+based on the observed QC reports.
+.SS Detailed QC reports per station
+.sp
+\fI\%Tabulator view of scqcv\fP shows the tabular view of the QC report messages.
+Each QC parameter is shown in a column. The default sorting by stream code can
+be changed by pressing a header field of a parameter. A widget displaying the
+currently received waveform data is shown by pressing the cell with the streamID.
+Positioning the mouse over the parameter cell a ToolTip indicates
+more detailed information on the selected parameter. Typing a regular
+expression in the "StreamIDFilter" text entry field results in a stream code
+filter, only displaying the matching stream codes with QC parameter. Green
+colored fields indicate that the QC parameter values lie within the configured
+"good" interval. Red colors indicate that the QC parameters lie outside the
+tolerated value interval \-\- this stream might have an issue.
+Click on the table header to sort by the selected value or drag the columns to
+another position. The order of the columns is controlled by \fI\%parameter\fP\&.
+By clicking on a streamID, the past waveforms are displayed at length configured
+by \fI\%streamWidget.length\fP\&.
+.sp
+To \fBdisable / enable\fP a station click on the respective station field in the
+\fIenabled\fP column.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Tabulator view of scqcv.UNINDENT
+.UNINDENT
+.SS Station overview
+.sp
+\fI\%Status overview of scqcv with a stream widget\fP shows the status overview grouped by network code.
+The more the color varies to dark red, the worse the waveform data might be.
+A dark red color indicates a stream with high latency. Light to darker red
+represents a badness sum of related QC parameters. Colors are subject to be
+changed in near future. Pressing a stream code item opens a single line table
+with detailed information of the selected stream. Again it is possible to open
+a real time waveform widget by pressing the leading header field indicating
+the stream code.
+.sp
+Typing a regular expression in the bottom text entry field
+results in a stream code filter, only displaying the matching stream codes.
+Disabled stations are crossed out. Click on a stream field to view the detailed
+QC parameters where stations can also be enabled / disabled.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Status overview of scqcv with a stream widget.UNINDENT
+.UNINDENT
+.sp
+The compact status overview allows a quick impression of the present status of
+all received streams (\fI\%Compact status overview of scqcv\fP). Functionality is equal to the
+status overview grouped by network.
+.sp
+Switch between compact view and
+network seperated view by clicking the checkbox in the bottom line.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Compact status overview of scqcv.UNINDENT
+.UNINDENT
+.SH SETUP
+.sp
+While some important parameters can be configured using scconfig the configuration
+of others is available by examples in the extensive default configuration of scqcv in
+\fI@DEFAULTCONFIGDIR/scqcv.cfg@\fP
+.sp
+Apply your setup to scqcv.cfg in @SYSTEMCONFIGDIR@ or in @CONFIGDIR@.
+If the parameters are not configured, the defaults configuration will be considered.
+.SS Message groups and QC parameters
+.sp
+Select the desired parameters from the list below. "#" disables a parameter.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+connection.primaryGroup = QC
+connection.subscription = QC, CONFIG
+
+parameter =  "latency           : latency",\e
+                             "delay             : delay",\e
+                             "timing quality    : timing",\e
+                             "offset            : offset",\e
+                             "rms               : rms",\e
+                             "gaps count        : gap",\e
+                             "overlaps count    : overlap",\e
+                             "availability      : availability",\e
+                             "spikes count      : spike"
+#                            "gaps interval     : gap",\e
+#                            "gaps length       : gap",\e
+#                            "spikes interval   : spike",\e
+#                            "spikes amplitude  : spike"
+#                            "overlaps interval : overlap",\e
+                             "overlaps length   : overlap"
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Stream selection
+.sp
+By default all streams configured by the global bindings will be displayed. To limit
+the streams or to use a specific list configure \fBstreams.codes\fP and
+\fI\%streams.cumulative\fP\&.
+.sp
+Example configuration or the AM network:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+# List of channels to display. By default the global configuration is used
+# which can be overwritten with this parameter.
+streams.codes = AM.*.*.*
+
+# Add new streams from WfQ automatically to the list of stream configured in
+# streams.codes.
+streams.cumulative = false
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS QC parameters configuration
+.sp
+Configure intervals, values and format and background colors for displayed QC parameters.
+.sp
+Example for the QC parameter \fItiming quality\fP referred to as \fItiming\fP:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+timing.ranges = bad, inter, sane
+timing.range.inter = 50.0, 90.0
+timing.range.inter.count = \-1
+timing.range.inter.color = yellow
+timing.range.sane = 90.0, 100.0
+timing.format = int
+timing.expire = 600
+timing.useAbsoluteValue = false
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SH CONFIGURATION
+.nf
+\fBetc/defaults/global.cfg\fP
+\fBetc/defaults/scqcv.cfg\fP
+\fBetc/global.cfg\fP
+\fBetc/scqcv.cfg\fP
+\fB~/.seiscomp/global.cfg\fP
+\fB~/.seiscomp/scqcv.cfg\fP
+.fi
+.sp
+.sp
+scqcv inherits global options\&.
+.INDENT 0.0
+.TP
+.B parameter
+Type: \fIlist:string\fP
+.sp
+List of QC paramters to be displayed in the details table. Read the scqc documentation
+for a list of available QC parameters and the default configuration
+of scqcv $SEISCOMP_ROOT/etc/defaults/scqcv.cfg for more examples.
+.sp
+Format: "Parameter name : Config name"
+.sp
+Example: "delay : delay","spikes count : spike","spikes amplitude : spike"
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streams.codes
+Type: \fIlist:string\fP
+.sp
+List of channels to display. By default the global
+binding configuration is used which can be overwritten with this parameter.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streams.cumulative
+Type: \fIboolean\fP
+.sp
+Add new streams automatically to the streams
+configured in streams.codes when waveform QC parameters are
+provided for these streams.
+Default is \fBfalse\fP\&.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBstreamWidget.*\fP
+\fIControl the stream widget which opens when clicking on a stream\fP
+\fIname in the detailed table.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streamWidget.length
+Type: \fIdouble\fP
+.sp
+Unit: \fIs\fP
+.sp
+Length of data to be displayed.
+Default is \fB600\fP\&.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBdefault.*\fP
+\fIDefault configuration for all QC parameters. The configuration\fP
+\fIcan be extended to each QC parameter by placing\fP
+\fI"default" with the parameter name in scqcv.cfg.\fP
+\fIRead the scqc documentation for a list of available QC parameters and the default\fP
+\fIconfiguration of scqcv $SEISCOMP_ROOT/etc/defaults/scqcv.cfg.\fP
+\fIfor more examples.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B default.expire
+Type: \fIdouble\fP
+.sp
+Unit: \fIs\fP
+.sp
+Default time in seconds, how long a value is displayed in scqcv
+if no update is received. Setting to 0 means, show value until
+updated.
+Default is \fB0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B default.ranges
+Type: \fIlist:string\fP
+.sp
+The ranges define the background color table fields depending
+on the field value. Add the default ranges for which different intervals and
+the color are configured.
+Default is \fBbad, sane\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B default.useAbsoluteValue
+Type: \fIboolean\fP
+.sp
+Activate to display absolute values (modulus).
+Default is \fBfalse\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B default.format
+Type: \fIstring\fP
+.sp
+Format of the displayed value.
+.sp
+Available formats: float, double, percent, timeSpan
+Default is \fBfloat\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B default.color
+Type: \fIstring\fP
+.sp
+Default color scheme name.
+Default is \fBgrey1\fP\&.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBscore.*\fP
+\fIParameters controlling the overal QC score of a station.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B score.default.ranges
+Type: \fIlist:string\fP
+.sp
+Ranges to be considered for forming the score.
+.UNINDENT
+.SH AUTHOR
+gempa GmbH, GFZ Potsdam
+.SH COPYRIGHT
+gempa GmbH, GFZ Potsdam
+.\" Generated by docutils manpage writer.
+.

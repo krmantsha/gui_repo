@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+<html >
+  <head>
+    <meta charset="utf-8" />
+    <title>scqcv &#8212; SeisComP Release documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script type="text/javascript" src="../_static/seiscomp.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scrttv" href="scrttv.html" />
+    <link rel="prev" title="scolv" href="scolv.html" /> 
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <div class="brand">
+          <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
+           <!-- span class="title">SeisComP Release</span -->
+          <span class="version">4.6.0</span>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <div class="container">
+        <div class="content"><a class="pull-right" id="sidebar-toggle">TOC</a>
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <ul>
+        <li class="right">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">
+            index
+          </a>
+        </li>
+        <li class="right">
+          <a href="scrttv.html" title="scrttv"
+             accesskey="N">
+            next
+          </a>
+        </li>
+        <li class="right">
+          <a href="scolv.html" title="scolv"
+             accesskey="P">
+            previous
+          </a>
+        </li>
+        <li class="nav-item nav-item-0">
+          <a href="../index.html">Home</a>
+        </li>
+        <li class="nav-item nav-item-1">
+          <a href="../gui.html" accesskey="U">Graphical user interfaces</a>
+        </li> 
+      </ul>
+    </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="fitted content" id="anchors-container">
+        <div class="body" role="main">
+          
+  <div class="section" id="scqcv">
+<span id="id1"></span><h1>scqcv<a class="headerlink" href="#scqcv" title="Permalink to this headline">¶</a></h1>
+<p><strong>Quality control view.</strong></p>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>scqcv provides both, a brief overview of the seismometer network status and a
+detailed view of specific stream parameters. Quality Control (QC) parameters,
+determined by <a class="reference internal" href="scqc.html#scqc"><span class="std std-ref">scqc</span></a> and sent via messaging system, are received and displayed.</p>
+<p>scqcv allows to interactively disable or to enable streams for automatic data processing
+based on the observed QC reports.</p>
+<div class="section" id="detailed-qc-reports-per-station">
+<h3>Detailed QC reports per station<a class="headerlink" href="#detailed-qc-reports-per-station" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="#fig-tab-view"><span class="std std-ref">Tabulator view of scqcv</span></a> shows the tabular view of the QC report messages.
+Each QC parameter is shown in a column. The default sorting by stream code can
+be changed by pressing a header field of a parameter. A widget displaying the
+currently received waveform data is shown by pressing the cell with the streamID.
+Positioning the mouse over the parameter cell a ToolTip indicates
+more detailed information on the selected parameter. Typing a regular
+expression in the “StreamIDFilter” text entry field results in a stream code
+filter, only displaying the matching stream codes with QC parameter. Green
+colored fields indicate that the QC parameter values lie within the configured
+“good” interval. Red colors indicate that the QC parameters lie outside the
+tolerated value interval – this stream might have an issue.
+Click on the table header to sort by the selected value or drag the columns to
+another position. The order of the columns is controlled by <a class="reference internal" href="#confval-parameter"><code class="xref std std-confval docutils literal notranslate"><span class="pre">parameter</span></code></a>.
+By clicking on a streamID, the past waveforms are displayed at length configured
+by <a class="reference internal" href="#confval-streamWidget.length"><code class="xref std std-confval docutils literal notranslate"><span class="pre">streamWidget.length</span></code></a>.</p>
+<p>To <strong>disable / enable</strong> a station click on the respective station field in the
+<em>enabled</em> column.</p>
+<div class="figure align-center" id="id2">
+<span id="fig-tab-view"></span><a class="reference internal image-reference" href="../_images/Tabulator_view_of_scqcv.png"><img alt="../_images/Tabulator_view_of_scqcv.png" src="../_images/Tabulator_view_of_scqcv.png" style="width: 16cm;" /></a>
+<p class="caption"><span class="caption-text">Tabulator view of scqcv</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="station-overview">
+<h3>Station overview<a class="headerlink" href="#station-overview" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="#fig-status-overview"><span class="std std-ref">Status overview of scqcv with a stream widget</span></a> shows the status overview grouped by network code.
+The more the color varies to dark red, the worse the waveform data might be.
+A dark red color indicates a stream with high latency. Light to darker red
+represents a badness sum of related QC parameters. Colors are subject to be
+changed in near future. Pressing a stream code item opens a single line table
+with detailed information of the selected stream. Again it is possible to open
+a real time waveform widget by pressing the leading header field indicating
+the stream code.</p>
+<p>Typing a regular expression in the bottom text entry field
+results in a stream code filter, only displaying the matching stream codes.
+Disabled stations are crossed out. Click on a stream field to view the detailed
+QC parameters where stations can also be enabled / disabled.</p>
+<div class="figure align-center" id="id3">
+<span id="fig-status-overview"></span><a class="reference internal image-reference" href="../_images/Status_overview_of_scqcv.png"><img alt="../_images/Status_overview_of_scqcv.png" src="../_images/Status_overview_of_scqcv.png" style="width: 16cm;" /></a>
+<p class="caption"><span class="caption-text">Status overview of scqcv with a stream widget</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<p>The compact status overview allows a quick impression of the present status of
+all received streams (<a class="reference internal" href="#fig-compact-status"><span class="std std-ref">Compact status overview of scqcv</span></a>). Functionality is equal to the
+status overview grouped by network.</p>
+<p>Switch between compact view and
+network seperated view by clicking the checkbox in the bottom line.</p>
+<div class="figure align-center" id="id4">
+<span id="fig-compact-status"></span><a class="reference internal image-reference" href="../_images/Compact_status_overview_of_scqcv.png"><img alt="../_images/Compact_status_overview_of_scqcv.png" src="../_images/Compact_status_overview_of_scqcv.png" style="width: 16cm;" /></a>
+<p class="caption"><span class="caption-text">Compact status overview of scqcv</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>While some important parameters can be configured using <a class="reference internal" href="scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> the configuration
+of others is available by examples in the extensive default configuration of scqcv in
+<em>&#64;DEFAULTCONFIGDIR/scqcv.cfg&#64;</em></p>
+<p>Apply your setup to scqcv.cfg in &#64;SYSTEMCONFIGDIR&#64; or in &#64;CONFIGDIR&#64;.
+If the parameters are not configured, the defaults configuration will be considered.</p>
+<div class="section" id="message-groups-and-qc-parameters">
+<h3>Message groups and QC parameters<a class="headerlink" href="#message-groups-and-qc-parameters" title="Permalink to this headline">¶</a></h3>
+<p>Select the desired parameters from the list below. “#” disables a parameter.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>connection.primaryGroup <span class="o">=</span> QC
+connection.subscription <span class="o">=</span> QC, CONFIG
+
+<span class="nv">parameter</span> <span class="o">=</span>  <span class="s2">&quot;latency           : latency&quot;</span>,<span class="se">\</span>
+                             <span class="s2">&quot;delay             : delay&quot;</span>,<span class="se">\</span>
+                             <span class="s2">&quot;timing quality    : timing&quot;</span>,<span class="se">\</span>
+                             <span class="s2">&quot;offset            : offset&quot;</span>,<span class="se">\</span>
+                             <span class="s2">&quot;rms               : rms&quot;</span>,<span class="se">\</span>
+                             <span class="s2">&quot;gaps count        : gap&quot;</span>,<span class="se">\</span>
+                             <span class="s2">&quot;overlaps count    : overlap&quot;</span>,<span class="se">\</span>
+                             <span class="s2">&quot;availability      : availability&quot;</span>,<span class="se">\</span>
+                             <span class="s2">&quot;spikes count      : spike&quot;</span>
+<span class="c1">#                            &quot;gaps interval     : gap&quot;,\</span>
+<span class="c1">#                            &quot;gaps length       : gap&quot;,\</span>
+<span class="c1">#                            &quot;spikes interval   : spike&quot;,\</span>
+<span class="c1">#                            &quot;spikes amplitude  : spike&quot;</span>
+<span class="c1">#                            &quot;overlaps interval : overlap&quot;,\</span>
+                             <span class="s2">&quot;overlaps length   : overlap&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="stream-selection">
+<h3>Stream selection<a class="headerlink" href="#stream-selection" title="Permalink to this headline">¶</a></h3>
+<p>By default all streams configured by the global bindings will be displayed. To limit
+the streams or to use a specific list configure <a class="reference internal" href="scrttv.html#confval-streams.codes"><code class="xref std std-confval docutils literal notranslate"><span class="pre">streams.codes</span></code></a> and
+<a class="reference internal" href="#confval-streams.cumulative"><code class="xref std std-confval docutils literal notranslate"><span class="pre">streams.cumulative</span></code></a>.</p>
+<p>Example configuration or the AM network:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># List of channels to display. By default the global configuration is used</span>
+<span class="c1"># which can be overwritten with this parameter.</span>
+streams.codes <span class="o">=</span> AM.*.*.*
+
+<span class="c1"># Add new streams from WfQ automatically to the list of stream configured in</span>
+<span class="c1"># streams.codes.</span>
+streams.cumulative <span class="o">=</span> <span class="nb">false</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="qc-parameters-configuration">
+<h3>QC parameters configuration<a class="headerlink" href="#qc-parameters-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Configure intervals, values and format and background colors for displayed QC parameters.</p>
+<p>Example for the QC parameter <em>timing quality</em> referred to as <em>timing</em>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>timing.ranges <span class="o">=</span> bad, inter, sane
+timing.range.inter <span class="o">=</span> <span class="m">50</span>.0, <span class="m">90</span>.0
+timing.range.inter.count <span class="o">=</span> -1
+timing.range.inter.color <span class="o">=</span> yellow
+timing.range.sane <span class="o">=</span> <span class="m">90</span>.0, <span class="m">100</span>.0
+timing.format <span class="o">=</span> int
+timing.expire <span class="o">=</span> <span class="m">600</span>
+timing.useAbsoluteValue <span class="o">=</span> <span class="nb">false</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="configuration">
+<span id="scqcv-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/global.cfg</span></code></div>
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/scqcv.cfg</span></code></div>
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/global.cfg</span></code></div>
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/scqcv.cfg</span></code></div>
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">~/.seiscomp/global.cfg</span></code></div>
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">~/.seiscomp/scqcv.cfg</span></code></div>
+</div>
+<p>scqcv inherits <a class="reference internal" href="global.html#global-configuration"><span class="std std-ref">global options</span></a>.</p>
+<dl class="confval">
+<dt id="confval-parameter">
+<code class="sig-name descname">parameter</code><a class="headerlink" href="#confval-parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:string</em></p>
+<p>List of QC paramters to be displayed in the details table. Read the scqc documentation
+for a list of available QC parameters and the default configuration
+of scqcv $SEISCOMP_ROOT/etc/defaults/scqcv.cfg for more examples.</p>
+<p>Format: “Parameter name : Config name”</p>
+<p>Example: “delay : delay”,”spikes count : spike”,”spikes amplitude : spike”</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-streams.codes">
+<code class="sig-name descname">streams.codes</code><a class="headerlink" href="#confval-streams.codes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:string</em></p>
+<p>List of channels to display. By default the global
+binding configuration is used which can be overwritten with this parameter.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-streams.cumulative">
+<code class="sig-name descname">streams.cumulative</code><a class="headerlink" href="#confval-streams.cumulative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>boolean</em></p>
+<p>Add new streams automatically to the streams
+configured in streams.codes when waveform QC parameters are
+provided for these streams.
+Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>streamWidget.*</strong>
+<em>Control the stream widget which opens when clicking on a stream</em>
+<em>name in the detailed table.</em></p>
+</div>
+<dl class="confval">
+<dt id="confval-streamWidget.length">
+<code class="sig-name descname">streamWidget.length</code><a class="headerlink" href="#confval-streamWidget.length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>double</em></p>
+<p>Unit: <em>s</em></p>
+<p>Length of data to be displayed.
+Default is <code class="docutils literal notranslate"><span class="pre">600</span></code>.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>default.*</strong>
+<em>Default configuration for all QC parameters. The configuration</em>
+<em>can be extended to each QC parameter by placing</em>
+<em>“default” with the parameter name in scqcv.cfg.</em>
+<em>Read the scqc documentation for a list of available QC parameters and the default</em>
+<em>configuration of scqcv $SEISCOMP_ROOT/etc/defaults/scqcv.cfg.</em>
+<em>for more examples.</em></p>
+</div>
+<dl class="confval">
+<dt id="confval-default.expire">
+<code class="sig-name descname">default.expire</code><a class="headerlink" href="#confval-default.expire" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>double</em></p>
+<p>Unit: <em>s</em></p>
+<p>Default time in seconds, how long a value is displayed in scqcv
+if no update is received. Setting to 0 means, show value until
+updated.
+Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-default.ranges">
+<code class="sig-name descname">default.ranges</code><a class="headerlink" href="#confval-default.ranges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:string</em></p>
+<p>The ranges define the background color table fields depending
+on the field value. Add the default ranges for which different intervals and
+the color are configured.
+Default is <code class="docutils literal notranslate"><span class="pre">bad,</span> <span class="pre">sane</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-default.useAbsoluteValue">
+<code class="sig-name descname">default.useAbsoluteValue</code><a class="headerlink" href="#confval-default.useAbsoluteValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>boolean</em></p>
+<p>Activate to display absolute values (modulus).
+Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-default.format">
+<code class="sig-name descname">default.format</code><a class="headerlink" href="#confval-default.format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Format of the displayed value.</p>
+<p>Available formats: float, double, percent, timeSpan
+Default is <code class="docutils literal notranslate"><span class="pre">float</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-default.color">
+<code class="sig-name descname">default.color</code><a class="headerlink" href="#confval-default.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Default color scheme name.
+Default is <code class="docutils literal notranslate"><span class="pre">grey1</span></code>.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>score.*</strong>
+<em>Parameters controlling the overal QC score of a station.</em></p>
+</div>
+<dl class="confval">
+<dt id="confval-score.default.ranges">
+<code class="sig-name descname">score.default.ranges</code><a class="headerlink" href="#confval-score.default.ranges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:string</em></p>
+<p>Ranges to be considered for forming the score.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          <div id="anchors-bottom"></div>
+        </div>
+        
+      <div class="sidebar" role="navigation" aria-label="main navigation">
+        <div id="anchors-top"></div>
+        <div id="anchors" class="content">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">scqcv</a><ul>
+<li><a class="reference internal" href="#description">Description</a><ul>
+<li><a class="reference internal" href="#detailed-qc-reports-per-station">Detailed QC reports per station</a></li>
+<li><a class="reference internal" href="#station-overview">Station overview</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setup">Setup</a><ul>
+<li><a class="reference internal" href="#message-groups-and-qc-parameters">Message groups and QC parameters</a></li>
+<li><a class="reference internal" href="#stream-selection">Stream selection</a></li>
+<li><a class="reference internal" href="#qc-parameters-configuration">QC parameters configuration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="scolv.html"
+                        title="previous chapter">scolv</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="scrttv.html"
+                        title="next chapter">scrttv</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/apps/scqcv.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <div class="horizontal layout content">
+        <a class="fade-in" href="https://www.gempa.de" target="_blank">
+          <img class="brand" src="../_static/brands/gempa.svg"/>
+        </a>
+        <div class="stretched align-center fitted content">
+          <div>
+		  Version <b>4.6.0</b> Release
+          </div>
+            <div class="copyright">
+              Copyright &copy; gempa GmbH, GFZ Potsdam.
+            </div>
+        </div>
+        <a class="fade-in" href="https://www.gfz-potsdam.de" target="_blank">
+          <img class="brand" src="../_static/brands/gfz.svg"/>
+        </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html >
+  <head>
+    <meta charset="utf-8" />
+    <title>Database &#8212; SeisComP Release documentation</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/seiscomp.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script type="text/javascript" src="../../_static/seiscomp.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Waveform archives" href="waveformarchives.html" />
+    <link rel="prev" title="SeisComP plugins" href="plugins.html" /> 
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <div class="brand">
+          <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
+           <!-- span class="title">SeisComP Release</span -->
+          <span class="version">4.6.0</span>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <div class="container">
+        <div class="content"><a class="pull-right" id="sidebar-toggle">TOC</a>
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <ul>
+        <li class="right">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">
+            index
+          </a>
+        </li>
+        <li class="right">
+          <a href="waveformarchives.html" title="Waveform archives"
+             accesskey="N">
+            next
+          </a>
+        </li>
+        <li class="right">
+          <a href="plugins.html" title="SeisComP plugins"
+             accesskey="P">
+            previous
+          </a>
+        </li>
+        <li class="nav-item nav-item-0">
+          <a href="../../index.html">Home</a>
+        </li>
+        <li class="nav-item nav-item-1">
+          <a href="../concepts.html" accesskey="U">Concepts</a>
+        </li> 
+      </ul>
+    </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="fitted content" id="anchors-container">
+        <div class="body" role="main">
+          
+  <div class="section" id="database">
+<span id="concepts-database"></span><h1>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="scope">
+<h2>Scope<a class="headerlink" href="#scope" title="Permalink to this headline">¶</a></h2>
+<p>This chapter provides an overview over supported databases.</p>
+</div>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>SeisComP can store and read information from a relational database management
+system (RDBMS). Supported are basically all existing RDBMS for which a plugin
+can be written. <a class="reference internal" href="plugins.html#concepts-plugins"><span class="std std-ref">Plugins</span></a> are provided for</p>
+<ul class="simple">
+<li><p>MySQL / MariaDB</p></li>
+<li><p>PostgreSQL</p></li>
+<li><p>SQLite3</p></li>
+</ul>
+<p>The database schema used is well defined and respected by all modules which
+access the database. It is similar to the SeisComP XML schema and
+the C++ / Python class hierarchy of the datamodel namespace / package.</p>
+<p>The following information is stored in the database:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="configuration.html#concepts-configuration"><span class="std std-ref">Configuration</span></a> (station bindings)</p></li>
+<li><p><a class="reference internal" href="inventory.html#concepts-inventory"><span class="std std-ref">Inventory</span></a></p></li>
+<li><p>EventParameters</p></li>
+<li><p>Availability</p></li>
+</ul>
+<p>The configuration just covers the station bindings. Application/module specific
+configurations (all .cfg files) are not stored in the database.</p>
+</div>
+<div class="section" id="related-modules">
+<h2>Related modules<a class="headerlink" href="#related-modules" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../apps/scardac.html#scardac"><span class="std std-ref">scardac</span></a></p></li>
+<li><p><a class="reference internal" href="../../apps/scdb.html#scdb"><span class="std std-ref">scdb</span></a></p></li>
+<li><p><a class="reference internal" href="../../apps/scdispatch.html#scdispatch"><span class="std std-ref">scdispatch</span></a></p></li>
+<li><p><a class="reference internal" href="../../apps/scquery.html#scquery"><span class="std std-ref">scquery</span></a></p></li>
+<li><p><a class="reference internal" href="../../apps/scxmldump.html#scxmldump"><span class="std std-ref">scxmldump</span></a></p></li>
+</ul>
+</div>
+</div>
+
+
+          <div id="anchors-bottom"></div>
+        </div>
+        
+      <div class="sidebar" role="navigation" aria-label="main navigation">
+        <div id="anchors-top"></div>
+        <div id="anchors" class="content">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Database</a><ul>
+<li><a class="reference internal" href="#scope">Scope</a></li>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#related-modules">Related modules</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="plugins.html"
+                        title="previous chapter">SeisComP plugins</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="waveformarchives.html"
+                        title="next chapter">Waveform archives</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/base/concepts/database.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <div class="horizontal layout content">
+        <a class="fade-in" href="https://www.gempa.de" target="_blank">
+          <img class="brand" src="../../_static/brands/gempa.svg"/>
+        </a>
+        <div class="stretched align-center fitted content">
+          <div>
+		  Version <b>4.6.0</b> Release
+          </div>
+            <div class="copyright">
+              Copyright &copy; gempa GmbH, GFZ Potsdam.
+            </div>
+        </div>
+        <a class="fade-in" href="https://www.gfz-potsdam.de" target="_blank">
+          <img class="brand" src="../../_static/brands/gfz.svg"/>
+        </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

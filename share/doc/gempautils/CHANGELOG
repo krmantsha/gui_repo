@@ -1,0 +1,11 @@
+# Change Log
+
+All notable changes to the gempa utils library will be documented in this file.
+
+## 2.0
+
+* Use Rect as Grid2d extents
+
+## 1.1
+
+* Added CRC-16/32 computation (crc.h/crc.ipp)

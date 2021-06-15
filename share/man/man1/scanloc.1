@@ -1,0 +1,1737 @@
+.\" Man page generated from reStructuredText.
+.
+.TH "SCANLOC" "1" "Jun 14, 2021" "2021.159#9093bec46" "scanloc"
+.SH NAME
+scanloc \- scanloc Documentation
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.sp
+\fBModule for locating local earthquakes and man\-made seismicity by DBSCAN clustersearch.\fP
+.SH DESCRIPTION
+.SS Low\-threshold monitoring
+.sp
+\fIscanloc\fP associates detected P and S phases from local and regional earthquakes
+and other seismic events for locating. It determines initial hypocenter
+solutions by cluster search based on \fI\%DBSCAN\fP [1] . Additional P and S phases are associated
+to existing internal solutions from cluster search or solutions incoming through the messaging
+system from external modules.
+.sp
+Due to the clustering and subsequent phase association scanloc facilitates low\-threshold
+monitoring of high\- and low\-rate seismicity with high accuracy.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+scolv Location tab with an automatic earthquake solution from scanloc based on
+P and S phases..UNINDENT
+.UNINDENT
+.SS Teleseismic events
+.sp
+For teleseismic events \fIscanloc\fP can also be used to:
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Associate more picks from P and S phases\fP to external origins,
+.IP \(bu 2
+Suppress fake events due to detections from large earthquakes recorded by dense local networks at teleseismic distances.
+A \fI\%dedicated section\fP explains the setup and the requirements.
+.UNINDENT
+.SS Travel\-time tables
+.sp
+The scanloc package ships with \fI\%densely sampled travel\-time tables\fP for
+\fI\%LOCSAT\fP [11] based on the IASP91 Earth model to enhance locating local earthquakes.
+.SS S phases
+.sp
+In order to deliver high\-quality picks from S phases, the \fI\%scanloc\fP package
+also includes the \fIsaic\fP plugin with the enhanced \fI\%S\-phase picker\fP\&.
+The S\-phase picker can be applied to detect S phases on the horizontal components
+or on the vertical component in case of 1\-component sensors. In addition the scanloc
+package comes with the \fI\%graphical debugger for the S\-phase picker\fP
+provided by the \fIspickdbg\fP plugin.
+.SS Auxiliary tools
+.sp
+The scanloc package also ships with auxiliary tools for real\-time or non\-real\-time
+playbacks or tuning:
+.INDENT 0.0
+.IP \(bu 2
+dump_picks: read picks and pick amplitudes from database and dump them to a
+file or to standard output
+.IP \(bu 2
+playback_picks: play back picks with amplitudes at normal or different speed
+and send them to the messaging system. \fIplayback_picks\fP supports multiple
+pipelines.
+.UNINDENT
+.sp
+For these tools, the usual options (\-h, \-\-debug, etc.) apply. See the
+\fI\%Examples and playbacks\fP section below for their applications.
+.SH WORKFLOW
+.INDENT 0.0
+.IP 1. 3
+Buffering of \fI\%picks and external origins\fP,
+.IP 2. 3
+\fI\%Clustering\fP of P picks:
+.INDENT 3.0
+.IP \(bu 2
+cluster formation,
+.IP \(bu 2
+splitting of clusters in case of multiple P picks from the same station,
+.UNINDENT
+.IP 3. 3
+\fI\%Association\fP of P and S picks to clusters and event location,
+.IP 4. 3
+Evaluation and \fI\%sending\fP of origins.
+.UNINDENT
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Simplified work flow of scanloc..UNINDENT
+.UNINDENT
+.SS Pick and origin buffering
+.sp
+The entry point of \fIscanloc\fP is the addObject method which handles incoming
+objects from the messaging system. By default it is subscribed to the messaging
+group \fBPICK\fP and \fBLOCATION\fP\&. Depending on which object type (pick or origin)
+is incoming different working steps are proceeded.
+.INDENT 0.0
+.IP \(bu 2
+In case a pick arrives, \fIscanloc\fP checks if this pick can be associated to one
+or more origins in the origin buffer exceeding a configurable \fI\%minScore\fP\&.
+.IP \(bu 2
+In case the pick can be associated, the scores for all new origins are
+calculated and the origin with the highest score is selected. \fIscanloc\fP internally
+associates origins to events and only if the score of the new origin exceeds the
+score of the last sent origin, the new origin is send out.
+.UNINDENT
+.sp
+Picks and origins are buffered for configurable times as controlled by \fI\%buffer.pickKeep\fP
+and \fI\%buffer.originKeep\fP\&. Adjust the parameters according to the times
+these objects are required.
+.SS Clustering
+.sp
+In case the pick cannot be associated, the cluster search is started. The
+cluster search is based on the algorithm \fI\%DBSCAN\fP [1] which takes the required number
+of neighbours (\fI\%clusterSearch.minSize\fP)
+and \fI\%clusterSearch.maxSearchDist\fP as configuration parameters.
+.sp
+The algorithm forms clusters of picks by searching for neighboring stations
+that have picks. \fI\%Internal origins\fP are formed from clusters.
+The number of origins from cluster search is limited by the configuration parameter
+\fI\%clusterSearch.maxOrigins\fP\&.
+.sp
+The cluser search considers picks from stations by distance with:
+.sp
+.ce
+distance \ele maxSearchDist
+.ce 0
+.sp
+where maxSearchDist is given by the configurable parameter \fI\%clusterSearch.maxSearchDist\fP\&.
+distance is the vector sum of the time difference \eDelta t
+between the picks in units of seconds and of a potential travel time
+tt between the stations in units of seconds:
+.sp
+.ce
+distance = \esqrt{\eDelta t^2 + tt^2}
+.ce 0
+.sp
+and
+.sp
+.ce
+tt = \eDelta x / v
+.ce 0
+.sp
+where \eDelta x is the spatial distance between the stations in units of km and
+v is the \fI\%clusterSearch.averageVelocity\fP in units of km/s. Therefore
+distance and \fI\%clusterSearch.maxSearchDist\fP take units of seconds.
+.sp
+As the cluster search is done over time and location, the additional configurable
+velocity parameter, \fI\%clusterSearch.averageVelocity\fP, is required to transform
+the input parameters of the cluster search in the same dimension (time).
+The velocity should represent the average apparent horizontal P\-wave velocity of
+the crust.
+.sp
+\fBWARNING:\fP
+.INDENT 0.0
+.INDENT 3.5
+When the number of buffered cluster origins reaches \fI\%clusterSearch.maxOrigins\fP,
+no more new origins can be formed and warnings are issued. Adjust accordingly:
+.INDENT 0.0
+.IP \(bu 2
+\fI\%clusterSearch.maxOrigins\fP,
+.IP \(bu 2
+\fI\%buffer.pickKeep\fP\&.
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.SS Limiting in time
+.sp
+Within one cluster, the difference in the pick times between the
+cluster reference time and any other pick must not exceed \fI\%clusterSearch.maxPickDelay\fP\&.
+Otherwise the pick is rejected from clustering. The parameter \fI\%clusterSearch.maxPickDelay\fP
+has a big impact on the performance of the cluster search. Choosing the parameter
+as small as possible will speed up scanloc and will reduce the complexity of the
+cluster search.
+.sp
+The DBSCAN algorithm can deliver multiple pick clusters. The cluster search can
+be disabled using \fI\%clusterSearch.maxPickDelay\fP:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+# Maximum allowed difference between P pick and cluster reference time(latest pick time).
+# The cluster search ignores all picks which exceed the value. Using "\-1" enables all picks
+# regardless of the delay. Unit: seconds.
+
+clusterSearch.maxPickDelay = 0
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Then, only external origins can be considered for \fI\%phase association\fP\&.
+.SS Limiting in space
+.sp
+The cluster search can be constraint to stations within a region given by the
+coordinate of a central point and the radius around that point. The region constraint
+is configured through \fI\%clusterSearch.regionFilter\fP\&. Applying this parameter
+will disregard picks from stations outside the region for cluster search increasing
+the speed and the complexity. Nevertheless, the excluded picks are available for
+\fI\%phase association\fP\&.
+.sp
+For running the cluster search in several regions in parallel, different instances
+of scanloc taking picks from the same of different pickers can be created and started.
+.SS Cluster splitting
+.sp
+Clusters may contain P picks from the same stations. Therefore, the clusters are split
+separating clusters with only one pick per stations. All new clusters are considered new
+origins. By activating \fI\%clusterSearch.checkOrigins\fP, all new clusters are checked again
+and clusters not meeting the configured cluster criteria are removed from the buffer.
+The check imposes an additional overhead on the cluster search but it typically
+lowers the chance for fake solutions and it also lowers the load on the
+\fI\%phase association\fP\&.
+.SS Tuning and optimization
+.sp
+Use the option \fBcluster\-search\-log\-file\fP to store detailed information
+on the clustering process in a file, e.g. \fIcluster.log\fP\&. The given values can be
+used to optimize the cluster search parameters.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scanloc \-\-ep picks.xml \-d type://host/database \-\-cluster\-search\-log\-file cluster.log > origins.xml
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+For optimizing the configuration of the parameter \fI\%clusterSearch.maxPickDelay\fP use the
+default value first:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+clusterSearch.maxPickDelay = \-1
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+The given output file contains the clusters with the pick details. After each cluster
+the maximum time interval between the first and the last pick
+in the cluster is provided. A summary at the end of the file shows the largest value, e.g.:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
++ cluster source: \-69.6279, \-21.4715, 1231891115.191
+ + pick ID: *20090113.235827.36\-AIC\-CX.PB01..HHZ X: \-69.4874 Y: \-21.0432 time: 1231891107.368 distance: 14.715 s
+ + pick ID:  20090113.235832.91\-AIC\-CX.PB02..HHZ X: \-69.8960 Y: \-21.3197 time: 1231891112.918 distance: 8.443 s
+ + pick ID:  20090113.235839.53\-AIC\-CX.PB07..HHZ X: \-69.8862 Y: \-21.7267 time: 1231891119.538 distance: 10.677 s
+ + pick ID:  20090113.235840.94\-AIC\-CX.PB09..HHZ X: \-69.2419 Y: \-21.7964 time: 1231891120.940 distance: 14.645 s
+   + 1 split cluster
+     + cluster
+       + 20090113.235827.36\-AIC\-CX.PB01..HHZ
+       + 20090113.235832.91\-AIC\-CX.PB02..HHZ
+       + 20090113.235839.53\-AIC\-CX.PB07..HHZ
+       + 20090113.235840.94\-AIC\-CX.PB09..HHZ
+       + maximum pick time interval for this cluster: 13.572 s
+     + end
+   + end
+  + end
+ + end
+ + summary:
+   + maxPickDelay: maximum experienced value: 40.840 s
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+The summary value can be used as a lower proxy to set \fI\%clusterSearch.maxPickDelay\fP\&.
+.SS Locating
+.sp
+Clusters are located by the configured \fI\%locator\fP\&. If the
+location fails, the origin is ignored unless \fI\%clusterSearch.preliminary\fP
+is active.
+.SS Phase Association
+.sp
+When a cluster of P picks meeting \fI\%association.minPhase\fP is found
+or an external origins arrives, \fBscanloc\fP associates additional picks
+from P and S waves which are \fI\%buffered\fP\&.
+The new set of picks are used for \fI\%relocating\fP\&.
+.sp
+In case the buffered pick is a P pick the algorithm
+directly attempts to associate the pick solely based on the residual. It tries to relocate
+the solution after each successful association. P picks with travel\-time
+residuals larger than \fI\%association.maxResidual\fP are rejected.
+After the P\-picks are associated and relocated, \fIscanloc\fP tries to associate the
+S picks. This association is not based
+on the residual but on the P pick referenced by the S pick. The S pick is
+only associated in case the reference P pick is already associated to the
+origin. Also after each S pick a relocation is done. In case the relocation
+fails or the event residual is larger than \fI\%maxRMS\fP,
+the S pick is associated with a weight of 0. The score of the resulting
+origin is compared with scores of origins belonging to the same event. In case
+the score is higher than the rest of the origins, the origin is send out.
+.sp
+In addition to origins from the cluster search, \fIscanloc\fP can also treat external
+origins that are created by other associators, e.g. \fI\%scautoloc\fP [7]\&.
+In case an such origin is received \fIscanloc\fP tries to associate all picks in the
+buffer to the origin. The association and the following processes are the same as
+described above. See figure \fI\%Simplified work flow of scanloc.\fP for an overview.
+.sp
+Only picks from stations within a configured time window and a maximum epicentral
+distance range are considered. The time windows are computed from the predicted
+arrival times of P and S waves and the margins given by \fI\%association.maxPResidual\fP
+and \fI\%association.maxPResidual\fP, respectively.
+The maximum expicentral distance is configured for all stations by
+\fI\%association.maxDist\fP\&. However, this parameter can be overruled per
+network and station by providing a station table in a file. The file name is configured by
+\fI\%association.stationConfig\fP\&. As in scautoloc each line of the table
+consists of the network code, the station code, a switch and the maximum epicentral
+distance in degrees. Wildcards can be used for the network and the station code.
+The switch causes the associator to consider (=1) or to ignore (=0) a network or a station.
+The last occurrence of an item in a table overrules previous ones, e.g.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+* * 1 180
+GR * 1 60
+GR GRA1 1 20
+Z3 * 0 180
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+For associating the picks, travel times from look\-up tables are used. The
+\fI\%association.tableType\fP and the \fI\%association.table\fP can be
+configured to provide specific tables which may be more appropriate for specific
+regions. Currently, only travel\-time tables of \fI\%association.tableType\fP from
+\fI\%LOCSAT\fP [11] and libtau are supported. scanloc provides
+\fI\%densely\-sampled travel\-time tables\fP for LOCSAT.
+.sp
+Travel times from other sources can be considered by a plugin exposing
+the travel times to the travel\-time interface.
+The considered table must provide the time for all considered phases.
+.sp
+Example configuration (\fBscanloc.cfg\fP):
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+# Type of travel\-time tables for phase association. May be different from locator.
+# Use e.g. libtau or LOCSAT.
+association.tableType = LOCSAT
+
+# Name of travel\-time table used for phase association. May be different from locator
+# profile.
+association.table = iasp91_scanloc
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.TS
+center;
+|l|l|.
+_
+T{
+\fI\%association.tableType\fP
+T}	T{
+location of \fI\%tables\fP
+T}
+_
+T{
+libtau
+T}	T{
+@DATADIR@/ttt
+T}
+_
+T{
+LOCSAT
+T}	T{
+@DATADIR@/locsat/tables
+T}
+_
+.TE
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+Travel\-time tables used during association and location may be different.
+Therefore the travel\-time residuals visible after relocating may be different
+from the travel\-time residuals considered during association.
+The differences must be considered when configuring \fI\%association.maxPResidual\fP
+and \fI\%association.maxSResidual\fP\&.
+.UNINDENT
+.UNINDENT
+.sp
+In order to make the alternative locator available to \fIscanloc\fP, the respective
+plugin must be loaded. The list of available locators can be provided by \fIscanloc\fP:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp exec scanloc \-\-locator\-list
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+\fBNote:\fP Computational speed can be an issue when alternative locators are used
+and when many picks are to be tested during association. In this case \fIscanloc\fP
+can be configured with \fI\%LocSAT\fP [11] but \fI\%screloc\fP [9] may be used
+along with the preferred locator and profile to relocate the origin. The locator
+\fI\%NonLinLoc\fP [13] is certainly too slow for being used in \fIscanloc\fP but is a good option for
+\fBscreloc\fP\&.
+.SS Sending of origins
+.sp
+Before sending a new \fI\%internal origin\fP to the messaging
+or to XML output (\-\-ep) it is tested against the configuration:
+.INDENT 0.0
+.IP \(bu 2
+Picks are removed when their travel\-time residual > \fI\%association.maxResidual\fP
+and origins are \fI\%relocated\fP,
+.IP \(bu 2
+Origins are skipped when the score < \fI\%minScore\fP,
+.IP \(bu 2
+Origins are skipped when the depth > \fI\%ignoreDepth\fP\&.
+.UNINDENT
+.sp
+The remaining internal origins are evaluated based on \fI\%scoring\fP\&.
+The best origin of the same \fI\%internal event\fP is the one
+which has the highest score at the time of availability. When meeting the parameters
+\fI\%ignoreDepth\fP, \fI\%maxRMS\fP and \fI\%minScore\fP it is sent to the
+\fI\%SeisComP messaging\fP or to stdout in case of XML playbacks (\-\-ep).
+.sp
+The sending of origins may be delayed allowing to find new origins with higher score.
+The delay reduces the amount of origins in the SeisComP system and the load of other modules.
+It is controlled by the \fBpublication.*\fP configuration parameters.
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+In XML\-based playbacks, the \fBpublication.*\fP configuration parameters
+are ignored and all origins are provided.
+.UNINDENT
+.UNINDENT
+.SH INTERNAL ORIGINS AND EVENTS
+.sp
+\fIscanloc\fP forms
+.INDENT 0.0
+.IP \(bu 2
+\fBInternal origins\fP from the locations and the associated picks (arrivals) of new arrival sets,
+.IP \(bu 2
+\fBInternal events\fP are formed from the remaining origins based on the
+\fBeventAssociation.*\fP parameters.
+.UNINDENT
+.SH LOCATING
+.sp
+scanloc locates internal origins based on the configuration by the \fBlocator.*\fP parameters.
+Consider a fast locator (\fI\%locator.type\fP), e.g. \fI\%LOCSAT\fP [11] or \fI\%Hypo71\fP [12] and
+appropriate travel\-time tables \fI\%locator.profile\fP,
+e.g. the provided \fI\%dense travel\-time tables\fP\&.
+If the location fails and \fI\%locator.fixDepth\fP is active, the location depth is
+fixed to \fI\%defaultDepth\fP and the origin is relocated.
+.sp
+Example configuration (\fBscanloc.cfg\fP):
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+# The locator type to use
+locator.type = LOCSAT
+
+# The locator profile to use
+locator.profile = iasp91_scanloc
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SH SCORING
+.sp
+Each \fI\%internal origin\fP is evaluated by calculating a score\&.
+The score is calculated as a weighted sum from the number of associated
+P and S picks (pCount and pCount), of loosely associated P and S picks
+(p0Count and s0Count) which are not used for locating, depth (depthFactor) and residual (residualFactor):
+.sp
+.ce
+score =\e  &score.weights.p \etimes pCount + score.weights.p0 \etimes p0Count \e\e
+             +\e &score.weights.s \etimes sCount + score.weights.s0 \etimes s0Count \e\e
+             +\e &score.weights.depth \etimes depthFactor \e\e
+             +\e &score.weights.residual \etimes residualFactor;
+.ce 0
+.sp
+The weight factors  \fI\%score.weights.p\fP , \fI\%score.weights.p0\fP ,
+\fI\%score.weights.s\fP , \fI\%score.weights.s0\fP
+\fI\%score.weights.depth\fP and \fI\%score.weights.residual\fP
+can be configured.
+.sp
+The values for depthFactor and residualFactor are derived from considered
+depth and residual and the configured values for
+\fI\%ignoreDepth\fP and \fI\%association.maxResidual\fP\&.
+Heigher depth weight is given to origins with shallower depth. To from the score independent
+of depth, adjust \fI\%score.weights.depth\fP:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+score.weights.depth = 0
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SH ASSOCIATION OF TELESEISMIC PHASES
+.sp
+Dense local networks used to monitor local seismicity are often able to catch
+also a significant number of phases from earthquakes at teleseismic distances.
+Such phases include Pdiff or PKP.
+Especially PKP may contain a significant amount of energy at higher frequencies.
+Therefore PKP is often detected by networks that are tuned to detect
+local earthquakes.
+Due to the steep incidence and the low horizontal slowness of these phases, they are
+sometimes located as fake deep earthquakes below the network.
+\fIscanloc\fP can be used to suppress this type of fake events.
+.sp
+In a 2\-pipeline
+setup, \fIscanloc\fP can associcate such teleseismic phases recorded
+by the local network with origins that were found by the pipeline for
+monitoring teleseismic earthquakes. Then \fI\%scevent\fP [4] will associate
+the origins from the teleseismic pipeline with the fake origins from the
+pipeline for local monitoring to the same event. The assumption is that the origins
+from the teleseismic pipeline win over the origins from pipeline for local monitoring
+because they have more associated arrivals. In this case the origins from pipeline
+for teleseismic monitoring that has most phases becomes the preferred origin for
+the event. This \fI\%scanloc\fP feature requires an extended license.
+.sp
+\fISetup of a 2\-pipeline system\fP
+.INDENT 0.0
+.IP 1. 3
+Generate a 2\-pipeline system involving at least \fI\%scautopick\fP [8],
+\fBscanloc\fP and \fI\%scevent\fP [4]:
+.INDENT 3.0
+.IP \(bu 2
+\fBPipeline 1\fP monitors teleseismic earthquakes using \fBscautopick\fP,
+\fBscautoloc\fP, \fBscanloc\fP and default message groups.
+.IP \(bu 2
+\fBPipeline 2\fP monitors local earthquakes using \fIl1autopick\fP, \fIl1autoloc\fP
+and \fIl1scanloc\fP using the message groups L1PICK and L1LOCATION.
+.UNINDENT
+.IP 2. 3
+Let \fIscanloc\fP not perform cluster search (\fI\%clusterSearch.maxOrigins\fP = 0)
+but allow \fIscanloc\fP to only associate P picks from pipelines 2 based on origins
+from \fBscautoloc\fP (connection.subscriptions = "LOCATION, L1PICK" in the global
+module parameters). Configure \fIscanloc\fP to associate the picks from pipeline 2
+as picks with zero weight when they are, e.g., in the PKP or Pdiff distance
+range. Use one zeroWeight profiles per phase.
+.sp
+In order to facilitate association of teleseismic picks, the picks and the origins
+must be kept in memory for sufficient time. Increase \fI\%buffer.pickKeep\fP
+and \fI\%buffer.originKeep\fP accordingly, e.g. to 1800 s.
+.sp
+In this way zero\-weight picks will not be used for locating the event but are
+part of the origin and can be considered by \fIscevent\fP\&.
+.IP 3. 3
+Configure \fIscevent\fP to listen to the message groups from both pipelines (e.g.
+LOCATION and L1LOCATION) and activate the \fIscevent\fP module parameter
+\fIeventAssociation.allowLooseAssociatedArrivals\fP (scevent.cfg)\&.
+.INDENT 3.0
+.INDENT 2.5
+[image]
+Parameter exchange in a 2\-pipeline system. The messaging system, responsible
+for the parameter exchange, is representated by the circles, indicating the
+message groups. Teleseismic monitoring is configured with scautopick,
+scanloc, scautoloc and local monitoring with l1autopick,
+l1scanloc, l1autoloc..UNINDENT
+.UNINDENT
+.UNINDENT
+.sp
+\fIPlayback using picks and amplitudes from 2\-pipeline system (real\-event examples)\fP
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Location tab in \fIscolv\fP with zero\-weight picks associated by \fIscanloc\fP as PKP phases..UNINDENT
+.UNINDENT
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Event tab in \fIscolv\fP showing the origins from the pipelines for local and
+teleseseismic monitoring. The preferred origin located near the Solomon
+Islands is shown in bold on top. Fake origins in Europe located by pipeline
+for local monitoring based on PKP phases falsely considerded P phases are
+associated to the event but do not form the preferred origin at any time..UNINDENT
+.UNINDENT
+.SH DENSE TRAVEL-TIME TABLES
+.sp
+The default travel time tables of SeisComP for \fI\%LOCSAT\fP [11] provide the times in intervals
+of 1 degree epicentral distance. Thus the curvature of the travel\-time curve at closer
+distance is not well imaged potentially resulting in wrong locations or missing event
+solutions. Therefore, the LOCSAT tables, \fIiasp91_scanloc.*\fP, based on
+the IASP91 model with higher spacial sampling are added. The tables are located
+in $SEISCOMP_ROOT/share/locsat/tabels.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Differences between P\-wave travel times in the standard iasp91 tables for LOCSAT
+and the ias91_scanloc tables provided with scanloc for an event at 5 km depth..UNINDENT
+.UNINDENT
+.SS Configuration
+.sp
+Configure \fI\%association.table\fP and \fI\%locator.profile\fP with
+\fIiasp91_scanloc\fP for making use of the provided LOCSAT tables.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+# Type of travel\-time tables for phase association. May be different from locator.
+# Use e.g. libtau or LOCSAT.
+association.tableType = LOCSAT
+
+# Name of travel\-time table used for phase association. May be different from locator
+# profile.
+association.table = iasp91_scanloc
+
+# The locator type to use
+locator.type = LOCSAT
+
+# The locator profile to use
+locator.profile = iasp91_scanloc
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SH S-PHASE DETECTOR
+.sp
+The \fI\%scanloc\fP modul provides the enhanced S phase detectors,
+S\-AIC and S\-AIC\-V, as well as the \fI\%debugger\fP\&.
+.SS Overview
+.sp
+The \fIscanloc\fP package includes two S phase pickers: S\-AIC and S\-AIC\-V, enhancing the
+performance of the picker with respect to the OpenSource S\-L2. Both picker
+apply an AIC algorithm in order to detect S phases after a P pick was maked.
+Therefore S phases are only detected after a P detection.
+Using the S\-AIC, S picks are determined on the vectorial sum of the horizontal
+componentes (L2 trace).
+The S\-AIC\-V works like the S\-AIC but it picks S phases on the vertical component.
+.sp
+The performance of the pickers have been tested by comparison of automatic
+with manual picks (see the \fI\%Figure showing the comparison\fP).
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Performance comparison showing the differences in pick time from manual picks
+and the optimally tuned pickers S\-L2, S\-AIC and S\-AIC\-V for local earthquakes
+in West\-Bohemia/Vogtland. The area is typical of local earthquake monitored at
+short epicentral distances of a few tens of kilometers. The distribution of
+the differences in the automatic pick times with respect to the manual ones
+shows the increased performance using the S\-AIC..UNINDENT
+.UNINDENT
+.SS Configuration
+.INDENT 0.0
+.IP 1. 3
+Add the plugin \fIsaic\fP to the configuration of \fI\%scautopick\fP [8] or the global
+module configuration for making use of the S\-AIC or the S\-AIC\-V:
+.INDENT 3.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+plugins = ${plugins},saic
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP 2. 3
+Activate one of the S\-phase ickers (S\-L2, S\-AIC, S\-AIC\-V) by changing the name of the S picker in the module
+configuration of \fI\%scautopick\fP [8]\&. Deactivating \fIkillPendingSPickers\fP will allow
+to pick S phases even if more P phases were detected before:
+.INDENT 3.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+spicker = "S\-AIC"
+killPendingSPickers = false
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP 3. 3
+Configure the S\-picker parameters under \fIspicker\fP in global section of the bindings
+of \fI\%scautopick\fP [8]\&. E.g. for
+\fIS\-AIC\fP in local earthquake monitoring (all values must be adjusted to the actual data):
+.INDENT 3.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+detecFilter = "RMHP(10)>>ITAPER(30)>>BW(4,4,20)>>STALTA(0.2,20)"
+timeCorr = 0
+
+spicker.AIC.noiseBegin = \-10
+spicker.AIC.signalBegin = 0.5
+spicker.AIC.filter = "ITAPER(4)>>BW_HP(4,3)"
+spicker.AIC.detecFilter = ""
+spicker.AIC.step = 0.5
+spicker.AIC.minSNR = 5
+spicker.AIC.minCnt = 5
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+The AIC parameters \fIspicker.AIC.\fP are used for \fIS\-AIC\fP and for \fIS\-AIC\-V\fP\&.
+The parameters of the S\-phase pickers can be configured in the gloabel section of the
+bindings profile of \fI\%scautopick\fP [8]\&. The meaning of some parameters are shared
+between the S\-phase pickers:
+.TS
+center;
+|l|l|l|.
+_
+T{
+Parameter
+T}	T{
+Picker type
+T}	T{
+Description
+T}
+_
+T{
+\fBnoiseBegin\fP
+T}	T{
+S\-AIC, S\-AIC\-V, S\-L2
+T}	T{
+Data window added before the p pick on order to compensate
+for effects due to the data processing, filtering and to compute the SNR.
+T}
+_
+T{
+\fBsignalBegin\fP
+T}	T{
+S\-AIC, S\-AIC\-V, S\-L2
+T}	T{
+Start of the data processing relative to the reference P pick.
+T}
+_
+T{
+\fBsignalEnd\fP
+T}	T{
+S\-AIC, S\-AIC\-V, S\-L2
+T}	T{
+End of the data processing relative to the reference P pick.
+T}
+_
+T{
+\fBfilter\fP
+T}	T{
+S\-AIC, S\-L2
+T}	T{
+Filter applied before forming the L2 trace.
+T}
+_
+T{
+\fBdetectFilter\fP
+T}	T{
+S\-AIC, S\-AIC\-V, S\-L2
+T}	T{
+Filter applied on the L2 trace before AIC analysis.
+T}
+_
+T{
+\fBstep\fP
+T}	T{
+S\-AIC, S\-AIC\-V
+T}	T{
+Step size in which the time windows are enlarged.
+T}
+_
+T{
+\fBminSNR\fP
+T}	T{
+S\-AIC, S\-AIC\-V, S\-L2
+T}	T{
+Minimum SNR in order to accept a pick.
+T}
+_
+T{
+\fBminCnt\fP
+T}	T{
+S\-AIC, S\-AIC\-V
+T}	T{
+Minimum number the AIC minimum must be found for subsequent time windows.
+T}
+_
+T{
+\fBuncertainty\fP
+T}	T{
+S\-AIC, S\-AIC\-V
+T}	T{
+Pick uncertainty. Unused by the picker but part of the output pick element.
+T}
+_
+.TE
+.UNINDENT
+.SS S\-Picker Debugger
+.sp
+The \fI\%debugger GUI\fP allows the graphics\-assisted tuning of the S pickers, S\-L2,
+S\-AIC, S\-AIC\-V. In order to make use of the S picker debugging GUI
+.INDENT 0.0
+.IP 1. 3
+Add the plugin \fIspickdbg\fP to the configuration of \fI\%scolv\fP [10]\&.
+.IP 2. 3
+Configure the initial parameters in the global bindings of the considered stream.
+.UNINDENT
+.sp
+The debugger GUI can be started from the picker window of \fI\%scolv\fP [10]\&.
+If there is an existing P pick the debugger window can be opened with a
+right click on the P pick. In the dropdown menu the S picker type can be chosen.
+A new pop\-up window opens where the P pick (red line) and the newly determined S
+pick (light blue line) are shown. The initial paramters can be changed to find the optimum values.
+They are defined in the global binding profile assigned to the considered stream.
+To test the changed settings click on the \fIUpdate\fP button.
+In order to make use of the tested parameters their values must be added to the
+bindings profile of \fI\%scautopick\fP [8]\&.
+.sp
+The \fI\%example\fP shows the debugger GUI for a local earthquake
+in West Bohemia/Vogtland. The red line represents the time of the reference P pick.
+The light blue line shows the final S pick (the number indicates the SNR).
+.INDENT 0.0
+.INDENT 2.5
+[image]
+S\-picker debugger example showing the filtered horizontal traces and the
+resulting L2 trace..UNINDENT
+.UNINDENT
+.sp
+Other shown values are:
+.TS
+center;
+|l|l|.
+_
+T{
+Parameter
+T}	T{
+Description
+T}
+_
+T{
+Pick
+T}	T{
+Pick time based on current parameter values.
+T}
+_
+T{
+AIC0
+T}	T{
+Start of the data processing relative to the reference P pick.
+T}
+_
+T{
+AIC
+T}	T{
+S pick based on the considered parameters with number indicating the SNR.
+T}
+_
+T{
+AIC1
+T}	T{
+End of the data processing when meeting MinSNR and MinCnt.
+T}
+_
+.TE
+.SH EXAMPLES AND PLAYBACKS
+.INDENT 0.0
+.IP \(bu 2
+Run \fIscanloc\fP during real\-time processing:
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp start scanloc
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Run \fIscanloc\fP  on the command line for playbacks and debugging output:
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp exec scanloc \-\-debug
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Read the phase picks from the database and store them in picks.xml for
+later playback:
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+dump_picks \-r \-90,\-180,90,180 \-d type://host/database \-t "2015\-08\-17 08:03:00.00~2015\-08\-17 08:04:00.00" \-o picks.xml
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Playback of picks stored in XML format at normal speed (with seiscomp
+messaging), start \fIscanloc\fP separately for debug messages on the command line:
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp start spread scmaster scamp scmag scevent
+
+seiscomp exec scanloc \-\-debug
+playback_picks picks.xml \-\-speed 1
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Playback of picks with amplitudes originating from different
+\fI\%pipelines\fP
+at normal speed (with SeisComP messaging). Picks and amplitudes in XML format
+are sent to the separated message groups PICK, AMPLITUDE and L1PICK.
+scanloc and l1scanloc listen to picks from PICK and L1PICKS, respectively.
+\fI\%scautoloc\fP [7] additionally needs the pick amplitudes from the subscribed amplitude groups.
+.sp
+Create the pick XML files including the pick amplitudes as in your 2\-pipeline system.
+Then start all required modules and invoke \fIplayback_picks\fP with
+\fI\-\-timing pickTime\fP for sending the picks and amplitudes created by different
+pickers at different times. The objects are send in the timely order of the pick or
+creation times. E.g.:
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scautopick \-\-ep \-\-playback \-I file://your_file \-d type://host/database > picks.xml
+l1autopick \-\-ep \-\-playback \-I file://your_file \-d type://host/database > l1picks.xml
+
+seiscomp start spread scmaster scamp scmag scevent scanloc l1scanloc scautoloc l1autoloc
+
+playback_picks picks.xml:PICK:AMPLITUDE l1picks.xml:L1PICK:AMPLITUDE \-\-timing pickTime \-\-speed 1
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Playback of picks stored in XML format to locate events and to determined
+the magnitude. Intermediate results are stored in XML files.
+.INDENT 2.0
+.IP 1. 3
+Events do not exist in the database, use \fI\%scdb\fP [2] to populate database.
+The messaging system is not running:
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scautopick \-\-ep \-\-playback \-I file://your_file \-d type://host/database > picks.xml
+scanloc \-\-ep picks.xml \-d type://host/database > origins.xml
+scamp \-\-ep origins.xml \-d type://host/database file://your_file > amps.xml
+scmag \-\-ep amps.xml \-d type://host/database > mags.xml
+scevent \-\-ep mags.xml \-d type://host/database > events.xml
+
+scdb \-i events.xml \-d type://host/database
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP 2. 3
+Events may exist in the database and shall be updated with new origins new
+events based on new origins shall be added. Run the messaging system and all
+modules that shall process the new parameters of the origin, e.g. \fI\%scamp\fP [5] ,
+\fI\%scmag\fP [6] , \fI\%scevent\fP [4]\&. Use \fI\%scdispatch\fP [3] to send the new objects to
+the messaging system.
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scanloc \-\-ep picks.xml \-d type://host/database > origins.xml
+
+seiscomp start spread scmaster scamp scmag scevent
+scdispatch \-H host \-O update \-i origins.xml
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Instead of the origins, other parameters created by the
+proceedures in (1.) may be distpatched.
+.UNINDENT
+.IP \(bu 2
+Playback of picks stored in XML format, without a database.
+.INDENT 2.0
+.IP 1. 3
+Initial step: store the station inventory and the
+configuration from a database once in a XML file.
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scxmldump \-fI \-o inventory.xml \-d type://host/database
+scxmldump \-fC \-o config.xml \-d type://host/database
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP 2. 3
+Continue with the examples above replacing the database parameter
+"\-d type://host/database" with "\-\-inventory\-db inventory.xml \-\-config\-db config.xml".
+.UNINDENT
+.UNINDENT
+.SH REFERENCES
+.sp
+scanloc has been demonstrated, promoted and discussed with scientists and the
+SeisComP community in scientific publications and at international
+science conferences, e.g.:
+.INDENT 0.0
+.IP 1. 3
+F. Grigoli, L. Scarabello, M. Boese, B. Weber, S. Wiemer, J. F. Clinton:
+Pick\- and waveform\-based techniques for real\-time detection of induced seismicity,
+2018, Geophys. J. Int., 213:2, \fI\%doi: 0.1093/gji/ggy019\fP\&.
+.IP 2. 3
+J. Clinton, F. Grigoli, T. Diehl, T. Kraft, L. Scarabello, M. Hermann, P. Kaestli,
+M. Boese, S. Wiemer: Advanced  Real\-time Monitoring for Natural and Induced
+seismic sequences, 2018, Geophyscial Research Abracts, EGU General Assembly,
+Vol. 20,
+\fI\%abstract: EGU2018\-9480\-2\fP\&.
+.IP 3. 3
+F. Grigoli, M. Boese, L. Scarabello, T. Diehl, B. Weber, S. Wiemer, J. F. Clinton:
+Picking vs Waveform based detection and location methods for induced seismicity
+monitoring, 2018, JpGU2018, Japan,
+\fI\%abstract: SSS03\-05\fP\&.
+.IP 4. 3
+F. Grigoli, M. Boese, L. Scarabello, T. Diehl, B. Weber, S. Wiemer, J. F. Clinton:
+Picking vs Waveform based detection and location methods for induced seismicity
+monitoring, 2017, Geophyscial Research Abracts, EGU General Assembly, Vol. 19,
+\fI\%abstract: EGU2017\-10562\fP\&.
+.IP 5. 3
+D. Roessler, J. Becker, E. Ellguth, R. Henneberger, S. Herrnkind, B. Weber:
+Cluster\-search based monitoring of local earthquakes in SeisComP3, 2016,
+AG Seismology \- 42. meeting, Bad Salzschlirf, Germany
+.IP 6. 3
+D. Roessler, E. Ellguth, S. Herrnkind, B. Weber, R. Henneberger, H. Blanck:
+Cluster\-search based monitoring of local earthquakes in SeisComP3, 2016,
+AGU Fall Meeting, San Francisco, USA,
+\fI\%abstract S31E\-06\fP\&.
+.UNINDENT
+.IP [1] 5
+\fI\%http://en.wikipedia.org/wiki/DBSCAN\fP
+.IP [2] 5
+\fI\%https://docs.gempa.de/seiscomp/4/current/apps/scdb.html\fP
+.IP [3] 5
+\fI\%https://docs.gempa.de/seiscomp/4/current/apps/scdispatch.html\fP
+.IP [4] 5
+\fI\%https://docs.gempa.de/seiscomp/4/current/apps/scevent.html\fP
+.IP [5] 5
+\fI\%https://docs.gempa.de/seiscomp/4/current/apps/scamp.html\fP
+.IP [6] 5
+\fI\%https://docs.gempa.de/seiscomp/4/current/apps/scmag.html\fP
+.IP [7] 5
+\fI\%https://docs.gempa.de/seiscomp/4/current/apps/scautoloc.html\fP
+.IP [8] 5
+\fI\%https://docs.gempa.de/seiscomp/4/current/apps/scautopick.html\fP
+.IP [9] 5
+\fI\%https://docs.gempa.de/seiscomp/4/current/apps/screloc.html\fP
+.IP [10] 5
+\fI\%https://docs.gempa.de/seiscomp/4/current/apps/scolv.html\fP
+.IP [11] 5
+\fI\%https://docs.gempa.de/seiscomp/4/current/apps/global_locsat.html\fP
+.IP [12] 5
+\fI\%https://docs.gempa.de/seiscomp/4/current/apps/global_hypo71.html\fP
+.IP [13] 5
+\fI\%https://docs.gempa.de/seiscomp/4/current/apps/global_nonlinloc.html\fP
+.SH CONFIGURATION
+.nf
+\fBetc/defaults/global.cfg\fP
+\fBetc/defaults/scanloc.cfg\fP
+\fBetc/global.cfg\fP
+\fBetc/scanloc.cfg\fP
+\fB~/.seiscomp/global.cfg\fP
+\fB~/.seiscomp/scanloc.cfg\fP
+.fi
+.sp
+.sp
+scanloc inherits global options\&.
+.INDENT 0.0
+.TP
+.B ignoreOrigins
+Type: \fIboolean\fP
+.sp
+Origins received from messaging will be ignored.
+.sp
+Default: Accept external origins from messaging and associate more phases.
+Default is \fBfalse\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B defaultDepth
+Type: \fIfloat\fP
+.sp
+Unit: \fIkm\fP
+.sp
+Default used for locating.
+Default is \fB5.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B ignoreDepth
+Type: \fIfloat\fP
+.sp
+Unit: \fIkm\fP
+.sp
+Depths larger than ignoreDepth will be ignored.
+Default is \fB650.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B maxRMS
+Type: \fIfloat\fP
+.sp
+Unit: \fIs\fP
+.sp
+Maximum allowed overall residual.
+Default is \fB1.5\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B minScore
+Type: \fIfloat\fP
+.sp
+Score to be reached to send origin.
+Default is \fB0.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B buffer.pickKeep
+Type: \fIfloat\fP
+.sp
+Unit: \fIs\fP
+.sp
+Time to keep picks in the internal buffer. Time comparison
+is based on the pick times. In non\-real time
+playbacks the time to keep picks is usually compressed.
+Default is \fB180.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B buffer.originKeep
+Type: \fIfloat\fP
+.sp
+Unit: \fIs\fP
+.sp
+Time to keep origins in the internal buffer. Time comparison
+is based on the origin times. In non\-real time
+playbacks the time to keep orgins is usually compressed.
+Default is \fB180.0\fP\&.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBclusterSearch.*\fP
+\fIParameters controlling the cluster search based on P phase picks.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B clusterSearch.maxPickDelay
+Type: \fIfloat\fP
+.sp
+Unit: \fIs\fP
+.sp
+Maximum allowed difference between P picks and cluster reference
+time (latest pick time). Optimum values can be derived from travel
+times.The cluster search ignores all
+picks which exceed the value. Using "\-1" enables all picks
+regardless of the delay.
+Default is \fB\-1.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B clusterSearch.minSize
+Type: \fIint\fP
+.sp
+Minimum number of core points (P picks) to form a cluster.
+Default is \fB4\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B clusterSearch.averageVelocity
+Type: \fIfloat\fP
+.sp
+Unit: \fIkm/s\fP
+.sp
+Average velocity used for distance calculation.
+Default is \fB4.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B clusterSearch.maxSearchDist
+Type: \fIfloat\fP
+.sp
+Unit: \fIs\fP
+.sp
+Maximum allowed distance over all core points and
+maximum allowed distance for neighborhood search. Both account
+for traveltime difference, inter\-station distance and the
+configured averageVelocity.
+Default is \fB60\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B clusterSearch.maxOrigins
+Type: \fIuint\fP
+.sp
+Maximum allowed origins derived from cluster search. Set this option to zero to disable the cluster search completly.
+Default is \fB128\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B clusterSearch.preliminary
+Type: \fIboolean\fP
+.sp
+Send origins based on cluster search as preliminary origins if
+the location fails. Otherwise those origins are ignored.
+Consider activating "checkOrigins".
+Default is \fBfalse\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B clusterSearch.checkOrigins
+Type: \fIboolean\fP
+.sp
+Check, if derived origins fulfill the cluster search criteria anymore.
+Activating this option may lower the number of events and
+suppress fake events.
+Default is \fBfalse\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B clusterSearch.ignorePicks
+Type: \fIfloat\fP
+.sp
+Unit: \fIs\fP
+.sp
+By default the algorithm creates a new arrival set when there is already a pick with the same stream id assigned.
+Use this option to ignore surrounding picks.
+Default is \fB0.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B clusterSearch.regionFilter
+Type: \fIlist:double\fP
+.sp
+Cluster only picks which sensor locations are inside
+the defined region. The region is defined by latitude,
+longitude and a radius in km. By default the region filter is disabled.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBassociation.*\fP
+\fIParameters controlling the association of P and S phases to cluster\fP
+\fIorigins or external origins.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B association.minPhase
+Type: \fIint\fP
+.sp
+Number picks in cluster origin to be reached for starting to associate more P nd S picks.
+Default is \fB4\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B association.maxDist
+Type: \fIfloat\fP
+.sp
+Unit: \fIkm\fP
+.sp
+Maximum epicentral distance to associate P and S picks.
+Default is \fB1000.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B association.stationConfig
+Type: \fIpath\fP
+.sp
+The station configuration file contains lines consisting of
+network code, station code, weight (0 or 1) and maximum
+association distance given in degree. The maximum association
+distance is the distance in degrees from the origin up to
+which this station may contribute to a new origin. This
+parameter overrides the global parameter association.maxDist.
+If this distance is 180 deg, this station may contribute to
+new origins world\-wide. However, if the distance is only 10
+degree, the range of this station is limited. This is a helpful
+setting in case of mediocre stations in a region where there
+are numerous good and reliable stations nearby. The station
+will then not pose a risk for locations generated
+outside the maximum association distance. The last item found
+in the list overrules previous ones.
+Network and station codes may be wildcards (*)
+for convenience. E.g.:
+.sp
+* * 1 10
+.sp
+GE * 1 180
+.UNINDENT
+.INDENT 0.0
+.TP
+.B association.maxPResidual
+Type: \fIfloat\fP
+.sp
+Unit: \fIs\fP
+.sp
+Maximum allowed difference between measured and predicted arrival
+times for associating P phases to origin.
+Larger values allow significant correction of initial locations.
+Default is \fB4.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B association.maxSResidual
+Type: \fIfloat\fP
+.sp
+Unit: \fIs\fP
+.sp
+Maximum allowed difference between measured and predicted arrival
+time for associating S phases to origins. Larger values allow
+significant correction of initial locations.
+Default is \fB4.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B association.maxResidual
+Type: \fIfloat\fP
+.sp
+Unit: \fIs\fP
+.sp
+Maximum allowed time residuals of picks after association and relocation.
+Picks will be removed at exceedance.
+Default is \fB2.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B association.tableType
+Type: \fIstring\fP
+.sp
+Type of traveltime tables for phase association.
+May be different from locator. Use e.g. libtau or LOCSAT.
+Default is \fBLOCSAT\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B association.table
+Type: \fIstring\fP
+.sp
+Name of traveltime table used for phase association.
+May be different from locator profile. Using a different table/profile
+may result in increased runtime.
+Default is \fBiasp91\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B association.zeroWeightProfiles
+Type: \fIlist:string\fP
+.sp
+zeroWeight\-profile name for associating the configured phases
+with zero weight to origins. Multiples profile names may be set
+separated by comma. The order of names determines order of
+checked phases. Each profile can have different parameters.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBassociation.zeroWeight.*\fP
+\fIzeroWeight profiles containing the parameters for associating\fP
+\fIphases with zero weight to origins.\fP
+.UNINDENT
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBassociation.zeroWeight.$name.*\fP
+$name is a placeholder for the name to be used and needs to be added to \fBzeroWeight.profiles\fP to become active.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+zeroWeight.profiles = a,b
+association.zeroWeight.a.value1 = ...
+association.zeroWeight.b.value1 = ...
+# c is not active because it has not been added
+# to the list of zeroWeight.profiles
+association.zeroWeight.c.value1 = ...
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B association.zeroWeight.$name.phaseType
+Type: \fIString\fP
+.sp
+One phase type to be associated with zero weight.
+Examples: PKP or Pdiff.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B association.zeroWeight.$name.minDistance
+Type: \fIfloat\fP
+.sp
+Unit: \fIdegree\fP
+.sp
+Minimum epicentral distance.
+Default is \fB120.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B association.zeroWeight.$name.maxResidual
+Type: \fIfloat\fP
+.sp
+Unit: \fIs\fP
+.sp
+Maximum time residual of the associated phase.
+Default is \fB5.0\fP\&.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBeventAssociation.*\fP
+\fIParameters controlling the association of interal scanloc origins\fP
+\fIto internal scanloc events.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.compareAllArrivalTimes
+Type: \fIboolean\fP
+.sp
+This parameter is only used in conjunction with
+eventAssociation.maximumMatchingArrivalTimeDiff.
+If a station has multiple associated arrivals for a
+particular event, this flag defines if the time distance
+of a new pick to all arrivals must be within
+eventAssociation.maximumMatchingArrivalTimeDiff
+or if one matching arrival is enough.
+Default is \fBfalse\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.minMatchingArrivals
+Type: \fIint\fP
+.sp
+Minimum number of matching picks between two origins to be associated
+to the same event.
+Default is \fB3\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.maxMatchingArrivalTimeDiff
+Type: \fIfloat\fP
+.sp
+Unit: \fIs\fP
+.sp
+If this time window in seconds is negative, pickIDs
+are compared to find matching arrivals. A non negative
+value (including 0) compares pick times regardless
+of the pickID. Pass: |pick1.time \- pick2.time| <= threshold
+Default is \fB\-1\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.maxDist
+Type: \fIdouble\fP
+.sp
+Unit: \fIkm\fP
+.sp
+Allowed location difference between an incoming origin compared with
+preferred origins to get associated.
+Default is \fB500.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.maxTimeSpan
+Type: \fIdouble\fP
+.sp
+Unit: \fIs\fP
+.sp
+Associates an origin with an existing event if the origin
+time differs not more than 60 seconds unless the
+minimumMatchingArrivals criteria matches.
+Default is \fB60.0\fP\&.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBlocator.*\fP
+\fIParameters controlling the locator for locate the scanloc origins.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B locator.type
+Type: \fIstring\fP
+.sp
+The locator type to be used. Use e.g. LOCSAT or Hypo71.
+Default is \fBLOCSAT\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B locator.profile
+Type: \fIstring\fP
+.sp
+The locator profile to be used. Using a different profile/table
+for locating and associating may result in increased runtime.
+Default is \fBiasp91\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B locator.fixDepth
+Type: \fIboolean\fP
+.sp
+If enabled the locator fixes the depth to the configured
+default value "defaultDepth" in case that all
+previous attempts to relocate fail.
+This option may result in many more origins. It
+prevents "ignoreDepth" from beeing
+effective if "defaultDepth" < "ignoreDepth".
+Default is \fBfalse\fP\&.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBscore.*\fP
+\fIFormula to calculate the internal origin score. Configurable are the weighting\fP
+\fIfactors for the following components:\fP
+\fIused P\-phase (score.weights.p), unused P\-phase (score.weights.p0),\fP
+\fIused S\-phase (score.weights.s), unused S\-phase (score.weights.0),\fP
+\fIdepth (score.weights.depth) and residual (score.weights.residual).\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B score.weights.p
+Type: \fIfloat\fP
+.sp
+Defines the weight of p arrivals for scoring
+Default is \fB1.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B score.weights.p0
+Type: \fIfloat\fP
+.sp
+Defines the weight of p arrivals with a weight of zero for scoring
+Default is \fB0.5\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B score.weights.s
+Type: \fIfloat\fP
+.sp
+Defines the weight of s arrivals for scoring
+Default is \fB2.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B score.weights.s0
+Type: \fIfloat\fP
+.sp
+Defines the weight of s arrivals with a weight of zero for scoring
+Default is \fB0.5\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B score.weights.depth
+Type: \fIfloat\fP
+.sp
+Defines the weight of the depth for scoring
+Default is \fB1.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B score.weights.residual
+Type: \fIfloat\fP
+.sp
+Defines the weight of the residual for scoring
+Default is \fB1.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B score.weights.increaseManual
+Type: \fIboolean\fP
+.sp
+Increase the weight for manual picks by a factor of 1.001.
+This gives preference to manual picks in case
+automatic ones co\-exist for the same station.
+Default is \fBfalse\fP\&.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBpublication.*\fP
+\fIParameters controlling the publication of internal scanloc\fP
+\fIevents as new origins to the messaging system.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B publication.intervalTimeSlope
+Type: \fIdouble\fP
+.sp
+Unit: \fIs/count\fP
+.sp
+Parameter "a" in the equation t = aN + b.
+.sp
+t: time interval between sending updates of an origin
+.sp
+N: arrival count of the origin
+.sp
+Increasing the value reduces the amount of sent origins.
+With the option \-\-ep (playback mode) this value is set to 0.
+Default is \fB0.5\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B publication.intervalTimeIntercept
+Type: \fIdouble\fP
+.sp
+Unit: \fIs\fP
+.sp
+Parameter "b"  in the equation t = aN + b.
+.sp
+t: time interval between sending updates of an origin
+.sp
+N: arrival count of the origin
+.sp
+Increasing the value reduces the amount of sent origins.
+With the option \-\-ep (playback mode) this value is set to 0.
+Default is \fB0.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B publication.wakeUpInterval
+Type: \fIint\fP
+.sp
+Unit: \fIs\fP
+.sp
+Integer interval to check the origin buffer for sending origins if no
+other origins have been created.
+.sp
+Reducing the value may be required in EEW: it increases the
+load on scanloc but allows to send origins more rapidly.
+Default is \fB5\fP\&.
+.UNINDENT
+.SH COMMAND-LINE
+.SS Generic
+.SS Verbosity
+.INDENT 0.0
+.TP
+.B \-\-cluster\-search\-log\-file file
+Output detailed cluster search information to a file.
+.UNINDENT
+.SS Messaging
+.SS Database
+.INDENT 0.0
+.TP
+.B \-\-db\-disable
+Do not use the database at all
+.UNINDENT
+.SS Input
+.INDENT 0.0
+.TP
+.B \-\-pickKeep arg
+Overrides configuration parameter \fBpickKeep\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-originKeep arg
+Overrides configuration parameter \fBoriginKeep\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-locator arg
+The locator type to use
+.UNINDENT
+.SH AUTHOR
+gempa GmbH
+.SH COPYRIGHT
+2015, gempa GmbH
+.\" Generated by docutils manpage writer.
+.
