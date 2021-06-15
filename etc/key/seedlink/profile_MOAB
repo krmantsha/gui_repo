@@ -1,0 +1,11 @@
+# Activated plugins for category sources
+sources = moab:q330
+
+# Hostname or IP.
+sources.moab.address = MOAB
+
+# Source port to receive data packets.
+sources.moab.port = 6330
+
+# Q330 serial number (with 0x prefix).
+sources.moab.serial = 0x03350020EDF1602E

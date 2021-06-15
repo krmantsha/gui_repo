@@ -1,0 +1,8 @@
+# List of routes.
+routes = local
+
+# host:port of Arclink server (required to enable the binding block).
+routes.local.arclink.address = localhost:18001
+
+# host:port of Seedlink server (required to enable the binding block).
+routes.local.seedlink.address = localhost:18000

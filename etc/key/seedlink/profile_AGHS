@@ -1,0 +1,11 @@
+# Activated plugins for category sources
+sources = aghs:q330
+
+# Hostname or IP.
+sources.aghs.address = AGHS
+
+# Source port to receive data packets.
+sources.aghs.port = 6330
+
+# Q330 serial number (with 0x prefix).
+sources.aghs.serial = 0x0335004A7BA3D018

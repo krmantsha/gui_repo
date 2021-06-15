@@ -1,0 +1,8 @@
+# Activated plugins for category sources
+sources = ASPEN_ACQ:orb
+
+# Hostname or IP of the Antelope ORB.
+sources.ASPEN_ACQ.address = 172.16.16.52
+
+# Port of the Antelope ORB.
+sources.ASPEN_ACQ.port = 26000

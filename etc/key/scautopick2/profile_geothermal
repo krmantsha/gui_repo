@@ -1,0 +1,11 @@
+# Defines the filter to be used for picking.
+detecFilter = "BW(4,20,50)>>STALTA(0.1,5)"
+
+# For which value on the filtered waveform is a pick detected.
+trigOn = 2
+
+# The value the filtered waveform must reach to enable a detection again.
+trigOff = 1.5
+
+# The time correction applied to a detected pick.
+timeCorr = 0

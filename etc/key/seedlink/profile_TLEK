@@ -1,0 +1,11 @@
+# Activated plugins for category sources
+sources = tlek:q330
+
+# Hostname or IP.
+sources.tlek.address = TLEK
+
+# Source port to receive data packets.
+sources.tlek.port = 6330
+
+# Q330 serial number (with 0x prefix).
+sources.tlek.serial = 0x033500FE895A906C

@@ -1,0 +1,11 @@
+# Activated plugins for category sources
+sources = kfnd:q330
+
+# Hostname or IP.
+sources.kfnd.address = KFND
+
+# Source port to receive data packets.
+sources.kfnd.port = 6330
+
+# Q330 serial number (with 0x prefix).
+sources.kfnd.serial = 0x010000044C438799

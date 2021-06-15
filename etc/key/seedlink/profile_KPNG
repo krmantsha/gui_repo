@@ -1,0 +1,11 @@
+# Activated plugins for category sources
+sources = kpng:q330
+
+# Hostname or IP.
+sources.kpng.address = KPNG
+
+# Source port to receive data packets.
+sources.kpng.port = 6330
+
+# Q330 serial number (with 0x prefix).
+sources.kpng.serial = 0x03350036FA172038
