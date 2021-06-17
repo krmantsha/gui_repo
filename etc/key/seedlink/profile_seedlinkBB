@@ -4,10 +4,6 @@ sources = aspen-proc:chain
 # Hostname or IP of the Seedlink server.
 sources.aspen-proc.address = 172.16.16.52
 
-# Name of the proc object (defined in streams.xml); used for processing raw
-# streams (streams submitted by a plugin as raw samples).
-sources.aspen-proc.proc = stream200_40_BB
-
 # Allows to unpack channels instead of sending them as miniseed to Seedlink.
 # Unpacked streams can be downsampled by Seedlink. This is a list of strings
 # where each item defines one unpack mapping in the format
