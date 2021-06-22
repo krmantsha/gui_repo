@@ -1,55 +1,23 @@
 http://maps.google.com/?q=,&t=h&ll=,&z=12
-Error: the required argument for option '--event' is missing
 
-Generic:
-  -h [ --help ]             produce help message
-  -V [ --version ]          show version information
-  --config-file arg         Use alternative configuration file
-  --print-config-vars       Print all available configuration variables and 
-                            exit
-  --validate-schema-params  Validates the applications description xml and exit
-  --plugins arg             Load given plugins
+  Alert CGS2021mcmm: determined by 8 stations, type A
 
-Verbose:
-  --verbosity arg          verbosity level [0..4]
-  -v [ --v ]               increase verbosity level (may be repeated, eg. -vv)
-  -q [ --quiet ]           quiet mode: no logging output
-  --print-component arg    print the log component (default: file:1, stdout:0)
-  --print-context arg (=0) print source file and line number
-  --component arg          limits the logging to a certain component. this 
-                           option can be given more than once
-  -s [ --syslog ]          use syslog
-  -l [ --lockfile ] arg    path to lock file
-  --console arg (=1)       send log output to stdout
-  --debug                  debug mode: --verbosity=4 --console=1
-  --trace                  trace mode: --verbosity=4 --console=1 
-                           --print-component=1 --print-context=1
-  --log-file arg           Use alternative log file
-  --log-utc arg (=0)       Use UTC instead of local timezone
+ LOCSAT solution with earthmodel iasp91 (with start solution, 8 stations used, weight 8):
 
-Database:
-  --db-driver-list             list all supported database drivers
-  -d [ --database ] arg        the database connection string, format: 
-                               service://user:pwd@host/database
-  --config-module arg (=trunk) the configmodule to use
-  --inventory-db arg           load the inventory from the given database or 
-                               file, format: [service://]location
-  --config-db arg              load the configuration from the given database 
-                               or file, format: [service://]location
+  South Africa  M=2.8  2021/06/22  03:01:01.8  25.42 S  29.36 E   245 km
 
-Dump:
-  -E [ --event ] arg    ID of event to dump
-  -O [ --origin ] arg   ID of origin to dump
-  -w [ --weight ] arg   weight threshold for printed and counted picks
-  -1 [ --autoloc1 ]     autoloc1 format
-  -3 [ --autoloc3 ]     autoloc3 format
-  -x [ --extra ]        extra detailed autoloc3 format
-  -e [ --enhanced ]     enhanced output precision for local earthquakes
-  -p [ --polarities ]   dump onset polarities
-  --first-only          dump only the first event/origin
+  Stat  Net Date      Time               Amp  Per   Res  Dist  Az  mb  ML  mB
+  FOCH  WD  21/06/22  03:01:43.6         0.0  0.0  -0.2   2.0 238 0.0 2.7 0.0
+  MWC   KO  21/06/22  03:01:51.6         0.0  0.0   1.2   2.7 237 0.0 2.7 0.0
+  SPIR  KO  21/06/22  03:01:51.0         0.0  0.0  -0.2   2.7 239 0.0 0.0 0.0
+  VRVW  KO  21/06/22  03:01:51.7         0.0  0.0   0.0   2.8 236 0.0 0.0 0.0
+  AGHS  KO  21/06/22  03:01:51.3         0.0  0.0  -0.6   2.8 237 0.0 0.0 0.0
+  KDGC  KO  21/06/22  03:01:51.3         0.0  0.0  -0.9   2.8 239 0.0 2.5 0.0
+  RCAS  KO  21/06/22  03:01:53.1         0.0  0.0   0.6   2.9 239 0.0 0.0 0.0
+  VMBD  KO  21/06/22  03:01:52.5         0.0  0.0   0.0   2.9 238 0.0 3.5 0.0
 
-Input:
-  -f [ --format ] arg   input format to use (xml [default], zxml (zipped xml), 
-                        binary)
-  -i [ --input ] arg    input file, default: stdin
+ RMS-ERR:         0.61
+
+ First location:  2021/06/22 03:02:05
+ This location:   2021/06/22 03:02:06
 
