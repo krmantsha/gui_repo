@@ -5,7 +5,7 @@ sources = klf3:q330
 sources.klf3.address = KLF3
 
 # Source port to receive data packets.
-sources.klf3.port = 6330
+sources.klf3.port = 5330
 
 # Q330 serial number (with 0x prefix).
 sources.klf3.serial = 0x01000010FA80A2E4
