@@ -1,0 +1,13 @@
+# Activated plugins for category sources
+sources = drf5:q330
+
+# Hostname or IP.
+sources.drf5.address = DRF5
+
+# Source port to receive data packets.
+sources.drf5.port = 6330
+
+# Q330 serial number (with 0x prefix).
+sources.drf5.serial = 0x03350077AC18F0D8
+
+sources.drf5.proc = q330

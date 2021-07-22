@@ -1,0 +1,13 @@
+# Activated plugins for category sources
+sources = bsp:q330
+
+# Hostname or IP.
+sources.bsp.address = BSP
+
+# Source port to receive data packets.
+sources.bsp.port = 6330
+
+# Q330 serial number (with 0x prefix).
+sources.bsp.serial = 0x03350059A1947884
+
+sources.bsp.proc = q330

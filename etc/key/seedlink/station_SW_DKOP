@@ -1,0 +1,13 @@
+# Activated plugins for category sources
+sources = dkop:q330
+
+# Hostname or IP.
+sources.dkop.address = DKOP
+
+# Source port to receive data packets.
+sources.dkop.port = 6330
+
+# Q330 serial number (with 0x prefix).
+sources.dkop.serial = 0x033500B98F78A819
+
+sources.dkop.proc = q330

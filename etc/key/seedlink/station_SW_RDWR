@@ -1,0 +1,13 @@
+# Activated plugins for category sources
+sources = rdwr:q330
+
+# Hostname or IP.
+sources.rdwr.address = RDWR
+
+# Source port to receive data packets.
+sources.rdwr.port = 6330
+
+# Q330 serial number (with 0x prefix).
+sources.rdwr.serial = 0x010000044C1AAFE8
+
+sources.rdwr.proc = q330

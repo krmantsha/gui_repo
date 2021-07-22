@@ -1,0 +1,13 @@
+# Activated plugins for category sources
+sources = sdep:q330
+
+# Hostname or IP.
+sources.sdep.address = SDEP
+
+# Source port to receive data packets.
+sources.sdep.port = 6330
+
+# Q330 serial number (with 0x prefix).
+sources.sdep.serial = 0x033500892B79B057
+
+sources.sdep.proc = q330

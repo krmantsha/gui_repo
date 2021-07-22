@@ -1,0 +1,13 @@
+# Activated plugins for category sources
+sources = bnon:q330
+
+# Hostname or IP.
+sources.bnon.address = BNON
+
+# Source port to receive data packets.
+sources.bnon.port = 6330
+
+# Q330 serial number (with 0x prefix).
+sources.bnon.serial = 0x010000044C8D8A53
+
+sources.bnon.proc = q330

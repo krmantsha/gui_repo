@@ -1,0 +1,13 @@
+# Activated plugins for category sources
+sources = lebn:q330
+
+# Hostname or IP.
+sources.lebn.address = LEBN
+
+# Source port to receive data packets.
+sources.lebn.port = 6330
+
+# Q330 serial number (with 0x prefix).
+sources.lebn.serial = 0x0335004F8448F0DA
+
+sources.lebn.proc = q330

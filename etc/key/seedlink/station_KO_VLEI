@@ -1,0 +1,13 @@
+# Activated plugins for category sources
+sources = vlei:q330
+
+# Hostname or IP.
+sources.vlei.address = VLEI
+
+# Source port to receive data packets.
+sources.vlei.port = 6330
+
+# Q330 serial number (with 0x prefix).
+sources.vlei.serial = 0x03350061E8BC9042
+
+sources.vlei.proc = q330

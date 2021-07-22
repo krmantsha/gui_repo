@@ -1,0 +1,13 @@
+# Activated plugins for category sources
+sources = ezul:q330
+
+# Hostname or IP.
+sources.ezul.address = EZUL
+
+# Source port to receive data packets.
+sources.ezul.port = 6330
+
+# Q330 serial number (with 0x prefix).
+sources.ezul.serial = 0x03350051AA04F0C9
+
+sources.ezul.proc = q330

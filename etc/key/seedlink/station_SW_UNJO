@@ -1,0 +1,13 @@
+# Activated plugins for category sources
+sources = unjo:q330
+
+# Hostname or IP.
+sources.unjo.address = UNJO
+
+# Source port to receive data packets.
+sources.unjo.port = 5330
+
+# Q330 serial number (with 0x prefix).
+sources.unjo.serial = 0x0100000EBD6947D7
+
+sources.unjo.proc = q330
