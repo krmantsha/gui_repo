@@ -25,50 +25,30 @@ import seiscomp3.Client
 import seiscomp3.IO
 import seiscomp3.DataModel
 
-def lt_obj(org1, org2):
-    """
-    Sort objects by their time of creation
-    """
 
-    orgL1 = org1[0]
-    orgL2 = org2[0]
-    try:
-        if orgL1.creationInfo().creationTime() < orgL2.creationInfo().creationTime():
-            return -1
-        if orgL1.creationInfo().creationTime() > orgL2.creationInfo().creationTime():
-            return 1
-    except ValueError:
-        pass
-
-    return 0
-
-def lt_picktime(obj1, obj2):
+def timing_pickTime(obj):
     """
     Sort picks by their pick time
     Sort amplitudes by their reference time
     """
 
-    try:
-        po1 = seiscomp3.DataModel.Pick.Cast(obj1[0])
-        if po1 is None:
-            t1 = obj1[0].timeWindow().reference()
-        else:
-            t1 = obj1[0].time().value()
+    po = seiscomp3.DataModel.Pick.Cast(obj[0])
+    if po is None:
+        t = obj[0].timeWindow().reference()
+    else:
+        t = obj[0].time().value()
 
-        po2 = seiscomp3.DataModel.Pick.Cast(obj2[0])
-        if po2 is None:
-            t2 = obj2[0].timeWindow().reference()
-        else:
-            t2 = obj2[0].time().value()
+    return t
 
-        if t1 < t2:
-            return -1
-        if t1 > t2:
-            return 1
-    except ValueError:
-        pass
 
-    return 0
+def timing_creationTime(obj):
+    """
+    Sort all objects by their creation time
+    """
+
+    ct = obj[0].creationInfo().creationTime()
+    return ct
+
 
 class PickPlayback(seiscomp3.Client.Application):
 
@@ -228,11 +208,19 @@ class PickPlayback(seiscomp3.Client.Application):
                 objects.append((amp, ampgroup))
 
         if self.timing == "pickTime":
-            objects.sort(cmp=lt_picktime)
-            print("Found %d objects sorted by pickTime" % len(objects), file=sys.stderr)
+            try:
+                objects.sort(key=timing_pickTime)
+                print("Found %d objects sorted by pickTime" % len(objects), file=sys.stderr)
+            except ValueError:
+                print("Pick time not set in at least 1 pick", file=sys.stderr)
+                return False;
         elif self.timing == "creationTime":
-            objects.sort(cmp=lt_obj)
-            print("Found %d objects sorted by creationTime" % len(objects), file=sys.stderr)
+            try:
+                objects.sort(key=timing_creationTime)
+                print("Found %d objects sorted by creationTime" % len(objects), file=sys.stderr)
+            except ValueError:
+                print("Creation time not set in at least 1 object", file=sys.stderr)
+                return False;
         else:
             print("Unknwon timing: %s" % self.timing, file=sys.stderr)
             return False

@@ -369,6 +369,9 @@
 			</group>
 		</configuration>
 		<command-line>
+			<synopsis>
+				scanloc [options]
+			</synopsis>
 			<group name="Generic">
 				<optionReference>generic#help</optionReference>
 				<optionReference>generic#version</optionReference>
@@ -418,10 +421,41 @@
 			</group>
 
 			<group name="Input">
-				<option flag="" long-flag="pickKeep" argument="arg" param-ref="pickKeep"/>
-				<option flag="" long-flag="originKeep" argument="arg" param-ref="originKeep"/>
-				<option long-flag="locator" argument="arg">
+				<option flag="" long-flag="pick-keep" argument="arg" param-ref="pickKeep"/>
+				<option flag="" long-flag="origin-keep" argument="arg" param-ref="originKeep"/>
+				<option flag="" long-flag="ep" argument="arg">
+					<description>
+						Event parameters XML file for offline processing
+						of all contained origins and picks.
+					</description>
+				</option>
+				<option flag="" long-flag="timing" argument="arg">
+					<description>
+						Offline processing timing reference: pickTime or
+						creationTime. scanloc uses creationTime in real-time
+						processing.
+
+						Default: pickTime
+					</description>
+				</option>
+			</group>
+			<group name="Locator">
+				<option long-flag="locator-type" argument="arg">
 					<description>The locator type to use</description>
+				</option>
+				<option long-flag="locator-profile" argument="arg">
+					<description>The locator profile to use</description>
+				</option>
+				<option long-flag="locator-list" argument="arg">
+					<description>List all registered locator</description>
+				</option>
+			</group>
+			<group name="Output">
+				<option flag="" long-flag="final-only" argument="">
+					<description>
+						Limit result set to final origins only. This option is available
+						for offline processing only.
+					</description>
 				</option>
 			</group>
 		</command-line>

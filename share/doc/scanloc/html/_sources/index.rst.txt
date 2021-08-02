@@ -768,56 +768,109 @@ Examples and playbacks
      seiscomp start scanloc
 
 
-- Run *scanloc*  on the command line for playbacks and debugging output:
+- Run *scanloc*  on the command line for pick playbacks or debugging output:
 
   .. code-block:: sh
 
-     seiscomp exec scanloc --debug
+     scanloc --debug
 
-- Read the phase picks from the database and store them in picks.xml for
-  later playback:
+.. note ::
 
-  .. code-block:: sh
+   In playbacks of picks in XML files the performance of scanloc may differ
+   from real-time operation based on messaging:
+
+   * In real-time operation, the picks are made e.g. by :program:`scautopick` at
+     some time and considered by scanloc according to
+     their creation times. Delayed picks may become irrelevant for the processing.
+     Configure :confval:`buffer.pickKeep` and :confval:`buffer.originKeep` accordingly.
+
+     However, the **creation times of picks may be obscured** when created in a
+     :program:`scautopick` playback and picks may have almost identical creation times
+     independent of their pick times.
+
+   * :ref:`In message-based playbacks <sec-scanloc-message-playbacks>`, picks are
+     provided to scanloc via the messaging system. When created in real time,
+     the **creation times** of picks form a
+     realistic time reference for scanloc and is therefore considered.
+
+   * :ref:`In offline XML playbacks <sec-scanloc-xml-playbacks>` (``--ep``),
+     scanloc considers picks by default according to their actual **pick times**.
+     For picks created in an offline playback this is most reasonable as creation
+     time is not a valid time reference anymore.
+     **However, referencing to pick time may result in a behavior which is
+     different from real-time conditions.**
+
+     Therefore, for mimicking real-time conditions in playbacks of picks obtained
+     in real-time conditions consider the command-line option ``--timing creationTime``.
+
+
+.. _sec-scanloc-message-playbacks:
+
+Message-based XML playbacks
+---------------------------
+
+- Use phase picks obtained in real-time
+
+  #. read real-time picks from the database and store them in :file:`picks.xml` for later playback:
+
+     .. code-block:: sh
 
         dump_picks -r -90,-180,90,180 -d type://host/database -t "2015-08-17 08:03:00.00~2015-08-17 08:04:00.00" -o picks.xml
 
-- Playback of picks stored in XML format at normal speed (with seiscomp
-  messaging), start *scanloc* separately for debug messages on the command line:
+  #. play back picks stored in XML format at normal speed (with seiscomp
+     messaging), start *scanloc* separately for debug messages on the command line
+     **considering default timing by creation time of the picks**:
 
-  .. code-block:: sh
+     .. code-block:: sh
 
-        seiscomp start spread scmaster scamp scmag scevent
+        seiscomp start scmaster scamp scmag scevent
 
-        seiscomp exec scanloc --debug
+        scanloc --debug
         playback_picks picks.xml --speed 1
 
-- Playback of picks with amplitudes originating from different
+- Play back picks with amplitudes originating from different
   `pipelines <https://www.seiscomp3.org/wiki/recipes/multiple-pick-loc-pipeline>`_
   at normal speed (with SeisComP messaging). Picks and amplitudes in XML format
   are sent to the separated message groups PICK, AMPLITUDE and L1PICK.
   scanloc and l1scanloc listen to picks from PICK and L1PICKS, respectively.
   `scautoloc`_ additionally needs the pick amplitudes from the subscribed amplitude groups.
 
-  Create the pick XML files including the pick amplitudes as in your 2-pipeline system.
-  Then start all required modules and invoke *playback_picks* with
-  *--timing pickTime* for sending the picks and amplitudes created by different
-  pickers at different times. The objects are send in the timely order of the pick or
-  creation times. E.g.:
+  #. Create the pick XML files including the pick amplitudes in an offline playback
+     by the modules as in your 2-pipeline system.
+  #. Start all required modules including the scanloc instances
+  #. Execute *playback_picks* with ``--timing pickTime`` for sending the picks and
+     amplitudes created by different pickers at different times.
 
   .. code-block:: sh
 
-        scautopick --ep --playback -I file://your_file -d type://host/database > picks.xml
-        l1autopick --ep --playback -I file://your_file -d type://host/database > l1picks.xml
+     scautopick --ep --playback -I file://your_file -d type://host/database > picks.xml
+     l1autopick --ep --playback -I file://your_file -d type://host/database > l1picks.xml
 
-        seiscomp start spread scmaster scamp scmag scevent scanloc l1scanloc scautoloc l1autoloc
+     seiscomp start scmaster scamp scmag scevent scautoloc l1autoloc scanloc l1scanloc
 
-        playback_picks picks.xml:PICK:AMPLITUDE l1picks.xml:L1PICK:AMPLITUDE --timing pickTime --speed 1
+     playback_picks picks.xml:PICK:AMPLITUDE l1picks.xml:L1PICK:AMPLITUDE --timing pickTime --speed 1
 
-- Playback of picks stored in XML format to locate events and to determined
+
+.. _sec-scanloc-xml-playbacks:
+
+Offline XML playbacks
+---------------------
+
+In offline XML playbacks (``--ep``), the picks are provided to scanloc in an XML file.
+scanloc write the results in XML format to stdout which can be re-directed into XML files.
+
+.. note::
+
+   When picks are created in an offline playback use scanloc with default timing
+   based on pick time corresponding to ``--timing pickTime``!. Otherwise you may
+   use scanloc with the command-line option ``--timing creationTime``.
+
+- Play back picks stored in XML format to locate events and to determined
   the magnitude. Intermediate results are stored in XML files.
 
-  #. Events do not exist in the database, use `scdb`_ to populate database.
-     The messaging system is not running:
+  #. Events do not exist in the database, use `scdb`_ to populate the database
+     with events in :file:`events.xml`.
+     The messaging system is not running.
 
      .. code-block:: sh
 
@@ -829,26 +882,29 @@ Examples and playbacks
 
         scdb -i events.xml -d type://host/database
 
-  #. Events may exist in the database and shall be updated with new origins new
-     events based on new origins shall be added. Run the messaging system and all
+  #. New events not existing yet in the database shall be created, existing ones
+     shall be updated with new origins. Run the messaging system and all
      modules that shall process the new parameters of the origin, e.g. `scamp`_ ,
      `scmag`_ , `scevent`_. Use `scdispatch`_ to send the new objects to
-     the messaging system.
+     the messaging system. **Use scanloc with the appropriate timing.**
 
      .. code-block:: sh
 
+        # either
         scanloc --ep picks.xml -d type://host/database > origins.xml
+        # or
+        scanloc --ep picks.xml -d type://host/database --timing creationTime > origins.xml
 
-        seiscomp start spread scmaster scamp scmag scevent
+        seiscomp start scmaster scamp scmag scevent
         scdispatch -H host -O update -i origins.xml
 
      Instead of the origins, other parameters created by the
-     proceedures in (1.) may be distpatched.
+     procedures in (1.) may be dispatched, e.g. :file:`mags.xml`.
 
-- Playback of picks stored in XML format, without a database.
+- Play back picks stored in XML format, without a database.
 
-  #. Initial step: store the station inventory and the
-     configuration from a database once in a XML file.
+  #. Store the station inventory and the
+     binding configuration from a database in an XML file.
 
      .. code-block:: sh
 
@@ -857,7 +913,7 @@ Examples and playbacks
 
 
   #. Continue with the examples above replacing the database parameter
-     "-d type://host/database" with "--inventory-db inventory.xml --config-db config.xml".
+     ``-d type://host/database`` with ``--inventory-db inventory.xml --config-db config.xml``.
 
 
 References
@@ -867,6 +923,12 @@ scanloc has been demonstrated, promoted and discussed with scientists and the
 SeisComP community in scientific publications and at international
 science conferences, e.g.:
 
+#. A.F. Bell, P.C. La Femina, M. Ruiz, F. Amelung, M. Bagnardi, C. J. Bean, B.
+   Bernard, C. Ebinger, M. Gleeson, J. R. Grannell, S. Hernandez, M. Higgins, C.
+   Liorzou, P. Lundgren, N. J. Meier, M. Möllhoff, S.-J. Oliva, A. G. Ruiz and
+   M. J. Stock: Caldera resurgence during the 2018 eruption of Sierra Negra
+   volcano, Galápagos Islands, 2021, Nat. Commun., 12, 1397,
+   `doi: 10.1038/s41467-021-21596-4 <https://doi.org/10.1038/s41467-021-21596-4>`_.
 #. F. Grigoli, L. Scarabello, M. Boese, B. Weber, S. Wiemer, J. F. Clinton:
    Pick- and waveform-based techniques for real-time detection of induced seismicity,
    2018, Geophys. J. Int., 213:2, `doi: 0.1093/gji/ggy019 <https://doi.org/10.1093/gji/ggy019>`_.
@@ -1449,6 +1511,8 @@ Command-line
 
 .. program:: scanloc
 
+:program:`scanloc [options]`
+
 
 Generic
 -------
@@ -1477,15 +1541,49 @@ Database
 Input
 -----
 
-.. option:: --pickKeep arg
+.. option:: --pick-keep arg
 
    Overrides configuration parameter :confval:`pickKeep`.
 
-.. option:: --originKeep arg
+.. option:: --origin-keep arg
 
    Overrides configuration parameter :confval:`originKeep`.
 
-.. option:: --locator arg
+.. option:: --ep arg
+
+   Event parameters XML file for offline processing
+   of all contained origins and picks.
+
+.. option:: --timing arg
+
+   Offline processing timing reference: pickTime or
+   creationTime. scanloc uses creationTime in real\-time
+   processing.
+   
+   Default: pickTime
+
+
+Locator
+-------
+
+.. option:: --locator-type arg
 
    The locator type to use
+
+.. option:: --locator-profile arg
+
+   The locator profile to use
+
+.. option:: --locator-list arg
+
+   List all registered locator
+
+
+Output
+------
+
+.. option:: --final-only
+
+   Limit result set to final origins only. This option is available
+   for offline processing only.
 

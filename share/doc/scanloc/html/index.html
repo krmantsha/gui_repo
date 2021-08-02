@@ -23,7 +23,7 @@
         <div class="content">
            <img class="background" src="_static/icon.png"/>
            <span class="title">scanloc </span>
-           <span class="version">2021.159#9093bec46</span></h1>
+           <span class="version">2021.179#d1814c1ed</span></h1>
         </div>
       </div>
     </div>
@@ -725,51 +725,103 @@ resulting L2 trace.</span><a class="headerlink" href="#id13" title="Permalink to
 </pre></div>
 </div>
 </li>
-<li><p>Run <em>scanloc</em>  on the command line for playbacks and debugging output:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp <span class="nb">exec</span> scanloc --debug
+<li><p>Run <em>scanloc</em>  on the command line for pick playbacks or debugging output:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scanloc --debug
 </pre></div>
 </div>
 </li>
-<li><p>Read the phase picks from the database and store them in picks.xml for
-later playback:</p>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In playbacks of picks in XML files the performance of scanloc may differ
+from real-time operation based on messaging:</p>
+<ul>
+<li><p>In real-time operation, the picks are made e.g. by <strong class="program">scautopick</strong> at
+some time and considered by scanloc according to
+their creation times. Delayed picks may become irrelevant for the processing.
+Configure <a class="reference internal" href="#confval-buffer.pickKeep"><code class="xref std std-confval docutils literal notranslate"><span class="pre">buffer.pickKeep</span></code></a> and <a class="reference internal" href="#confval-buffer.originKeep"><code class="xref std std-confval docutils literal notranslate"><span class="pre">buffer.originKeep</span></code></a> accordingly.</p>
+<p>However, the <strong>creation times of picks may be obscured</strong> when created in a
+<strong class="program">scautopick</strong> playback and picks may have almost identical creation times
+independent of their pick times.</p>
+</li>
+<li><p><a class="reference internal" href="#sec-scanloc-message-playbacks"><span class="std std-ref">In message-based playbacks</span></a>, picks are
+provided to scanloc via the messaging system. When created in real time,
+the <strong>creation times</strong> of picks form a
+realistic time reference for scanloc and is therefore considered.</p></li>
+<li><p><a class="reference internal" href="#sec-scanloc-xml-playbacks"><span class="std std-ref">In offline XML playbacks</span></a> (<code class="docutils literal notranslate"><span class="pre">--ep</span></code>),
+scanloc considers picks by default according to their actual <strong>pick times</strong>.
+For picks created in an offline playback this is most reasonable as creation
+time is not a valid time reference anymore.
+<strong>However, referencing to pick time may result in a behavior which is
+different from real-time conditions.</strong></p>
+<p>Therefore, for mimicking real-time conditions in playbacks of picks obtained
+in real-time conditions consider the command-line option <code class="docutils literal notranslate"><span class="pre">--timing</span> <span class="pre">creationTime</span></code>.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="message-based-xml-playbacks">
+<span id="sec-scanloc-message-playbacks"></span><h3>Message-based XML playbacks<a class="headerlink" href="#message-based-xml-playbacks" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>Use phase picks obtained in real-time</p>
+<ol class="arabic">
+<li><p>read real-time picks from the database and store them in <code class="file docutils literal notranslate"><span class="pre">picks.xml</span></code> for later playback:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dump_picks -r -90,-180,90,180 -d type://host/database -t <span class="s2">&quot;2015-08-17 08:03:00.00~2015-08-17 08:04:00.00&quot;</span> -o picks.xml
 </pre></div>
 </div>
 </li>
-<li><p>Playback of picks stored in XML format at normal speed (with seiscomp
-messaging), start <em>scanloc</em> separately for debug messages on the command line:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp start spread scmaster scamp scmag scevent
+<li><p>play back picks stored in XML format at normal speed (with seiscomp
+messaging), start <em>scanloc</em> separately for debug messages on the command line
+<strong>considering default timing by creation time of the picks</strong>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp start scmaster scamp scmag scevent
 
-seiscomp <span class="nb">exec</span> scanloc --debug
+scanloc --debug
 playback_picks picks.xml --speed <span class="m">1</span>
 </pre></div>
 </div>
 </li>
-<li><p>Playback of picks with amplitudes originating from different
+</ol>
+</li>
+<li><p>Play back picks with amplitudes originating from different
 <a class="reference external" href="https://www.seiscomp3.org/wiki/recipes/multiple-pick-loc-pipeline">pipelines</a>
 at normal speed (with SeisComP messaging). Picks and amplitudes in XML format
 are sent to the separated message groups PICK, AMPLITUDE and L1PICK.
 scanloc and l1scanloc listen to picks from PICK and L1PICKS, respectively.
 <a class="reference external" href="https://docs.gempa.de/seiscomp/4/current/apps/scautoloc.html">scautoloc</a> <a class="footnote-reference brackets" href="#id29" id="id31">7</a> additionally needs the pick amplitudes from the subscribed amplitude groups.</p>
-<p>Create the pick XML files including the pick amplitudes as in your 2-pipeline system.
-Then start all required modules and invoke <em>playback_picks</em> with
-<em>–timing pickTime</em> for sending the picks and amplitudes created by different
-pickers at different times. The objects are send in the timely order of the pick or
-creation times. E.g.:</p>
+<ol class="arabic simple">
+<li><p>Create the pick XML files including the pick amplitudes in an offline playback
+by the modules as in your 2-pipeline system.</p></li>
+<li><p>Start all required modules including the scanloc instances</p></li>
+<li><p>Execute <em>playback_picks</em> with <code class="docutils literal notranslate"><span class="pre">--timing</span> <span class="pre">pickTime</span></code> for sending the picks and
+amplitudes created by different pickers at different times.</p></li>
+</ol>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scautopick --ep --playback -I file://your_file -d type://host/database &gt; picks.xml
 l1autopick --ep --playback -I file://your_file -d type://host/database &gt; l1picks.xml
 
-seiscomp start spread scmaster scamp scmag scevent scanloc l1scanloc scautoloc l1autoloc
+seiscomp start scmaster scamp scmag scevent scautoloc l1autoloc scanloc l1scanloc
 
 playback_picks picks.xml:PICK:AMPLITUDE l1picks.xml:L1PICK:AMPLITUDE --timing pickTime --speed <span class="m">1</span>
 </pre></div>
 </div>
 </li>
-<li><p>Playback of picks stored in XML format to locate events and to determined
+</ul>
+</div>
+<div class="section" id="offline-xml-playbacks">
+<span id="sec-scanloc-xml-playbacks"></span><h3>Offline XML playbacks<a class="headerlink" href="#offline-xml-playbacks" title="Permalink to this headline">¶</a></h3>
+<p>In offline XML playbacks (<code class="docutils literal notranslate"><span class="pre">--ep</span></code>), the picks are provided to scanloc in an XML file.
+scanloc write the results in XML format to stdout which can be re-directed into XML files.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When picks are created in an offline playback use scanloc with default timing
+based on pick time corresponding to <code class="docutils literal notranslate"><span class="pre">--timing</span> <span class="pre">pickTime</span></code>!. Otherwise you may
+use scanloc with the command-line option <code class="docutils literal notranslate"><span class="pre">--timing</span> <span class="pre">creationTime</span></code>.</p>
+</div>
+<ul>
+<li><p>Play back picks stored in XML format to locate events and to determined
 the magnitude. Intermediate results are stored in XML files.</p>
 <ol class="arabic">
-<li><p>Events do not exist in the database, use <a class="reference external" href="https://docs.gempa.de/seiscomp/4/current/apps/scdb.html">scdb</a> <a class="footnote-reference brackets" href="#id17" id="id18">2</a> to populate database.
-The messaging system is not running:</p>
+<li><p>Events do not exist in the database, use <a class="reference external" href="https://docs.gempa.de/seiscomp/4/current/apps/scdb.html">scdb</a> <a class="footnote-reference brackets" href="#id17" id="id18">2</a> to populate the database
+with events in <code class="file docutils literal notranslate"><span class="pre">events.xml</span></code>.
+The messaging system is not running.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scautopick --ep --playback -I file://your_file -d type://host/database &gt; picks.xml
 scanloc --ep picks.xml -d type://host/database &gt; origins.xml
 scamp --ep origins.xml -d type://host/database file://your_file &gt; amps.xml
@@ -780,36 +832,40 @@ scdb -i events.xml -d type://host/database
 </pre></div>
 </div>
 </li>
-<li><p>Events may exist in the database and shall be updated with new origins new
-events based on new origins shall be added. Run the messaging system and all
+<li><p>New events not existing yet in the database shall be created, existing ones
+shall be updated with new origins. Run the messaging system and all
 modules that shall process the new parameters of the origin, e.g. <a class="reference external" href="https://docs.gempa.de/seiscomp/4/current/apps/scamp.html">scamp</a> <a class="footnote-reference brackets" href="#id25" id="id26">5</a> ,
 <a class="reference external" href="https://docs.gempa.de/seiscomp/4/current/apps/scmag.html">scmag</a> <a class="footnote-reference brackets" href="#id27" id="id28">6</a> , <a class="reference external" href="https://docs.gempa.de/seiscomp/4/current/apps/scevent.html">scevent</a> <a class="footnote-reference brackets" href="#id21" id="id24">4</a>. Use <a class="reference external" href="https://docs.gempa.de/seiscomp/4/current/apps/scdispatch.html">scdispatch</a> <a class="footnote-reference brackets" href="#id19" id="id20">3</a> to send the new objects to
-the messaging system.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scanloc --ep picks.xml -d type://host/database &gt; origins.xml
+the messaging system. <strong>Use scanloc with the appropriate timing.</strong></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># either</span>
+scanloc --ep picks.xml -d type://host/database &gt; origins.xml
+<span class="c1"># or</span>
+scanloc --ep picks.xml -d type://host/database --timing creationTime &gt; origins.xml
 
-seiscomp start spread scmaster scamp scmag scevent
+seiscomp start scmaster scamp scmag scevent
 scdispatch -H host -O update -i origins.xml
 </pre></div>
 </div>
 <p>Instead of the origins, other parameters created by the
-proceedures in (1.) may be distpatched.</p>
+procedures in (1.) may be dispatched, e.g. <code class="file docutils literal notranslate"><span class="pre">mags.xml</span></code>.</p>
 </li>
 </ol>
 </li>
-<li><p>Playback of picks stored in XML format, without a database.</p>
+<li><p>Play back picks stored in XML format, without a database.</p>
 <ol class="arabic">
-<li><p>Initial step: store the station inventory and the
-configuration from a database once in a XML file.</p>
+<li><p>Store the station inventory and the
+binding configuration from a database in an XML file.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scxmldump -fI -o inventory.xml -d type://host/database
 scxmldump -fC -o config.xml -d type://host/database
 </pre></div>
 </div>
 </li>
 <li><p>Continue with the examples above replacing the database parameter
-“-d type://host/database” with “–inventory-db inventory.xml –config-db config.xml”.</p></li>
+<code class="docutils literal notranslate"><span class="pre">-d</span> <span class="pre">type://host/database</span></code> with <code class="docutils literal notranslate"><span class="pre">--inventory-db</span> <span class="pre">inventory.xml</span> <span class="pre">--config-db</span> <span class="pre">config.xml</span></code>.</p></li>
 </ol>
 </li>
 </ul>
+</div>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
@@ -817,6 +873,12 @@ scxmldump -fC -o config.xml -d type://host/database
 SeisComP community in scientific publications and at international
 science conferences, e.g.:</p>
 <ol class="arabic simple">
+<li><p>A.F. Bell, P.C. La Femina, M. Ruiz, F. Amelung, M. Bagnardi, C. J. Bean, B.
+Bernard, C. Ebinger, M. Gleeson, J. R. Grannell, S. Hernandez, M. Higgins, C.
+Liorzou, P. Lundgren, N. J. Meier, M. Möllhoff, S.-J. Oliva, A. G. Ruiz and
+M. J. Stock: Caldera resurgence during the 2018 eruption of Sierra Negra
+volcano, Galápagos Islands, 2021, Nat. Commun., 12, 1397,
+<a class="reference external" href="https://doi.org/10.1038/s41467-021-21596-4">doi: 10.1038/s41467-021-21596-4</a>.</p></li>
 <li><p>F. Grigoli, L. Scarabello, M. Boese, B. Weber, S. Wiemer, J. F. Clinton:
 Pick- and waveform-based techniques for real-time detection of induced seismicity,
 2018, Geophys. J. Int., 213:2, <a class="reference external" href="https://doi.org/10.1093/gji/ggy019">doi: 0.1093/gji/ggy019</a>.</p></li>
@@ -1418,6 +1480,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">5</span>
 </div>
 <div class="section" id="command-line">
 <h2>Command-line<a class="headerlink" href="#command-line" title="Permalink to this headline">¶</a></h2>
+<p><strong class="program">scanloc [options]</strong></p>
 <div class="section" id="generic">
 <h3>Generic<a class="headerlink" href="#generic" title="Permalink to this headline">¶</a></h3>
 </div>
@@ -1445,21 +1508,62 @@ Default is <code class="docutils literal notranslate"><span class="pre">5</span>
 <div class="section" id="input">
 <h3>Input<a class="headerlink" href="#input" title="Permalink to this headline">¶</a></h3>
 <dl class="option">
-<dt id="cmdoption-scanloc-pickkeep">
-<code class="sig-name descname">--pickKeep</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scanloc-pickkeep" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-scanloc-pick-keep">
+<code class="sig-name descname">--pick-keep</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scanloc-pick-keep" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <code class="xref std std-confval docutils literal notranslate"><span class="pre">pickKeep</span></code>.</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-scanloc-originkeep">
-<code class="sig-name descname">--originKeep</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scanloc-originkeep" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-scanloc-origin-keep">
+<code class="sig-name descname">--origin-keep</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scanloc-origin-keep" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <code class="xref std std-confval docutils literal notranslate"><span class="pre">originKeep</span></code>.</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-scanloc-locator">
-<code class="sig-name descname">--locator</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scanloc-locator" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-scanloc-ep">
+<code class="sig-name descname">--ep</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scanloc-ep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event parameters XML file for offline processing
+of all contained origins and picks.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scanloc-timing">
+<code class="sig-name descname">--timing</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scanloc-timing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Offline processing timing reference: pickTime or
+creationTime. scanloc uses creationTime in real-time
+processing.</p>
+<p>Default: pickTime</p>
+</dd></dl>
+
+</div>
+<div class="section" id="locator">
+<h3>Locator<a class="headerlink" href="#locator" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scanloc-locator-type">
+<code class="sig-name descname">--locator-type</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scanloc-locator-type" title="Permalink to this definition">¶</a></dt>
 <dd><p>The locator type to use</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scanloc-locator-profile">
+<code class="sig-name descname">--locator-profile</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scanloc-locator-profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>The locator profile to use</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scanloc-locator-list">
+<code class="sig-name descname">--locator-list</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scanloc-locator-list" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all registered locator</p>
+</dd></dl>
+
+</div>
+<div class="section" id="output">
+<h3>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scanloc-final-only">
+<code class="sig-name descname">--final-only</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scanloc-final-only" title="Permalink to this definition">¶</a></dt>
+<dd><p>Limit result set to final origins only. This option is available
+for offline processing only.</p>
 </dd></dl>
 
 </div>
@@ -1522,7 +1626,11 @@ Default is <code class="docutils literal notranslate"><span class="pre">5</span>
 <li><a class="reference internal" href="#s-picker-debugger">S-Picker Debugger</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#examples-and-playbacks">Examples and playbacks</a></li>
+<li><a class="reference internal" href="#examples-and-playbacks">Examples and playbacks</a><ul>
+<li><a class="reference internal" href="#message-based-xml-playbacks">Message-based XML playbacks</a></li>
+<li><a class="reference internal" href="#offline-xml-playbacks">Offline XML playbacks</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#references">References</a></li>
 <li><a class="reference internal" href="#id4">Configuration</a></li>
 <li><a class="reference internal" href="#command-line">Command-line</a><ul>
@@ -1531,6 +1639,8 @@ Default is <code class="docutils literal notranslate"><span class="pre">5</span>
 <li><a class="reference internal" href="#id5">Messaging</a></li>
 <li><a class="reference internal" href="#database">Database</a></li>
 <li><a class="reference internal" href="#input">Input</a></li>
+<li><a class="reference internal" href="#locator">Locator</a></li>
+<li><a class="reference internal" href="#output">Output</a></li>
 </ul>
 </li>
 </ul>
@@ -1551,7 +1661,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">5</span>
     <div class="footer">
       <div class="container">
         <div class="content">
-        Release <b></b> version <b>2021.159#9093bec46</b>
+        Release <b></b> version <b>2021.179#d1814c1ed</b>
           <div class="copyright">
             &copy; Copyright  <a href="https://www.gempa.de">2015, gempa GmbH.</a>
           </div>

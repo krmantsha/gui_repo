@@ -2,6 +2,26 @@
 
 All notable changes to scanloc will be documented in this file.
 
+## 2021-06-28
+### Changed
+- Add compatibility of script `playback_picks` for Python3
+- Adjust debug output of origin residual check
+
+## 2021-06-23
+### Added
+- New commandline option `--timing`. The option sets the timing
+  reference in offline processing mode. Available options are:
+  pickTime or creationTime. Default is pickTime. The following example
+  sets the reference time to creationTime.
+  ```
+  --timing creationTime
+  ```
+
+## 2021-06-16
+### Added
+- New commandline option `--final-only` which can be used in offline
+  processing mode to limit the result set to final origins only.
+
 ## 2021-04-22
 ### Fixed
 - Ignore picks without phase hint, do not crash.
