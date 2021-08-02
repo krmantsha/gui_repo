@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCANLOC" "1" "Jun 14, 2021" "2021.159#9093bec46" "scanloc"
+.TH "SCANLOC" "1" "Jul 30, 2021" "2021.179#d1814c1ed" "scanloc"
 .SH NAME
 scanloc \- scanloc Documentation
 .
@@ -905,20 +905,59 @@ seiscomp start scanloc
 .UNINDENT
 .UNINDENT
 .IP \(bu 2
-Run \fIscanloc\fP  on the command line for playbacks and debugging output:
+Run \fIscanloc\fP  on the command line for pick playbacks or debugging output:
 .INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
 .ft C
-seiscomp exec scanloc \-\-debug
+scanloc \-\-debug
 .ft P
 .fi
 .UNINDENT
 .UNINDENT
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+In playbacks of picks in XML files the performance of scanloc may differ
+from real\-time operation based on messaging:
+.INDENT 0.0
 .IP \(bu 2
-Read the phase picks from the database and store them in picks.xml for
-later playback:
+In real\-time operation, the picks are made e.g. by \fBscautopick\fP at
+some time and considered by scanloc according to
+their creation times. Delayed picks may become irrelevant for the processing.
+Configure \fI\%buffer.pickKeep\fP and \fI\%buffer.originKeep\fP accordingly.
+.sp
+However, the \fBcreation times of picks may be obscured\fP when created in a
+\fBscautopick\fP playback and picks may have almost identical creation times
+independent of their pick times.
+.IP \(bu 2
+\fI\%In message\-based playbacks\fP, picks are
+provided to scanloc via the messaging system. When created in real time,
+the \fBcreation times\fP of picks form a
+realistic time reference for scanloc and is therefore considered.
+.IP \(bu 2
+\fI\%In offline XML playbacks\fP (\fB\-\-ep\fP),
+scanloc considers picks by default according to their actual \fBpick times\fP\&.
+For picks created in an offline playback this is most reasonable as creation
+time is not a valid time reference anymore.
+\fBHowever, referencing to pick time may result in a behavior which is
+different from real\-time conditions.\fP
+.sp
+Therefore, for mimicking real\-time conditions in playbacks of picks obtained
+in real\-time conditions consider the command\-line option \fB\-\-timing creationTime\fP\&.
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.SS Message\-based XML playbacks
+.INDENT 0.0
+.IP \(bu 2
+Use phase picks obtained in real\-time
+.INDENT 2.0
+.IP 1. 3
+read real\-time picks from the database and store them in \fBpicks.xml\fP for later playback:
 .INDENT 2.0
 .INDENT 3.5
 .sp
@@ -929,35 +968,41 @@ dump_picks \-r \-90,\-180,90,180 \-d type://host/database \-t "2015\-08\-17 08:0
 .fi
 .UNINDENT
 .UNINDENT
-.IP \(bu 2
-Playback of picks stored in XML format at normal speed (with seiscomp
-messaging), start \fIscanloc\fP separately for debug messages on the command line:
+.IP 2. 3
+play back picks stored in XML format at normal speed (with seiscomp
+messaging), start \fIscanloc\fP separately for debug messages on the command line
+\fBconsidering default timing by creation time of the picks\fP:
 .INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
 .ft C
-seiscomp start spread scmaster scamp scmag scevent
+seiscomp start scmaster scamp scmag scevent
 
-seiscomp exec scanloc \-\-debug
+scanloc \-\-debug
 playback_picks picks.xml \-\-speed 1
 .ft P
 .fi
 .UNINDENT
 .UNINDENT
+.UNINDENT
 .IP \(bu 2
-Playback of picks with amplitudes originating from different
+Play back picks with amplitudes originating from different
 \fI\%pipelines\fP
 at normal speed (with SeisComP messaging). Picks and amplitudes in XML format
 are sent to the separated message groups PICK, AMPLITUDE and L1PICK.
 scanloc and l1scanloc listen to picks from PICK and L1PICKS, respectively.
 \fI\%scautoloc\fP [7] additionally needs the pick amplitudes from the subscribed amplitude groups.
-.sp
-Create the pick XML files including the pick amplitudes as in your 2\-pipeline system.
-Then start all required modules and invoke \fIplayback_picks\fP with
-\fI\-\-timing pickTime\fP for sending the picks and amplitudes created by different
-pickers at different times. The objects are send in the timely order of the pick or
-creation times. E.g.:
+.INDENT 2.0
+.IP 1. 3
+Create the pick XML files including the pick amplitudes in an offline playback
+by the modules as in your 2\-pipeline system.
+.IP 2. 3
+Start all required modules including the scanloc instances
+.IP 3. 3
+Execute \fIplayback_picks\fP with \fB\-\-timing pickTime\fP for sending the picks and
+amplitudes created by different pickers at different times.
+.UNINDENT
 .INDENT 2.0
 .INDENT 3.5
 .sp
@@ -966,20 +1011,36 @@ creation times. E.g.:
 scautopick \-\-ep \-\-playback \-I file://your_file \-d type://host/database > picks.xml
 l1autopick \-\-ep \-\-playback \-I file://your_file \-d type://host/database > l1picks.xml
 
-seiscomp start spread scmaster scamp scmag scevent scanloc l1scanloc scautoloc l1autoloc
+seiscomp start scmaster scamp scmag scevent scautoloc l1autoloc scanloc l1scanloc
 
 playback_picks picks.xml:PICK:AMPLITUDE l1picks.xml:L1PICK:AMPLITUDE \-\-timing pickTime \-\-speed 1
 .ft P
 .fi
 .UNINDENT
 .UNINDENT
+.UNINDENT
+.SS Offline XML playbacks
+.sp
+In offline XML playbacks (\fB\-\-ep\fP), the picks are provided to scanloc in an XML file.
+scanloc write the results in XML format to stdout which can be re\-directed into XML files.
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+When picks are created in an offline playback use scanloc with default timing
+based on pick time corresponding to \fB\-\-timing pickTime\fP!. Otherwise you may
+use scanloc with the command\-line option \fB\-\-timing creationTime\fP\&.
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
 .IP \(bu 2
-Playback of picks stored in XML format to locate events and to determined
+Play back picks stored in XML format to locate events and to determined
 the magnitude. Intermediate results are stored in XML files.
 .INDENT 2.0
 .IP 1. 3
-Events do not exist in the database, use \fI\%scdb\fP [2] to populate database.
-The messaging system is not running:
+Events do not exist in the database, use \fI\%scdb\fP [2] to populate the database
+with events in \fBevents.xml\fP\&.
+The messaging system is not running.
 .INDENT 2.0
 .INDENT 3.5
 .sp
@@ -997,19 +1058,22 @@ scdb \-i events.xml \-d type://host/database
 .UNINDENT
 .UNINDENT
 .IP 2. 3
-Events may exist in the database and shall be updated with new origins new
-events based on new origins shall be added. Run the messaging system and all
+New events not existing yet in the database shall be created, existing ones
+shall be updated with new origins. Run the messaging system and all
 modules that shall process the new parameters of the origin, e.g. \fI\%scamp\fP [5] ,
 \fI\%scmag\fP [6] , \fI\%scevent\fP [4]\&. Use \fI\%scdispatch\fP [3] to send the new objects to
-the messaging system.
+the messaging system. \fBUse scanloc with the appropriate timing.\fP
 .INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
 .ft C
+# either
 scanloc \-\-ep picks.xml \-d type://host/database > origins.xml
+# or
+scanloc \-\-ep picks.xml \-d type://host/database \-\-timing creationTime > origins.xml
 
-seiscomp start spread scmaster scamp scmag scevent
+seiscomp start scmaster scamp scmag scevent
 scdispatch \-H host \-O update \-i origins.xml
 .ft P
 .fi
@@ -1017,14 +1081,14 @@ scdispatch \-H host \-O update \-i origins.xml
 .UNINDENT
 .sp
 Instead of the origins, other parameters created by the
-proceedures in (1.) may be distpatched.
+procedures in (1.) may be dispatched, e.g. \fBmags.xml\fP\&.
 .UNINDENT
 .IP \(bu 2
-Playback of picks stored in XML format, without a database.
+Play back picks stored in XML format, without a database.
 .INDENT 2.0
 .IP 1. 3
-Initial step: store the station inventory and the
-configuration from a database once in a XML file.
+Store the station inventory and the
+binding configuration from a database in an XML file.
 .INDENT 2.0
 .INDENT 3.5
 .sp
@@ -1038,7 +1102,7 @@ scxmldump \-fC \-o config.xml \-d type://host/database
 .UNINDENT
 .IP 2. 3
 Continue with the examples above replacing the database parameter
-"\-d type://host/database" with "\-\-inventory\-db inventory.xml \-\-config\-db config.xml".
+\fB\-d type://host/database\fP with \fB\-\-inventory\-db inventory.xml \-\-config\-db config.xml\fP\&.
 .UNINDENT
 .UNINDENT
 .SH REFERENCES
@@ -1048,30 +1112,37 @@ SeisComP community in scientific publications and at international
 science conferences, e.g.:
 .INDENT 0.0
 .IP 1. 3
+A.F. Bell, P.C. La Femina, M. Ruiz, F. Amelung, M. Bagnardi, C. J. Bean, B.
+Bernard, C. Ebinger, M. Gleeson, J. R. Grannell, S. Hernandez, M. Higgins, C.
+Liorzou, P. Lundgren, N. J. Meier, M. Möllhoff, S.\-J. Oliva, A. G. Ruiz and
+M. J. Stock: Caldera resurgence during the 2018 eruption of Sierra Negra
+volcano, Galápagos Islands, 2021, Nat. Commun., 12, 1397,
+\fI\%doi: 10.1038/s41467\-021\-21596\-4\fP\&.
+.IP 2. 3
 F. Grigoli, L. Scarabello, M. Boese, B. Weber, S. Wiemer, J. F. Clinton:
 Pick\- and waveform\-based techniques for real\-time detection of induced seismicity,
 2018, Geophys. J. Int., 213:2, \fI\%doi: 0.1093/gji/ggy019\fP\&.
-.IP 2. 3
+.IP 3. 3
 J. Clinton, F. Grigoli, T. Diehl, T. Kraft, L. Scarabello, M. Hermann, P. Kaestli,
 M. Boese, S. Wiemer: Advanced  Real\-time Monitoring for Natural and Induced
 seismic sequences, 2018, Geophyscial Research Abracts, EGU General Assembly,
 Vol. 20,
 \fI\%abstract: EGU2018\-9480\-2\fP\&.
-.IP 3. 3
+.IP 4. 3
 F. Grigoli, M. Boese, L. Scarabello, T. Diehl, B. Weber, S. Wiemer, J. F. Clinton:
 Picking vs Waveform based detection and location methods for induced seismicity
 monitoring, 2018, JpGU2018, Japan,
 \fI\%abstract: SSS03\-05\fP\&.
-.IP 4. 3
+.IP 5. 3
 F. Grigoli, M. Boese, L. Scarabello, T. Diehl, B. Weber, S. Wiemer, J. F. Clinton:
 Picking vs Waveform based detection and location methods for induced seismicity
 monitoring, 2017, Geophyscial Research Abracts, EGU General Assembly, Vol. 19,
 \fI\%abstract: EGU2017\-10562\fP\&.
-.IP 5. 3
+.IP 6. 3
 D. Roessler, J. Becker, E. Ellguth, R. Henneberger, S. Herrnkind, B. Weber:
 Cluster\-search based monitoring of local earthquakes in SeisComP3, 2016,
 AG Seismology \- 42. meeting, Bad Salzschlirf, Germany
-.IP 6. 3
+.IP 7. 3
 D. Roessler, E. Ellguth, S. Herrnkind, B. Weber, R. Henneberger, H. Blanck:
 Cluster\-search based monitoring of local earthquakes in SeisComP3, 2016,
 AGU Fall Meeting, San Francisco, USA,
@@ -1699,6 +1770,8 @@ load on scanloc but allows to send origins more rapidly.
 Default is \fB5\fP\&.
 .UNINDENT
 .SH COMMAND-LINE
+.sp
+\fBscanloc [options]\fP
 .SS Generic
 .SS Verbosity
 .INDENT 0.0
@@ -1716,18 +1789,51 @@ Do not use the database at all
 .SS Input
 .INDENT 0.0
 .TP
-.B \-\-pickKeep arg
+.B \-\-pick\-keep arg
 Overrides configuration parameter \fBpickKeep\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-originKeep arg
+.B \-\-origin\-keep arg
 Overrides configuration parameter \fBoriginKeep\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-locator arg
+.B \-\-ep arg
+Event parameters XML file for offline processing
+of all contained origins and picks.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-timing arg
+Offline processing timing reference: pickTime or
+creationTime. scanloc uses creationTime in real\-time
+processing.
+.sp
+Default: pickTime
+.UNINDENT
+.SS Locator
+.INDENT 0.0
+.TP
+.B \-\-locator\-type arg
 The locator type to use
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-locator\-profile arg
+The locator profile to use
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-locator\-list arg
+List all registered locator
+.UNINDENT
+.SS Output
+.INDENT 0.0
+.TP
+.B \-\-final\-only
+Limit result set to final origins only. This option is available
+for offline processing only.
 .UNINDENT
 .SH AUTHOR
 gempa GmbH
