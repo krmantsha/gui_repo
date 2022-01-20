@@ -1,0 +1,15 @@
+# Activated plugins for category sources
+sources = bsp:q330
+
+# Hostname or IP.
+sources.bsp.address = BSP
+
+# Source port to receive data packets.
+sources.bsp.port = 6330
+
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.bsp.proc = q330_sm
+
+# Q330 serial number (with 0x prefix).
+sources.bsp.serial = 0x03350059A1947884

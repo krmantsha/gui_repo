@@ -1,0 +1,15 @@
+# Activated plugins for category sources
+sources = drf5:q330
+
+# Hostname or IP.
+sources.drf5.address = DRF5
+
+# Source port to receive data packets.
+sources.drf5.port = 6330
+
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.drf5.proc = q330_sm
+
+# Q330 serial number (with 0x prefix).
+sources.drf5.serial = 0x03350077AC18F0D8

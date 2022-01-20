@@ -1,0 +1,15 @@
+# Activated plugins for category sources
+sources = cnvl:q330
+
+# Hostname or IP.
+sources.cnvl.address = CNVL
+
+# Source port to receive data packets.
+sources.cnvl.port = 5330
+
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.cnvl.proc = q330_sm
+
+# Q330 serial number (with 0x prefix).
+sources.cnvl.serial = 0x010000044C4FCA87

@@ -1,0 +1,15 @@
+# Activated plugins for category sources
+sources = vrcp:q330
+
+# Hostname or IP.
+sources.vrcp.address = VRCP
+
+# Source port to receive data packets.
+sources.vrcp.port = 6330
+
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.vrcp.proc = q330_sm
+
+# Q330 serial number (with 0x prefix).
+sources.vrcp.serial = 0x033500A3B971309B

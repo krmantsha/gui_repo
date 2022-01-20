@@ -1,0 +1,15 @@
+# Activated plugins for category sources
+sources = mwc:q330
+
+# Hostname or IP.
+sources.mwc.address = MWC
+
+# Source port to receive data packets.
+sources.mwc.port = 6330
+
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.mwc.proc = q330_sm
+
+# Q330 serial number (with 0x prefix).
+sources.mwc.serial = 0x033500FA8A54D80C

@@ -1,0 +1,15 @@
+# Activated plugins for category sources
+sources = rnch:q330
+
+# Hostname or IP.
+sources.rnch.address = RNCH
+
+# Source port to receive data packets.
+sources.rnch.port = 6330
+
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.rnch.proc = q330_sm
+
+# Q330 serial number (with 0x prefix).
+sources.rnch.serial = 0x0335007560008066

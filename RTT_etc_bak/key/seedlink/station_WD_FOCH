@@ -1,0 +1,15 @@
+# Activated plugins for category sources
+sources = foch:q330
+
+# Hostname or IP.
+sources.foch.address = FOCH
+
+# Source port to receive data packets.
+sources.foch.port = 5330
+
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.foch.proc = q330_sm
+
+# Q330 serial number (with 0x prefix).
+sources.foch.serial = 0x0100000EBDC8AE96

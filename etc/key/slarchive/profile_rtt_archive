@@ -1,0 +1,7 @@
+# List of stream selectors. If left empty all available streams will be
+# requested. See slarchive manpage for more information.
+selectors = HN?.D,HH?.D,BH?.D,BN?.D
+
+# Number of days the data is kept in the archive. This requires purge_datafile
+# to be run as cronjob.
+keep = 300000

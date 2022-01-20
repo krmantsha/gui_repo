@@ -1,0 +1,8 @@
+# Activated plugins for category sources
+sources = antelope
+
+# Hostname or IP of the Antelope ORB.
+sources.antelope.address = 172.16.16.52
+
+# Port of the Antelope ORB.
+sources.antelope.port = 26000

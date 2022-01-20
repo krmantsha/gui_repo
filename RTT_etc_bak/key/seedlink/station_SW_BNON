@@ -1,0 +1,15 @@
+# Activated plugins for category sources
+sources = bnon:q330
+
+# Hostname or IP.
+sources.bnon.address = BNON
+
+# Source port to receive data packets.
+sources.bnon.port = 5330
+
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.bnon.proc = q330_sm
+
+# Q330 serial number (with 0x prefix).
+sources.bnon.serial = 0x010000044C8D8A53
