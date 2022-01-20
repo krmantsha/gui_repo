@@ -5,9 +5,11 @@ sources = rdwr:q330
 sources.rdwr.address = RDWR
 
 # Source port to receive data packets.
-sources.rdwr.port = 6330
+sources.rdwr.port = 5330
+
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.rdwr.proc = q330_sm
 
 # Q330 serial number (with 0x prefix).
 sources.rdwr.serial = 0x010000044C1AAFE8
-
-sources.rdwr.proc = q330

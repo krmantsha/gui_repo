@@ -2,12 +2,14 @@
 sources = wdf:q330
 
 # Hostname or IP.
-sources.wdf.address = 172.16.16.52
+sources.wdf.address = wdf
 
 # Source port to receive data packets.
 sources.wdf.port = 6330
 
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.wdf.proc = q330
+
 # Q330 serial number (with 0x prefix).
 sources.wdf.serial = 0x033500FBD91AB0DE
-
-sources.wdf.proc = q330

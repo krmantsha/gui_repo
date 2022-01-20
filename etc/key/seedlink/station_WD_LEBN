@@ -7,7 +7,9 @@ sources.lebn.address = LEBN
 # Source port to receive data packets.
 sources.lebn.port = 6330
 
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.lebn.proc = q330_sm
+
 # Q330 serial number (with 0x prefix).
 sources.lebn.serial = 0x0335004F8448F0DA
-
-sources.lebn.proc = q330

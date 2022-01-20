@@ -7,7 +7,9 @@ sources.unjo.address = UNJO
 # Source port to receive data packets.
 sources.unjo.port = 5330
 
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.unjo.proc = q330_sm
+
 # Q330 serial number (with 0x prefix).
 sources.unjo.serial = 0x0100000EBD6947D7
-
-sources.unjo.proc = q330

@@ -7,7 +7,9 @@ sources.kevo.address = KEVO
 # Source port to receive data packets.
 sources.kevo.port = 6330
 
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.kevo.proc = q330_sm
+
 # Q330 serial number (with 0x prefix).
 sources.kevo.serial = 0x03350088EE37F07A
-
-sources.kevo.proc = q330

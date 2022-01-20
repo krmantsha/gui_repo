@@ -7,7 +7,9 @@ sources.vmbd.address = VMBD
 # Source port to receive data packets.
 sources.vmbd.port = 6330
 
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.vmbd.proc = q330_sm
+
 # Q330 serial number (with 0x prefix).
 sources.vmbd.serial = 0x03350061A3211087
-
-sources.vmbd.proc = q330

@@ -2,12 +2,14 @@
 sources = kmdr:q330
 
 # Hostname or IP.
-sources.kmdr.address = 172.16.16.52
+sources.kmdr.address = KMDR
 
 # Source port to receive data packets.
 sources.kmdr.port = 6330
 
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.kmdr.proc = q330
+
 # Q330 serial number (with 0x prefix).
 sources.kmdr.serial = 0x033500A76BEF38B7
-
-sources.kmdr.proc = q330

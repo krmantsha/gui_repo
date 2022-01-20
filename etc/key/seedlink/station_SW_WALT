@@ -5,9 +5,11 @@ sources = walt:q330
 sources.walt.address = WALT
 
 # Source port to receive data packets.
-sources.walt.port = 6330
+sources.walt.port = 5330
+
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.walt.proc = q330_sm
 
 # Q330 serial number (with 0x prefix).
 sources.walt.serial = 0x0100000EBDC35635
-
-sources.walt.proc = q330

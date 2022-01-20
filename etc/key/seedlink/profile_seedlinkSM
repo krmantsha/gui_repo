@@ -2,14 +2,4 @@
 sources = aspen-proc:chain
 
 # Hostname or IP of the Seedlink server.
-sources.aspen-proc.address = 172.16.16.3
-
-# Allows to unpack channels instead of sending them as miniseed to Seedlink.
-# Unpacked streams can be downsampled by Seedlink. This is a list of strings
-# where each item defines one unpack mapping in the format
-# "SRC_LOCCHA:DST_ID:1" where DST_ID can be an arbitrary channel id which must
-# match the definition of a stream in streams.xml. The last ":1" is optional
-# and defines if the unpacked data should be doubled (duplicate each sample).
-# In case rename mappings are active, SRC_LOCCHA referes to the final channel
-# name after renaming.
-sources.aspen-proc.channels.unpack = HNZ:Z,HNN:N,HNE:E
+sources.aspen-proc.address = 172.16.16.46

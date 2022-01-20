@@ -5,9 +5,11 @@ sources = cnvl:q330
 sources.cnvl.address = CNVL
 
 # Source port to receive data packets.
-sources.cnvl.port = 6330
+sources.cnvl.port = 5330
+
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.cnvl.proc = q330_sm
 
 # Q330 serial number (with 0x prefix).
 sources.cnvl.serial = 0x010000044C4FCA87
-
-sources.cnvl.proc = q330

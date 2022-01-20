@@ -7,7 +7,9 @@ sources.kpng.address = KPNG
 # Source port to receive data packets.
 sources.kpng.port = 6330
 
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.kpng.proc = q330_sm
+
 # Q330 serial number (with 0x prefix).
 sources.kpng.serial = 0x03350036FA172038
-
-sources.kpng.proc = q330

@@ -7,7 +7,9 @@ sources.tlek.address = TLEK
 # Source port to receive data packets.
 sources.tlek.port = 6330
 
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.tlek.proc = q330_sm
+
 # Q330 serial number (with 0x prefix).
 sources.tlek.serial = 0x033500FE895A906C
-
-sources.tlek.proc = q330

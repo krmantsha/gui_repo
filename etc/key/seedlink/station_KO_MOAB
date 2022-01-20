@@ -7,7 +7,9 @@ sources.moab.address = MOAB
 # Source port to receive data packets.
 sources.moab.port = 6330
 
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.moab.proc = q330_sm
+
 # Q330 serial number (with 0x prefix).
 sources.moab.serial = 0x03350020EDF1602E
-
-sources.moab.proc = q330

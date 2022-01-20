@@ -5,9 +5,11 @@ sources = elnd:q330
 sources.elnd.address = ELND
 
 # Source port to receive data packets.
-sources.elnd.port = 6330
+sources.elnd.port = 5330
+
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.elnd.proc = q330_sm
 
 # Q330 serial number (with 0x prefix).
 sources.elnd.serial = 0x010000044C8EBAF0
-
-sources.elnd.proc = q330

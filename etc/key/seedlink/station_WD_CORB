@@ -7,7 +7,9 @@ sources.corb.address = CORB
 # Source port to receive data packets.
 sources.corb.port = 6330
 
+# Name of the proc object (defined in streams.xml); used for processing raw
+# streams (streams submitted by a plugin as raw samples).
+sources.corb.proc = q330_sm
+
 # Q330 serial number (with 0x prefix).
 sources.corb.serial = 0x0335007A3539204B
-
-sources.corb.proc = q330
