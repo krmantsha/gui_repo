@@ -1,8 +1,0 @@
-# Defines the filter to be used for picking.
-detecFilter = "RMHP(10)>>ITAPER(30)>>BW(4,3,15)>>STALTA(0.5,10)"
-
-# The value the filtered waveform must reach to enable a detection again.
-trigOff = 2
-
-# The time correction applied to a detected pick.
-timeCorr = 0

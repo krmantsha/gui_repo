@@ -1,8 +1,0 @@
-# Activated plugins for category sources
-sources = DKOP_SW:q330
-
-# Hostname or IP.
-sources.DKOP_SW.address = DKOP
-
-# Q330 serial number (with 0x prefix).
-sources.DKOP_SW.serial = 0x033500B98F78A819

@@ -3,6 +3,7 @@
 # from inventory. For that the channel orientation (azimuth, dip) will be used.
 # If that approach fails, 'Z' will be appended and used as fallback.
 detecStream = HHZ
+
 # The filter applied to raw records before applying Wood-Anderson simulation.
 # Default: no pre-filtering.
 amplitudes.MLv.preFilter = "RMHP(3)>>ITAPER(5)>>BW(3,1.25,50)"
