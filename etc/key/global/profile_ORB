@@ -3,3 +3,24 @@
 # from inventory. For that the channel orientation (azimuth, dip) will be used.
 # If that approach fails, 'Z' will be appended and used as fallback.
 detecStream = HHZ
+# The filter applied to raw records before applying Wood-Anderson simulation.
+# Default: no pre-filtering.
+amplitudes.MLv.preFilter = "RMHP(3)>>ITAPER(5)>>BW(3,1.25,50)"
+
+# This parameter allows to set how the amplitude is measured. Either by finding
+# the absolute maximum of the demeaned trace (AbsMax), the difference of
+# maximum and minimum of the signal window (MinMax) or the maximum peak-trough
+# of one cycle (PeakTrough).
+# Note that if absMax is already explicitly configured, this parameter has no
+# effect.
+amplitudes.MLv.measureType = AbsMax
+
+# Defines the calibration function log10(A0) for computing MLv. Format: any
+# number of distance-value pairs separated by semicolons Example: "0 -1.3;60
+# -2.8;100 -3.0;400 -4.5;1000 -5.85" specifies 4 distance intervals from
+# 0...60, 60...100, 100...400 and 400...1000 km distance. Within these
+# intervals log10(A0) is interpolated linearly between -1.3...-2.8,
+# -2.8...-3.0, -3.0...-4.5 and -4.5...-5.8, respectively
+# Note: The distances of the first and last sample specify the distance range
+# within which MLv shall be computed.
+magnitudes.MLv.logA0 = 0-0.85;5-1.46;10-1.75;15-1.94;20-2.08;25-2.20;30-2.30;35-2.39;40-2.48;45-2.56;50-2.63;55-2.71;60-2.78;100-3.0;400-4.5;1000-5.85
