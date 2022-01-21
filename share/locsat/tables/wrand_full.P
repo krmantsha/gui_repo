@@ -3,7 +3,7 @@ n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP
    0.00   1.00   2.00   3.00   4.00   5.00   6.00   7.00   8.00   9.00
   10.00  15.00  20.00  25.00  30.00  35.00  40.00  50.00  60.00  70.00
 30     # number of distances
-   0.00   0.01   0.02   0.03   0.04   0.05   0.06   0.07   0.08   0.90
+   0.00   0.01   0.02   0.03   0.04   0.05   0.06   0.07   0.08   0.09
    0.10   0.11   0.12   0.13   0.14   0.15   0.16   0.17   0.18   0.19
    0.20   0.21   0.22   0.23   0.24   0.25   0.26   0.27   0.28   0.29
 #  Travel time for z =    0.0
@@ -16,7 +16,7 @@ n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP
          1.2243    P
          1.4111    P
          1.5914    P
-        14.8855    P
+         1.7650    P
          1.9320    P
          2.0953    P
          2.2586    P
@@ -47,7 +47,7 @@ n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP
          1.1599    P
          1.3348    P
          1.5046    P
-        14.7799    P
+         1.6693    P
          1.8326    P
          1.9959    P
          2.1592    P
@@ -78,7 +78,7 @@ n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP
          1.1293    P
          1.2926    P
          1.4559    P
-        14.7171    P
+         1.6192    P
          1.7825    P
          1.9459    P
          2.1092    P
@@ -109,7 +109,7 @@ n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP
          1.1548    p
          1.3119    p
          1.4713    p
-        14.6820    P
+         1.6312    p
          1.7931    p
          1.9551    p
          2.1171    p
@@ -140,7 +140,7 @@ n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP
          1.2083    p
          1.3564    p
          1.5083    p
-        14.6501    P
+         1.6628    p
          1.8191    p
          1.9770    p
          2.1358    p
@@ -171,7 +171,7 @@ n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP
          1.2802    p
          1.4184    p
          1.5622    p
-        14.6184    P
+         1.7100    p
          1.8606    p
          2.0136    p
          2.1681    p
@@ -202,7 +202,7 @@ n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP
          1.3653    p
          1.4939    p
          1.6293    p
-        14.5885    P
+         1.7698    p
          1.9143    p
          2.0617    p
          2.2115    p
@@ -233,7 +233,7 @@ n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP
          1.4606    p
          1.5800    p
          1.7071    p
-        14.5600    P
+         1.8402    p
          1.9782    p
          2.1198    p
          2.2646    p
@@ -264,7 +264,7 @@ n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP
          1.5635    p
          1.6743    p
          1.7935    p
-        14.5336    P
+         1.9195    p
          2.0508    p
          2.1866    p
          2.3260    p
@@ -295,7 +295,7 @@ n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP
          1.6723    p
          1.7753    p
          1.8871    p
-        14.5087    P
+         2.0060    p
          2.1310    p
          2.2609    p
          2.3948    p
@@ -326,7 +326,7 @@ n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP
          1.7855    p
          1.8815    p
          1.9864    p
-        14.4851    P
+         2.0988    p
          2.2175    p
          2.3416    p
          2.4702    p
@@ -357,7 +357,7 @@ n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP
          2.3903    p
          2.4601    p
          2.5382    p
-        14.3904    P
+         2.6239    p
          2.7164    p
          2.8151    p
          2.9192    p
@@ -388,7 +388,7 @@ n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP
          3.0213    p
          3.0751    p
          3.1359    p
-        14.3351    P
+         3.2035    p
          3.2774    p
          3.3571    p
          3.4422    p
@@ -419,7 +419,7 @@ n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP
          3.6559    p
          3.6992    p
          3.7485    p
-        14.3169    P
+         3.8036    p
          3.8643    p
          3.9302    p
          4.0011    p
@@ -450,7 +450,7 @@ n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP
          4.2858    p
          4.3218    p
          4.3629    p
-        14.3317    p
+         4.4091    p
          4.4601    p
          4.5158    p
          4.5761    p
@@ -481,7 +481,7 @@ n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP
          4.9073    p
          4.9380    p
          4.9731    p
-        14.3783    p
+         5.0126    p
          5.0564    p
          5.1044    p
          5.1564    p
@@ -512,7 +512,7 @@ n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP
          5.5200    p
          5.5467    p
          5.5772    p
-        14.4565    p
+         5.6116    p
          5.6498    p
          5.6917    p
          5.7373    p
@@ -543,7 +543,7 @@ n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP
          6.7474    p
          6.7685    p
          6.7926    p
-        14.7921    p
+         6.8199    p
          6.8502    p
          6.8836    p
          6.9199    p
@@ -574,7 +574,7 @@ n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP
          7.9797    p
          7.9970    p
          8.0170    p
-        15.2793    p
+         8.0395    p
          8.0646    p
          8.0923    p
          8.1225    p
@@ -605,7 +605,7 @@ n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP
          9.2147    p
          9.2294    p
          9.2464    p
-        15.8775    p
+         9.2656    p
          9.2869    p
          9.3106    p
          9.3363    p

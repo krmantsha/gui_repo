@@ -3,7 +3,7 @@ n # p travel-time tables for cerand structure. (From TauP_Table)
    0.00   1.00   2.00   3.00   4.00   5.00   6.00   7.00   8.00   9.00
   10.00  15.00  20.00  25.00  30.00  35.00  40.00  50.00  60.00  70.00
 30     # number of distances
-   0.00   0.01   0.02   0.03   0.04   0.05   0.06   0.07   0.08   0.90
+   0.00   0.01   0.02   0.03   0.04   0.05   0.06   0.07   0.08   0.09
    0.10   0.11   0.12   0.13   0.14   0.15   0.16   0.17   0.18   0.19
    0.20   0.21   0.22   0.23   0.24   0.25   0.26   0.27   0.28   0.29
 #  Travel time for z =    0.0
@@ -47,7 +47,7 @@ n # p travel-time tables for cerand structure. (From TauP_Table)
          1.1224    p
          1.3053    p
          1.4889    p
-        -1.0000    none
+         1.6724    p
          1.8559    p
         -1.0000    none
         -1.0000    none
@@ -78,7 +78,7 @@ n # p travel-time tables for cerand structure. (From TauP_Table)
          1.1508    p
          1.3277    p
          1.5069    p
-        -1.0000    none
+         1.6864    p
          1.8659    p
          2.0454    p
          2.2250    p
@@ -109,7 +109,7 @@ n # p travel-time tables for cerand structure. (From TauP_Table)
          1.2007    p
          1.3691    p
          1.5406    p
-        -1.0000    none
+         1.7142    p
          1.8893    p
          2.0656    p
          2.2427    p
@@ -140,7 +140,7 @@ n # p travel-time tables for cerand structure. (From TauP_Table)
          1.2686    p
          1.4270    p
          1.5902    p
-        -1.0000    none
+         1.7569    p
          1.9260    p
          2.0970    p
          2.2694    p
@@ -171,7 +171,7 @@ n # p travel-time tables for cerand structure. (From TauP_Table)
          1.3526    p
          1.5007    p
          1.6550    p
-        -1.0000    none
+         1.8142    p
          1.9768    p
          2.1422    p
          2.3099    p
@@ -202,7 +202,7 @@ n # p travel-time tables for cerand structure. (From TauP_Table)
          1.4503    p
          1.5883    p
          1.7340    p
-        -1.0000    none
+         1.8854    p
          2.0413    p
          2.2009    p
          2.3631    p
@@ -233,7 +233,7 @@ n # p travel-time tables for cerand structure. (From TauP_Table)
          1.5586    p
          1.6871    p
          1.8241    p
-        -1.0000    none
+         1.9679    p
          2.1170    p
          2.2704    p
          2.4273    p
@@ -264,7 +264,7 @@ n # p travel-time tables for cerand structure. (From TauP_Table)
          1.6752    p
          1.7948    p
          1.9236    p
-        -1.0000    none
+         2.0599    p
          2.2022    p
          2.3494    p
          2.5006    p
@@ -295,7 +295,7 @@ n # p travel-time tables for cerand structure. (From TauP_Table)
          1.7983    p
          1.9098    p
          2.0308    p
-        -1.0000    none
+         2.1598    p
          2.2954    p
          2.4365    p
          2.5821    p
@@ -326,7 +326,7 @@ n # p travel-time tables for cerand structure. (From TauP_Table)
          1.9264    p
          2.0305    p
          2.1444    p
-        16.0130    p
+         2.2665    p
          2.3957    p
          2.5307    p
          2.6708    p
@@ -357,7 +357,7 @@ n # p travel-time tables for cerand structure. (From TauP_Table)
          2.6143    p
          2.6909    p
          2.7768    p
-        16.0452    p
+         2.8709    p
          2.9726    p
          3.0811    p
          3.1957    p
@@ -388,7 +388,7 @@ n # p travel-time tables for cerand structure. (From TauP_Table)
          3.3358    p
          3.3954    p
          3.4628    p
-        16.0692    p
+         3.5377    p
          3.6197    p
          3.7080    p
          3.8025    p
@@ -419,7 +419,7 @@ n # p travel-time tables for cerand structure. (From TauP_Table)
          4.0461    p
          4.0941    p
          4.1489    p
-        -1.0000    none
+         4.2101    p
          4.2774    p
          4.3506    p
          4.4294    p
@@ -450,7 +450,7 @@ n # p travel-time tables for cerand structure. (From TauP_Table)
          4.7220    p
          4.7617    p
          4.8072    p
-        -1.0000    none
+         4.8581    p
          4.9144    p
          4.9759    p
          5.0424    p
@@ -481,7 +481,7 @@ n # p travel-time tables for cerand structure. (From TauP_Table)
          5.3649    p
          5.3984    p
          5.4368    p
-        -1.0000    none
+         5.4799    p
          5.5278    p
          5.5801    p
          5.6369    p
@@ -512,7 +512,7 @@ n # p travel-time tables for cerand structure. (From TauP_Table)
          5.9793    p
          6.0080    p
          6.0409    p
-        15.3739    p
+         6.0781    p
          6.1193    p
          6.1646    p
          6.2137    p
@@ -543,7 +543,7 @@ n # p travel-time tables for cerand structure. (From TauP_Table)
          7.2043    p
          7.2266    p
          7.2522    p
-        15.5997    p
+         7.2812    p
          7.3134    p
          7.3488    p
          7.3873    p
@@ -574,7 +574,7 @@ n # p travel-time tables for cerand structure. (From TauP_Table)
          8.4354    p
          8.4536    p
          8.4745    p
-        16.0127    p
+         8.4982    p
          8.5245    p
          8.5536    p
          8.5853    p
@@ -605,7 +605,7 @@ n # p travel-time tables for cerand structure. (From TauP_Table)
          9.6697    p
          9.6850    p
          9.7027    p
-        16.5568    p
+         9.7227    p
          9.7450    p
          9.7696    p
          9.7964    p

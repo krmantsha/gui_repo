@@ -3,7 +3,7 @@ n # s travel-time tables for wrand_2 structure. (From TauP_Table)
    0.00   1.00   2.00   3.00   4.00   5.00   6.00   7.00   8.00   9.00
   10.00  15.00  20.00  25.00  30.00  35.00  40.00  50.00  60.00  70.00
 30     # number of distances
-   0.00   0.01   0.02   0.03   0.04   0.05   0.06   0.07   0.08   0.90
+   0.00   0.01   0.02   0.03   0.04   0.05   0.06   0.07   0.08   0.09
    0.10   0.11   0.12   0.13   0.14   0.15   0.16   0.17   0.18   0.19
    0.20   0.21   0.22   0.23   0.24   0.25   0.26   0.27   0.28   0.29
 #  Travel time for z =    0.0
@@ -109,7 +109,7 @@ n # s travel-time tables for wrand_2 structure. (From TauP_Table)
          1.8781    s
          2.1541    s
          2.4301    s
-        -1.0000    none
+         2.7061    s
          2.9821    s
          3.2581    s
          3.5341    s
@@ -140,7 +140,7 @@ n # s travel-time tables for wrand_2 structure. (From TauP_Table)
          1.8777    s
          2.1530    s
          2.4283    s
-        -1.0000    none
+         2.7037    s
          2.9790    s
          3.2543    s
          3.5297    s
@@ -171,7 +171,7 @@ n # s travel-time tables for wrand_2 structure. (From TauP_Table)
          1.8773    s
          2.1520    s
          2.4267    s
-        -1.0000    none
+         2.7014    s
          2.9761    s
          3.2508    s
          3.5255    s
@@ -202,7 +202,7 @@ n # s travel-time tables for wrand_2 structure. (From TauP_Table)
          2.2907    s
          2.5071    s
          2.7351    s
-        -1.0000    none
+         2.9719    s
          3.2164    s
          3.4644    s
          3.7184    s
@@ -233,7 +233,7 @@ n # s travel-time tables for wrand_2 structure. (From TauP_Table)
          2.4558    s
          2.6570    s
          2.8714    s
-        -1.0000    none
+         3.0964    s
          3.3290    s
          3.5682    s
          3.8140    s
@@ -264,7 +264,7 @@ n # s travel-time tables for wrand_2 structure. (From TauP_Table)
          2.6342    s
          2.8213    s
          3.0227    s
-        -1.0000    none
+         3.2356    s
          3.4578    s
          3.6873    s
          3.9233    s
@@ -295,7 +295,7 @@ n # s travel-time tables for wrand_2 structure. (From TauP_Table)
          2.8229    s
          2.9973    s
          3.1864    s
-        -1.0000    none
+         3.3879    s
          3.5995    s
          3.8197    s
          4.0470    s
@@ -326,7 +326,7 @@ n # s travel-time tables for wrand_2 structure. (From TauP_Table)
          3.0199    s
          3.1826    s
          3.3604    s
-        24.8341    s
+         3.5510    s
          3.7525    s
          3.9630    s
          4.1813    s
@@ -357,7 +357,7 @@ n # s travel-time tables for wrand_2 structure. (From TauP_Table)
          4.0604    s
          4.1791    s
          4.3120    s
-        -1.0000    none
+         4.4578    s
          4.6152    s
          4.7832    s
          4.9605    s
@@ -388,7 +388,7 @@ n # s travel-time tables for wrand_2 structure. (From TauP_Table)
          5.1284    s
          5.2198    s
          5.3232    s
-        -1.0000    none
+         5.4380    s
          5.5635    s
          5.6990    s
          5.8437    s
@@ -419,7 +419,7 @@ n # s travel-time tables for wrand_2 structure. (From TauP_Table)
          6.1894    s
          6.2627    s
          6.3462    s
-        -1.0000    none
+         6.4396    s
          6.5423    s
          6.6539    s
          6.7741    s
@@ -450,7 +450,7 @@ n # s travel-time tables for wrand_2 structure. (From TauP_Table)
          7.2308    s
          7.2915    s
          7.3609    s
-        -1.0000    none
+         7.4388    s
          7.5249    s
          7.6188    s
          7.7204    s
@@ -481,7 +481,7 @@ n # s travel-time tables for wrand_2 structure. (From TauP_Table)
          8.2479    s
          8.2994    s
          8.3584    s
-        -1.0000    none
+         8.4248    s
          8.4983    s
          8.5788    s
          8.6661    s
@@ -512,7 +512,7 @@ n # s travel-time tables for wrand_2 structure. (From TauP_Table)
          9.2417    s
          9.2861    s
          9.3372    s
-        24.0383    s
+         9.3947    s
          9.4585    s
          9.5285    s
          9.6047    s
@@ -543,7 +543,7 @@ n # s travel-time tables for wrand_2 structure. (From TauP_Table)
         11.2293    s
         11.2642    s
         11.3043    s
-        24.5011    s
+        11.3495    s
         11.3999    s
         11.4553    s
         11.5156    s
@@ -574,7 +574,7 @@ n # s travel-time tables for wrand_2 structure. (From TauP_Table)
         13.2248    s
         13.2534    s
         13.2864    s
-        25.2381    s
+        13.3237    s
         13.3651    s
         13.4109    s
         13.4607    s
@@ -605,7 +605,7 @@ n # s travel-time tables for wrand_2 structure. (From TauP_Table)
         15.2247    s
         15.2489    s
         15.2769    s
-        26.1699    s
+        15.3085    s
         15.3438    s
         15.3826    s
         15.4251    s

@@ -3,7 +3,7 @@ n # s,S,Sn,Sdiff,SKS,SKIKS,sS,sSdiff,sSKS,sSKIKS,ScS,pS,pSdiff,pSKS,pSKIKS trave
    0.00   1.00   2.00   3.00   4.00   5.00   6.00   7.00   8.00   9.00
   10.00  15.00  20.00  25.00  30.00  35.00  40.00  50.00  60.00  70.00
 30     # number of distances
-   0.00   0.01   0.02   0.03   0.04   0.05   0.06   0.07   0.08   0.90
+   0.00   0.01   0.02   0.03   0.04   0.05   0.06   0.07   0.08   0.09
    0.10   0.11   0.12   0.13   0.14   0.15   0.16   0.17   0.18   0.19
    0.20   0.21   0.22   0.23   0.24   0.25   0.26   0.27   0.28   0.29
 #  Travel time for z =    0.0
@@ -16,7 +16,7 @@ n # s,S,Sn,Sdiff,SKS,SKIKS,sS,sSdiff,sSKS,sSKIKS,ScS,pS,pSdiff,pSKS,pSKIKS trave
          1.9814    S
          2.2873    S
          2.5788    S
-        24.1016    S
+         2.8597    S
          3.1298    S
          3.3936    S
          3.6574    S
@@ -47,7 +47,7 @@ n # s,S,Sn,Sdiff,SKS,SKIKS,sS,sSdiff,sSKS,sSKIKS,ScS,pS,pSdiff,pSKS,pSKIKS trave
          1.8792    S
          2.1623    S
          2.4372    S
-        23.9317    S
+         2.7034    S
          2.9672    S
          3.2310    S
          3.4948    S
@@ -78,7 +78,7 @@ n # s,S,Sn,Sdiff,SKS,SKIKS,sS,sSdiff,sSKS,sSKIKS,ScS,pS,pSdiff,pSKS,pSKIKS trave
          1.8287    S
          2.0925    S
          2.3563    S
-        23.8339    S
+         2.6200    S
          2.8838    S
          3.1476    S
          3.4114    S
@@ -109,7 +109,7 @@ n # s,S,Sn,Sdiff,SKS,SKIKS,sS,sSdiff,sSKS,sSKIKS,ScS,pS,pSdiff,pSKS,pSKIKS trave
          1.8283    S
          2.0917    S
          2.3551    S
-        23.7742    S
+         2.6185    S
          2.8819    S
          3.1453    S
          3.4087    S
@@ -140,7 +140,7 @@ n # s,S,Sn,Sdiff,SKS,SKIKS,sS,sSdiff,sSKS,sSKIKS,ScS,pS,pSdiff,pSKS,pSKIKS trave
          1.9572    s
          2.1968    s
          2.4430    s
-        23.7193    S
+         2.6941    s
          2.9464    s
          3.2019    s
          3.4592    s
@@ -171,7 +171,7 @@ n # s,S,Sn,Sdiff,SKS,SKIKS,sS,sSdiff,sSKS,sSKIKS,ScS,pS,pSdiff,pSKS,pSKIKS trave
          2.0734    s
          2.2975    s
          2.5301    s
-        23.6697    S
+         2.7694    s
          3.0144    s
          3.2611    s
          3.5129    s
@@ -202,7 +202,7 @@ n # s,S,Sn,Sdiff,SKS,SKIKS,sS,sSdiff,sSKS,sSKIKS,ScS,pS,pSdiff,pSKS,pSKIKS trave
          2.2113    s
          2.4195    s
          2.6389    s
-        23.6243    S
+         2.8667    s
          3.1003    s
          3.3390    s
          3.5821    s
@@ -233,7 +233,7 @@ n # s,S,Sn,Sdiff,SKS,SKIKS,sS,sSdiff,sSKS,sSKIKS,ScS,pS,pSdiff,pSKS,pSKIKS trave
          2.3656    s
          2.5589    s
          2.7647    s
-        23.5693    S
+         2.9803    s
          3.2037    s
          3.4335    s
          3.6676    s
@@ -264,7 +264,7 @@ n # s,S,Sn,Sdiff,SKS,SKIKS,sS,sSdiff,sSKS,sSKIKS,ScS,pS,pSdiff,pSKS,pSKIKS trave
          2.5322    s
          2.7117    s
          2.9047    s
-        23.5192    S
+         3.1087    s
          3.3214    s
          3.5413    s
          3.7671    s
@@ -295,7 +295,7 @@ n # s,S,Sn,Sdiff,SKS,SKIKS,sS,sSdiff,sSKS,sSKIKS,ScS,pS,pSdiff,pSKS,pSKIKS trave
          2.7083    s
          2.8752    s
          3.0562    s
-        23.4743    S
+         3.2489    s
          3.4512    s
          3.6615    s
          3.8785    s
@@ -326,7 +326,7 @@ n # s,S,Sn,Sdiff,SKS,SKIKS,sS,sSdiff,sSKS,sSKIKS,ScS,pS,pSdiff,pSKS,pSKIKS trave
          2.8917    s
          3.0472    s
          3.2170    s
-        23.4322    S
+         3.3990    s
          3.5913    s
          3.7923    s
          4.0005    s
@@ -357,7 +357,7 @@ n # s,S,Sn,Sdiff,SKS,SKIKS,sS,sSdiff,sSKS,sSKIKS,ScS,pS,pSdiff,pSKS,pSKIKS trave
          3.8714    s
          3.9844    s
          4.1109    s
-        23.2850    S
+         4.2497    s
          4.3995    s
          4.5592    s
          4.7279    s
@@ -388,7 +388,7 @@ n # s,S,Sn,Sdiff,SKS,SKIKS,sS,sSdiff,sSKS,sSKIKS,ScS,pS,pSdiff,pSKS,pSKIKS trave
          4.8936    s
          4.9807    s
          5.0793    s
-        23.2224    S
+         5.1887    s
          5.3084    s
          5.4375    s
          5.5754    s
@@ -419,7 +419,7 @@ n # s,S,Sn,Sdiff,SKS,SKIKS,sS,sSdiff,sSKS,sSKIKS,ScS,pS,pSdiff,pSKS,pSKIKS trave
          5.9219    s
          5.9920    s
          6.0719    s
-        23.1882    S
+         6.1611    s
          6.2594    s
          6.3661    s
          6.4811    s
@@ -450,7 +450,7 @@ n # s,S,Sn,Sdiff,SKS,SKIKS,sS,sSdiff,sSKS,sSKIKS,ScS,pS,pSdiff,pSKS,pSKIKS trave
          6.9426    s
          7.0009    s
          7.0675    s
-        23.2210    s
+         7.1423    s
          7.2250    s
          7.3152    s
          7.4128    s
@@ -481,7 +481,7 @@ n # s,S,Sn,Sdiff,SKS,SKIKS,sS,sSdiff,sSKS,sSKIKS,ScS,pS,pSdiff,pSKS,pSKIKS trave
          7.9499    s
          7.9996    s
          8.0565    s
-        23.3027    s
+         8.1206    s
          8.1915    s
          8.2692    s
          8.3535    s
@@ -512,7 +512,7 @@ n # s,S,Sn,Sdiff,SKS,SKIKS,sS,sSdiff,sSKS,sSKIKS,ScS,pS,pSdiff,pSKS,pSKIKS trave
          8.9432    s
          8.9863    s
          9.0358    s
-        23.4248    s
+         9.0915    s
          9.1534    s
          9.2213    s
          9.2951    s
@@ -543,7 +543,7 @@ n # s,S,Sn,Sdiff,SKS,SKIKS,sS,sSdiff,sSKS,sSKIKS,ScS,pS,pSdiff,pSKS,pSKIKS trave
         10.9323    s
         10.9663    s
         11.0054    s
-        23.9676    s
+        11.0496    s
         11.0987    s
         11.1528    s
         11.2117    s
@@ -574,7 +574,7 @@ n # s,S,Sn,Sdiff,SKS,SKIKS,sS,sSdiff,sSKS,sSKIKS,ScS,pS,pSdiff,pSKS,pSKIKS trave
         12.9285    s
         12.9566    s
         12.9889    s
-        24.7563    s
+        13.0254    s
         13.0661    s
         13.1109    s
         13.1598    s
@@ -605,7 +605,7 @@ n # s,S,Sn,Sdiff,SKS,SKIKS,sS,sSdiff,sSKS,sSKIKS,ScS,pS,pSdiff,pSKS,pSKIKS trave
         14.9289    s
         14.9527    s
         14.9802    s
-        25.7240    s
+        15.0113    s
         15.0460    s
         15.0842    s
         15.1259    s
