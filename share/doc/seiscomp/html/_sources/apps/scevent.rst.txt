@@ -531,6 +531,19 @@ scevent inherits :ref:`global options<global-configuration>`.
    preferred.
    Default is ``6``.
 
+.. confval:: eventAssociation.magPriorityOverStationCount
+
+   Type: *boolean*
+
+   If false then the station count rules out the magnitude priority
+   which is only taken into account if two magnitudes have the
+   same station count.
+   
+   If true then the priority rules out the station count
+   which is only taken into account if two magnitudes have the
+   same priority.
+   Default is ``false``.
+
 .. confval:: eventAssociation.priorities
 
    Type: *list:string*

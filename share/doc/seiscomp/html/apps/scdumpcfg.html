@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -76,33 +76,36 @@
 for particular stations.</strong></p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>scdumpcfg reads and prints the module or the bindings configuration for a specific module or
-for global. This commandline utility is useful for debugging of configuration parameters.</p>
+<p>scdumpcfg reads and prints the <a class="reference internal" href="../base/concepts/configuration.html#concepts-configuration"><span class="std std-ref">module or bindings configuration</span></a>
+for a specific module or for global. This command-line utility is useful for
+debugging of configuration parameters.</p>
+<p>Related to <strong class="program">scdumpcfg</strong> is <a class="reference internal" href="bindings2cfg.html#bindings2cfg"><span class="std std-ref">bindings2cfg</span></a> which dumps the bindings
+configuration to <a class="reference internal" href="../base/glossary.html#term-scml"><span class="xref std std-term">SCML</span></a>.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
 <li><p>Dump the global bindings configuration for all stations which have global bindings.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdumpcfg global -d mysql://sysop:sysop@seiscomp/localhost -B
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdumpcfg global -d mysql://sysop:sysop@localhost/seiscomp -B
 </pre></div>
 </div>
 </li>
 <li><p>Dump the bindings configuration for all stations which have bindings to a
-scautopick profile. Additionally use <em>-G</em> as scautopick inherits global bindings.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdumpcfg scautopick -d mysql://sysop:sysop@seiscomp/localhost -GB
+<a class="reference internal" href="scautopick.html#scautopick"><span class="std std-ref">scautopick</span></a> profile. Additionally use <em>-G</em> as <a class="reference internal" href="scautopick.html#scautopick"><span class="std std-ref">scautopick</span></a> inherits global bindings.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdumpcfg scautopick -d mysql://sysop:sysop@localhost/seiscomp -GB
 </pre></div>
 </div>
 </li>
 <li><p>Dump the module global module configuration specifcally searching for the map
-zoom sensitivity and output the result in the format of the SeisComP module
+zoom sensitivity and output the result in the format of the <cite>SeisComP</cite> module
 configuration.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdumpcfg global -d mysql://sysop:sysop@seiscomp/localhost --cfg -P map.zoom.sensitivity
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdumpcfg global -d mysql://sysop:sysop@localhost/seiscomp --cfg -P map.zoom.sensitivity
 </pre></div>
 </div>
 </li>
 <li><p>Dump the module configuration of scautopick and output in the format of the
-SeisComP module configuration.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdumpcfg scautopick -d mysql://sysop:sysop@seiscomp/localhost --cfg
+<cite>SeisComP</cite> module configuration.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdumpcfg scautopick -d mysql://sysop:sysop@localhost/seiscomp --cfg
 </pre></div>
 </div>
 </li>
@@ -364,7 +367,7 @@ queried with “–db-driver-list”.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

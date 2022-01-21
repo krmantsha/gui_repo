@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "GLOBAL" "1" "Jun 21, 2021" "4.6.1" "SeisComP"
+.TH "GLOBAL" "1" "Jan 17, 2022" "4.8.4" "SeisComP"
 .SH NAME
 global \- SeisComP Documentation
 .
@@ -107,7 +107,7 @@ _
 T{
 \fI\%global\fP
 T}	T{
-NonLinLoc MLh Hypo71 Md MLr MN LocExt GUI RecordStream mB_BB mb Ms_20 MLv ML LOCSAT FixedHypocenter
+NonLinLoc MLh Hypo71 Md MLr iLoc MN LocExt GUI RecordStream mB_BB mb Ms_20 MLv ML LOCSAT FixedHypocenter
 T}
 _
 T{
@@ -154,6 +154,10 @@ Duration magnitude plugin
 MLr
 .sp
 The MLr plugin is designed to use the MLv station amplitudes and provides a GNS/Geonet local magnitude. The magnitude uses a station correction term and the hypocentral distance. Hard coded range are 0\-20 degrees maximum distance and 800 km maximum depth. (Reference:"A Revised Local Magnitude (ML) Scale for New Zealand Earthquakes" J. Ristau, D. Harte, J. Salichon, BSSA Mar 2016, DOI: 10.1785/0120150293)
+.IP \(bu 2
+iLoc
+.sp
+This plugin allows the use of the iLoc locator with SeisComP.
 .IP \(bu 2
 MN
 .sp
@@ -445,7 +449,16 @@ Default is \fBlocal0\fP\&.
 .B connection.server
 Type: \fIhost\-with\-port\fP
 .sp
-Defines the messaging server name to connect to. Format is host[:port].
+Defines the URL of the messaging server to connect to.
+URL format is [scheme://]host[:port][/queue]. Default scheme:
+scmp, default port: 18180, default queue: production.
+Examples:
+.sp
+All default: localhost
+.sp
+Specfic host: scmp://10.0.1.4:18180/production
+.sp
+Specfic host and SSL encryption: scmps://10.0.1.4:18180/production
 Default is \fBlocalhost\fP\&.
 .UNINDENT
 .INDENT 0.0
@@ -522,7 +535,7 @@ Type: \fIstring\fP
 Defines the database backend to be used. The name corresponds to
 the defined name in the database plugin. Examples are: mysql, postgresql or
 sqlite3. Note that this parameter is deprecated. Please use
-\(aqdatabase = mysql://localhost/seiscomp\(aq instead.
+the URL form \(aqdatabase = mysql://sysop:sysop@localhost/seiscomp\(aq instead.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -533,8 +546,8 @@ The database connection parameters. This value depends on the used
 database backend. E.g. sqlite3 expects the path to the database
 file whereas MYSQL or PostgreSQL expect an URI in the format
 user:pwd@host/database?param1=val1&param2=val2.
-Note that this parameter is deprecated. Please use
-\(aqdatabase = mysql://localhost/seiscomp\(aq instead.
+Note that this parameter is deprecated. Please use the URL form
+\(aqdatabase = mysql://sysop:sysop@localhost/seiscomp\(aq instead.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1038,6 +1051,330 @@ defines whether it should really fix the depth (false) or
 use this fixed depth only as starting point (true).
 Default is \fBfalse\fP\&.
 .UNINDENT
+.SS iLoc extension
+.sp
+This plugin allows the use of the iLoc locator with SeisComP.
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBiLoc.*\fP
+\fILocator parameters: iLoc\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profiles
+Type: \fIlist:string\fP
+.sp
+iLoc profile name.
+Multiples names may be set separated by comma.
+Each profile can have different velocity or parameters.
+Default is \fBiasp91,ak135\fP\&.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBiLoc.profile.*\fP
+\fIProfiles containing the specific locator parameters. For\fP
+\fIthe global models, iasp91 and ak135, profiles are\fP
+\fIautomatically considered with defaults.\fP
+\fITo adjust the profile parameters the corresponding profile\fP
+\fImust be created.\fP
+.UNINDENT
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBiLoc.profile.$name.*\fP
+$name is a placeholder for the name to be used and needs to be added to \fBiLoc.profiles\fP to become active.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+iLoc.profiles = a,b
+iLoc.profile.a.value1 = ...
+iLoc.profile.b.value1 = ...
+# c is not active because it has not been added
+# to the list of iLoc.profiles
+iLoc.profile.c.value1 = ...
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.Verbose
+Type: \fIboolean\fP
+.sp
+Default is \fBtrue\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.globalModel
+Type: \fIstring\fP
+.sp
+Name of globally applied velocity model
+into which RSTT or the local model is integrated. If
+unset, the name of the profile is considered instead.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.UseRSTT
+Type: \fIboolean\fP
+.sp
+Use regional seismic travel\-time tables
+Default is \fBfalse\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.UseRSTTPnSn
+Type: \fIboolean\fP
+.sp
+Use regional seismic travel\-time tables for Pn and Sn
+Default is \fBtrue\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.UseRSTTPgLg
+Type: \fIboolean\fP
+.sp
+Use regional seismic travel\-time tables for Pg and Lg
+Default is \fBtrue\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.LocalVmodel
+Type: \fIstring\fP
+.sp
+Full path to a file containing the local velocity model.
+Requires: UseLocalTT = true. Empty string or unset
+disables using a local model in this profile.
+.sp
+Example:
+.sp
+@DATADIR@/iloc/localmodels/model.localmodel.dat.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.DoGridSearch
+Type: \fIboolean\fP
+.sp
+Perform neighbourhood algorithm
+Default is \fBtrue\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.NAsearchRadius
+Type: \fIfloat\fP
+.sp
+Unit: \fIdeg\fP
+.sp
+Neighbourhood Algorithm: Search radius around initial
+epicentre
+Default is \fB5\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.NAsearchDepth
+Type: \fIfloat\fP
+.sp
+Unit: \fIkm\fP
+.sp
+Neighbourhood Algorithm: Search radius around initial
+depth
+Default is \fB300\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.NAsearchOT
+Type: \fIfloat\fP
+.sp
+Unit: \fIs\fP
+.sp
+Neighbourhood Algorithm: Search radius around initial
+origin time
+Default is \fB30\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.NAlpNorm
+Type: \fIfloat\fP
+.sp
+Neighbourhood Algorithm: p\-value for norm to compute
+misfit [1,2]
+Default is \fB1\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.NAiterMax
+Type: \fIinteger\fP
+.sp
+Neighbourhood Algorithm: Maximum number of iterations
+Default is \fB5\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.NAcells
+Type: \fIinteger\fP
+.sp
+Neighbourhood Algorithm: Number of cells to be resampled
+at each iteration
+Default is \fB25\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.NAinitialSample
+Type: \fIinteger\fP
+.sp
+Neighbourhood Algorithm: Size of initial sample
+Default is \fB1000\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.NAnextSample
+Type: \fIinteger\fP
+.sp
+Neighbourhood Algorithm: Size of subsequent samples
+Default is \fB100\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.MinDepthPhases
+Type: \fIinteger\fP
+.sp
+Depth resolution: Minimum number of depth phases for depdp
+Default is \fB3\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.MaxLocalDistDeg
+Type: \fIfloat\fP
+.sp
+Unit: \fIdeg\fP
+.sp
+Depth resolution: Maximum local distance
+Default is \fB0.2\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.MinLocalStations
+Type: \fIinteger\fP
+.sp
+Depth resolution: Minimum number of local defining stations
+Default is \fB1\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.MaxSPDistDeg
+Type: \fIfloat\fP
+.sp
+Unit: \fIdeg\fP
+.sp
+Depth resolution: Maximum distance for using S\-P travel\-time differences.
+Default is \fB2.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.MinSPpairs
+Type: \fIinteger\fP
+.sp
+Depth resolution: Minimum number of defining S\-P phase pairs
+Default is \fB3\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.MinCorePhases
+Type: \fIinteger\fP
+.sp
+Depth resolution: Minimum number of defining core reflection phases
+Default is \fB3\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.MaxShallowDepthError
+Type: \fIfloat\fP
+.sp
+Unit: \fIkm\fP
+.sp
+Depth resolution: Maximum depth error for crustal free\-depth
+Default is \fB30.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.MaxDeepDepthError
+Type: \fIfloat\fP
+.sp
+Unit: \fIkm\fP
+.sp
+Depth resolution: Maximum depth error for deep free\-depth
+Default is \fB60.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.DoCorrelatedErrors
+Type: \fIboolean\fP
+.sp
+Linearized inversion: Account for correlated errors
+Default is \fBtrue\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.SigmaThreshold
+Type: \fIfloat\fP
+.sp
+Unit: \fIs\fP
+.sp
+Linearized inversion: Used to exclude big residuals from solution
+Default is \fB6.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.AllowDamping
+Type: \fIboolean\fP
+.sp
+Linearized inversion: Allow damping of model vector
+Default is \fBtrue\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.MinIterations
+Type: \fIinteger\fP
+.sp
+Linearized inversion: Minimum number of iterations
+Default is \fB4\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.MaxIterations
+Type: \fIinteger\fP
+.sp
+Linearized inversion: Maximum number of iterations
+Default is \fB20\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.MinNdefPhases
+Type: \fIinteger\fP
+.sp
+Linearized inversion: Minimum number of defining phases
+Default is \fB4\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B iLoc.profile.$name.DoNotRenamePhases
+Type: \fIboolean\fP
+.sp
+Linearized inversion: Do not rename phases. Deactivating
+allows to rename the phases automatically for this
+profile.
+Default is \fBfalse\fP\&.
+.UNINDENT
 .SS MN extension
 .sp
 The MN plugin is designed to compute the Canadian Nuttli magnitude
@@ -1539,6 +1876,8 @@ Default is \fBDotLine\fP\&.
 .B scheme.colors.map.grid.width
 Type: \fIdouble\fP
 .sp
+Unit: \fIpx\fP
+.sp
 The width of the pen.
 Default is \fB1\fP\&.
 .UNINDENT
@@ -1648,6 +1987,8 @@ NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
 .B scheme.colors.records.borders.standard.pen.width
 Type: \fIdouble\fP
 .sp
+Unit: \fIpx\fP
+.sp
 The width of the pen.
 .UNINDENT
 .sp
@@ -1709,6 +2050,8 @@ NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
 .TP
 .B scheme.colors.records.borders.signatureValid.pen.width
 Type: \fIdouble\fP
+.sp
+Unit: \fIpx\fP
 .sp
 The width of the pen.
 .UNINDENT
@@ -1772,6 +2115,8 @@ NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
 .B scheme.colors.records.borders.signatureInvalid.pen.width
 Type: \fIdouble\fP
 .sp
+Unit: \fIpx\fP
+.sp
 The width of the pen.
 .UNINDENT
 .sp
@@ -1827,6 +2172,8 @@ Default is \fBSolidLine\fP\&.
 .B scheme.colors.records.offset.width
 Type: \fIdouble\fP
 .sp
+Unit: \fIpx\fP
+.sp
 The width of the pen.
 Default is \fB0.0\fP\&.
 .UNINDENT
@@ -1859,6 +2206,8 @@ Default is \fBDashLine\fP\&.
 .B scheme.colors.records.gridPen.width
 Type: \fIdouble\fP
 .sp
+Unit: \fIpx\fP
+.sp
 The width of the pen.
 Default is \fB1.0\fP\&.
 .UNINDENT
@@ -1890,6 +2239,8 @@ Default is \fBDotLine\fP\&.
 .TP
 .B scheme.colors.records.subGridPen.width
 Type: \fIdouble\fP
+.sp
+Unit: \fIpx\fP
 .sp
 The width of the pen.
 Default is \fB1.0\fP\&.
@@ -2396,12 +2747,16 @@ Default is \fB02589e\fP\&.
 .B scheme.marker.lineWidth
 Type: \fIint\fP
 .sp
+Unit: \fIpx\fP
+.sp
 The line width of the marker (e.g. picks of manual picker).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B scheme.records.lineWidth
 Type: \fIint\fP
+.sp
+Unit: \fIpx\fP
 .sp
 The line width of the records / traces.
 Default is \fB1\fP\&.
@@ -3105,6 +3460,8 @@ Default is \fB44\fP\&.
 .B scheme.splash.message.pos.x
 Type: \fIint\fP
 .sp
+Unit: \fIpx\fP
+.sp
 Horizontal position.
 Default is \fB200\fP\&.
 .UNINDENT
@@ -3112,6 +3469,8 @@ Default is \fB200\fP\&.
 .TP
 .B scheme.splash.message.pos.y
 Type: \fIint\fP
+.sp
+Unit: \fIpx\fP
 .sp
 Vertical position.
 Default is \fB260\fP\&.
@@ -3145,6 +3504,8 @@ Default is \fB34\fP\&.
 .B scheme.splash.version.pos.x
 Type: \fIint\fP
 .sp
+Unit: \fIpx\fP
+.sp
 Horizontal position.
 Default is \fB362\fP\&.
 .UNINDENT
@@ -3152,6 +3513,8 @@ Default is \fB362\fP\&.
 .TP
 .B scheme.splash.version.pos.y
 Type: \fIint\fP
+.sp
+Unit: \fIpx\fP
 .sp
 Vertical position.
 Default is \fB190\fP\&.
@@ -3245,7 +3608,7 @@ Type: \fIlist:string\fP
 .sp
 Configure the columns of the event list that are visible initially.
 The first column containing the origin time is always visible and cannot
-be hidden. Possible values are: Type, M, TP, Phases, Lat, Lon, Depth, Stat, FM, Agency, Region, ID.
+be hidden. Possible values are: Type, M, TP, Phases, Lat, Lon, Depth, DType, Stat, AzGap, FM, Origins, Agency, Author, Region, ID.
 Default is \fBM, TP, Phases, RMS, Lat, Lon, Depth, Stat, Agency, Region, ID\fP\&.
 .UNINDENT
 .INDENT 0.0
@@ -3398,6 +3761,7 @@ Type: \fIlist:string\fP
 List of event type to be hidden if the "Hide other/fake events"
 option is ticked.
 Use double quotes \(aq"\(aq around the string if it contains spaces.
+Default is \fB"not existing"\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3406,7 +3770,7 @@ Type: \fIboolean\fP
 .sp
 Sets the default state of the "Hide other/fake events"
 option.
-Default is \fBfalse\fP\&.
+Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3568,9 +3932,9 @@ Type: \fIlist:string\fP
 Configure the columns of the event edit focal mechanism
 tab that are visible initially.
 Possible values are: Depth, M, Count, Misfit, STDR,
-Azi. Gap(°), Stat, DC(%), CLVD(%), ISO(%), S1(°),
-D1(°), R1(°), S2(°), D2(°), R2(°), Agency, Author
-Default is \fBDepth, M, Count, Misfit, STDR, "Azi. Gap(°)", Stat, DC(%), CLVD(%), ISO(%), S1(°), D1(°), R1(°), S2(°), D2(°), R2(°), Agency, Author\fP\&.
+AzGap, Stat, DC, CLVD, ISO, S1,
+D1, R1, S2, D2, R2, Agency, Author
+Default is \fBDepth, M, Count, Misfit, STDR, AzGap, Stat, DC, CLVD, ISO, S1, D1, R1, S2, D2, R2, Agency, Author\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -3636,15 +4000,7 @@ coordinates from phase picks.
 Type: \fIlist:string\fP
 .sp
 Defines a list of available LOCSAT travel\-time tables.
-Default is \fBiasp91,tab\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B LOCSAT.enableConfidenceEllipsoid
-Type: \fIboolean\fP
-.sp
-Compute the confidence ellipsoid.
-Default is \fBfalse\fP\&.
+Default is \fBiasp91, tab\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3655,6 +4011,18 @@ Unit: \fIkm\fP
 .sp
 The initial depth estimate for LOCSAT.
 Default is \fB20.0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B LOCSAT.usePickUncertainties
+Type: \fIboolean\fP
+.sp
+Whether to use pick time untertainties for arrival deltim rather
+than a fixed time error. If true then the uncertainties are
+retrieved from each individual pick object. If they are not
+defined then the default pick time uncertainty will be used
+as fallback.
+Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3671,18 +4039,6 @@ Default is \fB1.0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B LOCSAT.usePickUncertainties
-Type: \fIboolean\fP
-.sp
-Whether to use pick time untertainties for arrival deltim rather
-than a fixed time error. If true then the uncertainties are
-retrieved from each individual pick object. If they are not
-defined then the default pick time uncertainty will be used
-as fallback.
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
 .B LOCSAT.degreesOfFreedom
 Type: \fIint\fP
 .sp
@@ -3694,8 +4050,16 @@ Default is \fB9999\fP\&.
 .B LOCSAT.confLevel
 Type: \fIdouble\fP
 .sp
-Confidence level between 0.5 and 1.
+Confidence level between 0.5 and 1.0.
 Default is \fB0.9\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B LOCSAT.enableConfidenceEllipsoid
+Type: \fIboolean\fP
+.sp
+Compute the confidence ellipsoid from covariance matrix in 3D.
+Default is \fBfalse\fP\&.
 .UNINDENT
 .SS FixedHypocenter extension
 .sp
@@ -4179,7 +4543,7 @@ Default is \fBfalse\fP\&.
 .B amplitudes.enable
 Type: \fIboolean\fP
 .sp
-Defines if amplitude calculation is enabled. If disabled then
+Defines if amplitude calculation is enabled. If disabled,
 this station will be skipped for amplitudes and magnitudes.
 Default is \fBtrue\fP\&.
 .UNINDENT
@@ -4189,7 +4553,9 @@ Default is \fBtrue\fP\&.
 Type: \fIboolean\fP
 .sp
 Activates deconvolution for this station. If no responses are
-configured an error is raised and the data is not processed.
+configured, an error is raised and the data is not processed.
+This flag will be overridden by the type specific flag
+(see Amplitude type profile).
 Default is \fBfalse\fP\&.
 .UNINDENT
 .sp
@@ -4369,6 +4735,16 @@ specific.
 .UNINDENT
 .INDENT 0.0
 .TP
+.B amplitudes.$name.resp.taper
+Unit: \fIs\fP
+.sp
+Defines the length of the taper at either side of the
+waveform. The length will be added to the data
+request: start \- taper and end + taper.
+Default is \fB5\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
 .B amplitudes.$name.resp.minFreq
 Unit: \fIHz\fP
 .sp
@@ -4381,6 +4757,48 @@ Default is \fB0.00833333\fP\&.
 .INDENT 0.0
 .TP
 .B amplitudes.$name.resp.maxFreq
+Unit: \fIHz\fP
+.sp
+After data are converted in to the frequency domain that
+maximum frequency defines the start of the right\-side cosine taper for
+the frequency spectrum. The taper applies from {maxFreq}Hz to {fNyquist}Hz.
+A value of 0 or lower disables that taper.
+Default is \fB0\fP\&.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBamplitudes.resp.*\fP
+\fISeveral parameters if usage of full responses is enabled.\fP
+\fIThe parameters of this group will be overridden by type\fP
+\fIspecific settings if given (see Amplitude type profile).\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.resp.taper
+Unit: \fIs\fP
+.sp
+Defines the length of the taper at either side of the
+waveform. The length will be added to the data
+request: start \- taper and end + taper.
+Default is \fB5\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.resp.minFreq
+Unit: \fIHz\fP
+.sp
+After data are converted in to the frequency domain that
+minimum frequency defines the end of the left\-side cosine taper for
+the frequency spectrum. The taper applies from 0Hz to {minFreq}Hz.
+A value of 0 or lower disables that taper.
+Default is \fB0.00833333\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.resp.maxFreq
 Unit: \fIHz\fP
 .sp
 After data are converted in to the frequency domain that

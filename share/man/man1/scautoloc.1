@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCAUTOLOC" "1" "Jun 21, 2021" "4.6.1" "SeisComP"
+.TH "SCAUTOLOC" "1" "Jan 17, 2022" "4.8.4" "SeisComP"
 .SH NAME
 scautoloc \- SeisComP Documentation
 .
@@ -595,7 +595,7 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
-Max. permissible RMS for a location to be reported.
+Maximum travel\-time RMS for a location to be reported.
 Default is \fB3.5\fP\&.
 .UNINDENT
 .INDENT 0.0
@@ -605,7 +605,7 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
-Maximum station residual (unweighted) for a pick to be used.
+Maximum travel\-time residual (unweighted) for a pick at a station to be used.
 Default is \fB7.0\fP\&.
 .UNINDENT
 .INDENT 0.0
@@ -633,7 +633,7 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
 .sp
-Maximum secondary azimuth gap for an origin to be reported by.
+Maximum secondary azimuthal gap for an origin to be reported by.
 The secondary gap is the maximum of the sum of 2 station gaps.
 .sp
 Default: 360 degrees, i.e. no restriction based on this parameter.
@@ -682,30 +682,6 @@ Default is \fBsnr\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B autoloc.publicationIntervalTimeSlope
-Type: \fIdouble\fP
-.sp
-Unit: \fIs/count\fP
-.sp
-Parameter "a"  in the equation t = aN + b.
-t is the time interval between sending updates of an origin.
-N is the arrival count of the origin.
-Default is \fB0.5\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B autoloc.publicationIntervalTimeIntercept
-Type: \fIdouble\fP
-.sp
-Unit: \fIs\fP
-.sp
-Parameter "b" in the equation t = aN + b.
-t is the time interval between sending updates of an origin.
-N is the arrival count of the origin.
-Default is \fB0.\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
 .B autoloc.grid
 Type: \fIpath\fP
 .sp
@@ -731,21 +707,11 @@ in "@DATADIR@/scautoloc/station\-locations.conf".
 .UNINDENT
 .INDENT 0.0
 .TP
-.B autoloc.pickLog
-Type: \fIstring\fP
-.sp
-Location of pick log file containing information about received
-picks.
-Default is \fB@LOGDIR@/autoloc\-picklog\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B autoloc.tryDefaultDepth
+.B autoloc.useManualPicks
 Type: \fIboolean\fP
 .sp
-Compare located origin with the origin at the depth given by
-locator.defaultDepth. The origin with lower RMS is reported.
-Default is \fBtrue\fP\&.
+Receive and process manual phase picks.
+Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -766,14 +732,6 @@ Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B autoloc.useManualPicks
-Type: \fIboolean\fP
-.sp
-Receive and process phase picks.
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
 .B autoloc.adoptManualDepth
 Type: \fIboolean\fP
 .sp
@@ -786,7 +744,63 @@ Default is \fBtrue\fP\&.
 .B autoloc.authors
 Type: \fIlist:string\fP
 .sp
-\fINo description available\fP
+Pick processing may be enabled/disabled according to the
+author ID of a pick. In addition, picks of certain authors
+can be prioritized over other authors.
+This is the author priority list that controls this behavior.
+Its value is a comma\-separated list of author ID\(aqs.
+The earlier an author ID appears in the list the higher the
+priority it gets.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B autoloc.tryDefaultDepth
+Type: \fIboolean\fP
+.sp
+Compare located origin with the origin at the depth given by
+locator.defaultDepth. The origin with lower RMS is reported.
+Default is \fBtrue\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B autoloc.publicationIntervalTimeSlope
+Type: \fIdouble\fP
+.sp
+Unit: \fIs/count\fP
+.sp
+Parameter "a"  in the equation t = aN + b.
+t is the time interval between sending updates of an origin.
+N is the arrival count of the origin.
+Default is \fB0.5\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B autoloc.publicationIntervalTimeIntercept
+Type: \fIdouble\fP
+.sp
+Unit: \fIs\fP
+.sp
+Parameter "b" in the equation t = aN + b.
+t is the time interval between sending updates of an origin.
+N is the arrival count of the origin.
+Default is \fB0.\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B autoloc.pickLogEnable
+Type: \fIboolean\fP
+.sp
+Activate for writing pick log files to "pickLog".
+Default is \fBfalse\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B autoloc.pickLog
+Type: \fIstring\fP
+.sp
+Location of pick log file containing information about received
+picks. Activate "pickLogEnable" for writing the files.
+Default is \fB@LOGDIR@/autoloc\-picklog\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1035,7 +1049,7 @@ station\-locations.conf file can be provided. This implies
 .INDENT 0.0
 .TP
 .B \-\-playback
-Flush origins immediately without delay
+Flush origins immediately without delay.
 .UNINDENT
 .SS Settings
 .INDENT 0.0
@@ -1048,33 +1062,39 @@ If no file is given the database is used.
 .INDENT 0.0
 .TP
 .B \-\-station\-config arg
-The station.conf file
-.UNINDENT
-.INDENT 0.0
-.TP
-.B \-\-pick\-log arg
-The pick log file
+The station configuration file. Examples are in @DATADIR@/scautoloc/
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-grid arg
-The grid.conf file to use
+The grid configuration file. Examples are in @DATADIR@/scautoloc/
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-pick\-log arg
+The pick log file. Providing a file name enables logging picks
+even when disabled by configuration.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-default\-depth arg
+Default depth for comparison with the depth after locating.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-max\-sgap arg
+Maximum secondary azimuthal gap for an origin to be reported by.
+The secondary gap is the maximum of the sum of 2 station gaps.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-max\-rms arg
+Maximum travel\-time RMS for a location to be reported.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-max\-residual arg
+Maximum travel\-time residual (unweighted) for a pick at a station to be used.
 .UNINDENT
 .INDENT 0.0
 .TP

@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCOLV" "1" "Jun 21, 2021" "4.6.1" "SeisComP"
+.TH "SCOLV" "1" "Jan 17, 2022" "4.8.4" "SeisComP"
 .SH NAME
 scolv \- SeisComP Documentation
 .
@@ -37,48 +37,124 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .INDENT 2.5
 [image: scolv]
 [image]
-scolv: OriginLocatorView Location tab with event and phase information.UNINDENT
+scolv: OriginLocatorView \fI\%Location tab\fP
+with event and phase information.UNINDENT
 .UNINDENT
 .INDENT 0.0
 .INDENT 2.5
 [image: scolv picker]
 [image]
-scolv: OriginLocatorView phase picker with waveforms and phase information.UNINDENT
+scolv: OriginLocatorView \fI\%phase picker\fP
+with waveforms and phase information.UNINDENT
 .UNINDENT
 .INDENT 0.0
 .INDENT 2.5
 [image: scolv picker]
 [image]
-scolv: OriginLocatorView Event tab with all origins.UNINDENT
+scolv: OriginLocatorView \fI\%Event tab\fP with all origins.UNINDENT
 .UNINDENT
 .INDENT 0.0
 .INDENT 2.5
 [image: scolv picker]
 [image]
-scolv: OriginLocatorView amplitude waveform review with station magnitudes.UNINDENT
+scolv: OriginLocatorView \fI\%amplitude waveform review\fP
+with station magnitudes.UNINDENT
 .UNINDENT
 .sp
-scolv is the main interactive tool to revise or review the origin information
-such as picks, location, depth, time, magnitudes and event association.
-Therefore, scolv is divided into 6 main logical units (main window with tabs and external windows):
+scolv is the main interactive tool to revise or review origin and event information.
+It thus provides the entire functionality to analyze earthquake parameters:
 .INDENT 0.0
 .IP \(bu 2
-\fI\%Location:\fP (tab) Details of the selected origin
+Phase picks and arrivals in diagrams and waveforms
 .IP \(bu 2
-\fI\%Magnitudes:\fP (tab) Magnitude details of the selected origin
+Hypocenter location and source time with uncertainties
 .IP \(bu 2
-\fI\%Event:\fP (tab) Origins and focal mechanisms referenced by the selected event
+Focal mechanism from first\-motion polarities
 .IP \(bu 2
-\fI\%Events:\fP (tab) Table of event parameters of the loaded events
+Magnitudes in diagrams and waveforms
 .IP \(bu 2
-\fI\%Phase picker:\fP (external window) Waveform review for phase picking
+Origin status and certainty
 .IP \(bu 2
-\fI\%Amplitude waveform review:\fP (external window)
+Event association
+.IP \(bu 2
+Event type
+.UNINDENT
+.sp
+The main scolv window is divided into 4 perspectives (tabs) from which external windows
+can be opened:
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Location tab\fP: Details of the selected origin with
+.INDENT 2.0
+.IP \(bu 2
+\fI\%Phase picker\fP (external window): Review
+waveforms for phase picking including polarities, uncertainties, spectra and
+spectrograms,
+.IP \(bu 2
+\fI\%Extended commit\fP (external window): Commit solution
+with additional options.
+.UNINDENT
+.IP \(bu 2
+\fI\%Magnitudes tab\fP: Magnitude details of the
+selected origin with
+.INDENT 2.0
+.IP \(bu 2
+\fI\%Amplitude waveform review\fP (external window):
 Waveform review for measuring amplitudes and for computing magnitudes.
 .UNINDENT
+.IP \(bu 2
+\fI\%Event tab\fP: Origins and focal mechanisms referenced
+by the selected event\&.
+.IP \(bu 2
+\fI\%Events tab\fP: Table of event parameters of the loaded
+events with interactive filtering of database requests and loaded events.
+.UNINDENT
+.SH MODES OF OPERATION
 .sp
-scolv provides the whole functionality to review and revise earthquake
-parameters.
+scolv can be operated in 2 modes:
+.INDENT 0.0
+.IP \(bu 2
+\fBConnected to the messaging\fP where all event and station inventory parameters
+are received from the messaging or the database and
+\fIupdated in real time\fP\&. New or updated
+parameters can be commited to the messaging. Simply start scolv without any argument
+or connect to a specific host providing the messaging, e.g.:
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scolv
+scolv \-H [host]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+\fBOffline without messaging\fP where all event and station
+inventory parameters are read from an XML files or from the database and
+\fIupdated interactively\fP\&. New or updated parameters can be written to an XML file.
+Open scolv with the option
+\fB\-\-offline\fP and optionally provide the database or inventory and bindings
+parameters in SCML format to fetch event parameters as well as inventory
+and bindings configuration parameters. Examples:
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scolv \-\-offline
+scolv \-\-offline \-d [database]
+scolv \-\-offline \-\-inventory\-db [inventory] \-\-config\-db [config]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Select one XML file in the \fIFile\fP menu to read event parameters.
+After processing, the parameters can be saved to another XML file though the
+\fIFile\fP menu.
+.UNINDENT
 .SH LOCATION TAB
 .sp
 The Location tab shows detailed information of the associated
@@ -1263,11 +1339,13 @@ An example script which just returns the standard error looks like this:
 .sp
 .nf
 .ft C
-#!/usr/bin/env python
-import seiscomp.datamodel, seiscomp.io
+#!/usr/bin/env seiscomp\-python
+from __future__ import print_function
+import sys
+from seiscomp import datamodel, io
 
 def main():
-    ar = seiscomp.io.BinaryArchive()
+    ar = io.BinaryArchive()
 
     # Open standard input
     if not ar.open("\-"):
@@ -1279,21 +1357,22 @@ def main():
     ar.close()
 
     # Try to cast obj to an origin
-    org = seiscomp.datamodel.Origin.Cast(obj)
-
+    org = datamodel.Origin.Cast(obj)
     # No origin \-> error
     if not org:
         return 1
 
     # Try to print the standard error to stdout
-    try: print org.quality().standardError()
+    try:
+        print(org.quality().standardError())
     # Field not set, return error
-    except: return 1
+    except Exception:
+        return 1
 
     return 0
 
- if __name__ == "__main__":
-     sys.exit(main())
+if __name__ == "__main__":
+    sys.exit(main())
 .ft P
 .fi
 .UNINDENT
@@ -1443,7 +1522,7 @@ Defines the waveform data source for both, pick review and amplitude review
 The default value to add stations (traces) that have not been picked or
 associated is 15 degrees. A lower value can be defined, e.g. if mainly local events are analyzed.
 .TP
-.B \fIHide station traces without data\fP
+.B \fIHide station traces without data and arrivals\fP
 If new stations are added during pick review or amplitude review and if no
 data is available for some of those stations, they will be hidden and not
 shown. Once data arrives the trace becomes visible.
@@ -2336,7 +2415,8 @@ Default is \fB15\fP\&.
 .B olv.hideStationsWithoutData
 Type: \fIboolean\fP
 .sp
-If enabled, all traces without data are hidden in the picker.
+If enabled, all traces without data and arrivals are
+hidden in the picker.
 Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0

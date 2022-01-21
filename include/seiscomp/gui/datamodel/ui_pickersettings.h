@@ -1158,7 +1158,7 @@ public:
 #ifndef QT_NO_TOOLTIP
         cbHideStationsWithoutData->setToolTip(QApplication::translate("PickerSettings", "If enabled additional stations are initially hidden and only become visible if data is available.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
-        cbHideStationsWithoutData->setText(QApplication::translate("PickerSettings", "Hide station traces without data", 0, QApplication::UnicodeUTF8));
+        cbHideStationsWithoutData->setText(QApplication::translate("PickerSettings", "Hide station traces without data and arrivals", 0, QApplication::UnicodeUTF8));
         cbHideDisabledStations->setText(QApplication::translate("PickerSettings", "Hide disabled stations", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         cbIgnoreDisabledStations->setToolTip(QApplication::translate("PickerSettings", "If stations are about to be added to either the picker or amplitude review window, disabled stations will be ignored if this option is enabled.", 0, QApplication::UnicodeUTF8));

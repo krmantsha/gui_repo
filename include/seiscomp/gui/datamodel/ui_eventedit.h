@@ -1085,7 +1085,7 @@ public:
 #ifndef QT_NO_TOOLTIP
         buttonReleaseMagnitudeType->setToolTip(QApplication::translate("EventEdit", "Unfixes a previouly fixed magnitude type and lets scevent decide which magnitude to set preferred.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
-        buttonReleaseMagnitudeType->setText(QApplication::translate("EventEdit", "Unfix", 0, QApplication::UnicodeUTF8));
+        buttonReleaseMagnitudeType->setText(QApplication::translate("EventEdit", "Unfix type", 0, QApplication::UnicodeUTF8));
         labelMagnitudeMethod->setText(QApplication::translate("EventEdit", "Method:", 0, QApplication::UnicodeUTF8));
         labelMagnitude->setText(QApplication::translate("EventEdit", "Value:", 0, QApplication::UnicodeUTF8));
         labelMagnitudeCount->setText(QApplication::translate("EventEdit", "Count:", 0, QApplication::UnicodeUTF8));
@@ -1111,7 +1111,7 @@ public:
         fmNP2L->setText(QApplication::translate("EventEdit", "NP2:", 0, QApplication::UnicodeUTF8));
         fmMethodL->setText(QApplication::translate("EventEdit", "Method:", 0, QApplication::UnicodeUTF8));
         fmCountL->setText(QApplication::translate("EventEdit", "Count:", 0, QApplication::UnicodeUTF8));
-        fmFixButton->setText(QApplication::translate("EventEdit", "Fix", 0, QApplication::UnicodeUTF8));
+        fmFixButton->setText(QApplication::translate("EventEdit", "Fix FM", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         fmGap->setToolTip(QApplication::translate("EventEdit", "Azimuthal Gap", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
@@ -1182,7 +1182,7 @@ public:
 #ifndef QT_NO_TOOLTIP
         buttonReleaseMw->setToolTip(QApplication::translate("EventEdit", "Unfixes a previously fixed moment magnitude as preferred magnitude and lets scevent decide which magnitude (part of the preferred origin) to set preferred.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
-        buttonReleaseMw->setText(QApplication::translate("EventEdit", "Unfix", 0, QApplication::UnicodeUTF8));
+        buttonReleaseMw->setText(QApplication::translate("EventEdit", "Unfix type", 0, QApplication::UnicodeUTF8));
         mtMagMethodL->setText(QApplication::translate("EventEdit", "Method:", 0, QApplication::UnicodeUTF8));
         mtMagL->setText(QApplication::translate("EventEdit", "Value:", 0, QApplication::UnicodeUTF8));
         mtMag->setText(QApplication::translate("EventEdit", "0.00", 0, QApplication::UnicodeUTF8));
@@ -1190,7 +1190,7 @@ public:
 #ifndef QT_NO_TOOLTIP
         buttonFixMw->setToolTip(QApplication::translate("EventEdit", "Fixes the moment magnitude of the current preferred focal mechanism as preferred magnitude if available.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
-        buttonFixMw->setText(QApplication::translate("EventEdit", "Fix Mw", 0, QApplication::UnicodeUTF8));
+        buttonFixMw->setText(QApplication::translate("EventEdit", "Fix Mw type", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(fmWidget), QApplication::translate("EventEdit", "Focal Mechanisms", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 

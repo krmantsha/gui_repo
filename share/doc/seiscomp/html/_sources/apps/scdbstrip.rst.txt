@@ -12,10 +12,11 @@ scdbstrip
 Description
 ===========
 
-SeisComPs processing is continuously writing to the database. This causes
+SeisComP's :ref:`scmaster` is continuously writing to the database. This causes
 the database to grow and to occupy much space on the harddisc. scdbstrip taggles
-this problem and removed processed objects from the database older than a
-configurable time span.
+this problem and removes processed objects from the database older than a
+configurable time span. The time comparison considers the object time, not the
+time of their creation.
 
 This clean-up procedure is based on events. scdbstrip will remove all events
 with an origin time older than specified. It will also remove all associated
@@ -95,12 +96,20 @@ scdbstrip inherits :ref:`global options<global-configuration>`.
 
 
 
+.. note::
+   **database.cleanup.keep.\***
+   *Parameters controlling the time to keep objects in the database.*
+   *The time comparison considers the object time, not the time of*
+   *their creation.*
+
+
+
 .. confval:: database.cleanup.keep.days
 
    Type: *int*
 
    The number of days to preserve in the database. This
-   value is just one part of the whole timespan. Hours
+   value is added to the whole timespan. Hours
    and minutes are configured separately.
    Default is ``30``.
 
@@ -109,7 +118,7 @@ scdbstrip inherits :ref:`global options<global-configuration>`.
    Type: *int*
 
    The number of hours to preserve in the database. This
-   value is just one part of the whole timespan. Days
+   value is added to the whole timespan. Days
    and minutes are configured separately.
    Default is ``0``.
 
@@ -118,7 +127,7 @@ scdbstrip inherits :ref:`global options<global-configuration>`.
    Type: *int*
 
    The number of minutes to preserve in the database. This
-   value is just one part of the whole timespan. Days
+   value is added to the whole timespan. Days
    and hours are configured separately.
    Default is ``0``.
 

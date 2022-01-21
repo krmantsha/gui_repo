@@ -178,7 +178,7 @@ public:
 
     void retranslateUi(QDialog *CalculateAmplitudes)
     {
-        CalculateAmplitudes->setWindowTitle(QApplication::translate("CalculateAmplitudes", "Calculate amplitudes", 0, QApplication::UnicodeUTF8));
+        CalculateAmplitudes->setWindowTitle(QApplication::translate("CalculateAmplitudes", "Measure amplitudes", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("CalculateAmplitudes", "Source:", 0, QApplication::UnicodeUTF8));
         source->setText(QApplication::translate("CalculateAmplitudes", "TextLabel", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("CalculateAmplitudes", "State:", 0, QApplication::UnicodeUTF8));

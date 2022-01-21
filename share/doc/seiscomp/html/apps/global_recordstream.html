@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -236,8 +236,16 @@ it needs to be complete up until the <cite>query</cite> resource.</p>
 <p>URL: <code class="docutils literal notranslate"><span class="pre">file://path</span></code></p>
 <p>The path may be a absolute or relative path to a file. Environment variables
 are <strong>not</strong> resolved. If path is set to <code class="docutils literal notranslate"><span class="pre">-</span></code> the data is read from <cite>stdin</cite>.</p>
-<p>By default the record type is set to <cite>mseed</cite>. If a file name extension is
-available, then the record type is set as follows:</p>
+<p>Supported files types are:</p>
+<ul class="simple">
+<li><p>miniSEED</p></li>
+<li><p>SAC</p></li>
+<li><p>XML</p></li>
+<li><p>binary</p></li>
+</ul>
+<p>By default the record type is set to <cite>mseed</cite>. SAC data can be read using the <em>#sac</em>
+descriptor. If a file name extension is available, then the record type is set as
+follows:</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 45%" />
@@ -260,13 +268,27 @@ available, then the record type is set as follows:</p>
 </tr>
 </tbody>
 </table>
+<p>Optional descriptor:</p>
+<ul class="simple">
+<li><p><cite>sac</cite> - input data are in SAC format.</p></li>
+</ul>
 </div>
 <div class="section" id="id6">
 <h4>Examples<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">file://-</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">file:///tmp/input.mseed</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">file:///tmp/input.sac#sac</span></code></p></li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When defining the File RecordStream on the command line using the option <cite>-I</cite>,
+the file name can also be passed without the URL scheme, e.g.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">I</span> <span class="o">-</span>
+<span class="o">-</span><span class="n">I</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="nb">input</span><span class="o">.</span><span class="n">mseed</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="sdsarchive">
@@ -661,7 +683,7 @@ stream scheme.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

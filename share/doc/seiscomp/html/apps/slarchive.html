@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -76,20 +76,69 @@
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>slarchive connects to a SeedLink server, requests data streams and writes received
-packets into directory/file structures. The precise layout of the directories and
-files is defined in a format string.</p>
-<p>The implemented file layouts are:</p>
+packets into directory/file structures (archives). The precise layout
+of the directories and files is defined in a format string.</p>
+<p>The implemented layouts are:</p>
 <ul class="simple">
-<li><p>the SeisComP Data Structure (SDS)</p></li>
-<li><p>Buffer of Uniform Data structure (BUD)</p></li>
-<li><p>the old SeisComP/datalog structure (DLOG) for backwards compatibility</p></li>
+<li><p><a class="reference internal" href="#slarchive-section-sds"><span class="std std-ref">SDS</span></a>: The SeisComP Data Structure, default in <cite>SeisComP</cite></p></li>
+<li><p>BUD: Buffer of Uniform Data structure</p></li>
+<li><p>DLOG: The old SeisComP/datalog structure for backwards compatibility</p></li>
 </ul>
-<p>To write more than one archive simply specify multiple format definitions (or presets).</p>
+<p>The duration for which the data are kept in archive is controlled by the bindings
+parameter <a class="reference internal" href="#confval-keep"><code class="xref std std-confval docutils literal notranslate"><span class="pre">keep</span></code></a>. slarchive itself does not clean the archive. For removing
+old data execute <code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/var/lib/slarchive/purge_datafiles</span></code>. A
+regular clean-up is suggested by</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>seiscomp print crontab
+</pre></div>
+</div>
+<p>The resulting line, e.g.</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>20 3 <span class="ge">* *</span> * /home/sysop/seiscomp/var/lib/slarchive/purge_datafiles &gt;/dev/null 2&gt;&amp;1
+</pre></div>
+</div>
+<p>can be adjusted and added to crontab.</p>
+</div>
+<div class="section" id="background-execution">
+<h2>Background Execution<a class="headerlink" href="#background-execution" title="Permalink to this headline">¶</a></h2>
+<p>When starting slarchive in <cite>SeisComP</cite> as a daemon module in the background SDS is
+considered and the packets are written without modification:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>$ seiscomp start slarchive
+</pre></div>
+</div>
+</div>
+<div class="section" id="command-line-execution">
+<h2>Command-Line Execution<a class="headerlink" href="#command-line-execution" title="Permalink to this headline">¶</a></h2>
+<p>Writing to <strong>other layouts</strong> or to <strong>multiple archives</strong> and other options are
+supported when executing slarchive on the command line.
+E.g. to write to more than one archive simply specify multiple format definitions
+(or presets).</p>
+<p>For more command-line option read the help:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>$ slarchive -h
+</pre></div>
+</div>
+</div>
+<div class="section" id="multiple-instances">
+<h2>Multiple Instances<a class="headerlink" href="#multiple-instances" title="Permalink to this headline">¶</a></h2>
+<p>slarchive allows generating aliases, e.g. for running in multiple instances with
+different module and bindings configurations. For creating/removing aliases use the
+<a class="reference internal" href="../base/management.html#sec-management-commands"><span class="std std-ref">seiscomp script</span></a>, e.g.</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>$ seiscomp alias create slarchive2 slarchive
+</pre></div>
+</div>
 </div>
 <div class="section" id="sds-definition">
-<h2>SDS definition<a class="headerlink" href="#sds-definition" title="Permalink to this headline">¶</a></h2>
-<p>The basic directory and file layout is defined as:</p>
-<p><code class="file docutils literal notranslate"><span class="pre">&lt;SDSdir&gt;/Year/NET/STA/CHAN.TYPE/NET.STA.LOC.CHAN.TYPE.YEAR.DAY</span></code>.</p>
+<span id="slarchive-section-sds"></span><h2>SDS definition<a class="headerlink" href="#sds-definition" title="Permalink to this headline">¶</a></h2>
+<p>SDS is the basic directory and file layout in <cite>SeisComP</cite> for waveform archives. The
+archive base directory is defined by <a class="reference internal" href="#confval-archive"><code class="xref std std-confval docutils literal notranslate"><span class="pre">archive</span></code></a>. The SDS layout is defined
+as:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>&lt;SDSdir&gt;
+  + year
+    + network code
+      + station code
+        + channel code
+          + one file per day and location, e.g. NET.STA.LOC.CHAN.D.YEAR.DOY
+</pre></div>
+</div>
+<p>File example: <code class="file docutils literal notranslate"><span class="pre">&lt;SDSdir&gt;/Year/NET/STA/CHAN.TYPE/NET.STA.LOC.CHAN.TYPE.YEAR.DAY</span></code>.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 19%" />
@@ -531,6 +580,9 @@ server will send data indefinitely. This option will override any saved state in
   <ul>
 <li><a class="reference internal" href="#">slarchive</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#background-execution">Background Execution</a></li>
+<li><a class="reference internal" href="#command-line-execution">Command-Line Execution</a></li>
+<li><a class="reference internal" href="#multiple-instances">Multiple Instances</a></li>
 <li><a class="reference internal" href="#sds-definition">SDS definition</a></li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 <li><a class="reference internal" href="#bindings">Bindings</a><ul>
@@ -567,7 +619,7 @@ server will send data indefinitely. This option will override any saved state in
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

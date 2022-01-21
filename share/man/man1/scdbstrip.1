@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCDBSTRIP" "1" "Jun 21, 2021" "4.6.1" "SeisComP"
+.TH "SCDBSTRIP" "1" "Jan 17, 2022" "4.8.4" "SeisComP"
 .SH NAME
 scdbstrip \- SeisComP Documentation
 .
@@ -34,10 +34,11 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 \fBDatabase clean\-up of processing results.\fP
 .SH DESCRIPTION
 .sp
-SeisComPs processing is continuously writing to the database. This causes
+SeisComP\(aqs scmaster is continuously writing to the database. This causes
 the database to grow and to occupy much space on the harddisc. scdbstrip taggles
-this problem and removed processed objects from the database older than a
-configurable time span.
+this problem and removes processed objects from the database older than a
+configurable time span. The time comparison considers the object time, not the
+time of their creation.
 .sp
 This clean\-up procedure is based on events. scdbstrip will remove all events
 with an origin time older than specified. It will also remove all associated
@@ -135,13 +136,23 @@ scdbstrip \-\-days 30 \-d mysql://sysop:sysop@localhost/seiscomp
 .sp
 .sp
 scdbstrip inherits global options\&.
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBdatabase.cleanup.keep.*\fP
+\fIParameters controlling the time to keep objects in the database.\fP
+\fIThe time comparison considers the object time, not the time of\fP
+\fItheir creation.\fP
+.UNINDENT
+.UNINDENT
 .INDENT 0.0
 .TP
 .B database.cleanup.keep.days
 Type: \fIint\fP
 .sp
 The number of days to preserve in the database. This
-value is just one part of the whole timespan. Hours
+value is added to the whole timespan. Hours
 and minutes are configured separately.
 Default is \fB30\fP\&.
 .UNINDENT
@@ -151,7 +162,7 @@ Default is \fB30\fP\&.
 Type: \fIint\fP
 .sp
 The number of hours to preserve in the database. This
-value is just one part of the whole timespan. Days
+value is added to the whole timespan. Days
 and minutes are configured separately.
 Default is \fB0\fP\&.
 .UNINDENT
@@ -161,7 +172,7 @@ Default is \fB0\fP\&.
 Type: \fIint\fP
 .sp
 The number of minutes to preserve in the database. This
-value is just one part of the whole timespan. Days
+value is added to the whole timespan. Days
 and hours are configured separately.
 Default is \fB0\fP\&.
 .UNINDENT

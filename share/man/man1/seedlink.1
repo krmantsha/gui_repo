@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SEEDLINK" "1" "Jun 21, 2021" "4.6.1" "SeisComP"
+.TH "SEEDLINK" "1" "Jan 17, 2022" "4.8.4" "SeisComP"
 .SH NAME
 seedlink \- SeisComP Documentation
 .
@@ -76,7 +76,7 @@ _
 T{
 Plugin name
 T}	T{
-Digitizer/DAS
+Source or Digitizer/DAS
 T}	T{
 Plugin Implementer
 T}
@@ -92,7 +92,7 @@ _
 T{
 \fI\%caps\fP
 T}	T{
-CAPS server
+\fI\%CAPS server\fP
 T}	T{
 \fI\%gempa GmbH\fP
 T}
@@ -202,7 +202,7 @@ _
 T{
 \fI\%mseedscan\fP
 T}	T{
-Generic
+Transfers miniSEED files from a directory
 T}	T{
 Chad Trabant (IRIS)
 T}
@@ -213,6 +213,13 @@ T}	T{
 MK6
 T}	T{
 Jan Wiszniowski (IGPAS)
+T}
+_
+T{
+\fI\%mppt\fP *
+T}	T{
+SunSaver MPPT via Modbus TCP/IP
+T}	T{
 T}
 _
 T{
@@ -301,6 +308,14 @@ T}	T{
 SCREAM
 T}	T{
 Reinoud Sleeman (KNMI), This is the second revision of the scream plugin which supports buffering for short\-term completeness.
+T}
+_
+T{
+\fI\%vaisala\fP
+T}	T{
+Vaisala ASCII protocol (serial plugin)
+T}	T{
+GFZ
 T}
 _
 T{
@@ -1200,8 +1215,14 @@ Default is \fB0\fP\&.
 .B proc
 Type: \fIstring\fP
 .sp
-Name of the proc object (defined in streams.xml); used for processing
-raw streams (streams submitted by a plugin as raw samples).
+Name of the proc object uniquely defined in a seedlink template file, e.g.
+$SEISCOMP_ROOT/share/templates/seedlink/streams_{name}.tpl.
+proc is used for processing, e.g. renaming or resampling of raw
+streams (streams submitted by a plugin as raw samples).
+The template file is used to generate
+$SEISCOMP_ROOT/var/lib/seedlink/streams.xml .
+.sp
+Example template: $SEISCOMP_ROOT/share/templates/seedlink/streams_stream100.tpl
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1211,7 +1232,7 @@ Type: \fIlist:string\fP
 Defines a list of extension bindings to be used.
 Each binding can then be configured individually.
 .sp
-Available identifiers: \fI\%antelope\fP \fI\%caps\fP \fI\%chain\fP \fI\%dr24\fP \fI\%echopro_3ch100hz\fP \fI\%echopro_6ch200hz\fP \fI\%edata\fP \fI\%ewexport\fP \fI\%ewexport_pasv\fP \fI\%fs_mseed\fP \fI\%hrd24\fP \fI\%liss\fP \fI\%m24\fP \fI\%minilogger\fP \fI\%mk6\fP \fI\%mppt\fP \fI\%mseedfifo\fP \fI\%mseedscan\fP \fI\%mws\fP \fI\%naqs\fP \fI\%nmxp\fP \fI\%ps2400_eth\fP \fI\%q330\fP \fI\%reftek\fP \fI\%sadc\fP \fI\%scream\fP \fI\%scream_ring\fP \fI\%wago\fP \fI\%wave24\fP \fI\%win\fP
+Available identifiers: \fI\%antelope\fP \fI\%caps\fP \fI\%chain\fP \fI\%dr24\fP \fI\%echopro_3ch100hz\fP \fI\%echopro_6ch200hz\fP \fI\%edata\fP \fI\%ewexport\fP \fI\%ewexport_pasv\fP \fI\%fs_mseed\fP \fI\%hrd24\fP \fI\%liss\fP \fI\%m24\fP \fI\%minilogger\fP \fI\%miscScript\fP \fI\%miscSerial\fP \fI\%mk6\fP \fI\%mppt\fP \fI\%mseedfifo\fP \fI\%mseedscan\fP \fI\%mws\fP \fI\%naqs\fP \fI\%nmxp\fP \fI\%ps2400_eth\fP \fI\%q330\fP \fI\%reftek\fP \fI\%sadc\fP \fI\%scream\fP \fI\%scream_ring\fP \fI\%vaisala\fP \fI\%wago\fP \fI\%wave24\fP \fI\%win\fP
 .INDENT 7.0
 .INDENT 3.5
 .sp
@@ -1972,6 +1993,114 @@ Type: \fIint\fP
 Nominal gain, one of 1, 2 or 4.
 Default is \fB4\fP\&.
 .UNINDENT
+.SS miscScript
+.sp
+Misceallaneous script
+.INDENT 0.0
+.TP
+.B sources.miscScript.script_path
+Type: \fIstring\fP
+.sp
+Script path.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B sources.miscScript.script_args
+Type: \fIstring\fP
+.sp
+Script arguments.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B sources.miscScript.proc
+Type: \fIstring\fP
+.sp
+Name of the proc object used for channel naming (and eventually down sampling). If this field is left to default (auto), a basic proc (without decimation) will be automatically generated.
+Default is \fBauto\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B sources.miscScript.channels
+Type: \fIstring\fP
+.sp
+Names of the channels. These names are only used if you choose to automatically generate the proc. Nevertheless, even if you are not using the auto proc, it is important to declare correctly this list as the number of channels is used to size the internal plugin\(aqs buffers. If you do not want seedlink to use one of the channels, replace it names with "none". Example : 01HHZ,none,none,02HHZ,HHE,HHN
+Default is \fBHHZ,HHN,HHE\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B sources.miscScript.sample_frequency
+Type: \fIstring\fP
+.sp
+Sampling frequency. Must be integer or a fraction of integers.
+Default is \fB1\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B sources.miscScript.flush_period
+Type: \fIint\fP
+.sp
+This parameter aims at enforcing the sending of seedlink data blocks (512bytes) even if they are not yet full. 0 means no enforcing.
+Default is \fB0\fP\&.
+.UNINDENT
+.SS miscSerial
+.sp
+Miscellaneous ASCII serial Plugin (serial plugin)
+.INDENT 0.0
+.TP
+.B sources.miscSerial.comport
+Type: \fIstring\fP
+.sp
+Serial port.
+Default is \fB/dev/data\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B sources.miscSerial.baudrate
+Type: \fIint\fP
+.sp
+Baud rate.
+Default is \fB9600\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B sources.miscSerial.proc
+Type: \fIstring\fP
+.sp
+Name of the proc object used for channel naming (and eventually down sampling). If this field is left to default (auto), a basic proc (without decimation) will be automatically generated.
+Default is \fBauto\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B sources.miscSerial.channels
+Type: \fIstring\fP
+.sp
+Names of the channels. These names are only used if you choose to automatically generate the proc. Nevertheless, even if you are not using the auto proc, it is important to declare correctly this list as the number of channels is used to size the internal plugin\(aqs buffers. If you do not want seedlink to use one of the channels, replace it names with "none". Example : 01HHZ,none,none,02HHZ,HHE,HHN
+Default is \fBHHZ,HHN,HHE\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B sources.miscSerial.sample_frequency
+Type: \fIstring\fP
+.sp
+Sampling frequency. Must be integer or a fraction of integers.
+Default is \fB1\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B sources.miscSerial.flush_period
+Type: \fIint\fP
+.sp
+This parameter aims at enforcing the sending of seedlink data blocks (512bytes, even if they are not yet full. 0 means no enforcing.
+Default is \fB0\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B sources.miscSerial.serial_clock_period
+Type: \fIint\fP
+.sp
+If this parameter is not 0, a date frame ("YYYY,mm,dd hh:mm:ss\en") will be send on serial port every serial_clock_period seconds.
+Default is \fB0\fP\&.
+.UNINDENT
 .SS mk6
 .sp
 MK6
@@ -2022,7 +2151,12 @@ Default is \fBmppt\fP\&.
 mseedfifo_plugin
 .SS mseedscan
 .sp
-MseedScan
+MseedScan transfers new or changed miniSEED files from a directory
+to a SeedLink server. It recursively a directory
+structures and continuously checks for file modifications. The files
+are presumed to be composed of Mini\-SEED records of 512 Bytes. As the
+files are appended or created the plugin will feed the new records to
+the controlling SeedLink server.
 .INDENT 0.0
 .TP
 .B sources.mseedscan.dir
@@ -2209,8 +2343,17 @@ Default is \fBauto\fP\&.
 .B sources.q330.proc
 Type: \fIstring\fP
 .sp
-Name of the proc object (defined in streams.xml); used for processing
-raw streams (streams submitted by a plugin as raw samples).
+Name of the proc object uniquely defined in a template file of
+the q330 plugin e.g.
+$SEISCOMP_ROOT/share/templates/seedlink/q330/streams_{name}.tpl.
+proc is used for processing, e.g. renaming or resampling of raw
+streams (streams submitted by a plugin as raw samples).
+The template file is used to generate
+$SEISCOMP_ROOT/var/lib/seedlink/streams.xml .
+.sp
+Example template: $SEISCOMP_ROOT/share/templates/seedlink/q330/streams_q330_100.tpl
+.sp
+If proc is not given, the streams are taken as provided by the DAS.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2282,8 +2425,15 @@ Default is \fB91F3\fP\&.
 .B sources.reftek.proc
 Type: \fIstring\fP
 .sp
-Name of the proc object (defined in streams.xml); used for processing
-raw streams (streams submitted by a plugin as raw samples).
+Name of the proc object uniquely defined in a template file of
+the reftek plugin e.g.
+$SEISCOMP_ROOT/share/templates/seedlink/reftek/streams_{name}.tpl.
+proc is used for processing, e.g. renaming or resampling of raw
+streams (streams submitted by a plugin as raw samples).
+The template file is used to generate
+$SEISCOMP_ROOT/var/lib/seedlink/streams.xml .
+.sp
+Example template: $SEISCOMP_ROOT/share/templates/seedlink/reftek/streams_reftek.tpl
 Default is \fBreftek\fP\&.
 .UNINDENT
 .INDENT 0.0
@@ -2502,6 +2652,34 @@ Defines the channel mappings (ID:channel, ...) from SCREAM!
 to the channel code used in streams.xml. If no channel mappings
 are given, the map file defined in map (either default or custom)
 is used.
+.UNINDENT
+.SS vaisala
+.sp
+Vaisala ASCII protocol (serial plugin)
+.INDENT 0.0
+.TP
+.B sources.vaisala.comport
+Type: \fIstring\fP
+.sp
+Serial port.
+Default is \fB/dev/weatherstation\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B sources.vaisala.baudrate
+Type: \fIint\fP
+.sp
+Baud rate.
+Default is \fB19200\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B sources.vaisala.proc
+Type: \fIstring\fP
+.sp
+Name of the proc object (defined in streams.xml); used for processing
+raw streams (streams submitted by a plugin as raw samples).
+Default is \fBmws\fP\&.
 .UNINDENT
 .SS wago
 .sp

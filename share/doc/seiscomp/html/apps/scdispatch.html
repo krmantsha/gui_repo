@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -76,28 +76,28 @@
 to the messaging system.</strong></p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>scdispatch reads an SC3ML file and creates notifier objects for them that
+<p>scdispatch reads an <a class="reference internal" href="../base/glossary.html#term-scml"><span class="xref std std-term">SCML</span></a> file and creates notifier objects for them that
 are sent to the corresponding messaging groups (see <a class="reference internal" href="scimport.html#confval-routingtable"><code class="xref std std-confval docutils literal notranslate"><span class="pre">routingtable</span></code></a>).
-In contrast to <a class="reference internal" href="scdb.html#scdb"><span class="std std-ref">scdb</span></a> which writes SC3ML files directly into the database
+In contrast to <a class="reference internal" href="scdb.html#scdb"><span class="std std-ref">scdb</span></a> which writes SCML files directly into the database
 scdispatch uses the messaging bus. If <a class="reference internal" href="scmaster.html#scmaster"><span class="std std-ref">scmaster</span></a> is configured with
 the database plugin messages will end up in the database as well.</p>
 <p>scdispatch can work in two modes. The first mode is used when a concrete
 operation is specified such as <em>add</em>, <em>update</em> or <em>remove</em>. In that case all
-objects in the SC3ML are encapsulated in a notifier with that specific operation
+objects in the SCML are encapsulated in a notifier with that specific operation
 and sent to the messaging. No check is performed if the object is already in
 the database or not.</p>
 <p>In the second mode scdispatch loads the corresponding objects from the database
 and calculates differences. It will then create corresponding notifiers with
 operations <em>add</em>, <em>update</em> or <em>remove</em> and sent them to the messaging. That mode
 is quite close to a sync operation with the exception that top level objects
-(such as origin or event) that are not part of the input SC3ML are left untouched
+(such as origin or event) that are not part of the input SCML are left untouched
 in the database. It can be used to synchronize event information from one system
 with another.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
-<li><p>Send different objects from a SC3ML file because the default behavior is to merge:</p>
+<li><p>Send different objects from a <a class="reference internal" href="../base/glossary.html#term-scml"><span class="xref std std-term">SCML</span></a> file because the default behavior is to merge:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdispatch -i test.xml
 </pre></div>
 </div>
@@ -117,23 +117,30 @@ with another.</p>
 </pre></div>
 </div>
 </li>
-<li><p>Subsets of SC3ML Objects</p>
+<li><p>Subsets of SCML Objects</p>
 <p>It can be useful to import a subset of QuakeML objects, e.g. Origins from other
 agencies and then allow <a class="reference internal" href="scevent.html#scevent"><span class="std std-ref">scevent</span></a> to associate them to existing
 events (and possibly prefer them based on the rules in scevent) or create new
-events for the origins. If the event objects from a SC3ML file are not required
+events for the origins. If the event objects from a SCML file are not required
 to be sent to the messaging then either they should be removed (e.g. using XSLT)
 and all the remaining objects in the file added:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdispatch -i test.xml -O add
 </pre></div>
 </div>
-<p>or the event objects can be left out of the routing table, e.g.</p>
+<p>or the <strong>event objects</strong> can be left out of the routing table, e.g.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdispatch -i test.xml -O add <span class="se">\</span>
            --routingtable Pick:PICK, <span class="se">\</span>
                           Amplitude:AMPLITUDE, <span class="se">\</span>
                           Origin:LOCATION,StationMagnitude:MAGNITUDE, <span class="se">\</span>
                           Magnitude:MAGNITUDE
 </pre></div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>The option <code class="xref std std-option docutils literal notranslate"><span class="pre">--no-event</span></code> is a wrapper for removing Event:EVENT from
+the routing table. With this option no event objects will be sent which may
+be useful if just the origins with magnitudes, amplitudes, arrivals, picks, etc.
+shall be integrated, e.g. after XML-based playbacks.</p>
 </div>
 </li>
 <li><p>Testing</p>
@@ -417,6 +424,13 @@ relationship between Origin and Arrival.</p>
 <dd><p>Test mode. Does not send any object.</p>
 </dd></dl>
 
+<dl class="option">
+<dt id="cmdoption-scdispatch-e">
+<code class="sig-name descname">-e</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-events</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scdispatch-e" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not send any event object. This is a wrapper to setting a
+routing table without EVENT objects</p>
+</dd></dl>
+
 </div>
 </div>
 </div>
@@ -481,7 +495,7 @@ relationship between Origin and Arrival.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

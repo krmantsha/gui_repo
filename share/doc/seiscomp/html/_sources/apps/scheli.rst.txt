@@ -38,7 +38,7 @@ Examples
 
 .. _scheli-show:
 
-#. **GUI mode - Simple helicorder window:**
+1. **GUI mode - Simple helicorder window:**
 
    * Learn about the plenty command-line options for :program:`scheli`: ::
 
@@ -62,7 +62,7 @@ Examples
 
 .. _scheli-capture:
 
-#. **Capture mode - Image capturing:**
+2. **Capture mode - Image capturing:**
 
    Capture the helicorder plot for 3 stations in intervals of 10 seconds.
    The data is retrieved using seedlink and the plots are stored as PNG images.
@@ -169,6 +169,8 @@ scheli inherits :ref:`global options<global-configuration>`.
 
    Type: *integer*
 
+   Unit: *px*
+
    Line width of traces.
    Default is ``1``.
 
@@ -206,7 +208,7 @@ scheli inherits :ref:`global options<global-configuration>`.
 
    Define the method to scale traces within rows. Possible values are:
    
-   minmax: Scale all rows to confiugured minimum and maximum
+   minmax: Scale all rows to configured minimum and maximum
    amplitudes configured by amplitudeRange.min and amplitudeRange.max.
    
    row: Scale each row to the maximum within this row.
@@ -216,6 +218,8 @@ scheli inherits :ref:`global options<global-configuration>`.
 
    Type: *double*
 
+   Unit: *unit of input data*
+
    Minimum amplitude to show in trace. Requires
    amplitudeRange.scale \= \"minmax\".
    Default is ``-0.00001``.
@@ -223,6 +227,8 @@ scheli inherits :ref:`global options<global-configuration>`.
 .. confval:: heli.amplitudeRange.max
 
    Type: *double*
+
+   Unit: *unit of input data*
 
    Minimum amplitude to show in trace. Requires
    amplitudeRange.scale \= \"minmax\".
@@ -497,7 +503,15 @@ Data
 
 .. option:: --gain arg
 
-   Gain applied to the data before plotting. Units: counts\/unit
+   Gain applied to the data before plotting
+
+.. option:: --amp-scaling arg
+
+   Lower bound of amplitude range per row. Possible values:
+   
+   minmax: Scale all rows to configured minimum and maximum amplitudes.
+   
+   row: Scale each row to the maximum within this row.
 
 .. option:: --amp-range-min arg
 
@@ -549,7 +563,8 @@ Output
 
 .. option:: -o arg
 
-   Output filename \(placeholders: %N,%S,%L,%C\)
+   Output filename. Placeholders are %N,%S,%L,%C for network code,
+   station code, location code, channel code.
 
 .. option:: --interval arg
 

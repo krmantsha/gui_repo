@@ -53,11 +53,11 @@ documentation in form of UNIX manual pages.
 
 .. csv-table::
    :widths: 2 3 5
-   :header: Plugin name, Digitizer/DAS, Plugin Implementer
+   :header: Plugin name, Source or Digitizer/DAS, Plugin Implementer
    :align: left
 
    :ref:`seedlink-sources-antelope-label` * ,  Antelope, Chad Trabant (IRIS)
-   :ref:`seedlink-sources-caps-label`       ,  CAPS server, `gempa GmbH <https://gempa.de>`_
+   :ref:`seedlink-sources-caps-label`       ,  `CAPS server <https://docs.gempa.de/caps/current/index.html>`_ , `gempa GmbH <https://gempa.de>`_
    :ref:`seedlink-sources-chain-label`      ,  SeedLink, GFZ
    dm24 **    ,  Guralp DM24, GFZ; based on libgcf2 from Guralp
    :ref:`seedlink-sources-dr24-label`       ,  Geotech DR24, GFZ
@@ -71,8 +71,9 @@ documentation in form of UNIX manual pages.
    :ref:`seedlink-sources-m24-label` *      ,  Lennartz M24, Lennartz Electronic GmbH
    :ref:`seedlink-sources-minilogger-label` ,  SEP064 USB Seismometer Interface, GFZ; Anthony Lomax
    :ref:`seedlink-sources-mseedfifo-label`  ,  Generic, GFZ
-   :ref:`seedlink-sources-mseedscan-label`  ,  Generic, Chad Trabant (IRIS)
+   :ref:`seedlink-sources-mseedscan-label`  ,  Transfers miniSEED files from a directory, Chad Trabant (IRIS)
    :ref:`seedlink-sources-mk6-label` *      ,  MK6, Jan Wiszniowski (IGPAS)
+   :ref:`seedlink-sources-mppt-label` *     ,  SunSaver MPPT via Modbus TCP/IP,
    :ref:`seedlink-sources-mws-label`        ,  Reinhardt MWS5/MWS9 Weather Station, GFZ
    :ref:`seedlink-sources-naqs-label`       ,  NAQS, "Chad Trabant (IRIS); based on sample code from Nanometrics, Inc."
    :ref:`seedlink-sources-nmxp-label` *     ,  NAQS, Matteo Quintiliani (INGV)
@@ -84,6 +85,7 @@ documentation in form of UNIX manual pages.
    :ref:`seedlink-sources-sadc-label`       ,  SARA SADC10/18/20/30, GFZ
    :ref:`seedlink-sources-scream-label`     ,  SCREAM, Reinoud Sleeman (KNMI)
    :ref:`seedlink-sources-scream_ring-label`  ,  SCREAM, "Reinoud Sleeman (KNMI), This is the second revision of the scream plugin which supports buffering for short-term completeness."
+   :ref:`seedlink-sources-vaisala-label`     ,  Vaisala ASCII protocol (serial plugin), GFZ
    :ref:`seedlink-sources-wago-label`       ,  WAGO MODBUS/TCP devices, GFZ
    :ref:`seedlink-sources-wave24-label` *   ,  Wave24, MicroStep-MIS
    :ref:`seedlink-sources-win-label`        ,  WIN, GFZ; based on source code of WIN system
@@ -921,8 +923,14 @@ Configuration
 
    Type: *string*
 
-   Name of the proc object \(defined in streams.xml\); used for processing
-   raw streams \(streams submitted by a plugin as raw samples\).
+   Name of the proc object uniquely defined in a seedlink template file, e.g.
+   \$SEISCOMP_ROOT\/share\/templates\/seedlink\/streams_{name}.tpl.
+   proc is used for processing, e.g. renaming or resampling of raw
+   streams \(streams submitted by a plugin as raw samples\).
+   The template file is used to generate
+   \$SEISCOMP_ROOT\/var\/lib\/seedlink\/streams.xml .
+   
+   Example template: \$SEISCOMP_ROOT\/share\/templates\/seedlink\/streams_stream100.tpl
 
 .. confval:: sources
 
@@ -931,7 +939,7 @@ Configuration
    Defines a list of extension bindings to be used.
    Each binding can then be configured individually.
 
-   Available identifiers: :ref:`seedlink-sources-antelope-label` :ref:`seedlink-sources-caps-label` :ref:`seedlink-sources-chain-label` :ref:`seedlink-sources-dr24-label` :ref:`seedlink-sources-echopro_3ch100hz-label` :ref:`seedlink-sources-echopro_6ch200hz-label` :ref:`seedlink-sources-edata-label` :ref:`seedlink-sources-ewexport-label` :ref:`seedlink-sources-ewexport_pasv-label` :ref:`seedlink-sources-fs_mseed-label` :ref:`seedlink-sources-hrd24-label` :ref:`seedlink-sources-liss-label` :ref:`seedlink-sources-m24-label` :ref:`seedlink-sources-minilogger-label` :ref:`seedlink-sources-mk6-label` :ref:`seedlink-sources-mppt-label` :ref:`seedlink-sources-mseedfifo-label` :ref:`seedlink-sources-mseedscan-label` :ref:`seedlink-sources-mws-label` :ref:`seedlink-sources-naqs-label` :ref:`seedlink-sources-nmxp-label` :ref:`seedlink-sources-ps2400_eth-label` :ref:`seedlink-sources-q330-label` :ref:`seedlink-sources-reftek-label` :ref:`seedlink-sources-sadc-label` :ref:`seedlink-sources-scream-label` :ref:`seedlink-sources-scream_ring-label` :ref:`seedlink-sources-wago-label` :ref:`seedlink-sources-wave24-label` :ref:`seedlink-sources-win-label`
+   Available identifiers: :ref:`seedlink-sources-antelope-label` :ref:`seedlink-sources-caps-label` :ref:`seedlink-sources-chain-label` :ref:`seedlink-sources-dr24-label` :ref:`seedlink-sources-echopro_3ch100hz-label` :ref:`seedlink-sources-echopro_6ch200hz-label` :ref:`seedlink-sources-edata-label` :ref:`seedlink-sources-ewexport-label` :ref:`seedlink-sources-ewexport_pasv-label` :ref:`seedlink-sources-fs_mseed-label` :ref:`seedlink-sources-hrd24-label` :ref:`seedlink-sources-liss-label` :ref:`seedlink-sources-m24-label` :ref:`seedlink-sources-minilogger-label` :ref:`seedlink-sources-miscScript-label` :ref:`seedlink-sources-miscSerial-label` :ref:`seedlink-sources-mk6-label` :ref:`seedlink-sources-mppt-label` :ref:`seedlink-sources-mseedfifo-label` :ref:`seedlink-sources-mseedscan-label` :ref:`seedlink-sources-mws-label` :ref:`seedlink-sources-naqs-label` :ref:`seedlink-sources-nmxp-label` :ref:`seedlink-sources-ps2400_eth-label` :ref:`seedlink-sources-q330-label` :ref:`seedlink-sources-reftek-label` :ref:`seedlink-sources-sadc-label` :ref:`seedlink-sources-scream-label` :ref:`seedlink-sources-scream_ring-label` :ref:`seedlink-sources-vaisala-label` :ref:`seedlink-sources-wago-label` :ref:`seedlink-sources-wave24-label` :ref:`seedlink-sources-win-label`
 
    .. code-block:: sh
 
@@ -1681,6 +1689,111 @@ SEP064 USB Seismometer Interface
    Nominal gain, one of 1, 2 or 4.
    Default is ``4``.
 
+.. _seedlink-sources-miscScript-label:
+
+miscScript
+^^^^^^^^^^
+
+Misceallaneous script
+
+.. confval:: sources.miscScript.script_path
+
+   Type: *string*
+
+   Script path.
+
+
+.. confval:: sources.miscScript.script_args
+
+   Type: *string*
+
+   Script arguments.
+
+
+.. confval:: sources.miscScript.proc
+
+   Type: *string*
+
+   Name of the proc object used for channel naming \(and eventually down sampling\). If this field is left to default \(auto\), a basic proc \(without decimation\) will be automatically generated.
+   Default is ``auto``.
+
+.. confval:: sources.miscScript.channels
+
+   Type: *string*
+
+   Names of the channels. These names are only used if you choose to automatically generate the proc. Nevertheless, even if you are not using the auto proc, it is important to declare correctly this list as the number of channels is used to size the internal plugin's buffers. If you do not want seedlink to use one of the channels, replace it names with \"none\". Example : 01HHZ,none,none,02HHZ,HHE,HHN
+   Default is ``HHZ,HHN,HHE``.
+
+.. confval:: sources.miscScript.sample_frequency
+
+   Type: *string*
+
+   Sampling frequency. Must be integer or a fraction of integers.
+   Default is ``1``.
+
+.. confval:: sources.miscScript.flush_period
+
+   Type: *int*
+
+   This parameter aims at enforcing the sending of seedlink data blocks \(512bytes\) even if they are not yet full. 0 means no enforcing.
+   Default is ``0``.
+
+.. _seedlink-sources-miscSerial-label:
+
+miscSerial
+^^^^^^^^^^
+
+Miscellaneous ASCII serial Plugin (serial plugin)
+
+.. confval:: sources.miscSerial.comport
+
+   Type: *string*
+
+   Serial port.
+   Default is ``/dev/data``.
+
+.. confval:: sources.miscSerial.baudrate
+
+   Type: *int*
+
+   Baud rate.
+   Default is ``9600``.
+
+.. confval:: sources.miscSerial.proc
+
+   Type: *string*
+
+   Name of the proc object used for channel naming \(and eventually down sampling\). If this field is left to default \(auto\), a basic proc \(without decimation\) will be automatically generated.
+   Default is ``auto``.
+
+.. confval:: sources.miscSerial.channels
+
+   Type: *string*
+
+   Names of the channels. These names are only used if you choose to automatically generate the proc. Nevertheless, even if you are not using the auto proc, it is important to declare correctly this list as the number of channels is used to size the internal plugin's buffers. If you do not want seedlink to use one of the channels, replace it names with \"none\". Example : 01HHZ,none,none,02HHZ,HHE,HHN
+   Default is ``HHZ,HHN,HHE``.
+
+.. confval:: sources.miscSerial.sample_frequency
+
+   Type: *string*
+
+   Sampling frequency. Must be integer or a fraction of integers.
+   Default is ``1``.
+
+.. confval:: sources.miscSerial.flush_period
+
+   Type: *int*
+
+   This parameter aims at enforcing the sending of seedlink data blocks \(512bytes, even if they are not yet full. 0 means no enforcing.
+   Default is ``0``.
+
+.. confval:: sources.miscSerial.serial_clock_period
+
+   Type: *int*
+
+   If this parameter is not 0, a date frame \(\"YYYY,mm,dd hh:mm:ss\\n\"\) will be send on serial port every serial_clock_period seconds.
+   Default is ``0``.
+
 .. _seedlink-sources-mk6-label:
 
 mk6
@@ -1744,7 +1857,12 @@ mseedfifo_plugin
 mseedscan
 ^^^^^^^^^
 
-MseedScan
+MseedScan transfers new or changed miniSEED files from a directory
+to a SeedLink server. It recursively a directory
+structures and continuously checks for file modifications. The files
+are presumed to be composed of Mini-SEED records of 512 Bytes. As the
+files are appended or created the plugin will feed the new records to
+the controlling SeedLink server.
 
 .. confval:: sources.mseedscan.dir
 
@@ -1935,8 +2053,17 @@ Quanterra Q330 (UDP/IP)
 
    Type: *string*
 
-   Name of the proc object \(defined in streams.xml\); used for processing
-   raw streams \(streams submitted by a plugin as raw samples\).
+   Name of the proc object uniquely defined in a template file of
+   the q330 plugin e.g.
+   \$SEISCOMP_ROOT\/share\/templates\/seedlink\/q330\/streams_{name}.tpl.
+   proc is used for processing, e.g. renaming or resampling of raw
+   streams \(streams submitted by a plugin as raw samples\).
+   The template file is used to generate
+   \$SEISCOMP_ROOT\/var\/lib\/seedlink\/streams.xml .
+   
+   Example template: \$SEISCOMP_ROOT\/share\/templates\/seedlink\/q330\/streams_q330_100.tpl
+   
+   If proc is not given, the streams are taken as provided by the DAS.
 
 
 .. confval:: sources.q330.slot
@@ -2006,8 +2133,15 @@ RefTek RTPD (TCP/IP)
 
    Type: *string*
 
-   Name of the proc object \(defined in streams.xml\); used for processing
-   raw streams \(streams submitted by a plugin as raw samples\).
+   Name of the proc object uniquely defined in a template file of
+   the reftek plugin e.g.
+   \$SEISCOMP_ROOT\/share\/templates\/seedlink\/reftek\/streams_{name}.tpl.
+   proc is used for processing, e.g. renaming or resampling of raw
+   streams \(streams submitted by a plugin as raw samples\).
+   The template file is used to generate
+   \$SEISCOMP_ROOT\/var\/lib\/seedlink\/streams.xml .
+   
+   Example template: \$SEISCOMP_ROOT\/share\/templates\/seedlink\/reftek\/streams_reftek.tpl
    Default is ``reftek``.
 
 .. confval:: sources.reftek.timeout
@@ -2222,6 +2356,35 @@ completeness.
    are given, the map file defined in map \(either default or custom\)
    is used.
 
+
+.. _seedlink-sources-vaisala-label:
+
+vaisala
+^^^^^^^
+
+Vaisala ASCII protocol (serial plugin)
+
+.. confval:: sources.vaisala.comport
+
+   Type: *string*
+
+   Serial port.
+   Default is ``/dev/weatherstation``.
+
+.. confval:: sources.vaisala.baudrate
+
+   Type: *int*
+
+   Baud rate.
+   Default is ``19200``.
+
+.. confval:: sources.vaisala.proc
+
+   Type: *string*
+
+   Name of the proc object \(defined in streams.xml\); used for processing
+   raw streams \(streams submitted by a plugin as raw samples\).
+   Default is ``mws``.
 
 .. _seedlink-sources-wago-label:
 

@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCEVENT" "1" "Jun 21, 2021" "4.6.1" "SeisComP"
+.TH "SCEVENT" "1" "Jan 17, 2022" "4.8.4" "SeisComP"
 .SH NAME
 scevent \- SeisComP Documentation
 .
@@ -665,6 +665,20 @@ Type: \fIdouble\fP
 Average between mb and Mw(mB) which must be exceeded to become Mw(mB)
 preferred.
 Default is \fB6\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.magPriorityOverStationCount
+Type: \fIboolean\fP
+.sp
+If false then the station count rules out the magnitude priority
+which is only taken into account if two magnitudes have the
+same station count.
+.sp
+If true then the priority rules out the station count
+which is only taken into account if two magnitudes have the
+same priority.
+Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP

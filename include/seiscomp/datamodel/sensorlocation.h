@@ -22,8 +22,8 @@
 #define SEISCOMP_DATAMODEL_SENSORLOCATION_H
 
 
-#include <vector>
 #include <seiscomp/core/datetime.h>
+#include <vector>
 #include <string>
 #include <seiscomp/datamodel/comment.h>
 #include <seiscomp/datamodel/auxstream.h>
@@ -124,7 +124,7 @@ class SC_SYSTEM_CORE_API SensorLocation : public PublicObject {
 		//! Copies the metadata of other to this
 		//! No changes regarding child objects are made
 		SensorLocation& operator=(const SensorLocation& other);
-		//! Checks for equality of two objects. Childs objects
+		//! Checks for equality of two objects. Child objects
 		//! are not part of the check.
 		bool operator==(const SensorLocation& other) const;
 		bool operator!=(const SensorLocation& other) const;
@@ -149,15 +149,27 @@ class SC_SYSTEM_CORE_API SensorLocation : public PublicObject {
 		void setEnd(const OPT(Seiscomp::Core::Time)& end);
 		Seiscomp::Core::Time end() const;
 
-		//! Sensor latitude (52.10)
+		//! Sensor latitude (52.10) with respect to the World Geodetic
+		//! System
+		//! 1984 (WGS84) reference system (National Imagery and Mapping
+		//! Agency
+		//! 2000) in degrees.
 		void setLatitude(const OPT(double)& latitude);
 		double latitude() const;
 
-		//! Sensor longitude (52.11)
+		//! Sensor longitude (52.11) with respect to the World Geodetic
+		//! System
+		//! 1984 (WGS84) reference system (National Imagery and Mapping
+		//! Agency
+		//! 2000) in degrees.
 		void setLongitude(const OPT(double)& longitude);
 		double longitude() const;
 
-		//! Sensor elevation (52.12)
+		//! Sensor elevation (52.12) with respect to the World Geodetic
+		//! System
+		//! 1984 (WGS84) reference system (National Imagery and Mapping
+		//! Agency
+		//! 2000) in meters.
 		void setElevation(const OPT(double)& elevation);
 		double elevation() const;
 

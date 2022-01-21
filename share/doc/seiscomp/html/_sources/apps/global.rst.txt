@@ -102,6 +102,9 @@ Plugins
 * :ref:`MLr <global_mlr>`
 
   The MLr plugin is designed to use the MLv station amplitudes and provides a GNS/Geonet local magnitude. The magnitude uses a station correction term and the hypocentral distance. Hard coded range are 0-20 degrees maximum distance and 800 km maximum depth. (Reference:"A Revised Local Magnitude (ML) Scale for New Zealand Earthquakes" J. Ristau, D. Harte, J. Salichon, BSSA Mar 2016, DOI: 10.1785/0120150293)
+* :ref:`iLoc <global_iloc>`
+
+  This plugin allows the use of the iLoc locator with SeisComP.
 * :ref:`MN <global_mn>`
 
   The MN plugin is designed to compute the Canadian Nuttli magnitude according to the Geological Survey of Canada.
@@ -373,7 +376,16 @@ Configuration
 
    Type: *host-with-port*
 
-   Defines the messaging server name to connect to. Format is host[:port].
+   Defines the URL of the messaging server to connect to.
+   URL format is [scheme:\/\/]host[:port][\/queue]. Default scheme:
+   scmp, default port: 18180, default queue: production.
+   Examples:
+   
+   All default: localhost
+   
+   Specfic host: scmp:\/\/10.0.1.4:18180\/production
+   
+   Specfic host and SSL encryption: scmps:\/\/10.0.1.4:18180\/production
    Default is ``localhost``.
 
 .. confval:: connection.username
@@ -445,7 +457,7 @@ Configuration
    Defines the database backend to be used. The name corresponds to
    the defined name in the database plugin. Examples are: mysql, postgresql or
    sqlite3. Note that this parameter is deprecated. Please use
-   'database \= mysql:\/\/localhost\/seiscomp' instead.
+   the URL form 'database \= mysql:\/\/sysop:sysop\@localhost\/seiscomp' instead.
 
 
 .. confval:: database.parameters
@@ -456,8 +468,8 @@ Configuration
    database backend. E.g. sqlite3 expects the path to the database
    file whereas MYSQL or PostgreSQL expect an URI in the format
    user:pwd\@host\/database?param1\=val1\&param2\=val2.
-   Note that this parameter is deprecated. Please use
-   'database \= mysql:\/\/localhost\/seiscomp' instead.
+   Note that this parameter is deprecated. Please use the URL form
+   'database \= mysql:\/\/sysop:sysop\@localhost\/seiscomp' instead.
 
 
 .. confval:: database.inventory
@@ -925,6 +937,296 @@ This plugin allows the use of the traditional Hypo71PC locator with SeisComP.
    specified depth but with free depth evaluation. This option
    defines whether it should really fix the depth \(false\) or
    use this fixed depth only as starting point \(true\).
+   Default is ``false``.
+
+.. _global/iLoc:
+
+
+iLoc extension
+--------------
+
+This plugin allows the use of the iLoc locator with SeisComP.
+
+
+.. note::
+   **iLoc.\***
+   *Locator parameters: iLoc*
+
+
+
+.. confval:: iLoc.profiles
+
+   Type: *list:string*
+
+   iLoc profile name.
+   Multiples names may be set separated by comma.
+   Each profile can have different velocity or parameters.
+   Default is ``iasp91,ak135``.
+
+.. note::
+   **iLoc.profile.\***
+   *Profiles containing the specific locator parameters. For*
+   *the global models, iasp91 and ak135, profiles are*
+   *automatically considered with defaults.*
+   *To adjust the profile parameters the corresponding profile*
+   *must be created.*
+
+
+
+.. note::
+
+   **iLoc.profile.\$name.\***
+   \$name is a placeholder for the name to be used and needs to be added to :confval:`iLoc.profiles` to become active.
+
+   .. code-block:: sh
+
+      iLoc.profiles = a,b
+      iLoc.profile.a.value1 = ...
+      iLoc.profile.b.value1 = ...
+      # c is not active because it has not been added
+      # to the list of iLoc.profiles
+      iLoc.profile.c.value1 = ...
+
+
+.. confval:: iLoc.profile.\$name.Verbose
+
+   Type: *boolean*
+
+   
+   Default is ``true``.
+
+.. confval:: iLoc.profile.\$name.globalModel
+
+   Type: *string*
+
+   Name of globally applied velocity model
+   into which RSTT or the local model is integrated. If
+   unset, the name of the profile is considered instead.
+
+
+.. confval:: iLoc.profile.\$name.UseRSTT
+
+   Type: *boolean*
+
+   Use regional seismic travel\-time tables
+   Default is ``false``.
+
+.. confval:: iLoc.profile.\$name.UseRSTTPnSn
+
+   Type: *boolean*
+
+   Use regional seismic travel\-time tables for Pn and Sn
+   Default is ``true``.
+
+.. confval:: iLoc.profile.\$name.UseRSTTPgLg
+
+   Type: *boolean*
+
+   Use regional seismic travel\-time tables for Pg and Lg
+   Default is ``true``.
+
+.. confval:: iLoc.profile.\$name.LocalVmodel
+
+   Type: *string*
+
+   Full path to a file containing the local velocity model.
+   Requires: UseLocalTT \= true. Empty string or unset
+   disables using a local model in this profile.
+   
+   Example:
+   
+   \@DATADIR\@\/iloc\/localmodels\/model.localmodel.dat.
+
+
+.. confval:: iLoc.profile.\$name.DoGridSearch
+
+   Type: *boolean*
+
+   Perform neighbourhood algorithm
+   Default is ``true``.
+
+.. confval:: iLoc.profile.\$name.NAsearchRadius
+
+   Type: *float*
+
+   Unit: *deg*
+
+   Neighbourhood Algorithm: Search radius around initial
+   epicentre
+   Default is ``5``.
+
+.. confval:: iLoc.profile.\$name.NAsearchDepth
+
+   Type: *float*
+
+   Unit: *km*
+
+   Neighbourhood Algorithm: Search radius around initial
+   depth
+   Default is ``300``.
+
+.. confval:: iLoc.profile.\$name.NAsearchOT
+
+   Type: *float*
+
+   Unit: *s*
+
+   Neighbourhood Algorithm: Search radius around initial
+   origin time
+   Default is ``30``.
+
+.. confval:: iLoc.profile.\$name.NAlpNorm
+
+   Type: *float*
+
+   Neighbourhood Algorithm: p\-value for norm to compute
+   misfit [1,2]
+   Default is ``1``.
+
+.. confval:: iLoc.profile.\$name.NAiterMax
+
+   Type: *integer*
+
+   Neighbourhood Algorithm: Maximum number of iterations
+   Default is ``5``.
+
+.. confval:: iLoc.profile.\$name.NAcells
+
+   Type: *integer*
+
+   Neighbourhood Algorithm: Number of cells to be resampled
+   at each iteration
+   Default is ``25``.
+
+.. confval:: iLoc.profile.\$name.NAinitialSample
+
+   Type: *integer*
+
+   Neighbourhood Algorithm: Size of initial sample
+   Default is ``1000``.
+
+.. confval:: iLoc.profile.\$name.NAnextSample
+
+   Type: *integer*
+
+   Neighbourhood Algorithm: Size of subsequent samples
+   Default is ``100``.
+
+.. confval:: iLoc.profile.\$name.MinDepthPhases
+
+   Type: *integer*
+
+   Depth resolution: Minimum number of depth phases for depdp
+   Default is ``3``.
+
+.. confval:: iLoc.profile.\$name.MaxLocalDistDeg
+
+   Type: *float*
+
+   Unit: *deg*
+
+   Depth resolution: Maximum local distance
+   Default is ``0.2``.
+
+.. confval:: iLoc.profile.\$name.MinLocalStations
+
+   Type: *integer*
+
+   Depth resolution: Minimum number of local defining stations
+   Default is ``1``.
+
+.. confval:: iLoc.profile.\$name.MaxSPDistDeg
+
+   Type: *float*
+
+   Unit: *deg*
+
+   Depth resolution: Maximum distance for using S\-P travel\-time differences.
+   Default is ``2.0``.
+
+.. confval:: iLoc.profile.\$name.MinSPpairs
+
+   Type: *integer*
+
+   Depth resolution: Minimum number of defining S\-P phase pairs
+   Default is ``3``.
+
+.. confval:: iLoc.profile.\$name.MinCorePhases
+
+   Type: *integer*
+
+   Depth resolution: Minimum number of defining core reflection phases
+   Default is ``3``.
+
+.. confval:: iLoc.profile.\$name.MaxShallowDepthError
+
+   Type: *float*
+
+   Unit: *km*
+
+   Depth resolution: Maximum depth error for crustal free\-depth
+   Default is ``30.0``.
+
+.. confval:: iLoc.profile.\$name.MaxDeepDepthError
+
+   Type: *float*
+
+   Unit: *km*
+
+   Depth resolution: Maximum depth error for deep free\-depth
+   Default is ``60.0``.
+
+.. confval:: iLoc.profile.\$name.DoCorrelatedErrors
+
+   Type: *boolean*
+
+   Linearized inversion: Account for correlated errors
+   Default is ``true``.
+
+.. confval:: iLoc.profile.\$name.SigmaThreshold
+
+   Type: *float*
+
+   Unit: *s*
+
+   Linearized inversion: Used to exclude big residuals from solution
+   Default is ``6.0``.
+
+.. confval:: iLoc.profile.\$name.AllowDamping
+
+   Type: *boolean*
+
+   Linearized inversion: Allow damping of model vector
+   Default is ``true``.
+
+.. confval:: iLoc.profile.\$name.MinIterations
+
+   Type: *integer*
+
+   Linearized inversion: Minimum number of iterations
+   Default is ``4``.
+
+.. confval:: iLoc.profile.\$name.MaxIterations
+
+   Type: *integer*
+
+   Linearized inversion: Maximum number of iterations
+   Default is ``20``.
+
+.. confval:: iLoc.profile.\$name.MinNdefPhases
+
+   Type: *integer*
+
+   Linearized inversion: Minimum number of defining phases
+   Default is ``4``.
+
+.. confval:: iLoc.profile.\$name.DoNotRenamePhases
+
+   Type: *boolean*
+
+   Linearized inversion: Do not rename phases. Deactivating
+   allows to rename the phases automatically for this
+   profile.
    Default is ``false``.
 
 .. _global/MN:
@@ -1398,6 +1700,8 @@ and feel.
 
    Type: *double*
 
+   Unit: *px*
+
    The width of the pen.
    Default is ``1``.
 
@@ -1494,6 +1798,8 @@ and feel.
 
    Type: *double*
 
+   Unit: *px*
+
    The width of the pen.
 
 
@@ -1549,6 +1855,8 @@ and feel.
 .. confval:: scheme.colors.records.borders.signatureValid.pen.width
 
    Type: *double*
+
+   Unit: *px*
 
    The width of the pen.
 
@@ -1606,6 +1914,8 @@ and feel.
 
    Type: *double*
 
+   Unit: *px*
+
    The width of the pen.
 
 
@@ -1655,6 +1965,8 @@ and feel.
 
    Type: *double*
 
+   Unit: *px*
+
    The width of the pen.
    Default is ``0.0``.
 
@@ -1682,6 +1994,8 @@ and feel.
 
    Type: *double*
 
+   Unit: *px*
+
    The width of the pen.
    Default is ``1.0``.
 
@@ -1708,6 +2022,8 @@ and feel.
 .. confval:: scheme.colors.records.subGridPen.width
 
    Type: *double*
+
+   Unit: *px*
 
    The width of the pen.
    Default is ``1.0``.
@@ -2151,12 +2467,16 @@ and feel.
 
    Type: *int*
 
+   Unit: *px*
+
    The line width of the marker \(e.g. picks of manual picker\).
 
 
 .. confval:: scheme.records.lineWidth
 
    Type: *int*
+
+   Unit: *px*
 
    The line width of the records \/ traces.
    Default is ``1``.
@@ -2773,12 +3093,16 @@ and feel.
 
    Type: *int*
 
+   Unit: *px*
+
    Horizontal position.
    Default is ``200``.
 
 .. confval:: scheme.splash.message.pos.y
 
    Type: *int*
+
+   Unit: *px*
 
    Vertical position.
    Default is ``260``.
@@ -2806,12 +3130,16 @@ and feel.
 
    Type: *int*
 
+   Unit: *px*
+
    Horizontal position.
    Default is ``362``.
 
 .. confval:: scheme.splash.version.pos.y
 
    Type: *int*
+
+   Unit: *px*
 
    Vertical position.
    Default is ``190``.
@@ -2893,7 +3221,7 @@ and feel.
 
    Configure the columns of the event list that are visible initially.
    The first column containing the origin time is always visible and cannot
-   be hidden. Possible values are: Type, M, TP, Phases, Lat, Lon, Depth, Stat, FM, Agency, Region, ID.
+   be hidden. Possible values are: Type, M, TP, Phases, Lat, Lon, Depth, DType, Stat, AzGap, FM, Origins, Agency, Author, Region, ID.
    Default is ``M, TP, Phases, RMS, Lat, Lon, Depth, Stat, Agency, Region, ID``.
 
 .. confval:: eventlist.regions
@@ -3032,7 +3360,7 @@ and feel.
    List of event type to be hidden if the \"Hide other\/fake events\"
    option is ticked.
    Use double quotes '\"' around the string if it contains spaces.
-
+   Default is ``"not existing"``.
 
 .. confval:: eventlist.filter.types.enabled
 
@@ -3040,7 +3368,7 @@ and feel.
 
    Sets the default state of the \"Hide other\/fake events\"
    option.
-   Default is ``false``.
+   Default is ``true``.
 
 .. confval:: eventlist.filter.regions.enabled
 
@@ -3184,9 +3512,9 @@ and feel.
    Configure the columns of the event edit focal mechanism
    tab that are visible initially.
    Possible values are: Depth, M, Count, Misfit, STDR,
-   Azi. Gap\(°\), Stat, DC\(%\), CLVD\(%\), ISO\(%\), S1\(°\),
-   D1\(°\), R1\(°\), S2\(°\), D2\(°\), R2\(°\), Agency, Author
-   Default is ``Depth, M, Count, Misfit, STDR, "Azi. Gap(°)", Stat, DC(%), CLVD(%), ISO(%), S1(°), D1(°), R1(°), S2(°), D2(°), R2(°), Agency, Author``.
+   AzGap, Stat, DC, CLVD, ISO, S1,
+   D1, R1, S2, D2, R2, Agency, Author
+   Default is ``Depth, M, Count, Misfit, STDR, AzGap, Stat, DC, CLVD, ISO, S1, D1, R1, S2, D2, R2, Agency, Author``.
 
 .. note::
    **eventsummary.\***
@@ -3249,14 +3577,7 @@ coordinates from phase picks.
    Type: *list:string*
 
    Defines a list of available LOCSAT travel\-time tables.
-   Default is ``iasp91,tab``.
-
-.. confval:: LOCSAT.enableConfidenceEllipsoid
-
-   Type: *boolean*
-
-   Compute the confidence ellipsoid.
-   Default is ``false``.
+   Default is ``iasp91, tab``.
 
 .. confval:: LOCSAT.depthInit
 
@@ -3266,6 +3587,17 @@ coordinates from phase picks.
 
    The initial depth estimate for LOCSAT.
    Default is ``20.0``.
+
+.. confval:: LOCSAT.usePickUncertainties
+
+   Type: *boolean*
+
+   Whether to use pick time untertainties for arrival deltim rather
+   than a fixed time error. If true then the uncertainties are
+   retrieved from each individual pick object. If they are not
+   defined then the default pick time uncertainty will be used
+   as fallback.
+   Default is ``false``.
 
 .. confval:: LOCSAT.defaultTimeError
 
@@ -3279,17 +3611,6 @@ coordinates from phase picks.
    errors of the SVD decomposition in LOCSAT.
    Default is ``1.0``.
 
-.. confval:: LOCSAT.usePickUncertainties
-
-   Type: *boolean*
-
-   Whether to use pick time untertainties for arrival deltim rather
-   than a fixed time error. If true then the uncertainties are
-   retrieved from each individual pick object. If they are not
-   defined then the default pick time uncertainty will be used
-   as fallback.
-   Default is ``false``.
-
 .. confval:: LOCSAT.degreesOfFreedom
 
    Type: *int*
@@ -3301,8 +3622,15 @@ coordinates from phase picks.
 
    Type: *double*
 
-   Confidence level between 0.5 and 1.
+   Confidence level between 0.5 and 1.0.
    Default is ``0.9``.
+
+.. confval:: LOCSAT.enableConfidenceEllipsoid
+
+   Type: *boolean*
+
+   Compute the confidence ellipsoid from covariance matrix in 3D.
+   Default is ``false``.
 
 .. _global/FixedHypocenter:
 
@@ -3759,7 +4087,7 @@ Configuration
 
    Type: *boolean*
 
-   Defines if amplitude calculation is enabled. If disabled then
+   Defines if amplitude calculation is enabled. If disabled,
    this station will be skipped for amplitudes and magnitudes.
    Default is ``true``.
 
@@ -3768,7 +4096,9 @@ Configuration
    Type: *boolean*
 
    Activates deconvolution for this station. If no responses are
-   configured an error is raised and the data is not processed.
+   configured, an error is raised and the data is not processed.
+   This flag will be overridden by the type specific flag
+   \(see Amplitude type profile\).
    Default is ``false``.
 
 .. note::
@@ -3939,6 +4269,15 @@ Configuration
 
 
 
+.. confval:: amplitudes.\$name.resp.taper
+
+   Unit: *s*
+
+   Defines the length of the taper at either side of the
+   waveform. The length will be added to the data
+   request: start \- taper and end + taper.
+   Default is ``5``.
+
 .. confval:: amplitudes.\$name.resp.minFreq
 
    Unit: *Hz*
@@ -3950,6 +4289,43 @@ Configuration
    Default is ``0.00833333``.
 
 .. confval:: amplitudes.\$name.resp.maxFreq
+
+   Unit: *Hz*
+
+   After data are converted in to the frequency domain that
+   maximum frequency defines the start of the right\-side cosine taper for
+   the frequency spectrum. The taper applies from {maxFreq}Hz to {fNyquist}Hz.
+   A value of 0 or lower disables that taper.
+   Default is ``0``.
+
+.. note::
+   **amplitudes.resp.\***
+   *Several parameters if usage of full responses is enabled.*
+   *The parameters of this group will be overridden by type*
+   *specific settings if given (see Amplitude type profile).*
+
+
+
+.. confval:: amplitudes.resp.taper
+
+   Unit: *s*
+
+   Defines the length of the taper at either side of the
+   waveform. The length will be added to the data
+   request: start \- taper and end + taper.
+   Default is ``5``.
+
+.. confval:: amplitudes.resp.minFreq
+
+   Unit: *Hz*
+
+   After data are converted in to the frequency domain that
+   minimum frequency defines the end of the left\-side cosine taper for
+   the frequency spectrum. The taper applies from 0Hz to {minFreq}Hz.
+   A value of 0 or lower disables that taper.
+   Default is ``0.00833333``.
+
+.. confval:: amplitudes.resp.maxFreq
 
    Unit: *Hz*
 

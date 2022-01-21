@@ -24,8 +24,8 @@
 
 #include <seiscomp/datamodel/types.h>
 #include <vector>
-#include <seiscomp/core/datetime.h>
 #include <string>
+#include <seiscomp/core/datetime.h>
 #include <seiscomp/datamodel/stationreference.h>
 #include <seiscomp/datamodel/notifier.h>
 #include <seiscomp/datamodel/publicobject.h>
@@ -120,7 +120,7 @@ class SC_SYSTEM_CORE_API StationGroup : public PublicObject {
 		//! Copies the metadata of other to this
 		//! No changes regarding child objects are made
 		StationGroup& operator=(const StationGroup& other);
-		//! Checks for equality of two objects. Childs objects
+		//! Checks for equality of two objects. Child objects
 		//! are not part of the check.
 		bool operator==(const StationGroup& other) const;
 		bool operator!=(const StationGroup& other) const;
@@ -153,15 +153,29 @@ class SC_SYSTEM_CORE_API StationGroup : public PublicObject {
 		void setDescription(const std::string& description);
 		const std::string& description() const;
 
-		//! Optional latitude (eg., of the central station)
+		//! Optional latitude (eg., of the central station) with
+		//! respect to the
+		//! World Geodetic System 1984 (WGS84) reference system
+		//! (National
+		//! Imagery and Mapping Agency 2000) in degrees. The
+		//! uncertainties are
+		//! given in kilometers.
 		void setLatitude(const OPT(double)& latitude);
 		double latitude() const;
 
-		//! Optional longitude (eg., of the central station)
+		//! Optional longitude (eg., of the central station) with
+		//! respect to the
+		//! World Geodetic System 1984 (WGS84) reference system
+		//! (National
+		//! Imagery and Mapping Agency 2000) in degrees.
 		void setLongitude(const OPT(double)& longitude);
 		double longitude() const;
 
-		//! Optional elevation (eg., of the central station)
+		//! Optional elevation (eg., of the central station) with
+		//! respect to the
+		//! World Geodetic System 1984 (WGS84) reference system
+		//! (National Imagery
+		//! and Mapping Agency 2000) in meters.
 		void setElevation(const OPT(double)& elevation);
 		double elevation() const;
 

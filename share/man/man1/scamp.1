@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCAMP" "1" "Jun 21, 2021" "4.6.1" "SeisComP"
+.TH "SCAMP" "1" "Jan 17, 2022" "4.8.4" "SeisComP"
 .SH NAME
 scamp \- SeisComP Documentation
 .
@@ -36,8 +36,10 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .sp
 scamp measures several different kinds of amplitudes from waveform data.
 It listens for origins and measures amplitudes in time windows determined
-from the origin. The resulting amplitude objects are sent to the "AMPLITUDE"
-messaging group. scamp is the counterpart of scmag. Usually, all
+from the origin. Thus, in contrast to amplitudes measured by scautopick
+the considered time windows can depend on epicentral distance.
+The resulting amplitude objects are sent to the "AMPLITUDE"
+messaging group. scamp is the counterpart of scmag\&. Usually, all
 amplitudes are computed at once by scamp and then published.
 Only very rarely an amplitude needs to be recomputed if the location of an
 origin changes significantly. The amplitude can be reused by scmag, making
@@ -52,27 +54,39 @@ Amplitudes are also needed, however, for manual picks. scamp does this as well.
 Arrivals with weight smaller than 0.5 (default) in the corresponding Origin are
 discarded. This minimum weight can be configured with
 \fI\%amptool.minimumPickWeight\fP\&.
+.SH AMPLITUDE TYPES
 .sp
-Amplitudes for the following magnitudes are currently computed:
+Amplitudes of the following types are currently computed for their corresponding
+magnitudes.
+.SS Local distances
 .INDENT 0.0
+.TP
+.B Md
+Duration magnitude as described in \fI\%https://earthquake.usgs.gov/research/software/#HYPOINVERSE\fP
+.TP
+.B Mjma
+Mjma is computed on displacement data using body waves of period < 30s.
 .TP
 .B ML
 Local magnitude calculated on the vertical component using a correction term
-to fit with the standard ML
-.TP
-.B MLv
-Local magnitude calculated on the vertical component using a correction term
-to fit with the standard ML
+to fit with the standard ML.
 .TP
 .B MLh
 Local magnitude calculated on the horizontal components to SED specifications.
+.TP
+.B MLv
+Local magnitude calculated on the vertical component using a correction term
+to fit with the standard ML.
 .TP
 .B MLr
 Local magnitude calculated from MLv amplitudes based on GNS/GEONET specifications
 for New Zealand.
 .TP
-.B MN
+.B AMN
 Nuttli magnitude for Canada and other Cratonic regions.
+.UNINDENT
+.SS Teleseismic distances
+.INDENT 0.0
 .TP
 .B mb
 Narrow band body wave magnitude measured on a WWSSN\-SP filtered trace
@@ -86,65 +100,79 @@ Broad band body wave magnitude
 .B Mwp
 The body wave magnitude of Tsuboi et al. (1995)
 .TP
-.B Mjma
-Mjma is computed on displacement data using body waves of period < 30s
-.TP
 .B Ms_20
 Surface\-wave magnitude at 20 s period
 .TP
 .B Ms(BB)
 Broad band surface\-wave magnitude
-.TP
-.B Md
-Duration magnitude as described in \fI\%https://earthquake.usgs.gov/research/software/#HYPOINVERSE\fP
 .UNINDENT
 .sp
 Note that in order to be used by scmag, the input amplitude names for the
-various magnitude types must match exactly.
+various magnitude types must match exactly with the exception of the AMN amplitudes
+required by the MN (Nuttli) magnitude\&.
+.SH ACCELERATION INPUT DATA
+.sp
+For amplitudes to be computed, the input waveforms are usually given in velocity.
+Acceleration data, e.g. from strong\-motion instruments must therefore be transformed
+to velocity. The transformation is enabled by activating the response correction.
+Activate the correction in the global bindings for all
+types or in a new Amplitude type profile for specific types.
+.sp
+Example global binding parameters for computing MLv amplitudes from accleration
+data. Here, the frequency range is limited to 0.5 \- 20 Hz:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+amplitudes.MLv.enableResponses = true
+amplitudes.MLv.resp.taper = 5
+amplitudes.MLv.resp.minFreq = 0.5
+amplitudes.MLv.resp.maxFreq = 20
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
 .SH RE-PROCESSING
 .sp
 \fIscamp\fP can be used to reprocess and to update amplitudes, e.g. when inventory paramters
 had to be changed retrospectively. Updating ampitudes requires waveform access.
-The update can be performed in
+The update can be performed
 .INDENT 0.0
 .IP 1. 3
-offline processing based on xml files (\fB\-\-ep<\fP). \fB\-\-reprocess\fP
+In \fBoffline processing\fP based on XML files (\fB\-\-ep\fP). \fB\-\-reprocess\fP
 will replace exisiting amplitudes. Updated values can be dispatched to the messing by
 scdispatch making them available for further processing, e.g. by scmag\&.
+.sp
+\fBExample:\fP
+.INDENT 3.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+$ scamp \-\-ep evtID.xml \-d [type]://[host]/[database] \-\-reprocess > evtID_update.xml
+$ scdispatch \-O merge \-H [host] \-i evtID_update.xml
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
 .IP 2. 3
-with messaging by setting \fBstart\-time\fP or \fBend\-time\fP\&. All parameters
-are read from the database. \fB\-\-commit\fP will send the
-updated parameters to the messing system making them available for further processing,
-e.g. by scmag\&. Otherwise, XML output is generated.
-.UNINDENT
-.SS Offline amplitude update
+\fBWith messaging\fP by setting \fBstart\-time\fP or \fBend\-time\fP\&.
+All parameters are read from the database. \fB\-\-commit\fP will
+send the updated parameters to the messing system making them available for
+further processing, e.g. by scmag\&. Otherwise, XML output is generated.
 .sp
 \fBExample:\fP
-.INDENT 0.0
+.INDENT 3.0
 .INDENT 3.5
 .sp
 .nf
 .ft C
-seiscomp exec scamp \-\-ep evtID.xml \-\-inventory\-db inventory.xml \-\-config\-db config.xml \e
-                    \-\-reprocess \-\-debug > evtID_update.xml
-scdispatch \-O merge \-H host \-i evtID_update.xml
+$ scamp \-u testuser \-H [host] \-\-commit \e
+        \-\-start\-time \(aq2016\-10\-15 00:00:00\(aq \-\-end\-time \(aq2016\-10\-16 19:20:00\(aq
 .ft P
 .fi
 .UNINDENT
-.UNINDENT
-.SS Amplitude update with messaging
-.sp
-\fBExample:\fP
-.INDENT 0.0
-.INDENT 3.5
-.sp
-.nf
-.ft C
-scamp \-u testuser \-\-inventory\-db inventory.xml \-\-config\-db config.xml \-H host \e
-      \-\-start\-time \(aq2016\-10\-15 00:00:00\(aq \-\-end\-time \(aq2016\-10\-16 19:20:00\(aq \e
-      \-\-commit
-.ft P
-.fi
 .UNINDENT
 .UNINDENT
 .SH CONFIGURATION

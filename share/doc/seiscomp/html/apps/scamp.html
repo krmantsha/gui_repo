@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -77,11 +77,13 @@
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>scamp measures several different kinds of amplitudes from waveform data.
 It listens for origins and measures amplitudes in time windows determined
-from the origin. The resulting amplitude objects are sent to the “AMPLITUDE”
-messaging group. scamp is the counterpart of scmag. Usually, all
+from the origin. Thus, in contrast to amplitudes measured by <a class="reference internal" href="scautopick.html#scautopick"><span class="std std-ref">scautopick</span></a>
+the considered time windows can depend on epicentral distance.
+The resulting amplitude objects are sent to the “AMPLITUDE”
+messaging group. scamp is the counterpart of <a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a>. Usually, all
 amplitudes are computed at once by scamp and then published.
 Only very rarely an amplitude needs to be recomputed if the location of an
-origin changes significantly. The amplitude can be reused by scmag, making
+origin changes significantly. The amplitude can be reused by <a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a>, making
 magnitude computation and update efficient. Currently, the automatic picker
 in SeisComP, scautopick, also measures a small set of amplitudes
 (namely “snr” and “mb”, the signal-to-noise ratio and the amplitude used in
@@ -92,21 +94,36 @@ one by scautopick, scamp will not measure it again for the respective stream.</p
 Arrivals with weight smaller than 0.5 (default) in the corresponding Origin are
 discarded. This minimum weight can be configured with
 <a class="reference internal" href="#confval-amptool.minimumPickWeight"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amptool.minimumPickWeight</span></code></a>.</p>
-<p>Amplitudes for the following magnitudes are currently computed:</p>
+</div>
+<div class="section" id="amplitude-types">
+<h2>Amplitude Types<a class="headerlink" href="#amplitude-types" title="Permalink to this headline">¶</a></h2>
+<p>Amplitudes of the following types are currently computed for their corresponding
+magnitudes.</p>
+<div class="section" id="local-distances">
+<h3>Local distances<a class="headerlink" href="#local-distances" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
-<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-local-ml"><span class="xref std std-term">ML</span></a></dt><dd><p>Local magnitude calculated on the vertical component using a correction term
-to fit with the standard ML</p>
+<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-duration-md"><span class="xref std std-term">Md</span></a></dt><dd><p>Duration magnitude as described in <a class="reference external" href="https://earthquake.usgs.gov/research/software/#HYPOINVERSE">https://earthquake.usgs.gov/research/software/#HYPOINVERSE</a></p>
 </dd>
-<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-local-vertical-mlv"><span class="xref std std-term">MLv</span></a></dt><dd><p>Local magnitude calculated on the vertical component using a correction term
-to fit with the standard ML</p>
+<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-jma-m-jma"><span class="xref std std-term">Mjma</span></a></dt><dd><p>Mjma is computed on displacement data using body waves of period &lt; 30s.</p>
+</dd>
+<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-local-ml"><span class="xref std std-term">ML</span></a></dt><dd><p>Local magnitude calculated on the vertical component using a correction term
+to fit with the standard ML.</p>
 </dd>
 <dt><a class="reference internal" href="../base/glossary.html#term-magnitude-local-horizontal-mlh"><span class="xref std std-term">MLh</span></a></dt><dd><p>Local magnitude calculated on the horizontal components to SED specifications.</p>
+</dd>
+<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-local-vertical-mlv"><span class="xref std std-term">MLv</span></a></dt><dd><p>Local magnitude calculated on the vertical component using a correction term
+to fit with the standard ML.</p>
 </dd>
 <dt><a class="reference internal" href="../base/glossary.html#term-magnitude-local-gns-geonet-mlr"><span class="xref std std-term">MLr</span></a></dt><dd><p>Local magnitude calculated from MLv amplitudes based on GNS/GEONET specifications
 for New Zealand.</p>
 </dd>
-<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-nuttli-mn"><span class="xref std std-term">MN</span></a></dt><dd><p>Nuttli magnitude for Canada and other Cratonic regions.</p>
+<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-nuttli-mn"><span class="xref std std-term">AMN</span></a></dt><dd><p>Nuttli magnitude for Canada and other Cratonic regions.</p>
 </dd>
+</dl>
+</div>
+<div class="section" id="teleseismic-distances">
+<h3>Teleseismic distances<a class="headerlink" href="#teleseismic-distances" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
 <dt><a class="reference internal" href="../base/glossary.html#term-magnitude-body-wave-mb"><span class="xref std std-term">mb</span></a></dt><dd><p>Narrow band body wave magnitude measured on a WWSSN-SP filtered trace</p>
 </dd>
 <dt><a class="reference internal" href="../base/glossary.html#term-magnitude-cumulative-body-wave-mbc"><span class="xref std std-term">mBc</span></a></dt><dd><p>Cumulative body wave magnitude</p>
@@ -115,50 +132,58 @@ for New Zealand.</p>
 </dd>
 <dt><a class="reference internal" href="../base/glossary.html#term-magnitude-broadband-p-wave-moment-mwp"><span class="xref std std-term">Mwp</span></a></dt><dd><p>The body wave magnitude of Tsuboi et al. (1995)</p>
 </dd>
-<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-jma-m-jma"><span class="xref std std-term">Mjma</span></a></dt><dd><p>Mjma is computed on displacement data using body waves of period &lt; 30s</p>
-</dd>
 <dt><a class="reference internal" href="../base/glossary.html#term-magnitude-surface-wave-ms-20"><span class="xref std std-term">Ms_20</span></a></dt><dd><p>Surface-wave magnitude at 20 s period</p>
 </dd>
 <dt><a class="reference internal" href="../base/glossary.html#term-magnitude-broadband-surface-wave-ms-bb"><span class="xref std std-term">Ms(BB)</span></a></dt><dd><p>Broad band surface-wave magnitude</p>
 </dd>
-<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-duration-md"><span class="xref std std-term">Md</span></a></dt><dd><p>Duration magnitude as described in <a class="reference external" href="https://earthquake.usgs.gov/research/software/#HYPOINVERSE">https://earthquake.usgs.gov/research/software/#HYPOINVERSE</a></p>
-</dd>
 </dl>
 <p>Note that in order to be used by scmag, the input amplitude names for the
-various magnitude types must match exactly.</p>
+various magnitude types must match exactly with the exception of the AMN amplitudes
+required by the <a class="reference internal" href="../base/glossary.html#term-magnitude-nuttli-mn"><span class="xref std std-term">MN (Nuttli) magnitude</span></a>.</p>
+</div>
+</div>
+<div class="section" id="acceleration-input-data">
+<h2>Acceleration Input Data<a class="headerlink" href="#acceleration-input-data" title="Permalink to this headline">¶</a></h2>
+<p>For amplitudes to be computed, the input waveforms are usually given in velocity.
+Acceleration data, e.g. from strong-motion instruments must therefore be transformed
+to velocity. The transformation is enabled by activating the response correction.
+Activate the correction in the global bindings for all
+types or in a new Amplitude type profile for specific types.</p>
+<p>Example global binding parameters for computing MLv amplitudes from accleration
+data. Here, the frequency range is limited to 0.5 - 20 Hz:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>amplitudes.MLv.enableResponses = true
+amplitudes.MLv.resp.taper = 5
+amplitudes.MLv.resp.minFreq = 0.5
+amplitudes.MLv.resp.maxFreq = 20
+</pre></div>
+</div>
 </div>
 <div class="section" id="re-processing">
 <h2>Re-processing<a class="headerlink" href="#re-processing" title="Permalink to this headline">¶</a></h2>
 <p><em>scamp</em> can be used to reprocess and to update amplitudes, e.g. when inventory paramters
 had to be changed retrospectively. Updating ampitudes requires waveform access.
-The update can be performed in</p>
-<ol class="arabic simple">
-<li><p>offline processing based on xml files (<code class="xref std std-confval docutils literal notranslate"><span class="pre">--ep&lt;</span></code>). <code class="xref std std-confval docutils literal notranslate"><span class="pre">--reprocess</span></code>
+The update can be performed</p>
+<ol class="arabic">
+<li><p>In <strong>offline processing</strong> based on XML files (<code class="xref std std-confval docutils literal notranslate"><span class="pre">--ep</span></code>). <code class="xref std std-confval docutils literal notranslate"><span class="pre">--reprocess</span></code>
 will replace exisiting amplitudes. Updated values can be dispatched to the messing by
-<a class="reference internal" href="scdispatch.html#scdispatch"><span class="std std-ref">scdispatch</span></a> making them available for further processing, e.g. by <a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a>.</p></li>
-<li><p>with messaging by setting <code class="xref std std-confval docutils literal notranslate"><span class="pre">start-time</span></code> or <code class="xref std std-confval docutils literal notranslate"><span class="pre">end-time</span></code>. All parameters
-are read from the database. <code class="xref std std-confval docutils literal notranslate"><span class="pre">--commit</span></code> will send the
-updated parameters to the messing system making them available for further processing,
-e.g. by <a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a>. Otherwise, XML output is generated.</p></li>
+<a class="reference internal" href="scdispatch.html#scdispatch"><span class="std std-ref">scdispatch</span></a> making them available for further processing, e.g. by <a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a>.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ scamp --ep evtID.xml -d <span class="o">[</span>type<span class="o">]</span>://<span class="o">[</span>host<span class="o">]</span>/<span class="o">[</span>database<span class="o">]</span> --reprocess &gt; evtID_update.xml
+$ scdispatch -O merge -H <span class="o">[</span>host<span class="o">]</span> -i evtID_update.xml
+</pre></div>
+</div>
+</li>
+<li><p><strong>With messaging</strong> by setting <code class="xref std std-confval docutils literal notranslate"><span class="pre">start-time</span></code> or <code class="xref std std-confval docutils literal notranslate"><span class="pre">end-time</span></code>.
+All parameters are read from the database. <code class="xref std std-confval docutils literal notranslate"><span class="pre">--commit</span></code> will
+send the updated parameters to the messing system making them available for
+further processing, e.g. by <a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a>. Otherwise, XML output is generated.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ scamp -u testuser -H <span class="o">[</span>host<span class="o">]</span> --commit <span class="se">\</span>
+        --start-time <span class="s1">&#39;2016-10-15 00:00:00&#39;</span> --end-time <span class="s1">&#39;2016-10-16 19:20:00&#39;</span>
+</pre></div>
+</div>
+</li>
 </ol>
-<div class="section" id="offline-amplitude-update">
-<h3>Offline amplitude update<a class="headerlink" href="#offline-amplitude-update" title="Permalink to this headline">¶</a></h3>
-<p><strong>Example:</strong></p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp <span class="nb">exec</span> scamp --ep evtID.xml --inventory-db inventory.xml --config-db config.xml <span class="se">\</span>
-                    --reprocess --debug &gt; evtID_update.xml
-scdispatch -O merge -H host -i evtID_update.xml
-</pre></div>
-</div>
-</div>
-<div class="section" id="amplitude-update-with-messaging">
-<h3>Amplitude update with messaging<a class="headerlink" href="#amplitude-update-with-messaging" title="Permalink to this headline">¶</a></h3>
-<p><strong>Example:</strong></p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scamp -u testuser --inventory-db inventory.xml --config-db config.xml -H host <span class="se">\</span>
-      --start-time <span class="s1">&#39;2016-10-15 00:00:00&#39;</span> --end-time <span class="s1">&#39;2016-10-16 19:20:00&#39;</span> <span class="se">\</span>
-      --commit
-</pre></div>
-</div>
-</div>
 </div>
 <div class="section" id="configuration">
 <span id="scamp-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
@@ -532,11 +557,13 @@ document will be output.</p>
   <ul>
 <li><a class="reference internal" href="#">scamp</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
-<li><a class="reference internal" href="#re-processing">Re-processing</a><ul>
-<li><a class="reference internal" href="#offline-amplitude-update">Offline amplitude update</a></li>
-<li><a class="reference internal" href="#amplitude-update-with-messaging">Amplitude update with messaging</a></li>
+<li><a class="reference internal" href="#amplitude-types">Amplitude Types</a><ul>
+<li><a class="reference internal" href="#local-distances">Local distances</a></li>
+<li><a class="reference internal" href="#teleseismic-distances">Teleseismic distances</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#acceleration-input-data">Acceleration Input Data</a></li>
+<li><a class="reference internal" href="#re-processing">Re-processing</a></li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 <li><a class="reference internal" href="#command-line">Command-line</a><ul>
 <li><a class="reference internal" href="#generic">Generic</a></li>
@@ -577,7 +604,7 @@ document will be output.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -93,8 +93,9 @@ bases on Qt as well.</p>
 <p>The style options supported by <cite>SeisComP</cite> (and not covered by the general Qt setup)
 have to be given in the applications (or global) configuration file. The
 parameters are configured with the <em>scheme.</em> parameters.</p>
-<p>In case of <a class="reference internal" href="#sec-gui-layers"><span class="std std-ref">map layers defined by BNA files</span></a> the parameters
-may also be defined by <code class="file docutils literal notranslate"><span class="pre">map.cfg</span></code> in the directory of the BNA file.</p>
+<p>In case of <a class="reference internal" href="#sec-gui-layers"><span class="std std-ref">map layers defined by geo feature files</span></a> the
+parameters may also be defined by <code class="file docutils literal notranslate"><span class="pre">map.cfg</span></code> in the directory of the geo
+feature file.</p>
 </div>
 <div class="section" id="configuration-syntax">
 <span id="sec-gui-syntax"></span><h2>Configuration syntax<a class="headerlink" href="#configuration-syntax" title="Permalink to this headline">¶</a></h2>
@@ -226,7 +227,7 @@ brush.style <span class="o">=</span> solid
 <div class="section" id="symbols">
 <span id="sec-gui-symbol"></span><h3>Symbols<a class="headerlink" href="#symbols" title="Permalink to this headline">¶</a></h3>
 <p>Symbols configured by the <code class="xref std std-confval docutils literal notranslate"><span class="pre">symbol.*</span></code> parameters can be plotted on coordinate
-points defined by <a class="reference internal" href="#sec-gui-layers"><span class="std std-ref">BNA files</span></a> or by <a class="reference internal" href="#confval-symbol.icon.hotspot.x"><code class="xref std std-confval docutils literal notranslate"><span class="pre">symbol.icon.hotspot.x</span></code></a>
+points defined by <a class="reference internal" href="#sec-gui-layers"><span class="std std-ref">geo feature files</span></a> or by <a class="reference internal" href="#confval-symbol.icon.hotspot.x"><code class="xref std std-confval docutils literal notranslate"><span class="pre">symbol.icon.hotspot.x</span></code></a>
 and <a class="reference internal" href="#confval-symbol.icon.hotspot.y"><code class="xref std std-confval docutils literal notranslate"><span class="pre">symbol.icon.hotspot.y</span></code></a>. The symbols can be shapes (<a class="reference internal" href="#confval-symbol.shape"><code class="xref std std-confval docutils literal notranslate"><span class="pre">symbol.shape</span></code></a>)
 or icons from a file (<a class="reference internal" href="#confval-symbol.icon"><code class="xref std std-confval docutils literal notranslate"><span class="pre">symbol.icon</span></code></a>).</p>
 </div>
@@ -267,7 +268,7 @@ Styles are:</p>
 <span id="sec-gui-layers"></span><h2>Map Layers<a class="headerlink" href="#map-layers" title="Permalink to this headline">¶</a></h2>
 <p>Additional features may be added to maps using configurable layers:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#sec-gui-layers-vector"><span class="std std-ref">Vector layers</span></a>, e.g. points, polylines, polygons from FEP and BNA files,</p></li>
+<li><p><a class="reference internal" href="#sec-gui-layers-vector"><span class="std std-ref">Vector layers</span></a>, e.g. points, polylines, polygons from FEP, BNA or GeoJSON files,</p></li>
 <li><p><a class="reference internal" href="#sec-gui-layers-others"><span class="std std-ref">Other Layers</span></a>, e.g. cities, grids, events, custom layers.</p></li>
 </ul>
 <p><a class="reference internal" href="#sec-gui-layers-vector"><span class="std std-ref">Vector layers</span></a> are loaded and may be visualized together with
@@ -276,19 +277,27 @@ Styles are:</p>
 and selected interactively by their <a class="reference internal" href="#sec-gui-layers-config"><span class="std std-ref">configurable category</span></a>.</p>
 <div class="figure align-center" id="id1">
 <a class="reference internal image-reference" href="../_images/map-layers.png"><img alt="../_images/map-layers.png" src="../_images/map-layers.png" style="width: 18cm;" /></a>
-<p class="caption"><span class="caption-text">Map with layers defined by BNA polygons, cities and legends.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Map with layers defined by polygons, cities and legends.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 <div class="section" id="vector-layers">
 <span id="sec-gui-layers-vector"></span><h3>Vector layers<a class="headerlink" href="#vector-layers" title="Permalink to this headline">¶</a></h3>
+<div class="warning admonition">
+<p class="admonition-title">Deprecation warning</p>
+<p>The old directories <code class="file docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/bna</span></code> or <code class="file docutils literal notranslate"><span class="pre">&#64;CONFIGDIR&#64;/bna</span></code>
+are still supported but superseded by <code class="file docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/spatial/vector</span></code> or
+<code class="file docutils literal notranslate"><span class="pre">&#64;CONFIGDIR&#64;/spatial/vector</span></code>. The latter directories have higher priority.
+If one of the old directories has been found, a warning will be logged.</p>
+</div>
 <p><cite>SeisComP</cite> supports arbitrary polygons, polylines or points for drawing as layers
 on maps or for using by other <a class="reference internal" href="../base/glossary.html#term-plugin"><span class="xref std std-term">modules</span></a> and <a class="reference internal" href="../base/glossary.html#term-plugin"><span class="xref std std-term">plugins</span></a>.
-The polygons, polylines and points can be customized by the <a class="reference internal" href="#sec-gui-syntax"><span class="std std-ref">available attributes</span></a>.
-Currently supported data types are:</p>
+The polygons, polylines and points can be customized by the
+<a class="reference internal" href="#sec-gui-syntax"><span class="std std-ref">available attributes</span></a>. Currently supported data types
+are:</p>
 <ul>
 <li><p>FEP (Flinn-Engdahl polygons):</p>
 <ul>
-<li><p>used for visualization of events regions and for setting the region name of the
-event by <a class="reference internal" href="scevent.html#scevent"><span class="std std-ref">scevent</span></a>.</p></li>
+<li><p>used for visualization of events regions and for setting the region name of
+the event by <a class="reference internal" href="scevent.html#scevent"><span class="std std-ref">scevent</span></a>.</p></li>
 <li><p>stored in directories: <code class="file docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/fep</span></code> or <code class="file docutils literal notranslate"><span class="pre">&#64;CONFIGDIR&#64;/fep</span></code></p></li>
 <li><p>file name extension: <em>.fep</em></p></li>
 <li><p>file format:</p>
@@ -312,7 +321,8 @@ and <a class="reference internal" href="#confval-map.layers.fep.visible"><code c
 respectively, and even symbols or images on maps. Some objects, like closed lines can be
 evaluated by other modules and plugins, e.g. the <a class="reference internal" href="scevent_regioncheck.html#scevent-regioncheck"><span class="std std-ref">region check</span></a>
 plugin for <a class="reference internal" href="scevent.html#scevent"><span class="std std-ref">scevent</span></a>.</p></li>
-<li><p>stored in directories or sub-directories of: <code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/share/bna</span></code> or <code class="file docutils literal notranslate"><span class="pre">~/.seiscomp/bna</span></code></p></li>
+<li><p>stored in directories or sub-directories of: <code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/share/spatial/vector</span></code>
+or <code class="file docutils literal notranslate"><span class="pre">~/.seiscomp/spatial/vector</span></code></p></li>
 <li><p>file name extension: <em>.bna</em></p></li>
 <li><p>file format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;name 1&quot;</span><span class="p">,</span><span class="s2">&quot;rank 1&quot;</span><span class="p">,</span><span class="nb">type</span><span class="o">/</span><span class="n">length</span>
@@ -324,10 +334,12 @@ plugin for <a class="reference internal" href="scevent.html#scevent"><span class
 </div>
 <p>where the coordinates, <em>name</em> and <em>type/length</em> are to be replaced by actual values.
 For polylines (open polygons) set type/length to the negative number of points defining
-the line, e.g. -10. Positive numbers, e.g. 10, define closed polygons.
-The BNA file format also supports multiple vertices per line and the definition
+the line, e.g. -10. Positive numbers, e.g. 10, define closed polygons. Such
+polygons are automatically closed between their end points. Thus, the end points
+do not need to be identical.</p>
+<p>The BNA file format also supports multiple vertices per line and the definition
 of islands. Please refer to <a class="reference external" href="https://www.softwright.com/faq/support/boundary_file_bna_format.html">https://www.softwright.com/faq/support/boundary_file_bna_format.html</a>
-for a more complete format specification.</p>
+for more format specifications.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul>
@@ -340,22 +352,42 @@ plugin. Example</p>
 </pre></div>
 </div>
 </li>
+<li><p>The name is extracted from the first part of the header.</p></li>
+<li><p>The rank is extracted from the second part of the header if it has the
+form “rank VALUE”, e.g. rank 12.</p></li>
 </ul>
 </div>
 </li>
 <li><p>visibility and style can be controlled by <a class="reference internal" href="#sec-gui-layers-config"><span class="std std-ref">configuration</span></a>.</p></li>
 </ul>
 </li>
+<li><p>GeoJSON features:</p>
+<ul>
+<li><p>used for visualization, e.g. points, polylines, polygons for faults or districts,
+respectively, and even symbols or images on maps.</p></li>
+<li><p>stored in directories or sub-directories of: <code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/share/spatial/vector</span></code> or <code class="file docutils literal notranslate"><span class="pre">~/.seiscomp/spatial/vector</span></code></p></li>
+<li><p>file name extension: <em>.geojson</em></p></li>
+<li><p>file format: <a class="reference external" href="https://geojson.org/">https://geojson.org/</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently the geometry type GeometryCollection is not supported. The name
+of the feature is derived from the <cite>name</cite> property of a feature and the
+rank can be provided in a <cite>rank</cite> property with an integer value.</p>
+</div>
+</li>
+</ul>
+</li>
 </ul>
 <div class="section" id="layer-configuration">
 <span id="sec-gui-layers-config"></span><h4>Layer configuration<a class="headerlink" href="#layer-configuration" title="Permalink to this headline">¶</a></h4>
 <p>Layers may be grouped into categories and form a hierarchy. The categories of the
-BNA data are derived from the BNA directory structure, i.e. the names of the directories
-below the bna directory, e.g. <code class="file docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/bna</span></code>. BNA data directly located within the
-bna directory have no special category.
+geo feature data are derived from the feature directory structure, i.e. the names
+of the directories below the feature directory, e.g. <code class="file docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/spatial/vector</span></code>.
+Feature data directly located within the feature directory have no special category.
 The FEP data set is assigned to the fep category.</p>
-<p>The depth of the BNA directory tree is arbitrary and subfolders form
-sub-categories. E.g. the directory tree <code class="file docutils literal notranslate"><span class="pre">bna/coastline/europe/germany</span></code> will generate
+<p>The depth of the feature directory tree is arbitrary and subfolders form
+sub-categories. E.g. the directory tree
+<code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/share/spatial/vector/coastline/europe/germany</span></code> will generate
 the categories <em>coastline</em>, <em>coastline.europe</em> and <em>coastline.europe.germany</em> which
 all may be configured individually. Every undefined property is inherited from
 the parent category.</p>
@@ -369,9 +401,9 @@ the parent category.</p>
 <p>The parameters in the global configuration of modules override the configurations
 in <code class="file docutils literal notranslate"><span class="pre">map.cfg</span></code> allowing a specific configuration per application.</p>
 </div>
-<p>All data set directories, e.g. <code class="file docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/bna</span></code> and sub-directories therein
-are scanned for an optional <code class="file docutils literal notranslate"><span class="pre">map.cfg</span></code> configuration file defining default
-drawing options. Parameters found in the lowest sub-directory take priority.
+<p>All data set directories and sub-directories therein are scanned for an optional
+<code class="file docutils literal notranslate"><span class="pre">map.cfg</span></code> configuration file defining default drawing options. Parameters
+found in the lowest sub-directory take priority.
 This allows easy distribution of data sets and drawing properties without the
 need to change application configuration files.
 The available map layer configuration parameters are described further below.</p>
@@ -384,8 +416,9 @@ options are not available through <a class="reference internal" href="scconfig.h
 <div class="section" id="examples">
 <h4>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h4>
 <p>File and directory for plotting fault lines with specific configurations.
-The BNA polygons are defined in <code class="file docutils literal notranslate"><span class="pre">data.bna</span></code>, configurations are in <code class="file docutils literal notranslate"><span class="pre">map.cfg</span></code>:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>@DATADIR@/bna/
+The geo features are defined in <code class="file docutils literal notranslate"><span class="pre">data.bna</span></code>, configurations are in
+<code class="file docutils literal notranslate"><span class="pre">map.cfg</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>@DATADIR@/spatial/vector/
 ├── maps.cfg
 ├── faults/
 <span class="p">|</span>   ├── map.cfg
@@ -405,7 +438,7 @@ The BNA polygons are defined in <code class="file docutils literal notranslate">
 </div>
 <p>Configuration examples for plotting the fault lines based on the example above:</p>
 <ul>
-<li><p>Legend control in <code class="file docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/bna/faults/map.cfg</span></code></p>
+<li><p>Legend control in <code class="file docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/spatial/vector/faults/map.cfg</span></code></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># title of legend for all legend entries</span>
 <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Faults&quot;</span>
 <span class="c1"># plot the legend vertically</span>
@@ -415,7 +448,7 @@ The BNA polygons are defined in <code class="file docutils literal notranslate">
 </pre></div>
 </div>
 </li>
-<li><p>Polygon property control in <code class="file docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/bna/faults/strike-slip/map.cfg</span></code>
+<li><p>Polygon property control in <code class="file docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/spatical/vector/faults/strike-slip/map.cfg</span></code>
 common to all polygons in this directory. You may generate
 different sub-directories with different parameters inheriting the legend and other
 properties. Put this file, e.g. in the strike-slip directory.</p>
@@ -507,8 +540,7 @@ Valid values are <em>topleft</em>, <em>topright</em>, <em>bottomleft</em> and
 <dt id="confval-drawName">
 <code class="sig-name descname">drawName</code><a class="headerlink" href="#confval-drawName" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>boolean</em></p>
-<p>Draws the segment name in the center of the bounding box. For segments read
-from BNA files the name is extracted from the first part of the header.
+<p>Draws the segment name in the center of the bounding box.
 Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
 </dd></dl>
 
@@ -517,10 +549,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
 <code class="sig-name descname">rank</code><a class="headerlink" href="#confval-rank" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
 <p>Set or override the rank of the segment. The rank defines
-the zoom level at which drawing of the segment starts. For
-segments read from BNA files the name is extracted from the
-second part of the header if it has the form “rank VALUE”,
-e.g. rank 12.
+the zoom level at which drawing of the segment starts.
 Default is <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
 </dd></dl>
 
@@ -1134,6 +1163,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">DotLine<
 <dt id="confval-scheme.colors.map.grid.width">
 <code class="sig-name descname">scheme.colors.map.grid.width</code><a class="headerlink" href="#confval-scheme.colors.map.grid.width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
+<p>Unit: <em>px</em></p>
 <p>The width of the pen.
 Default is <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
 </dd></dl>
@@ -1234,6 +1264,7 @@ NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.</p>
 <dt id="confval-scheme.colors.records.borders.standard.pen.width">
 <code class="sig-name descname">scheme.colors.records.borders.standard.pen.width</code><a class="headerlink" href="#confval-scheme.colors.records.borders.standard.pen.width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
+<p>Unit: <em>px</em></p>
 <p>The width of the pen.</p>
 </dd></dl>
 
@@ -1287,6 +1318,7 @@ NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.</p>
 <dt id="confval-scheme.colors.records.borders.signatureValid.pen.width">
 <code class="sig-name descname">scheme.colors.records.borders.signatureValid.pen.width</code><a class="headerlink" href="#confval-scheme.colors.records.borders.signatureValid.pen.width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
+<p>Unit: <em>px</em></p>
 <p>The width of the pen.</p>
 </dd></dl>
 
@@ -1340,6 +1372,7 @@ NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.</p>
 <dt id="confval-scheme.colors.records.borders.signatureInvalid.pen.width">
 <code class="sig-name descname">scheme.colors.records.borders.signatureInvalid.pen.width</code><a class="headerlink" href="#confval-scheme.colors.records.borders.signatureInvalid.pen.width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
+<p>Unit: <em>px</em></p>
 <p>The width of the pen.</p>
 </dd></dl>
 
@@ -1389,6 +1422,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">SolidLin
 <dt id="confval-scheme.colors.records.offset.width">
 <code class="sig-name descname">scheme.colors.records.offset.width</code><a class="headerlink" href="#confval-scheme.colors.records.offset.width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
+<p>Unit: <em>px</em></p>
 <p>The width of the pen.
 Default is <code class="docutils literal notranslate"><span class="pre">0.0</span></code>.</p>
 </dd></dl>
@@ -1418,6 +1452,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">DashLine
 <dt id="confval-scheme.colors.records.gridPen.width">
 <code class="sig-name descname">scheme.colors.records.gridPen.width</code><a class="headerlink" href="#confval-scheme.colors.records.gridPen.width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
+<p>Unit: <em>px</em></p>
 <p>The width of the pen.
 Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p>
 </dd></dl>
@@ -1447,6 +1482,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">DotLine<
 <dt id="confval-scheme.colors.records.subGridPen.width">
 <code class="sig-name descname">scheme.colors.records.subGridPen.width</code><a class="headerlink" href="#confval-scheme.colors.records.subGridPen.width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
+<p>Unit: <em>px</em></p>
 <p>The width of the pen.
 Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p>
 </dd></dl>
@@ -1937,6 +1973,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">02589e</
 <dt id="confval-scheme.marker.lineWidth">
 <code class="sig-name descname">scheme.marker.lineWidth</code><a class="headerlink" href="#confval-scheme.marker.lineWidth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
+<p>Unit: <em>px</em></p>
 <p>The line width of the marker (e.g. picks of manual picker).</p>
 </dd></dl>
 
@@ -1944,6 +1981,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">02589e</
 <dt id="confval-scheme.records.lineWidth">
 <code class="sig-name descname">scheme.records.lineWidth</code><a class="headerlink" href="#confval-scheme.records.lineWidth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
+<p>Unit: <em>px</em></p>
 <p>The line width of the records / traces.
 Default is <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
 </dd></dl>
@@ -2603,6 +2641,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">44</span
 <dt id="confval-scheme.splash.message.pos.x">
 <code class="sig-name descname">scheme.splash.message.pos.x</code><a class="headerlink" href="#confval-scheme.splash.message.pos.x" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
+<p>Unit: <em>px</em></p>
 <p>Horizontal position.
 Default is <code class="docutils literal notranslate"><span class="pre">200</span></code>.</p>
 </dd></dl>
@@ -2611,6 +2650,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">200</spa
 <dt id="confval-scheme.splash.message.pos.y">
 <code class="sig-name descname">scheme.splash.message.pos.y</code><a class="headerlink" href="#confval-scheme.splash.message.pos.y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
+<p>Unit: <em>px</em></p>
 <p>Vertical position.
 Default is <code class="docutils literal notranslate"><span class="pre">260</span></code>.</p>
 </dd></dl>
@@ -2637,6 +2677,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">34</span
 <dt id="confval-scheme.splash.version.pos.x">
 <code class="sig-name descname">scheme.splash.version.pos.x</code><a class="headerlink" href="#confval-scheme.splash.version.pos.x" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
+<p>Unit: <em>px</em></p>
 <p>Horizontal position.
 Default is <code class="docutils literal notranslate"><span class="pre">362</span></code>.</p>
 </dd></dl>
@@ -2645,6 +2686,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">362</spa
 <dt id="confval-scheme.splash.version.pos.y">
 <code class="sig-name descname">scheme.splash.version.pos.y</code><a class="headerlink" href="#confval-scheme.splash.version.pos.y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
+<p>Unit: <em>px</em></p>
 <p>Vertical position.
 Default is <code class="docutils literal notranslate"><span class="pre">190</span></code>.</p>
 </dd></dl>
@@ -2727,7 +2769,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">&quot;BP
 <dd><p>Type: <em>list:string</em></p>
 <p>Configure the columns of the event list that are visible initially.
 The first column containing the origin time is always visible and cannot
-be hidden. Possible values are: Type, M, TP, Phases, Lat, Lon, Depth, Stat, FM, Agency, Region, ID.
+be hidden. Possible values are: Type, M, TP, Phases, Lat, Lon, Depth, DType, Stat, AzGap, FM, Origins, Agency, Author, Region, ID.
 Default is <code class="docutils literal notranslate"><span class="pre">M,</span> <span class="pre">TP,</span> <span class="pre">Phases,</span> <span class="pre">RMS,</span> <span class="pre">Lat,</span> <span class="pre">Lon,</span> <span class="pre">Depth,</span> <span class="pre">Stat,</span> <span class="pre">Agency,</span> <span class="pre">Region,</span> <span class="pre">ID</span></code>.</p>
 </dd></dl>
 
@@ -2869,7 +2911,8 @@ Default is <code class="docutils literal notranslate"><span class="pre">Hide</sp
 <dd><p>Type: <em>list:string</em></p>
 <p>List of event type to be hidden if the “Hide other/fake events”
 option is ticked.
-Use double quotes ‘”’ around the string if it contains spaces.</p>
+Use double quotes ‘”’ around the string if it contains spaces.
+Default is <code class="docutils literal notranslate"><span class="pre">&quot;not</span> <span class="pre">existing&quot;</span></code>.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -2878,7 +2921,7 @@ Use double quotes ‘”’ around the string if it contains spaces.</p>
 <dd><p>Type: <em>boolean</em></p>
 <p>Sets the default state of the “Hide other/fake events”
 option.
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+Default is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -3025,9 +3068,9 @@ Default is <code class="docutils literal notranslate"><span class="pre">Phases,<
 <p>Configure the columns of the event edit focal mechanism
 tab that are visible initially.
 Possible values are: Depth, M, Count, Misfit, STDR,
-Azi. Gap(°), Stat, DC(%), CLVD(%), ISO(%), S1(°),
-D1(°), R1(°), S2(°), D2(°), R2(°), Agency, Author
-Default is <code class="docutils literal notranslate"><span class="pre">Depth,</span> <span class="pre">M,</span> <span class="pre">Count,</span> <span class="pre">Misfit,</span> <span class="pre">STDR,</span> <span class="pre">&quot;Azi.</span> <span class="pre">Gap(°)&quot;,</span> <span class="pre">Stat,</span> <span class="pre">DC(%),</span> <span class="pre">CLVD(%),</span> <span class="pre">ISO(%),</span> <span class="pre">S1(°),</span> <span class="pre">D1(°),</span> <span class="pre">R1(°),</span> <span class="pre">S2(°),</span> <span class="pre">D2(°),</span> <span class="pre">R2(°),</span> <span class="pre">Agency,</span> <span class="pre">Author</span></code>.</p>
+AzGap, Stat, DC, CLVD, ISO, S1,
+D1, R1, S2, D2, R2, Agency, Author
+Default is <code class="docutils literal notranslate"><span class="pre">Depth,</span> <span class="pre">M,</span> <span class="pre">Count,</span> <span class="pre">Misfit,</span> <span class="pre">STDR,</span> <span class="pre">AzGap,</span> <span class="pre">Stat,</span> <span class="pre">DC,</span> <span class="pre">CLVD,</span> <span class="pre">ISO,</span> <span class="pre">S1,</span> <span class="pre">D1,</span> <span class="pre">R1,</span> <span class="pre">S2,</span> <span class="pre">D2,</span> <span class="pre">R2,</span> <span class="pre">Agency,</span> <span class="pre">Author</span></code>.</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -3142,7 +3185,7 @@ text color in case of an active alert. E.g. “0:00FF00,900:FF0000”.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

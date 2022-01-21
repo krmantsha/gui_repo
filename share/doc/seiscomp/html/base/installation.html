@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -365,7 +365,7 @@ They can be installed manually.</p>
 <ul>
 <li><p>For better performance with a MariaDB/MySQL database, adjust the memory pool size. Test
 the default of the <strong>buffer_pool_size</strong> before making the change:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ mysql -u sysop -p
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ mysql -u root -p
 show variables like <span class="s1">&#39;innodb_buffer_pool_size&#39;</span><span class="p">;</span>
 </pre></div>
 </div>
@@ -443,7 +443,44 @@ root@host:~$ systemctl restart mariadb
 </div>
 <div class="section" id="postgresql">
 <span id="database-configuration-postgresql"></span><h3>PostgreSQL<a class="headerlink" href="#postgresql" title="Permalink to this headline">¶</a></h3>
-<p>When using PostgreSQL, the database server must be initialized and secured.</p>
+<ul class="simple">
+<li><p>When using PostgreSQL, the database server must be initialized and secured.</p></li>
+<li><p>By default PostgresSQL does not allow to login with username and password which leads</p></li>
+</ul>
+<p>to the fact that <strong class="program">scmaster</strong> can not connect to the database after SeisComP
+database initialization. Here an example how to enable user/password authentication
+for local and remote connections.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># TYPE  DATABASE        USER            ADDRESS                 METHOD</span>
+ <span class="c1"># IPv4 local connections:</span>
+ host    seiscomp        sysop           <span class="m">0</span>.0.0.0/0               md5
+ host    all             all             <span class="m">127</span>.0.0.1/32            ident
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The order of the rules matters and the location of the configuration file
+can differ between distributions.</p>
+<p><strong class="program">Ubuntu</strong>:</p>
+<p><code class="file docutils literal notranslate"><span class="pre">/etc/postgresql/10/main/pg_hba.conf</span></code></p>
+<p><strong class="program">CentOS</strong>:</p>
+<p><code class="file docutils literal notranslate"><span class="pre">/var/lib/pgsql/data/pg_hba.conf</span></code></p>
+</div>
+<ul class="simple">
+<li><p>By default PostgresSQL accepts local connections only. If the database server</p></li>
+</ul>
+<p>and clients are on different machines please change the listen address as
+follows.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">listen_addresses</span> <span class="o">=</span> <span class="m">0</span>.0.0.0/0
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The location of the configuration file can differ between distributions.</p>
+<p><strong class="program">Ubuntu</strong>:</p>
+<p><code class="file docutils literal notranslate"><span class="pre">/etc/postgresql/10/main/postgresql.conf</span></code></p>
+<p><strong class="program">CentOS</strong>:</p>
+<p><code class="file docutils literal notranslate"><span class="pre">/var/lib/pgsql/data/postgresql.conf</span></code></p>
+</div>
 </div>
 <div class="section" id="next-steps">
 <h3>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h3>
@@ -527,7 +564,7 @@ chapter explains the first steps.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

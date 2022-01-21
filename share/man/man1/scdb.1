@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCDB" "1" "Jun 21, 2021" "4.6.1" "SeisComP"
+.TH "SCDB" "1" "Jan 17, 2022" "4.8.4" "SeisComP"
 .SH NAME
 scdb \- SeisComP Documentation
 .
@@ -63,31 +63,14 @@ the database connection parameters.
 .sp
 For that it connects to a messaging server and writes all received messages to a
 configured database, e.g. a backup database.
+.sp
+\fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
-.sp
-.nf
-.ft C
-scdb \-H server \-o mysql://sysop:sysop@db\-server/seiscomp
-.ft P
-.fi
-.UNINDENT
-.UNINDENT
-.sp
-In the above example \fI\%scdb\fP connects to "server" and writes all messages to the
-output database. The database connection it received from the messaging server
-during the handshake is reported to client requesting a database address. To
-overwrite the read\-only database, just override the application\(aqs database
-address (with the \(aq\-d\(aq option):
-.INDENT 0.0
-.INDENT 3.5
-.sp
-.nf
-.ft C
-scdb \-H server \-d mysql://sysop:sysop@db\-server/seiscomp \e
-               \-o mysql://writer:12345@db\-server/seiscomp
-.ft P
-.fi
+The database connection received from the messaging server during the
+handshake is reported to clients requesting a database address. To overwrite
+the read\-only database, just override the application\(aqs database address
+(with the \(aq\-d\(aq option)
 .UNINDENT
 .UNINDENT
 .SS Offline mode
@@ -97,7 +80,9 @@ data model content. In combination with scxmldump it can be used to copy events
 from one database to another.
 .sp
 For that it does not connect to a messaging server but reads data from XML
-files and writes it to the database.
+files and writes it to the database. Offline mode will be used if the
+\(aq\-\-input/\-i\(aq option is provided. Multiple input files can be specified by
+providing this option multiple times with separate filenames.
 .sp
 \fBWARNING:\fP
 .INDENT 0.0
@@ -106,7 +91,39 @@ When reading XML files the output database address is not passed
 with \-o but \-d. The application\(aqs database address is used.
 .UNINDENT
 .UNINDENT
+.SS Examples
 .INDENT 0.0
+.IP 1. 3
+Connect to a messaging server and write all messages to the output database
+\fIseiscomp\fP running on the host \fIdb\-server\fP:
+.INDENT 3.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scdb \-H [server] \-o mysql://sysop:sysop@db\-server/seiscomp
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP 2. 3
+As above, but with the read\-only database connection using the user \fIsysop\fP
+and the output database connection using the user \fIwriter\fP:
+.INDENT 3.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scdb \-H [server] \-d mysql://sysop:sysop@db\-server/seiscomp \e
+                 \-o mysql://writer:12345@db\-server/seiscomp
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP 3. 3
+Import data from the file \fBdata.xml\fP and write it to the database
+\fIseiscomp\fP on the host \fIdb\-server\fP:
+.INDENT 3.0
 .INDENT 3.5
 .sp
 .nf
@@ -114,6 +131,20 @@ with \-o but \-d. The application\(aqs database address is used.
 scdb \-i data.xml \-d mysql://sysop:sysop@db\-server/seiscomp
 .ft P
 .fi
+.UNINDENT
+.UNINDENT
+.IP 4. 3
+Import data from three files at once:
+.INDENT 3.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scdb \-i data1.xml \-i data2.xml \-i data3.xml \e
+     \-d mysql://sysop:sysop@db\-server/seiscomp
+.ft P
+.fi
+.UNINDENT
 .UNINDENT
 .UNINDENT
 .SH CONFIGURATION
@@ -340,6 +371,7 @@ to clients as part of a database response messages.
 .TP
 .B \-i, \-\-input arg
 Defines the import XML file to be written to database.
+Can be provided multiple times to import multiple files.
 .UNINDENT
 .INDENT 0.0
 .TP

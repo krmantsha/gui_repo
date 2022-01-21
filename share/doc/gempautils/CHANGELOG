@@ -2,10 +2,20 @@
 
 All notable changes to the gempa utils library will be documented in this file.
 
-## 2.0
+## 2021-10-27 3.0
 
-* Use Rect as Grid2d extents
+### Fixed
 
-## 1.1
+-   Connection timeout of HTTP connections
 
-* Added CRC-16/32 computation (crc.h/crc.ipp)
+## 2021-02-03 2.0
+
+### Changed
+
+-   Use Rect as Grid2d extents
+
+## 2021-06-08 1.1
+
+### Added
+
+-   Added CRC-16/32 computation (crc.h/crc.ipp)

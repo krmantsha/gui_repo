@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -659,6 +659,19 @@ Default is <code class="docutils literal notranslate"><span class="pre">6</span>
 </dd></dl>
 
 <dl class="confval">
+<dt id="confval-eventAssociation.magPriorityOverStationCount">
+<code class="sig-name descname">eventAssociation.magPriorityOverStationCount</code><a class="headerlink" href="#confval-eventAssociation.magPriorityOverStationCount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>boolean</em></p>
+<p>If false then the station count rules out the magnitude priority
+which is only taken into account if two magnitudes have the
+same station count.</p>
+<p>If true then the priority rules out the station count
+which is only taken into account if two magnitudes have the
+same priority.
+Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
 <dt id="confval-eventAssociation.priorities">
 <code class="sig-name descname">eventAssociation.priorities</code><a class="headerlink" href="#confval-eventAssociation.priorities" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
@@ -1166,7 +1179,7 @@ queried with “–db-driver-list”.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

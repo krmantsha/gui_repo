@@ -23,13 +23,13 @@
 
 
 #include <seiscomp/datamodel/types.h>
+#include <seiscomp/datamodel/creationinfo.h>
 #include <string>
-#include <seiscomp/datamodel/originuncertainty.h>
 #include <seiscomp/datamodel/originquality.h>
 #include <seiscomp/datamodel/realquantity.h>
 #include <vector>
-#include <seiscomp/datamodel/creationinfo.h>
 #include <seiscomp/datamodel/timequantity.h>
+#include <seiscomp/datamodel/originuncertainty.h>
 #include <seiscomp/datamodel/comment.h>
 #include <seiscomp/datamodel/arrival.h>
 #include <seiscomp/datamodel/notifier.h>
@@ -104,7 +104,7 @@ class SC_SYSTEM_CORE_API Origin : public PublicObject {
 		//! Copies the metadata of other to this
 		//! No changes regarding child objects are made
 		Origin& operator=(const Origin& other);
-		//! Checks for equality of two objects. Childs objects
+		//! Checks for equality of two objects. Child objects
 		//! are not part of the check.
 		bool operator==(const Origin& other) const;
 		bool operator!=(const Origin& other) const;
@@ -122,17 +122,20 @@ class SC_SYSTEM_CORE_API Origin : public PublicObject {
 		TimeQuantity& time();
 		const TimeQuantity& time() const;
 
-		//! Hypocenter longitude, with respect to the World Geodetic
-		//! System 1984 (WGS84) reference system
-		//! (National Imagery and Mapping Agency 2000) in degrees. The
-		//! uncertainties are given in kilometers.
+		//! Hypocenter latitude with respect to the World Geodetic
+		//! System 1984
+		//! (WGS84) reference system (National Imagery and Mapping
+		//! Agency 2000)
+		//! in degrees. Uncertainties are given in kilometers.
 		void setLatitude(const RealQuantity& latitude);
 		RealQuantity& latitude();
 		const RealQuantity& latitude() const;
 
-		//! Hypocenter latitude, with respect to the WGS84 reference
-		//! system in degrees.
-		//! The uncertainties are given in kilometers.
+		//! Hypocenter longitude with respect to the World Geodetic
+		//! System 1984
+		//! (WGS84) reference system (National Imagery and Mapping
+		//! Agency 2000)
+		//! in degrees. Uncertainties are given in kilometers.
 		void setLongitude(const RealQuantity& longitude);
 		RealQuantity& longitude();
 		const RealQuantity& longitude() const;

@@ -969,6 +969,13 @@ class PublicObjectCache(seiscomp.core.BaseObject):
         r"""size(PublicObjectCache self) -> size_t"""
         return _datamodel.PublicObjectCache_size(self)
 
+    def contains(self, *args):
+        r"""
+        contains(PublicObjectCache self, PublicObject object) -> bool
+        contains(PublicObjectCache self, std::string const & publicID) -> bool
+        """
+        return _datamodel.PublicObjectCache_contains(self, *args)
+
     def get(self, klass, publicID):
         o = self.find(klass.TypeInfo(), publicID)
         return klass.Cast(o)
@@ -22741,10 +22748,6 @@ class DatabaseQuery(DatabaseReader):
         r"""getOriginsForAmplitude(DatabaseQuery self, std::string const & amplitudeID) -> DatabaseIterator"""
         return _datamodel.DatabaseQuery_getOriginsForAmplitude(self, amplitudeID)
 
-    def getOriginsForAmplitudeViaMagnitude(self, amplitudeID):
-        r"""getOriginsForAmplitudeViaMagnitude(DatabaseQuery self, std::string const & amplitudeID) -> DatabaseIterator"""
-        return _datamodel.DatabaseQuery_getOriginsForAmplitudeViaMagnitude(self, amplitudeID)
-
     def getOriginByMagnitude(self, magnitudeID):
         r"""getOriginByMagnitude(DatabaseQuery self, std::string const & magnitudeID) -> Origin"""
         return _datamodel.DatabaseQuery_getOriginByMagnitude(self, magnitudeID)
@@ -23222,6 +23225,28 @@ def ArtificialEventParametersMessage_ConstCast(*args):
     ArtificialEventParametersMessage_ConstCast(Seiscomp::Core::BaseObjectCPtr o) -> ArtificialEventParametersMessage
     """
     return _datamodel.ArtificialEventParametersMessage_ConstCast(*args)
+
+SEISCOMP_DATAMODEL_XMLNS_ROOT = _datamodel.SEISCOMP_DATAMODEL_XMLNS_ROOT
+
+SEISCOMP_DATAMODEL_XMLNS = _datamodel.SEISCOMP_DATAMODEL_XMLNS
+
+class Version(object):
+    r"""Proxy of C++ Seiscomp::DataModel::Version class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    Major = _datamodel.Version_Major
+    
+    Minor = _datamodel.Version_Minor
+    
+
+    def __init__(self):
+        r"""__init__(Version self) -> Version"""
+        _datamodel.Version_swiginit(self, _datamodel.new_Version())
+    __swig_destroy__ = _datamodel.delete_Version
+
+# Register Version in _datamodel:
+_datamodel.Version_swigregister(Version)
 
 class QMLTypeMapper(object):
     r"""Proxy of C++ Seiscomp::QML::TypeMapper class."""

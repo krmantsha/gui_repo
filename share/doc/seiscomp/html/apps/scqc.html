@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -89,16 +89,17 @@ quickly.</p>
 </div>
 <div class="section" id="technology">
 <h2>Technology<a class="headerlink" href="#technology" title="Permalink to this headline">¶</a></h2>
-<p>scqc uses <a class="reference internal" href="../base/glossary.html#term-plugin"><span class="xref std std-term">plugins</span></a> to compute the waveform quality control (QC) parameters.
-The plugins can be found in &#64;DATADIR&#64;/plugins/qc. They are loaded by default or
-selected by <a class="reference internal" href="#scqc-setup"><span class="std std-ref">configuration setup</span></a>.</p>
+<p>scqc uses <a class="reference internal" href="../base/glossary.html#term-plugin"><span class="xref std std-term">plugins</span></a> to compute the waveform quality control (QC)
+parameters. The plugins can be found in &#64;DATADIR&#64;/plugins/qc. They are loaded
+by default or selected by <a class="reference internal" href="#scqc-setup"><span class="std std-ref">configuration setup</span></a>.</p>
 </div>
 <div class="section" id="qc-parameters">
 <h2>QC parameters<a class="headerlink" href="#qc-parameters" title="Permalink to this headline">¶</a></h2>
 <div class="figure align-center" id="id3">
 <span id="scqc-fig-times"></span><a class="reference internal image-reference" href="../_images/times.png"><img alt="../_images/times.png" src="../_images/times.png" style="width: 16cm;" /></a>
 <p class="caption"><span class="caption-text">Times describing the data records, e.g., for calculating
-<a class="reference internal" href="#scqc-delay"><span class="std std-ref">delay</span></a> or <a class="reference internal" href="#scqc-latency"><span class="std std-ref">latency</span></a>.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<a class="reference internal" href="#scqc-delay"><span class="std std-ref">delay</span></a> or <a class="reference internal" href="#scqc-latency"><span class="std std-ref">latency</span></a>.
+<img class="math" src="../_images/math/1f50c891e31cbac3d86762eed95535d46fedfbb7.png" alt="t_{now}"/> may be measured differently depending on the QC parameter.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 <p>The following QC parameters are determined when the corresponding plugin is
 loaded:</p>
@@ -109,11 +110,16 @@ loaded:</p>
 </dl>
 <dl id="scqc-delay">
 <dt>delay [s]</dt><dd><p><strong>Plugin:</strong> qcplugin_delay</p>
-<p><strong>Description:</strong> Time difference between arrival time of last record at the <cite>SeisComP</cite> system
-and end time of last record (see <a class="reference internal" href="#scqc-fig-times"><span class="std std-ref">Figure</span></a>):</p>
+<p><strong>Description:</strong> Time difference between current time, <img class="math" src="../_images/math/1f50c891e31cbac3d86762eed95535d46fedfbb7.png" alt="t_{now}"/>, and
+time of the last record in the <cite>SeisComP</cite> system (see <a class="reference internal" href="#scqc-fig-times"><span class="std std-ref">Figure</span></a>):</p>
 <div class="math">
-<p><img src="../_images/math/a543b8e01357517969ba43eb675ec6bca330be3a.png" alt="delay = t_{arr1} - t_{12}."/></p>
-</div></dd>
+<p><img src="../_images/math/a00f908f87fb188a574cbfcdc84d27eb048638d3.png" alt="delay = t_{now} - t_{2}."/></p>
+</div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Current time is measured during reception of a record and updated in the
+report intervals configured for delay.</p>
+</div>
+</dd>
 </dl>
 <dl id="scqc-gaps">
 <dt>gaps (count [counts], interval [s], length [s])</dt><dd><p><strong>Plugin:</strong> qcplugin_gap</p>
@@ -129,10 +135,15 @@ for gaps count &gt; 1. This may be important when evaluating the intervals.</p>
 </dl>
 <dl id="scqc-latency">
 <dt>latency [s]</dt><dd><p><strong>Plugin:</strong> qcplugin_latency</p>
-<p><strong>Description:</strong> Time difference between the end times of consecutive records (see <a class="reference internal" href="#scqc-fig-times"><span class="std std-ref">Figure</span></a>):</p>
+<p><strong>Description:</strong> Time difference between current time, <img class="math" src="../_images/math/1f50c891e31cbac3d86762eed95535d46fedfbb7.png" alt="t_{now}"/>, and
+arrival time of the last record (see <a class="reference internal" href="#scqc-fig-times"><span class="std std-ref">Figure</span></a>):</p>
 <div class="math">
-<p><img src="../_images/math/2f6cb0e96c5902690f09ece272c5f5dc134c42e9.png" alt="latency = t_{22} - t_{21}."/></p>
-</div><p>For constant and low delays, latency is approximately the mean record length.</p>
+<p><img src="../_images/math/7bf45885e062034318f53c011608395ed5c38808.png" alt="latency = t_{now} - t_{arr}."/></p>
+</div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Current time is measured during reception of a record and updated in the
+report intervals configured for latency.</p>
+</div>
 </dd>
 </dl>
 <dl id="scqc-offset">
@@ -178,8 +189,8 @@ for spikes count &gt; 1. This may be important when evaluating the intervals.</p
 </dl>
 <dl id="scqc-timing">
 <dt>timing [%]</dt><dd><p><strong>Plugin:</strong> qcplugin_timing</p>
-<p><strong>Description:</strong> miniSEED record timing quality (0 - 100 %) as written into the miniSEED records
-by the digitizer.</p>
+<p><strong>Description:</strong> miniSEED record timing quality (0 - 100 %) as written into the
+miniSEED records by the digitizer.</p>
 </dd>
 </dl>
 </div>
@@ -1941,7 +1952,7 @@ is not given “<a class="reference external" href="file://">file://</a>” is u
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

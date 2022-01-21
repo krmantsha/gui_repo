@@ -31,12 +31,12 @@ namespace Seiscomp {
 namespace Core {
 
 
-/* #if (SC_API_VERSION >= SC_API_VERSION_CHECK(14, 2, 0)) */
+/* #if (SC_API_VERSION >= SC_API_VERSION_CHECK(14, 4, 0)) */
 #define SC_API_VERSION_CHECK(major, minor, patch) ((major<<16)|(minor<<8)|(patch))
 
 
 /* SC_API_VERSION is (major << 16) + (minor << 8) + patch. */
-#define SC_API_VERSION 0x0E0200
+#define SC_API_VERSION 0x0E0400
 
 #define SC_API_VERSION_MAJOR(v) (v >> 16)
 #define SC_API_VERSION_MINOR(v) ((v >> 8) & 0xff)
@@ -46,6 +46,33 @@ namespace Core {
 /******************************************************************************
  API Changelog
  ******************************************************************************
+ "14.4.0"   0x0E0400
+   - Added class Seiscomp::Core::Number<T> (ostream output)
+   - Added Seiscomp::Core::number<T>() (Number<T> generator)
+   - Added Seiscomp::Processing::Picker::noiseWindow()
+   - Added Seiscomp::Processing::Picker::signalWindow()
+   - Added Seiscomp::DataModel::PublicObjectCache::contains(PublicObject*)
+   - Added Seiscomp::DataModel::PublicObjectCache::contains(string)
+
+ "14.3.0"   0x0E0300
+   - Added Seiscomp::RingBuffer::numberOfRecordsToStore()
+   - Added Seiscomp::RingBuffer::timeSpanToStore()
+   - Added Seiscomp::TimeWindowBuffer::timeWindowToStore()
+   - Added Seiscomp::Gui::OriginLocatorMap::stationSymbolToolTip()
+   - Added Seiscomp::Gui::MagnitudeMap::stationSymbolToolTip()
+   - Added Seiscomp::Environment::resolvePath()
+   - Added Seiscomp::Wired::Device::takeFd()
+   - Added Seiscomp::Wired::SSLSocket::take()
+   - Added Seiscomp::IO::Socket::takeFd()
+   - Added Seiscomp::IO::SSLSocket::setFd()
+   - Added Seiscomp::Geo::GeoFeature::setAttribute()
+   - Added Seiscomp::Geo::GeoFeatureSet::readFile()
+   - Added Seiscomp::Geo::GeoFeatureSet::readDir()
+   - Added Seiscomp::Geo::readGeoJSON()
+   - Deprecated Seiscomp::Geo::GeoFeatureSet::readBNAFile()
+   - Deprecated Seiscomp::Geo::GeoFeatureSet::readBNADir()
+   - Added Seiscomp::Gui::CM_SHOW_NOTIFICATION enumeration
+
  "14.2.0"   0x0E0200
    - Added Seiscomp::Client::Application::injectMessage
    - Added RecordStream factory "caps" and "capss"

@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCMAG" "1" "Jun 21, 2021" "4.6.1" "SeisComP"
+.TH "SCMAG" "1" "Jan 17, 2022" "4.8.4" "SeisComP"
 .SH NAME
 scmag \- SeisComP Documentation
 .
@@ -52,29 +52,41 @@ or other modules include
 the complete set of arrivals, which reference picks used for origin computation.
 The picks in turn are referenced by a number of amplitudes, some of which are
 relevant for magnitude computation.
+.sp
+Read the scamp documentation for more details on amplitude measurements.
 .SS Primary magnitudes
 .sp
 Primary magnitudes are computed from amplitudes and station\-event distances.
-Currently the following primary magnitude types are implemented:
+Currently the following primary magnitude types are implemented.
+.SS Local distances
 .INDENT 0.0
+.TP
+.B Md
+Duration magnitude as described in \fI\%HYPOINVERSE\fP [1] .
+.TP
+.B Mjma
+Mjma is computed on displacement data using body waves of period < 30s.
 .TP
 .B ML
 Local magnitude calculated on the vertical component using a correction term
-to fit with the standard ML
-.TP
-.B MLv
-Local magnitude calculated on the vertical component using a correction term
-to fit with the standard ML
+to fit with the standard ML.
 .TP
 .B MLh
 Local magnitude calculated on the horizontal components to SED specifications.
+.TP
+.B MLv
+Local magnitude calculated on the vertical component using a correction term
+to fit with the standard ML.
 .TP
 .B MLr
 Local magnitude calculated from MLv amplitudes based on GNS/GEONET specifications
 for New Zealand.
 .TP
 .B MN
-Nuttli magnitude for Canada and other Cratonic regions as defined by \fI\%Nuttli\fP [1] (1973).
+Nuttli magnitude for Canada and other Cratonic regions.
+.UNINDENT
+.SS Teleseismic distances
+.INDENT 0.0
 .TP
 .B mb
 Narrow band body wave magnitude measured on a WWSSN\-SP filtered trace
@@ -83,22 +95,16 @@ Narrow band body wave magnitude measured on a WWSSN\-SP filtered trace
 Cumulative body wave magnitude
 .TP
 .B mB
-Broad band body wave magnitude
+Broad band body wave magnitude after \fI\%Bormann and Saul\fP [2] (2008)
 .TP
 .B Mwp
 The body wave magnitude of \fI\%Tsuboi\fP [3] et al. (1995)
-.TP
-.B Mjma
-Mjma is computed on displacement data using body waves of period < 30s
 .TP
 .B Ms_20
 Surface\-wave magnitude at 20 s period
 .TP
 .B Ms(BB)
 Broad band surface\-wave magnitude
-.TP
-.B Md
-Duration magnitude as described in the documentation of \fI\%HYPOINVERSE\fP [2]
 .UNINDENT
 .SS Derived magnitudes
 .sp
@@ -107,11 +113,11 @@ Additionally, scmag derives the following magnitudes from primary magnitudes:
 .TP
 .B Mw(mB)
 Estimation of the moment magnitude Mw based on mB using the Mw vs. mB
-regression of Bormann and Saul (2008)
+regression of \fI\%Bormann and Saul\fP [2] (2008)
 .TP
 .B Mw(Mwp)
 Estimation of the moment magnitude Mw based on Mwp using the Mw vs. Mwp
-regression of Whitmore et al. (2002)
+regression of \fI\%Whitmore\fP [4] et al. (2002)
 .TP
 .B M
 Summary magnitude, which consists of a weighted average of the individual
@@ -207,11 +213,13 @@ The preferred magnitude of an event is set automatically by scevent
 or interactively in scolv\&. It can be any network magnitude or the summary magnitude.
 .SH REFERENCES
 .IP [1] 5
-\fI\%https://doi.org/10.1029/JB078i005p00876\fP
-.IP [2] 5
 \fI\%https://earthquake.usgs.gov/research/software/#HYPOINVERSE\fP
+.IP [2] 5
+\fI\%https://pubs.geoscienceworld.org/ssa/srl/article/79/5/698/143470/The\-New\-IASPEI\-Standard\-Broadband\-Magnitude\-mB\fP
 .IP [3] 5
 \fI\%https://pubs.geoscienceworld.org/bssa/article\-pdf/85/2/606/2708350/BSSA0850020606.pdf\fP
+.IP [4] 5
+\fI\%https://tsunamisociety.org/STHVol20N4Y2002.pdf\fP
 .SH CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP

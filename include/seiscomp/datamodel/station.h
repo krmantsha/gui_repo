@@ -123,7 +123,7 @@ class SC_SYSTEM_CORE_API Station : public PublicObject {
 		//! Copies the metadata of other to this
 		//! No changes regarding child objects are made
 		Station& operator=(const Station& other);
-		//! Checks for equality of two objects. Childs objects
+		//! Checks for equality of two objects. Child objects
 		//! are not part of the check.
 		bool operator==(const Station& other) const;
 		bool operator!=(const Station& other) const;
@@ -152,15 +152,27 @@ class SC_SYSTEM_CORE_API Station : public PublicObject {
 		void setDescription(const std::string& description);
 		const std::string& description() const;
 
-		//! Station latitude (50.04)
+		//! Station latitude (50.04) with respect to the World Geodetic
+		//! System
+		//! 1984 (WGS84) reference system (National Imagery and Mapping
+		//! Agency
+		//! 2000) in degrees.
 		void setLatitude(const OPT(double)& latitude);
 		double latitude() const;
 
-		//! Station longitude (50.05)
+		//! Station longitude (50.05) with respect to the World
+		//! Geodetic System
+		//! 1984 (WGS84) reference system (National Imagery and Mapping
+		//! Agency
+		//! 2000) in degrees.
 		void setLongitude(const OPT(double)& longitude);
 		double longitude() const;
 
-		//! Station elevation (50.06)
+		//! Station elevation (50.06) with respect to the World
+		//! Geodetic System
+		//! 1984 (WGS84) reference system (National Imagery and Mapping
+		//! Agency
+		//! 2000) in meters.
 		void setElevation(const OPT(double)& elevation);
 		double elevation() const;
 

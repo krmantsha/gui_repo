@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCQC" "1" "Jun 21, 2021" "4.6.1" "SeisComP"
+.TH "SCQC" "1" "Jan 17, 2022" "4.8.4" "SeisComP"
 .SH NAME
 scqc \- SeisComP Documentation
 .
@@ -48,15 +48,16 @@ quickly.
 The QC parameters can be interactively observed using scqcv or scmm\&.
 .SH TECHNOLOGY
 .sp
-scqc uses plugins to compute the waveform quality control (QC) parameters.
-The plugins can be found in @DATADIR@/plugins/qc. They are loaded by default or
-selected by \fI\%configuration setup\fP\&.
+scqc uses plugins to compute the waveform quality control (QC)
+parameters. The plugins can be found in @DATADIR@/plugins/qc. They are loaded
+by default or selected by \fI\%configuration setup\fP\&.
 .SH QC PARAMETERS
 .INDENT 0.0
 .INDENT 2.5
 [image]
 Times describing the data records, e.g., for calculating
-\fI\%delay\fP or \fI\%latency\fP\&..UNINDENT
+\fI\%delay\fP or \fI\%latency\fP\&.
+t_{now} may be measured differently depending on the QC parameter..UNINDENT
 .UNINDENT
 .sp
 The following QC parameters are determined when the corresponding plugin is
@@ -73,12 +74,20 @@ loaded:
 .B delay [s]
 \fBPlugin:\fP qcplugin_delay
 .sp
-\fBDescription:\fP Time difference between arrival time of last record at the \fISeisComP\fP system
-and end time of last record (see \fI\%Figure\fP):
+\fBDescription:\fP Time difference between current time, t_{now}, and
+time of the last record in the \fISeisComP\fP system (see \fI\%Figure\fP):
 .sp
 .ce
-delay = t_{arr1} \- t_{12}.
+delay = t_{now} \- t_{2}.
 .ce 0
+.sp
+\fBNOTE:\fP
+.INDENT 7.0
+.INDENT 3.5
+Current time is measured during reception of a record and updated in the
+report intervals configured for delay.
+.UNINDENT
+.UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -102,13 +111,20 @@ for gaps count > 1. This may be important when evaluating the intervals.
 .B latency [s]
 \fBPlugin:\fP qcplugin_latency
 .sp
-\fBDescription:\fP Time difference between the end times of consecutive records (see \fI\%Figure\fP):
+\fBDescription:\fP Time difference between current time, t_{now}, and
+arrival time of the last record (see \fI\%Figure\fP):
 .sp
 .ce
-latency = t_{22} \- t_{21}.
+latency = t_{now} \- t_{arr}.
 .ce 0
 .sp
-For constant and low delays, latency is approximately the mean record length.
+\fBNOTE:\fP
+.INDENT 7.0
+.INDENT 3.5
+Current time is measured during reception of a record and updated in the
+report intervals configured for latency.
+.UNINDENT
+.UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -172,8 +188,8 @@ for spikes count > 1. This may be important when evaluating the intervals.
 .B timing [%]
 \fBPlugin:\fP qcplugin_timing
 .sp
-\fBDescription:\fP miniSEED record timing quality (0 \- 100 %) as written into the miniSEED records
-by the digitizer.
+\fBDescription:\fP miniSEED record timing quality (0 \- 100 %) as written into the
+miniSEED records by the digitizer.
 .UNINDENT
 .SH SETUP
 .sp

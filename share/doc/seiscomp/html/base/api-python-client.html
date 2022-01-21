@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -85,9 +85,9 @@ seiscomp.client package focuses on three main aspects:</p>
 <p>Therefore a client package has been developed combining these concepts in an
 easy way with only a couple of API calls. Since <cite>SeisComP</cite> has been developed in
 C++ and uses the object oriented paradigm forcefully, modules build on the
-Application (C++: <code class="xref py py-class docutils literal notranslate"><span class="pre">Seiscomp::Client::Application</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Python:</span> <span class="pre">seiscomp.client.Application</span></code>)
-class. It manages the messaging connection and waveform sources in a transparent
-way.</p>
+Application (C++: <code class="xref py py-class docutils literal notranslate"><span class="pre">Seiscomp::Client::Application</span></code>, Python:
+<code class="xref py py-class docutils literal notranslate"><span class="pre">seiscomp.client.Application</span></code>) class. It manages the messaging connection
+and waveform sources in a transparent way.</p>
 <p>The class <code class="xref py py-class docutils literal notranslate"><span class="pre">Seiscomp::Client::Application</span></code> is the base class for
 all <cite>SeisComP</cite> applications. It manages messaging and database
 connections, provides access to command line options and configuration
@@ -115,7 +115,8 @@ be imported first.</p>
 </div>
 <p>A common strategy to write a module with that class is to derive from it and
 run it in a Python main method.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seiscomp.client</span><span class="o">,</span> <span class="nn">sys</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">seiscomp.client</span>
 
 <span class="c1"># Class definition</span>
 <span class="k">class</span> <span class="nc">MyApp</span><span class="p">(</span><span class="n">seiscomp</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">Application</span><span class="p">):</span>
@@ -132,25 +133,19 @@ run it in a Python main method.</p>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">main</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">),</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>An application can be called with the parenthesis operator () which returns
-the applications result code and serves as input to <code class="xref py py-func docutils literal notranslate"><span class="pre">sys.exit()</span></code>. Operator()
-is a wrapper for <code class="xref py py-func docutils literal notranslate"><span class="pre">Application.exec()</span></code>.</p>
+<p>An application can be called with the parenthesis operator <code class="xref py py-func docutils literal notranslate"><span class="pre">()</span></code> which
+returns the applications result code and serves as input to <code class="xref py py-func docutils literal notranslate"><span class="pre">sys.exit()</span></code>.
+Operator() is a wrapper for <code class="xref py py-func docutils literal notranslate"><span class="pre">Application.exec()</span></code>.</p>
 <p>The workflow of <code class="xref py py-func docutils literal notranslate"><span class="pre">Application.exec()</span></code> looks as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>def exec(self):
-    self.returnCode = 1
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">exec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">returnCode</span> <span class="o">=</span> <span class="mi">1</span>
 
-    if self.init():
-        self.returnCode = 0
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">init</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">():</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">returnCode</span> <span class="o">=</span> <span class="mi">0</span>
 
-        if !self.run() and self.returnCode == 0:
-            self.returnCode = 1
+    <span class="bp">self</span><span class="o">.</span><span class="n">done</span><span class="p">()</span>
 
-        self.done()
-    }
-    else
-       self.done()
-
-    return self.returnCode
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">returnCode</span>
 </pre></div>
 </div>
 <p><code class="xref py py-func docutils literal notranslate"><span class="pre">init()</span></code>, <code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">done()</span></code> are explained in more detail in
@@ -231,15 +226,17 @@ a lot of handlers that can be customized. Typical handlers are
 and <code class="xref py py-func docutils literal notranslate"><span class="pre">validateParameters()</span></code>.</p>
 <p><code class="xref py py-func docutils literal notranslate"><span class="pre">initConfiguration()</span></code> is used to read parameters of the configuration files
 and to populate the internal state. If something fails or if configured values
-are out of bounds, False can be returned which causes to <code class="xref py py-func docutils literal notranslate"><span class="pre">init()</span></code> to return
+are out of bounds, False can be returned which causes <code class="xref py py-func docutils literal notranslate"><span class="pre">init()</span></code> to return
 False and to exit the application with a non-zero result code.</p>
 <p>An example is show below:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">initConfiguration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">seiscomp</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="n">initConfiguration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">False</span>
 
-    <span class="k">try</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_directory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configGetString</span><span class="p">(</span><span class="s2">&quot;directory&quot;</span><span class="p">)</span>
-    <span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_directory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configGetString</span><span class="p">(</span><span class="s2">&quot;directory&quot;</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
 
     <span class="k">return</span> <span class="bp">True</span>
 </pre></div>
@@ -265,8 +262,10 @@ as options: string, int, double and bool: <code class="xref py py-func docutils 
 command line options and to validate each parameter. If False is returned, the
 application is aborted with a non-zero result code.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">validateParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">try</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_directory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">commandline</span><span class="p">()</span><span class="o">.</span><span class="n">optionString</span><span class="p">(</span><span class="s2">&quot;directory&quot;</span><span class="p">)</span>
-    <span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_directory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">commandline</span><span class="p">()</span><span class="o">.</span><span class="n">optionString</span><span class="p">(</span><span class="s2">&quot;directory&quot;</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
 
     <span class="c1"># The directory validity is checked to avoid duplicate checks in</span>
     <span class="c1"># initConfiguration.</span>
@@ -275,8 +274,8 @@ application is aborted with a non-zero result code.</p>
         <span class="k">return</span> <span class="bp">False</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_directory</span><span class="p">):</span>
-        <span class="n">seiscomp</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;directory </span><span class="si">%s</span><span class="s2"> does not exist&quot;</span> <span class="o">%</span>\
-                                <span class="bp">self</span><span class="o">.</span><span class="n">_directory</span><span class="p">)</span>
+        <span class="n">seiscomp</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="s2">&quot;directory {} does not exist&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_directory</span><span class="p">))</span>
         <span class="k">return</span> <span class="bp">False</span>
 
     <span class="k">return</span> <span class="bp">True</span>
@@ -305,7 +304,7 @@ the fork, it needs to be put into <code class="xref py py-func docutils literal 
             <span class="n">handleAutoShutdown</span> <span class="p">(</span><span class="n">virtual</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The run method starts the event loop and wait for new events in the queue.
+<p>The run method starts the event loop and waits for new events in the queue.
 In case of messaging a thread is started that sits and waits for messages
 and feeds them to the queue and to the event loop in <code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code>. Without
 messaging the run loop would do nothing but waiting for SIGTERM or
@@ -347,8 +346,8 @@ void function.</p>
     <span class="n">seiscomp</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="n">done</span><span class="p">()</span>
 
     <span class="c1"># Custom clean ups</span>
-    <span class="n">closeMyDataFiles</span><span class="p">();</span>
-    <span class="n">closeCustomConnections</span><span class="p">();</span>
+    <span class="n">closeMyDataFiles</span><span class="p">()</span>
+    <span class="n">closeCustomConnections</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -381,7 +380,7 @@ from a configurable source and adds a new handler method
 <p>The stream subscription should be done in <code class="xref py py-func docutils literal notranslate"><span class="pre">init()</span></code>. <code class="xref py py-func docutils literal notranslate"><span class="pre">recordStream()</span></code>
 returns the RecordStream instance which can be used to add stream requests.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">seiscomp</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">StreamApplication</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">seiscomp</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">StreamApplication</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">False</span>
 
     <span class="c1"># Subscribe to some streams</span>
@@ -455,7 +454,7 @@ real time connection and handles reconnects automatically.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

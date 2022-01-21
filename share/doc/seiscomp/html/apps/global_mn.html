@@ -16,7 +16,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="LocExt" href="global_locext.html" />
-    <link rel="prev" title="MLr" href="global_mlr.html" /> 
+    <link rel="prev" title="iLoc" href="global_iloc.html" /> 
   </head>
   <body>
     <div class="header">
@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -47,7 +47,7 @@
           </a>
         </li>
         <li class="right">
-          <a href="global_mlr.html" title="MLr"
+          <a href="global_iloc.html" title="iLoc"
              accesskey="P">
             previous
           </a>
@@ -76,37 +76,51 @@
 according to the Geological Survey of Canada.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>MN is the <a class="reference external" href="https://doi.org/10.1029/JB078i005p00876">Nuttli</a> <a class="footnote-reference brackets" href="#id1" id="id2">1</a> magnitude for Canada and other Cratonic regions. <cite>SeisComP</cite>
+provides regionalization for measuring amplitudes and for computing the magnitudes.</p>
 <p>The amplitude unit in SeisComP is <strong>meter/second</strong> (m/s).</p>
+</div>
 <div class="section" id="settings">
-<h3>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h3>
-<p>Add the <em>nuttli</em> plugin to the list of loaded plugins and set the region-specific
-calibration parameters in the global configuration. E.g. in the global module
-configuration:</p>
+<h2>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h2>
+<p>Add the <em>nuttli</em> plugin to the list of loaded plugins e.g. in the global module configuration:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">plugins</span> <span class="o">=</span> <span class="si">${</span><span class="nv">plugins</span><span class="si">}</span>,nuttli
 </pre></div>
 </div>
-<p>Amplitude time window parameters and magnitude corrections are configurable in the
-global bindings.</p>
+<p>Adjust MN-specific global bindings parameters in the amplitude section and set the
+region-specific calibration parameters in the global module configuration.</p>
 <div class="section" id="scamp">
-<h4>scamp<a class="headerlink" href="#scamp" title="Permalink to this headline">¶</a></h4>
-<p>Add the Nuttli magnitude type to the range of magnitudes for which the amplitudes are
-to be calculated, e.g.:</p>
+<h3>scamp<a class="headerlink" href="#scamp" title="Permalink to this headline">¶</a></h3>
+<p>Add the Nuttli amplitude type, <strong>AMN</strong>, to the range of magnitudes for which the amplitudes are
+to be calculated by <a class="reference internal" href="scamp.html#scamp"><span class="std std-ref">scamp</span></a>, e.g.:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">amplitudes</span> <span class="o">=</span> ML,MLv,mb,mB,AMN
 </pre></div>
 </div>
+<p>Adjust MN-specific global bindings parameters in the amplitude section and set the
+region-specific calibration parameters in the global module configuration
+(amplitude section).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Provide <em>AMN</em> for computing Nuttli-type amplitudes.</p>
 </div>
 </div>
 <div class="section" id="scmag">
-<h4>scmag<a class="headerlink" href="#scmag" title="Permalink to this headline">¶</a></h4>
-<p>Add the Nuttli magnitude type to the range of magnitudes to be calculated, e.g.:</p>
+<h3>scmag<a class="headerlink" href="#scmag" title="Permalink to this headline">¶</a></h3>
+<p>Add the Nuttli magnitude type, <strong>MN</strong>, to the range of magnitudes to be calculated by
+<a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a>, e.g.:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">magnitudes</span> <span class="o">=</span> ML,MLv,mb,mB,MN
 </pre></div>
 </div>
+<p>Adjust MN-specific global bindings parameters in the magnitude section and define
+the region polygons in the global module configuration (magnitude section).</p>
 </div>
 </div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id1"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<dd><p><a class="reference external" href="https://doi.org/10.1029/JB078i005p00876">https://doi.org/10.1029/JB078i005p00876</a></p>
+</dd>
+</dl>
 </div>
 <div class="section" id="configuration">
 <span id="global-mn-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
@@ -162,22 +176,21 @@ Default is <code class="docutils literal notranslate"><span class="pre">&#64;DAT
   <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">MN</a><ul>
-<li><a class="reference internal" href="#description">Description</a><ul>
+<li><a class="reference internal" href="#description">Description</a></li>
 <li><a class="reference internal" href="#settings">Settings</a><ul>
 <li><a class="reference internal" href="#scamp">scamp</a></li>
 <li><a class="reference internal" href="#scmag">scmag</a></li>
 </ul>
 </li>
-</ul>
-</li>
+<li><a class="reference internal" href="#references">References</a></li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="global_mlr.html"
-                        title="previous chapter">MLr</a></p>
+  <p class="topless"><a href="global_iloc.html"
+                        title="previous chapter">iLoc</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="global_locext.html"
                         title="next chapter">LocExt</a></p>
@@ -200,7 +213,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">&#64;DAT
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

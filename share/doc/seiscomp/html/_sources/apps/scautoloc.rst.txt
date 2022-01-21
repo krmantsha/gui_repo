@@ -551,7 +551,7 @@ scautoloc inherits :ref:`global options<global-configuration>`.
 
    Unit: *s*
 
-   Max. permissible RMS for a location to be reported.
+   Maximum travel\-time RMS for a location to be reported.
    Default is ``3.5``.
 
 .. confval:: autoloc.maxResidual
@@ -560,7 +560,7 @@ scautoloc inherits :ref:`global options<global-configuration>`.
 
    Unit: *s*
 
-   Maximum station residual \(unweighted\) for a pick to be used.
+   Maximum travel\-time residual \(unweighted\) for a pick at a station to be used.
    Default is ``7.0``.
 
 .. confval:: autoloc.minPhaseCount
@@ -585,7 +585,7 @@ scautoloc inherits :ref:`global options<global-configuration>`.
 
    Unit: *deg*
 
-   Maximum secondary azimuth gap for an origin to be reported by.
+   Maximum secondary azimuthal gap for an origin to be reported by.
    The secondary gap is the maximum of the sum of 2 station gaps.
    
    Default: 360 degrees, i.e. no restriction based on this parameter.
@@ -628,28 +628,6 @@ scautoloc inherits :ref:`global options<global-configuration>`.
    amplitude object. If it is empty, the pick SNR is 10.
    Default is ``snr``.
 
-.. confval:: autoloc.publicationIntervalTimeSlope
-
-   Type: *double*
-
-   Unit: *s/count*
-
-   Parameter \"a\"  in the equation t \= aN + b.
-   t is the time interval between sending updates of an origin.
-   N is the arrival count of the origin.
-   Default is ``0.5``.
-
-.. confval:: autoloc.publicationIntervalTimeIntercept
-
-   Type: *double*
-
-   Unit: *s*
-
-   Parameter \"b\" in the equation t \= aN + b.
-   t is the time interval between sending updates of an origin.
-   N is the arrival count of the origin.
-   Default is ``0.``.
-
 .. confval:: autoloc.grid
 
    Type: *path*
@@ -673,21 +651,12 @@ scautoloc inherits :ref:`global options<global-configuration>`.
    in \"\@DATADIR\@\/scautoloc\/station\-locations.conf\".
 
 
-.. confval:: autoloc.pickLog
-
-   Type: *string*
-
-   Location of pick log file containing information about received
-   picks.
-   Default is ``@LOGDIR@/autoloc-picklog``.
-
-.. confval:: autoloc.tryDefaultDepth
+.. confval:: autoloc.useManualPicks
 
    Type: *boolean*
 
-   Compare located origin with the origin at the depth given by
-   locator.defaultDepth. The origin with lower RMS is reported.
-   Default is ``true``.
+   Receive and process manual phase picks.
+   Default is ``false``.
 
 .. confval:: autoloc.useManualOrigins
 
@@ -705,13 +674,6 @@ scautoloc inherits :ref:`global options<global-configuration>`.
    of automatic event processing.
    Default is ``false``.
 
-.. confval:: autoloc.useManualPicks
-
-   Type: *boolean*
-
-   Receive and process phase picks.
-   Default is ``false``.
-
 .. confval:: autoloc.adoptManualDepth
 
    Type: *boolean*
@@ -724,7 +686,59 @@ scautoloc inherits :ref:`global options<global-configuration>`.
 
    Type: *list:string*
 
-   *No description available*
+   Pick processing may be enabled\/disabled according to the
+   author ID of a pick. In addition, picks of certain authors
+   can be prioritized over other authors.
+   This is the author priority list that controls this behavior.
+   Its value is a comma\-separated list of author ID's.
+   The earlier an author ID appears in the list the higher the
+   priority it gets.
+
+
+.. confval:: autoloc.tryDefaultDepth
+
+   Type: *boolean*
+
+   Compare located origin with the origin at the depth given by
+   locator.defaultDepth. The origin with lower RMS is reported.
+   Default is ``true``.
+
+.. confval:: autoloc.publicationIntervalTimeSlope
+
+   Type: *double*
+
+   Unit: *s/count*
+
+   Parameter \"a\"  in the equation t \= aN + b.
+   t is the time interval between sending updates of an origin.
+   N is the arrival count of the origin.
+   Default is ``0.5``.
+
+.. confval:: autoloc.publicationIntervalTimeIntercept
+
+   Type: *double*
+
+   Unit: *s*
+
+   Parameter \"b\" in the equation t \= aN + b.
+   t is the time interval between sending updates of an origin.
+   N is the arrival count of the origin.
+   Default is ``0.``.
+
+.. confval:: autoloc.pickLogEnable
+
+   Type: *boolean*
+
+   Activate for writing pick log files to \"pickLog\".
+   Default is ``false``.
+
+.. confval:: autoloc.pickLog
+
+   Type: *string*
+
+   Location of pick log file containing information about received
+   picks. Activate \"pickLogEnable\" for writing the files.
+   Default is ``@LOGDIR@/autoloc-picklog``.
 
 .. note::
    **autoloc.xxl.\***
@@ -953,7 +967,7 @@ Mode
 
 .. option:: --playback
 
-   Flush origins immediately without delay
+   Flush origins immediately without delay.
 
 
 Settings
@@ -967,27 +981,33 @@ Settings
 
 .. option:: --station-config arg
 
-   The station.conf file
-
-.. option:: --pick-log arg
-
-   The pick log file
+   The station configuration file. Examples are in \@DATADIR\@\/scautoloc\/
 
 .. option:: --grid arg
 
-   The grid.conf file to use
+   The grid configuration file. Examples are in \@DATADIR\@\/scautoloc\/
+
+.. option:: --pick-log arg
+
+   The pick log file. Providing a file name enables logging picks
+   even when disabled by configuration.
 
 .. option:: --default-depth arg
 
+   Default depth for comparison with the depth after locating.
 
 .. option:: --max-sgap arg
 
+   Maximum secondary azimuthal gap for an origin to be reported by.
+   The secondary gap is the maximum of the sum of 2 station gaps.
 
 .. option:: --max-rms arg
 
+   Maximum travel\-time RMS for a location to be reported.
 
 .. option:: --max-residual arg
 
+   Maximum travel\-time residual \(unweighted\) for a pick at a station to be used.
 
 .. option:: --max-station-distance arg
 

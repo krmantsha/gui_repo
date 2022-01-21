@@ -72,22 +72,24 @@ public:
     QLabel *labelFMSeparator;
     QFrame *frameInformationAutomatic;
     QGridLayout *gridLayout2;
-    QLabel *_lbOriginStatusAutomatic;
     QLabel *labelVDistanceAutomatic;
-    QLabel *_lbCommentAutomatic;
-    QLabel *_lbDepthUnitAutomatic;
-    QLabel *_lbLongErrorAutomatic;
+    QLabel *_lbRMSAutomatic;
     QLabel *_lbLatErrorAutomatic;
     QLabel *_lbLatitudeAutomatic;
+    QLabel *_lbOriginStatusAutomatic;
+    QLabel *_lbLongitudeUnitAutomatic;
+    QLabel *_lbDepthUnitAutomatic;
+    QLabel *_lbCommentAutomatic;
     QLabel *_lbNoPhasesAutomatic;
     QSpacerItem *spacerItem;
+    QLabel *_lbAgencyAutomatic;
     QLabel *_lbLongitudeAutomatic;
-    QLabel *_lbRMSAutomatic;
     QLabel *_lbDepthErrorAutomatic;
     QLabel *_lbDepthAutomatic;
+    QLabel *_lbLongErrorAutomatic;
     QLabel *_lbLatitudeUnitAutomatic;
-    QLabel *_lbLongitudeUnitAutomatic;
-    QLabel *_lbAgencyAutomatic;
+    QLabel *_lbAzGapAutomatic;
+    QLabel *label_2;
     QLabel *fmLabelFrameInfoSpacer;
     QFrame *fmFrameInformationAutomatic;
     QGridLayout *gridLayout3;
@@ -120,43 +122,46 @@ public:
     QLabel *labelFrameInfoSpacer;
     QFrame *frameInformation;
     QGridLayout *gridLayout4;
-    QLabel *labelVDistance;
-    QSpacerItem *spacerItem1;
-    QLabel *_lbComment;
-    QLabel *_lbCommentTxt;
-    QLabel *_lbLongitudeUnit;
     QLabel *_lbRMSTxt;
+    QLabel *_lbLongitudeUnit;
     QLabel *_lbEventID;
-    QLabel *_lbNoPhasesTxt;
-    QLabel *_lbThisLocTxt;
-    QLabel *_lbLatitudeTxt;
-    QLabel *_lbDepth;
-    QLabel *_lbOriginStatus;
-    QLabel *_lbEventIDTxt;
-    QLabel *_lbOriginStatusTxt;
-    QLabel *_lbLongError;
-    QLabel *_lbLatError;
-    QLabel *_lbDepthUnit;
-    QLabel *_lbNoPhases;
-    QLabel *_lbFirstLocTxt;
-    QLabel *_lbLongitudeTxt;
-    QLabel *_lbAgency;
-    QLabel *_lbRMS;
-    QLabel *_lbLongitude;
-    QLabel *_lbLatitudeUnit;
-    QLabel *_lbDepthError;
-    QLabel *_lbAgencyTxt;
-    QLabel *_lbThisLocation;
-    QLabel *_lbDepthTxt;
     QLabel *_lbFirstLocation;
+    QLabel *_lbAgency;
+    QLabel *_lbOriginStatus;
+    QLabel *_lbDepthTxt;
+    QLabel *_lbLatitudeTxt;
+    QLabel *_lbFirstLocTxt;
+    QLabel *_lbLatError;
+    QLabel *_lbNoPhases;
+    QLabel *_lbLongitudeTxt;
+    QLabel *_lbThisLocation;
+    QSpacerItem *spacerItem1;
+    QLabel *_lbAgencyTxt;
+    QLabel *_lbDepthError;
+    QLabel *_lbEventIDTxt;
+    QLabel *_lbLongError;
+    QLabel *_lbThisLocTxt;
+    QLabel *_lbOriginStatusTxt;
+    QLabel *_lbLongitude;
     QLabel *_lbLatitude;
+    QLabel *labelVDistance;
+    QLabel *_lbRMS;
+    QLabel *_lbNoPhasesTxt;
+    QLabel *_lbLatitudeUnit;
+    QLabel *_lbDepth;
+    QLabel *_lbDepthUnit;
+    QLabel *_lbCommentTxt;
+    QLabel *_lbComment;
+    QLabel *_lbGapTxt;
+    QLabel *_lbAzGap;
+    QLabel *label;
     QSpacerItem *spacerItem2;
 
     void setupUi(QWidget *Hypocenter)
     {
         if (Hypocenter->objectName().isEmpty())
             Hypocenter->setObjectName(QString::fromUtf8("Hypocenter"));
-        Hypocenter->resize(487, 663);
+        Hypocenter->resize(473, 707);
         gridLayout = new QGridLayout(Hypocenter);
         gridLayout->setSpacing(0);
         gridLayout->setContentsMargins(0, 0, 0, 0);
@@ -460,35 +465,16 @@ public:
         gridLayout2->setContentsMargins(9, 9, 9, 9);
 #endif
         gridLayout2->setObjectName(QString::fromUtf8("gridLayout2"));
-        _lbOriginStatusAutomatic = new QLabel(frameInformationAutomatic);
-        _lbOriginStatusAutomatic->setObjectName(QString::fromUtf8("_lbOriginStatusAutomatic"));
-        _lbOriginStatusAutomatic->setFont(font);
-        _lbOriginStatusAutomatic->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-
-        gridLayout2->addWidget(_lbOriginStatusAutomatic, 8, 0, 1, 3);
-
         labelVDistanceAutomatic = new QLabel(frameInformationAutomatic);
         labelVDistanceAutomatic->setObjectName(QString::fromUtf8("labelVDistanceAutomatic"));
 
-        gridLayout2->addWidget(labelVDistanceAutomatic, 6, 0, 1, 3);
+        gridLayout2->addWidget(labelVDistanceAutomatic, 7, 0, 1, 3);
 
-        _lbCommentAutomatic = new QLabel(frameInformationAutomatic);
-        _lbCommentAutomatic->setObjectName(QString::fromUtf8("_lbCommentAutomatic"));
-        _lbCommentAutomatic->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        _lbRMSAutomatic = new QLabel(frameInformationAutomatic);
+        _lbRMSAutomatic->setObjectName(QString::fromUtf8("_lbRMSAutomatic"));
+        _lbRMSAutomatic->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout2->addWidget(_lbCommentAutomatic, 5, 0, 1, 1);
-
-        _lbDepthUnitAutomatic = new QLabel(frameInformationAutomatic);
-        _lbDepthUnitAutomatic->setObjectName(QString::fromUtf8("_lbDepthUnitAutomatic"));
-        _lbDepthUnitAutomatic->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-
-        gridLayout2->addWidget(_lbDepthUnitAutomatic, 2, 1, 1, 1);
-
-        _lbLongErrorAutomatic = new QLabel(frameInformationAutomatic);
-        _lbLongErrorAutomatic->setObjectName(QString::fromUtf8("_lbLongErrorAutomatic"));
-        _lbLongErrorAutomatic->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-
-        gridLayout2->addWidget(_lbLongErrorAutomatic, 1, 2, 1, 1);
+        gridLayout2->addWidget(_lbRMSAutomatic, 4, 0, 1, 1);
 
         _lbLatErrorAutomatic = new QLabel(frameInformationAutomatic);
         _lbLatErrorAutomatic->setObjectName(QString::fromUtf8("_lbLatErrorAutomatic"));
@@ -506,6 +492,31 @@ public:
 
         gridLayout2->addWidget(_lbLatitudeAutomatic, 0, 0, 1, 1);
 
+        _lbOriginStatusAutomatic = new QLabel(frameInformationAutomatic);
+        _lbOriginStatusAutomatic->setObjectName(QString::fromUtf8("_lbOriginStatusAutomatic"));
+        _lbOriginStatusAutomatic->setFont(font);
+        _lbOriginStatusAutomatic->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout2->addWidget(_lbOriginStatusAutomatic, 9, 0, 1, 3);
+
+        _lbLongitudeUnitAutomatic = new QLabel(frameInformationAutomatic);
+        _lbLongitudeUnitAutomatic->setObjectName(QString::fromUtf8("_lbLongitudeUnitAutomatic"));
+        _lbLongitudeUnitAutomatic->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout2->addWidget(_lbLongitudeUnitAutomatic, 1, 1, 1, 1);
+
+        _lbDepthUnitAutomatic = new QLabel(frameInformationAutomatic);
+        _lbDepthUnitAutomatic->setObjectName(QString::fromUtf8("_lbDepthUnitAutomatic"));
+        _lbDepthUnitAutomatic->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout2->addWidget(_lbDepthUnitAutomatic, 2, 1, 1, 1);
+
+        _lbCommentAutomatic = new QLabel(frameInformationAutomatic);
+        _lbCommentAutomatic->setObjectName(QString::fromUtf8("_lbCommentAutomatic"));
+        _lbCommentAutomatic->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout2->addWidget(_lbCommentAutomatic, 6, 0, 1, 1);
+
         _lbNoPhasesAutomatic = new QLabel(frameInformationAutomatic);
         _lbNoPhasesAutomatic->setObjectName(QString::fromUtf8("_lbNoPhasesAutomatic"));
         _lbNoPhasesAutomatic->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
@@ -514,19 +525,20 @@ public:
 
         spacerItem = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        gridLayout2->addItem(spacerItem, 9, 0, 1, 2);
+        gridLayout2->addItem(spacerItem, 10, 0, 1, 2);
+
+        _lbAgencyAutomatic = new QLabel(frameInformationAutomatic);
+        _lbAgencyAutomatic->setObjectName(QString::fromUtf8("_lbAgencyAutomatic"));
+        _lbAgencyAutomatic->setFont(font);
+        _lbAgencyAutomatic->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout2->addWidget(_lbAgencyAutomatic, 8, 0, 1, 3);
 
         _lbLongitudeAutomatic = new QLabel(frameInformationAutomatic);
         _lbLongitudeAutomatic->setObjectName(QString::fromUtf8("_lbLongitudeAutomatic"));
         _lbLongitudeAutomatic->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
         gridLayout2->addWidget(_lbLongitudeAutomatic, 1, 0, 1, 1);
-
-        _lbRMSAutomatic = new QLabel(frameInformationAutomatic);
-        _lbRMSAutomatic->setObjectName(QString::fromUtf8("_lbRMSAutomatic"));
-        _lbRMSAutomatic->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout2->addWidget(_lbRMSAutomatic, 4, 0, 1, 1);
 
         _lbDepthErrorAutomatic = new QLabel(frameInformationAutomatic);
         _lbDepthErrorAutomatic->setObjectName(QString::fromUtf8("_lbDepthErrorAutomatic"));
@@ -540,6 +552,12 @@ public:
 
         gridLayout2->addWidget(_lbDepthAutomatic, 2, 0, 1, 1);
 
+        _lbLongErrorAutomatic = new QLabel(frameInformationAutomatic);
+        _lbLongErrorAutomatic->setObjectName(QString::fromUtf8("_lbLongErrorAutomatic"));
+        _lbLongErrorAutomatic->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout2->addWidget(_lbLongErrorAutomatic, 1, 2, 1, 1);
+
         _lbLatitudeUnitAutomatic = new QLabel(frameInformationAutomatic);
         _lbLatitudeUnitAutomatic->setObjectName(QString::fromUtf8("_lbLatitudeUnitAutomatic"));
         sizePolicy.setHeightForWidth(_lbLatitudeUnitAutomatic->sizePolicy().hasHeightForWidth());
@@ -548,18 +566,16 @@ public:
 
         gridLayout2->addWidget(_lbLatitudeUnitAutomatic, 0, 1, 1, 1);
 
-        _lbLongitudeUnitAutomatic = new QLabel(frameInformationAutomatic);
-        _lbLongitudeUnitAutomatic->setObjectName(QString::fromUtf8("_lbLongitudeUnitAutomatic"));
-        _lbLongitudeUnitAutomatic->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        _lbAzGapAutomatic = new QLabel(frameInformationAutomatic);
+        _lbAzGapAutomatic->setObjectName(QString::fromUtf8("_lbAzGapAutomatic"));
+        _lbAzGapAutomatic->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout2->addWidget(_lbLongitudeUnitAutomatic, 1, 1, 1, 1);
+        gridLayout2->addWidget(_lbAzGapAutomatic, 5, 0, 1, 1);
 
-        _lbAgencyAutomatic = new QLabel(frameInformationAutomatic);
-        _lbAgencyAutomatic->setObjectName(QString::fromUtf8("_lbAgencyAutomatic"));
-        _lbAgencyAutomatic->setFont(font);
-        _lbAgencyAutomatic->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        label_2 = new QLabel(frameInformationAutomatic);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
 
-        gridLayout2->addWidget(_lbAgencyAutomatic, 7, 0, 1, 3);
+        gridLayout2->addWidget(label_2, 5, 1, 1, 1);
 
 
         gridLayout->addWidget(frameInformationAutomatic, 0, 2, 1, 1);
@@ -760,25 +776,11 @@ public:
         gridLayout4->setContentsMargins(9, 9, 9, 9);
 #endif
         gridLayout4->setObjectName(QString::fromUtf8("gridLayout4"));
-        labelVDistance = new QLabel(frameInformation);
-        labelVDistance->setObjectName(QString::fromUtf8("labelVDistance"));
+        _lbRMSTxt = new QLabel(frameInformation);
+        _lbRMSTxt->setObjectName(QString::fromUtf8("_lbRMSTxt"));
+        _lbRMSTxt->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
-        gridLayout4->addWidget(labelVDistance, 6, 0, 1, 4);
-
-        spacerItem1 = new QSpacerItem(20, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout4->addItem(spacerItem1, 12, 0, 1, 1);
-
-        _lbComment = new QLabel(frameInformation);
-        _lbComment->setObjectName(QString::fromUtf8("_lbComment"));
-        _lbComment->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout4->addWidget(_lbComment, 5, 1, 1, 1);
-
-        _lbCommentTxt = new QLabel(frameInformation);
-        _lbCommentTxt->setObjectName(QString::fromUtf8("_lbCommentTxt"));
-
-        gridLayout4->addWidget(_lbCommentTxt, 5, 0, 1, 1);
+        gridLayout4->addWidget(_lbRMSTxt, 4, 0, 1, 1);
 
         _lbLongitudeUnit = new QLabel(frameInformation);
         _lbLongitudeUnit->setObjectName(QString::fromUtf8("_lbLongitudeUnit"));
@@ -786,28 +788,36 @@ public:
 
         gridLayout4->addWidget(_lbLongitudeUnit, 1, 2, 1, 1);
 
-        _lbRMSTxt = new QLabel(frameInformation);
-        _lbRMSTxt->setObjectName(QString::fromUtf8("_lbRMSTxt"));
-        _lbRMSTxt->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-
-        gridLayout4->addWidget(_lbRMSTxt, 4, 0, 1, 1);
-
         _lbEventID = new QLabel(frameInformation);
         _lbEventID->setObjectName(QString::fromUtf8("_lbEventID"));
 
-        gridLayout4->addWidget(_lbEventID, 11, 1, 1, 3);
+        gridLayout4->addWidget(_lbEventID, 12, 1, 1, 3);
 
-        _lbNoPhasesTxt = new QLabel(frameInformation);
-        _lbNoPhasesTxt->setObjectName(QString::fromUtf8("_lbNoPhasesTxt"));
-        _lbNoPhasesTxt->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        _lbFirstLocation = new QLabel(frameInformation);
+        _lbFirstLocation->setObjectName(QString::fromUtf8("_lbFirstLocation"));
+        _lbFirstLocation->setFont(font1);
 
-        gridLayout4->addWidget(_lbNoPhasesTxt, 3, 0, 1, 1);
+        gridLayout4->addWidget(_lbFirstLocation, 10, 1, 1, 3);
 
-        _lbThisLocTxt = new QLabel(frameInformation);
-        _lbThisLocTxt->setObjectName(QString::fromUtf8("_lbThisLocTxt"));
-        _lbThisLocTxt->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        _lbAgency = new QLabel(frameInformation);
+        _lbAgency->setObjectName(QString::fromUtf8("_lbAgency"));
+        _lbAgency->setFont(font);
+        _lbAgency->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
-        gridLayout4->addWidget(_lbThisLocTxt, 10, 0, 1, 1);
+        gridLayout4->addWidget(_lbAgency, 8, 1, 1, 3);
+
+        _lbOriginStatus = new QLabel(frameInformation);
+        _lbOriginStatus->setObjectName(QString::fromUtf8("_lbOriginStatus"));
+        _lbOriginStatus->setFont(font);
+        _lbOriginStatus->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout4->addWidget(_lbOriginStatus, 9, 1, 1, 3);
+
+        _lbDepthTxt = new QLabel(frameInformation);
+        _lbDepthTxt->setObjectName(QString::fromUtf8("_lbDepthTxt"));
+        _lbDepthTxt->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout4->addWidget(_lbDepthTxt, 2, 0, 1, 1);
 
         _lbLatitudeTxt = new QLabel(frameInformation);
         _lbLatitudeTxt->setObjectName(QString::fromUtf8("_lbLatitudeTxt"));
@@ -815,35 +825,11 @@ public:
 
         gridLayout4->addWidget(_lbLatitudeTxt, 0, 0, 1, 1);
 
-        _lbDepth = new QLabel(frameInformation);
-        _lbDepth->setObjectName(QString::fromUtf8("_lbDepth"));
-        _lbDepth->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        _lbFirstLocTxt = new QLabel(frameInformation);
+        _lbFirstLocTxt->setObjectName(QString::fromUtf8("_lbFirstLocTxt"));
+        _lbFirstLocTxt->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
-        gridLayout4->addWidget(_lbDepth, 2, 1, 1, 1);
-
-        _lbOriginStatus = new QLabel(frameInformation);
-        _lbOriginStatus->setObjectName(QString::fromUtf8("_lbOriginStatus"));
-        _lbOriginStatus->setFont(font);
-        _lbOriginStatus->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-
-        gridLayout4->addWidget(_lbOriginStatus, 8, 1, 1, 3);
-
-        _lbEventIDTxt = new QLabel(frameInformation);
-        _lbEventIDTxt->setObjectName(QString::fromUtf8("_lbEventIDTxt"));
-
-        gridLayout4->addWidget(_lbEventIDTxt, 11, 0, 1, 1);
-
-        _lbOriginStatusTxt = new QLabel(frameInformation);
-        _lbOriginStatusTxt->setObjectName(QString::fromUtf8("_lbOriginStatusTxt"));
-        _lbOriginStatusTxt->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-
-        gridLayout4->addWidget(_lbOriginStatusTxt, 8, 0, 1, 1);
-
-        _lbLongError = new QLabel(frameInformation);
-        _lbLongError->setObjectName(QString::fromUtf8("_lbLongError"));
-        _lbLongError->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-
-        gridLayout4->addWidget(_lbLongError, 1, 3, 1, 1);
+        gridLayout4->addWidget(_lbFirstLocTxt, 10, 0, 1, 1);
 
         _lbLatError = new QLabel(frameInformation);
         _lbLatError->setObjectName(QString::fromUtf8("_lbLatError"));
@@ -853,23 +839,11 @@ public:
 
         gridLayout4->addWidget(_lbLatError, 0, 3, 1, 1);
 
-        _lbDepthUnit = new QLabel(frameInformation);
-        _lbDepthUnit->setObjectName(QString::fromUtf8("_lbDepthUnit"));
-        _lbDepthUnit->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-
-        gridLayout4->addWidget(_lbDepthUnit, 2, 2, 1, 1);
-
         _lbNoPhases = new QLabel(frameInformation);
         _lbNoPhases->setObjectName(QString::fromUtf8("_lbNoPhases"));
         _lbNoPhases->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
         gridLayout4->addWidget(_lbNoPhases, 3, 1, 1, 1);
-
-        _lbFirstLocTxt = new QLabel(frameInformation);
-        _lbFirstLocTxt->setObjectName(QString::fromUtf8("_lbFirstLocTxt"));
-        _lbFirstLocTxt->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-
-        gridLayout4->addWidget(_lbFirstLocTxt, 9, 0, 1, 1);
 
         _lbLongitudeTxt = new QLabel(frameInformation);
         _lbLongitudeTxt->setObjectName(QString::fromUtf8("_lbLongitudeTxt"));
@@ -877,12 +851,69 @@ public:
 
         gridLayout4->addWidget(_lbLongitudeTxt, 1, 0, 1, 1);
 
-        _lbAgency = new QLabel(frameInformation);
-        _lbAgency->setObjectName(QString::fromUtf8("_lbAgency"));
-        _lbAgency->setFont(font);
-        _lbAgency->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        _lbThisLocation = new QLabel(frameInformation);
+        _lbThisLocation->setObjectName(QString::fromUtf8("_lbThisLocation"));
+        _lbThisLocation->setFont(font1);
 
-        gridLayout4->addWidget(_lbAgency, 7, 1, 1, 3);
+        gridLayout4->addWidget(_lbThisLocation, 11, 1, 1, 3);
+
+        spacerItem1 = new QSpacerItem(20, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout4->addItem(spacerItem1, 13, 0, 1, 1);
+
+        _lbAgencyTxt = new QLabel(frameInformation);
+        _lbAgencyTxt->setObjectName(QString::fromUtf8("_lbAgencyTxt"));
+        _lbAgencyTxt->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout4->addWidget(_lbAgencyTxt, 8, 0, 1, 1);
+
+        _lbDepthError = new QLabel(frameInformation);
+        _lbDepthError->setObjectName(QString::fromUtf8("_lbDepthError"));
+        _lbDepthError->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout4->addWidget(_lbDepthError, 2, 3, 1, 1);
+
+        _lbEventIDTxt = new QLabel(frameInformation);
+        _lbEventIDTxt->setObjectName(QString::fromUtf8("_lbEventIDTxt"));
+
+        gridLayout4->addWidget(_lbEventIDTxt, 12, 0, 1, 1);
+
+        _lbLongError = new QLabel(frameInformation);
+        _lbLongError->setObjectName(QString::fromUtf8("_lbLongError"));
+        _lbLongError->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout4->addWidget(_lbLongError, 1, 3, 1, 1);
+
+        _lbThisLocTxt = new QLabel(frameInformation);
+        _lbThisLocTxt->setObjectName(QString::fromUtf8("_lbThisLocTxt"));
+        _lbThisLocTxt->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout4->addWidget(_lbThisLocTxt, 11, 0, 1, 1);
+
+        _lbOriginStatusTxt = new QLabel(frameInformation);
+        _lbOriginStatusTxt->setObjectName(QString::fromUtf8("_lbOriginStatusTxt"));
+        _lbOriginStatusTxt->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout4->addWidget(_lbOriginStatusTxt, 9, 0, 1, 1);
+
+        _lbLongitude = new QLabel(frameInformation);
+        _lbLongitude->setObjectName(QString::fromUtf8("_lbLongitude"));
+        _lbLongitude->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout4->addWidget(_lbLongitude, 1, 1, 1, 1);
+
+        _lbLatitude = new QLabel(frameInformation);
+        _lbLatitude->setObjectName(QString::fromUtf8("_lbLatitude"));
+        sizePolicy.setHeightForWidth(_lbLatitude->sizePolicy().hasHeightForWidth());
+        _lbLatitude->setSizePolicy(sizePolicy);
+        _lbLatitude->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout4->addWidget(_lbLatitude, 0, 1, 1, 1);
+
+        labelVDistance = new QLabel(frameInformation);
+        labelVDistance->setObjectName(QString::fromUtf8("labelVDistance"));
+
+        gridLayout4->addWidget(labelVDistance, 7, 0, 1, 4);
 
         _lbRMS = new QLabel(frameInformation);
         _lbRMS->setObjectName(QString::fromUtf8("_lbRMS"));
@@ -890,11 +921,11 @@ public:
 
         gridLayout4->addWidget(_lbRMS, 4, 1, 1, 1);
 
-        _lbLongitude = new QLabel(frameInformation);
-        _lbLongitude->setObjectName(QString::fromUtf8("_lbLongitude"));
-        _lbLongitude->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        _lbNoPhasesTxt = new QLabel(frameInformation);
+        _lbNoPhasesTxt->setObjectName(QString::fromUtf8("_lbNoPhasesTxt"));
+        _lbNoPhasesTxt->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
-        gridLayout4->addWidget(_lbLongitude, 1, 1, 1, 1);
+        gridLayout4->addWidget(_lbNoPhasesTxt, 3, 0, 1, 1);
 
         _lbLatitudeUnit = new QLabel(frameInformation);
         _lbLatitudeUnit->setObjectName(QString::fromUtf8("_lbLatitudeUnit"));
@@ -904,43 +935,44 @@ public:
 
         gridLayout4->addWidget(_lbLatitudeUnit, 0, 2, 1, 1);
 
-        _lbDepthError = new QLabel(frameInformation);
-        _lbDepthError->setObjectName(QString::fromUtf8("_lbDepthError"));
-        _lbDepthError->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        _lbDepth = new QLabel(frameInformation);
+        _lbDepth->setObjectName(QString::fromUtf8("_lbDepth"));
+        _lbDepth->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout4->addWidget(_lbDepthError, 2, 3, 1, 1);
+        gridLayout4->addWidget(_lbDepth, 2, 1, 1, 1);
 
-        _lbAgencyTxt = new QLabel(frameInformation);
-        _lbAgencyTxt->setObjectName(QString::fromUtf8("_lbAgencyTxt"));
-        _lbAgencyTxt->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        _lbDepthUnit = new QLabel(frameInformation);
+        _lbDepthUnit->setObjectName(QString::fromUtf8("_lbDepthUnit"));
+        _lbDepthUnit->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
-        gridLayout4->addWidget(_lbAgencyTxt, 7, 0, 1, 1);
+        gridLayout4->addWidget(_lbDepthUnit, 2, 2, 1, 1);
 
-        _lbThisLocation = new QLabel(frameInformation);
-        _lbThisLocation->setObjectName(QString::fromUtf8("_lbThisLocation"));
-        _lbThisLocation->setFont(font1);
+        _lbCommentTxt = new QLabel(frameInformation);
+        _lbCommentTxt->setObjectName(QString::fromUtf8("_lbCommentTxt"));
 
-        gridLayout4->addWidget(_lbThisLocation, 10, 1, 1, 3);
+        gridLayout4->addWidget(_lbCommentTxt, 6, 0, 1, 1);
 
-        _lbDepthTxt = new QLabel(frameInformation);
-        _lbDepthTxt->setObjectName(QString::fromUtf8("_lbDepthTxt"));
-        _lbDepthTxt->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        _lbComment = new QLabel(frameInformation);
+        _lbComment->setObjectName(QString::fromUtf8("_lbComment"));
+        _lbComment->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout4->addWidget(_lbDepthTxt, 2, 0, 1, 1);
+        gridLayout4->addWidget(_lbComment, 6, 1, 1, 1);
 
-        _lbFirstLocation = new QLabel(frameInformation);
-        _lbFirstLocation->setObjectName(QString::fromUtf8("_lbFirstLocation"));
-        _lbFirstLocation->setFont(font1);
+        _lbGapTxt = new QLabel(frameInformation);
+        _lbGapTxt->setObjectName(QString::fromUtf8("_lbGapTxt"));
 
-        gridLayout4->addWidget(_lbFirstLocation, 9, 1, 1, 3);
+        gridLayout4->addWidget(_lbGapTxt, 5, 0, 1, 1);
 
-        _lbLatitude = new QLabel(frameInformation);
-        _lbLatitude->setObjectName(QString::fromUtf8("_lbLatitude"));
-        sizePolicy.setHeightForWidth(_lbLatitude->sizePolicy().hasHeightForWidth());
-        _lbLatitude->setSizePolicy(sizePolicy);
-        _lbLatitude->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        _lbAzGap = new QLabel(frameInformation);
+        _lbAzGap->setObjectName(QString::fromUtf8("_lbAzGap"));
+        _lbAzGap->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout4->addWidget(_lbLatitude, 0, 1, 1, 1);
+        gridLayout4->addWidget(_lbAzGap, 5, 1, 1, 1);
+
+        label = new QLabel(frameInformation);
+        label->setObjectName(QString::fromUtf8("label"));
+
+        gridLayout4->addWidget(label, 5, 2, 1, 1);
 
 
         gridLayout->addWidget(frameInformation, 0, 0, 1, 1);
@@ -1000,21 +1032,23 @@ public:
         labelMoment->setText(QApplication::translate("Hypocenter", "-", 0, QApplication::UnicodeUTF8));
         labelMomentUnit->setText(QApplication::translate("Hypocenter", "Nm", 0, QApplication::UnicodeUTF8));
         labelFMSeparator->setText(QApplication::translate("Hypocenter", "FocalMechanism", 0, QApplication::UnicodeUTF8));
-        _lbOriginStatusAutomatic->setText(QString());
         labelVDistanceAutomatic->setText(QApplication::translate("Hypocenter", "<Spacer>", 0, QApplication::UnicodeUTF8));
-        _lbCommentAutomatic->setText(QApplication::translate("Hypocenter", "-", 0, QApplication::UnicodeUTF8));
-        _lbDepthUnitAutomatic->setText(QApplication::translate("Hypocenter", "km", 0, QApplication::UnicodeUTF8));
-        _lbLongErrorAutomatic->setText(QApplication::translate("Hypocenter", "+/- 0 km", 0, QApplication::UnicodeUTF8));
+        _lbRMSAutomatic->setText(QApplication::translate("Hypocenter", "0.0", 0, QApplication::UnicodeUTF8));
         _lbLatErrorAutomatic->setText(QApplication::translate("Hypocenter", "+/- 0 km", 0, QApplication::UnicodeUTF8));
         _lbLatitudeAutomatic->setText(QApplication::translate("Hypocenter", "0.00", 0, QApplication::UnicodeUTF8));
+        _lbOriginStatusAutomatic->setText(QString());
+        _lbLongitudeUnitAutomatic->setText(QApplication::translate("Hypocenter", "\302\260 E", 0, QApplication::UnicodeUTF8));
+        _lbDepthUnitAutomatic->setText(QApplication::translate("Hypocenter", "km", 0, QApplication::UnicodeUTF8));
+        _lbCommentAutomatic->setText(QApplication::translate("Hypocenter", "-", 0, QApplication::UnicodeUTF8));
         _lbNoPhasesAutomatic->setText(QApplication::translate("Hypocenter", "0", 0, QApplication::UnicodeUTF8));
+        _lbAgencyAutomatic->setText(QString());
         _lbLongitudeAutomatic->setText(QApplication::translate("Hypocenter", "0.00", 0, QApplication::UnicodeUTF8));
-        _lbRMSAutomatic->setText(QApplication::translate("Hypocenter", "0.0", 0, QApplication::UnicodeUTF8));
         _lbDepthErrorAutomatic->setText(QApplication::translate("Hypocenter", "+/- 0 km", 0, QApplication::UnicodeUTF8));
         _lbDepthAutomatic->setText(QApplication::translate("Hypocenter", "0", 0, QApplication::UnicodeUTF8));
+        _lbLongErrorAutomatic->setText(QApplication::translate("Hypocenter", "+/- 0 km", 0, QApplication::UnicodeUTF8));
         _lbLatitudeUnitAutomatic->setText(QApplication::translate("Hypocenter", "\302\260 N", 0, QApplication::UnicodeUTF8));
-        _lbLongitudeUnitAutomatic->setText(QApplication::translate("Hypocenter", "\302\260 E", 0, QApplication::UnicodeUTF8));
-        _lbAgencyAutomatic->setText(QString());
+        _lbAzGapAutomatic->setText(QApplication::translate("Hypocenter", "-", 0, QApplication::UnicodeUTF8));
+        label_2->setText(QApplication::translate("Hypocenter", "\302\260", 0, QApplication::UnicodeUTF8));
         fmLabelFrameInfoSpacer->setText(QApplication::translate("Hypocenter", "<spacer>", 0, QApplication::UnicodeUTF8));
         labelNP0Automatic->setText(QApplication::translate("Hypocenter", "S: -, D: -, R: -", 0, QApplication::UnicodeUTF8));
         labelNP1Automatic->setText(QApplication::translate("Hypocenter", "S: -, D: -, R: -", 0, QApplication::UnicodeUTF8));
@@ -1043,35 +1077,38 @@ public:
         labelMomentAutomatic->setText(QApplication::translate("Hypocenter", "-", 0, QApplication::UnicodeUTF8));
         labelMomentUnitAutomatic->setText(QApplication::translate("Hypocenter", "Nm", 0, QApplication::UnicodeUTF8));
         labelFrameInfoSpacer->setText(QApplication::translate("Hypocenter", "<spacer>", 0, QApplication::UnicodeUTF8));
-        labelVDistance->setText(QApplication::translate("Hypocenter", "<Spacer>", 0, QApplication::UnicodeUTF8));
-        _lbComment->setText(QApplication::translate("Hypocenter", "-", 0, QApplication::UnicodeUTF8));
-        _lbCommentTxt->setText(QApplication::translate("Hypocenter", "Custom:", 0, QApplication::UnicodeUTF8));
-        _lbLongitudeUnit->setText(QApplication::translate("Hypocenter", "\302\260 E", 0, QApplication::UnicodeUTF8));
         _lbRMSTxt->setText(QApplication::translate("Hypocenter", "RMS Residual:", 0, QApplication::UnicodeUTF8));
+        _lbLongitudeUnit->setText(QApplication::translate("Hypocenter", "\302\260 E", 0, QApplication::UnicodeUTF8));
         _lbEventID->setText(QString());
-        _lbNoPhasesTxt->setText(QApplication::translate("Hypocenter", "Phase Count:", 0, QApplication::UnicodeUTF8));
-        _lbThisLocTxt->setText(QApplication::translate("Hypocenter", "This Location:", 0, QApplication::UnicodeUTF8));
-        _lbLatitudeTxt->setText(QApplication::translate("Hypocenter", "Latitude:", 0, QApplication::UnicodeUTF8));
-        _lbDepth->setText(QApplication::translate("Hypocenter", "0", 0, QApplication::UnicodeUTF8));
-        _lbOriginStatus->setText(QString());
-        _lbEventIDTxt->setText(QApplication::translate("Hypocenter", "EventID:", 0, QApplication::UnicodeUTF8));
-        _lbOriginStatusTxt->setText(QApplication::translate("Hypocenter", "Status:", 0, QApplication::UnicodeUTF8));
-        _lbLongError->setText(QApplication::translate("Hypocenter", "+/- 0 km", 0, QApplication::UnicodeUTF8));
-        _lbLatError->setText(QApplication::translate("Hypocenter", "+/- 0 km", 0, QApplication::UnicodeUTF8));
-        _lbDepthUnit->setText(QApplication::translate("Hypocenter", "km", 0, QApplication::UnicodeUTF8));
-        _lbNoPhases->setText(QApplication::translate("Hypocenter", "0", 0, QApplication::UnicodeUTF8));
-        _lbFirstLocTxt->setText(QApplication::translate("Hypocenter", "First Location:", 0, QApplication::UnicodeUTF8));
-        _lbLongitudeTxt->setText(QApplication::translate("Hypocenter", "Longitude:", 0, QApplication::UnicodeUTF8));
-        _lbAgency->setText(QString());
-        _lbRMS->setText(QApplication::translate("Hypocenter", "0.0", 0, QApplication::UnicodeUTF8));
-        _lbLongitude->setText(QApplication::translate("Hypocenter", "0.00", 0, QApplication::UnicodeUTF8));
-        _lbLatitudeUnit->setText(QApplication::translate("Hypocenter", "\302\260 N", 0, QApplication::UnicodeUTF8));
-        _lbDepthError->setText(QApplication::translate("Hypocenter", "+/- 0 km", 0, QApplication::UnicodeUTF8));
-        _lbAgencyTxt->setText(QApplication::translate("Hypocenter", "Agency:", 0, QApplication::UnicodeUTF8));
-        _lbThisLocation->setText(QString());
-        _lbDepthTxt->setText(QApplication::translate("Hypocenter", "Depth:", 0, QApplication::UnicodeUTF8));
         _lbFirstLocation->setText(QString());
+        _lbAgency->setText(QString());
+        _lbOriginStatus->setText(QString());
+        _lbDepthTxt->setText(QApplication::translate("Hypocenter", "Depth:", 0, QApplication::UnicodeUTF8));
+        _lbLatitudeTxt->setText(QApplication::translate("Hypocenter", "Latitude:", 0, QApplication::UnicodeUTF8));
+        _lbFirstLocTxt->setText(QApplication::translate("Hypocenter", "First Location:", 0, QApplication::UnicodeUTF8));
+        _lbLatError->setText(QApplication::translate("Hypocenter", "+/- 0 km", 0, QApplication::UnicodeUTF8));
+        _lbNoPhases->setText(QApplication::translate("Hypocenter", "0", 0, QApplication::UnicodeUTF8));
+        _lbLongitudeTxt->setText(QApplication::translate("Hypocenter", "Longitude:", 0, QApplication::UnicodeUTF8));
+        _lbThisLocation->setText(QString());
+        _lbAgencyTxt->setText(QApplication::translate("Hypocenter", "Agency:", 0, QApplication::UnicodeUTF8));
+        _lbDepthError->setText(QApplication::translate("Hypocenter", "+/- 0 km", 0, QApplication::UnicodeUTF8));
+        _lbEventIDTxt->setText(QApplication::translate("Hypocenter", "EventID:", 0, QApplication::UnicodeUTF8));
+        _lbLongError->setText(QApplication::translate("Hypocenter", "+/- 0 km", 0, QApplication::UnicodeUTF8));
+        _lbThisLocTxt->setText(QApplication::translate("Hypocenter", "This Location:", 0, QApplication::UnicodeUTF8));
+        _lbOriginStatusTxt->setText(QApplication::translate("Hypocenter", "Status:", 0, QApplication::UnicodeUTF8));
+        _lbLongitude->setText(QApplication::translate("Hypocenter", "0.00", 0, QApplication::UnicodeUTF8));
         _lbLatitude->setText(QApplication::translate("Hypocenter", "0.00", 0, QApplication::UnicodeUTF8));
+        labelVDistance->setText(QApplication::translate("Hypocenter", "<Spacer>", 0, QApplication::UnicodeUTF8));
+        _lbRMS->setText(QApplication::translate("Hypocenter", "0.0", 0, QApplication::UnicodeUTF8));
+        _lbNoPhasesTxt->setText(QApplication::translate("Hypocenter", "Phase Count:", 0, QApplication::UnicodeUTF8));
+        _lbLatitudeUnit->setText(QApplication::translate("Hypocenter", "\302\260 N", 0, QApplication::UnicodeUTF8));
+        _lbDepth->setText(QApplication::translate("Hypocenter", "0", 0, QApplication::UnicodeUTF8));
+        _lbDepthUnit->setText(QApplication::translate("Hypocenter", "km", 0, QApplication::UnicodeUTF8));
+        _lbCommentTxt->setText(QApplication::translate("Hypocenter", "Custom:", 0, QApplication::UnicodeUTF8));
+        _lbComment->setText(QApplication::translate("Hypocenter", "-", 0, QApplication::UnicodeUTF8));
+        _lbGapTxt->setText(QApplication::translate("Hypocenter", "Azimuthal Gap:", 0, QApplication::UnicodeUTF8));
+        _lbAzGap->setText(QApplication::translate("Hypocenter", "-", 0, QApplication::UnicodeUTF8));
+        label->setText(QApplication::translate("Hypocenter", "\302\260", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

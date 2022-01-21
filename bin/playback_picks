@@ -22,6 +22,7 @@ from __future__ import absolute_import, division, print_function
 import sys
 import time
 import seiscomp3.Client
+import seiscomp3.Core
 import seiscomp3.IO
 import seiscomp3.DataModel
 
@@ -61,16 +62,20 @@ class PickPlayback(seiscomp3.Client.Application):
         self.group = "PICK"
         self.ampgroup = "AMPLITUDE"
         self.filenames = None
+        self.mode = 'historic'
 
-        self.setMessagingUsername("pbick")
+        self.setMessagingUsername("ppick")
         self.setMessagingEnabled(True)
         self.setPrimaryMessagingGroup("PICK")
         self.setDatabaseEnabled(False, False)
 
     def createCommandLineDescription(self):
         self.commandline().addGroup("Playback")
+        self.commandline().addStringOption(
+            "Playback", "mode", "Playback mode: 'historic' or 'realTime'. "
+            "'realTime' mimics current situation. Default: 'historic'")
         self.commandline().addDoubleOption(
-            "Playback", "speed", "Speed of playback where 1 is realtime")
+            "Playback", "speed", "Speed of playback.\n1: true speed")
         self.commandline().addStringOption(
             "Playback", "timing", "Timing reference: "
             "pickTime or creationTime. Default: creationTime")
@@ -78,66 +83,70 @@ class PickPlayback(seiscomp3.Client.Application):
             "Playback", "jump,j", "Jump first picks by jump minutes")
 
     def printUsage(self):
+        print('''Usage:
+  playback_picks [options] <XML file>
 
-        print("\nplayback_picks plays back picks from one or more pick files",
-              " in SeisComP3 XML format.\nPicks are sent to the SeisComP3",
-              " messaging in timely order.\n",
-              "Default groups: PICK for picks and AMPLITUDE for amplitudes.\n")
-        print("Usage: playback_picks [options]")
+Play back picks and amplitudes from one or more pick files in SCML format 
+sending them to the SeisComP messaging in timely order. Default message groups:
+  * PICK for picks,
+  * AMPLITUDE for amplitudes.''')
+
         seiscomp3.Client.Application.printUsage(self)
 
-        print("Examples:")
-        print("\nPlay back picks in file pick.xml at true speed jumping the first 2 minutes:")
-        print("playback_picks picks.xml -j 2")
-        print("\nPlay back picks in 2 XML files at double speed. Send the ",
-              "picks to different message groups but amplitudes to the same one:")
-        print("playback_picks picks.xml:PICK:AMPLITUDE l1picks.xml:L1PICK:AMPLITUDE",
-              " --timing pickTime --speed 2")
-        print("")
+        print('''Examples:
+Play back picks in file 'pick.xml' at true speed jumping the first 2 minutes
+  playback_picks picks.xml -j 2
+
+Play back picks from 2 XML files sending the picks ordered by pick time to
+different message groups but amplitudes to the same one.
+  playback_picks picks.xml:PICK:AMPLITUDE l1picks.xml:L1PICK:AMPLITUDE --timing pickTime
+''')
 
     def init(self):
         if not seiscomp3.Client.Application.init(self):
             return False
 
         try:
+            self.mode = self.commandline().optionString("mode")
+        except RuntimeError:
+            pass
+
+        if self.mode != "historic" and self.mode != "realTime":
+            print("Unknown mode: {}".format(self.mode), file=sys.stderr)
+            return False
+
+        try:
             self.speed = self.commandline().optionDouble("speed")
         except RuntimeError:
-            self.speed = 1.0
+            pass
 
         try:
             self.timing = self.commandline().optionString("timing")
         except RuntimeError:
-            self.timing = 'creationTime'
+            pass
 
         try:
             self.jump = self.commandline().optionDouble("jump")
         except RuntimeError:
-            self.jump = 0.0
+            pass
 
-        if self.timing == "pickTime":
-            print("Using timing: %s" % self.timing, file=sys.stderr)
-        elif self.timing == "creationTime":
-            print("Using timing: %s" % self.timing, file=sys.stderr)
-        else:
-            print("Unknwon timing: %s" % self.timing, file=sys.stderr)
+        if self.timing != "pickTime" and self.timing != "creationTime":
+            print("Unknown timing: {}".format(self.timing), file=sys.stderr)
             return False
 
         try:
             self.group = self.commandline().optionString("primary-group")
         except RuntimeError:
-            self.group = "PICK"
-
-        self.ampgroup = "AMPLITUDE"
+            pass
 
         files = self.commandline().unrecognizedOptions()
-        if len(files) == 0:
+        if not files:
             print("At least one file must be given", file=sys.stderr)
             return False
 
         self.filenames = list(files)
 
         return True
-
 
     def run(self):
         seiscomp3.DataModel.PublicObject.SetRegistrationEnabled(False)
@@ -148,6 +157,7 @@ class PickPlayback(seiscomp3.Client.Application):
         minTime = None
         maxTime = None
 
+        print("Input / Sending:")
         for filename in self.filenames:
             group = self.group
             ampgroup = self.ampgroup
@@ -162,7 +172,8 @@ class PickPlayback(seiscomp3.Client.Application):
                 group = toks[1]
                 ampgroup = toks[2]
 
-            print(filename + ' group: ' + group)
+            print("  + {} - sending picks to group: {}, amplitudes to group: {}"
+                  .format(filename, group, ampgroup))
 
             ar = seiscomp3.IO.XMLArchive()
             if not ar.open(filename):
@@ -180,17 +191,18 @@ class PickPlayback(seiscomp3.Client.Application):
             eps.append(ep)
 
             if ep is None:
-                print("Expected EventParameters, got %s" % obj.className(),
+                print("Expected event parameters, got {}".format(obj.className()),
                       file=sys.stderr)
                 return False
 
             # read picks
-            cnt = ep.pickCount()
-            if cnt == 0:
-                print("No picks found in file ", filename, file=sys.stderr)
+            cntPick = ep.pickCount()
+            if cntPick == 0:
+                print("No picks found in file {}".format(filename),
+                      file=sys.stderr)
                 return False
 
-            for i in range(cnt):
+            for i in range(cntPick):
                 pick = ep.pick(i)
                 if minTime and pick.time().value() < minTime:
                     continue
@@ -199,30 +211,32 @@ class PickPlayback(seiscomp3.Client.Application):
                 objects.append((pick, group))
 
             # read amplitudes and add to picks
-            cnt = ep.amplitudeCount()
-            if cnt == 0:
+            cntAmp = ep.amplitudeCount()
+            if cntAmp == 0:
                 print("No Amplitudes found", file=sys.stderr)
 
-            for i in range(cnt):
+            for i in range(cntAmp):
                 amp = ep.amplitude(i)
                 objects.append((amp, ampgroup))
+
+        print("  + found {} picks and {} amplitudes sorted by {}"
+              .format(cntPick, cntAmp, self.timing), file=sys.stderr)
 
         if self.timing == "pickTime":
             try:
                 objects.sort(key=timing_pickTime)
-                print("Found %d objects sorted by pickTime" % len(objects), file=sys.stderr)
             except ValueError:
                 print("Pick time not set in at least 1 pick", file=sys.stderr)
-                return False;
+                return False
         elif self.timing == "creationTime":
             try:
                 objects.sort(key=timing_creationTime)
-                print("Found %d objects sorted by creationTime" % len(objects), file=sys.stderr)
             except ValueError:
-                print("Creation time not set in at least 1 object", file=sys.stderr)
-                return False;
+                print("Creation time not set in at least 1 object",
+                      file=sys.stderr)
+                return False
         else:
-            print("Unknwon timing: %s" % self.timing, file=sys.stderr)
+            print("Unknown timing: {}".format(self.timing), file=sys.stderr)
             return False
 
         seiscomp3.DataModel.Notifier.Enable()
@@ -230,11 +244,12 @@ class PickPlayback(seiscomp3.Client.Application):
         firstTime = None
         lastTime = None
         refTime = None
+        addSeconds = 0.0
 
-        print("Progress: ")
+        print("Setup:")
+        print("  + timing/sorting: {}".format(self.timing), file=sys.stderr)
         sys.stdout.flush()
 
-        print("Found %d picks and amplitudes" % len(objects), file=sys.stderr)
         for (obj, group) in objects:
 
             po = seiscomp3.DataModel.Pick.Cast(obj)
@@ -249,33 +264,67 @@ class PickPlayback(seiscomp3.Client.Application):
                 elif po:
                     refTime = obj.time().value()
                 else:
-                    print("Unknown object.")
+                    print("Object neither pick nor amplitude - ignoring")
                     return False
-                # delay = (refTime - lastTime).toDouble()
             else:
                 refTime = obj.creationInfo().creationTime()
-                # delay = (obj.creationInfo().creationTime() - lastTime).toDouble()
-
-            if po:
-                print('%s group: %s pick reference time: %s '
-                      % (obj.publicID(), group, str(refTime)), end='')
-            if ao:
-                print('%s group: %s amplitude reference time: %s '
-                      % (obj.publicID(), group, str(refTime)), end='')
 
             if not firstTime:
                 firstTime = refTime
-                print("firstTime: %s " % str(firstTime), end='')
+
+                print("  + first time: {} ".format(str(firstTime)))
+                print("  + playback mode: {} ".format(self.mode))
+                print("  + speed factor: {} ".format(self.speed))
+
+                if self.mode == 'realTime':
+                    now = seiscomp3.Core.Time.GMT()
+                    addSeconds = (now - firstTime).toDouble()
+                    print("    + adding {:.3f} s to: pick time, amplitude "
+                          "reference time, creation time".format(addSeconds))
+
+                print("Playback progress:")
+
+            if po:
+                print("  + {} group: {} pick reference time: {}"
+                      .format(obj.publicID(), group, str(refTime)), end='')
+            if ao:
+                print("  + {} group: {} amplitude reference time: {}"
+                      .format(obj.publicID(), group, str(refTime)), end='')
+
+            # add addSeconds to all times in real-time mode
+            if self.mode == 'realTime':
+                objectInfo = obj.creationInfo()
+                creationTime = objectInfo.creationTime() + seiscomp3.Core.TimeSpan(addSeconds)
+                obj.creationInfo().setCreationTime(creationTime)
+
+                if ao:
+                    objectInfo = obj.timeWindow()
+                    amplitudeTime = objectInfo.reference() + seiscomp3.Core.TimeSpan(addSeconds)
+                    obj.timeWindow().setReference(amplitudeTime)
+                    print("\n    + real-time mode - using modified reference "
+                          "time: {}, creation time: {}"
+                          .format(str(obj.timeWindow().reference()),
+                                  str(creationTime)), end='')
+                elif po:
+                    objectTime = obj.time()
+                    objectTime.setValue(objectTime.value() + seiscomp3.Core.TimeSpan(addSeconds))
+                    obj.setTime(objectTime)
+                    print("\n    + real-time mode - using modified pick time: {}, "
+                          "creation time: {}"
+                          .format(str(obj.time().value()), str(creationTime)),
+                          end='')
+                else:
+                    print("\n    + object neither pick nor amplitude - ignoring")
+                    return False
 
             delay = 0
             if lastTime:
                 delay = (refTime - lastTime).toDouble() / self.speed
 
             if (refTime - firstTime).toDouble() / 60.0 >= self.jump:
-                if delay < 0:
-                    delay = 0
+                delay = max(delay, 0)
 
-                print("time to sending: %.4f s" % delay)
+                print("- time to sending: {:.4f} s".format(delay))
                 time.sleep(delay)
 
                 lastTime = refTime
@@ -285,14 +334,9 @@ class PickPlayback(seiscomp3.Client.Application):
                 msg = seiscomp3.DataModel.Notifier.GetMessage()
                 self.connection().send(group, msg)
             else:
-                print("skipping")
-            # percent = (idx*70) / len(objects)
-            # for i in range(last_percent, percent):
-            #     sys.stdout.write('#')
+                print("    + skipping")
+
             sys.stdout.flush()
-            # last_percent = percent
-            #
-            # idx = idx+1
 
         print("")
 

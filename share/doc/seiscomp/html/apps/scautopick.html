@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -75,65 +75,174 @@
 <p><strong>Makes picks on waveforms.</strong></p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>scautopick searches for waveform anomalies in form of changes in amplitude.
-It basically applies a robust STA/LTA algorithm to the waveform streams which
-have been filtered before with a Butterworth filter of third order with corner
-frequencies of 0.7 and 2 Hz. Once the STA/LTA ratio reached a specific value
-(by default 3) for a particular stream, a pick is set to the time when this
-threshold is exceeded. Once the ratio reaches a factor of 3, a pick is created
-and the picker is set inactive. The picker is reactivated for this stream once
-the STA/LTA ratio falls to the value of 1.5.</p>
-<p>The second task of scautopick is to calculate amplitudes for given magnitude
-types where the time window starts at the pick time. For example mb is calculated
-for a fixed time window of 30s after the pick, mB for time window of 60s, for
-MLv a time window of 150s is estimated to make sure that S-arrivals are inside
+<p>scautopick applies threshold monitoring by searching for waveform anomalies in
+form of changes in amplitudes. It is applied for detecting phase arrivals and
+and for measuring related amplitudes.</p>
+</div>
+<div class="section" id="phase-detections">
+<h2>Phase Detections<a class="headerlink" href="#phase-detections" title="Permalink to this headline">¶</a></h2>
+<p>scautopick detects phase onsets for generating <a class="reference internal" href="../base/glossary.html#term-pick"><span class="xref std std-term">picks</span></a>. Initally
+it searches for P picks on the waveform streams defined by global bindings.</p>
+<p>By default scautopick applies a robust STA/LTA detector
+(<a class="reference internal" href="../base/filter-grammar.html#filter-grammar"><span class="std std-ref">STALTA filter</span></a>) to waveforms for detecting P phases. Other
+detection filters can be choosen from the <a class="reference internal" href="../base/filter-grammar.html#filter-grammar"><span class="std std-ref">list of SeisComP filters</span></a>.
+The waveforms are typically <a class="reference internal" href="../base/filter-grammar.html#filter-grammar"><span class="std std-ref">pre-filtered</span></a>.
+Without further configuration a running-mean highpass, a cosine taper and a Butterworth
+bandpass filter of third order with corner frequencies of 0.7 and 2 Hz are applied before
+the STALTA filter. The entire filter sequence is configurable by <a class="reference internal" href="scrttv.html#confval-filter"><code class="xref std std-confval docutils literal notranslate"><span class="pre">filter</span></code></a>,
+module configuration, or <a class="reference internal" href="#confval-detecFilter"><code class="xref std std-confval docutils literal notranslate"><span class="pre">detecFilter</span></code></a>, binding configuration.
+Once the STA/LTA ratio has reached a configurable threshold (by default 3) for a
+particular stream, a <a class="reference internal" href="../base/glossary.html#term-pick"><span class="xref std std-term">pick</span></a> is set to the time when this
+threshold is exceeded (pick time) and the picker is set inactive. The picker is reactivated
+for this stream once the STA/LTA ratio falls to the value of 1.5 (default).</p>
+<p>The trigger thresholds are configurable:</p>
+<ul class="simple">
+<li><p>Trigger on: <a class="reference internal" href="#confval-thresholds.triggerOn"><code class="xref std std-confval docutils literal notranslate"><span class="pre">thresholds.triggerOn</span></code></a> in module configuration or
+<a class="reference internal" href="#confval-trigOn"><code class="xref std std-confval docutils literal notranslate"><span class="pre">trigOn</span></code></a> in binding configuration,</p></li>
+<li><p>Trigger off: <a class="reference internal" href="#confval-thresholds.triggerOff"><code class="xref std std-confval docutils literal notranslate"><span class="pre">thresholds.triggerOff</span></code></a>, module configuration or <a class="reference internal" href="#confval-trigOff"><code class="xref std std-confval docutils literal notranslate"><span class="pre">trigOff</span></code></a>,
+binding configuration.</p></li>
+</ul>
+<p>Following inital P-phase detections a second-stage P-phase picker (post picker) and
+a S-phase picker (secondary picker) can be applied. Configure <a class="reference internal" href="#confval-picker"><code class="xref std std-confval docutils literal notranslate"><span class="pre">picker</span></code></a>,
+<a class="reference internal" href="#confval-spicker"><code class="xref std std-confval docutils literal notranslate"><span class="pre">spicker</span></code></a> and global bindings parameters accordingly.</p>
+<table class="docutils align-center" id="id4">
+<caption><span class="caption-text">Second-stage pickers available by configuration of <a class="reference internal" href="#confval-picker"><code class="xref std std-confval docutils literal notranslate"><span class="pre">picker</span></code></a> or <a class="reference internal" href="#confval-spicker"><code class="xref std std-confval docutils literal notranslate"><span class="pre">spicker</span></code></a></span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>picker name</p></th>
+<th class="head"><p>picker</p></th>
+<th class="head"><p>spicker</p></th>
+<th class="head"><p>parameters in global bindings</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>AIC</p></td>
+<td><p>x</p></td>
+<td></td>
+<td><p>picker.AIC</p></td>
+</tr>
+<tr class="row-odd"><td><p>BK</p></td>
+<td><p>x</p></td>
+<td></td>
+<td><p>picker.BK</p></td>
+</tr>
+<tr class="row-even"><td><p>S-L2</p></td>
+<td></td>
+<td><p>x</p></td>
+<td><p>spicker.L2</p></td>
+</tr>
+</tbody>
+</table>
+<p>After having detected a P phase, scautopick will not accept any further P detection
+until</p>
+<ul>
+<li><p>The amplitudes measured after filtering (<a class="reference internal" href="scrttv.html#confval-filter"><code class="xref std std-confval docutils literal notranslate"><span class="pre">filter</span></code></a> in module configuration
+or <a class="reference internal" href="#confval-detecFilter"><code class="xref std std-confval docutils literal notranslate"><span class="pre">detecFilter</span></code></a> in binding configuration) fall below the
+<a class="reference internal" href="#confval-thresholds.triggerOff"><code class="xref std std-confval docutils literal notranslate"><span class="pre">thresholds.triggerOff</span></code></a> (module configuration) or <a class="reference internal" href="#confval-trigOff"><code class="xref std std-confval docutils literal notranslate"><span class="pre">trigOff</span></code></a>
+(binding configuration) and</p></li>
+<li><p>Amplitudes, <img class="math" src="../_images/math/aacc7f12eb22a023f357a646e0f454316582b412.png" alt="A_{trigger}"/>, measured after filtering reach or
+exceed a threshold determined by <img class="math" src="../_images/math/c203316b956d1d1200e7495212052b0d3f3d5694.png" alt="T_{minOffset}"/> (<a class="reference internal" href="#confval-thresholds.minAmplOffset"><code class="xref std std-confval docutils literal notranslate"><span class="pre">thresholds.minAmplOffset</span></code></a>),
+<img class="math" src="../_images/math/db59170f9358afd576a6d3e9d83c93e57d72f3d5.png" alt="T_{dead}"/> (<a class="reference internal" href="#confval-thresholds.deadTime"><code class="xref std std-confval docutils literal notranslate"><span class="pre">thresholds.deadTime</span></code></a>) and the amplitude of the
+previous pick, <img class="math" src="../_images/math/62931c5a91442d18740e07a2f6025ba3c19a8cc4.png" alt="A_{prev}"/>:</p>
+<div class="math">
+<p><img src="../_images/math/801626e9d679a20daf87d213b35a8e61afa3c7c3.png" alt="A_{trigger} \ge T_{minOffset} + A_{prev} * exp\left(-(dt/T_{dead})^2\right)"/></p>
+</div><p>if <img class="math" src="../_images/math/23218412e257e23a8ae16da8fdd171f6d9272dc4.png" alt="T_{dead} &gt; 0"/>. Otherwise:</p>
+<div class="math">
+<p><img src="../_images/math/add6f0e77c4f4c6f2b44d93f5bc1eba13c64f3a2.png" alt="A_{trigger} \ge T_{minOffset}"/></p>
+</div><p>Here, <img class="math" src="../_images/math/a679bbf1184a6019c0b0085a592d1c7fc64335cf.png" alt="dt"/> is the time passed since the last pick.
+<img class="math" src="../_images/math/c203316b956d1d1200e7495212052b0d3f3d5694.png" alt="T_{minOffset}"/> (<a class="reference internal" href="#confval-thresholds.minAmplOffset"><code class="xref std std-confval docutils literal notranslate"><span class="pre">thresholds.minAmplOffset</span></code></a>) is typically similar to
+the trigger threshold, <a class="reference internal" href="#confval-thresholds.triggerOn"><code class="xref std std-confval docutils literal notranslate"><span class="pre">thresholds.triggerOn</span></code></a> (module configuration) or
+<a class="reference internal" href="#confval-trigOn"><code class="xref std std-confval docutils literal notranslate"><span class="pre">trigOn</span></code></a> (binding configuration).</p>
+</li>
+</ul>
+</div>
+<div class="section" id="amplitude-measurements">
+<h2>Amplitude Measurements<a class="headerlink" href="#amplitude-measurements" title="Permalink to this headline">¶</a></h2>
+<p>The second task of scautopick is to calculate amplitudes of a given type for the
+corresponding magnitude type (see <a class="reference internal" href="scamp.html#scamp"><span class="std std-ref">scamp</span></a> for a list of amplitude types and
+<a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a> for the magnitude types). Such amplitudes are required by:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="scautoloc.html#scautoloc"><span class="std std-ref">scautoloc</span></a> for associating phase picks and generating a source location</p></li>
+<li><p>EEW (earthquake early warning) systems in order to provide raüid amplitudes for
+magnitudes as soon as source locations are available.</p></li>
+</ul>
+<p>The time window for measuring amplitudes starts at the pick time. The window
+length is constant and specific to the amplitude type. It can be adjusted in
+global bindings. For example mb is calculated
+for a fixed time window of 30 s after the pick, mB for time window of 60s, for
+MLv a time window of 150 s is estimated to make sure that S-arrivals are inside
 this time window. The pre-calculated amplitudes are sent out and received by
-the magnitude tool.</p>
+the magnitude tool, <a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a>.
+The fixed time window poses a limitation to EEW system. Howver, a speed-up is
+available with <a class="reference internal" href="#confval-amplitudes.enableUpdate"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.enableUpdate</span></code></a>.
+Read the <a class="reference internal" href="scamp.html#scamp"><span class="std std-ref">scamp</span></a> documentation for more details on amplitude measurements.</p>
+</div>
+<div class="section" id="modes-of-operation">
+<h2>Modes of Operation<a class="headerlink" href="#modes-of-operation" title="Permalink to this headline">¶</a></h2>
 <p>scautopick usually runs in the background connected to a real-time data source
 such as <a class="reference internal" href="seedlink.html#seedlink"><span class="std std-ref">Seedlink</span></a>. This is referred to as online mode. Another
 option to run scautopick is on offline mode with files.</p>
-</div>
-<div class="section" id="online-mode">
-<h2>Online mode<a class="headerlink" href="#online-mode" title="Permalink to this headline">¶</a></h2>
-<p>In online mode the workflow draws like this:</p>
+<div class="section" id="real-time">
+<h3>Real-time<a class="headerlink" href="#real-time" title="Permalink to this headline">¶</a></h3>
+<p>In real-time mode the workflow draws like this:</p>
 <ul class="simple">
-<li><p>scautopick reads all of its bindings and subscribes to stations
-where <a class="reference internal" href="#confval-detecEnable"><code class="xref std std-confval docutils literal notranslate"><span class="pre">detecEnable</span></code></a> is set to <code class="docutils literal notranslate"><span class="pre">true</span></code></p></li>
-<li><p>the data time window requested from the data source is [system-<a class="reference internal" href="#confval-leadTime"><code class="xref std std-confval docutils literal notranslate"><span class="pre">leadTime</span></code></a>, NULL]
-meaning an open end time that causes Seedlink to stream real-time data if no
-more data are in the buffers</p></li>
-<li><p>each incoming record is filtered according to <a class="reference internal" href="#confval-detecFilter"><code class="xref std std-confval docutils literal notranslate"><span class="pre">detecFilter</span></code></a></p></li>
-<li><p>the samples are checked for exceedance of <a class="reference internal" href="#confval-trigOn"><code class="xref std std-confval docutils literal notranslate"><span class="pre">trigOn</span></code></a> and in the positive
-case either a post picker (<a class="reference internal" href="#confval-picker"><code class="xref std std-confval docutils literal notranslate"><span class="pre">picker</span></code></a>) is launched or a Pick object
-will be sent</p></li>
-<li><p>if <a class="reference internal" href="#confval-sendDetections"><code class="xref std std-confval docutils literal notranslate"><span class="pre">sendDetections</span></code></a> is set to <code class="docutils literal notranslate"><span class="pre">true</span></code> trigger will be sent in any
-case for e.g. debugging</p></li>
-<li><p>after the primary stage has finished (detector only or picker) a secondary
-picker will be launched if configured with <a class="reference internal" href="#confval-spicker"><code class="xref std std-confval docutils literal notranslate"><span class="pre">spicker</span></code></a></p></li>
+<li><p>scautopick reads all of its binding parameters and subscribes to stations
+defined by global binding parameters where <a class="reference internal" href="#confval-detecEnable"><code class="xref std std-confval docutils literal notranslate"><span class="pre">detecEnable</span></code></a> is set to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+<li><p>The data time window requested from the data source is [system-<a class="reference internal" href="#confval-leadTime"><code class="xref std std-confval docutils literal notranslate"><span class="pre">leadTime</span></code></a>, NULL]
+meaning an open end time that causes <a class="reference internal" href="seedlink.html#seedlink"><span class="std std-ref">SeedLink</span></a> to stream
+real-time data if no more data are in the buffers.</p></li>
+<li><p>Each incoming record is filtered according to <a class="reference internal" href="#confval-detecFilter"><code class="xref std std-confval docutils literal notranslate"><span class="pre">detecFilter</span></code></a>.</p></li>
+<li><p>The samples are checked for exceedance of <a class="reference internal" href="#confval-trigOn"><code class="xref std std-confval docutils literal notranslate"><span class="pre">trigOn</span></code></a> and in the positive
+case either a post picker (<a class="reference internal" href="#confval-picker"><code class="xref std std-confval docutils literal notranslate"><span class="pre">picker</span></code></a>) is launched or a <a class="reference internal" href="../base/glossary.html#term-pick"><span class="xref std std-term">Pick</span></a>
+object will be sent.</p></li>
+<li><p>If <a class="reference internal" href="#confval-sendDetections"><code class="xref std std-confval docutils literal notranslate"><span class="pre">sendDetections</span></code></a> is set to <code class="docutils literal notranslate"><span class="pre">true</span></code> trigger will be sent in any
+case for e.g. debugging.</p></li>
+<li><p>After the primary stage has finished (detector only or picker) secondary
+pickers will be launched if configured with <a class="reference internal" href="#confval-spicker"><code class="xref std std-confval docutils literal notranslate"><span class="pre">spicker</span></code></a>.</p></li>
 </ul>
 <p>These steps repeat for any incoming record.</p>
+<p>To run scautopick in the background as a daemon module enable and start it</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>$ seiscomp enable scautopick
+$ seiscomp start scautopick
+</pre></div>
 </div>
-<div class="section" id="offline-mode">
-<h2>Offline mode<a class="headerlink" href="#offline-mode" title="Permalink to this headline">¶</a></h2>
+<p>For executing on the command line simply call it with appropriate options, e.g.</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>$ seiscomp exec scautopick -h
+</pre></div>
+</div>
+</div>
+<div class="section" id="non-real-time">
+<h3>Non-real-time<a class="headerlink" href="#non-real-time" title="Permalink to this headline">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Due to code changes in the file data source the command line option <strong>–playback</strong>
-is essential otherwise a real-time time window is set and all records are
-most likely filtered out.</p>
+<p>Due to code changes in the file data source, the command line option <strong>–playback</strong>
+is essential for non-real-time operation. Otherwise a real-time time window
+is set and all records are most likely filtered out.</p>
 </div>
 <p>To tune scautopick or to do playbacks it is helpful to run scautopick not with
-a real-time data source but on a data set, e.g. a multiplexed sorted miniSEED
+a real-time data source but on a defined data set, e.g. a multiplexed sorted miniSEED
 volume. scautopick will apply the same workflow as in online mode but the
 acquisition of data records has to change. If the input data (file) has been
-read scautopick will exit and furthermore it must not ask for a particular
+read, scautopick will exit and furthermore it must not ask for a particular
 time window, especially not for a real-time time window. To accomplish that
-the command line parameter <code class="xref std std-option docutils literal notranslate"><span class="pre">--playback</span></code> has to be used.</p>
+the command line parameter <code class="xref std std-option docutils literal notranslate"><span class="pre">--playback</span></code> has to be used. Example:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ scautopick --playback -I data.mseed
 </pre></div>
 </div>
 <p>This call will process all records in <code class="file docutils literal notranslate"><span class="pre">data.mseed</span></code> for which bindings
-exist and send the results to the messaging. If all data records are processed
+exist and <strong>send the results to the messaging</strong>. If all data records are processed,
 scautopick will exit. The processing steps are similar to the online mode.</p>
+<p>Use the <code class="xref std std-option docutils literal notranslate"><span class="pre">--ep</span></code> for offline processing <strong>without messaging</strong>. The results are
+printed in <a class="reference internal" href="../base/glossary.html#term-scml"><span class="xref std std-term">SCML</span></a> format. Example:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ scautopick --playback -I data.mseed --ep -d <span class="o">[</span>type<span class="o">]</span>://<span class="o">[</span>host<span class="o">]</span>/<span class="o">[</span>database<span class="o">]</span> &gt; picks.xml
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="configuration">
 <span id="scautopick-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
@@ -217,14 +326,20 @@ Default is <code class="docutils literal notranslate"><span class="pre">MLv,</sp
 <dd><p>Type: <em>string</em></p>
 <p>Configures the picker to use. By default only a simple detections
 are emitted as picks. To enable real picking on a time window around
-the detection, an algorithm (plugin) can be defined with this parameter.</p>
+the detection, an algorithm (plugin) can be defined with this parameter.
+Currently available is: “AIC”, “BK” or
+“GFZ”. More options may be available by plugins.
+Configure related parameters in global bindings.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-spicker">
 <code class="sig-name descname">spicker</code><a class="headerlink" href="#confval-spicker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
-<p>Configures the secondary picker to use.</p>
+<p>Configures the secondary picker to use, e.g. for pick S-phases.
+Currently available is: “S-L2”. More options may
+be available by plugins. Configure related parameters
+in global bindings.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -257,10 +372,11 @@ Default is <code class="docutils literal notranslate"><span class="pre">true</sp
 <dt id="confval-sendDetections">
 <code class="sig-name descname">sendDetections</code><a class="headerlink" href="#confval-sendDetections" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>boolean</em></p>
-<p>If enabled and “picker” is configured, then detections are sent as well.
-To distinguish between detections and picks the evaluation mode of the pick is set
-to manual. This is meant to be a debug option which can be used to compare detections
-and picks by their evaluation mode.
+<p>If enabled and “picker” is configured, then initial detections
+are sent as well. To distinguish between detections and picks
+the evaluation status of the pick is set to “rejected”.
+This is meant to be a debug option which can be used to compare
+detections and picks by their evaluation status.
 Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
 </dd></dl>
 
@@ -268,7 +384,8 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
 <dt id="confval-extraPickComments">
 <code class="sig-name descname">extraPickComments</code><a class="headerlink" href="#confval-extraPickComments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>boolean</em></p>
-<p>If enabled and picker or spicker is configured, then extra comments
+<p>If enabled and “picker” or “spicker” is
+configured, then extra comments
 will be added to the resulting pick.</p>
 <p>Supported comments:</p>
 <p>SNR: added if SNR &gt;= 0, comment id is “SNR”
@@ -333,7 +450,9 @@ Default is <code class="docutils literal notranslate"><span class="pre">10</span
 <code class="sig-name descname">thresholds.deadTime</code><a class="headerlink" href="#confval-thresholds.deadTime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
-<p>The dead time in seconds.
+<p>The time used together with measured amplitude and
+<cite>thresholds.minAmplOffset</cite> for scaling the amplitude below which
+the picker is inactive after a P pick. Read the documentation!
 Default is <code class="docutils literal notranslate"><span class="pre">30</span></code>.</p>
 </dd></dl>
 
@@ -341,7 +460,11 @@ Default is <code class="docutils literal notranslate"><span class="pre">30</span
 <dt id="confval-thresholds.minAmplOffset">
 <code class="sig-name descname">thresholds.minAmplOffset</code><a class="headerlink" href="#confval-thresholds.minAmplOffset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
-<p>Default is <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p>
+<p>The amplitude used together with measured amplitude and
+<cite>thresholds.deadTime</cite> for scaling the amplitude below which
+the picker is inactive after a P pick. The value is typically
+similar to the trigger threshold. Read the documentation!
+Default is <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -824,8 +947,13 @@ and a new amplitude is available. The output format is a simple ASCII format.</p
   <ul>
 <li><a class="reference internal" href="#">scautopick</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
-<li><a class="reference internal" href="#online-mode">Online mode</a></li>
-<li><a class="reference internal" href="#offline-mode">Offline mode</a></li>
+<li><a class="reference internal" href="#phase-detections">Phase Detections</a></li>
+<li><a class="reference internal" href="#amplitude-measurements">Amplitude Measurements</a></li>
+<li><a class="reference internal" href="#modes-of-operation">Modes of Operation</a><ul>
+<li><a class="reference internal" href="#real-time">Real-time</a></li>
+<li><a class="reference internal" href="#non-real-time">Non-real-time</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 <li><a class="reference internal" href="#bindings">Bindings</a><ul>
 <li><a class="reference internal" href="#id2">Configuration</a></li>
@@ -870,7 +998,7 @@ and a new amplitude is available. The output format is a simple ASCII format.</p
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -136,7 +136,7 @@ plugins shown:</p>
 <td><p><a class="reference internal" href="seedlink.html#seedlink-caps"><span class="std std-ref">caps</span></a> <a class="reference internal" href="seedlink.html#seedlink-mseedfifo"><span class="std std-ref">mseedfifo</span></a> <a class="reference internal" href="seedlink.html#seedlink-q330"><span class="std std-ref">q330</span></a> <a class="reference internal" href="seedlink.html#seedlink-chain"><span class="std std-ref">chain</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#global"><span class="std std-ref">global</span></a></p></td>
-<td><p><a class="reference internal" href="global_nonlinloc.html#global-nonlinloc"><span class="std std-ref">NonLinLoc</span></a> <a class="reference internal" href="global_mlh.html#global-mlh"><span class="std std-ref">MLh</span></a> <a class="reference internal" href="global_hypo71.html#global-hypo71"><span class="std std-ref">Hypo71</span></a> <a class="reference internal" href="global_md.html#global-md"><span class="std std-ref">Md</span></a> <a class="reference internal" href="global_mlr.html#global-mlr"><span class="std std-ref">MLr</span></a> <a class="reference internal" href="global_mn.html#global-mn"><span class="std std-ref">MN</span></a> <a class="reference internal" href="global_locext.html#global-locext"><span class="std std-ref">LocExt</span></a> <a class="reference internal" href="global_gui.html#global-gui"><span class="std std-ref">GUI</span></a> <a class="reference internal" href="global_recordstream.html#global-recordstream"><span class="std std-ref">RecordStream</span></a> <a class="reference internal" href="global_mb_bb.html#global-mb-bb"><span class="std std-ref">mB_BB</span></a> <a class="reference internal" href="global_mb.html#global-mb"><span class="std std-ref">mb</span></a> <a class="reference internal" href="global_ms_20.html#global-ms-20"><span class="std std-ref">Ms_20</span></a> <a class="reference internal" href="global_mlv.html#global-mlv"><span class="std std-ref">MLv</span></a> <a class="reference internal" href="global_ml.html#global-ml"><span class="std std-ref">ML</span></a> <a class="reference internal" href="global_locsat.html#global-locsat"><span class="std std-ref">LOCSAT</span></a> <a class="reference internal" href="global_fixedhypocenter.html#global-fixedhypocenter"><span class="std std-ref">FixedHypocenter</span></a></p></td>
+<td><p><a class="reference internal" href="global_nonlinloc.html#global-nonlinloc"><span class="std std-ref">NonLinLoc</span></a> <a class="reference internal" href="global_mlh.html#global-mlh"><span class="std std-ref">MLh</span></a> <a class="reference internal" href="global_hypo71.html#global-hypo71"><span class="std std-ref">Hypo71</span></a> <a class="reference internal" href="global_md.html#global-md"><span class="std std-ref">Md</span></a> <a class="reference internal" href="global_mlr.html#global-mlr"><span class="std std-ref">MLr</span></a> <a class="reference internal" href="global_iloc.html#global-iloc"><span class="std std-ref">iLoc</span></a> <a class="reference internal" href="global_mn.html#global-mn"><span class="std std-ref">MN</span></a> <a class="reference internal" href="global_locext.html#global-locext"><span class="std std-ref">LocExt</span></a> <a class="reference internal" href="global_gui.html#global-gui"><span class="std std-ref">GUI</span></a> <a class="reference internal" href="global_recordstream.html#global-recordstream"><span class="std std-ref">RecordStream</span></a> <a class="reference internal" href="global_mb_bb.html#global-mb-bb"><span class="std std-ref">mB_BB</span></a> <a class="reference internal" href="global_mb.html#global-mb"><span class="std std-ref">mb</span></a> <a class="reference internal" href="global_ms_20.html#global-ms-20"><span class="std std-ref">Ms_20</span></a> <a class="reference internal" href="global_mlv.html#global-mlv"><span class="std std-ref">MLv</span></a> <a class="reference internal" href="global_ml.html#global-ml"><span class="std std-ref">ML</span></a> <a class="reference internal" href="global_locsat.html#global-locsat"><span class="std std-ref">LOCSAT</span></a> <a class="reference internal" href="global_fixedhypocenter.html#global-fixedhypocenter"><span class="std std-ref">FixedHypocenter</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="scm.html#scm"><span class="std std-ref">scm</span></a></p></td>
 <td><p><a class="reference internal" href="scm_text.html#scm-text"><span class="std std-ref">text</span></a> <a class="reference internal" href="scm_email.html#scm-email"><span class="std std-ref">email</span></a> <a class="reference internal" href="scm_ncurses.html#scm-ncurses"><span class="std std-ref">ncurses</span></a></p></td>
@@ -169,6 +169,9 @@ extensions.</p>
 </li>
 <li><p><a class="reference internal" href="global_mlr.html#global-mlr"><span class="std std-ref">MLr</span></a></p>
 <p>The MLr plugin is designed to use the MLv station amplitudes and provides a GNS/Geonet local magnitude. The magnitude uses a station correction term and the hypocentral distance. Hard coded range are 0-20 degrees maximum distance and 800 km maximum depth. (Reference:”A Revised Local Magnitude (ML) Scale for New Zealand Earthquakes” J. Ristau, D. Harte, J. Salichon, BSSA Mar 2016, DOI: 10.1785/0120150293)</p>
+</li>
+<li><p><a class="reference internal" href="global_iloc.html#global-iloc"><span class="std std-ref">iLoc</span></a></p>
+<p>This plugin allows the use of the iLoc locator with SeisComP.</p>
 </li>
 <li><p><a class="reference internal" href="global_mn.html#global-mn"><span class="std std-ref">MN</span></a></p>
 <p>The MN plugin is designed to compute the Canadian Nuttli magnitude according to the Geological Survey of Canada.</p>
@@ -444,7 +447,13 @@ Default is <code class="docutils literal notranslate"><span class="pre">local0</
 <dt id="confval-connection.server">
 <code class="sig-name descname">connection.server</code><a class="headerlink" href="#confval-connection.server" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>host-with-port</em></p>
-<p>Defines the messaging server name to connect to. Format is host[:port].
+<p>Defines the URL of the messaging server to connect to.
+URL format is [scheme://]host[:port][/queue]. Default scheme:
+scmp, default port: 18180, default queue: production.
+Examples:</p>
+<p>All default: localhost</p>
+<p>Specfic host: scmp://10.0.1.4:18180/production</p>
+<p>Specfic host and SSL encryption: scmps://10.0.1.4:18180/production
 Default is <code class="docutils literal notranslate"><span class="pre">localhost</span></code>.</p>
 </dd></dl>
 
@@ -517,7 +526,7 @@ need to be changed.</p>
 <p>Defines the database backend to be used. The name corresponds to
 the defined name in the database plugin. Examples are: mysql, postgresql or
 sqlite3. Note that this parameter is deprecated. Please use
-‘database = mysql://localhost/seiscomp’ instead.</p>
+the URL form ‘database = mysql://sysop:sysop&#64;localhost/seiscomp’ instead.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -528,8 +537,8 @@ sqlite3. Note that this parameter is deprecated. Please use
 database backend. E.g. sqlite3 expects the path to the database
 file whereas MYSQL or PostgreSQL expect an URI in the format
 user:pwd&#64;host/database?param1=val1&amp;param2=val2.
-Note that this parameter is deprecated. Please use
-‘database = mysql://localhost/seiscomp’ instead.</p>
+Note that this parameter is deprecated. Please use the URL form
+‘database = mysql://sysop:sysop&#64;localhost/seiscomp’ instead.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -989,6 +998,305 @@ in scolv) the plugin performs only one location starting at
 specified depth but with free depth evaluation. This option
 defines whether it should really fix the depth (false) or
 use this fixed depth only as starting point (true).
+Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="iloc-extension">
+<span id="global-iloc"></span><h3>iLoc extension<a class="headerlink" href="#iloc-extension" title="Permalink to this headline">¶</a></h3>
+<p>This plugin allows the use of the iLoc locator with SeisComP.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>iLoc.*</strong>
+<em>Locator parameters: iLoc</em></p>
+</div>
+<dl class="confval">
+<dt id="confval-iLoc.profiles">
+<code class="sig-name descname">iLoc.profiles</code><a class="headerlink" href="#confval-iLoc.profiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:string</em></p>
+<p>iLoc profile name.
+Multiples names may be set separated by comma.
+Each profile can have different velocity or parameters.
+Default is <code class="docutils literal notranslate"><span class="pre">iasp91,ak135</span></code>.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>iLoc.profile.*</strong>
+<em>Profiles containing the specific locator parameters. For</em>
+<em>the global models, iasp91 and ak135, profiles are</em>
+<em>automatically considered with defaults.</em>
+<em>To adjust the profile parameters the corresponding profile</em>
+<em>must be created.</em></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>iLoc.profile.$name.*</strong>
+$name is a placeholder for the name to be used and needs to be added to <a class="reference internal" href="global_iloc.html#confval-iLoc.profiles"><code class="xref std std-confval docutils literal notranslate"><span class="pre">iLoc.profiles</span></code></a> to become active.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>iLoc.profiles <span class="o">=</span> a,b
+iLoc.profile.a.value1 <span class="o">=</span> ...
+iLoc.profile.b.value1 <span class="o">=</span> ...
+<span class="c1"># c is not active because it has not been added</span>
+<span class="c1"># to the list of iLoc.profiles</span>
+iLoc.profile.c.value1 <span class="o">=</span> ...
+</pre></div>
+</div>
+</div>
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.Verbose">
+<code class="sig-name descname">iLoc.profile.$name.Verbose</code><a class="headerlink" href="#confval-iLoc.profile.$name.Verbose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>boolean</em></p>
+<p>Default is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.globalModel">
+<code class="sig-name descname">iLoc.profile.$name.globalModel</code><a class="headerlink" href="#confval-iLoc.profile.$name.globalModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Name of globally applied velocity model
+into which RSTT or the local model is integrated. If
+unset, the name of the profile is considered instead.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.UseRSTT">
+<code class="sig-name descname">iLoc.profile.$name.UseRSTT</code><a class="headerlink" href="#confval-iLoc.profile.$name.UseRSTT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>boolean</em></p>
+<p>Use regional seismic travel-time tables
+Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.UseRSTTPnSn">
+<code class="sig-name descname">iLoc.profile.$name.UseRSTTPnSn</code><a class="headerlink" href="#confval-iLoc.profile.$name.UseRSTTPnSn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>boolean</em></p>
+<p>Use regional seismic travel-time tables for Pn and Sn
+Default is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.UseRSTTPgLg">
+<code class="sig-name descname">iLoc.profile.$name.UseRSTTPgLg</code><a class="headerlink" href="#confval-iLoc.profile.$name.UseRSTTPgLg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>boolean</em></p>
+<p>Use regional seismic travel-time tables for Pg and Lg
+Default is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.LocalVmodel">
+<code class="sig-name descname">iLoc.profile.$name.LocalVmodel</code><a class="headerlink" href="#confval-iLoc.profile.$name.LocalVmodel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Full path to a file containing the local velocity model.
+Requires: UseLocalTT = true. Empty string or unset
+disables using a local model in this profile.</p>
+<p>Example:</p>
+<p>&#64;DATADIR&#64;/iloc/localmodels/model.localmodel.dat.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.DoGridSearch">
+<code class="sig-name descname">iLoc.profile.$name.DoGridSearch</code><a class="headerlink" href="#confval-iLoc.profile.$name.DoGridSearch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>boolean</em></p>
+<p>Perform neighbourhood algorithm
+Default is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.NAsearchRadius">
+<code class="sig-name descname">iLoc.profile.$name.NAsearchRadius</code><a class="headerlink" href="#confval-iLoc.profile.$name.NAsearchRadius" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>float</em></p>
+<p>Unit: <em>deg</em></p>
+<p>Neighbourhood Algorithm: Search radius around initial
+epicentre
+Default is <code class="docutils literal notranslate"><span class="pre">5</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.NAsearchDepth">
+<code class="sig-name descname">iLoc.profile.$name.NAsearchDepth</code><a class="headerlink" href="#confval-iLoc.profile.$name.NAsearchDepth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>float</em></p>
+<p>Unit: <em>km</em></p>
+<p>Neighbourhood Algorithm: Search radius around initial
+depth
+Default is <code class="docutils literal notranslate"><span class="pre">300</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.NAsearchOT">
+<code class="sig-name descname">iLoc.profile.$name.NAsearchOT</code><a class="headerlink" href="#confval-iLoc.profile.$name.NAsearchOT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>float</em></p>
+<p>Unit: <em>s</em></p>
+<p>Neighbourhood Algorithm: Search radius around initial
+origin time
+Default is <code class="docutils literal notranslate"><span class="pre">30</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.NAlpNorm">
+<code class="sig-name descname">iLoc.profile.$name.NAlpNorm</code><a class="headerlink" href="#confval-iLoc.profile.$name.NAlpNorm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>float</em></p>
+<p>Neighbourhood Algorithm: p-value for norm to compute
+misfit [1,2]
+Default is <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.NAiterMax">
+<code class="sig-name descname">iLoc.profile.$name.NAiterMax</code><a class="headerlink" href="#confval-iLoc.profile.$name.NAiterMax" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>integer</em></p>
+<p>Neighbourhood Algorithm: Maximum number of iterations
+Default is <code class="docutils literal notranslate"><span class="pre">5</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.NAcells">
+<code class="sig-name descname">iLoc.profile.$name.NAcells</code><a class="headerlink" href="#confval-iLoc.profile.$name.NAcells" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>integer</em></p>
+<p>Neighbourhood Algorithm: Number of cells to be resampled
+at each iteration
+Default is <code class="docutils literal notranslate"><span class="pre">25</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.NAinitialSample">
+<code class="sig-name descname">iLoc.profile.$name.NAinitialSample</code><a class="headerlink" href="#confval-iLoc.profile.$name.NAinitialSample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>integer</em></p>
+<p>Neighbourhood Algorithm: Size of initial sample
+Default is <code class="docutils literal notranslate"><span class="pre">1000</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.NAnextSample">
+<code class="sig-name descname">iLoc.profile.$name.NAnextSample</code><a class="headerlink" href="#confval-iLoc.profile.$name.NAnextSample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>integer</em></p>
+<p>Neighbourhood Algorithm: Size of subsequent samples
+Default is <code class="docutils literal notranslate"><span class="pre">100</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.MinDepthPhases">
+<code class="sig-name descname">iLoc.profile.$name.MinDepthPhases</code><a class="headerlink" href="#confval-iLoc.profile.$name.MinDepthPhases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>integer</em></p>
+<p>Depth resolution: Minimum number of depth phases for depdp
+Default is <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.MaxLocalDistDeg">
+<code class="sig-name descname">iLoc.profile.$name.MaxLocalDistDeg</code><a class="headerlink" href="#confval-iLoc.profile.$name.MaxLocalDistDeg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>float</em></p>
+<p>Unit: <em>deg</em></p>
+<p>Depth resolution: Maximum local distance
+Default is <code class="docutils literal notranslate"><span class="pre">0.2</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.MinLocalStations">
+<code class="sig-name descname">iLoc.profile.$name.MinLocalStations</code><a class="headerlink" href="#confval-iLoc.profile.$name.MinLocalStations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>integer</em></p>
+<p>Depth resolution: Minimum number of local defining stations
+Default is <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.MaxSPDistDeg">
+<code class="sig-name descname">iLoc.profile.$name.MaxSPDistDeg</code><a class="headerlink" href="#confval-iLoc.profile.$name.MaxSPDistDeg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>float</em></p>
+<p>Unit: <em>deg</em></p>
+<p>Depth resolution: Maximum distance for using S-P travel-time differences.
+Default is <code class="docutils literal notranslate"><span class="pre">2.0</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.MinSPpairs">
+<code class="sig-name descname">iLoc.profile.$name.MinSPpairs</code><a class="headerlink" href="#confval-iLoc.profile.$name.MinSPpairs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>integer</em></p>
+<p>Depth resolution: Minimum number of defining S-P phase pairs
+Default is <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.MinCorePhases">
+<code class="sig-name descname">iLoc.profile.$name.MinCorePhases</code><a class="headerlink" href="#confval-iLoc.profile.$name.MinCorePhases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>integer</em></p>
+<p>Depth resolution: Minimum number of defining core reflection phases
+Default is <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.MaxShallowDepthError">
+<code class="sig-name descname">iLoc.profile.$name.MaxShallowDepthError</code><a class="headerlink" href="#confval-iLoc.profile.$name.MaxShallowDepthError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>float</em></p>
+<p>Unit: <em>km</em></p>
+<p>Depth resolution: Maximum depth error for crustal free-depth
+Default is <code class="docutils literal notranslate"><span class="pre">30.0</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.MaxDeepDepthError">
+<code class="sig-name descname">iLoc.profile.$name.MaxDeepDepthError</code><a class="headerlink" href="#confval-iLoc.profile.$name.MaxDeepDepthError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>float</em></p>
+<p>Unit: <em>km</em></p>
+<p>Depth resolution: Maximum depth error for deep free-depth
+Default is <code class="docutils literal notranslate"><span class="pre">60.0</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.DoCorrelatedErrors">
+<code class="sig-name descname">iLoc.profile.$name.DoCorrelatedErrors</code><a class="headerlink" href="#confval-iLoc.profile.$name.DoCorrelatedErrors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>boolean</em></p>
+<p>Linearized inversion: Account for correlated errors
+Default is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.SigmaThreshold">
+<code class="sig-name descname">iLoc.profile.$name.SigmaThreshold</code><a class="headerlink" href="#confval-iLoc.profile.$name.SigmaThreshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>float</em></p>
+<p>Unit: <em>s</em></p>
+<p>Linearized inversion: Used to exclude big residuals from solution
+Default is <code class="docutils literal notranslate"><span class="pre">6.0</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.AllowDamping">
+<code class="sig-name descname">iLoc.profile.$name.AllowDamping</code><a class="headerlink" href="#confval-iLoc.profile.$name.AllowDamping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>boolean</em></p>
+<p>Linearized inversion: Allow damping of model vector
+Default is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.MinIterations">
+<code class="sig-name descname">iLoc.profile.$name.MinIterations</code><a class="headerlink" href="#confval-iLoc.profile.$name.MinIterations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>integer</em></p>
+<p>Linearized inversion: Minimum number of iterations
+Default is <code class="docutils literal notranslate"><span class="pre">4</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.MaxIterations">
+<code class="sig-name descname">iLoc.profile.$name.MaxIterations</code><a class="headerlink" href="#confval-iLoc.profile.$name.MaxIterations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>integer</em></p>
+<p>Linearized inversion: Maximum number of iterations
+Default is <code class="docutils literal notranslate"><span class="pre">20</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.MinNdefPhases">
+<code class="sig-name descname">iLoc.profile.$name.MinNdefPhases</code><a class="headerlink" href="#confval-iLoc.profile.$name.MinNdefPhases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>integer</em></p>
+<p>Linearized inversion: Minimum number of defining phases
+Default is <code class="docutils literal notranslate"><span class="pre">4</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-iLoc.profile.$name.DoNotRenamePhases">
+<code class="sig-name descname">iLoc.profile.$name.DoNotRenamePhases</code><a class="headerlink" href="#confval-iLoc.profile.$name.DoNotRenamePhases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>boolean</em></p>
+<p>Linearized inversion: Do not rename phases. Deactivating
+allows to rename the phases automatically for this
+profile.
 Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
 </dd></dl>
 
@@ -1467,6 +1775,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">DotLine<
 <dt id="confval-scheme.colors.map.grid.width">
 <code class="sig-name descname">scheme.colors.map.grid.width</code><a class="headerlink" href="#confval-scheme.colors.map.grid.width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
+<p>Unit: <em>px</em></p>
 <p>The width of the pen.
 Default is <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
 </dd></dl>
@@ -1567,6 +1876,7 @@ NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.</p>
 <dt id="confval-scheme.colors.records.borders.standard.pen.width">
 <code class="sig-name descname">scheme.colors.records.borders.standard.pen.width</code><a class="headerlink" href="#confval-scheme.colors.records.borders.standard.pen.width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
+<p>Unit: <em>px</em></p>
 <p>The width of the pen.</p>
 </dd></dl>
 
@@ -1620,6 +1930,7 @@ NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.</p>
 <dt id="confval-scheme.colors.records.borders.signatureValid.pen.width">
 <code class="sig-name descname">scheme.colors.records.borders.signatureValid.pen.width</code><a class="headerlink" href="#confval-scheme.colors.records.borders.signatureValid.pen.width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
+<p>Unit: <em>px</em></p>
 <p>The width of the pen.</p>
 </dd></dl>
 
@@ -1673,6 +1984,7 @@ NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.</p>
 <dt id="confval-scheme.colors.records.borders.signatureInvalid.pen.width">
 <code class="sig-name descname">scheme.colors.records.borders.signatureInvalid.pen.width</code><a class="headerlink" href="#confval-scheme.colors.records.borders.signatureInvalid.pen.width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
+<p>Unit: <em>px</em></p>
 <p>The width of the pen.</p>
 </dd></dl>
 
@@ -1722,6 +2034,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">SolidLin
 <dt id="confval-scheme.colors.records.offset.width">
 <code class="sig-name descname">scheme.colors.records.offset.width</code><a class="headerlink" href="#confval-scheme.colors.records.offset.width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
+<p>Unit: <em>px</em></p>
 <p>The width of the pen.
 Default is <code class="docutils literal notranslate"><span class="pre">0.0</span></code>.</p>
 </dd></dl>
@@ -1751,6 +2064,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">DashLine
 <dt id="confval-scheme.colors.records.gridPen.width">
 <code class="sig-name descname">scheme.colors.records.gridPen.width</code><a class="headerlink" href="#confval-scheme.colors.records.gridPen.width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
+<p>Unit: <em>px</em></p>
 <p>The width of the pen.
 Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p>
 </dd></dl>
@@ -1780,6 +2094,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">DotLine<
 <dt id="confval-scheme.colors.records.subGridPen.width">
 <code class="sig-name descname">scheme.colors.records.subGridPen.width</code><a class="headerlink" href="#confval-scheme.colors.records.subGridPen.width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
+<p>Unit: <em>px</em></p>
 <p>The width of the pen.
 Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p>
 </dd></dl>
@@ -2270,6 +2585,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">02589e</
 <dt id="confval-scheme.marker.lineWidth">
 <code class="sig-name descname">scheme.marker.lineWidth</code><a class="headerlink" href="#confval-scheme.marker.lineWidth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
+<p>Unit: <em>px</em></p>
 <p>The line width of the marker (e.g. picks of manual picker).</p>
 </dd></dl>
 
@@ -2277,6 +2593,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">02589e</
 <dt id="confval-scheme.records.lineWidth">
 <code class="sig-name descname">scheme.records.lineWidth</code><a class="headerlink" href="#confval-scheme.records.lineWidth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
+<p>Unit: <em>px</em></p>
 <p>The line width of the records / traces.
 Default is <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
 </dd></dl>
@@ -2936,6 +3253,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">44</span
 <dt id="confval-scheme.splash.message.pos.x">
 <code class="sig-name descname">scheme.splash.message.pos.x</code><a class="headerlink" href="#confval-scheme.splash.message.pos.x" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
+<p>Unit: <em>px</em></p>
 <p>Horizontal position.
 Default is <code class="docutils literal notranslate"><span class="pre">200</span></code>.</p>
 </dd></dl>
@@ -2944,6 +3262,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">200</spa
 <dt id="confval-scheme.splash.message.pos.y">
 <code class="sig-name descname">scheme.splash.message.pos.y</code><a class="headerlink" href="#confval-scheme.splash.message.pos.y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
+<p>Unit: <em>px</em></p>
 <p>Vertical position.
 Default is <code class="docutils literal notranslate"><span class="pre">260</span></code>.</p>
 </dd></dl>
@@ -2970,6 +3289,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">34</span
 <dt id="confval-scheme.splash.version.pos.x">
 <code class="sig-name descname">scheme.splash.version.pos.x</code><a class="headerlink" href="#confval-scheme.splash.version.pos.x" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
+<p>Unit: <em>px</em></p>
 <p>Horizontal position.
 Default is <code class="docutils literal notranslate"><span class="pre">362</span></code>.</p>
 </dd></dl>
@@ -2978,6 +3298,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">362</spa
 <dt id="confval-scheme.splash.version.pos.y">
 <code class="sig-name descname">scheme.splash.version.pos.y</code><a class="headerlink" href="#confval-scheme.splash.version.pos.y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
+<p>Unit: <em>px</em></p>
 <p>Vertical position.
 Default is <code class="docutils literal notranslate"><span class="pre">190</span></code>.</p>
 </dd></dl>
@@ -3060,7 +3381,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">&quot;BP
 <dd><p>Type: <em>list:string</em></p>
 <p>Configure the columns of the event list that are visible initially.
 The first column containing the origin time is always visible and cannot
-be hidden. Possible values are: Type, M, TP, Phases, Lat, Lon, Depth, Stat, FM, Agency, Region, ID.
+be hidden. Possible values are: Type, M, TP, Phases, Lat, Lon, Depth, DType, Stat, AzGap, FM, Origins, Agency, Author, Region, ID.
 Default is <code class="docutils literal notranslate"><span class="pre">M,</span> <span class="pre">TP,</span> <span class="pre">Phases,</span> <span class="pre">RMS,</span> <span class="pre">Lat,</span> <span class="pre">Lon,</span> <span class="pre">Depth,</span> <span class="pre">Stat,</span> <span class="pre">Agency,</span> <span class="pre">Region,</span> <span class="pre">ID</span></code>.</p>
 </dd></dl>
 
@@ -3202,7 +3523,8 @@ Default is <code class="docutils literal notranslate"><span class="pre">Hide</sp
 <dd><p>Type: <em>list:string</em></p>
 <p>List of event type to be hidden if the “Hide other/fake events”
 option is ticked.
-Use double quotes ‘”’ around the string if it contains spaces.</p>
+Use double quotes ‘”’ around the string if it contains spaces.
+Default is <code class="docutils literal notranslate"><span class="pre">&quot;not</span> <span class="pre">existing&quot;</span></code>.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -3211,7 +3533,7 @@ Use double quotes ‘”’ around the string if it contains spaces.</p>
 <dd><p>Type: <em>boolean</em></p>
 <p>Sets the default state of the “Hide other/fake events”
 option.
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+Default is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -3358,9 +3680,9 @@ Default is <code class="docutils literal notranslate"><span class="pre">Phases,<
 <p>Configure the columns of the event edit focal mechanism
 tab that are visible initially.
 Possible values are: Depth, M, Count, Misfit, STDR,
-Azi. Gap(°), Stat, DC(%), CLVD(%), ISO(%), S1(°),
-D1(°), R1(°), S2(°), D2(°), R2(°), Agency, Author
-Default is <code class="docutils literal notranslate"><span class="pre">Depth,</span> <span class="pre">M,</span> <span class="pre">Count,</span> <span class="pre">Misfit,</span> <span class="pre">STDR,</span> <span class="pre">&quot;Azi.</span> <span class="pre">Gap(°)&quot;,</span> <span class="pre">Stat,</span> <span class="pre">DC(%),</span> <span class="pre">CLVD(%),</span> <span class="pre">ISO(%),</span> <span class="pre">S1(°),</span> <span class="pre">D1(°),</span> <span class="pre">R1(°),</span> <span class="pre">S2(°),</span> <span class="pre">D2(°),</span> <span class="pre">R2(°),</span> <span class="pre">Agency,</span> <span class="pre">Author</span></code>.</p>
+AzGap, Stat, DC, CLVD, ISO, S1,
+D1, R1, S2, D2, R2, Agency, Author
+Default is <code class="docutils literal notranslate"><span class="pre">Depth,</span> <span class="pre">M,</span> <span class="pre">Count,</span> <span class="pre">Misfit,</span> <span class="pre">STDR,</span> <span class="pre">AzGap,</span> <span class="pre">Stat,</span> <span class="pre">DC,</span> <span class="pre">CLVD,</span> <span class="pre">ISO,</span> <span class="pre">S1,</span> <span class="pre">D1,</span> <span class="pre">R1,</span> <span class="pre">S2,</span> <span class="pre">D2,</span> <span class="pre">R2,</span> <span class="pre">Agency,</span> <span class="pre">Author</span></code>.</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -3415,15 +3737,7 @@ coordinates from phase picks.</p>
 <code class="sig-name descname">LOCSAT.profiles</code><a class="headerlink" href="#confval-LOCSAT.profiles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p>Defines a list of available LOCSAT travel-time tables.
-Default is <code class="docutils literal notranslate"><span class="pre">iasp91,tab</span></code>.</p>
-</dd></dl>
-
-<dl class="confval">
-<dt id="confval-LOCSAT.enableConfidenceEllipsoid">
-<code class="sig-name descname">LOCSAT.enableConfidenceEllipsoid</code><a class="headerlink" href="#confval-LOCSAT.enableConfidenceEllipsoid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Compute the confidence ellipsoid.
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+Default is <code class="docutils literal notranslate"><span class="pre">iasp91,</span> <span class="pre">tab</span></code>.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -3433,18 +3747,6 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
 <p>Unit: <em>km</em></p>
 <p>The initial depth estimate for LOCSAT.
 Default is <code class="docutils literal notranslate"><span class="pre">20.0</span></code>.</p>
-</dd></dl>
-
-<dl class="confval">
-<dt id="confval-LOCSAT.defaultTimeError">
-<code class="sig-name descname">LOCSAT.defaultTimeError</code><a class="headerlink" href="#confval-LOCSAT.defaultTimeError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>Unit: <em>s</em></p>
-<p>The default pick time uncertainty assigned to LOCSAT’s arrival deltim
-attribute if pick uncertainties are not going to be used or
-if they are absent. A time uncertainty of 0 s may result in
-errors of the SVD decomposition in LOCSAT.
-Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -3460,6 +3762,18 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
 </dd></dl>
 
 <dl class="confval">
+<dt id="confval-LOCSAT.defaultTimeError">
+<code class="sig-name descname">LOCSAT.defaultTimeError</code><a class="headerlink" href="#confval-LOCSAT.defaultTimeError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>double</em></p>
+<p>Unit: <em>s</em></p>
+<p>The default pick time uncertainty assigned to LOCSAT’s arrival deltim
+attribute if pick uncertainties are not going to be used or
+if they are absent. A time uncertainty of 0 s may result in
+errors of the SVD decomposition in LOCSAT.
+Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
 <dt id="confval-LOCSAT.degreesOfFreedom">
 <code class="sig-name descname">LOCSAT.degreesOfFreedom</code><a class="headerlink" href="#confval-LOCSAT.degreesOfFreedom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
@@ -3471,8 +3785,16 @@ Default is <code class="docutils literal notranslate"><span class="pre">9999</sp
 <dt id="confval-LOCSAT.confLevel">
 <code class="sig-name descname">LOCSAT.confLevel</code><a class="headerlink" href="#confval-LOCSAT.confLevel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
-<p>Confidence level between 0.5 and 1.
+<p>Confidence level between 0.5 and 1.0.
 Default is <code class="docutils literal notranslate"><span class="pre">0.9</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-LOCSAT.enableConfidenceEllipsoid">
+<code class="sig-name descname">LOCSAT.enableConfidenceEllipsoid</code><a class="headerlink" href="#confval-LOCSAT.enableConfidenceEllipsoid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>boolean</em></p>
+<p>Compute the confidence ellipsoid from covariance matrix in 3D.
+Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
 </dd></dl>
 
 </div>
@@ -3934,7 +4256,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
 <dt id="confval-amplitudes.enable">
 <code class="sig-name descname">amplitudes.enable</code><a class="headerlink" href="#confval-amplitudes.enable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>boolean</em></p>
-<p>Defines if amplitude calculation is enabled. If disabled then
+<p>Defines if amplitude calculation is enabled. If disabled,
 this station will be skipped for amplitudes and magnitudes.
 Default is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
 </dd></dl>
@@ -3944,7 +4266,9 @@ Default is <code class="docutils literal notranslate"><span class="pre">true</sp
 <code class="sig-name descname">amplitudes.enableResponses</code><a class="headerlink" href="#confval-amplitudes.enableResponses" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>boolean</em></p>
 <p>Activates deconvolution for this station. If no responses are
-configured an error is raised and the data is not processed.
+configured, an error is raised and the data is not processed.
+This flag will be overridden by the type specific flag
+(see Amplitude type profile).
 Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
 </dd></dl>
 
@@ -4107,6 +4431,16 @@ specific.</p>
 <em>Several parameters if usage of full responses is enabled.</em></p>
 </div>
 <dl class="confval">
+<dt id="confval-amplitudes.$name.resp.taper">
+<code class="sig-name descname">amplitudes.$name.resp.taper</code><a class="headerlink" href="#confval-amplitudes.$name.resp.taper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unit: <em>s</em></p>
+<p>Defines the length of the taper at either side of the
+waveform. The length will be added to the data
+request: start - taper and end + taper.
+Default is <code class="docutils literal notranslate"><span class="pre">5</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
 <dt id="confval-amplitudes.$name.resp.minFreq">
 <code class="sig-name descname">amplitudes.$name.resp.minFreq</code><a class="headerlink" href="#confval-amplitudes.$name.resp.minFreq" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unit: <em>Hz</em></p>
@@ -4120,6 +4454,45 @@ Default is <code class="docutils literal notranslate"><span class="pre">0.008333
 <dl class="confval">
 <dt id="confval-amplitudes.$name.resp.maxFreq">
 <code class="sig-name descname">amplitudes.$name.resp.maxFreq</code><a class="headerlink" href="#confval-amplitudes.$name.resp.maxFreq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unit: <em>Hz</em></p>
+<p>After data are converted in to the frequency domain that
+maximum frequency defines the start of the right-side cosine taper for
+the frequency spectrum. The taper applies from {maxFreq}Hz to {fNyquist}Hz.
+A value of 0 or lower disables that taper.
+Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>amplitudes.resp.*</strong>
+<em>Several parameters if usage of full responses is enabled.</em>
+<em>The parameters of this group will be overridden by type</em>
+<em>specific settings if given (see Amplitude type profile).</em></p>
+</div>
+<dl class="confval">
+<dt id="confval-amplitudes.resp.taper">
+<code class="sig-name descname">amplitudes.resp.taper</code><a class="headerlink" href="#confval-amplitudes.resp.taper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unit: <em>s</em></p>
+<p>Defines the length of the taper at either side of the
+waveform. The length will be added to the data
+request: start - taper and end + taper.
+Default is <code class="docutils literal notranslate"><span class="pre">5</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-amplitudes.resp.minFreq">
+<code class="sig-name descname">amplitudes.resp.minFreq</code><a class="headerlink" href="#confval-amplitudes.resp.minFreq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unit: <em>Hz</em></p>
+<p>After data are converted in to the frequency domain that
+minimum frequency defines the end of the left-side cosine taper for
+the frequency spectrum. The taper applies from 0Hz to {minFreq}Hz.
+A value of 0 or lower disables that taper.
+Default is <code class="docutils literal notranslate"><span class="pre">0.00833333</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-amplitudes.resp.maxFreq">
+<code class="sig-name descname">amplitudes.resp.maxFreq</code><a class="headerlink" href="#confval-amplitudes.resp.maxFreq" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unit: <em>Hz</em></p>
 <p>After data are converted in to the frequency domain that
 maximum frequency defines the start of the right-side cosine taper for
@@ -4937,6 +5310,7 @@ with GUI applications.</p>
 <li><a class="reference internal" href="#configuration">Configuration</a><ul>
 <li><a class="reference internal" href="#nonlinloc-extension">NonLinLoc extension</a></li>
 <li><a class="reference internal" href="#hypo71-extension">Hypo71 extension</a></li>
+<li><a class="reference internal" href="#iloc-extension">iLoc extension</a></li>
 <li><a class="reference internal" href="#mn-extension">MN extension</a></li>
 <li><a class="reference internal" href="#locext-extension">LocExt extension</a></li>
 <li><a class="reference internal" href="#gui-extension">GUI extension</a></li>
@@ -4987,7 +5361,7 @@ with GUI applications.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

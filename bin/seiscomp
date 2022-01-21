@@ -34,9 +34,6 @@ normalized_dirname() {
 # Determine the root directory of the 'seiscomp' utility.
 d="$(normalized_dirname "$d")"
 SEISCOMP_ROOT="$(realpath "${d%/bin}")"
-# FIXME:
-# - Any portability issues with 'realpath'?
-# - Is there a more portable alternative?
 
 export SEISCOMP_ROOT
 export PATH="$SEISCOMP_ROOT/bin:$PATH"
@@ -44,8 +41,8 @@ export LD_LIBRARY_PATH="$SEISCOMP_ROOT/lib:$LD_LIBRARY_PATH"
 export PYTHONPATH="$SEISCOMP_ROOT/lib/python:$PYTHONPATH"
 export MANPATH="$SEISCOMP_ROOT/share/man:$MANPATH"
 
-# The path of the Python executable is configured using cmake.
-python_executable="/usr/bin/python"
+HOSTENV=$SEISCOMP_ROOT/etc/env/by-hostname/$(hostname)
+test -f $HOSTENV && . $HOSTENV
 
 case $1 in
     exec)
@@ -53,6 +50,6 @@ case $1 in
         exec "$@"
         ;;
     *)
-        exec "$python_executable" "$SEISCOMP_ROOT/bin/seiscomp-control.py" "$@"
+        exec $SEISCOMP_ROOT/bin/seiscomp-python "$SEISCOMP_ROOT/bin/seiscomp-control.py" "$@"
         ;;
 esac

@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -156,15 +156,7 @@ International Corporation (SAIC), San Diego.</p>
 <code class="sig-name descname">LOCSAT.profiles</code><a class="headerlink" href="#confval-LOCSAT.profiles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p>Defines a list of available LOCSAT travel-time tables.
-Default is <code class="docutils literal notranslate"><span class="pre">iasp91,tab</span></code>.</p>
-</dd></dl>
-
-<dl class="confval">
-<dt id="confval-LOCSAT.enableConfidenceEllipsoid">
-<code class="sig-name descname">LOCSAT.enableConfidenceEllipsoid</code><a class="headerlink" href="#confval-LOCSAT.enableConfidenceEllipsoid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Compute the confidence ellipsoid.
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+Default is <code class="docutils literal notranslate"><span class="pre">iasp91,</span> <span class="pre">tab</span></code>.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -174,18 +166,6 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
 <p>Unit: <em>km</em></p>
 <p>The initial depth estimate for LOCSAT.
 Default is <code class="docutils literal notranslate"><span class="pre">20.0</span></code>.</p>
-</dd></dl>
-
-<dl class="confval">
-<dt id="confval-LOCSAT.defaultTimeError">
-<code class="sig-name descname">LOCSAT.defaultTimeError</code><a class="headerlink" href="#confval-LOCSAT.defaultTimeError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>Unit: <em>s</em></p>
-<p>The default pick time uncertainty assigned to LOCSAT’s arrival deltim
-attribute if pick uncertainties are not going to be used or
-if they are absent. A time uncertainty of 0 s may result in
-errors of the SVD decomposition in LOCSAT.
-Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -201,6 +181,18 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
 </dd></dl>
 
 <dl class="confval">
+<dt id="confval-LOCSAT.defaultTimeError">
+<code class="sig-name descname">LOCSAT.defaultTimeError</code><a class="headerlink" href="#confval-LOCSAT.defaultTimeError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>double</em></p>
+<p>Unit: <em>s</em></p>
+<p>The default pick time uncertainty assigned to LOCSAT’s arrival deltim
+attribute if pick uncertainties are not going to be used or
+if they are absent. A time uncertainty of 0 s may result in
+errors of the SVD decomposition in LOCSAT.
+Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
 <dt id="confval-LOCSAT.degreesOfFreedom">
 <code class="sig-name descname">LOCSAT.degreesOfFreedom</code><a class="headerlink" href="#confval-LOCSAT.degreesOfFreedom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
@@ -212,8 +204,16 @@ Default is <code class="docutils literal notranslate"><span class="pre">9999</sp
 <dt id="confval-LOCSAT.confLevel">
 <code class="sig-name descname">LOCSAT.confLevel</code><a class="headerlink" href="#confval-LOCSAT.confLevel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
-<p>Confidence level between 0.5 and 1.
+<p>Confidence level between 0.5 and 1.0.
 Default is <code class="docutils literal notranslate"><span class="pre">0.9</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-LOCSAT.enableConfidenceEllipsoid">
+<code class="sig-name descname">LOCSAT.enableConfidenceEllipsoid</code><a class="headerlink" href="#confval-LOCSAT.enableConfidenceEllipsoid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>boolean</em></p>
+<p>Compute the confidence ellipsoid from covariance matrix in 3D.
+Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
 </dd></dl>
 
 </div>
@@ -275,7 +275,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">0.9</spa
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

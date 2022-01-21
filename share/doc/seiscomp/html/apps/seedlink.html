@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -118,7 +118,7 @@ documentation in form of UNIX manual pages.</p>
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Plugin name</p></th>
-<th class="head"><p>Digitizer/DAS</p></th>
+<th class="head"><p>Source or Digitizer/DAS</p></th>
 <th class="head"><p>Plugin Implementer</p></th>
 </tr>
 </thead>
@@ -128,7 +128,7 @@ documentation in form of UNIX manual pages.</p>
 <td><p>Chad Trabant (IRIS)</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#seedlink-sources-caps-label"><span class="std std-ref">caps</span></a></p></td>
-<td><p>CAPS server</p></td>
+<td><p><a class="reference external" href="https://docs.gempa.de/caps/current/index.html">CAPS server</a></p></td>
 <td><p><a class="reference external" href="https://gempa.de">gempa GmbH</a></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#seedlink-sources-chain-label"><span class="std std-ref">chain</span></a></p></td>
@@ -184,56 +184,64 @@ documentation in form of UNIX manual pages.</p>
 <td><p>GFZ</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#seedlink-sources-mseedscan-label"><span class="std std-ref">mseedscan</span></a></p></td>
-<td><p>Generic</p></td>
+<td><p>Transfers miniSEED files from a directory</p></td>
 <td><p>Chad Trabant (IRIS)</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#seedlink-sources-mk6-label"><span class="std std-ref">mk6</span></a> *</p></td>
 <td><p>MK6</p></td>
 <td><p>Jan Wiszniowski (IGPAS)</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#seedlink-sources-mws-label"><span class="std std-ref">mws</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#seedlink-sources-mppt-label"><span class="std std-ref">mppt</span></a> *</p></td>
+<td><p>SunSaver MPPT via Modbus TCP/IP</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#seedlink-sources-mws-label"><span class="std std-ref">mws</span></a></p></td>
 <td><p>Reinhardt MWS5/MWS9 Weather Station</p></td>
 <td><p>GFZ</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#seedlink-sources-naqs-label"><span class="std std-ref">naqs</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#seedlink-sources-naqs-label"><span class="std std-ref">naqs</span></a></p></td>
 <td><p>NAQS</p></td>
 <td><p>Chad Trabant (IRIS); based on sample code from Nanometrics, Inc.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#seedlink-sources-nmxp-label"><span class="std std-ref">nmxp</span></a> *</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#seedlink-sources-nmxp-label"><span class="std std-ref">nmxp</span></a> *</p></td>
 <td><p>NAQS</p></td>
 <td><p>Matteo Quintiliani (INGV)</p></td>
 </tr>
-<tr class="row-even"><td><p>nrts **</p></td>
+<tr class="row-odd"><td><p>nrts **</p></td>
 <td><p>NRTS</p></td>
 <td><p>GFZ; based on ISI toolkit from David E. Chavez</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#seedlink-sources-ps2400-eth-label"><span class="std std-ref">ps2400_eth</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#seedlink-sources-ps2400-eth-label"><span class="std std-ref">ps2400_eth</span></a></p></td>
 <td><p><a class="reference internal" href="#seedlink-sources-ps2400-eth-label"><span class="std std-ref">Earth Data PS2400/PS6 Ethernet</span></a></p></td>
 <td><p>GFZ; <a class="reference external" href="https://gempa.de">gempa GmbH</a></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#seedlink-sources-q330-label"><span class="std std-ref">q330</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#seedlink-sources-q330-label"><span class="std std-ref">q330</span></a></p></td>
 <td><p>Quanterra Q330</p></td>
 <td><p>GFZ; based on lib330 maintained by ISTI, Inc.</p></td>
 </tr>
-<tr class="row-odd"><td><p>comserv **</p></td>
+<tr class="row-even"><td><p>comserv **</p></td>
 <td><p>Quanterra Q380/Q680, Q4120, Q720</p></td>
 <td><p>GFZ; based on Comserv by Quanterra, Inc.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#seedlink-sources-reftek-label"><span class="std std-ref">reftek</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#seedlink-sources-reftek-label"><span class="std std-ref">reftek</span></a></p></td>
 <td><p>RefTek RTPD</p></td>
 <td><p>GFZ; based on software library provided by RefTek, Inc.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#seedlink-sources-sadc-label"><span class="std std-ref">sadc</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#seedlink-sources-sadc-label"><span class="std std-ref">sadc</span></a></p></td>
 <td><p>SARA SADC10/18/20/30</p></td>
 <td><p>GFZ</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#seedlink-sources-scream-label"><span class="std std-ref">scream</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#seedlink-sources-scream-label"><span class="std std-ref">scream</span></a></p></td>
 <td><p>SCREAM</p></td>
 <td><p>Reinoud Sleeman (KNMI)</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#seedlink-sources-scream-ring-label"><span class="std std-ref">scream_ring</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#seedlink-sources-scream-ring-label"><span class="std std-ref">scream_ring</span></a></p></td>
 <td><p>SCREAM</p></td>
 <td><p>Reinoud Sleeman (KNMI), This is the second revision of the scream plugin which supports buffering for short-term completeness.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#seedlink-sources-vaisala-label"><span class="std std-ref">vaisala</span></a></p></td>
+<td><p>Vaisala ASCII protocol (serial plugin)</p></td>
+<td><p>GFZ</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#seedlink-sources-wago-label"><span class="std std-ref">wago</span></a></p></td>
 <td><p>WAGO MODBUS/TCP devices</p></td>
@@ -1041,8 +1049,13 @@ Default is <code class="docutils literal notranslate"><span class="pre">0</span>
 <dt id="confval-proc">
 <code class="sig-name descname">proc</code><a class="headerlink" href="#confval-proc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
-<p>Name of the proc object (defined in streams.xml); used for processing
-raw streams (streams submitted by a plugin as raw samples).</p>
+<p>Name of the proc object uniquely defined in a seedlink template file, e.g.
+$SEISCOMP_ROOT/share/templates/seedlink/streams_{name}.tpl.
+proc is used for processing, e.g. renaming or resampling of raw
+streams (streams submitted by a plugin as raw samples).
+The template file is used to generate
+$SEISCOMP_ROOT/var/lib/seedlink/streams.xml .</p>
+<p>Example template: $SEISCOMP_ROOT/share/templates/seedlink/streams_stream100.tpl</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1051,7 +1064,7 @@ raw streams (streams submitted by a plugin as raw samples).</p>
 <dd><p>Type: <em>list:string</em></p>
 <p>Defines a list of extension bindings to be used.
 Each binding can then be configured individually.</p>
-<p>Available identifiers: <a class="reference internal" href="#seedlink-sources-antelope-label"><span class="std std-ref">antelope</span></a> <a class="reference internal" href="#seedlink-sources-caps-label"><span class="std std-ref">caps</span></a> <a class="reference internal" href="#seedlink-sources-chain-label"><span class="std std-ref">chain</span></a> <a class="reference internal" href="#seedlink-sources-dr24-label"><span class="std std-ref">dr24</span></a> <a class="reference internal" href="#seedlink-sources-echopro-3ch100hz-label"><span class="std std-ref">echopro_3ch100hz</span></a> <a class="reference internal" href="#seedlink-sources-echopro-6ch200hz-label"><span class="std std-ref">echopro_6ch200hz</span></a> <a class="reference internal" href="#seedlink-sources-edata-label"><span class="std std-ref">edata</span></a> <a class="reference internal" href="#seedlink-sources-ewexport-label"><span class="std std-ref">ewexport</span></a> <a class="reference internal" href="#seedlink-sources-ewexport-pasv-label"><span class="std std-ref">ewexport_pasv</span></a> <a class="reference internal" href="#seedlink-sources-fs-mseed-label"><span class="std std-ref">fs_mseed</span></a> <a class="reference internal" href="#seedlink-sources-hrd24-label"><span class="std std-ref">hrd24</span></a> <a class="reference internal" href="#seedlink-sources-liss-label"><span class="std std-ref">liss</span></a> <a class="reference internal" href="#seedlink-sources-m24-label"><span class="std std-ref">m24</span></a> <a class="reference internal" href="#seedlink-sources-minilogger-label"><span class="std std-ref">minilogger</span></a> <a class="reference internal" href="#seedlink-sources-mk6-label"><span class="std std-ref">mk6</span></a> <a class="reference internal" href="#seedlink-sources-mppt-label"><span class="std std-ref">mppt</span></a> <a class="reference internal" href="#seedlink-sources-mseedfifo-label"><span class="std std-ref">mseedfifo</span></a> <a class="reference internal" href="#seedlink-sources-mseedscan-label"><span class="std std-ref">mseedscan</span></a> <a class="reference internal" href="#seedlink-sources-mws-label"><span class="std std-ref">mws</span></a> <a class="reference internal" href="#seedlink-sources-naqs-label"><span class="std std-ref">naqs</span></a> <a class="reference internal" href="#seedlink-sources-nmxp-label"><span class="std std-ref">nmxp</span></a> <a class="reference internal" href="#seedlink-sources-ps2400-eth-label"><span class="std std-ref">ps2400_eth</span></a> <a class="reference internal" href="#seedlink-sources-q330-label"><span class="std std-ref">q330</span></a> <a class="reference internal" href="#seedlink-sources-reftek-label"><span class="std std-ref">reftek</span></a> <a class="reference internal" href="#seedlink-sources-sadc-label"><span class="std std-ref">sadc</span></a> <a class="reference internal" href="#seedlink-sources-scream-label"><span class="std std-ref">scream</span></a> <a class="reference internal" href="#seedlink-sources-scream-ring-label"><span class="std std-ref">scream_ring</span></a> <a class="reference internal" href="#seedlink-sources-wago-label"><span class="std std-ref">wago</span></a> <a class="reference internal" href="#seedlink-sources-wave24-label"><span class="std std-ref">wave24</span></a> <a class="reference internal" href="#seedlink-sources-win-label"><span class="std std-ref">win</span></a></p>
+<p>Available identifiers: <a class="reference internal" href="#seedlink-sources-antelope-label"><span class="std std-ref">antelope</span></a> <a class="reference internal" href="#seedlink-sources-caps-label"><span class="std std-ref">caps</span></a> <a class="reference internal" href="#seedlink-sources-chain-label"><span class="std std-ref">chain</span></a> <a class="reference internal" href="#seedlink-sources-dr24-label"><span class="std std-ref">dr24</span></a> <a class="reference internal" href="#seedlink-sources-echopro-3ch100hz-label"><span class="std std-ref">echopro_3ch100hz</span></a> <a class="reference internal" href="#seedlink-sources-echopro-6ch200hz-label"><span class="std std-ref">echopro_6ch200hz</span></a> <a class="reference internal" href="#seedlink-sources-edata-label"><span class="std std-ref">edata</span></a> <a class="reference internal" href="#seedlink-sources-ewexport-label"><span class="std std-ref">ewexport</span></a> <a class="reference internal" href="#seedlink-sources-ewexport-pasv-label"><span class="std std-ref">ewexport_pasv</span></a> <a class="reference internal" href="#seedlink-sources-fs-mseed-label"><span class="std std-ref">fs_mseed</span></a> <a class="reference internal" href="#seedlink-sources-hrd24-label"><span class="std std-ref">hrd24</span></a> <a class="reference internal" href="#seedlink-sources-liss-label"><span class="std std-ref">liss</span></a> <a class="reference internal" href="#seedlink-sources-m24-label"><span class="std std-ref">m24</span></a> <a class="reference internal" href="#seedlink-sources-minilogger-label"><span class="std std-ref">minilogger</span></a> <a class="reference internal" href="#seedlink-sources-miscscript-label"><span class="std std-ref">miscScript</span></a> <a class="reference internal" href="#seedlink-sources-miscserial-label"><span class="std std-ref">miscSerial</span></a> <a class="reference internal" href="#seedlink-sources-mk6-label"><span class="std std-ref">mk6</span></a> <a class="reference internal" href="#seedlink-sources-mppt-label"><span class="std std-ref">mppt</span></a> <a class="reference internal" href="#seedlink-sources-mseedfifo-label"><span class="std std-ref">mseedfifo</span></a> <a class="reference internal" href="#seedlink-sources-mseedscan-label"><span class="std std-ref">mseedscan</span></a> <a class="reference internal" href="#seedlink-sources-mws-label"><span class="std std-ref">mws</span></a> <a class="reference internal" href="#seedlink-sources-naqs-label"><span class="std std-ref">naqs</span></a> <a class="reference internal" href="#seedlink-sources-nmxp-label"><span class="std std-ref">nmxp</span></a> <a class="reference internal" href="#seedlink-sources-ps2400-eth-label"><span class="std std-ref">ps2400_eth</span></a> <a class="reference internal" href="#seedlink-sources-q330-label"><span class="std std-ref">q330</span></a> <a class="reference internal" href="#seedlink-sources-reftek-label"><span class="std std-ref">reftek</span></a> <a class="reference internal" href="#seedlink-sources-sadc-label"><span class="std std-ref">sadc</span></a> <a class="reference internal" href="#seedlink-sources-scream-label"><span class="std std-ref">scream</span></a> <a class="reference internal" href="#seedlink-sources-scream-ring-label"><span class="std std-ref">scream_ring</span></a> <a class="reference internal" href="#seedlink-sources-vaisala-label"><span class="std std-ref">vaisala</span></a> <a class="reference internal" href="#seedlink-sources-wago-label"><span class="std std-ref">wago</span></a> <a class="reference internal" href="#seedlink-sources-wave24-label"><span class="std std-ref">wave24</span></a> <a class="reference internal" href="#seedlink-sources-win-label"><span class="std std-ref">win</span></a></p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># param1 and param2 are just placeholders.</span>
 <span class="nv">sources</span> <span class="o">=</span> antelope, caps
 sources.antelope1.param1 <span class="o">=</span> value11
@@ -1811,6 +1824,116 @@ Default is <code class="docutils literal notranslate"><span class="pre">4</span>
 </dd></dl>
 
 </div>
+<div class="section" id="miscscript">
+<span id="seedlink-sources-miscscript-label"></span><h4>miscScript<a class="headerlink" href="#miscscript" title="Permalink to this headline">¶</a></h4>
+<p>Misceallaneous script</p>
+<dl class="confval">
+<dt id="confval-sources.miscScript.script_path">
+<code class="sig-name descname">sources.miscScript.script_path</code><a class="headerlink" href="#confval-sources.miscScript.script_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Script path.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-sources.miscScript.script_args">
+<code class="sig-name descname">sources.miscScript.script_args</code><a class="headerlink" href="#confval-sources.miscScript.script_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Script arguments.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-sources.miscScript.proc">
+<code class="sig-name descname">sources.miscScript.proc</code><a class="headerlink" href="#confval-sources.miscScript.proc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Name of the proc object used for channel naming (and eventually down sampling). If this field is left to default (auto), a basic proc (without decimation) will be automatically generated.
+Default is <code class="docutils literal notranslate"><span class="pre">auto</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-sources.miscScript.channels">
+<code class="sig-name descname">sources.miscScript.channels</code><a class="headerlink" href="#confval-sources.miscScript.channels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Names of the channels. These names are only used if you choose to automatically generate the proc. Nevertheless, even if you are not using the auto proc, it is important to declare correctly this list as the number of channels is used to size the internal plugin’s buffers. If you do not want seedlink to use one of the channels, replace it names with “none”. Example : 01HHZ,none,none,02HHZ,HHE,HHN
+Default is <code class="docutils literal notranslate"><span class="pre">HHZ,HHN,HHE</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-sources.miscScript.sample_frequency">
+<code class="sig-name descname">sources.miscScript.sample_frequency</code><a class="headerlink" href="#confval-sources.miscScript.sample_frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Sampling frequency. Must be integer or a fraction of integers.
+Default is <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-sources.miscScript.flush_period">
+<code class="sig-name descname">sources.miscScript.flush_period</code><a class="headerlink" href="#confval-sources.miscScript.flush_period" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>int</em></p>
+<p>This parameter aims at enforcing the sending of seedlink data blocks (512bytes) even if they are not yet full. 0 means no enforcing.
+Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="miscserial">
+<span id="seedlink-sources-miscserial-label"></span><h4>miscSerial<a class="headerlink" href="#miscserial" title="Permalink to this headline">¶</a></h4>
+<p>Miscellaneous ASCII serial Plugin (serial plugin)</p>
+<dl class="confval">
+<dt id="confval-sources.miscSerial.comport">
+<code class="sig-name descname">sources.miscSerial.comport</code><a class="headerlink" href="#confval-sources.miscSerial.comport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Serial port.
+Default is <code class="docutils literal notranslate"><span class="pre">/dev/data</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-sources.miscSerial.baudrate">
+<code class="sig-name descname">sources.miscSerial.baudrate</code><a class="headerlink" href="#confval-sources.miscSerial.baudrate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>int</em></p>
+<p>Baud rate.
+Default is <code class="docutils literal notranslate"><span class="pre">9600</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-sources.miscSerial.proc">
+<code class="sig-name descname">sources.miscSerial.proc</code><a class="headerlink" href="#confval-sources.miscSerial.proc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Name of the proc object used for channel naming (and eventually down sampling). If this field is left to default (auto), a basic proc (without decimation) will be automatically generated.
+Default is <code class="docutils literal notranslate"><span class="pre">auto</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-sources.miscSerial.channels">
+<code class="sig-name descname">sources.miscSerial.channels</code><a class="headerlink" href="#confval-sources.miscSerial.channels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Names of the channels. These names are only used if you choose to automatically generate the proc. Nevertheless, even if you are not using the auto proc, it is important to declare correctly this list as the number of channels is used to size the internal plugin’s buffers. If you do not want seedlink to use one of the channels, replace it names with “none”. Example : 01HHZ,none,none,02HHZ,HHE,HHN
+Default is <code class="docutils literal notranslate"><span class="pre">HHZ,HHN,HHE</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-sources.miscSerial.sample_frequency">
+<code class="sig-name descname">sources.miscSerial.sample_frequency</code><a class="headerlink" href="#confval-sources.miscSerial.sample_frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Sampling frequency. Must be integer or a fraction of integers.
+Default is <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-sources.miscSerial.flush_period">
+<code class="sig-name descname">sources.miscSerial.flush_period</code><a class="headerlink" href="#confval-sources.miscSerial.flush_period" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>int</em></p>
+<p>This parameter aims at enforcing the sending of seedlink data blocks (512bytes, even if they are not yet full. 0 means no enforcing.
+Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-sources.miscSerial.serial_clock_period">
+<code class="sig-name descname">sources.miscSerial.serial_clock_period</code><a class="headerlink" href="#confval-sources.miscSerial.serial_clock_period" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>int</em></p>
+<p>If this parameter is not 0, a date frame (“YYYY,mm,dd hh:mm:ss\n”) will be send on serial port every serial_clock_period seconds.
+Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+</dd></dl>
+
+</div>
 <div class="section" id="mk6">
 <span id="seedlink-sources-mk6-label"></span><h4>mk6<a class="headerlink" href="#mk6" title="Permalink to this headline">¶</a></h4>
 <p>MK6</p>
@@ -1864,7 +1987,12 @@ Default is <code class="docutils literal notranslate"><span class="pre">mppt</sp
 </div>
 <div class="section" id="mseedscan">
 <span id="seedlink-sources-mseedscan-label"></span><h4>mseedscan<a class="headerlink" href="#mseedscan" title="Permalink to this headline">¶</a></h4>
-<p>MseedScan</p>
+<p>MseedScan transfers new or changed miniSEED files from a directory
+to a SeedLink server. It recursively a directory
+structures and continuously checks for file modifications. The files
+are presumed to be composed of Mini-SEED records of 512 Bytes. As the
+files are appended or created the plugin will feed the new records to
+the controlling SeedLink server.</p>
 <dl class="confval">
 <dt id="confval-sources.mseedscan.dir">
 <code class="sig-name descname">sources.mseedscan.dir</code><a class="headerlink" href="#confval-sources.mseedscan.dir" title="Permalink to this definition">¶</a></dt>
@@ -2052,8 +2180,15 @@ Default is <code class="docutils literal notranslate"><span class="pre">auto</sp
 <dt id="confval-sources.q330.proc">
 <code class="sig-name descname">sources.q330.proc</code><a class="headerlink" href="#confval-sources.q330.proc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
-<p>Name of the proc object (defined in streams.xml); used for processing
-raw streams (streams submitted by a plugin as raw samples).</p>
+<p>Name of the proc object uniquely defined in a template file of
+the q330 plugin e.g.
+$SEISCOMP_ROOT/share/templates/seedlink/q330/streams_{name}.tpl.
+proc is used for processing, e.g. renaming or resampling of raw
+streams (streams submitted by a plugin as raw samples).
+The template file is used to generate
+$SEISCOMP_ROOT/var/lib/seedlink/streams.xml .</p>
+<p>Example template: $SEISCOMP_ROOT/share/templates/seedlink/q330/streams_q330_100.tpl</p>
+<p>If proc is not given, the streams are taken as provided by the DAS.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -2126,8 +2261,14 @@ Default is <code class="docutils literal notranslate"><span class="pre">91F3</sp
 <dt id="confval-sources.reftek.proc">
 <code class="sig-name descname">sources.reftek.proc</code><a class="headerlink" href="#confval-sources.reftek.proc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
-<p>Name of the proc object (defined in streams.xml); used for processing
-raw streams (streams submitted by a plugin as raw samples).
+<p>Name of the proc object uniquely defined in a template file of
+the reftek plugin e.g.
+$SEISCOMP_ROOT/share/templates/seedlink/reftek/streams_{name}.tpl.
+proc is used for processing, e.g. renaming or resampling of raw
+streams (streams submitted by a plugin as raw samples).
+The template file is used to generate
+$SEISCOMP_ROOT/var/lib/seedlink/streams.xml .</p>
+<p>Example template: $SEISCOMP_ROOT/share/templates/seedlink/reftek/streams_reftek.tpl
 Default is <code class="docutils literal notranslate"><span class="pre">reftek</span></code>.</p>
 </dd></dl>
 
@@ -2351,6 +2492,35 @@ is used.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="vaisala">
+<span id="seedlink-sources-vaisala-label"></span><h4>vaisala<a class="headerlink" href="#vaisala" title="Permalink to this headline">¶</a></h4>
+<p>Vaisala ASCII protocol (serial plugin)</p>
+<dl class="confval">
+<dt id="confval-sources.vaisala.comport">
+<code class="sig-name descname">sources.vaisala.comport</code><a class="headerlink" href="#confval-sources.vaisala.comport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Serial port.
+Default is <code class="docutils literal notranslate"><span class="pre">/dev/weatherstation</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-sources.vaisala.baudrate">
+<code class="sig-name descname">sources.vaisala.baudrate</code><a class="headerlink" href="#confval-sources.vaisala.baudrate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>int</em></p>
+<p>Baud rate.
+Default is <code class="docutils literal notranslate"><span class="pre">19200</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-sources.vaisala.proc">
+<code class="sig-name descname">sources.vaisala.proc</code><a class="headerlink" href="#confval-sources.vaisala.proc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Name of the proc object (defined in streams.xml); used for processing
+raw streams (streams submitted by a plugin as raw samples).
+Default is <code class="docutils literal notranslate"><span class="pre">mws</span></code>.</p>
+</dd></dl>
+
+</div>
 <div class="section" id="wago">
 <span id="seedlink-sources-wago-label"></span><h4>wago<a class="headerlink" href="#wago" title="Permalink to this headline">¶</a></h4>
 <p>WAGO Controller (T-Elektronik)</p>
@@ -2528,6 +2698,8 @@ Default is <code class="docutils literal notranslate"><span class="pre">win</spa
 <li><a class="reference internal" href="#liss">liss</a></li>
 <li><a class="reference internal" href="#m24">m24</a></li>
 <li><a class="reference internal" href="#minilogger">minilogger</a></li>
+<li><a class="reference internal" href="#miscscript">miscScript</a></li>
+<li><a class="reference internal" href="#miscserial">miscSerial</a></li>
 <li><a class="reference internal" href="#mk6">mk6</a></li>
 <li><a class="reference internal" href="#mppt">mppt</a></li>
 <li><a class="reference internal" href="#mseedfifo">mseedfifo</a></li>
@@ -2541,6 +2713,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">win</spa
 <li><a class="reference internal" href="#sadc">sadc</a></li>
 <li><a class="reference internal" href="#scream">scream</a></li>
 <li><a class="reference internal" href="#scream-ring">scream_ring</a></li>
+<li><a class="reference internal" href="#vaisala">vaisala</a></li>
 <li><a class="reference internal" href="#wago">wago</a></li>
 <li><a class="reference internal" href="#wave24">wave24</a></li>
 <li><a class="reference internal" href="#win">win</a></li>
@@ -2577,7 +2750,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">win</spa
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

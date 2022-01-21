@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -126,7 +126,7 @@ user@host:~$ sudo vim /etc/mysql/mariadb.conf.d/50-server.cnf
      <span class="nv">innodb_buffer_pool_size</span> <span class="o">=</span> &lt;your value&gt;
      <span class="nv">innodb_flush_log_at_trx_commit</span> <span class="o">=</span> <span class="m">2</span>
 
-user@host:~$ sudo systemctl restart mysql
+user@host:~$ sudo systemctl restart mariadb
 
 user@host:~$ sudo mysql -u root -p
      CREATE DATABASE seiscomp CHARACTER SET utf8 COLLATE utf8_bin<span class="p">;</span>
@@ -155,10 +155,12 @@ then create the user, the database and the tables.</p>
 <p><strong class="program">CentOS</strong>:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo@host:~$ sudo su
 root@host:~$ sudo -i -u postgres
+postgres@host:~$ psql
 
    <span class="nv">postgres</span><span class="o">=</span><span class="c1"># create database seiscomp;</span>
    <span class="nv">postgres</span><span class="o">=</span><span class="c1"># create user sysop with encrypted password &#39;sysop&#39;;</span>
    <span class="nv">postgres</span><span class="o">=</span><span class="c1"># grant all privileges on database seiscomp to sysop;</span>
+   <span class="nv">postgres</span><span class="o">=</span><span class="c1"># alter database seiscomp owner to sysop;</span>
    <span class="nv">postgres</span><span class="o">=</span><span class="c1"># exit</span>
 
 root@host:~$ <span class="nb">exit</span>
@@ -509,7 +511,7 @@ If everything is working, the analysis tools can be started, e.g. MapView.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

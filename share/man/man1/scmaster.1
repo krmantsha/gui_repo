@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCMASTER" "1" "Jun 21, 2021" "4.6.1" "SeisComP"
+.TH "SCMASTER" "1" "Jan 17, 2022" "4.8.4" "SeisComP"
 .SH NAME
 scmaster \- SeisComP Documentation
 .
@@ -36,6 +36,96 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .sp
 scmaster is the implementation of the messaging
 mediator.
+.SH MESSAGE GROUPS
+.sp
+scmaster provides the message groups\&. Configure
+.INDENT 0.0
+.IP \(bu 2
+\fI\%defaultGroups\fP: Add the groups which can be used by all queues.
+.IP \(bu 2
+\fI\%queues.$name.groups\fP: Add all groups which are used by the given queue.
+Adding any values ignores all values of \fI\%defaultGroups\fP\&.
+.UNINDENT
+.SH QUEUES
+.sp
+scmaster provides queues for separating the processing.
+Typically, the default queue \fIproduction\fP is used. To add new queues
+.INDENT 0.0
+.IP 1. 3
+Define a new queue by adding a new profile with some name,
+.IP 2. 3
+Configure the profile parameters :confval:
+.nf
+\(ga
+.fi
+queues.$name.*,
+.IP 3. 3
+Register the queue in \fI\%queues\fP\&.
+.UNINDENT
+.SH SCHEME
+.sp
+scmaster provides unsecured and secured connection which is addressed by the
+scheme values \fIscmp\fP and \fIscmps\fP, respectively, in \fBconnection.server\fP
+when connecting to the messaging.
+Read the concepts section for more details. \fIscmps\fP
+is in use when configuring \fI\%interface.ssl.bind\fP\&.
+.SH DATABASE ACCESS
+.sp
+scmaster reads from and writes to the database and reports the database connection
+to the clients of the messaging system (compare with the concepts section).
+.sp
+The database is configured per queue.
+When running all \fISeisComP\fP modules on a single machine, the read and write
+parameters are typically configured with \fIlocalhost\fP as a \fIhost name\fP\&.
+.sp
+Example:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+queues.production.processors.messages.dbstore.read = sysop:sysop@localhost/seiscomp
+queues.production.processors.messages.dbstore.write = sysop:sysop@localhost/seiscomp
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+However, if the clients are
+located on machines different from the messaging, the \fIhost name\fP of the read parameter
+must be available on the client machine and the client machine must be able to
+connect to the host with its name. If the database is on the same machine as the
+messaging, the \fIhost name\fP of the write connection typically remains \fIlocalhost\fP\&.
+.sp
+Example for connecting clients on computerB to the messaging on computerA (compare
+with the concepts section).
+.INDENT 0.0
+.IP \(bu 2
+Configuration of scmaster on computerA:
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+queues.production.processors.messages.dbstore.read = sysop:sysop@computerA/seiscomp
+queues.production.processors.messages.dbstore.write = sysop:sysop@localhost/seiscomp
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Global configuration of client on computerB:
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+connection.server = computerA/production
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
 .SH CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
@@ -257,7 +347,7 @@ clients.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B queues.$name.processors.messages.dbstore.strictVersionCheck
+.B queues.$name.processors.messages.dbstore.strictVersionMatch
 Type: \fIboolean\fP
 .sp
 If enabled, the plugin will check the database schema version and refuse to start

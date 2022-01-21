@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -119,7 +119,7 @@ maximum amplitude per row:</p>
 </ul>
 </li>
 </ol>
-<ol class="arabic" id="scheli-capture">
+<ol class="arabic" id="scheli-capture" start="2">
 <li><p><strong>Capture mode - Image capturing:</strong></p>
 <p>Capture the helicorder plot for 3 stations in intervals of 10 seconds.
 The data is retrieved using seedlink and the plots are stored as PNG images.
@@ -221,6 +221,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
 <dt id="confval-heli.lineWidth">
 <code class="sig-name descname">heli.lineWidth</code><a class="headerlink" href="#confval-heli.lineWidth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>integer</em></p>
+<p>Unit: <em>px</em></p>
 <p>Line width of traces.
 Default is <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
 </dd></dl>
@@ -260,7 +261,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">true</sp
 <code class="sig-name descname">heli.amplitudeRange.scaling</code><a class="headerlink" href="#confval-heli.amplitudeRange.scaling" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Define the method to scale traces within rows. Possible values are:</p>
-<p>minmax: Scale all rows to confiugured minimum and maximum
+<p>minmax: Scale all rows to configured minimum and maximum
 amplitudes configured by amplitudeRange.min and amplitudeRange.max.</p>
 <p>row: Scale each row to the maximum within this row.
 Default is <code class="docutils literal notranslate"><span class="pre">minmax</span></code>.</p>
@@ -270,6 +271,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">minmax</
 <dt id="confval-heli.amplitudeRange.min">
 <code class="sig-name descname">heli.amplitudeRange.min</code><a class="headerlink" href="#confval-heli.amplitudeRange.min" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
+<p>Unit: <em>unit of input data</em></p>
 <p>Minimum amplitude to show in trace. Requires
 amplitudeRange.scale = “minmax”.
 Default is <code class="docutils literal notranslate"><span class="pre">-0.00001</span></code>.</p>
@@ -279,6 +281,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">-0.00001
 <dt id="confval-heli.amplitudeRange.max">
 <code class="sig-name descname">heli.amplitudeRange.max</code><a class="headerlink" href="#confval-heli.amplitudeRange.max" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
+<p>Unit: <em>unit of input data</em></p>
 <p>Minimum amplitude to show in trace. Requires
 amplitudeRange.scale = “minmax”.
 Default is <code class="docutils literal notranslate"><span class="pre">0.00001</span></code>.</p>
@@ -610,7 +613,15 @@ is not given “<a class="reference external" href="file://">file://</a>” is u
 <dl class="option">
 <dt id="cmdoption-scheli-gain">
 <code class="sig-name descname">--gain</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scheli-gain" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gain applied to the data before plotting. Units: counts/unit</p>
+<dd><p>Gain applied to the data before plotting</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scheli-amp-scaling">
+<code class="sig-name descname">--amp-scaling</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scheli-amp-scaling" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lower bound of amplitude range per row. Possible values:</p>
+<p>minmax: Scale all rows to configured minimum and maximum amplitudes.</p>
+<p>row: Scale each row to the maximum within this row.</p>
 </dd></dl>
 
 <dl class="option">
@@ -685,7 +696,8 @@ is not given “<a class="reference external" href="file://">file://</a>” is u
 <dl class="option">
 <dt id="cmdoption-scheli-o">
 <code class="sig-name descname">-o</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scheli-o" title="Permalink to this definition">¶</a></dt>
-<dd><p>Output filename (placeholders: %N,%S,%L,%C)</p>
+<dd><p>Output filename. Placeholders are %N,%S,%L,%C for network code,
+station code, location code, channel code.</p>
 </dd></dl>
 
 <dl class="option">
@@ -763,7 +775,7 @@ Unit: seconds.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

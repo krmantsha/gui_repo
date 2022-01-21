@@ -41,7 +41,7 @@
 						P pick.
 						</description>
 					</parameter>
-					<parameter name="filter" type="string" default="&quot;BW(3,3,8)&quot;">
+					<parameter name="filter" type="string" default="&quot;RMHP(1)>>ITAPER(2)>>BW(3,3,8)&quot;">
 						<description>
 						Filter applied on the raw horizontal traces to compute
 						the L2 trace. As a minimum remove offsets. S-AIC-V,

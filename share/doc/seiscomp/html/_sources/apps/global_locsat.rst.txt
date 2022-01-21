@@ -109,14 +109,7 @@ Configuration
    Type: *list:string*
 
    Defines a list of available LOCSAT travel\-time tables.
-   Default is ``iasp91,tab``.
-
-.. confval:: LOCSAT.enableConfidenceEllipsoid
-
-   Type: *boolean*
-
-   Compute the confidence ellipsoid.
-   Default is ``false``.
+   Default is ``iasp91, tab``.
 
 .. confval:: LOCSAT.depthInit
 
@@ -126,6 +119,17 @@ Configuration
 
    The initial depth estimate for LOCSAT.
    Default is ``20.0``.
+
+.. confval:: LOCSAT.usePickUncertainties
+
+   Type: *boolean*
+
+   Whether to use pick time untertainties for arrival deltim rather
+   than a fixed time error. If true then the uncertainties are
+   retrieved from each individual pick object. If they are not
+   defined then the default pick time uncertainty will be used
+   as fallback.
+   Default is ``false``.
 
 .. confval:: LOCSAT.defaultTimeError
 
@@ -139,17 +143,6 @@ Configuration
    errors of the SVD decomposition in LOCSAT.
    Default is ``1.0``.
 
-.. confval:: LOCSAT.usePickUncertainties
-
-   Type: *boolean*
-
-   Whether to use pick time untertainties for arrival deltim rather
-   than a fixed time error. If true then the uncertainties are
-   retrieved from each individual pick object. If they are not
-   defined then the default pick time uncertainty will be used
-   as fallback.
-   Default is ``false``.
-
 .. confval:: LOCSAT.degreesOfFreedom
 
    Type: *int*
@@ -161,6 +154,13 @@ Configuration
 
    Type: *double*
 
-   Confidence level between 0.5 and 1.
+   Confidence level between 0.5 and 1.0.
    Default is ``0.9``.
+
+.. confval:: LOCSAT.enableConfidenceEllipsoid
+
+   Type: *boolean*
+
+   Compute the confidence ellipsoid from covariance matrix in 3D.
+   Default is ``false``.
 

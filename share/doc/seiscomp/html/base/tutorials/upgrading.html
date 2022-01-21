@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -518,6 +518,31 @@ grep -A <span class="m">2</span> ^station <span class="nv">$SEISCOMP_ROOT</span>
 <span class="k">done</span>
 </pre></div>
 </div>
+<div class="section" id="downsampling-data-with-chain-plugin">
+<h3>Downsampling data with chain_plugin<a class="headerlink" href="#downsampling-data-with-chain-plugin" title="Permalink to this headline">¶</a></h3>
+<p>Since SeisComP3 in version Jakarta-2020.030 and SeisComP in version 4.0.0, SeedLink stream processors (“proc” parameter) can be attached to both, stations and plugin instances. In order to distinguish between the two cases, either <code class="docutils literal notranslate"><span class="pre">proc</span></code> (attach to station) or <code class="docutils literal notranslate"><span class="pre">sources.*.proc</span></code> (attach to plugin instance) parameter (or both) can be used in SeedLink bindings.</p>
+<p>Stream processor is an object defined in XML, which is used to create MiniSEED from raw data and optionally downsample the data. What is the difference between attaching a stream processor to station and plugin instance?</p>
+<p>Let’s take a look at the following stream processor definition in $SEISCOMP_ROOT/share/templates/seedlink/streams_stream100.tpl:</p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;proc</span> <span class="na">name=</span><span class="s">&quot;stream100&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;tree&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">&quot;Z&quot;</span> <span class="na">channel=</span><span class="s">&quot;Z&quot;</span> <span class="na">location=</span><span class="s">&quot;&quot;</span> <span class="na">rate=</span><span class="s">&quot;100&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">&quot;N&quot;</span> <span class="na">channel=</span><span class="s">&quot;N&quot;</span> <span class="na">location=</span><span class="s">&quot;&quot;</span> <span class="na">rate=</span><span class="s">&quot;100&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">&quot;E&quot;</span> <span class="na">channel=</span><span class="s">&quot;E&quot;</span> <span class="na">location=</span><span class="s">&quot;&quot;</span> <span class="na">rate=</span><span class="s">&quot;100&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;node</span> <span class="na">filter=</span><span class="s">&quot;FS2D5&quot;</span> <span class="na">stream=</span><span class="s">&quot;BH&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;node</span> <span class="na">filter=</span><span class="s">&quot;F96C&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;node</span> <span class="na">filter=</span><span class="s">&quot;ULP&quot;</span> <span class="na">stream=</span><span class="s">&quot;LH&quot;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;node</span> <span class="na">filter=</span><span class="s">&quot;VLP&quot;</span> <span class="na">stream=</span><span class="s">&quot;VH&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/node&gt;</span>
+      <span class="nt">&lt;/node&gt;</span>
+    <span class="nt">&lt;/node&gt;</span>
+  <span class="nt">&lt;/tree&gt;</span>
+<span class="nt">&lt;/proc&gt;</span>
+</pre></div>
+</div>
+<p>This creates 20Hz BH*, 1Hz LH* and 0.1Hz VH* streams from 100Hz Z, N, E raw data. If one plugin instance is used for the station, it does not make a difference whether this is attached to station or plugin instance. But suppose the station is using two plugin instances—one for broad-band and the other for strong-motion data—, both sending Z, N and E channels. Now if the stream processor is attached to station, data from both plugin instances would mixed up. We must attach a different stream processor to each plugin instance—one producing BH*, LH* and VH* and the other one producing BN* and so on.</p>
+<p>In case of chain_plugin, there is normally just one instance, so stream processors attached to this instance apply to all stations, which is normally not what we want. Therefore the chain_plugin does not support the <code class="docutils literal notranslate"><span class="pre">sources.*.proc</span></code> option.</p>
+<p>Before SeisComP3 in version Jakarta-2020.030 and SeisComP in version 4.0.0, stream processors were always attached to stations, even when <code class="docutils literal notranslate"><span class="pre">sources.*.proc</span></code> was used. This means when upgrading, <code class="docutils literal notranslate"><span class="pre">sources.chain.proc</span></code> must be renamed to <code class="docutils literal notranslate"><span class="pre">proc</span></code> and streams_*.tpl templates must be moved one level up, from $SEISCOMP_ROOT/seiscomp/share/templates/seedlink/chain/ to $SEISCOMP_ROOT/seiscomp/share/templates/seedlink/. Note that using a stream processor with chain_plugin makes sense only when raw data is generated (<span class="xref std std-ref">sources.chain.channels.unpack</span>).</p>
+</div>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
@@ -575,7 +600,10 @@ grep -A <span class="m">2</span> ^station <span class="nv">$SEISCOMP_ROOT</span>
 <li><a class="reference internal" href="#system-daemon">System daemon</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#upgrade-from-seiscomp3-jakarta-2018-327-or-before">Upgrade from SeisComP3 Jakarta-2018.327 or before</a></li>
+<li><a class="reference internal" href="#upgrade-from-seiscomp3-jakarta-2018-327-or-before">Upgrade from SeisComP3 Jakarta-2018.327 or before</a><ul>
+<li><a class="reference internal" href="#downsampling-data-with-chain-plugin">Downsampling data with chain_plugin</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
@@ -606,7 +634,7 @@ grep -A <span class="m">2</span> ^station <span class="nv">$SEISCOMP_ROOT</span>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

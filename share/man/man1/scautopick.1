@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCAUTOPICK" "1" "Jun 21, 2021" "4.6.1" "SeisComP"
+.TH "SCAUTOPICK" "1" "Jan 17, 2022" "4.8.4" "SeisComP"
 .SH NAME
 scautopick \- SeisComP Documentation
 .
@@ -34,69 +34,210 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 \fBMakes picks on waveforms.\fP
 .SH DESCRIPTION
 .sp
-scautopick searches for waveform anomalies in form of changes in amplitude.
-It basically applies a robust STA/LTA algorithm to the waveform streams which
-have been filtered before with a Butterworth filter of third order with corner
-frequencies of 0.7 and 2 Hz. Once the STA/LTA ratio reached a specific value
-(by default 3) for a particular stream, a pick is set to the time when this
-threshold is exceeded. Once the ratio reaches a factor of 3, a pick is created
-and the picker is set inactive. The picker is reactivated for this stream once
-the STA/LTA ratio falls to the value of 1.5.
+scautopick applies threshold monitoring by searching for waveform anomalies in
+form of changes in amplitudes. It is applied for detecting phase arrivals and
+and for measuring related amplitudes.
+.SH PHASE DETECTIONS
 .sp
-The second task of scautopick is to calculate amplitudes for given magnitude
-types where the time window starts at the pick time. For example mb is calculated
-for a fixed time window of 30s after the pick, mB for time window of 60s, for
-MLv a time window of 150s is estimated to make sure that S\-arrivals are inside
+scautopick detects phase onsets for generating picks\&. Initally
+it searches for P picks on the waveform streams defined by global bindings.
+.sp
+By default scautopick applies a robust STA/LTA detector
+(STALTA filter) to waveforms for detecting P phases. Other
+detection filters can be choosen from the list of SeisComP filters\&.
+The waveforms are typically pre\-filtered\&.
+Without further configuration a running\-mean highpass, a cosine taper and a Butterworth
+bandpass filter of third order with corner frequencies of 0.7 and 2 Hz are applied before
+the STALTA filter. The entire filter sequence is configurable by \fBfilter\fP,
+module configuration, or \fI\%detecFilter\fP, binding configuration.
+Once the STA/LTA ratio has reached a configurable threshold (by default 3) for a
+particular stream, a pick is set to the time when this
+threshold is exceeded (pick time) and the picker is set inactive. The picker is reactivated
+for this stream once the STA/LTA ratio falls to the value of 1.5 (default).
+.sp
+The trigger thresholds are configurable:
+.INDENT 0.0
+.IP \(bu 2
+Trigger on: \fI\%thresholds.triggerOn\fP in module configuration or
+\fI\%trigOn\fP in binding configuration,
+.IP \(bu 2
+Trigger off: \fI\%thresholds.triggerOff\fP, module configuration or \fI\%trigOff\fP,
+binding configuration.
+.UNINDENT
+.sp
+Following inital P\-phase detections a second\-stage P\-phase picker (post picker) and
+a S\-phase picker (secondary picker) can be applied. Configure \fI\%picker\fP,
+\fI\%spicker\fP and global bindings parameters accordingly.
+.SH SECOND-STAGE PICKERS AVAILABLE BY CONFIGURATION OF PICKER OR SPICKER
+.TS
+center;
+|l|l|l|l|.
+_
+T{
+picker name
+T}	T{
+picker
+T}	T{
+spicker
+T}	T{
+parameters in global bindings
+T}
+_
+T{
+AIC
+T}	T{
+x
+T}	T{
+T}	T{
+picker.AIC
+T}
+_
+T{
+BK
+T}	T{
+x
+T}	T{
+T}	T{
+picker.BK
+T}
+_
+T{
+S\-L2
+T}	T{
+T}	T{
+x
+T}	T{
+spicker.L2
+T}
+_
+.TE
+.sp
+After having detected a P phase, scautopick will not accept any further P detection
+until
+.INDENT 0.0
+.IP \(bu 2
+The amplitudes measured after filtering (\fBfilter\fP in module configuration
+or \fI\%detecFilter\fP in binding configuration) fall below the
+\fI\%thresholds.triggerOff\fP (module configuration) or \fI\%trigOff\fP
+(binding configuration) and
+.IP \(bu 2
+Amplitudes, A_{trigger}, measured after filtering reach or
+exceed a threshold determined by T_{minOffset} (\fI\%thresholds.minAmplOffset\fP),
+T_{dead} (\fI\%thresholds.deadTime\fP) and the amplitude of the
+previous pick, A_{prev}:
+.sp
+.ce
+A_{trigger} \ege T_{minOffset} + A_{prev} * exp\eleft(\-(dt/T_{dead})^2\eright)
+.ce 0
+.sp
+if T_{dead} > 0\&. Otherwise:
+.sp
+.ce
+A_{trigger} \ege T_{minOffset}
+.ce 0
+.sp
+Here, dt is the time passed since the last pick.
+T_{minOffset} (\fI\%thresholds.minAmplOffset\fP) is typically similar to
+the trigger threshold, \fI\%thresholds.triggerOn\fP (module configuration) or
+\fI\%trigOn\fP (binding configuration).
+.UNINDENT
+.SH AMPLITUDE MEASUREMENTS
+.sp
+The second task of scautopick is to calculate amplitudes of a given type for the
+corresponding magnitude type (see scamp for a list of amplitude types and
+scmag for the magnitude types). Such amplitudes are required by:
+.INDENT 0.0
+.IP \(bu 2
+scautoloc for associating phase picks and generating a source location
+.IP \(bu 2
+EEW (earthquake early warning) systems in order to provide raüid amplitudes for
+magnitudes as soon as source locations are available.
+.UNINDENT
+.sp
+The time window for measuring amplitudes starts at the pick time. The window
+length is constant and specific to the amplitude type. It can be adjusted in
+global bindings. For example mb is calculated
+for a fixed time window of 30 s after the pick, mB for time window of 60s, for
+MLv a time window of 150 s is estimated to make sure that S\-arrivals are inside
 this time window. The pre\-calculated amplitudes are sent out and received by
-the magnitude tool.
+the magnitude tool, scmag\&.
+The fixed time window poses a limitation to EEW system. Howver, a speed\-up is
+available with \fI\%amplitudes.enableUpdate\fP\&.
+Read the scamp documentation for more details on amplitude measurements.
+.SH MODES OF OPERATION
 .sp
 scautopick usually runs in the background connected to a real\-time data source
 such as Seedlink\&. This is referred to as online mode. Another
 option to run scautopick is on offline mode with files.
-.SH ONLINE MODE
+.SS Real\-time
 .sp
-In online mode the workflow draws like this:
+In real\-time mode the workflow draws like this:
 .INDENT 0.0
 .IP \(bu 2
-scautopick reads all of its bindings and subscribes to stations
-where \fI\%detecEnable\fP is set to \fBtrue\fP
+scautopick reads all of its binding parameters and subscribes to stations
+defined by global binding parameters where \fI\%detecEnable\fP is set to \fBtrue\fP\&.
 .IP \(bu 2
-the data time window requested from the data source is [system\-\fI\%leadTime\fP, NULL]
-meaning an open end time that causes Seedlink to stream real\-time data if no
-more data are in the buffers
+The data time window requested from the data source is [system\-\fI\%leadTime\fP, NULL]
+meaning an open end time that causes SeedLink to stream
+real\-time data if no more data are in the buffers.
 .IP \(bu 2
-each incoming record is filtered according to \fI\%detecFilter\fP
+Each incoming record is filtered according to \fI\%detecFilter\fP\&.
 .IP \(bu 2
-the samples are checked for exceedance of \fI\%trigOn\fP and in the positive
-case either a post picker (\fI\%picker\fP) is launched or a Pick object
-will be sent
+The samples are checked for exceedance of \fI\%trigOn\fP and in the positive
+case either a post picker (\fI\%picker\fP) is launched or a Pick
+object will be sent.
 .IP \(bu 2
-if \fI\%sendDetections\fP is set to \fBtrue\fP trigger will be sent in any
-case for e.g. debugging
+If \fI\%sendDetections\fP is set to \fBtrue\fP trigger will be sent in any
+case for e.g. debugging.
 .IP \(bu 2
-after the primary stage has finished (detector only or picker) a secondary
-picker will be launched if configured with \fI\%spicker\fP
+After the primary stage has finished (detector only or picker) secondary
+pickers will be launched if configured with \fI\%spicker\fP\&.
 .UNINDENT
 .sp
 These steps repeat for any incoming record.
-.SH OFFLINE MODE
+.sp
+To run scautopick in the background as a daemon module enable and start it
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+$ seiscomp enable scautopick
+$ seiscomp start scautopick
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+For executing on the command line simply call it with appropriate options, e.g.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+$ seiscomp exec scautopick \-h
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Non\-real\-time
 .sp
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
-Due to code changes in the file data source the command line option \fB\-\-playback\fP
-is essential otherwise a real\-time time window is set and all records are
-most likely filtered out.
+Due to code changes in the file data source, the command line option \fB\-\-playback\fP
+is essential for non\-real\-time operation. Otherwise a real\-time time window
+is set and all records are most likely filtered out.
 .UNINDENT
 .UNINDENT
 .sp
 To tune scautopick or to do playbacks it is helpful to run scautopick not with
-a real\-time data source but on a data set, e.g. a multiplexed sorted miniSEED
+a real\-time data source but on a defined data set, e.g. a multiplexed sorted miniSEED
 volume. scautopick will apply the same workflow as in online mode but the
 acquisition of data records has to change. If the input data (file) has been
-read scautopick will exit and furthermore it must not ask for a particular
+read, scautopick will exit and furthermore it must not ask for a particular
 time window, especially not for a real\-time time window. To accomplish that
-the command line parameter \fB\-\-playback\fP has to be used.
+the command line parameter \fB\-\-playback\fP has to be used. Example:
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -109,8 +250,21 @@ $ scautopick \-\-playback \-I data.mseed
 .UNINDENT
 .sp
 This call will process all records in \fBdata.mseed\fP for which bindings
-exist and send the results to the messaging. If all data records are processed
+exist and \fBsend the results to the messaging\fP\&. If all data records are processed,
 scautopick will exit. The processing steps are similar to the online mode.
+.sp
+Use the \fB\-\-ep\fP for offline processing \fBwithout messaging\fP\&. The results are
+printed in SCML format. Example:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+$ scautopick \-\-playback \-I data.mseed \-\-ep \-d [type]://[host]/[database] > picks.xml
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
 .SH CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
@@ -200,13 +354,19 @@ Type: \fIstring\fP
 Configures the picker to use. By default only a simple detections
 are emitted as picks. To enable real picking on a time window around
 the detection, an algorithm (plugin) can be defined with this parameter.
+Currently available is: "AIC", "BK" or
+"GFZ". More options may be available by plugins.
+Configure related parameters in global bindings.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B spicker
 Type: \fIstring\fP
 .sp
-Configures the secondary picker to use.
+Configures the secondary picker to use, e.g. for pick S\-phases.
+Currently available is: "S\-L2". More options may
+be available by plugins. Configure related parameters
+in global bindings.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -239,10 +399,11 @@ Default is \fBtrue\fP\&.
 .B sendDetections
 Type: \fIboolean\fP
 .sp
-If enabled and "picker" is configured, then detections are sent as well.
-To distinguish between detections and picks the evaluation mode of the pick is set
-to manual. This is meant to be a debug option which can be used to compare detections
-and picks by their evaluation mode.
+If enabled and "picker" is configured, then initial detections
+are sent as well. To distinguish between detections and picks
+the evaluation status of the pick is set to "rejected".
+This is meant to be a debug option which can be used to compare
+detections and picks by their evaluation status.
 Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
@@ -250,7 +411,8 @@ Default is \fBfalse\fP\&.
 .B extraPickComments
 Type: \fIboolean\fP
 .sp
-If enabled and picker or spicker is configured, then extra comments
+If enabled and "picker" or "spicker" is
+configured, then extra comments
 will be added to the resulting pick.
 .sp
 Supported comments:
@@ -320,7 +482,9 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
-The dead time in seconds.
+The time used together with measured amplitude and
+\fIthresholds.minAmplOffset\fP for scaling the amplitude below which
+the picker is inactive after a P pick. Read the documentation!
 Default is \fB30\fP\&.
 .UNINDENT
 .INDENT 0.0
@@ -328,6 +492,10 @@ Default is \fB30\fP\&.
 .B thresholds.minAmplOffset
 Type: \fIdouble\fP
 .sp
+The amplitude used together with measured amplitude and
+\fIthresholds.deadTime\fP for scaling the amplitude below which
+the picker is inactive after a P pick. The value is typically
+similar to the trigger threshold. Read the documentation!
 Default is \fB3\fP\&.
 .UNINDENT
 .INDENT 0.0

@@ -26,7 +26,6 @@ from seiscomp3 import Core, DataModel, Logging, IO
 from seiscomp3.Client import Application
 
 
-
 def str2time(timestring):
     """
     Liberally accept many time string formats and convert them to a
@@ -49,18 +48,24 @@ def str2time(timestring):
     t.fromString(timestring, fmt)
     return t
 
+
 class DumpPicks(Application):
     def __init__(self, argc, argv):
         Application.__init__(self, argc, argv)
         self.output = None
         self.originID = None
         self.bbox = None
-        self.tmin = None
-        self.tmax = None
         self.noamp = False
         self.automatic = False
         self.manual = False
+        self.checkInventory = False
         self.author = None
+        self.tmin = None
+        self.tmax = None
+        self.hours = None
+        self.start = None
+        self.network = None
+        self.station = None
 
         self.setMessagingEnabled(False)
         self.setDatabaseEnabled(True, True)
@@ -68,65 +73,73 @@ class DumpPicks(Application):
     def createCommandLineDescription(self):
         self.commandline().addGroup("Dump")
 
-        self.commandline().addStringOption("Dump", "hours", "Start search hours before now. If set, --time-window and --start are ignored")
+        self.commandline().addStringOption(
+            "Dump", "hours", "Start search hours before now. If set, "
+            "--time-window and --start are ignored.")
 
-        self.commandline().addStringOption("Dump", "start", "Start time of search until now. If set, --time-window is ignored.")
+        self.commandline().addStringOption(
+            "Dump", "start", "Start time of search until now. If set, "
+            "--time-window is ignored.")
 
         self.commandline().addStringOption(
             "Dump", "time-window,t",
-            "specify time window (as one -properly quoted- string) "\
-            "times are of course UTC and separated by a tilde '~'"\
+            "Specify time window (as one -properly quoted- string) "
+            "times are of course UTC and separated by a tilde '~'"
             "Uses: 1970-01-01 00:00:00 to now if not set.")
 
         self.commandline().addStringOption(
-            "Dump"," output,o", "output file (default is stdout)")
+            "Dump", "output,o", "Output file (default is stdout).")
 
         self.commandline().addStringOption(
-            "Dump", "region,r", "region rect \"lat0,lon0,lat1,lon1\"\nlatitude [degree]: "\
-            "-90 - +90\nlongitude [degree]: -180 - +180 or +0 - +360\n"\
+            "Dump", "region,r", "region rect \"lat0,lon0,lat1,lon1\"\nlatitude [degree]: "
+            "-90 - +90\nlongitude [degree]: -180 - +180 or +0 - +360\n"
             "Uses: \"-90,-180,90,180\" if not set.")
 
         self.commandline().addOption(
-            "Dump", "check-inventory,c", "Dump picks only when correspondig streams are found in inventory")
+            "Dump", "check-inventory,c", "Dump picks only when corresponding "
+            "streams are found in inventory.")
 
         self.commandline().addStringOption(
-            "Dump", "origin,O", "originID. Dump all "
-            "picks associated with the origin that has the originID")
+            "Dump", "origin,O", "Origin ID. Dump all "
+            "picks associated with the origin that has the given origin ID.")
 
         self.commandline().addOption(
-            "Dump", "manual,m", "Manual-only: Dump only manual picks")
+            "Dump", "manual,m", "Dump only manual picks.")
 
         self.commandline().addOption(
-            "Dump", "automatic,a", "Automatic-only: Dump only automatic picks")
+            "Dump", "automatic,a", "Dump only automatic picks.")
 
         self.commandline().addOption(
-            "Dump", "no-amp,n", "Do not dump amplitudes from picks. "\
-            "Amplitudes are not required for scanloc but for scautoloc.")
+            "Dump", "no-amp,n", "Do not dump amplitudes from picks. "
+            "Amplitudes are not required by scanloc.")
 
-        self.commandline().addStringOption("Dump", "author", "Filter picks by author")
+        self.commandline().addStringOption("Dump", "author", "Filter picks by author.")
+
+        self.commandline().addStringOption(
+            "Dump", "net-sta", "Filter picks and amplitudes by network code or "
+            "network and station code. Format: NET or NET.STA.")
 
     def printUsage(self):
 
-        print("\ndump_picks - read picks from database and dump them to a\
-              file or to standard output\n")
-        print("Usage: dump_picks [options]")
+        print('''Usage:
+  dump_picks [options]
+  
+Read picks from database and dump them to a file or to standard output.''')
+
         Application.printUsage(self)
 
-        print("Examples:\n=========")
-        print("\nDump all picks within a region and a period of time:")
-        print("dump_picks -t \"2016-01-20 13:52:00~2016-01-20 13:57:00\" -d localhost/seiscomp -r \"-90,-180,90,180\"")
+        print('''Examples:
+Dump all picks within a region and a period of time
+  dump_picks -t "2016-01-20 13:52:00~2016-01-20 13:57:00" -d localhost/seiscomp -r "-90,-180,90,180"
 
-        print("\nSearch 24 hours before now; dump only manual picks without amplitudes:")
-        print("dump_picks -d localhost/seiscomp --hours 24 -m -n\n")
+Search 24 hours before now. Only dump automatic picks from author
+"scautopick@host" without amplitudes
+  dump_picks -d localhost/seiscomp --hours 24 -a -n --author "scautopick@host"
+''')
 
     def init(self):
         if not Application.init(self):
             return False
-
-        self.tmin = False
-        self.tmax = False
-        self.hours = False
-        self.start = False
 
         try:
             self.output = self.commandline().optionString("output")
@@ -153,21 +166,24 @@ class DumpPicks(Application):
             try:
                 self.hours = float(self.commandline().optionString("hours"))
             except RuntimeError:
-                self.hours = False
+                self.hours = None
 
             try:
                 self.start = self.commandline().optionString("start")
             except RuntimeError:
-                self.start = False
+                self.start = None
 
             if self.hours:
-                Logging.debug("Time window set by hours option: ignoring all other time parameters")
-                self.tmin = str2time(str(datetime.datetime.utcnow() - datetime.timedelta(hours=self.hours)))
+                Logging.debug("Time window set by hours option: ignoring all "
+                              "other time parameters")
+                self.tmin = str2time(str(datetime.datetime.utcnow()
+                                         - datetime.timedelta(hours=self.hours)))
                 self.tmax = str2time(str(datetime.datetime.utcnow()))
-                self.start = False
+                self.start = None
 
             if self.start:
-                Logging.debug("Time window set by start option: ignoring --time-window")
+                Logging.debug("Time window set by start option: ignoring "
+                              "--time-window")
                 self.tmin = str2time(self.start)
                 self.tmax = str2time(str(datetime.datetime.utcnow()))
 
@@ -178,25 +194,27 @@ class DumpPicks(Application):
                         self.commandline().optionString("time-window").split("~"))
                     Logging.debug("Time window set by time-window option")
                 except RuntimeError:
-                    Logging.debug("No time window given - assuming 1970-01-01 00:00:00 til now")
+                    Logging.debug("No time window given - assuming 1970-01-01 00:00:00 till now")
                     self.tmin = str2time("1970-01-01 00:00:00")
                     self.tmax = str2time(str(datetime.datetime.utcnow()))
 
-            Logging.debug("Considered time window: %s - %s" % (str(self.tmin), str(self.tmax)))
+            Logging.debug("Considered time window: %s - %s" %
+                          (str(self.tmin), str(self.tmax)))
 
             if float(self.bbox[1]) > 180. or float(self.bbox[3]) > 180.:
                 self.bbox[1] = str(float(self.bbox[1]) - 180)
                 self.bbox[3] = str(float(self.bbox[3]) - 180)
 
         else:
-            Logging.debug("Search for picks is based on originID, ignoring region and time parameters.")
+            Logging.debug("Search for picks is based on originID, ignoring "
+                          "region and time parameters.")
 
         if self.commandline().hasOption("check-inventory"):
             self.checkInventory = True
             Logging.debug("Dump only picks for streams found in inventory")
         else:
             self.checkInventory = False
-            Logging.debug("Dump picks not considering the inventory")
+            Logging.debug("Do not consider inventory information")
 
         if self.commandline().hasOption("no-amp"):
             self.noamp = True
@@ -207,10 +225,10 @@ class DumpPicks(Application):
 
         if self.commandline().hasOption("manual"):
             self.manual = True
-            Logging.debug("Dump only manual picks")
+            Logging.debug("Dump only manual objects")
         else:
             self.manual = False
-            Logging.debug("Manual-only not considered.")
+            Logging.debug("Consider also manual objects")
 
         if self.commandline().hasOption("automatic"):
             if not self.manual:
@@ -222,19 +240,43 @@ class DumpPicks(Application):
                 return False
         else:
             self.automatic = False
-            Logging.debug("Automatic-only not considered.")
+            Logging.debug("Consider also automatic objects")
 
         try:
             self.author = self.commandline().optionString("author")
         except RuntimeError:
             self.author = None
 
+        try:
+            networkStation = self.commandline().optionString("net-sta")
+            Logging.debug("Filter objects by network / station code: {}".format(networkStation))
+        except RuntimeError:
+            networkStation = None
+
+        if networkStation:
+            try:
+                self.network = networkStation.split('.')[0]
+            except IndexError:
+                print("Error in network code '{}': Use '--net-sta' with "
+                      "format NET or NET.STA".format(networkStation),
+                      file=sys.stderr)
+                return False
+
+            try:
+                self.station = networkStation.split('.')[1]
+            except IndexError:
+                print("No station code given in '--net-sta {}' - using all "
+                      "stations from network".format(networkStation),
+                      file=sys.stderr)
+
         return True
 
     def run(self):
         db = self.database()
+
         def _T(name):
             return db.convertColumnName(name)
+
         def _time(time):
             return db.timeToString(time)
 
@@ -243,6 +285,7 @@ class DumpPicks(Application):
         dbq = self.query()
         ep = DataModel.EventParameters()
         picks = []
+        noAmps = 0
 
         if self.originID:
             for p in dbq.getPicks(self.originID):
@@ -263,12 +306,12 @@ class DumpPicks(Application):
                 q = "select distinct(PPick.%s), Pick.* " \
                     "from PublicObject as PPick, Pick, Network, Station, SensorLocation " \
                     "where PPick._oid=Pick._oid and Network._oid=Station._parent_oid and " \
-                          "Station._oid=SensorLocation._parent_oid and Station.%s >= %s and " \
-                          "Station.%s <= %s and Station.%s >= %s and Station.%s <= %s and " \
-                          "SensorLocation.%s=Pick.%s and SensorLocation.%s <= Pick.%s and " \
-                          "(SensorLocation.%s is null or SensorLocation.%s > Pick.%s) and " \
-                          "Station.%s=Pick.%s and Network.%s=Pick.%s and " \
-                          "Pick.%s >= '%s' and Pick.%s < '%s'" \
+                    "Station._oid=SensorLocation._parent_oid and Station.%s >= %s and " \
+                    "Station.%s <= %s and Station.%s >= %s and Station.%s <= %s and " \
+                    "SensorLocation.%s=Pick.%s and SensorLocation.%s <= Pick.%s and " \
+                    "(SensorLocation.%s is null or SensorLocation.%s > Pick.%s) and " \
+                    "Station.%s=Pick.%s and Network.%s=Pick.%s and " \
+                    "Pick.%s >= '%s' and Pick.%s < '%s'" \
                     "" % (_T("publicID"),
                           colLat, self.bbox[0], colLat, self.bbox[2], colLon,
                           self.bbox[1], colLon, self.bbox[3],
@@ -283,7 +326,7 @@ class DumpPicks(Application):
                 q = "select distinct(PPick.%s), Pick.* " \
                     "from PublicObject as PPick, Pick " \
                     "where PPick._oid=Pick._oid and " \
-                          "Pick.%s >= '%s' and Pick.%s < '%s'" \
+                    "Pick.%s >= '%s' and Pick.%s < '%s'" \
                     "" % (_T("publicID"),
                           _T("time_value"), self.tmin.toString(fmt),
                           _T("time_value"), self.tmax.toString(fmt))
@@ -295,7 +338,16 @@ class DumpPicks(Application):
                 q = q + " and Pick.evaluationMode = 'automatic' "
 
             if self.author:
-                q = q + " and Pick.%s = '%s' " % (_T("creationInfo_author"), self.author)
+                q = q + " and Pick.%s = '%s' " % (_T("creationInfo_author"),
+                                                  self.author)
+
+            if self.network:
+                q = q + " and Pick.%s = '%s' " % (_T("waveformID_networkCode"),
+                                                  self.network)
+
+            if self.station:
+                q = q + " and Pick.%s = '%s' " % (_T("waveformID_stationCode"),
+                                                  self.station)
 
             for p in dbq.getObjectIterator(q, DataModel.Pick.TypeInfo()):
                 picks.append(DataModel.Pick.Cast(p))
@@ -309,14 +361,14 @@ class DumpPicks(Application):
                     q = "select distinct(PAmplitude.%s), Amplitude.* " \
                         "from PublicObject as PAmplitude, Amplitude, PublicObject \
                         as PPick, Pick, Network, Station, SensorLocation " \
-                        "where PAmplitude._oid=Amplitude._oid and \
-                              PPick._oid=Pick._oid and Network._oid=Station._parent_oid and " \
-                              "Station._oid=SensorLocation._parent_oid and Station.%s >= %s and " \
-                              "Station.%s <= %s and Station.%s >= %s and Station.%s <= %s and " \
-                              "SensorLocation.%s=Pick.%s and SensorLocation.%s <= Pick.%s and " \
-                              "(SensorLocation.%s is null or SensorLocation.%s > Pick.%s) and " \
-                              "Station.%s=Pick.%s and Network.%s=Pick.%s and " \
-                              "Pick.%s >= '%s' and Pick.%s < '%s' and PPick.%s=Amplitude.%s" \
+                        "where PAmplitude._oid=Amplitude._oid and " \
+                        "PPick._oid=Pick._oid and Network._oid=Station._parent_oid and " \
+                        "Station._oid=SensorLocation._parent_oid and Station.%s >= %s and " \
+                        "Station.%s <= %s and Station.%s >= %s and Station.%s <= %s and " \
+                        "SensorLocation.%s=Pick.%s and SensorLocation.%s <= Pick.%s and " \
+                        "(SensorLocation.%s is null or SensorLocation.%s > Pick.%s) and " \
+                        "Station.%s=Pick.%s and Network.%s=Pick.%s and " \
+                        "Pick.%s >= '%s' and Pick.%s < '%s' and PPick.%s=Amplitude.%s" \
                         "" % (_T("publicID"),
                               colLat, self.bbox[0], colLat, self.bbox[2], colLon,
                               self.bbox[1], colLon, self.bbox[3],
@@ -343,9 +395,22 @@ class DumpPicks(Application):
                 if self.automatic:
                     q = q + " and Pick.evaluationMode = 'automatic' "
 
+                if self.author:
+                    q = q + " and Pick.%s = '%s' " % (_T("creationInfo_author"),
+                                                      self.author)
+
+                if self.network:
+                    q = q + " and Pick.%s = '%s' " % (_T("waveformID_networkCode"),
+                                                      self.network)
+
+                if self.station:
+                    q = q + " and Pick.%s = '%s' " % (_T("waveformID_stationCode"),
+                                                      self.station)
+
                 for a in dbq.getObjectIterator(q, DataModel.Amplitude.TypeInfo()):
                     amp = DataModel.Amplitude.Cast(a)
                     ep.add(amp)
+                    noAmps += 1
 
         ar = IO.XMLArchive()
         ar.create(self.output)
@@ -353,8 +418,10 @@ class DumpPicks(Application):
         ar.writeObject(ep)
         ar.close()
 
-        print("Saved %d picks" % len(picks), file=sys.stderr)
+        print("Saved: {:d} picks , {:d} amplitudes".format(len(picks), noAmps),
+              file=sys.stderr)
         return True
+
 
 def main(argv):
     app = DumpPicks(len(argv), argv)

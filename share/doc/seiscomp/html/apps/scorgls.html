@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -72,15 +72,16 @@
           
   <div class="section" id="scorgls">
 <span id="id1"></span><h1>scorgls<a class="headerlink" href="#scorgls" title="Permalink to this headline">¶</a></h1>
-<p><strong>List origin ids from database.</strong></p>
+<p><strong>List origin IDs from database.</strong></p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>scorgls lists all available origin ids within a given time range to stdout.
-Use <a class="reference internal" href="scevtls.html#scevtls"><span class="std std-ref">scevtls</span></a> for listing all event ids.</p>
+<p><em>scorgls</em> lists all available origin IDs within a given time range to stdout.</p>
+<p>Use <a class="reference internal" href="scevtls.html#scevtls"><span class="std std-ref">scevtls</span></a> for listing all event IDs. In extension to <span class="xref std std-ref">scevts</span> and scorgls
+<a class="reference internal" href="scquery.html#scquery"><span class="std std-ref">scquery</span></a> can search for parameters based on complex custom queries.</p>
 </div>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
-<p>Print all origin ids for the complete year 2012.</p>
+<p>Print all origin IDs for the complete year 2012.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scorgls -d mysql://sysop:sysop@localhost/seiscomp <span class="se">\</span>
         --begin <span class="s2">&quot;2012-01-01 00:00:00&quot;</span> <span class="se">\</span>
         --end <span class="s2">&quot;2013-01-01 00:00:00&quot;</span>
@@ -333,7 +334,7 @@ queried with “–db-driver-list”.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

@@ -235,31 +235,30 @@ class SC_GUI_API RecordWidget : public QWidget {
 		typedef Math::Filtering::InPlaceFilter<float> Filter;
 
 		struct Trace {
-			Trace() : timingQuality(-1), timingQualityCount(0) {
-				reset();
-			}
+			Trace() = default;
 
-			float                     dyMin;   // Data minimum value
-			float                     dyMax;   // Data maximum value
-			float                     dOffset; // Data offset
-			float                     absMax;
-			int                       pyMin;   //
-			int                       pyMax;
-			float                     fyMin;
-			float                     fyMax;
+			float                     dyMin{0};   // Data minimum value
+			float                     dyMax{0};   // Data maximum value
+			float                     dOffset{0}; // Data offset
+			float                     absMax{0};
+			int                       pyMin{0};   //
+			int                       pyMax{0};
+			float                     fyMin{-1};
+			float                     fyMax{1};
 
-			float                     yMin;
-			float                     yMax;
-			float                     yOffset; // The used offset
+			float                     yMin{0};
+			float                     yMax{0};
+			float                     yOffset{0}; // The used offset
 
-			float                     timingQuality;
-			int                       timingQualityCount;
-			bool                      dirty;
-			bool                      visible;
+			float                     timingQuality{-1};
+			int                       timingQualityCount{0};
+			bool                      dirty{false};
+			bool                      visible{false};
 			AbstractRecordPolylinePtr poly;
 
 			void reset() {
 				dyMin = dyMax = dOffset  = absMax = 0;
+				fyMin = -1; fyMax = 1;
 				pyMin = pyMax = 0;
 				visible = false;
 				poly = nullptr;
@@ -751,76 +750,76 @@ class SC_GUI_API RecordWidget : public QWidget {
 		Seiscomp::Core::Time _alignment;
 		bool                 _clipRows;
 	
-		double    _tmin;            // time range min
-		double    _tmax;            // time range max
-		double    _smin, _smax;     // selection
-		double    _pixelPerSecond;
-		float     _amplScale;       // pixel per amplitude unit (0=normalize)
-		double    _gridHSpacing[2];
-		double    _gridHOffset;
+		double               _tmin;            // time range min
+		double               _tmax;            // time range max
+		double               _smin, _smax;     // selection
+		double               _pixelPerSecond;
+		float                _amplScale;       // pixel per amplitude unit (0=normalize)
+		double               _gridHSpacing[2];
+		double               _gridHOffset;
 
-		double    _gridVRange[2];
-		double    _gridVSpacing[2];
-		double    _gridVOffset;
-		double    _gridVScale;
+		double               _gridVRange[2];
+		double               _gridVSpacing[2];
+		double               _gridVOffset;
+		double               _gridVScale;
 
-		float     _amplitudeRange[2];
-		bool      _useFixedAmplitudeRange;
-		bool      _useMinAmplitudeRange;
+		float                _amplitudeRange[2];
+		bool                 _useFixedAmplitudeRange;
+		bool                 _useMinAmplitudeRange;
 
-		bool      _active;
-		bool      _filtering;
-		bool      _showScaledValues;
-	
-		bool      _drawRecords;
-		bool      _drawRecordID;
-		bool      _drawOffset;
-		bool      _showAllRecords;
-		bool      _showRecordBorders;
-		bool      _autoMaxScale;
-		bool      _enabled;
-		bool      _useGlobalOffset;
-		bool      _drawAxis;
+		bool                 _active;
+		bool                 _filtering;
+		bool                 _showScaledValues;
 
-		int          _tracePaintOffset;
-		int          _axisWidth;
-		AxisPosition _axisPosition;
-		int          _axisSpacing;
-		int          _rowSpacing;
+		bool                 _drawRecords;
+		bool                 _drawRecordID;
+		bool                 _drawOffset;
+		bool                 _showAllRecords;
+		bool                 _showRecordBorders;
+		bool                 _autoMaxScale;
+		bool                 _enabled;
+		bool                 _useGlobalOffset;
+		bool                 _drawAxis;
 
-		StreamMap _streams;
-		int       _currentSlot;
-		int       _requestedSlot;
-		int       _maxFilterSlot;
-		int       _currentCursorYPos;
-		int       _valuePrecision;
+		int                  _tracePaintOffset;
+		int                  _axisWidth;
+		AxisPosition         _axisPosition;
+		int                  _axisSpacing;
+		int                  _rowSpacing;
 
-		QColor    _customBackgroundColor;
-		bool      _hasCustomBackground;
+		StreamMap            _streams;
+		int                  _currentSlot;
+		int                  _requestedSlot;
+		int                  _maxFilterSlot;
+		int                  _currentCursorYPos;
+		int                  _valuePrecision;
+
+		QColor               _customBackgroundColor;
+		bool                 _hasCustomBackground;
 
 		Seiscomp::DataModel::WaveformStreamID _streamID;
 
 		QVector<RecordMarker*> _marker;
-		RecordMarker* _activeMarker;
-		RecordMarker* _hoveredMarker;
+		RecordMarker        *_activeMarker;
+		RecordMarker        *_hoveredMarker;
 
-		QScrollBar *_scrollBar;
+		QScrollBar          *_scrollBar;
 
-		QRect _canvasRect;
-		int _margins[4];
-		QString _cursorText;
+		QRect                _canvasRect;
+		int                  _margins[4];
+		QString              _cursorText;
 		Seiscomp::Core::Time _cursorPos;
 		Seiscomp::Core::Time _startDragPos;
 
 		Seiscomp::Core::TimeWindow _normalizationWindow;
 		Seiscomp::Core::TimeWindow _offsetWindow;
 
-		RecordWidget *_shadowWidget;
-		RecordWidget *_markerSourceWidget;
+		RecordWidget        *_shadowWidget;
+		RecordWidget        *_markerSourceWidget;
 
 		RecordWidgetDecorator *_decorator;
 
-		int                    _shadowWidgetFlags;
+		int                  _shadowWidgetFlags;
 };
 
 

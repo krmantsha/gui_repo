@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -75,53 +75,56 @@
 </div>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>In SeisComP the term <a class="reference internal" href="../glossary.html#term-inventory"><span class="xref std std-term">inventory</span></a> refers to the meta data of data recording stations.
-Many SeisComP applications require inventory information to operate correctly.
+<p>In <cite>SeisComP</cite> the term <a class="reference internal" href="../glossary.html#term-inventory"><span class="xref std std-term">inventory</span></a> refers to the meta data of data recording
+stations.
+Many <cite>SeisComP</cite> applications require inventory information to operate correctly.
 The inventory will be read from the <a class="reference internal" href="database.html#concepts-database"><span class="std std-ref">database</span></a>
 by default. To insert or update the inventory in the database, this information
 needs to be created or downloaded and converted. The following sections will
 describe the process of populating the database and how applications get access
-to it. All SeisComP applications work the the internal inventory format also
+to it. All <cite>SeisComP</cite> applications work the the internal inventory format also
 known as SCML.</p>
-<p>The inventory shall contain all meta data describing the full recording system and the
+<p>The inventory shall contain all meta data describing the full recording system
+and the
 pre-processing of the raw data stream provided to the data processing modules
-using the <a class="reference internal" href="recordstream.html#concepts-recordstream"><span class="std std-ref">RecordStream</span></a>. Inventories should be always complete w.r.t the
+using the <a class="reference internal" href="recordstream.html#concepts-recordstream"><span class="std std-ref">RecordStream</span></a>. Inventories should be
+always complete w.r.t the
 processed data streams, correct and up-to-date. Beside network, station, location
 and stream information they must include the full sensor and datalogger responses.</p>
 <p>Older version used key files to configure available networks and stations.
-Because the support of response meta-data was very limited, tools were build to add
-this functionality. Since the release of Seattle the concept of key files for station meta-data has
-been completely removed from the system. Now SeisComP only handles station meta-data in its
-own XML format called <strong>inventory ML</strong>.
+Because the support of response meta-data was very limited, tools were build to
+add this functionality. Since the release of Seattle the concept of key files
+for station meta-data has been completely removed from the system. Now <cite>SeisComP</cite>
+only handles station meta-data in its own XML format called <a class="reference internal" href="../glossary.html#term-scml"><span class="xref std std-term">SCML</span></a>.
 The task of supporting old key files, dataless SEED and other formats has been
 out-sourced to external applications. The inventory synchronization is a
 <a class="reference internal" href="#config-fig-inventory-sync"><span class="std std-ref">two-stage process</span></a>:</p>
 <ol class="arabic simple">
-<li><p>Convert external formats into inventory ML</p></li>
+<li><p>Convert <a class="reference internal" href="#concepts-inventory-format"><span class="std std-ref">external formats</span></a> into <a class="reference internal" href="../glossary.html#term-scml"><span class="xref std std-term">SCML</span></a></p></li>
 <li><p>Synchronize inventory pool with the database: merged all inventory files and
-synchronize with the database using <strong class="program">seiscomp update-config</strong>.</p></li>
+synchronize with the database using <strong class="program">scinv snyc</strong>.</p></li>
 </ol>
 <div class="figure align-center" id="id1">
 <span id="config-fig-inventory-sync"></span><img alt="../../_images/inventory-sync.png" src="../../_images/inventory-sync.png" />
 <p class="caption"><span class="caption-text">Inventory synchronization as a two-stage process</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 <p>All station meta-data are stored in <code class="file docutils literal notranslate"><span class="pre">etc/inventory</span></code>
-and can be organized as needed. Either one file per network, a file containing the complete inventory
-or one file for all instruments and one file per station. The update script</p>
+and can be organized as needed. Either one file per network, a file containing the
+complete inventory or one file for all instruments and one file per station.
+The update script</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>scinv sync
 </pre></div>
 </div>
 <p>loads the existing inventory from the database and merges each file in <code class="file docutils literal notranslate"><span class="pre">etc/inventory</span></code>.
-Finally it removes all unreferenced
-objects and sends all updates to the database.</p>
-<p>The SeisComP <a class="reference internal" href="modules.html#concepts-modules"><span class="std std-ref">configuration</span></a> does not deal with station meta-data anymore.
+Finally it removes all unreferenced objects and sends all updates to the database.</p>
+<p>The <cite>SeisComP</cite> <a class="reference internal" href="modules.html#concepts-modules"><span class="std std-ref">configuration</span></a> does not deal with station meta-data anymore.
 It only configures parameters for modules and module-station associations.
 The management of the inventory can and should be handled by external tools, e.g. <a class="reference external" href="https://smp.gempa.de/">SMP</a> <a class="footnote-reference brackets" href="#id2" id="id3">1</a>.</p>
-<p>The SeisComP documentation describes the data model including the
+<p>The <cite>SeisComP</cite> documentation describes the data model including the
 <span class="xref std std-ref">inventory</span>.</p>
 </div>
 <div class="section" id="inventory-format">
-<h2>Inventory format<a class="headerlink" href="#inventory-format" title="Permalink to this headline">¶</a></h2>
+<span id="concepts-inventory-format"></span><h2>Inventory format<a class="headerlink" href="#inventory-format" title="Permalink to this headline">¶</a></h2>
 <p>A typical inventory file in SCML looks like this:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
 <span class="nt">&lt;seiscomp</span> <span class="na">xmlns=</span><span class="s">&quot;http://geofon.gfz-potsdam.de/ns/seiscomp-schema/0.11&quot;</span> <span class="na">version=</span><span class="s">&quot;0.11&quot;</span><span class="nt">&gt;</span>
@@ -134,23 +137,31 @@ The management of the inventory can and should be handled by external tools, e.g
 </pre></div>
 </div>
 <p>The version attribute of the <code class="docutils literal notranslate"><span class="pre">seiscomp</span></code> tag represents the schema version of
-the SeisComP data model which is consistent with the database schema version
+the <cite>SeisComP</cite> data model which is consistent with the database schema version
 and the version of all other representations.</p>
-<p>Inventories must be provided to SeisComP in XML files in SCML format. A convenient
-way to generate clean and correct inventory files in SCML format is <a class="reference external" href="https://smp.gempa.de/">SMP</a> <a class="footnote-reference brackets" href="#id2" id="id4">1</a>.
-Tools are provided to convert from other formats:</p>
+<p>Inventories must be provided to <cite>SeisComP</cite> in XML files in <a class="reference internal" href="../glossary.html#term-scml"><span class="xref std std-term">SCML</span></a> format. A
+convenient way to generate clean and correct inventory files in SCML format is
+<a class="reference external" href="https://smp.gempa.de/">SMP</a> <a class="footnote-reference brackets" href="#id2" id="id4">1</a>. Tools are provided to convert between other formats:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../../apps/fdsnxml2inv.html#fdsnxml2inv"><span class="std std-ref">fdsnxml2inv</span></a></p></li>
-<li><p><a class="reference internal" href="../../apps/dlsv2inv.html#dlsv2inv"><span class="std std-ref">dlsv2inv</span></a></p></li>
-<li><p><span class="xref std std-ref">arclink2inv</span></p></li>
+<li><p><span class="xref std std-ref">arclink2inv</span>: from Arclink XML to SeisComPML</p></li>
+<li><p><a class="reference internal" href="../../apps/dlsv2inv.html#dlsv2inv"><span class="std std-ref">dlsv2inv</span></a>: from dataless SEED to SeisComPML</p></li>
+<li><p><a class="reference internal" href="../../apps/inv2dlsv.html#inv2dlsv"><span class="std std-ref">inv2dlsv</span></a>: from SeisComPML to dataless SEED</p></li>
+<li><p><a class="reference internal" href="../../apps/fdsnxml2inv.html#fdsnxml2inv"><span class="std std-ref">fdsnxml2inv</span></a>: from FDSN StationXML to SeisComPML and back</p></li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All geographic coordinates (latitudes, longitudes, elevation) are assumed in the
+World Geodetic System 1984 (WGS84) reference system (National Imagery and
+Mapping Agency 2000). Latitudes, longitudes are provided in degrees but
+elevations are given in meters.</p>
+</div>
 </div>
 <div class="section" id="adding-updating-inventory">
 <h2>Adding/updating inventory<a class="headerlink" href="#adding-updating-inventory" title="Permalink to this headline">¶</a></h2>
-<p>To add inventory information to the SeisComP database one either has to write directly
-to the database with custom script (not recommended) or place SC ML files
-under <cite>etc/inventory</cite>. The service to import all data in that directory can
-be called with</p>
+<p>To add inventory information to the <cite>SeisComP</cite> database one either has to write directly
+to the database with custom script (not recommended) or place <a class="reference internal" href="../glossary.html#term-scml"><span class="xref std std-term">SCML</span></a> files
+in <code class="file docutils literal notranslate"><span class="pre">&#64;SYSTEMCONFIGDIR&#64;/inventory</span></code>. The service to import all data in that
+directory can be called with</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ seiscomp update-config inventory
 </pre></div>
 </div>
@@ -158,19 +169,20 @@ be called with</p>
 synchronizes the merged local inventory tree with the database. That is a
 rather complex process and for more information it is recommended to study
 the source code of <a class="reference internal" href="../../apps/scinv.html#scinv"><span class="std std-ref">scinv</span></a>. The bottom line is that inventory data is created
-from SC ML files.</p>
+from <a class="reference internal" href="../glossary.html#term-scml"><span class="xref std std-term">SCML</span></a> files.</p>
 <p>Because nobody will ever create such XML files by hand, tools are necessary.
 A quite popular tools is the online station management portal <a class="reference external" href="https://smp.gempa.de/">SMP</a> <a class="footnote-reference brackets" href="#id2" id="id5">1</a>.
-This tool will output SeisComP XML directly.</p>
-<p>Another source is the FDSN station webservice. If the SeisComP implementation
-is being run then the SeisComP XML format can be requested directly as an
-extension. Otherwise FDSN StationXML will be provided. That need to be converted
-with either <a class="reference internal" href="../../apps/fdsnxml2inv.html#fdsnxml2inv"><span class="std std-ref">fdsnxml2inv</span></a> or <a class="reference internal" href="../../apps/import_inv.html#import-inv"><span class="std std-ref">import_inv</span></a>. The latter is a more versatile
-application that also supports several import formats.</p>
+This tool will output XML in version of <a class="reference internal" href="../glossary.html#term-scml"><span class="xref std std-term">SCML</span></a> directly.</p>
+<p>Another source is the FDSN station webservice (FDSNWS). If the <cite>SeisComP</cite>
+implementation of FDSNWS is used, the SeisComP XML format can be requested
+directly as an extension. Otherwise FDSN StationXML will be provided. Inventory
+in FDSN StationXML needs to be converted with either <a class="reference internal" href="../../apps/fdsnxml2inv.html#fdsnxml2inv"><span class="std std-ref">fdsnxml2inv</span></a> or
+<a class="reference internal" href="../../apps/import_inv.html#import-inv"><span class="std std-ref">import_inv</span></a>. The latter is a more versatile application that also supports
+several import formats.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ import_inv fdsnxml download-1234.xml
 </pre></div>
 </div>
-<p>This will automatically place the output SC ML file in <code class="file docutils literal notranslate"><span class="pre">etc/inventory</span></code>.
+<p>This will automatically place the output SC ML file in <code class="file docutils literal notranslate"><span class="pre">&#64;SYSTEMCONFIGDIR&#64;/inventory</span></code>.
 <code class="docutils literal notranslate"><span class="pre">seiscomp</span> <span class="pre">update-config</span> <span class="pre">inventory</span></code> must be called afterwards to synchronize
 the changes with the database. If <code class="docutils literal notranslate"><span class="pre">scconfig</span></code> is being used then either the
 <code class="docutils literal notranslate"><span class="pre">Sync</span></code> button of the <cite>Inventory</cite> panel or the <code class="docutils literal notranslate"><span class="pre">Update</span> <span class="pre">configuration</span></code> button of
@@ -179,16 +191,16 @@ the <code class="docutils literal notranslate"><span class="pre">System</span></
 <p>In order to populate the database with inventory information, the following
 steps have to be performed:</p>
 <ul class="simple">
-<li><p>Convert existing station meta data formats to SC ML</p></li>
-<li><p>Place all SC ML files at <code class="file docutils literal notranslate"><span class="pre">etc/inventory</span></code></p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">seiscomp</span> <span class="pre">update-config</span></code> or <code class="docutils literal notranslate"><span class="pre">seiscomp</span> <span class="pre">update-config</span> <span class="pre">inventory</span></code></p></li>
+<li><p>Convert existing station meta data formats to <a class="reference internal" href="../glossary.html#term-scml"><span class="xref std std-term">SCML</span></a></p></li>
+<li><p>Place all <a class="reference internal" href="../glossary.html#term-scml"><span class="xref std std-term">SCML</span></a> files at <code class="file docutils literal notranslate"><span class="pre">&#64;SYSTEMCONFIGDIR&#64;/inventory</span></code></p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">scinv</span> <span class="pre">sync</span></code> or <code class="docutils literal notranslate"><span class="pre">seiscomp</span> <span class="pre">update-config</span> <span class="pre">inventory</span></code></p></li>
 </ul>
 </div>
 <div class="section" id="reading-inventory">
 <h2>Reading inventory<a class="headerlink" href="#reading-inventory" title="Permalink to this headline">¶</a></h2>
 <p>Application usually connect to the database and read the necessary inventory
 information. An application can decide whether it requires full response
-information (sensor and datalogger response functions) or just channel
+information (sensor and data logger response functions) or just channel
 information (without instrument descriptions). The latter performs faster and
 some applications do not full instrument information.</p>
 <p>An application does not require special configuration to read
@@ -287,7 +299,7 @@ using <a class="reference internal" href="../../apps/scxmldump.html#scxmldump"><
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

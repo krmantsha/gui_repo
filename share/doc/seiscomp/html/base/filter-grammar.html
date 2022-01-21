@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -295,6 +295,18 @@ filter. The weights are calculated according to parameter <cite>a</cite> in the 
 </dd></dl>
 
 <dl class="function">
+<dt id="MEDIAN">
+<code class="sig-name descname">MEDIAN</code><span class="sig-paren">(</span><em class="sig-param">timespan</em><span class="sig-paren">)</span><a class="headerlink" href="#MEDIAN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the median within the timespan preceeding the sample. Useful, e.g.
+for despiking. The delay due to the filter may be up to its timespan.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>timespan</strong> – The timespan in seconds</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="MIN">
 <code class="sig-name descname">MIN</code><span class="sig-paren">(</span><em class="sig-param">timespan</em><span class="sig-paren">)</span><a class="headerlink" href="#MIN" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the minimum within the timespan preceeding the sample.</p>
@@ -465,7 +477,7 @@ e.g. WA(1) is the simulation on velocity data.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

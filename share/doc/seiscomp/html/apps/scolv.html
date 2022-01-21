@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -74,37 +74,93 @@
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <div class="four column layout"><div class="figure align-default" id="id6">
 <img alt="scolv" src="../_images/scolv-location.png" />
-<p class="caption"><span class="caption-text">scolv: OriginLocatorView Location tab with event and phase information</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">scolv: OriginLocatorView <a class="reference internal" href="#scolv-sec-location-tab"><span class="std std-ref">Location tab</span></a>
+with event and phase information</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
 <div class="figure align-default" id="id7">
 <img alt="scolv picker" src="../_images/scolv-picker.png" />
-<p class="caption"><span class="caption-text">scolv: OriginLocatorView phase picker with waveforms and phase information</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">scolv: OriginLocatorView <a class="reference internal" href="#scolv-sec-waveform-review"><span class="std std-ref">phase picker</span></a>
+with waveforms and phase information</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
 </div>
 <div class="figure align-default" id="id8">
 <img alt="scolv picker" src="../_images/scolv-event.png" />
-<p class="caption"><span class="caption-text">scolv: OriginLocatorView Event tab with all origins</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">scolv: OriginLocatorView <a class="reference internal" href="#fig-scolv-event"><span class="std std-ref">Event tab</span></a> with all origins</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </div>
 <div class="figure align-default" id="id9">
 <img alt="scolv picker" src="../_images/scolv-magnitude-picker.png" />
-<p class="caption"><span class="caption-text">scolv: OriginLocatorView amplitude waveform review with station magnitudes</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">scolv: OriginLocatorView <a class="reference internal" href="#scolv-sec-amplitude-review"><span class="std std-ref">amplitude waveform review</span></a>
+with station magnitudes</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
-</div><p>scolv is the main interactive tool to revise or review the origin information
-such as picks, location, depth, time, magnitudes and event association.
-Therefore, scolv is divided into 6 main logical units (main window with tabs and external windows):</p>
+</div><p>scolv is the main interactive tool to revise or review origin and event information.
+It thus provides the entire functionality to analyze earthquake parameters:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#scolv-sec-location-tab"><span class="std std-ref">Location:</span></a> (tab) Details of the selected <a class="reference internal" href="../base/glossary.html#term-origin"><span class="xref std std-term">origin</span></a></p></li>
-<li><p><a class="reference internal" href="#scolv-sec-magnitude-tab"><span class="std std-ref">Magnitudes:</span></a> (tab) Magnitude details of the selected origin</p></li>
-<li><p><a class="reference internal" href="#fig-scolv-event"><span class="std std-ref">Event:</span></a> (tab) Origins and focal mechanisms referenced by the selected <a class="reference internal" href="../base/glossary.html#term-event"><span class="xref std std-term">event</span></a></p></li>
-<li><p><a class="reference internal" href="#fig-scolv-events"><span class="std std-ref">Events:</span></a> (tab) Table of event parameters of the loaded events</p></li>
-<li><p><a class="reference internal" href="#scolv-sec-waveform-review"><span class="std std-ref">Phase picker:</span></a> (external window) Waveform review for phase picking</p></li>
-<li><p><a class="reference internal" href="#scolv-sec-amplitude-review"><span class="std std-ref">Amplitude waveform review:</span></a> (external window)
+<li><p>Phase picks and arrivals in diagrams and waveforms</p></li>
+<li><p>Hypocenter location and source time with uncertainties</p></li>
+<li><p>Focal mechanism from first-motion polarities</p></li>
+<li><p>Magnitudes in diagrams and waveforms</p></li>
+<li><p>Origin status and certainty</p></li>
+<li><p>Event association</p></li>
+<li><p>Event type</p></li>
+</ul>
+<p>The main scolv window is divided into 4 perspectives (tabs) from which external windows
+can be opened:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#scolv-sec-location-tab"><span class="std std-ref">Location tab</span></a>: Details of the selected <a class="reference internal" href="../base/glossary.html#term-origin"><span class="xref std std-term">origin</span></a> with</p>
+<ul>
+<li><p><a class="reference internal" href="#scolv-sec-waveform-review"><span class="std std-ref">Phase picker</span></a> (external window): Review
+waveforms for phase picking including polarities, uncertainties, spectra and
+spectrograms,</p></li>
+<li><p><a class="reference internal" href="#scolv-sec-commit"><span class="std std-ref">Extended commit</span></a> (external window): Commit solution
+with additional options.</p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#scolv-sec-magnitude-tab"><span class="std std-ref">Magnitudes tab</span></a>: Magnitude details of the
+selected origin with</p>
+<ul>
+<li><p><a class="reference internal" href="#scolv-sec-amplitude-review"><span class="std std-ref">Amplitude waveform review</span></a> (external window):
 Waveform review for measuring amplitudes and for computing magnitudes.</p></li>
 </ul>
-<p>scolv provides the whole functionality to review and revise earthquake
-parameters.</p>
+</li>
+<li><p><a class="reference internal" href="#fig-scolv-event"><span class="std std-ref">Event tab</span></a>: Origins and focal mechanisms referenced
+by the selected <a class="reference internal" href="../base/glossary.html#term-event"><span class="xref std std-term">event</span></a>.</p></li>
+<li><p><a class="reference internal" href="#fig-scolv-events"><span class="std std-ref">Events tab</span></a>: Table of event parameters of the loaded
+events with interactive filtering of database requests and loaded events.</p></li>
+</ul>
+</div>
+<div class="section" id="modes-of-operation">
+<h2>Modes of Operation<a class="headerlink" href="#modes-of-operation" title="Permalink to this headline">¶</a></h2>
+<p>scolv can be operated in 2 modes:</p>
+<ul>
+<li><p><strong>Connected to the messaging</strong> where all event and station inventory parameters
+are received from the <a class="reference internal" href="../base/concepts/messaging.html#concepts-messaging"><span class="std std-ref">messaging</span></a> or the database and
+<em>updated in real time</em>. New or updated
+parameters can be commited to the messaging. Simply start scolv without any argument
+or connect to a specific host providing the messaging, e.g.:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>scolv
+scolv -H [host]
+</pre></div>
+</div>
+</li>
+<li><p><strong>Offline without messaging</strong> where all event and station
+inventory parameters are read from an XML files or from the database and
+<em>updated interactively</em>. New or updated parameters can be written to an XML file.
+Open scolv with the option
+<code class="xref std std-option docutils literal notranslate"><span class="pre">--offline</span></code> and optionally provide the database or inventory and bindings
+parameters in <a class="reference internal" href="../base/glossary.html#term-scml"><span class="xref std std-term">SCML</span></a> format to fetch event parameters as well as inventory
+and bindings configuration parameters. Examples:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>scolv --offline
+scolv --offline -d [database]
+scolv --offline --inventory-db [inventory] --config-db [config]
+</pre></div>
+</div>
+<p>Select one XML file in the <cite>File</cite> menu to read event parameters.
+After processing, the parameters can be saved to another XML file though the
+<cite>File</cite> menu.</p>
+</li>
+</ul>
 </div>
 <div class="section" id="location-tab">
-<span id="scolv-sec-location-tab"></span><h2>Location tab<a class="headerlink" href="#location-tab" title="Permalink to this headline">¶</a></h2>
+<span id="scolv-sec-location-tab"></span><h2>Location Tab<a class="headerlink" href="#location-tab" title="Permalink to this headline">¶</a></h2>
 <p>The Location tab shows detailed information of the associated
 phases and the residuals from the chosen origin additional information about the
 hypocenter, time, station distribution, helps to find outlier.</p>
@@ -448,7 +504,7 @@ all available magnitudes are shown and can be interactively re-processed
 in the <a class="reference internal" href="#scolv-sec-magnitude-tab"><span class="std std-ref">magnitudes tab</span></a>.</p>
 </div>
 <div class="section" id="commit-a-solution">
-<h3>Commit a solution<a class="headerlink" href="#commit-a-solution" title="Permalink to this headline">¶</a></h3>
+<span id="scolv-sec-commit"></span><h3>Commit a solution<a class="headerlink" href="#commit-a-solution" title="Permalink to this headline">¶</a></h3>
 <p>Committing a solution means to send the location (including optional magnitudes)
 to the processing system and let it decide what origin becomes preferred.</p>
 <p>To optimize the workflow</p>
@@ -512,7 +568,7 @@ can also be set in the <a class="reference internal" href="#scolv-sec-magnitude-
 </div>
 </div>
 <div class="section" id="magnitudes-tab">
-<span id="scolv-sec-magnitude-tab"></span><h2>Magnitudes tab<a class="headerlink" href="#magnitudes-tab" title="Permalink to this headline">¶</a></h2>
+<span id="scolv-sec-magnitude-tab"></span><h2>Magnitudes Tab<a class="headerlink" href="#magnitudes-tab" title="Permalink to this headline">¶</a></h2>
 <p>The Magnitude tab shows all available magnitude information for the current
 origin. They can be recomputed after creating a new origin, e.g. by relocating.</p>
 <div class="figure align-center" id="id18">
@@ -720,7 +776,7 @@ settings: <em>Mean</em>, <em>Median</em> or <em>Trimmed mean</em>.</p>
 </div>
 </div>
 <div class="section" id="event-tab">
-<h2>Event tab<a class="headerlink" href="#event-tab" title="Permalink to this headline">¶</a></h2>
+<h2>Event Tab<a class="headerlink" href="#event-tab" title="Permalink to this headline">¶</a></h2>
 <p>The Event tab gives all information of associated origins and magnitude of the
 actual event. Here the selection of the preferred origin and preferred magnitude
 can be influenced independent from <a class="reference internal" href="scevent.html#scevent"><span class="std std-ref">scevent</span></a>. The messaging between
@@ -784,7 +840,7 @@ press the right mouse button to copy the row or cell, respectively.</p>
 </div>
 </div>
 <div class="section" id="events-tab">
-<span id="scolv-events-tab"></span><h2>Events tab<a class="headerlink" href="#events-tab" title="Permalink to this headline">¶</a></h2>
+<span id="scolv-events-tab"></span><h2>Events Tab<a class="headerlink" href="#events-tab" title="Permalink to this headline">¶</a></h2>
 <p>The Events tab gives an overview of the events in a defined time span. Shown events
 are updated in real time as new events arrive in <cite>SeisComP</cite> or are loaded from the database.
 When starting scolv with the option <strong>–ep</strong> events can also be loaded from an XML
@@ -896,7 +952,7 @@ eventlist.filter.agencies.enabled <span class="o">=</span> <span class="nb">true
 </div>
 </div>
 <div class="section" id="custom-actions">
-<h2>Custom actions<a class="headerlink" href="#custom-actions" title="Permalink to this headline">¶</a></h2>
+<h2>Custom Actions<a class="headerlink" href="#custom-actions" title="Permalink to this headline">¶</a></h2>
 <p>Since the internal data model is limited, scolv allows addition of custom quantities
 derived from the origin objects to the information panel, to the origin list of
 Event tab and to the Event list. This can help to evaluate origins in a better
@@ -992,11 +1048,13 @@ scolv will call those scripts and writes a binary serialized origin object
 to its standard input. scolv reads the script output and displays this value
 only if the return code of the script is 0.</p>
 <p>An example script which just returns the standard error looks like this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
-<span class="kn">import</span> <span class="nn">seiscomp.datamodel</span><span class="o">,</span> <span class="nn">seiscomp.io</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env seiscomp-python</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">seiscomp</span> <span class="kn">import</span> <span class="n">datamodel</span><span class="p">,</span> <span class="n">io</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">ar</span> <span class="o">=</span> <span class="n">seiscomp</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">BinaryArchive</span><span class="p">()</span>
+    <span class="n">ar</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BinaryArchive</span><span class="p">()</span>
 
     <span class="c1"># Open standard input</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">ar</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">):</span>
@@ -1008,21 +1066,22 @@ only if the return code of the script is 0.</p>
     <span class="n">ar</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
     <span class="c1"># Try to cast obj to an origin</span>
-    <span class="n">org</span> <span class="o">=</span> <span class="n">seiscomp</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">Origin</span><span class="o">.</span><span class="n">Cast</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-
+    <span class="n">org</span> <span class="o">=</span> <span class="n">datamodel</span><span class="o">.</span><span class="n">Origin</span><span class="o">.</span><span class="n">Cast</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
     <span class="c1"># No origin -&gt; error</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">org</span><span class="p">:</span>
         <span class="k">return</span> <span class="mi">1</span>
 
     <span class="c1"># Try to print the standard error to stdout</span>
-    <span class="k">try</span><span class="p">:</span> <span class="k">print</span> <span class="n">org</span><span class="o">.</span><span class="n">quality</span><span class="p">()</span><span class="o">.</span><span class="n">standardError</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">org</span><span class="o">.</span><span class="n">quality</span><span class="p">()</span><span class="o">.</span><span class="n">standardError</span><span class="p">())</span>
     <span class="c1"># Field not set, return error</span>
-    <span class="k">except</span><span class="p">:</span> <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
 
     <span class="k">return</span> <span class="mi">0</span>
 
- <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
 </pre></div>
 </div>
 <div class="admonition important">
@@ -1129,7 +1188,7 @@ finished and no error occurred.</p>
 <dt><em>Default distance for “add station”</em></dt><dd><p>The default value to add stations (traces) that have not been picked or
 associated is 15 degrees. A lower value can be defined, e.g. if mainly local events are analyzed.</p>
 </dd>
-<dt><em>Hide station traces without data</em></dt><dd><p>If new stations are added during pick review or amplitude review and if no
+<dt><em>Hide station traces without data and arrivals</em></dt><dd><p>If new stations are added during pick review or amplitude review and if no
 data is available for some of those stations, they will be hidden and not
 shown. Once data arrives the trace becomes visible.</p>
 </dd>
@@ -1716,7 +1775,8 @@ Default is <code class="docutils literal notranslate"><span class="pre">15</span
 <dt id="confval-olv.hideStationsWithoutData">
 <code class="sig-name descname">olv.hideStationsWithoutData</code><a class="headerlink" href="#confval-olv.hideStationsWithoutData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>boolean</em></p>
-<p>If enabled, all traces without data are hidden in the picker.
+<p>If enabled, all traces without data and arrivals are
+hidden in the picker.
 Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
 </dd></dl>
 
@@ -2683,7 +2743,8 @@ is not given “<a class="reference external" href="file://">file://</a>” is u
   <ul>
 <li><a class="reference internal" href="#">scolv</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
-<li><a class="reference internal" href="#location-tab">Location tab</a><ul>
+<li><a class="reference internal" href="#modes-of-operation">Modes of Operation</a></li>
+<li><a class="reference internal" href="#location-tab">Location Tab</a><ul>
 <li><a class="reference internal" href="#summary-widget">Summary widget</a></li>
 <li><a class="reference internal" href="#diagrams">Diagrams</a></li>
 <li><a class="reference internal" href="#arrival-table">Arrival table</a></li>
@@ -2693,7 +2754,7 @@ is not given “<a class="reference external" href="file://">file://</a>” is u
 <li><a class="reference internal" href="#commit-a-solution">Commit a solution</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#magnitudes-tab">Magnitudes tab</a><ul>
+<li><a class="reference internal" href="#magnitudes-tab">Magnitudes Tab</a><ul>
 <li><a class="reference internal" href="#station-magnitudes">Station magnitudes</a></li>
 <li><a class="reference internal" href="#network-magnitudes">Network magnitudes</a></li>
 <li><a class="reference internal" href="#summary-magnitude">Summary magnitude</a></li>
@@ -2710,18 +2771,18 @@ is not given “<a class="reference external" href="file://">file://</a>” is u
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#event-tab">Event tab</a><ul>
+<li><a class="reference internal" href="#event-tab">Event Tab</a><ul>
 <li><a class="reference internal" href="#origin-list">Origin list</a></li>
 <li><a class="reference internal" href="#magnitude-list">Magnitude list</a></li>
 <li><a class="reference internal" href="#focal-mechanism-list">Focal Mechanism list</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#events-tab">Events tab</a><ul>
+<li><a class="reference internal" href="#events-tab">Events Tab</a><ul>
 <li><a class="reference internal" href="#events-table">Events table</a></li>
 <li><a class="reference internal" href="#event-filtering">Event filtering</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#custom-actions">Custom actions</a><ul>
+<li><a class="reference internal" href="#custom-actions">Custom Actions</a><ul>
 <li><a class="reference internal" href="#origin-comments">Origin comments</a><ul>
 <li><a class="reference internal" href="#id2">Location tab</a></li>
 <li><a class="reference internal" href="#id3">Event tab</a></li>
@@ -2783,7 +2844,7 @@ is not given “<a class="reference external" href="file://">file://</a>” is u
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

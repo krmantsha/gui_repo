@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.6.1</span>
+          <span class="version">4.8.4</span>
         </div>
       </div>
     </div>
@@ -75,10 +75,11 @@
 <p><strong>Database clean-up of processing results.</strong></p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>SeisComPs processing is continuously writing to the database. This causes
+<p>SeisComP’s <a class="reference internal" href="scmaster.html#scmaster"><span class="std std-ref">scmaster</span></a> is continuously writing to the database. This causes
 the database to grow and to occupy much space on the harddisc. scdbstrip taggles
-this problem and removed processed objects from the database older than a
-configurable time span.</p>
+this problem and removes processed objects from the database older than a
+configurable time span. The time comparison considers the object time, not the
+time of their creation.</p>
 <p>This clean-up procedure is based on events. scdbstrip will remove all events
 with an origin time older than specified. It will also remove all associated
 objects such as picks, origins, arrivals, amplitudes and so on.</p>
@@ -145,12 +146,19 @@ $ scdbstrip -d seis:mypass@localhost/seiscomp --days <span class="m">100</span>
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">~/.seiscomp/scdbstrip.cfg</span></code></div>
 </div>
 <p>scdbstrip inherits <a class="reference internal" href="global.html#global-configuration"><span class="std std-ref">global options</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>database.cleanup.keep.*</strong>
+<em>Parameters controlling the time to keep objects in the database.</em>
+<em>The time comparison considers the object time, not the time of</em>
+<em>their creation.</em></p>
+</div>
 <dl class="confval">
 <dt id="confval-database.cleanup.keep.days">
 <code class="sig-name descname">database.cleanup.keep.days</code><a class="headerlink" href="#confval-database.cleanup.keep.days" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
 <p>The number of days to preserve in the database. This
-value is just one part of the whole timespan. Hours
+value is added to the whole timespan. Hours
 and minutes are configured separately.
 Default is <code class="docutils literal notranslate"><span class="pre">30</span></code>.</p>
 </dd></dl>
@@ -160,7 +168,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">30</span
 <code class="sig-name descname">database.cleanup.keep.hours</code><a class="headerlink" href="#confval-database.cleanup.keep.hours" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
 <p>The number of hours to preserve in the database. This
-value is just one part of the whole timespan. Days
+value is added to the whole timespan. Days
 and minutes are configured separately.
 Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
 </dd></dl>
@@ -170,7 +178,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">0</span>
 <code class="sig-name descname">database.cleanup.keep.minutes</code><a class="headerlink" href="#confval-database.cleanup.keep.minutes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
 <p>The number of minutes to preserve in the database. This
-value is just one part of the whole timespan. Days
+value is added to the whole timespan. Days
 and hours are configured separately.
 Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
 </dd></dl>
@@ -438,7 +446,7 @@ before.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.6.1</b> Release
+		  Version <b>4.8.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

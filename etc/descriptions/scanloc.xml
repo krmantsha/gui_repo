@@ -2,14 +2,17 @@
 <seiscomp>
 	<module name="scanloc" category="Processing">
 		<description>
-		Module for locating local earthquakes and man-made seismicity by DBSCAN clustersearch.
+		Module for locating local earthquakes and man-made seismicity by DBSCAN
+		cluster search.
 		</description>
 		<configuration>
 			<parameter name="ignoreOrigins" type="boolean" default="false">
 				<description>
-				Origins received from messaging will be ignored.
+				Ignore external origins received from messaging or from XML
+				playback.
 
-				Default: Accept external origins from messaging and associate more phases.
+				Default: Accept external origins from messaging and associate
+				more phases.
 				</description>
 			</parameter>
 			<parameter name="defaultDepth" type="float" unit="km" default="5.0">
@@ -36,6 +39,15 @@
 					playbacks the time to keep picks is usually compressed.
 					</description>
 				</parameter>
+				<parameter name="ignoreManualOrigins" type="boolean" default="true">
+					<description>
+					Ignore manual external origins received from messaging or
+					from XML playback.
+
+					The parameter &quot;ignoreOrigins&quot; must be inactive for
+					this option to be effective.
+					</description>
+				</parameter>
 				<parameter name="originKeep" type="float" unit="s" default="180.0">
 					<description>
 					Time to keep origins in the internal buffer. Time comparison
@@ -46,20 +58,43 @@
 			</group>
 			<group name="clusterSearch">
 				<description>
-					Parameters controlling the cluster search based on P phase picks.
+					Parameters controlling the cluster search based on P phase
+					picks.
 				</description>
+				<parameter name="minSize" type="int" default="4">
+					<description>
+					Minimum number of core points (P picks) to form a cluster.
+					</description>
+				</parameter>
 				<parameter name="maxPickDelay" type="float" default="-1.0" unit="s">
 					<description>
 					Maximum allowed difference between P picks and cluster reference
-					time (latest pick time). Optimum values can be derived from travel
-					times.The cluster search ignores all
+					time (latest pick time). Optimum values can be derived from
+					travel times.The cluster search ignores all
 					picks which exceed the value. Using "-1" enables all picks
 					regardless of the delay.
 					</description>
 				</parameter>
-				<parameter name="minSize" type="int" default="4">
+				<parameter name="referenceTimeMode" type="string" default="LastPick">
 					<description>
-					Minimum number of core points (P picks) to form a cluster.
+					Mode to set the cluster reference time. Read the documentation
+					for the details. Available modes:
+
+					LastPick: The pick time of the last incoming P pick is the
+					cluster reference time.
+
+					MaxPickDelay: Setting the cluster reference time is delayed
+					until clusterSearch.minSize picks are available.
+					</description>
+				</parameter>
+				<parameter name="regionFilter" type="list:double">
+					<description>
+					Cluster only picks which sensor locations are inside
+					the defined region. The region is defined by latitude,
+					longitude and a radius in km. By default the region filter
+					is disabled.
+
+					Example: 50.1,12.3,20
 					</description>
 				</parameter>
 				<parameter name="averageVelocity" type="float" unit="km/s"  default="4.0">
@@ -77,34 +112,29 @@
 				</parameter>
 				<parameter name="maxOrigins" type="uint" default="128">
 					<description>
-					Maximum allowed origins derived from cluster search. Set this option to zero to disable the cluster search completly.
+					Maximum allowed origins derived from cluster search. Set this
+					option to zero to disable the cluster search completly.
 					</description>
 				</parameter>
 				<parameter name="preliminary" type="boolean" default="false">
 					<description>
-					Send origins based on cluster search as preliminary origins if
-					the location fails. Otherwise those origins are ignored.
+					Send origins based on cluster search as preliminary origins
+					if the location fails. Otherwise those origins are ignored.
 					Consider activating &quot;checkOrigins&quot;.
 					</description>
 				</parameter>
 				<parameter name="checkOrigins" type="boolean" default="false">
 					<description>
-					Check, if derived origins fulfill the cluster search criteria anymore.
-					Activating this option may lower the number of events and
-					suppress fake events.
+					Check, if derived origins fulfill the cluster search criteria
+					anymore. Activating this option may lower the number of events
+					and suppress fake events.
 					</description>
 				</parameter>
 				<parameter name="ignorePicks" type="float" default="0.0" unit="s">
 					<description>
-					By default the algorithm creates a new arrival set when there is already a pick with the same stream id assigned.
+					By default the algorithm creates a new arrival set when there
+					is already a pick with the same stream id assigned.
 					Use this option to ignore surrounding picks.
-					</description>
-				</parameter>
-				<parameter name="regionFilter" type="list:double">
-					<description>
-					Cluster only picks which sensor locations are inside
-					the defined region. The region is defined by latitude,
-					longitude and a radius in km. By default the region filter is disabled.
 					</description>
 				</parameter>
 			</group>
@@ -115,7 +145,8 @@
 				</description>
 				<parameter name="minPhase" type="int" default="4">
 					<description>
-					Number picks in cluster origin to be reached for starting to associate more P nd S picks.
+					Number picks in cluster origin to be reached for starting to
+					associate more P nd S picks.
 					</description>
 				</parameter>
 				<parameter name="maxDist" type="float" unit="km" default="1000.0">
@@ -163,8 +194,9 @@
 				</parameter>
 				<parameter name="maxResidual" type="float" unit="s" default="2.0">
 					<description>
-					Maximum allowed time residuals of picks after association and relocation.
-					Picks will be removed at exceedance.
+					Maximum allowed time residuals of picks after association and
+					relocation. Picks will be removed at exceedance starting with
+					largest residual and origins will be relocated.
 					</description>
 				</parameter>
 				<parameter name="tableType" type="string" default="LOCSAT">
@@ -176,8 +208,8 @@
 				<parameter name="table" type="string" default="iasp91">
 					<description>
 					Name of traveltime table used for phase association.
-					May be different from locator profile. Using a different table/profile
-					may result in increased runtime.
+					May be different from locator profile. Using a different
+					table/profile may result in increased runtime.
 					</description>
 				</parameter>
 				<parameter name="zeroWeightProfiles" type="list:string">
@@ -213,6 +245,33 @@
 					</struct>
 				</group>
 			</group>
+			<group name="locator">
+				<description>
+					Parameters controlling the locator for locating scanloc
+					origins.
+				</description>
+				<parameter name="type" type="string" default="LOCSAT">
+					<description>
+					The locator type to be used. Use e.g. LOCSAT or Hypo71.
+					</description>
+				</parameter>
+				<parameter name="profile" type="string" default="iasp91">
+					<description>
+					The locator profile to be used. Using a different profile/table
+					for locating and associating may result in increased runtime.
+					</description>
+				</parameter>
+				<parameter name="fixDepth" type="boolean" default="false">
+					<description>
+					If enabled, the locator fixes the depth to the configured
+					default value &quot;defaultDepth&quot; in case that all
+					previous attempts to relocate fail.
+					This option may result in many more origins. It
+					prevents &quot;ignoreDepth&quot; from beeing
+					effective if &quot;defaultDepth&quot; &lt; &quot;ignoreDepth&quot;.
+					</description>
+				</parameter>
+			</group>
 			<group name="eventAssociation">
 			<description>
 				Parameters controlling the association of interal scanloc origins
@@ -231,8 +290,8 @@
 				</parameter>
 				<parameter name="minMatchingArrivals" type="int" default="3">
 					<description>
-					Minimum number of matching picks between two origins to be associated
-					to the same event.
+					Minimum number of matching picks between two origins to be
+					associated to the same event.
 					</description>
 				</parameter>
 				<parameter name="maxMatchingArrivalTimeDiff" type="float" unit="s" default="-1">
@@ -240,13 +299,13 @@
 					If this time window in seconds is negative, pickIDs
 					are compared to find matching arrivals. A non negative
 					value (including 0) compares pick times regardless
-					of the pickID. Pass: |pick1.time - pick2.time| &lt;= threshold
+					of the pickID. Pass: |pick1.time - pick2.time| &lt;= threshold.
 					</description>
 				</parameter>
 				<parameter name="maxDist" type="double" unit="km" default="500.0">
 					<description>
-					Allowed location difference between an incoming origin compared with
-					preferred origins to get associated.
+					Allowed location difference between an incoming origin compared
+					with preferred origins to get associated.
 					</description>
 				</parameter>
 				<parameter name="maxTimeSpan" type="double" unit="s" default="60.0">
@@ -257,33 +316,10 @@
 					</description>
 				</parameter>
 			</group>
-			<group name="locator">
-				<description>
-					Parameters controlling the locator for locate the scanloc origins.
-				</description>
-				<parameter name="type" type="string" default="LOCSAT">
-					<description>The locator type to be used. Use e.g. LOCSAT or Hypo71.</description>
-				</parameter>
-				<parameter name="profile" type="string" default="iasp91">
-					<description>The locator profile to be used. Using a different profile/table
-					for locating and associating may result in increased runtime.
-					</description>
-				</parameter>
-				<parameter name="fixDepth" type="boolean" default="false">
-					<description>
-					If enabled the locator fixes the depth to the configured
-					default value &quot;defaultDepth&quot; in case that all
-					previous attempts to relocate fail.
-					This option may result in many more origins. It
-					prevents &quot;ignoreDepth&quot; from beeing
-					effective if &quot;defaultDepth&quot; &lt; &quot;ignoreDepth&quot;.
-					</description>
-				</parameter>
-			</group>
 			<group name="score">
 				<description>
-				Formula to calculate the internal origin score. Configurable are the weighting
-				factors for the following components:
+				Formula to calculate the internal origin score. Configurable are
+				the weighting factors for the following components:
 				used P-phase (score.weights.p), unused P-phase (score.weights.p0),
 				used S-phase (score.weights.s), unused S-phase (score.weights.0),
 				depth (score.weights.depth) and residual (score.weights.residual).
@@ -291,27 +327,29 @@
 				<group name="weights">
 					<parameter name="p" type="float" default="1.0">
 						<description>
-						Defines the weight of p arrivals for scoring
+						Defines the weight of p arrivals for scoring.
 						</description>
 					</parameter>
 					<parameter name="p0" type="float" default="0.5">
 						<description>
-						Defines the weight of p arrivals with a weight of zero for scoring
+						Defines the weight of p arrivals with a weight of zero
+						for scoring.
 						</description>
 					</parameter>
 					<parameter name="s" type="float" default="2.0">
 						<description>
-						Defines the weight of s arrivals for scoring
+						Defines the weight of s arrivals for scoring.
 						</description>
 					</parameter>
 					<parameter name="s0" type="float" default="0.5">
 						<description>
-						Defines the weight of s arrivals with a weight of zero for scoring
+						Defines the weight of s arrivals with a weight of zero
+						for scoring.
 						</description>
 					</parameter>
 					<parameter name="depth" type="float" default="1.0">
 						<description>
-						Defines the weight of the depth for scoring
+						Defines the weight of the depth for scoring.
 						</description>
 					</parameter>
 					<parameter name="residual" type="float" default="1.0">
@@ -423,6 +461,22 @@
 			<group name="Input">
 				<option flag="" long-flag="pick-keep" argument="arg" param-ref="pickKeep"/>
 				<option flag="" long-flag="origin-keep" argument="arg" param-ref="originKeep"/>
+				<option flag="" long-flag="allow-rejected-picks">
+					<description>
+						Allow processing of picks with evaluation status 'rejected'.
+						Otherwise these picks are ignored.
+					</description>
+				</option>
+				<option flag="" long-flag="filter-pick-author">
+					<description>
+						Filter picks by author and only consider picks created by
+						the given author. Empty string considers all authors.
+						The option allows operation of
+						scanloc based on picks from a specific picker module
+						where only picks from one picker should be used, e.g.
+						in tuning scanloc for a pipeline.
+					</description>
+				</option>
 				<option flag="" long-flag="ep" argument="arg">
 					<description>
 						Event parameters XML file for offline processing
@@ -431,8 +485,9 @@
 				</option>
 				<option flag="" long-flag="timing" argument="arg">
 					<description>
-						Offline processing timing reference: pickTime or
-						creationTime. scanloc uses creationTime in real-time
+						Offline processing timing reference: Use pickTime and
+						creationTime for sorting picks according to pick time and
+						creation time, respectively. scanloc uses creationTime in real-time
 						processing.
 
 						Default: pickTime
@@ -440,21 +495,21 @@
 				</option>
 			</group>
 			<group name="Locator">
-				<option long-flag="locator-type" argument="arg">
-					<description>The locator type to use</description>
+				<option long-flag="locator-type" argument="arg" param-ref="locator.type">
+					<description>The locator type to use.</description>
 				</option>
-				<option long-flag="locator-profile" argument="arg">
-					<description>The locator profile to use</description>
+				<option long-flag="locator-profile" argument="arg" param-ref="locator.profile">
+					<description>The locator profile to use.</description>
 				</option>
 				<option long-flag="locator-list" argument="arg">
-					<description>List all registered locator</description>
+					<description>List all registered locator.</description>
 				</option>
 			</group>
 			<group name="Output">
 				<option flag="" long-flag="final-only" argument="">
 					<description>
-						Limit result set to final origins only. This option is available
-						for offline processing only.
+						Limit result set to final origins only. This option is
+						available for offline processing only.
 					</description>
 				</option>
 			</group>
