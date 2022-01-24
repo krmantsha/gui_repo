@@ -3,11 +3,11 @@
 # initialize the filter (e.g. bandpass). The data is not used at all until
 # signalBegin is reached. The data time window start is the minimum of
 # noiseBegin and signalBegin.
-picker.AIC.noiseBegin = -5
+picker.AIC.noiseBegin = -7
 
 # Overrides the default time (relative to the trigger time) of the begin of the
 # signal window used to pick.
-picker.AIC.signalBegin = -1
+picker.AIC.signalBegin = -5
 
 # Overrides the default time (relative to the trigger time) of the begin of the
 # signal window used to pick.
@@ -15,10 +15,10 @@ picker.AIC.signalEnd = 0.5
 
 # Overrides the default filter which is "raw". The typical filter grammar can
 # be used.
-picker.AIC.filter = "RMHP(1)>>ITAPER(2)>>BW_HP(3,3)"
+picker.AIC.filter = "RMHP(1)>>ITAPER(2)>>BW(3,3,15)"
 
 # Defines the mininum SNR.
-picker.AIC.minSNR = 3
+picker.AIC.minSNR = 2
 
 # Start time of the signal processing relative to the triggering P pick. This
 # adds a margin to the actual processing and is useful to initialize the filter
@@ -32,19 +32,19 @@ spicker.AIC.noiseBegin = -3
 spicker.AIC.signalBegin = 0.15
 
 # End time of the S-phase detector relative to the triggering P pick.
-spicker.AIC.signalEnd = 5
+spicker.AIC.signalEnd = 30
 
 # Filter applied on the raw horizontal traces to compute the L2 trace. As a
 # minimum remove offsets. S-AIC-V, filters the raw vertical trace computing the
 # filtered vertical trace.
-spicker.AIC.filter = "RMHP(1)>>ITAPER(2)>>BW(3,3,15)"
+spicker.AIC.filter = "RMHP(1)>>ITAPER(2)>>BW(3,3,12)"
 
 # The AIC time window stepping in seconds. For every step the window is
 # expanded by step and the AIC is computed.
 spicker.AIC.step = 0.1
 
 # Mininum SNR as returned from AIC for accepting a detection.
-spicker.AIC.minSNR = 3
+spicker.AIC.minSNR = 5
 
 # Minimum number of hits for a particular pick time when the running AIC is
 # computed for accepting a detection.
