@@ -494,8 +494,9 @@ Scientific and technical terms
       by :program:`scolv`.
 
    magnitude, local (ML)
-      Magnitude scale introduced by Richter in the early 1930s (Richter, 1935) to have a common scale for the
-      strength of earthquakes. The basic observation is the systematic decay of the logarithm of the maximum
+      Magnitude scale introduced by Richter in the early 1930s (Richter, 1935)
+      to have a common scale for the strength of earthquakes. The basic observation
+      is the systematic decay of the logarithm of the maximum
       amplitudes with increasing distance for different earthquakes described by:
 
       .. math::
@@ -508,44 +509,65 @@ Scientific and technical terms
 
          ML = \log A_{max} - 2.48 + 2.76 \log \Delta
 
-      with Δ being the distance of the station to the earthquake location. ML is a magnitude scale for
-      recordings of earthquakes smaller than ML 7 at regional stations. It is usually a measure of the
+      with :math:`\Delta` being the distance of the station to the earthquake location. ML
+      is a magnitude scale for
+      recordings of earthquakes smaller than ML 7 at regional stations. It is
+      usually a measure of the
       regional-distance S-wave on horizontal component records.
-      The original formula is only valid for records from a Wood-Anderson torsion seismometer with a natural period of
-      0.8 s and shallow earthquakes in California. Therefore calibration functions for other regions and wider
-      depth ranges are necessary. A Wood-Anderson seismometer has to be simulated. For amplitudes measurements
-      on the vertical component records additional correction factors has to be applied. ML saturates at
-      magnitudes around 7 because the maximum amplitudes of larger earthquakes occur at longer periods than
+      The original formula is only valid for records from a Wood-Anderson torsion
+      seismometer with a natural period of
+      0.8 s and shallow earthquakes in California. Therefore calibration functions
+      for other regions and wider depth ranges are necessary.
+      A Wood-Anderson seismometer is simulated.
+
+      For amplitudes measured on the vertical component records, additional
+      correction factors have to be applied. ML saturates at
+      magnitudes around 7 because the maximum amplitudes of larger earthquakes
+      occur at longer periods than
       the bandpass of 0.1 s and 3 s for the magnitude calculation.
 
-      In SeisComP a modified local magnitude :term:`MLv <magnitude, local vertical (MLv)>` is determined by simulation of a Wood-Anderson instrument and then measuring
-      the amplitude in a 150 s time window on the vertical component of station with distances smaller than 8°.
+      In SeisComP a modified local magnitude
+      :term:`MLv <magnitude, local vertical (MLv)>` is determined by simulation
+      of a Wood-Anderson instrument and then measuring the amplitude in a 150 s
+      time window on the vertical component of station with distances smaller than 8°.
 
       * Amplitude unit in SeisComP: **millimeter** (mm)
 
-      Read the  SeisComP documentation of ML  for the configuration.
+      Read the SeisComP documentation of ML for more details and
+      the configuration.
 
-   magnitude, local vertical (MLv)
-     The :term:`ML <magnitude, local (ML)>` magnitude with amplitudes measured on
-     the vertical component instead of the horizontals.
+   magnitude, local custom (MLc)
+      The local magnitude measured on the horizontal components with
+      custom parametric calibration function, configurable amplitude filtering,
+      Wood-Anderson simulation and distance measure.
 
-     * Amplitude unit in SeisComP: **millimeter** (mm)
+      * Amplitude unit in |scname|: **millimeter** (mm)
 
-     Read the SeisComP documentation of MLv for the configuration.
+      Read the technical documentation of MLc for more details and
+      the configuration.
 
    magnitude, local horizontal (MLh)
-      The local magnitude measured on the horizontal components with
-      a modified calibration functions as compared to :term:`ML <magnitude, local (ML)>`.
+      The local magnitude computed from amplitudes measured on the horizontal
+      components with a modified parametric calibration function as compared to
+      :term:`ML <magnitude, local (ML)>`.
 
       * Amplitude unit in SeisComP: **millimeter** (mm)
 
-      Read the SeisComP documentation of MLh for the configuration.
+      Read the SeisComP documentation of MLh for more details and the configuration.
 
    magnitude, local GNS/GEONET (MLr)
       Local magnitude calculated from :term:`MLv <magnitude, local vertical (MLv)>`
       amplitudes based on GNS/GEONET specifications for New Zealand.
 
       Read the SeisComP documentation of MLr for the configuration.
+
+   magnitude, local vertical (MLv)
+      The :term:`ML <magnitude, local (ML)>` magnitude with amplitudes measured on
+      the vertical component instead of the horizontals.
+
+      * Amplitude unit in SeisComP: **millimeter** (mm)
+
+      Read the SeisComP documentation of MLv for more details and the configuration.
 
    magnitude, Nuttli (MN)
       Nuttli magnitude for Canada and other Cratonic regions.
@@ -563,8 +585,8 @@ Scientific and technical terms
       Read the technical documentation of mb for more details and the configuration.
 
    magnitude, broadband body-wave (mB_BB)
-      mB_BB is the term recommended by the IASPEI commission for :term:`mB <magnitude, body-wave (mb)>`
-      which is used in SeisComP.
+      mB_BB is the term recommended by the IASPEI commission for
+     :term:`magnitude, broadband body-wave (mB)` which is used in SeisComP.
 
    magnitude, broadband body-wave (mB)
       mB is a magnitude based on body waves like :term:`mb <magnitude, body-wave (mb)>`,
@@ -616,6 +638,8 @@ Scientific and technical terms
       at *T=20* s period based on the recommendations
       by the IASPEI magnitude working group issued on 27 March, 2013.
 
+      * Amplitude unit in |scname|: nanometer (nm)
+
       Read the SeisComP  documentation of Ms_20 for more details and the configuration.
 
    magnitude, broadband surface wave (Ms(BB))
@@ -639,7 +663,7 @@ Scientific and technical terms
    magnitude, duration (Md)
       The duration magnitude measured on the coda wave train.
 
-      Read the SeisComP documentation of Md for the configuration.
+      Read the SeisComP documentation of Md for more details and the configuration.
 
    magnitude, JMA (M_JMA)
       M(JMA) is a magnitude similar to the Ms, but the formula is calibrated for instruments
@@ -860,11 +884,6 @@ Scientific and technical terms
       See the `SEED Reference Manual <http://www.fdsn.org/pdf/SEEDManual_V2.4.pdf>`_
       for details.
 
-   sP phase
-      Another depth phase. The sP is a :term:`S wave` with a takeoff angle of greater than 90° at
-      the source that is reflected and converted to :term:`P wave` at the reflection point at the
-      surface near the epicenter.
-
    S phase
       The S phase is the arrival of the direct :term:`S wave` that traveled through the Earth's
       crust and mantle observed in epicentral distances up to 100°.
@@ -878,12 +897,13 @@ Scientific and technical terms
       100 km (depending on the crustal thickness). Sn has usually smaller amplitudes than Sg.
 
    sP phase
-      A P wave starting as an :term:`S phase` at the source and arriving as .
+      A P wave starting as an :term:`S phase` at the source and arriving as P.
       The S phase has a takeoff angle greater than 90° at the source and therefore
       is first reflected at the surface near the epicenter and then converted into
-      a P phase. The sP is a depth phase. For shallow events and at teleseismic
-      distances sP has nearly the same path as the P wave except
-      for the path from hypocenter of the earthquake to the reflection point at the surface.
+      a :term:`P wave` phase. The sP is therefore a depth phase. For shallow
+      events and at teleseismic distances sP has nearly the same path as the P
+      wave except for the path from hypocenter of the earthquake to the
+      reflection point at the surface.
 
    pick
       #. Automatic or manual determined phase onset

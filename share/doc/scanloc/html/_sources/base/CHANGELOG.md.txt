@@ -19,7 +19,8 @@ All notable changes to scanloc will be documented in this file.
 
 ### Added
 
--   dump_picks: 
+-   dump_picks:
+
     -   The new comnand-line option `--net-sta` allows filtering by
         network or by network and station code
     -   The command-line option `--author` is also applied to filter amplitudes.
@@ -192,7 +193,8 @@ All notable changes to scanloc will be documented in this file.
 
     ```bash
     cd $SEISCOMP_ROOT/bin/
-    version=`ldd $SEISCOMP_ROOT/lib/python/seiscomp3/_Core.so | grep libpython | cut -c 11`
+    version=`ldd $SEISCOMP_ROOT/lib/python/seiscomp3/_Core.so |\
+             sgrep libpython | cut -c 11`
     ln -s /usr/bin/python$version seiscomp-python
     ```
 

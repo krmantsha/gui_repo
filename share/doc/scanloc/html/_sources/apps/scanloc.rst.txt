@@ -1200,8 +1200,8 @@ scanloc inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **association.zeroWeight.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`zeroWeight.profiles` to become active.
+   **association.zeroWeight.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`zeroWeight.profiles` to become active.
 
    .. code-block:: sh
 
@@ -1213,7 +1213,7 @@ scanloc inherits :ref:`global options<global-configuration>`.
       association.zeroWeight.c.value1 = ...
 
 
-.. confval:: association.zeroWeight.\$name.phaseType
+.. confval:: association.zeroWeight.$name.phaseType
 
    Type: *String*
 
@@ -1221,7 +1221,7 @@ scanloc inherits :ref:`global options<global-configuration>`.
    Examples: PKP or Pdiff.
 
 
-.. confval:: association.zeroWeight.\$name.minDistance
+.. confval:: association.zeroWeight.$name.minDistance
 
    Type: *float*
 
@@ -1230,7 +1230,7 @@ scanloc inherits :ref:`global options<global-configuration>`.
    Minimum epicentral distance.
    Default is ``120.0``.
 
-.. confval:: association.zeroWeight.\$name.maxResidual
+.. confval:: association.zeroWeight.$name.maxResidual
 
    Type: *float*
 
