@@ -17,7 +17,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Glossary" href="glossary.html" />
-    <link rel="prev" title="Dense LOCSAT Tables" href="locsat-tables.html" /> 
+    <link rel="prev" title="Dense Travel-Time Tables" href="locsat-tables.html" /> 
   </head>
   <body>
     <div class="header">
@@ -25,7 +25,7 @@
         <img class="background" src="../_static/icon.png"/>
         <div class="content">
            <span class="title">scanloc: Phase Associator </span>
-           <span class="version">2022.28#52624aee1</span></h1>
+           <span class="version">2022.88#fcbc3b22d</span></h1>
         </div>
       </div>
     </div>
@@ -48,7 +48,7 @@
           </a>
         </li>
         <li class="right">
-          <a href="locsat-tables.html" title="Dense LOCSAT Tables"
+          <a href="locsat-tables.html" title="Dense Travel-Time Tables"
              accesskey="P">
             previous
           </a>
@@ -78,29 +78,42 @@ Therefore S phases are only detected after a P detection.
 Using the S-AIC, S picks are determined on the vectorial sum of the horizontal
 componentes (L2 trace).
 The S-AIC-V works like the S-AIC but it picks S phases on the vertical component.</p>
+<p>The method which was applied to make the pick can be read</p>
+<ul class="simple">
+<li><p>In the method column of the arrival table in the Location tab of <span id="id1"><em>scolv</em> [<a class="reference internal" href="references.html#id201" title="scolv. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scolv.html.">15</a>]</span>,</p></li>
+<li><p>In the picker window from the letter within brackets following a phase type,</p></li>
+<li><p>In the picker window from the hint which appears when hovering over a
+pick.</p></li>
+</ul>
+<div class="figure align-center" id="id3">
+<span id="scanloc-fig-picker-method"></span><a class="reference internal image-reference" href="../_images/scolv-picker-method.png"><img alt="../_images/scolv-picker-method.png" src="../_images/scolv-picker-method.png" style="width: 10cm;" /></a>
+<p class="caption"><span class="caption-text">Figure 13: Read the method applied to make a pick in the arrival table of scolv or in
+the picker window.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
 <p>The performance of the pickers have been tested by comparison of automatic
 with manual picks (see the <a class="reference internal" href="#scanloc-fig-picker-comparison"><span class="std std-ref">Figure showing the comparison</span></a>).</p>
-<div class="figure align-center" id="id1">
+<div class="figure align-center" id="id4">
 <span id="scanloc-fig-picker-comparison"></span><a class="reference internal image-reference" href="../_images/hist_comp_vgt.png"><img alt="../_images/hist_comp_vgt.png" src="../_images/hist_comp_vgt.png" style="width: 10cm;" /></a>
-<p class="caption"><span class="caption-text">Figure 13: Performance comparison showing the differences in pick time from manual picks
+<p class="caption"><span class="caption-text">Figure 14: Performance comparison showing the differences in pick time from manual picks
 and the optimally tuned pickers S-L2, S-AIC and S-AIC-V for local earthquakes
 in West-Bohemia/Vogtland. The area is typical of local earthquake monitored at
 short epicentral distances of a few tens of kilometers. The distribution of
 the differences in the automatic pick times with respect to the manual ones
-shows the increased performance using the S-AIC.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+shows the increased performance using the S-AIC.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
 </div>
-<div class="section" id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="picker-configuration">
+<h2>Picker configuration<a class="headerlink" href="#picker-configuration" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
-<li><p>Add the plugin <em>saic</em> to the configuration of <strong class="program">scautopick</strong> or the global
+<li><p><strong>Global module parameters:</strong> Add the plugin <em>saic</em> to the configuration of
+<strong class="program">scautopick</strong> or the global
 module configuration for making use of the S-AIC or the S-AIC-V:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">plugins</span> <span class="o">=</span> <span class="si">${</span><span class="nv">plugins</span><span class="si">}</span>,saic
 </pre></div>
 </div>
 </li>
-<li><p>Activate one of the S-phase ickers (S-L2, S-AIC, S-AIC-V) by changing the name
-of the S picker in the module
+<li><p><strong>Module parameters:</strong> Activate one of the S-phase ickers (S-L2, S-AIC, S-AIC-V)
+by changing the name of the S picker in the module
 configuration of <strong class="program">scautopick</strong>. Deactivating <em>killPendingSPickers</em> will allow
 to pick S phases even if more P phases were detected before:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">spicker</span> <span class="o">=</span> <span class="s2">&quot;S-AIC&quot;</span>
@@ -108,10 +121,10 @@ to pick S phases even if more P phases were detected before:</p>
 </pre></div>
 </div>
 </li>
-<li><p>Configure the S-picker parameters under <em>spicker</em> in global section of the
-bindings of <strong class="program">scautopick</strong>. E.g. for
-<em>S-AIC</em> in local earthquake monitoring (all values must be adjusted to the
-actual data):</p>
+<li><p><strong>Bindings parameters:</strong> Configure the S-picker parameters under <em>spicker</em> in
+global section of the bindings of <strong class="program">scautopick</strong> e.g. for
+<em>S-AIC</em> in local earthquake monitoring. For tuning the values based on actual
+data you may use the <a class="reference internal" href="#scanloc-spick-debugger"><span class="std std-ref">graphical debugger</span></a>:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">detecFilter</span> <span class="o">=</span> <span class="s2">&quot;RMHP(10)&gt;&gt;ITAPER(30)&gt;&gt;BW(4,4,20)&gt;&gt;STALTA(0.2,20)&quot;</span>
 <span class="nv">timeCorr</span> <span class="o">=</span> <span class="m">0</span>
 
@@ -183,24 +196,41 @@ for effects due to the data processing, filtering and to compute the SNR.</p></t
 </li>
 </ol>
 </div>
-<div class="section" id="s-picker-debugger">
-<span id="scanloc-spick-debugger"></span><h2>S-Picker Debugger<a class="headerlink" href="#s-picker-debugger" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference internal" href="#scanloc-fig-debugger"><span class="std std-ref">debugger GUI</span></a> allows the graphics-assisted tuning of the S pickers, S-L2,
-S-AIC, S-AIC-V. In order to make use of the S picker debugging GUI</p>
-<ol class="arabic simple">
-<li><p>Add the plugin <em>spickdbg</em> to the configuration of <strong class="program">scolv</strong>.</p></li>
-<li><p>Configure the initial parameters in the global bindings of the considered stream.</p></li>
+<div class="section" id="picker-tuning-debugger">
+<span id="scanloc-spick-debugger"></span><h2>Picker tuning: Debugger<a class="headerlink" href="#picker-tuning-debugger" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#scanloc-fig-debugger"><span class="std std-ref">debugger GUI</span></a> allows the graphics-assisted tuning
+of the S pickers, S-L2, S-AIC, S-AIC-V. In order to make use of the S picker
+debugging GUI:</p>
+<ol class="arabic">
+<li><p><strong>Global module parameters:</strong> Add the plugin <em>spickdbg</em> to the global
+configuration of <span id="id2"><em>scolv</em> [<a class="reference internal" href="references.html#id201" title="scolv. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scolv.html.">15</a>]</span> (<code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code>)</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">plugins</span> <span class="o">=</span> <span class="si">${</span><span class="nv">plugins</span><span class="si">}</span>, spickdbg
+</pre></div>
+</div>
+</li>
+<li><p><strong>Global bindings:</strong> Configure the initial parameters in the global bindings
+of the considered stream. You may adopt parameters from the ones used by the
+<em>spicker</em> for a good inital guess.</p></li>
 </ol>
 <p>The debugger GUI can be started from the picker window of <strong class="program">scolv</strong>.
-If there is an existing P pick the debugger window can be opened with a
-right click on the P pick. In the dropdown menu the S picker type can be chosen.
-A new pop-up window opens where the P pick (red line) and the newly determined S
+If there is an existing P pick, the debugger window can be opened with a
+right click on the P pick. In the dropdown menu the S picker type can be chosen.</p>
+<div class="figure align-center" id="id5">
+<span id="scanloc-fig-picker-debugger-menu"></span><a class="reference internal image-reference" href="../_images/scolv-picker-debugger-open.png"><img alt="../_images/scolv-picker-debugger-open.png" src="../_images/scolv-picker-debugger-open.png" style="width: 10cm;" /></a>
+<p class="caption"><span class="caption-text">Figure 15: Selection of S-picker debugger by right-clicking on a P phase.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<p>A new pop-up window opens where the P pick (red line) and the newly determined S
 pick (light blue line) are shown and the parameters can be tested.</p>
-<p>The <a class="reference internal" href="#scanloc-fig-debugger"><span class="std std-ref">example below</span></a> shows the debugger GUI for a local
+<div class="figure align-center" id="id6">
+<span id="scanloc-fig-debugger"></span><a class="reference internal image-reference" href="../_images/s-picker-debugger.png"><img alt="../_images/s-picker-debugger.png" src="../_images/s-picker-debugger.png" style="width: 10cm;" /></a>
+<p class="caption"><span class="caption-text">Figure 16: S-picker debugger example showing the filtered horizontal traces, the
+computed L2 trace and the resulting S pick (light blue line).</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+<p>The <a class="reference internal" href="#scanloc-fig-debugger"><span class="std std-ref">example above</span></a> shows the debugger GUI for a local
 earthquake:</p>
 <ul class="simple">
 <li><p><strong>Top traces:</strong> original filtered data.</p></li>
-<li><p><strong>Bottom trace:</strong> Resulting trace, e.g. L2.</p></li>
+<li><p><strong>Bottom trace:</strong> Resulting trace e.g. L2.</p></li>
 <li><p><strong>First red line:</strong> the time of the referenced pick. A pick pick should be selected.</p></li>
 <li><p><strong>Additional phase picks</strong> are shown on top of the data.</p></li>
 <li><p><strong>Light blue line:</strong> the S pick which would be made based on the selected
@@ -212,15 +242,10 @@ selected stream. Change the parameters to find the optimum
 values. Click on the <em>Update</em> button to apply them in the GUI.
 In order to make use of the tested parameters their values must be configured in
 the bindings parameter of <strong class="program">scautopick</strong> or the respective alias.</p>
-<div class="figure align-center" id="id2">
-<span id="scanloc-fig-debugger"></span><a class="reference internal image-reference" href="../_images/s-picker-debugger.png"><img alt="../_images/s-picker-debugger.png" src="../_images/s-picker-debugger.png" style="width: 10cm;" /></a>
-<p class="caption"><span class="caption-text">Figure 14: S-picker debugger example showing the filtered horizontal traces, the
-computed L2 trace and the resulting S pick (light blue line).</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</div>
 <table class="colwidths-given docutils align-default" id="scanloc-debugger-parameters">
 <colgroup>
-<col style="width: 13%" />
-<col style="width: 87%" />
+<col style="width: 15%" />
+<col style="width: 85%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter</p></th>
@@ -275,15 +300,15 @@ computed L2 trace and the resulting S pick (light blue line).</span><a class="he
   <ul>
 <li><a class="reference internal" href="#">Advanced S-Phase Detector</a><ul>
 <li><a class="reference internal" href="#overview">Overview</a></li>
-<li><a class="reference internal" href="#configuration">Configuration</a></li>
-<li><a class="reference internal" href="#s-picker-debugger">S-Picker Debugger</a></li>
+<li><a class="reference internal" href="#picker-configuration">Picker configuration</a></li>
+<li><a class="reference internal" href="#picker-tuning-debugger">Picker tuning: Debugger</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="locsat-tables.html"
-                        title="previous chapter">Dense LOCSAT Tables</a></p>
+                        title="previous chapter">Dense Travel-Time Tables</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="glossary.html"
                         title="next chapter">Glossary</a></p>
@@ -301,7 +326,7 @@ computed L2 trace and the resulting S pick (light blue line).</span><a class="he
     <div class="footer">
       <div class="container">
         <div class="content">
-        Release <b></b> version <b>2022.28#52624aee1</b>
+        Release <b></b> version <b>2022.88#fcbc3b22d</b>
           <div class="copyright">
             &copy; Copyright <a href="https://www.gempa.de">2014, gempa GmbH.</a>
           </div>

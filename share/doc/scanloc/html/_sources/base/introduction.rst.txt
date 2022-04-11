@@ -1,24 +1,47 @@
 Introduction
 ============
 
-scanloc is optimzed for monitoring local and micro seismicity within small as
-well as large seismic networks in low and high seismicity environments.
+scanloc for |scname| :cite:p:`seiscomp` is optimzed for monitoring local and
+micro seismicity within small as
+well as large seismic monitoring networks in low and high seismicity environments.
 Typical networks consist of 5 to 20 stations
 and sometimes even many more were the station distances are in the range of
 hundreds of meters to tens of kilometers.
 
 scanloc makes use of the cluster search algorithm DBSCAN :cite:p:`dbscan` to
-associate detected phase to one or many potential earthquake sources. While the
-cluster search itself is based on P phases only, in a second step S and more P
-phases are also associated and used for locating the seismic event.
+associate detected seismic phases to one or many potential seismic events.
+While the cluster search itself is based on P phases only, in a second step S
+picks and more P phases are associated to better locate the event.
 
-In order to provide high-quality picks from S phases, a new S picker is distributed
+In order to provide high-quality picks from S phases, a new
+:ref:`S-phase picker <scanloc-spicker>` is distributed
 along with scanloc. The S picker allows to identify S phases on the horizontal
 components or on the vertical components if the horizontals should be unavailable.
-A user-friendly GUI allows to tune the S picker configuration.
+A :ref:`user-friendly debugger GUI <scanloc-spick-debugger>` allows the interactive
+tuning of the S picker configuration parameters based on waveforms.
 
-Additonal Python modules delivered with scanloc support detailed tuning and
-realistic playbacks.
+:ref:`Additonal auxiliary tools <sec-scanloc-aux-tools>` ship with the scanloc
+package to support detailed tuning and realistic playbacks.
+
+
+Applications
+------------
+
+scanloc is a backbone module in |scname| systems for many applications including
+
+* Real-time monitoring of local and regional earthquakes,
+* Re-processing of historical data for more complete seismicity catalogs,
+* Monitoring of natural and induced seismicity in industrial environments e.g. at
+
+  * geothermal plants,
+  * oil and gas production,
+  * underground gas storages,
+  * open and deep mines,
+
+* Integration of :ref:`teleseismic events<scanloc-zero-weight>` detected by
+  local monitoring networks
+* :ref:`Association of P and S phases <scanloc-assoc>` to detections by other
+  instances e.g. :cite:t:`ccloc` or :cite:t:`lambda`.
 
 
 Examples from science

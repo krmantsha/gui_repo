@@ -123,7 +123,7 @@ class DumpPicks(Application):
 
         print('''Usage:
   dump_picks [options]
-  
+
 Read picks from database and dump them to a file or to standard output.''')
 
         Application.printUsage(self)

@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCANLOC" "1" "Feb 08, 2022" "2022.28#52624aee1" "scanloc: Phase Associator"
+.TH "SCANLOC" "1" "Apr 08, 2022" "2022.88#fcbc3b22d" "scanloc: Phase Associator"
 .SH NAME
 scanloc \- scanloc: Phase Associator Documentation
 .
@@ -1010,6 +1010,25 @@ Continue with the examples above replacing the database parameter
 .sp
 .sp
 scanloc inherits global options\&.
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+Modules/plugins may require a license file. The default path to license
+files is \fB@DATADIR@/licenses/\fP which can be overridden by global
+configuration of the parameter \fBgempa.licensePath\fP\&. Example:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+gempa.licensePath = @CONFIGDIR@/licenses
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.UNINDENT
 .INDENT 0.0
 .TP
 .B ignoreOrigins
@@ -1724,11 +1743,6 @@ Trace mode: \-\-verbosity=4 \-\-console=1 \-\-print\-component=1 \-\-print\-cont
 .B \-\-log\-file arg
 Use alternative log file.
 .UNINDENT
-.INDENT 0.0
-.TP
-.B \-\-cluster\-search\-log\-file file
-Output detailed cluster search information to a file.
-.UNINDENT
 .SS Messaging
 .INDENT 0.0
 .TP
@@ -1818,16 +1832,18 @@ in tuning scanloc for a pipeline.
 .INDENT 0.0
 .TP
 .B \-\-ep arg
-Event parameters XML file for offline processing
-of all contained origins and picks.
+Name of input XML file (SCML) with all picks and origins
+for offline processing. The database connection is not
+received from messaging and must be provided. Results
+are sent as XML to stdout.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-timing arg
-Offline processing timing reference: Use pickTime and
+Offline processing reference timing mode: Use pickTime and
 creationTime for sorting picks according to pick time and
-creation time, respectively. scanloc uses creationTime in real\-time
-processing.
+creation time, respectively. scanloc uses creationTime in
+real\-time processing.
 .sp
 Default: pickTime
 .UNINDENT
@@ -1836,18 +1852,18 @@ Default: pickTime
 .TP
 .B \-\-locator\-type arg
 Overrides configuration parameter \fI\%locator.type\fP\&.
-The locator type to use.
+The locator type to use. Default: LOCSAT.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-locator\-profile arg
 Overrides configuration parameter \fI\%locator.profile\fP\&.
-The locator profile to use.
+The locator profile to use. Default: iasp91.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-locator\-list arg
-List all registered locator.
+.B \-\-locator\-list
+List all registered locators.
 .UNINDENT
 .SS Output
 .INDENT 0.0
@@ -1855,6 +1871,18 @@ List all registered locator.
 .B \-\-final\-only
 Limit result set to final origins only. This option is
 available for offline processing only.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-dump\-origins
+Don\(aqt publish origins, write them to stdout. Useful for
+tuning.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-cluster\-search\-log\-file arg
+File name to output detailed cluster search information.
+Useful for tuning.
 .UNINDENT
 .SH AUTHOR
 GFZ Potsdam

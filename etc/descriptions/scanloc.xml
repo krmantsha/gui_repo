@@ -431,11 +431,6 @@
 				<optionReference>verbosity#debug</optionReference>
 				<optionReference>verbosity#trace</optionReference>
 				<optionReference>verbosity#log-file</optionReference>
-				<option long-flag="cluster-search-log-file" argument="file">
-					<description>
-						Output detailed cluster search information to a file.
-					</description>
-				</option>
 			</group>
 
 			<group name="Messaging">
@@ -479,16 +474,18 @@
 				</option>
 				<option flag="" long-flag="ep" argument="arg">
 					<description>
-						Event parameters XML file for offline processing
-						of all contained origins and picks.
+						Name of input XML file (SCML) with all picks and origins
+						for offline processing. The database connection is not
+						received from messaging and must be provided. Results
+						are sent as XML to stdout.
 					</description>
 				</option>
 				<option flag="" long-flag="timing" argument="arg">
 					<description>
-						Offline processing timing reference: Use pickTime and
+						Offline processing reference timing mode: Use pickTime and
 						creationTime for sorting picks according to pick time and
-						creation time, respectively. scanloc uses creationTime in real-time
-						processing.
+						creation time, respectively. scanloc uses creationTime in
+						real-time processing.
 
 						Default: pickTime
 					</description>
@@ -496,20 +493,35 @@
 			</group>
 			<group name="Locator">
 				<option long-flag="locator-type" argument="arg" param-ref="locator.type">
-					<description>The locator type to use.</description>
+					<description>
+					The locator type to use. Default: LOCSAT.</description>
 				</option>
 				<option long-flag="locator-profile" argument="arg" param-ref="locator.profile">
-					<description>The locator profile to use.</description>
+					<description>
+					The locator profile to use. Default: iasp91.
+					</description>
 				</option>
-				<option long-flag="locator-list" argument="arg">
-					<description>List all registered locator.</description>
+				<option long-flag="locator-list">
+					<description>List all registered locators.</description>
 				</option>
 			</group>
 			<group name="Output">
-				<option flag="" long-flag="final-only" argument="">
+				<option flag="" long-flag="final-only">
 					<description>
 						Limit result set to final origins only. This option is
 						available for offline processing only.
+					</description>
+				</option>
+				<option long-flag="dump-origins" argument="">
+					<description>
+					Don't publish origins, write them to stdout. Useful for
+					tuning.
+					</description>
+				</option>
+				<option long-flag="cluster-search-log-file" argument="arg">
+					<description>
+					File name to output detailed cluster search information.
+					Useful for tuning.
 					</description>
 				</option>
 			</group>

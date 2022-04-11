@@ -18,6 +18,22 @@ Using the S-AIC, S picks are determined on the vectorial sum of the horizontal
 componentes (L2 trace).
 The S-AIC-V works like the S-AIC but it picks S phases on the vertical component.
 
+The method which was applied to make the pick can be read
+
+* In the method column of the arrival table in the Location tab of :cite:t:`scolv`,
+* In the picker window from the letter within brackets following a phase type,
+* In the picker window from the hint which appears when hovering over a
+  pick.
+
+.. _scanloc-fig-picker-method:
+
+.. figure:: ./media/scolv-picker-method.png
+   :align: center
+   :width: 10cm
+
+   Read the method applied to make a pick in the arrival table of scolv or in
+   the picker window.
+
 The performance of the pickers have been tested by comparison of automatic
 with manual picks (see the :ref:`Figure showing the comparison<scanloc-fig-picker-comparison>`).
 
@@ -35,18 +51,19 @@ with manual picks (see the :ref:`Figure showing the comparison<scanloc-fig-picke
    shows the increased performance using the S-AIC.
 
 
-Configuration
--------------
+Picker configuration
+--------------------
 
-1. Add the plugin *saic* to the configuration of :program:`scautopick` or the global
+1. **Global module parameters:** Add the plugin *saic* to the configuration of
+   :program:`scautopick` or the global
    module configuration for making use of the S-AIC or the S-AIC-V:
 
    .. code-block:: sh
 
       plugins = ${plugins},saic
 
-#. Activate one of the S-phase ickers (S-L2, S-AIC, S-AIC-V) by changing the name
-   of the S picker in the module
+#. **Module parameters:** Activate one of the S-phase ickers (S-L2, S-AIC, S-AIC-V)
+   by changing the name of the S picker in the module
    configuration of :program:`scautopick`. Deactivating *killPendingSPickers* will allow
    to pick S phases even if more P phases were detected before:
 
@@ -55,10 +72,10 @@ Configuration
       spicker = "S-AIC"
       killPendingSPickers = false
 
-#. Configure the S-picker parameters under *spicker* in global section of the
-   bindings of :program:`scautopick`. E.g. for
-   *S-AIC* in local earthquake monitoring (all values must be adjusted to the
-   actual data):
+#. **Bindings parameters:** Configure the S-picker parameters under *spicker* in
+   global section of the bindings of :program:`scautopick` e.g. for
+   *S-AIC* in local earthquake monitoring. For tuning the values based on actual
+   data you may use the :ref:`graphical debugger <scanloc-spick-debugger>`:
 
    .. code-block:: sh
 
@@ -98,26 +115,53 @@ Configuration
 
 .. _scanloc-spick-debugger:
 
-S-Picker Debugger
------------------
+Picker tuning: Debugger
+-----------------------
 
-The :ref:`debugger GUI<scanloc-fig-debugger>` allows the graphics-assisted tuning of the S pickers, S-L2,
-S-AIC, S-AIC-V. In order to make use of the S picker debugging GUI
+The :ref:`debugger GUI<scanloc-fig-debugger>` allows the graphics-assisted tuning
+of the S pickers, S-L2, S-AIC, S-AIC-V. In order to make use of the S picker
+debugging GUI:
 
-#. Add the plugin *spickdbg* to the configuration of :program:`scolv`.
-#. Configure the initial parameters in the global bindings of the considered stream.
+#. **Global module parameters:** Add the plugin *spickdbg* to the global
+   configuration of :cite:t:`scolv` (:file:`scolv.cfg`)
+
+   .. code-block:: sh
+
+      plugins = ${plugins}, spickdbg
+
+#. **Global bindings:** Configure the initial parameters in the global bindings
+   of the considered stream. You may adopt parameters from the ones used by the
+   *spicker* for a good inital guess.
 
 The debugger GUI can be started from the picker window of :program:`scolv`.
-If there is an existing P pick the debugger window can be opened with a
+If there is an existing P pick, the debugger window can be opened with a
 right click on the P pick. In the dropdown menu the S picker type can be chosen.
+
+.. _scanloc-fig-picker-debugger-menu:
+
+.. figure:: ./media/scolv-picker-debugger-open.png
+   :align: center
+   :width: 10cm
+
+   Selection of S-picker debugger by right-clicking on a P phase.
+
 A new pop-up window opens where the P pick (red line) and the newly determined S
 pick (light blue line) are shown and the parameters can be tested.
 
-The :ref:`example below <scanloc-fig-debugger>` shows the debugger GUI for a local
+.. _scanloc-fig-debugger:
+
+.. figure:: ./media/s-picker-debugger.png
+   :align: center
+   :width: 10cm
+
+   S-picker debugger example showing the filtered horizontal traces, the
+   computed L2 trace and the resulting S pick (light blue line).
+
+The :ref:`example above <scanloc-fig-debugger>` shows the debugger GUI for a local
 earthquake:
 
 * **Top traces:** original filtered data.
-* **Bottom trace:** Resulting trace, e.g. L2.
+* **Bottom trace:** Resulting trace e.g. L2.
 * **First red line:** the time of the referenced pick. A pick pick should be selected.
 * **Additional phase picks** are shown on top of the data.
 * **Light blue line:** the S pick which would be made based on the selected
@@ -130,20 +174,11 @@ values. Click on the *Update* button to apply them in the GUI.
 In order to make use of the tested parameters their values must be configured in
 the bindings parameter of :program:`scautopick` or the respective alias.
 
-.. _scanloc-fig-debugger:
-
-.. figure:: ../apps/media/s-picker-debugger.png
-   :align: center
-   :width: 10cm
-
-   S-picker debugger example showing the filtered horizontal traces, the
-   computed L2 trace and the resulting S pick (light blue line).
-
 .. _scanloc-debugger-parameters:
 
 .. csv-table::
    :header: "Parameter", "Description"
-   :widths: 15,100
+   :widths: 15,85
 
    "N","Start of the noise window"
    "S0","Start of the AIC window"

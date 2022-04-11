@@ -3,7 +3,7 @@
 <html >
   <head>
     <meta charset="utf-8" />
-    <title>Dense LOCSAT Tables &#8212; scanloc: Phase Associator  documentation</title>
+    <title>Dense Travel-Time Tables &#8212; scanloc: Phase Associator  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/gempa.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -25,7 +25,7 @@
         <img class="background" src="../_static/icon.png"/>
         <div class="content">
            <span class="title">scanloc: Phase Associator </span>
-           <span class="version">2022.28#52624aee1</span></h1>
+           <span class="version">2022.88#fcbc3b22d</span></h1>
         </div>
       </div>
     </div>
@@ -65,20 +65,20 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="dense-locsat-tables">
-<span id="scanloc-ttt"></span><h1>Dense LOCSAT Tables<a class="headerlink" href="#dense-locsat-tables" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="dense-travel-time-tables">
+<span id="scanloc-ttt"></span><h1>Dense Travel-Time Tables<a class="headerlink" href="#dense-travel-time-tables" title="Permalink to this headline">¶</a></h1>
 <p>The default travel time tables of SeisComP for
 <a class="reference external" href="https://docs.gempa.de/seiscomp/current/apps/global_locsat.html">LOCSAT</a>
 provide the times in
-intervals of 1 degree epicentral distance. Thus the curvature of the travel-time
+intervals of 1 degree epicentral distance. Thus, the curvature of the travel-time
 curve at closer distance is not well imaged potentially resulting in wrong
 locations or missing event solutions. Therefore, the LOCSAT tables,
 <em>iasp91_scanloc</em>, based on the IASP91 model with higher spacial sampling are
-added. The tables are located in $SEISCOMP_ROOT/share/locsat/tabels.</p>
+added. The tables are located in <code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/share/locsat/tables</span></code>.</p>
 <div class="figure align-center" id="id1">
 <span id="fig-ttt-scanloc"></span><a class="reference internal image-reference" href="../_images/ttt_scanloc_P_5km.png"><img alt="../_images/ttt_scanloc_P_5km.png" src="../_images/ttt_scanloc_P_5km.png" style="width: 18cm;" /></a>
 <p class="caption"><span class="caption-text">Figure 12: Differences between P-wave travel times in the standard iasp91 tables for LOCSAT
-and the ias91_scanloc tables provided with scanloc for an event at 5 km depth.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+and the iasp91_scanloc tables provided with scanloc for an event at 5 km depth.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 <div class="section" id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
@@ -121,7 +121,7 @@ locator.profile <span class="o">=</span> iasp91_scanloc
 <script>$('#searchbox').show(0);</script>
   <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Dense LOCSAT Tables</a><ul>
+<li><a class="reference internal" href="#">Dense Travel-Time Tables</a><ul>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 </ul>
 </li>
@@ -147,7 +147,7 @@ locator.profile <span class="o">=</span> iasp91_scanloc
     <div class="footer">
       <div class="container">
         <div class="content">
-        Release <b></b> version <b>2022.28#52624aee1</b>
+        Release <b></b> version <b>2022.88#fcbc3b22d</b>
           <div class="copyright">
             &copy; Copyright <a href="https://www.gempa.de">2014, gempa GmbH.</a>
           </div>

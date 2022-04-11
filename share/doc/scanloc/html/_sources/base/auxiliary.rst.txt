@@ -12,7 +12,8 @@ dump_picks
 ----------
 
 :program:`dump_picks` reads picks and amplitudes from a database and writes them
-to file or the commandline in XML format (:term:`SCML`). Controll the dumping by
+to file or the commandline in XML format (:term:`SCML`). Control the database
+request to filter by
 
 * Author (``--author``) contributing the object,
 * Comparison with inventory (``--check-inventory``),

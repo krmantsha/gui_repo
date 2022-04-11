@@ -1,16 +1,16 @@
 .. _scanloc-ttt:
 
-Dense LOCSAT Tables
-===================
+Dense Travel-Time Tables
+========================
 
 The default travel time tables of SeisComP for
 `LOCSAT <https://docs.gempa.de/seiscomp/current/apps/global_locsat.html>`_
 provide the times in
-intervals of 1 degree epicentral distance. Thus the curvature of the travel-time
+intervals of 1 degree epicentral distance. Thus, the curvature of the travel-time
 curve at closer distance is not well imaged potentially resulting in wrong
 locations or missing event solutions. Therefore, the LOCSAT tables,
 *iasp91_scanloc*, based on the IASP91 model with higher spacial sampling are
-added. The tables are located in $SEISCOMP_ROOT/share/locsat/tabels.
+added. The tables are located in :file:`$SEISCOMP_ROOT/share/locsat/tables`.
 
 .. _fig-ttt-scanloc:
 
@@ -19,7 +19,7 @@ added. The tables are located in $SEISCOMP_ROOT/share/locsat/tabels.
    :width: 18cm
 
    Differences between P-wave travel times in the standard iasp91 tables for LOCSAT
-   and the ias91_scanloc tables provided with scanloc for an event at 5 km depth.
+   and the iasp91_scanloc tables provided with scanloc for an event at 5 km depth.
 
 
 Configuration

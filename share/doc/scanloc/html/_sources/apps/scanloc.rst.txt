@@ -890,6 +890,14 @@ Configuration
 
 scanloc inherits :ref:`global options<global-configuration>`.
 
+.. note::
+
+   Modules/plugins may require a license file. The default path to license
+   files is :file:`@DATADIR@/licenses/` which can be overridden by global
+   configuration of the parameter :confval:`gempa.licensePath`. Example: ::
+
+      gempa.licensePath = @CONFIGDIR@/licenses
+
 
 
 .. confval:: ignoreOrigins
@@ -1533,10 +1541,6 @@ Verbosity
 
    Use alternative log file.
 
-.. option:: --cluster-search-log-file file
-
-   Output detailed cluster search information to a file.
-
 
 Messaging
 ---------
@@ -1619,15 +1623,17 @@ Input
 
 .. option:: --ep arg
 
-   Event parameters XML file for offline processing
-   of all contained origins and picks.
+   Name of input XML file \(SCML\) with all picks and origins
+   for offline processing. The database connection is not
+   received from messaging and must be provided. Results
+   are sent as XML to stdout.
 
 .. option:: --timing arg
 
-   Offline processing timing reference: Use pickTime and
+   Offline processing reference timing mode: Use pickTime and
    creationTime for sorting picks according to pick time and
-   creation time, respectively. scanloc uses creationTime in real\-time
-   processing.
+   creation time, respectively. scanloc uses creationTime in
+   real\-time processing.
    
    Default: pickTime
 
@@ -1638,16 +1644,16 @@ Locator
 .. option:: --locator-type arg
 
    Overrides configuration parameter :confval:`locator.type`.
-   The locator type to use.
+   The locator type to use. Default: LOCSAT.
 
 .. option:: --locator-profile arg
 
    Overrides configuration parameter :confval:`locator.profile`.
-   The locator profile to use.
+   The locator profile to use. Default: iasp91.
 
-.. option:: --locator-list arg
+.. option:: --locator-list
 
-   List all registered locator.
+   List all registered locators.
 
 
 Output
@@ -1657,4 +1663,14 @@ Output
 
    Limit result set to final origins only. This option is
    available for offline processing only.
+
+.. option:: --dump-origins
+
+   Don't publish origins, write them to stdout. Useful for
+   tuning.
+
+.. option:: --cluster-search-log-file arg
+
+   File name to output detailed cluster search information.
+   Useful for tuning.
 

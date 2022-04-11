@@ -25,7 +25,7 @@
         <img class="background" src="../_static/icon.png"/>
         <div class="content">
            <span class="title">scanloc: Phase Associator </span>
-           <span class="version">2022.28#52624aee1</span></h1>
+           <span class="version">2022.88#fcbc3b22d</span></h1>
         </div>
       </div>
     </div>
@@ -75,7 +75,7 @@ cluster search.</strong></p>
 <h3>Low-threshold monitoring<a class="headerlink" href="#low-threshold-monitoring" title="Permalink to this headline">¶</a></h3>
 <p><em>scanloc</em> associates detected P and S phases from local and regional earthquakes
 and other seismic events for locating. It determines initial hypocenter
-solutions by cluster search based on DBSCAN <span id="id2">[<a class="reference internal" href="../base/references.html#id11" title="DBSCAN. Wikipedia. URL: http://en.wikipedia.org/wiki/DBSCAN.">1</a>]</span>. Additional P and S phases are associated
+solutions by cluster search based on DBSCAN <span id="id2">[<a class="reference internal" href="../base/references.html#id87" title="DBSCAN. Data clustering algorithm. URL: http://en.wikipedia.org/wiki/DBSCAN.">1</a>]</span>. Additional P and S phases are associated
 to existing internal solutions from cluster search or solutions incoming through the messaging
 system from external modules.</p>
 <p>Due to the clustering and subsequent phase association scanloc facilitates low-threshold
@@ -98,7 +98,7 @@ A <a class="reference internal" href="#scanloc-zero-weight"><span class="std std
 <div class="section" id="travel-time-tables">
 <h3>Travel-time tables<a class="headerlink" href="#travel-time-tables" title="Permalink to this headline">¶</a></h3>
 <p>The scanloc package ships with <a class="reference internal" href="../base/locsat-tables.html#scanloc-ttt"><span class="std std-ref">densely sampled travel-time tables</span></a> for
-LOCSAT <span id="id3">[<a class="reference internal" href="../base/references.html#id16" title="LOCSAT. SeisComP locator. URL: https://docs.gempa.de/seiscomp/current/apps/global_locsat.html.">3</a>]</span> based on the IASP91 Earth model to enhance locating local earthquakes.</p>
+LOCSAT <span id="id3">[<a class="reference internal" href="../base/references.html#id130" title="LOCSAT. SeisComP locator. URL: https://docs.gempa.de/seiscomp/current/apps/global_locsat.html.">4</a>]</span> based on the IASP91 Earth model to enhance locating local earthquakes.</p>
 </div>
 <div class="section" id="s-phases">
 <h3>S phases<a class="headerlink" href="#s-phases" title="Permalink to this headline">¶</a></h3>
@@ -173,7 +173,7 @@ are required for processing.</p>
 <div class="section" id="clustering">
 <span id="scanloc-clustering"></span><h3>Clustering<a class="headerlink" href="#clustering" title="Permalink to this headline">¶</a></h3>
 <p>In case the pick cannot be associated, the cluster search is started. The
-cluster search is based on the algorithm DBSCAN <span id="id4">[<a class="reference internal" href="../base/references.html#id11" title="DBSCAN. Wikipedia. URL: http://en.wikipedia.org/wiki/DBSCAN.">1</a>]</span> which
+cluster search is based on the algorithm DBSCAN <span id="id4">[<a class="reference internal" href="../base/references.html#id87" title="DBSCAN. Data clustering algorithm. URL: http://en.wikipedia.org/wiki/DBSCAN.">1</a>]</span> which
 takes the required number of neighbours (<a class="reference internal" href="#confval-clusterSearch.minSize"><code class="xref std std-confval docutils literal notranslate"><span class="pre">clusterSearch.minSize</span></code></a>)
 and <a class="reference internal" href="#confval-clusterSearch.maxSearchDist"><code class="xref std std-confval docutils literal notranslate"><span class="pre">clusterSearch.maxSearchDist</span></code></a> as configuration parameters.</p>
 <p>The algorithm forms clusters of picks by searching for neighboring stations
@@ -406,7 +406,7 @@ origin is compared with scores of origins belonging to the same event. In case
 the score is higher than the rest of the origins, the origin is send out.</p>
 <p>In addition to origins from the cluster search, <em>scanloc</em> can also treat external
 origins that are created by other associators, e.g. <strong class="program">scautoloc</strong>
-<span id="id5">[<a class="reference internal" href="../base/references.html#id27" title="scautopick. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scautopick.html.">9</a>]</span>.
+<span id="id5">[<a class="reference internal" href="../base/references.html#id170" title="scautopick. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scautopick.html.">10</a>]</span>.
 In case an such origin is received <em>scanloc</em> tries to associate all picks in the
 buffer to the origin. The association and the following processes are the same as
 described above. See figure <a class="reference internal" href="#fig-scanloc-workflow"><span class="std std-ref">Simplified work flow of scanloc.</span></a> for an overview.</p>
@@ -483,9 +483,9 @@ plugin must be loaded. The list of available locators can be provided by <em>sca
 </div>
 <p><strong>Note:</strong> Computational speed can be an issue when alternative locators are used
 and when many picks are to be tested during association. In this case <em>scanloc</em>
-can be configured with LocSAT but screloc <span id="id6">[<a class="reference internal" href="../base/references.html#id37" title="screloc. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/screloc.html.">14</a>]</span> may be used
+can be configured with LocSAT but screloc <span id="id6">[<a class="reference internal" href="../base/references.html#id208" title="screloc. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/screloc.html.">16</a>]</span> may be used
 along with the preferred locator and profile to relocate the origin. The locator
-NonLinLoc <span id="id7">[<a class="reference internal" href="../base/references.html#id21" title="NonLinLoc. SeisComP locator. URL: https://docs.gempa.de/seiscomp/current/apps/global_nonlinloc.html.">5</a>]</span> is certainly too slow for being used in
+NonLinLoc <span id="id7">[<a class="reference internal" href="../base/references.html#id150" title="A. Lomax. The NonLinLoc Software Guide. Manual. URL: http://alomax.free.fr/nlloc/.">17</a>]</span> is certainly too slow for being used in
 <strong class="program">scanloc</strong> but is a good option for <strong class="program">screloc</strong>.</p>
 </div>
 <div class="section" id="status-of-origins">
@@ -519,7 +519,7 @@ and origins are <a class="reference internal" href="#scanloc-locator"><span clas
 The best origin of the same <a class="reference internal" href="#scanloc-internal"><span class="std std-ref">internal event</span></a> is the one
 which has the highest score at the time of availability. When meeting the parameters
 <a class="reference internal" href="#confval-ignoreDepth"><code class="xref std std-confval docutils literal notranslate"><span class="pre">ignoreDepth</span></code></a>, <a class="reference internal" href="#confval-maxRMS"><code class="xref std std-confval docutils literal notranslate"><span class="pre">maxRMS</span></code></a> and <a class="reference internal" href="#confval-minScore"><code class="xref std std-confval docutils literal notranslate"><span class="pre">minScore</span></code></a> it is sent to the
-SeisComP messaging <span id="id8">[<a class="reference internal" href="../base/references.html#id20" title="Messaging. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scmaster.html.">4</a>]</span> or to stdout in case of XML playbacks
+SeisComP messaging <span id="id8">[<a class="reference internal" href="../base/references.html#id138" title="messaging. SeisComP concept. URL: https://docs.gempa.de/seiscomp/current/base/concepts/messaging.html.">6</a>]</span> or to stdout in case of XML playbacks
 (<cite>–ep</cite>).</p>
 <p>The sending of origins may be delayed allowing to find new origins with higher score.
 The delay reduces the amount of origins in the SeisComP system and the load of other modules.
@@ -547,7 +547,7 @@ event, the new origin is <a class="reference internal" href="#scanloc-send"><spa
 <span id="scanloc-locator"></span><h2>Locating Origins<a class="headerlink" href="#locating-origins" title="Permalink to this headline">¶</a></h2>
 <p>scanloc locates internal origins based on the configuration by the <code class="xref std std-confval docutils literal notranslate"><span class="pre">locator.*</span></code>
 parameters.
-Consider a fast locator (<a class="reference internal" href="#confval-locator.type"><code class="xref std std-confval docutils literal notranslate"><span class="pre">locator.type</span></code></a>), e.g. LOCSAT or Hypo71 <span id="id9">[<a class="reference internal" href="../base/references.html#id15" title="Hypo71. SeisComP locator. URL: https://docs.gempa.de/seiscomp/current/apps/global_hypo71.html.">2</a>]</span>
+Consider a fast locator (<a class="reference internal" href="#confval-locator.type"><code class="xref std std-confval docutils literal notranslate"><span class="pre">locator.type</span></code></a>), e.g. LOCSAT or Hypo71 <span id="id9">[<a class="reference internal" href="../base/references.html#id113" title="Hypo71. SeisComP locator. URL: https://docs.gempa.de/seiscomp/current/apps/global_hypo71.html.">2</a>]</span>
 and appropriate travel-time tables <a class="reference internal" href="#confval-locator.profile"><code class="xref std std-confval docutils literal notranslate"><span class="pre">locator.profile</span></code></a>,
 e.g. the provided <a class="reference internal" href="../base/locsat-tables.html#scanloc-ttt"><span class="std std-ref">dense travel-time tables</span></a>.
 If the location fails and <a class="reference internal" href="#confval-locator.fixDepth"><code class="xref std std-confval docutils literal notranslate"><span class="pre">locator.fixDepth</span></code></a> is active, the location
@@ -601,7 +601,7 @@ are sometimes located as fake deep earthquakes below the network.
 <em>scanloc</em> can be used to suppress this type of fake events.</p>
 <p>In a 2-pipeline setup, <em>scanloc</em> can associcate such teleseismic phases recorded
 by the local network with origins that were found by the pipeline for
-monitoring teleseismic earthquakes. Then <strong class="program">scevent</strong> <span id="id10">[<a class="reference internal" href="../base/references.html#id32" title="scevent. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scevent.html.">12</a>]</span>
+monitoring teleseismic earthquakes. Then <strong class="program">scevent</strong> <span id="id10">[<a class="reference internal" href="../base/references.html#id186" title="scevent. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scevent.html.">13</a>]</span>
 will associate
 the origins from the teleseismic pipeline with the fake origins from the
 pipeline for local monitoring to the same event. The assumption is that the origins
@@ -611,8 +611,8 @@ for teleseismic monitoring that has most phases becomes the preferred origin for
 the event. This <a class="reference internal" href="#scanloc"><span class="std std-ref">scanloc</span></a> feature requires an extended license.</p>
 <p><em>Setup of a 2-pipeline system</em></p>
 <ol class="arabic">
-<li><p>Generate a 2-pipeline system involving at least scautopick <span id="id11">[<a class="reference internal" href="../base/references.html#id27" title="scautopick. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scautopick.html.">9</a>]</span>,
-<strong class="program">scanloc</strong> and scevent <span id="id12">[<a class="reference internal" href="../base/references.html#id32" title="scevent. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scevent.html.">12</a>]</span> :</p>
+<li><p>Generate a 2-pipeline system involving at least scautopick <span id="id11">[<a class="reference internal" href="../base/references.html#id170" title="scautopick. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scautopick.html.">10</a>]</span>,
+<strong class="program">scanloc</strong> and scevent <span id="id12">[<a class="reference internal" href="../base/references.html#id186" title="scevent. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scevent.html.">13</a>]</span> :</p>
 <ul class="simple">
 <li><p><strong>Pipeline 1</strong> monitors teleseismic earthquakes using <strong class="program">scautopick</strong>,
 <strong class="program">scautoloc</strong>, <strong class="program">scanloc</strong> and default message groups.</p></li>
@@ -728,11 +728,11 @@ playback_picks picks.xml
 </ol>
 </li>
 <li><p>Play back picks with amplitudes originating from different
-pipelines <span id="id13">[<a class="reference internal" href="../base/references.html#id24" title="pipeline. SeisComP3 wiki. URL: https://www.seiscomp3.org/wiki/recipes/multiple-pick-loc-pipeline.">6</a>]</span> at normal speed (with SeisComP messaging).
+pipelines <span id="id13">[<a class="reference internal" href="../base/references.html#id159" title="pipeline. SeisComP3 wiki. URL: https://www.SeisComP3.org/wiki/recipes/multiple-pick-loc-pipeline.">7</a>]</span> at normal speed (with SeisComP messaging).
 Picks and amplitudes in XML format
 are sent to the separated message groups PICK, AMPLITUDE and L1PICK.
 scanloc and l1scanloc listen to picks from PICK and L1PICKS, respectively.
-scautoloc <span id="id14">[<a class="reference internal" href="../base/references.html#id28" title="scautoloc. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scautoloc.html.">8</a>]</span> additionally needs the pick amplitudes from the
+scautoloc <span id="id14">[<a class="reference internal" href="../base/references.html#id171" title="scautoloc. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scautoloc.html.">9</a>]</span> additionally needs the pick amplitudes from the
 subscribed amplitude groups.</p>
 <ol class="arabic simple">
 <li><p>Create the pick XML files including the pick amplitudes in an offline playback
@@ -766,7 +766,7 @@ use scanloc with the command-line option <code class="docutils literal notransla
 <li><p>Play back picks stored in XML format to locate events and to determined
 the magnitude. Intermediate results are stored in XML files.</p>
 <ol class="arabic">
-<li><p>Events do not exist in the database, use scdb <span id="id15">[<a class="reference internal" href="../base/references.html#id30" title="scdb. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scdb.html.">10</a>]</span> to populate the database
+<li><p>Events do not exist in the database, use scdb <span id="id15">[<a class="reference internal" href="../base/references.html#id179" title="scdb. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scdb.html.">11</a>]</span> to populate the database
 with events in <code class="file docutils literal notranslate"><span class="pre">events.xml</span></code>.
 The messaging system is not running.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scautopick --ep --playback -I <span class="o">[</span>your_file<span class="o">]</span> -d <span class="o">[</span>database<span class="o">]</span> &gt; picks.xml
@@ -782,8 +782,8 @@ scdb -i events.xml -d <span class="o">[</span>database<span class="o">]</span>
 <li><p>New events not existing yet in the database shall be created, existing ones
 shall be updated with new origins. Run the messaging system and all
 modules that shall process the new parameters of the origin, e.g.
-scamp <span id="id16">[<a class="reference internal" href="../base/references.html#id26" title="scamp. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scamp.html.">7</a>]</span> scmag <span id="id17">[<a class="reference internal" href="../base/references.html#id33" title="scmag. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scmag.html.">13</a>]</span> , scevent <span id="id18">[<a class="reference internal" href="../base/references.html#id32" title="scevent. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scevent.html.">12</a>]</span>.
-Use scdispatch <span id="id19">[<a class="reference internal" href="../base/references.html#id31" title="scdispatch. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scdispatch.html.">11</a>]</span> to send the new objects to
+scamp <span id="id16">[<a class="reference internal" href="../base/references.html#id169" title="scamp. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scamp.html.">8</a>]</span> scmag <span id="id17">[<a class="reference internal" href="../base/references.html#id195" title="scmag. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scmag.html.">14</a>]</span> , scevent <span id="id18">[<a class="reference internal" href="../base/references.html#id186" title="scevent. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scevent.html.">13</a>]</span>.
+Use scdispatch <span id="id19">[<a class="reference internal" href="../base/references.html#id181" title="scdispatch. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scdispatch.html.">12</a>]</span> to send the new objects to
 the messaging system. Get the picks from a scautopick playback or use
 <em>dump_picks</em>. Execute scanloc with the appropriate timing.**</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># either</span>
@@ -827,6 +827,15 @@ scxmldump -fC -o config.xml -d <span class="o">[</span>database<span class="o">]
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">~/.seiscomp/scanloc.cfg</span></code></div>
 </div>
 <p>scanloc inherits <span class="xref std std-ref">global options</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Modules/plugins may require a license file. The default path to license
+files is <code class="file docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/licenses/</span></code> which can be overridden by global
+configuration of the parameter <code class="xref std std-confval docutils literal notranslate"><span class="pre">gempa.licensePath</span></code>. Example:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>gempa.licensePath = @CONFIGDIR@/licenses
+</pre></div>
+</div>
+</div>
 <dl class="confval">
 <dt id="confval-ignoreOrigins">
 <code class="sig-name descname">ignoreOrigins</code><a class="headerlink" href="#confval-ignoreOrigins" title="Permalink to this definition">¶</a></dt>
@@ -1495,12 +1504,6 @@ for file output but disabled for console output.</p>
 <dd><p>Use alternative log file.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-cluster-search-log-file">
-<code class="sig-name descname">--cluster-search-log-file</code><code class="sig-prename descclassname"> file</code><a class="headerlink" href="#cmdoption-cluster-search-log-file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Output detailed cluster search information to a file.</p>
-</dd></dl>
-
 </div>
 <div class="section" id="messaging">
 <h3>Messaging<a class="headerlink" href="#messaging" title="Permalink to this headline">¶</a></h3>
@@ -1611,17 +1614,19 @@ in tuning scanloc for a pipeline.</p>
 <dl class="option">
 <dt id="cmdoption-ep">
 <code class="sig-name descname">--ep</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-ep" title="Permalink to this definition">¶</a></dt>
-<dd><p>Event parameters XML file for offline processing
-of all contained origins and picks.</p>
+<dd><p>Name of input XML file (SCML) with all picks and origins
+for offline processing. The database connection is not
+received from messaging and must be provided. Results
+are sent as XML to stdout.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-timing">
 <code class="sig-name descname">--timing</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-timing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Offline processing timing reference: Use pickTime and
+<dd><p>Offline processing reference timing mode: Use pickTime and
 creationTime for sorting picks according to pick time and
-creation time, respectively. scanloc uses creationTime in real-time
-processing.</p>
+creation time, respectively. scanloc uses creationTime in
+real-time processing.</p>
 <p>Default: pickTime</p>
 </dd></dl>
 
@@ -1632,20 +1637,20 @@ processing.</p>
 <dt id="cmdoption-locator-type">
 <code class="sig-name descname">--locator-type</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-locator-type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-locator.type"><code class="xref std std-confval docutils literal notranslate"><span class="pre">locator.type</span></code></a>.
-The locator type to use.</p>
+The locator type to use. Default: LOCSAT.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-locator-profile">
 <code class="sig-name descname">--locator-profile</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-locator-profile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-locator.profile"><code class="xref std std-confval docutils literal notranslate"><span class="pre">locator.profile</span></code></a>.
-The locator profile to use.</p>
+The locator profile to use. Default: iasp91.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-locator-list">
-<code class="sig-name descname">--locator-list</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-locator-list" title="Permalink to this definition">¶</a></dt>
-<dd><p>List all registered locator.</p>
+<code class="sig-name descname">--locator-list</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-locator-list" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all registered locators.</p>
 </dd></dl>
 
 </div>
@@ -1656,6 +1661,20 @@ The locator profile to use.</p>
 <code class="sig-name descname">--final-only</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-final-only" title="Permalink to this definition">¶</a></dt>
 <dd><p>Limit result set to final origins only. This option is
 available for offline processing only.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-dump-origins">
+<code class="sig-name descname">--dump-origins</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-dump-origins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Don’t publish origins, write them to stdout. Useful for
+tuning.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-cluster-search-log-file">
+<code class="sig-name descname">--cluster-search-log-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-cluster-search-log-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>File name to output detailed cluster search information.
+Useful for tuning.</p>
 </dd></dl>
 
 </div>
@@ -1749,7 +1768,7 @@ available for offline processing only.</p>
     <div class="footer">
       <div class="container">
         <div class="content">
-        Release <b></b> version <b>2022.28#52624aee1</b>
+        Release <b></b> version <b>2022.88#fcbc3b22d</b>
           <div class="copyright">
             &copy; Copyright <a href="https://www.gempa.de">2014, gempa GmbH.</a>
           </div>
