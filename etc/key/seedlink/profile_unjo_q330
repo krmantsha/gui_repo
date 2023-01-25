@@ -1,0 +1,8 @@
+# Activated plugins for category sources
+sources = q330
+
+# Hostname or IP.
+sources.q330.address = UNJO
+
+# Q330 serial number (with 0x prefix).
+sources.q330.serial = 0x0100000EBD6947D7

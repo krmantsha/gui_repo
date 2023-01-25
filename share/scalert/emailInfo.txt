@@ -1,31 +1,59 @@
 http://maps.google.com/?q=,&t=h&ll=,&z=12
+Error: the required argument for option '--event' is missing
 
-  Alert CGS2022bkjp: determined by 16 stations, type A
+Generic:
+  -h [ --help ]             produce help message
+  -V [ --version ]          show version information
+  --print-config-vars       Print all available configuration variables and 
+                            exit
+  --validate-schema-params  Validates the applications description xml and exit
+  --dump-settings           Dump the bound settings and exit
+  --config-file arg         Use alternative configuration file
+  --plugins arg             Load given plugins
 
- LOCSAT solution with earthmodel iasp91 (with start solution, 16 stations used, weight 16):
+Verbose:
+  -v [ --v ]            increase verbosity level (may be repeated, eg. -vv)
+  -q [ --quiet ] arg    Quiet mode: no logging output
+  --verbosity arg       Verbosity level [0..4]
+  --print-context arg   Print source file and line number
+  --print-component arg Print the log component (default: file:1, stdout:0)
+  --component arg       Limits the logging to a certain component. This option 
+                        can be given more than once
+  --console arg         Send log output to stdout
+  --debug               debug mode: --verbosity=4 --console=1
+  --trace               trace mode: --verbosity=4 --console=1 
+                        --print-component=1 --print-context=1
+  --log-file arg        Use alternative log file
+  --log-utc arg         Use UTC instead of local timezone
+  -s [ --syslog ]       Use syslog
+  -l [ --lockfile ] arg Path to lock file
 
-  South Africa  M=2.2  2022/01/20  21:44:19.9  26.39 S  27.65 E   5 km
+Database:
+  --db-driver-list             list all supported database drivers
+  -d [ --database ] arg        the database connection string, format: 
+                               service://user:pwd@host/database
+  --config-module arg (=trunk) the configmodule to use
+  --inventory-db arg           load the inventory from the given database or 
+                               file, format: [service://]location
+  --config-db arg              load the configuration from the given database 
+                               or file, format: [service://]location
 
-  Stat  Net Date      Time               Amp  Per   Res  Dist  Az  mb  ML  mB
-  KLF3  WD  22/01/20  21:44:20.7         0.0  0.0  -0.4   0.0 302 0.0 2.4 0.0
-  SDEP  WD  22/01/20  21:44:22.0         0.0  0.0   0.6   0.0 110 0.0 1.5 0.0
-  AGRI  SW  22/01/20  21:44:21.9         0.0  0.0  -0.3   0.1  91 0.0 1.8 0.0
-  WBHF  WD  22/01/20  21:44:21.2         0.0  0.0  -1.1   0.1 191 0.0 2.4 0.0
-  RNCH  SW  22/01/20  21:44:23.3         0.0  0.0  -0.1   0.1   9 0.0 1.2 0.0
-  FOCH  WD  22/01/20  21:44:22.4         0.0  0.0  -1.3   0.2 236 0.0 2.4 0.0
-  UNJO  SW  22/01/20  21:44:26.0         0.0  0.0   0.1   0.3  63 0.0 2.8 0.0
-  KFND  SW  22/01/20  21:44:26.8         0.0  0.0   0.0   0.3  39 0.0 2.9 0.0
-  WALT  SW  22/01/20  21:44:27.1         0.0  0.0  -0.0   0.3  31 0.0 2.2 0.0
-  RDWR  SW  22/01/20  21:44:27.3         0.0  0.0  -0.1   0.4  75 0.0 2.2 0.0
-  OBSV  SW  22/01/20  21:44:28.9         0.0  0.0   0.2   0.4  62 0.0 1.9 0.0
-  BNON  SW  22/01/20  21:44:32.6         0.0  0.0   0.1   0.6  69 0.0 2.7 0.0
-  VLEI  KO  22/01/20  21:44:37.4         0.0  0.0   0.3   0.9 232 0.0 2.2 0.0
-  SPIR  KO  22/01/20  21:44:37.9         0.0  0.0   0.3   0.9 241 0.0 2.3 0.0
-  AGHS  KO  22/01/20  21:44:41.0         0.0  0.0   2.4   1.0 236 0.0 0.0 0.0
-  WDF   KO  22/01/20  21:44:40.9         0.0  0.0  -0.6   1.2 235 0.0 2.0 0.0
+Dump:
+  -E [ --event ] arg    ID of event to dump
+  -O [ --origin ] arg   ID of origin to dump
+  -w [ --weight ] arg   weight threshold for printed and counted picks
+  -1 [ --autoloc1 ]     autoloc1 format
+  -3 [ --autoloc3 ]     autoloc3 format
+  -x [ --extra ]        extra detailed autoloc3 format
+  -e [ --enhanced ]     enhanced output precision for local earthquakes
+  -p [ --polarities ]   dump onset polarities
+  --first-only          dump only the first event/origin
+  --event-agency-id     use agency ID information from event instead of 
+                        preferred origin
+  -k [ --dist-in-km ]   plot distances in km instead of degree
 
- RMS-ERR:         0.78
-
- First location:  2022/01/20 21:44:27
- This location:   2022/01/21 01:02:26
+Input:
+  -f [ --format ] arg   input format to use (xml [default], zxml (zipped xml), 
+                        binary)
+  -i [ --input ] arg    input file, default: stdin
 

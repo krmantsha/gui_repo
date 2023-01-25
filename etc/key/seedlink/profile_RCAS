@@ -1,0 +1,11 @@
+# Activated plugins for category sources
+sources = q330
+
+# Hostname or IP.
+sources.q330.address = RCAS
+
+# Source port to receive data packets.
+sources.q330.port = 6330
+
+# Q330 serial number (with 0x prefix).
+sources.q330.serial = 0x033500C9BBE7B833

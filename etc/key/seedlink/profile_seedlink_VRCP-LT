@@ -1,0 +1,11 @@
+# Activated plugins for category sources
+sources = vrcp_Q330:q330
+
+# Hostname or IP.
+sources.vrcp_Q330.address = VRCP
+
+# Source port to receive data packets.
+sources.vrcp_Q330.port = 6330
+
+# Q330 serial number (with 0x prefix).
+sources.vrcp_Q330.serial = 0x033500FBD91AB0DE

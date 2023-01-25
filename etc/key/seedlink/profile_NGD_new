@@ -1,0 +1,11 @@
+# Activated plugins for category sources
+sources = NGD_new:q330
+
+# Hostname or IP.
+sources.NGD_new.address = NGD
+
+# Q330 dataport number (1-4).
+sources.NGD_new.slot = 1
+
+# Q330 serial number (with 0x prefix).
+sources.NGD_new.serial = 0x010000044C8EBAF0

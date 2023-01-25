@@ -1,0 +1,11 @@
+# Activated plugins for category sources
+sources = q330
+
+# Hostname or IP.
+sources.q330.address = OGC
+
+# Q330 dataport number (1-4).
+sources.q330.slot = 1
+
+# Q330 serial number (with 0x prefix).
+sources.q330.serial = 0x0100000EBD451A6A

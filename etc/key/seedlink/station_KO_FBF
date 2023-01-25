@@ -2,7 +2,7 @@
 sources = fbf:q330
 
 # Hostname or IP.
-sources.fbf.address = fbf
+sources.fbf.address = FBF
 
 # Source port to receive data packets.
 sources.fbf.port = 6330
@@ -18,4 +18,4 @@ sources.fbf.port = 6330
 sources.fbf.proc = q330
 
 # Q330 serial number (with 0x prefix).
-sources.fbf.serial = 0x0335002C06FA8011
+sources.fbf.serial = 0x033500DD7E2AC0A8

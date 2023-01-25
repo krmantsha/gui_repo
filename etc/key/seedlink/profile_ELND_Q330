@@ -1,0 +1,8 @@
+# Activated plugins for category sources
+sources = ELND_Q330:q330
+
+# Hostname or IP.
+sources.ELND_Q330.address = ELND
+
+# Q330 serial number (with 0x prefix).
+sources.ELND_Q330.serial = 0x010000044C8D8A53
