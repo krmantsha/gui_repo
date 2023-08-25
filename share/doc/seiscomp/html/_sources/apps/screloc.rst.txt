@@ -207,6 +207,14 @@ screloc inherits :ref:`global options<global-configuration>`.
    during the relocation process as well.
    Default is ``false``.
 
+.. confval:: reloc.storeSourceOriginID
+
+   Type: *boolean*
+
+   Whether to store the ID of the input origin as comment in the
+   relocated origin or not.
+   Default is ``false``.
+
 .. confval:: reloc.originIDSuffix
 
    Type: *string*

@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Processing" href="../toc/processing.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -246,14 +247,22 @@ Default is <code class="docutils literal notranslate"><span class="pre">true</sp
 <p class="admonition-title">Note</p>
 <p><strong>queues.*</strong>
 <em>Set the parameters for each messaging queue. The queues are used</em>
-<em>when listed in the :confval:`queues` parameter. Several queues</em>
+<em>when listed in the “queues” parameter. Several queues</em>
 <em>can be used in parallel. For queues with without databases leave</em>
 <em>the processor parameters empty.</em></p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>queues.$name.*</strong>
-$name is a placeholder for the name to be used.</p>
+$name is a placeholder for the name to be used and needs to be added to <a class="reference internal" href="#confval-queues"><code class="xref std std-confval docutils literal notranslate"><span class="pre">queues</span></code></a> to become active.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">queues</span> <span class="o">=</span> a,b
+queues.a.value1 <span class="o">=</span> ...
+queues.b.value1 <span class="o">=</span> ...
+<span class="c1"># c is not active because it has not been added</span>
+<span class="c1"># to the list of queues</span>
+queues.c.value1 <span class="o">=</span> ...
+</pre></div>
+</div>
 </div>
 <dl class="confval">
 <dt id="confval-queues.$name.groups">
@@ -435,7 +444,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">/</span>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

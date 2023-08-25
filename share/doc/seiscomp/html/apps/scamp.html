@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="scautoloc" href="scautoloc.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -97,27 +98,37 @@ discarded. This minimum weight can be configured with
 </div>
 <div class="section" id="amplitude-types">
 <h2>Amplitude Types<a class="headerlink" href="#amplitude-types" title="Permalink to this headline">¶</a></h2>
-<p>Amplitudes of the following types are currently computed for their corresponding
+<p>Amplitudes of many types are currently computed for their corresponding
 magnitudes.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In order to be used by scmag, the input amplitude names for the
+various magnitude types must typically match exactly. Exceptions:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../base/glossary.html#term-magnitude-nuttli-mn"><span class="xref std std-term">MN</span></a> requires <em>AMN</em> amplitudes,</p></li>
+<li><p><a class="reference internal" href="../base/glossary.html#term-magnitude-local-gns-geonet-mlr"><span class="xref std std-term">MLr</span></a> requires <em>MLv</em> amplitudes.</p></li>
+</ul>
+</div>
 <div class="section" id="local-distances">
 <h3>Local distances<a class="headerlink" href="#local-distances" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
-<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-duration-md"><span class="xref std std-term">Md</span></a></dt><dd><p>Duration magnitude as described in <a class="reference external" href="https://earthquake.usgs.gov/research/software/#HYPOINVERSE">https://earthquake.usgs.gov/research/software/#HYPOINVERSE</a></p>
+<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-duration-md"><span class="xref std std-term">Md</span></a></dt><dd><p>Duration magnitude as described in HYPOINVERSE (<span id="id2">Klein [<a class="reference internal" href="../base/references.html#id41" title="F.W. Klein. User’s guide to HYPOINVERSE-2000, a Fortran program to solve for earthquake locations and magnitudes. US Geological Survey, 2002-171:, 2002. URL: https://www.usgs.gov/node/279394, doi:10.3133/ofr02171.">19</a>]</span>).</p>
 </dd>
 <dt><a class="reference internal" href="../base/glossary.html#term-magnitude-jma-m-jma"><span class="xref std std-term">Mjma</span></a></dt><dd><p>Mjma is computed on displacement data using body waves of period &lt; 30s.</p>
 </dd>
-<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-local-ml"><span class="xref std std-term">ML</span></a></dt><dd><p>Local magnitude calculated on the vertical component using a correction term
-to fit with the standard ML.</p>
+<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-local-ml"><span class="xref std std-term">ML</span></a></dt><dd><p>Local (Richter) magnitude calculated on the horizontal components using a
+correction term to fit with the standard ML (<span id="id3">Richter [<a class="reference internal" href="../base/references.html#id52" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. doi:10.1785/BSSA0250010001.">25</a>]</span>).</p>
 </dd>
-<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-local-horizontal-mlh"><span class="xref std std-term">MLh</span></a></dt><dd><p>Local magnitude calculated on the horizontal components to SED specifications.</p>
+<dt><span class="xref std std-term">MLc</span></dt><dd><p>Local custom magnitude calculated on the horizontal components according to
+Hessian Earthquake Service and <span id="id4">Stange [<a class="reference internal" href="../base/references.html#id65" title="S. Stange. ML determination for local and regional events using a sparse network in Southwestern Germany. J. Seismol., 10:247 – 257, 2006. doi:10.1007/s10950-006-9010-6.">29</a>]</span></p>
+</dd>
+<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-local-horizontal-mlh"><span class="xref std std-term">MLh</span></a></dt><dd><p>Local magnitude calculated on the horizontal components according to SED
+specifications.</p>
 </dd>
 <dt><a class="reference internal" href="../base/glossary.html#term-magnitude-local-vertical-mlv"><span class="xref std std-term">MLv</span></a></dt><dd><p>Local magnitude calculated on the vertical component using a correction term
 to fit with the standard ML.</p>
 </dd>
-<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-local-gns-geonet-mlr"><span class="xref std std-term">MLr</span></a></dt><dd><p>Local magnitude calculated from MLv amplitudes based on GNS/GEONET specifications
-for New Zealand.</p>
-</dd>
-<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-nuttli-mn"><span class="xref std std-term">AMN</span></a></dt><dd><p>Nuttli magnitude for Canada and other Cratonic regions.</p>
+<dt>AMN for <a class="reference internal" href="../base/glossary.html#term-magnitude-nuttli-mn"><span class="xref std std-term">MN</span></a></dt><dd><p>Nuttli magnitude for Canada and other Cratonic regions (<span id="id5">Nuttli [<a class="reference internal" href="../base/references.html#id48" title="O.W. Nuttli. Seismic wave attenuation and magnitude relations for eastern north america. J. Geophys. Res., 5:876 - 885, 1973. doi:10.1029/JB078i005p00876.">22</a>]</span>).</p>
 </dd>
 </dl>
 </div>
@@ -128,18 +139,15 @@ for New Zealand.</p>
 </dd>
 <dt><a class="reference internal" href="../base/glossary.html#term-magnitude-cumulative-body-wave-mbc"><span class="xref std std-term">mBc</span></a></dt><dd><p>Cumulative body wave magnitude</p>
 </dd>
-<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-broadband-body-wave-mb"><span class="xref std std-term">mB</span></a></dt><dd><p>Broad band body wave magnitude</p>
+<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-broadband-body-wave-mb"><span class="xref std std-term">mB</span></a></dt><dd><p>Broad band body wave magnitude after <span id="id6">Bormann and Saul [<a class="reference internal" href="../base/references.html#id16" title="P. Bormann and J. Saul. The new iaspei standard broadband magnitude mb. Seismol. Res. Lett., 5:698 - 705, 2008. doi:10.1785/gssrl.79.5.698.">14</a>]</span></p>
 </dd>
-<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-broadband-p-wave-moment-mwp"><span class="xref std std-term">Mwp</span></a></dt><dd><p>The body wave magnitude of Tsuboi et al. (1995)</p>
+<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-broadband-p-wave-moment-mwp"><span class="xref std std-term">Mwp</span></a></dt><dd><p>The body wave magnitude of <span id="id7">Tsuboi <em>et al.</em> [<a class="reference internal" href="../base/references.html#id66" title="S. Tsuboi, K. Abe, K. Takano, and Y. Yamanaka. Rapid determination of Mw from broadband P waveforms. Bull. Seismol. Soc. Am., 1995. doi:10.1785/BSSA0850020606.">30</a>]</span></p>
 </dd>
 <dt><a class="reference internal" href="../base/glossary.html#term-magnitude-surface-wave-ms-20"><span class="xref std std-term">Ms_20</span></a></dt><dd><p>Surface-wave magnitude at 20 s period</p>
 </dd>
 <dt><a class="reference internal" href="../base/glossary.html#term-magnitude-broadband-surface-wave-ms-bb"><span class="xref std std-term">Ms(BB)</span></a></dt><dd><p>Broad band surface-wave magnitude</p>
 </dd>
 </dl>
-<p>Note that in order to be used by scmag, the input amplitude names for the
-various magnitude types must match exactly with the exception of the AMN amplitudes
-required by the <a class="reference internal" href="../base/glossary.html#term-magnitude-nuttli-mn"><span class="xref std std-term">MN (Nuttli) magnitude</span></a>.</p>
 </div>
 </div>
 <div class="section" id="acceleration-input-data">
@@ -321,8 +329,8 @@ parameter is ignored.</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="id2">
-<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--v</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
+<dt id="id8">
+<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--v</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id8" title="Permalink to this definition">¶</a></dt>
 <dd><p>Increase verbosity level (may be repeated, eg. -vv)</p>
 </dd></dl>
 
@@ -604,7 +612,7 @@ document will be output.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

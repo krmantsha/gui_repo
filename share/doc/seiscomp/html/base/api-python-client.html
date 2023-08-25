@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Examples" href="sdk-python-examples.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -185,7 +186,7 @@ at all or show undefined/unexpected behaviour.</p>
 enabling a messaging connection and enabling database access.</p>
 <p>Messaging, database and daemon mode is enabled by default. The daemon mode is
 important if the application should be started as service and therefore should
-support the <code class="xref std std-option docutils literal notranslate"><span class="pre">-D,</span> <span class="pre">--daemon</span></code> option. Utilities and non daemon applications
+support the option <code class="docutils literal notranslate"><span class="pre">-D,</span> <span class="pre">--daemon</span></code>. Utilities and non daemon applications
 should disable that mode.</p>
 <p>Example calls to this options are shown in the highlighted lines of the above
 code block.</p>
@@ -390,7 +391,7 @@ returns the RecordStream instance which can be used to add stream requests.</p>
 </div>
 <p>The record stream service is configured either with configuration files
 (<a class="reference internal" href="../apps/global.html#confval-recordstream.service"><code class="xref std std-confval docutils literal notranslate"><span class="pre">recordstream.service</span></code></a>, <a class="reference internal" href="../apps/global.html#confval-recordstream.source"><code class="xref std std-confval docutils literal notranslate"><span class="pre">recordstream.source</span></code></a>) or
-via command line (<code class="xref std std-option docutils literal notranslate"><span class="pre">-I,</span> <span class="pre">--record-url</span></code>).</p>
+via command-line options <code class="docutils literal notranslate"><span class="pre">-I`,</span> <span class="pre">``--record-url</span></code>.</p>
 <p>The application finishes if the record stream read EOF. Running a <code class="xref py py-class docutils literal notranslate"><span class="pre">StreamApplication</span></code>
 with <a class="reference internal" href="../apps/seedlink.html#seedlink"><span class="std std-ref">Seedlink</span></a> would probably never terminate since it is a
 real time connection and handles reconnects automatically.</p>
@@ -454,7 +455,7 @@ real time connection and handles reconnects automatically.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

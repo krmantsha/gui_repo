@@ -3,7 +3,7 @@
 <html >
   <head>
     <meta charset="utf-8" />
-    <title>Getting started &#8212; SeisComP Release documentation</title>
+    <title>Getting Started with SeisComP &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -13,10 +13,11 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="System management" href="management.html" />
-    <link rel="prev" title="Installation and Database" href="installation.html" /> 
+    <link rel="prev" title="SeisComP Installation" href="installation.html" /> 
   </head>
   <body>
     <div class="header">
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -47,7 +48,7 @@
           </a>
         </li>
         <li class="right">
-          <a href="installation.html" title="Installation and Database"
+          <a href="installation.html" title="SeisComP Installation"
              accesskey="P">
             previous
           </a>
@@ -64,8 +65,8 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="getting-started">
-<span id="id1"></span><h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="getting-started-with-scname">
+<span id="getting-started"></span><h1>Getting Started with <cite>SeisComP</cite><a class="headerlink" href="#getting-started-with-scname" title="Permalink to this headline">¶</a></h1>
 <p>Once the Linux system is installed the <cite>SeisComP</cite> modules need to be configured including
 the <a class="reference internal" href="#getting-started-initial"><span class="std std-ref">initial configuration and the connection to the database</span></a>.
 The central tool to configure and control the system is <strong class="program">seiscomp</strong> which
@@ -73,9 +74,10 @@ is explained more deeply in the <a class="reference internal" href="management.h
 graphical frontend to <strong class="program">seiscomp</strong> is <a class="reference internal" href="../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a>.</p>
 <div class="section" id="database-configuration">
 <span id="getting-started-initial"></span><h2>Database Configuration<a class="headerlink" href="#database-configuration" title="Permalink to this headline">¶</a></h2>
-<p>To configure <cite>SeisComP</cite> with the database initially execute the steps listed in the
-section <a class="reference internal" href="#getting-started-setup"><span class="std std-ref">Getting started</span></a>. You will need to consider
-differences in the database:</p>
+<p>Once the database server is defined and optimized as described in the section
+<a class="reference internal" href="installation.html#database-configuration"><span class="std std-ref">Database Server Configuration</span></a> you may configure <cite>SeisComP</cite> with the database.
+Initially execute the steps listed in this section. You will need to consider
+differences in databases:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#getting-started-mysql"><span class="std std-ref">MySQL</span></a> (not recommended),</p></li>
 <li><p><a class="reference internal" href="#getting-started-mariadb"><span class="std std-ref">MariaDB</span></a>,</p></li>
@@ -107,28 +109,25 @@ to use a native password on the MySQL server.</p>
 </div>
 <div class="section" id="mariadb">
 <span id="getting-started-mariadb"></span><h3>MariaDB<a class="headerlink" href="#mariadb" title="Permalink to this headline">¶</a></h3>
-<p>For setting up the <cite>SeisComP</cite> database with MariaDB follow the instructions below.</p>
+<p>The initial configuration by the <strong class="program">seiscomp</strong> script or the
+wizard of <a class="reference internal" href="../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> allows to create and configure the MySQL database
+for <cite>SeisComP</cite>.</p>
+<p>For setting up the database manually with MariaDB follow the instructions
+below.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>With <strong>Ubuntu 16.04</strong> MariaDB has become the standard flavor of MySQL in Ubuntu
-and either MariaDB or MySQL can be installed. The implementation of MariaDB
-in Ubuntu requires additional steps. They must be taken <strong>before</strong> the initial
-configuration in order to allow <cite>SeisComP</cite> to make use of MariaDB.</p>
+<p>With <strong>Ubuntu 16.04</strong> MariaDB has become the standard flavor of MySQL in
+Ubuntu and either MariaDB or MySQL can be installed. The implementation
+of MariaDB in Ubuntu requires additional steps. They must be taken
+<strong>before</strong> the initial configuration in order to allow <cite>SeisComP</cite> to make
+use of MariaDB. Previously, the <a class="reference internal" href="../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> wizard and
+<strong class="command">seiscomp setup</strong> could not be used to set up the MariaDB database.
+<strong>The option “Create database” had to be unchecked or answered with “no”</strong>.
+The issue is resolved in this release and both, <a class="reference internal" href="../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> wizard and
+<strong class="command">seiscomp setup</strong> are now fully capable of the required actions.</p>
 </div>
-<p>The full procedure to create the database including database optimization is:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>user@host:~$ sudo systemctl <span class="nb">enable</span> mariadb
-user@host:~$ sudo mysql_secure_installation
-     provide new root password
-     answer all questions with yes <span class="o">[</span>Enter<span class="o">]</span>
-
-user@host:~$ sudo vim /etc/mysql/mariadb.conf.d/50-server.cnf
-     <span class="o">[</span>mysqld<span class="o">]</span>
-     <span class="nv">innodb_buffer_pool_size</span> <span class="o">=</span> &lt;your value&gt;
-     <span class="nv">innodb_flush_log_at_trx_commit</span> <span class="o">=</span> <span class="m">2</span>
-
-user@host:~$ sudo systemctl restart mariadb
-
-user@host:~$ sudo mysql -u root -p
+<p>The full procedure to create the seiscomp database:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>user@host:~$ sudo mysql -u root -p
      CREATE DATABASE seiscomp CHARACTER SET utf8 COLLATE utf8_bin<span class="p">;</span>
      grant usage on seiscomp.* to sysop@localhost identified by <span class="s1">&#39;sysop&#39;</span><span class="p">;</span>
      grant all privileges on seiscomp.* to sysop@localhost<span class="p">;</span>
@@ -140,16 +139,16 @@ user@host:~$ sudo mysql -u root -p
 user@host:~$ mysql -u sysop -p seiscomp &lt; ~/seiscomp/share/db/mysql.sql
 </pre></div>
 </div>
-<p>Currently, the <a class="reference internal" href="../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> wizard and <strong class="command">seiscomp setup</strong> cannot
-be used to set up the MariaDB database. <strong>The option “Create database” must
-therefore be unchecked or answered with “no”</strong>.</p>
 </div>
 <div class="section" id="postgresql">
 <span id="getting-started-postgresql"></span><h3>PostgreSQL<a class="headerlink" href="#postgresql" title="Permalink to this headline">¶</a></h3>
-<p>The initial configuration allows configuring the PostgreSQL database parameters for <cite>SeisComP</cite>.
-It does not allow to <a class="reference internal" href="installation.html#database-configuration-postgresql"><span class="std std-ref">create the database</span></a>
-and the database tables. First <span class="xref std std-ref">setup the database server</span>,
-then create the user, the database and the tables.</p>
+<p>The initial configuration allows configuring the PostgreSQL database parameters
+for <cite>SeisComP</cite>.
+It also allows <a class="reference internal" href="installation.html#database-configuration-postgresql"><span class="std std-ref">creating the database</span></a>
+and the database tables.</p>
+<p>For a manual setup of the PostgreSQL database first <a class="reference internal" href="installation.html#database-configuration-postgresql"><span class="std std-ref">setup the database
+server</span></a>, then create the user, the database
+and the tables.</p>
 <ol class="arabic">
 <li><p>Create the user and the database</p>
 <p><strong class="program">CentOS</strong>:</p>
@@ -168,7 +167,7 @@ root@host:~$ <span class="nb">exit</span>
 </div>
 </li>
 <li><p>Create the database tables</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>user@host:~$ psql -f seiscomp/share/db/postgres.sql -d seiscomp -U sysop
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>user@host:~$ psql -f ~/seiscomp/share/db/postgres.sql -t seiscomp -U sysop
 </pre></div>
 </div>
 </li>
@@ -469,7 +468,7 @@ If everything is working, the analysis tools can be started, e.g. MapView.</p>
 <script>$('#searchbox').show(0);</script>
   <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Getting started</a><ul>
+<li><a class="reference internal" href="#">Getting Started with <cite>SeisComP</cite></a><ul>
 <li><a class="reference internal" href="#database-configuration">Database Configuration</a><ul>
 <li><a class="reference internal" href="#mysql">MySQL</a></li>
 <li><a class="reference internal" href="#mariadb">MariaDB</a></li>
@@ -488,7 +487,7 @@ If everything is working, the analysis tools can be started, e.g. MapView.</p>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="installation.html"
-                        title="previous chapter">Installation and Database</a></p>
+                        title="previous chapter"><cite>SeisComP</cite> Installation</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="management.html"
                         title="next chapter">System management</a></p>
@@ -511,7 +510,7 @@ If everything is working, the analysis tools can be started, e.g. MapView.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

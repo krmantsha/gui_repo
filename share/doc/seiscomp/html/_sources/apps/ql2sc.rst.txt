@@ -352,9 +352,9 @@ ql2sc inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **host.\$name.\***
+   **host.$name.\***
    *Provide the connection parameters to one QuakeLink server.*
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`hosts` to become active.
+   $name is a placeholder for the name to be used and needs to be added to :confval:`hosts` to become active.
 
    .. code-block:: sh
 
@@ -366,7 +366,7 @@ ql2sc inherits :ref:`global options<global-configuration>`.
       host.c.value1 = ...
 
 
-.. confval:: host.\$name.url
+.. confval:: host.$name.url
 
    Type: *string*
 
@@ -377,14 +377,14 @@ ql2sc inherits :ref:`global options<global-configuration>`.
    If set to an empty string the application will run without any QuakeLink connection attempt.
    Default is ``ql://localhost:18010``.
 
-.. confval:: host.\$name.gzip
+.. confval:: host.$name.gzip
 
    Type: *boolean*
 
    Enables\/disables GZip \(GNU zip\) compression.
    Default is ``false``.
 
-.. confval:: host.\$name.native
+.. confval:: host.$name.native
 
    Type: *boolean*
 
@@ -392,7 +392,7 @@ ql2sc inherits :ref:`global options<global-configuration>`.
    Native data export may be disabled on some hosts.
    Default is ``false``.
 
-.. confval:: host.\$name.syncEventAttributes
+.. confval:: host.$name.syncEventAttributes
 
    Type: *boolean*
 
@@ -404,7 +404,7 @@ ql2sc inherits :ref:`global options<global-configuration>`.
    update the event attributes via journaling.
    Default is ``true``.
 
-.. confval:: host.\$name.keepAlive
+.. confval:: host.$name.keepAlive
 
    Type: *boolean*
 
@@ -414,7 +414,7 @@ ql2sc inherits :ref:`global options<global-configuration>`.
    connection if no alive message is received within 60s.
    Default is ``false``.
 
-.. confval:: host.\$name.filter
+.. confval:: host.$name.filter
 
    Type: *string*
 
@@ -426,7 +426,7 @@ ql2sc inherits :ref:`global options<global-configuration>`.
    time      :\= %Y,%m,%d[,%H,%M,%S,%f]
 
 
-.. confval:: host.\$name.routingTable
+.. confval:: host.$name.routingTable
 
    Type: *list:string*
 
@@ -436,48 +436,48 @@ ql2sc inherits :ref:`global options<global-configuration>`.
    Default is ``Pick:IMPORT_GROUP,Amplitude:IMPORT_GROUP,FocalMechanism:FOCMECH,Origin:LOCATION``.
 
 .. note::
-   **host.\$name.data.\***
+   **host.$name.data.\***
    *Specify the XML components to fetch.*
    *Note: These options are not used if 'native' data is requested.*
 
 
 
-.. confval:: host.\$name.data.picks
+.. confval:: host.$name.data.picks
 
    Type: *boolean*
 
    Include picks
    Default is ``true``.
 
-.. confval:: host.\$name.data.amplitudes
+.. confval:: host.$name.data.amplitudes
 
    Type: *boolean*
 
    Include amplitudes
    Default is ``true``.
 
-.. confval:: host.\$name.data.arrivals
+.. confval:: host.$name.data.arrivals
 
    Type: *boolean*
 
    Include origin arrivals
    Default is ``true``.
 
-.. confval:: host.\$name.data.staMags
+.. confval:: host.$name.data.staMags
 
    Type: *boolean*
 
    Include origin station magnitudes
    Default is ``true``.
 
-.. confval:: host.\$name.data.staMts
+.. confval:: host.$name.data.staMts
 
    Type: *boolean*
 
    Include moment tensor station contributions and phase settings
    Default is ``true``.
 
-.. confval:: host.\$name.data.preferred
+.. confval:: host.$name.data.preferred
 
    Type: *boolean*
 

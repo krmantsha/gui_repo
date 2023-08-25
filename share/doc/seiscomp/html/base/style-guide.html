@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Coding Conventions" href="coding-conventions.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -235,10 +236,9 @@ Use :ref: if a cross reference to the documentation is needed:</p>
 </li>
 </ul>
 </div>
-<div class="section" id="links-and-references">
-<span id="documentation-style-guide-links"></span><h3>Links and references<a class="headerlink" href="#links-and-references" title="Permalink to this headline">¶</a></h3>
-<ul>
-<li><p>Create links to sections and subsections within and to figures  the text which can be referenced.
+<div class="section" id="internal-links">
+<span id="documentation-style-guide-links"></span><h3>Internal links<a class="headerlink" href="#internal-links" title="Permalink to this headline">¶</a></h3>
+<p>Create links to sections and subsections within and to figures  the text which can be referenced.
 Use unique link names, e.g. including the upper-level section name or the module name.
 Use appropriate short names to fit within the texts.</p>
 <p>Link with in this documentation to the section on headings:</p>
@@ -250,24 +250,26 @@ Use appropriate short names to fit within the texts.</p>
 </pre></div>
 </div>
 <p>Result: <a class="reference internal" href="#documentation-style-guide-headings"><span class="std std-ref">short name</span></a></p>
-</li>
-<li><p>Create a reference list for external URLs at the end of the document.
-Do not show the URL for external web sites within the text.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>References
-==========
-
-.. target-notes::
-
-.. _`gempa GmbH`: https://www.gempa.de
+</div>
+<div class="section" id="external-references">
+<h3>External references<a class="headerlink" href="#external-references" title="Permalink to this headline">¶</a></h3>
+<p>Do not show full citations or URLs for
+external web sites within the text but make references which
+are listed in the section <a class="reference internal" href="references.html#sec-references"><span class="std std-ref">References</span></a>. Procedure:</p>
+<ol class="arabic">
+<li><p>Add publications, external URLs, etc. as complete citation
+entries to the reference list <code class="file docutils literal notranslate"><span class="pre">doc/base/references.bib</span></code>
+in the base <cite>SeisComP</cite> <a class="reference internal" href="build.html#build"><span class="std std-ref">repository on Github</span></a>.</p></li>
+<li><p>Cite documents within the RST file using the <em>cite</em>
+directive</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>:cite:p:`seiscomp`
+:cite:t:`seiscomp`
 </pre></div>
 </div>
-<p>and cite the URL within the text:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>`gempa GmbH`_
-</pre></div>
-</div>
-<p>Result: <a class="reference external" href="https://www.gempa.de">gempa GmbH</a> <a class="footnote-reference brackets" href="#id1" id="id2">1</a></p>
+<p>which results in <span id="id1">[<a class="reference internal" href="references.html#id216" title="Helmholtz-Centre Potsdam - GFZ German Research Centre for Geosciences and gempa GmbH. The SeisComP seismological software package. GFZ Data Services. 2008. URL: https://www.seiscomp.de, doi:10.5880/GFZ.2.4.2020.003.">33</a>]</span> and
+<span id="id2">Helmholtz-Centre Potsdam - GFZ German Research Centre for Geosciences and gempa GmbH [<a class="reference internal" href="references.html#id216" title="Helmholtz-Centre Potsdam - GFZ German Research Centre for Geosciences and gempa GmbH. The SeisComP seismological software package. GFZ Data Services. 2008. URL: https://www.seiscomp.de, doi:10.5880/GFZ.2.4.2020.003.">33</a>]</span> within the documentation HTML text.</p>
 </li>
-</ul>
+</ol>
 </div>
 <div class="section" id="text-boxes">
 <h3>Text boxes<a class="headerlink" href="#text-boxes" title="Permalink to this headline">¶</a></h3>
@@ -352,7 +354,7 @@ high-pass filter; command line; command-line parameter</p></li>
 </ul>
 </li>
 <li><p>Hyphenation for compound adjectives: yes, before a noun; after verb to be is harder.
-See the <a class="reference external" href="https://english.stackexchange.com/questions/65630/you-should-be-well-organised-or-you-should-be-well-organised">discussion</a> <a class="footnote-reference brackets" href="#id3" id="id4">2</a>, e.g.:</p>
+See the <a class="reference external" href="https://english.stackexchange.com/questions/65630/you-should-be-well-organised-or-you-should-be-well-organised">discussion</a> <a class="footnote-reference brackets" href="#id3" id="id4">1</a>, e.g.:</p>
 <ul class="simple">
 <li><p>Use command-line parameters.</p></li>
 <li><p>Type on the command line.</p></li>
@@ -368,8 +370,8 @@ See the <a class="reference external" href="https://english.stackexchange.com/qu
 </li>
 <li><p>Case:</p>
 <ul class="simple">
-<li><p>SEED, miniSEED (miniSEED in <a class="reference external" href="https://github.com/iris-edu/libmseed/wiki">libmseed documentation</a> <a class="footnote-reference brackets" href="#id5" id="id6">3</a>, or MiniSEED,
-but Mini-SEED appears in Appendix G of the <a class="reference external" href="https://www.fdsn.org/pdf/SEEDManual_V2.4.pdf">Seed Reference Manual</a> <a class="footnote-reference brackets" href="#id7" id="id8">4</a>.)</p></li>
+<li><p>SEED, miniSEED (miniSEED in <a class="reference external" href="https://github.com/iris-edu/libmseed/wiki">libmseed documentation</a> <a class="footnote-reference brackets" href="#id5" id="id6">2</a>, or MiniSEED,
+but Mini-SEED appears in Appendix G of the <a class="reference external" href="https://www.fdsn.org/pdf/SEEDManual_V2.4.pdf">Seed Reference Manual</a> <a class="footnote-reference brackets" href="#id7" id="id8">3</a>.)</p></li>
 <li><p>Ctrl+S for ‘control’ key plus ‘s’.</p></li>
 <li><p>MySQL, PostgreSQL, MariaDB</p></li>
 </ul>
@@ -444,16 +446,13 @@ X-forwarding may distort the application features.</p></li>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <dl class="footnote brackets">
-<dt class="label" id="id1"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
-<dd><p><a class="reference external" href="https://www.gempa.de">https://www.gempa.de</a></p>
-</dd>
-<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id4">2</a></span></dt>
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id4">1</a></span></dt>
 <dd><p><a class="reference external" href="https://english.stackexchange.com/questions/65630/you-should-be-well-organised-or-you-should-be-well-organised">https://english.stackexchange.com/questions/65630/you-should-be-well-organised-or-you-should-be-well-organised</a></p>
 </dd>
-<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id6">3</a></span></dt>
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id6">2</a></span></dt>
 <dd><p><a class="reference external" href="https://github.com/iris-edu/libmseed/wiki">https://github.com/iris-edu/libmseed/wiki</a></p>
 </dd>
-<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id8">4</a></span></dt>
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id8">3</a></span></dt>
 <dd><p><a class="reference external" href="https://www.fdsn.org/pdf/SEEDManual_V2.4.pdf">https://www.fdsn.org/pdf/SEEDManual_V2.4.pdf</a></p>
 </dd>
 </dl>
@@ -486,7 +485,8 @@ X-forwarding may distort the application features.</p></li>
 <li><a class="reference internal" href="#section-and-headings">Section and headings</a></li>
 <li><a class="reference internal" href="#lists">Lists</a></li>
 <li><a class="reference internal" href="#other-markup-tools-and-conventions">Other markup tools and conventions</a></li>
-<li><a class="reference internal" href="#links-and-references">Links and references</a></li>
+<li><a class="reference internal" href="#internal-links">Internal links</a></li>
+<li><a class="reference internal" href="#external-references">External references</a></li>
 <li><a class="reference internal" href="#text-boxes">Text boxes</a></li>
 </ul>
 </li>
@@ -526,7 +526,7 @@ X-forwarding may distort the application features.</p></li>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

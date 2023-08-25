@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="LocExt" href="global_locext.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -72,13 +73,18 @@
           
   <div class="section" id="mn">
 <span id="global-mn"></span><h1>MN<a class="headerlink" href="#mn" title="Permalink to this headline">¶</a></h1>
-<p>The MN plugin is designed to compute the Canadian Nuttli magnitude
-according to the Geological Survey of Canada.</p>
+<p>Nuttli magnitude for Canada and other Cratonic regions</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>MN is the <a class="reference external" href="https://doi.org/10.1029/JB078i005p00876">Nuttli</a> <a class="footnote-reference brackets" href="#id1" id="id2">1</a> magnitude for Canada and other Cratonic regions. <cite>SeisComP</cite>
-provides regionalization for measuring amplitudes and for computing the magnitudes.</p>
-<p>The amplitude unit in SeisComP is <strong>meter/second</strong> (m/s).</p>
+<p>MN is the Nuttli magnitude <span id="id1">[<a class="reference internal" href="../base/references.html#id48" title="O.W. Nuttli. Seismic wave attenuation and magnitude relations for eastern north america. J. Geophys. Res., 5:876 - 885, 1973. doi:10.1029/JB078i005p00876.">22</a>]</span> for Canada and other Cratonic
+regions. It is implemented by the <em>nuttli</em> plugin according to the
+Geological Survey of Canada (NRCan).</p>
+<p>For measuring AMN amplitudes and for computing MN magnitudes <cite>SeisComP</cite> provides
+regionalization.</p>
+<div class="section" id="amplitude">
+<h3>Amplitude<a class="headerlink" href="#amplitude" title="Permalink to this headline">¶</a></h3>
+<p>Amplitude unit in <cite>SeisComP</cite>: <strong>meter/second</strong> (m/s)</p>
+</div>
 </div>
 <div class="section" id="settings">
 <h2>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h2>
@@ -92,7 +98,7 @@ region-specific calibration parameters in the global module configuration.</p>
 <h3>scamp<a class="headerlink" href="#scamp" title="Permalink to this headline">¶</a></h3>
 <p>Add the Nuttli amplitude type, <strong>AMN</strong>, to the range of magnitudes for which the amplitudes are
 to be calculated by <a class="reference internal" href="scamp.html#scamp"><span class="std std-ref">scamp</span></a>, e.g.:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">amplitudes</span> <span class="o">=</span> ML,MLv,mb,mB,AMN
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">amplitudes</span> <span class="o">=</span> AMN
 </pre></div>
 </div>
 <p>Adjust MN-specific global bindings parameters in the amplitude section and set the
@@ -107,20 +113,12 @@ region-specific calibration parameters in the global module configuration
 <h3>scmag<a class="headerlink" href="#scmag" title="Permalink to this headline">¶</a></h3>
 <p>Add the Nuttli magnitude type, <strong>MN</strong>, to the range of magnitudes to be calculated by
 <a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a>, e.g.:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">magnitudes</span> <span class="o">=</span> ML,MLv,mb,mB,MN
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">magnitudes</span> <span class="o">=</span> MN
 </pre></div>
 </div>
 <p>Adjust MN-specific global bindings parameters in the magnitude section and define
 the region polygons in the global module configuration (magnitude section).</p>
 </div>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="id1"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
-<dd><p><a class="reference external" href="https://doi.org/10.1029/JB078i005p00876">https://doi.org/10.1029/JB078i005p00876</a></p>
-</dd>
-</dl>
 </div>
 <div class="section" id="configuration">
 <span id="global-mn-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
@@ -176,13 +174,15 @@ Default is <code class="docutils literal notranslate"><span class="pre">&#64;DAT
   <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">MN</a><ul>
-<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#description">Description</a><ul>
+<li><a class="reference internal" href="#amplitude">Amplitude</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#settings">Settings</a><ul>
 <li><a class="reference internal" href="#scamp">scamp</a></li>
 <li><a class="reference internal" href="#scmag">scmag</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#references">References</a></li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 </ul>
 </li>
@@ -213,7 +213,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">&#64;DAT
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

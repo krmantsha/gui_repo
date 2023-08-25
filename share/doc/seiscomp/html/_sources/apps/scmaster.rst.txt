@@ -191,7 +191,7 @@ scmaster inherits :ref:`global options<global-configuration>`.
 .. note::
    **queues.\***
    *Set the parameters for each messaging queue. The queues are used*
-   *when listed in the :confval:`queues` parameter. Several queues*
+   *when listed in the "queues" parameter. Several queues*
    *can be used in parallel. For queues with without databases leave*
    *the processor parameters empty.*
 
@@ -199,11 +199,20 @@ scmaster inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **queues.\$name.\***
-   \$name is a placeholder for the name to be used.
+   **queues.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`queues` to become active.
+
+   .. code-block:: sh
+
+      queues = a,b
+      queues.a.value1 = ...
+      queues.b.value1 = ...
+      # c is not active because it has not been added
+      # to the list of queues
+      queues.c.value1 = ...
 
 
-.. confval:: queues.\$name.groups
+.. confval:: queues.$name.groups
 
    Type: *list:string*
 
@@ -213,7 +222,7 @@ scmaster inherits :ref:`global options<global-configuration>`.
    parameter overrides defaultGroups.
 
 
-.. confval:: queues.\$name.acl
+.. confval:: queues.$name.acl
 
    Type: *list:ipmask*
 
@@ -221,7 +230,7 @@ scmaster inherits :ref:`global options<global-configuration>`.
    to join the queue.
    Default is ``0.0.0.0/0``.
 
-.. confval:: queues.\$name.maximumPayloadSize
+.. confval:: queues.$name.maximumPayloadSize
 
    Type: *int*
 
@@ -232,7 +241,7 @@ scmaster inherits :ref:`global options<global-configuration>`.
    The default is 1MB.
    Default is ``1048576``.
 
-.. confval:: queues.\$name.plugins
+.. confval:: queues.$name.plugins
 
    Type: *list:string*
 
@@ -244,7 +253,7 @@ scmaster inherits :ref:`global options<global-configuration>`.
    Example: dbstore
 
 
-.. confval:: queues.\$name.processors.messages
+.. confval:: queues.$name.processors.messages
 
    Type: *string*
 
@@ -255,12 +264,12 @@ scmaster inherits :ref:`global options<global-configuration>`.
 
 
 .. note::
-   **queues.\$name.processors.messages.dbstore.\***
+   **queues.$name.processors.messages.dbstore.\***
    *Define the database connection parameters.*
 
 
 
-.. confval:: queues.\$name.processors.messages.dbstore.driver
+.. confval:: queues.$name.processors.messages.dbstore.driver
 
    Type: *string*
 
@@ -270,7 +279,7 @@ scmaster inherits :ref:`global options<global-configuration>`.
    with the core.plugins parameter.
 
 
-.. confval:: queues.\$name.processors.messages.dbstore.read
+.. confval:: queues.$name.processors.messages.dbstore.read
 
    Type: *string*
 
@@ -280,7 +289,7 @@ scmaster inherits :ref:`global options<global-configuration>`.
    the remote computer.
 
 
-.. confval:: queues.\$name.processors.messages.dbstore.write
+.. confval:: queues.$name.processors.messages.dbstore.write
 
    Type: *string*
 
@@ -290,7 +299,7 @@ scmaster inherits :ref:`global options<global-configuration>`.
    clients.
 
 
-.. confval:: queues.\$name.processors.messages.dbstore.strictVersionMatch
+.. confval:: queues.$name.processors.messages.dbstore.strictVersionMatch
 
    Type: *boolean*
 

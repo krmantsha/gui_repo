@@ -58,9 +58,9 @@ Colors
 
    color = red | RRGGBBAA | "rgb(red,green,blue)" | "rgba(red,green,blue,alpha)"
 
-Colors are specified either by :term:`color keyword names`, in a hexadecimal
-notation or in a rgb(a) notation. When using the rgb(a) notation it should be
-quoted. Otherwise the configuration
+Colors are specified either by :term:`color keyword names <color keyword name>`,
+in a hexadecimal notation or in a rgb(a) notation. When using the rgb(a)
+notation it should be quoted. Otherwise the configuration
 parser would tokenize the value into 3 or 4 strings due to the comma.
 
 
@@ -2649,10 +2649,10 @@ Configuration
 
 .. note::
 
-   **eventlist.region.\$name.\***
+   **eventlist.region.$name.\***
    *Defines a rectangular region that can be used as a result*
    *set filter on client side.*
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`eventlist.regions` to become active.
+   $name is a placeholder for the name to be used and needs to be added to :confval:`eventlist.regions` to become active.
 
    .. code-block:: sh
 
@@ -2664,7 +2664,7 @@ Configuration
       eventlist.region.c.value1 = ...
 
 
-.. confval:: eventlist.region.\$name.name
+.. confval:: eventlist.region.$name.name
 
    Type: *string*
 
@@ -2672,7 +2672,7 @@ Configuration
    listbox.
 
 
-.. confval:: eventlist.region.\$name.rect
+.. confval:: eventlist.region.$name.rect
 
    Type: *list:double*
 
@@ -2830,11 +2830,11 @@ Configuration
 
 .. note::
 
-   **eventlist.scripts.column.\$name.\***
-   \$name is a placeholder for the name to be used.
+   **eventlist.scripts.column.$name.\***
+   $name is a placeholder for the name to be used.
 
 
-.. confval:: eventlist.scripts.column.\$name.script
+.. confval:: eventlist.scripts.column.$name.script
 
    Type: *path*
 
@@ -2844,7 +2844,7 @@ Configuration
    displayed in the corresponding event list cell.
 
 
-.. confval:: eventlist.scripts.column.\$name.pos
+.. confval:: eventlist.scripts.column.$name.pos
 
    Type: *int*
 
@@ -2852,14 +2852,14 @@ Configuration
    exceeds the total number of columns then the column is appended to the right.
    Default is ``-1``.
 
-.. confval:: eventlist.scripts.column.\$name.label
+.. confval:: eventlist.scripts.column.$name.label
 
    Type: *string*
 
    Column name shown in header of event list table.
 
 
-.. confval:: eventlist.scripts.column.\$name.types
+.. confval:: eventlist.scripts.column.$name.types
 
    Type: *list:string*
 

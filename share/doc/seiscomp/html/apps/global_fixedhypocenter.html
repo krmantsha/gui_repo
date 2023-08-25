@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="scevent" href="../toc/extensions/scevent.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -75,7 +76,7 @@
 <p>Locator for re-computing source time with fixed hypocenter</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>Mining-related events are useful as ground truth events <a class="footnote-reference brackets" href="#bond" id="id1">1</a>
+<p>Mining-related events are useful as ground truth events (<span id="id1">Bondár and McLaughlin [<a class="reference internal" href="../base/references.html#id11" title="I. Bondár and K.L. McLaughlin. A new ground truth data set for seismic studies. Seismol. Res. Lett., 3:465 - 472, 2009. doi:10.1785/gssrl.80.3.465.">10</a>]</span>)
 because the epicentre and depth can be constrained by physical inspection.
 Unless a local seismograph network with accurate timing also locates the event,
 and that information is available, the origin time must be estimated in order
@@ -91,11 +92,11 @@ origin time determination.</p>
 the practise of the Comprehensive Test Ban Treaty Organization (CTBTO).</p></li>
 <li><p>Adaptation of a procedure which is compatible with the other locators supported by <cite>SeisComP</cite>.</p></li>
 <li><p>Adaptation of a procedure which can reproduce results of legacy locators currently
-in use, such as GENLOC <a class="footnote-reference brackets" href="#pavl" id="id2">9</a> and GRL, a
+in use, such as GENLOC <span id="id2">Pavlis <em>et al.</em> [<a class="reference internal" href="../base/references.html#id50" title="G.L. Pavlis, F. Vernon, D. Harvey, and D. Quinlan. Lsqr: an algorithm for sparse linear equations and sparse least squares. ACM Transactions on Mathematical Software, 1:43 - 71, 1982. doi:10.1145/355984.355989.">24</a>]</span> and GRL, a
 grid-based locator developed at the Canadian Hazards Information Service (CHIS).</p></li>
 </ul>
-<p>The implementation of this locator by <span class="xref std std-term">gempa</span> was initiated and has received
-initial funding by National Resources Canada (NRCAN) <a class="footnote-reference brackets" href="#nrcan" id="id3">10</a>.</p>
+<p>The implementation of this locator by <a class="reference internal" href="../base/glossary.html#term-gempa-gmbh"><span class="xref std std-term">gempa GmbH</span></a> was initiated and has received
+initial funding from <span id="id3"><em>Natural Resources Canada (NRCAN), Earthquakes Canada</em> [<a class="reference internal" href="../base/references.html#id145" title="Natural Resources Canada (NRCAN), Earthquakes Canada. URL: https://earthquakescanada.nrcan.gc.ca/index-en.php.">5</a>]</span>.</p>
 </div>
 <div class="section" id="methodology">
 <h2>Methodology<a class="headerlink" href="#methodology" title="Permalink to this headline">¶</a></h2>
@@ -114,8 +115,14 @@ estimated pick uncertainty <img class="math" src="../_images/math/68d8fad26c73ee
 <img class="math" src="../_images/math/1bdf84b56ea19c568b70e6dc45392b954d63a0ea.png" alt="d^k(\Delta)"/> and/or a residual weight term <img class="math" src="../_images/math/cf90d710bc5e654f04f2197992b5658a393a8c93.png" alt="p(r_i)"/>.
 Alternative weighting schemes can be applied but in this
 implementation we weight by pick uncertainty alone: <img class="math" src="../_images/math/eb6982d524ed71f7530ce3eb31b4814c1aef31b1.png" alt="w_i=\frac{1}{{\sigma}_i}"/>.</p>
-<p>In the general case, the model is a nonlinear function of its inputs, and there is no analytic solution for the origin time  and hypocenter  that minimize the norm. Typically, the solution is found iteratively, based on an initial guess for the origin time and hypocenter. This is the normal procedure for an earthquake without an a priori estimate of the hypocentral location.
-When the hypocenter is in fact accurately constrained, the modeled travel time is a constant, so we can project each phase arrival back to an equivalent origin time</p>
+<p>In the general case, the model is a nonlinear function of its inputs, and there
+is no analytic solution for the origin time  and hypocenter  that minimize the
+norm. Typically, the solution is found iteratively, based on an initial guess
+for the origin time and hypocenter. This is the normal procedure for an earthquake
+without an a priori estimate of the hypocentral location.
+When the hypocenter is in fact accurately constrained, the modeled travel time
+is a constant, so we can project each phase arrival back to an equivalent origin
+time</p>
 <div class="math">
 <p><img src="../_images/math/e07cf5ca46edb86938c9b742583b78cf5dfd5a2c.png" alt="\tau_i^k = t_i^k - T_{model}^k (r_i,x)"/></p>
 </div><p>so that we only have to find  which minimizes:</p>
@@ -124,11 +131,15 @@ When the hypocenter is in fact accurately constrained, the modeled travel time i
 </div><p>The residuals are minimized by:</p>
 <div class="math">
 <p><img src="../_images/math/a3c64e2d4f039151334ad193c4df506d7c5a4d27.png" alt="\tau = \frac{\sum_{i=1}^{N}w_i^2 (\tau_i^k)^2}{\sum_{i=1}^{N}w_i^2}."/></p>
-</div><p>Thus, the origin time is simply the weighted mean of the equivalent origin times, according to the velocity model, associated with the arrivals.</p>
+</div><p>Thus, the origin time is simply the weighted mean of the equivalent origin
+times, according to the velocity model, associated with the arrivals.</p>
 <p>The standard error of this estimate is:</p>
 <div class="math">
 <p><img src="../_images/math/450e7d546e262c19d94b8fdfc9f5d971d36f7a1b.png" alt="\sigma = \sqrt{\frac{\sum_{i=1}^{N}w_i^2 [\tau_i^k - \tau]^2}{\sum_{i=1}^{N}w_i^2}}."/></p>
-</div><p>The methodology for estimating error intervals and ellipses recommended for standard processing at the CTBTO <a class="footnote-reference brackets" href="#lee" id="id4">8</a> is that of <a class="footnote-reference brackets" href="#jord" id="id5">6</a> and is implemented in LOCSAT <a class="footnote-reference brackets" href="#bratt" id="id6">2</a>.
+</div><p>The methodology for estimating error intervals and ellipses recommended for
+standard processing at the CTBTO (<span id="id4">Lee and Lahr [<a class="reference internal" href="../base/references.html#id45" title="W.H. Lee and J.C. Lahr. Hypo71 (revised): a computer program for determining local earthquake hypocentral parameters, magnitude, and first motion pattern of local earthquakes. US Geol. Survey Open-file Report 75-311, 1975. URL: https://pubs.er.usgs.gov/publication/ofr75311, doi:10.3133/ofr75311.">20</a>]</span>) is that of
+<span id="id5">Jordan and Sverdrup [<a class="reference internal" href="../base/references.html#id37" title="T.H. Jordan and K.A. Sverdrup. Teleseismic location techniques and their application to earthquake clusters in the south-central pacific. Bull. Seismol. Soc. Am., 4:1105 – 1130, 1981. doi:10.1785/BSSA0710041105.">18</a>]</span> and is implemented
+in LOCSAT (<span id="id6">Bratt and Bache [<a class="reference internal" href="../base/references.html#id17" title="S.R. Bratt and T.C. Bache. Locating events with a sparse network of regional arrays. Bull. Seismol. Soc. Am., 2:780 - 798, 1988. doi:10.1785/BSSA0780020780.">15</a>]</span>).
 Uncertainty is represented by a set of points <img class="math" src="../_images/math/c24babb8b2b84f2c211a040b48c4e2e04bb74871.png" alt="x_e"/> around the final estimate
 <img class="math" src="../_images/math/4d932942be8cf79d3cda089d58de1a45ca6f8597.png" alt="x_f"/> satisfying:</p>
 <div class="math">
@@ -141,7 +152,8 @@ s^2 &amp;= \frac{Ks_K^2+|r_w|^2}{K+N-M}"/></p>
 <li><p><img class="math" src="../_images/math/8ab4b82ece5a67cb801cf339bca8ff343a570c2e.png" alt="s^2"/>: Ratio of actual to assumed.</p></li>
 <li><p><img class="math" src="../_images/math/2255befd84ee2fcea10694752b43e60d80a4f992.png" alt="\kappa_p^2"/>: The “confidence coefficient” at probability <img class="math" src="../_images/math/27dc86f9f1b1c3435b2403a869b5870c582facea.png" alt="\rho"/>.</p></li>
 <li><p><img class="math" src="../_images/math/86991529ca92ae0a8532508be15f15400052d4a4.png" alt="F_p(m,n)"/>: Fisher-Snedecor quantile function (inverse cumulative F-distribution)
-for and degrees of freedom of numerator and denominator sum of squares, respectively, and probability.</p></li>
+for and degrees of freedom of numerator and denominator sum of squares,
+respectively, and probability.</p></li>
 <li><p><img class="math" src="../_images/math/141bbefb74014fc5e43499901bf78607ae335583.png" alt="p"/>: Confidence level: the desired probability that the true epicentre should
 fall within the uncertainty bounds.</p></li>
 <li><p><img class="math" src="../_images/math/3bfb3a64189a14b2704f4610827762d5e3145114.png" alt="N"/>: Sum of all arrival time, azimuth or slowness estimates. Here, only
@@ -167,15 +179,21 @@ matrix <img class="math" src="../_images/math/93b581f18e6ddf1ae1ab7475c44b41837e
 time with respect to the solution coordinates.</p>
 <div class="math">
 <p><img src="../_images/math/746b9634c2f299dd2005c85460e58fae6d08a49e.png" alt="C_m = A^T_wA_w"/></p>
-</div><p>However, when origin time is the only coordinate, the partial derivatives with respect to origin time are unity, the weighted sensitivity matrix is simply a row vector of weights, and the time-time covariance
+</div><p>However, when origin time is the only coordinate, the partial derivatives with
+respect to origin time are unity, the weighted sensitivity matrix is simply a
+row vector of weights, and the time-time covariance
 <img class="math" src="../_images/math/95c69b0bc6dae384ad6ff06f0ec8ecaaf23987e4.png" alt="c_{tt}"/> is simply the sum of the squares of these weights.</p>
 <div class="math">
 <p><img src="../_images/math/3a34284a39272ffe88e206a0c9e216e716d08a39.png" alt="c_{tt} = \sum_{i=1}^{N}w_i^2"/></p>
-</div><p>It is recommended that fixed-hypocentre origin time confidence intervals be estimated using the method of <a class="footnote-reference brackets" href="#jord" id="id7">6</a> for error ellipsoids, that is, that the time error bounds be represented using</p>
+</div><p>It is recommended that fixed-hypocentre origin time confidence intervals be
+estimated using the method of <span id="id7">Jordan and Sverdrup [<a class="reference internal" href="../base/references.html#id37" title="T.H. Jordan and K.A. Sverdrup. Teleseismic location techniques and their application to earthquake clusters in the south-central pacific. Bull. Seismol. Soc. Am., 4:1105 – 1130, 1981. doi:10.1785/BSSA0710041105.">18</a>]</span> for error ellipsoids,
+that is, that the time error bounds be represented using</p>
 <div class="math">
 <p><img src="../_images/math/6d03a1b7af5b2b4b70c5442100e5e890ecc841ae.png" alt="\Delta t_p &amp;= \sqrt{ \frac{\kappa_p^2}{c_{tt}} } \\
            &amp;= \sqrt{ \frac{F_p(1,K+N-1)}{K+N-1} \frac{Ks_K^2 + \sum_{i=1}^{N}w_i^2 [\tau_i^k-\tau]^2}{\sum_{i=1}^{N}w_i^2}}."/></p>
-</div><p>In addition to recording arrival weights and residuals, distances and azimuths, and other details of origin quality, the details of a ground-truth-level (GT1) fixed-hypocentre origin time estimate are recorded as:</p>
+</div><p>In addition to recording arrival weights and residuals, distances and azimuths,
+and other details of origin quality, the details of a ground-truth-level (GT1)
+fixed-hypocentre origin time estimate are recorded as:</p>
 <ul class="simple">
 <li><p>origin.time = <img class="math" src="../_images/math/914b2d4b6659b86d3153d5510839dfb254dfc8a3.png" alt="\tau"/></p></li>
 <li><p>origin.time_errors.uncertainty = <img class="math" src="../_images/math/c65793dc2e246814b66c7cdd4e3a1c6dc504bbfc.png" alt="\Delta t_p"/></p></li>
@@ -223,56 +241,6 @@ and the <em>confidence/description</em> comment of the origin paramters, e.g.:</
 </div>
 </li>
 </ol>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="bond"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>Bondár, I., &amp; McLaughlin, K. L. (2009). A new ground truth data set for
-seismic studies. Seism. Res. Lett., 80(3), 465-472.</p>
-</dd>
-<dt class="label" id="bratt"><span class="brackets"><a class="fn-backref" href="#id6">2</a></span></dt>
-<dd><p>Bratt, S. R., &amp; Bache, T. C. (1988). Locating events with a sparse network of
-regional arrays. Bull. Seism. Soc. Am., 78(2), 780-798.</p>
-</dd>
-<dt class="label" id="bras"><span class="brackets">3</span></dt>
-<dd><p>Le Bras, R., &amp; Wuster, J. (2002). IDC Processing of Seismic, Hydroacoustic,
-and Infrasonic Data [IDC5.2.1Rev1]. Angewandte Wissenschaft, Software und
-Technologie GmbH.</p>
-</dd>
-<dt class="label" id="ever"><span class="brackets">4</span></dt>
-<dd><p>Evernden, J. F. (1969). Precision of epicenters obtained by small numbers of
-world-wide stations. Bull. Seism. Soc. Am., 59(3), 1365-1398.</p>
-</dd>
-<dt class="label" id="flinn"><span class="brackets">5</span></dt>
-<dd><p>Flinn, E. A. (1965). Confidence regions and error determinations for seismic
-event location. Rev. Geophys., 3(1), 157-185.</p>
-</dd>
-<dt class="label" id="jord"><span class="brackets">6</span><span class="fn-backref">(<a href="#id5">1</a>,<a href="#id7">2</a>)</span></dt>
-<dd><p>Jordan, T. H., &amp; Sverdrup, K. A. (1981). Teleseismic location techniques and
-their application to earthquake clusters in the south-central Pacific. Bull.
-Seism. Soc. Am., 71(4), 1105-1130.</p>
-</dd>
-<dt class="label" id="klein"><span class="brackets">7</span></dt>
-<dd><p>Klein, F. W. (2002). User’s guide to HYPOINVERSE-2000, a Fortran program to
-solve for earthquake locations and magnitudes. US Geological Survey Open File
-Report 2002-171.</p>
-</dd>
-<dt class="label" id="lee"><span class="brackets"><a class="fn-backref" href="#id4">8</a></span></dt>
-<dd><p>Lee, W. H., &amp; Lahr, J. C. (1975). Hypo71 (revised): a computer program for
-determining local earthquake hypocentral parameters, magnitude, and first
-motion pattern of local earthquakes. Denver, CO: US Geol. Survey Open-file
-Report 75-311.</p>
-</dd>
-<dt class="label" id="pavl"><span class="brackets"><a class="fn-backref" href="#id2">9</a></span></dt>
-<dd><p>Pavlis, G. L., Vernon, F., Harvey, D., &amp; Quinlan, D. (2004). The generalized
-earthquake-location (GENLOC) package - An earthquake-location library.
-Computers &amp; Geosciences, 30(9-10), 1079-1091.</p>
-</dd>
-<dt class="label" id="nrcan"><span class="brackets"><a class="fn-backref" href="#id3">10</a></span></dt>
-<dd><p>National Ressources Canada (NRCAN), <a class="reference external" href="https://earthquakescanada.nrcan.gc.ca/index-en.php">https://earthquakescanada.nrcan.gc.ca/index-en.php</a></p>
-</dd>
-</dl>
 </div>
 <div class="section" id="configuration">
 <span id="global-fixedhypocenter-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
@@ -357,7 +325,6 @@ Default is <code class="docutils literal notranslate"><span class="pre">0.9</spa
 <li><a class="reference internal" href="#description">Description</a></li>
 <li><a class="reference internal" href="#methodology">Methodology</a></li>
 <li><a class="reference internal" href="#application">Application</a></li>
-<li><a class="reference internal" href="#references">References</a></li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 </ul>
 </li>
@@ -388,7 +355,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">0.9</spa
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

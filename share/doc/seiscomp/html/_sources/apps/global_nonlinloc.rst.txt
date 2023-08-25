@@ -344,10 +344,10 @@ Configuration
 
 .. note::
 
-   **NonLinLoc.profile.\$name.\***
+   **NonLinLoc.profile.$name.\***
    *Defines a regional profile that is used if a prelocation falls*
    *inside the configured region.*
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`NonLinLoc.profiles` to become active.
+   $name is a placeholder for the name to be used and needs to be added to :confval:`NonLinLoc.profiles` to become active.
 
    .. code-block:: sh
 
@@ -359,28 +359,28 @@ Configuration
       NonLinLoc.profile.c.value1 = ...
 
 
-.. confval:: NonLinLoc.profile.\$name.earthModelID
+.. confval:: NonLinLoc.profile.$name.earthModelID
 
    Type: *string*
 
    earthModelID that is stored in the created origin.
 
 
-.. confval:: NonLinLoc.profile.\$name.methodID
+.. confval:: NonLinLoc.profile.$name.methodID
 
    Type: *string*
 
    methodID that is stored in the created origin.
    Default is ``NonLinLoc``.
 
-.. confval:: NonLinLoc.profile.\$name.tablePath
+.. confval:: NonLinLoc.profile.$name.tablePath
 
    Type: *path*
 
    Path to travel time tables \(grids\).
 
 
-.. confval:: NonLinLoc.profile.\$name.controlFile
+.. confval:: NonLinLoc.profile.$name.controlFile
 
    Type: *path*
 
@@ -388,7 +388,7 @@ Configuration
    control file will be used instead.
 
 
-.. confval:: NonLinLoc.profile.\$name.transform
+.. confval:: NonLinLoc.profile.$name.transform
 
    Type: *string*
 
@@ -398,7 +398,7 @@ Configuration
    Default: GLOBAL is assumed.
    Default is ``GLOBAL``.
 
-.. confval:: NonLinLoc.profile.\$name.region
+.. confval:: NonLinLoc.profile.$name.region
 
    Type: *list:double*
 
@@ -413,7 +413,7 @@ Configuration
    Unit is km.
 
 
-.. confval:: NonLinLoc.profile.\$name.origin
+.. confval:: NonLinLoc.profile.$name.origin
 
    Type: *list:double*
 
@@ -424,7 +424,7 @@ Configuration
    Unit is degree.
 
 
-.. confval:: NonLinLoc.profile.\$name.rotation
+.. confval:: NonLinLoc.profile.$name.rotation
 
    Type: *double*
 

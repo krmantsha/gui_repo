@@ -796,13 +796,14 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 				struct CliLinkHelper<T,1> {
 					template <typename P>
 					static void process(P &proc, OptionBinding<T> &visitedItem) {
-						if ( visitedItem.isSwitch() )
+						if ( visitedItem.isSwitch() ) {
 							proc._external.cli->addOption(
 								visitedItem.cliGroup?visitedItem.cliGroup:"Generic",
 								visitedItem.cliAbsoluteSymbol,
 								visitedItem.cliDesc
 							);
-						else
+						}
+						else {
 							proc._external.cli->addOption(
 								visitedItem.cliGroup?visitedItem.cliGroup:"Generic",
 								visitedItem.cliAbsoluteSymbol,
@@ -810,6 +811,7 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 								&visitedItem.value,
 								visitedItem.printDefault()
 							);
+						}
 					}
 				};
 
@@ -868,10 +870,13 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 								size_t len = static_cast<size_t>(s - visitedItem.cliAbsoluteSymbol);
 								s = visitedItem.cliAbsoluteSymbol;
 								Core::trim(s, len);
-								visitedItem.value = proc._external.constCli->hasOption(std::string(s, len));
+								if ( proc._external.constCli->hasOption(std::string(s, len)) ) {
+									visitedItem.value = true;
+								}
 							}
-							else
-								visitedItem.value = proc._external.constCli->hasOption(visitedItem.cliAbsoluteSymbol);
+							else if ( proc._external.constCli->hasOption(visitedItem.cliAbsoluteSymbol) ) {
+								visitedItem.value = true;
+							}
 						}
 
 						return true;
@@ -1203,8 +1208,10 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 					& cfg(context, "context")
 					& cfg(component, "component")
 					& cfg(components, "components")
+					& cfg(syslog, "syslog")
 					& cfg(toStdout, "stderr")
 					& cfg(UTC, "utc")
+					& cfg(file, "file")
 
 					& cli(
 						quiet,

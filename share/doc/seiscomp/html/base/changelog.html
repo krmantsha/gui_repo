@@ -13,10 +13,11 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="License" href="license.html" />
-    <link rel="prev" title="Glossary" href="glossary.html" /> 
+    <link rel="next" title="SeisComP Installation" href="installation.html" />
+    <link rel="prev" title="References" href="references.html" /> 
   </head>
   <body>
     <div class="header">
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -41,13 +42,13 @@
           </a>
         </li>
         <li class="right">
-          <a href="license.html" title="License"
+          <a href="installation.html" title="SeisComP Installation"
              accesskey="N">
             next
           </a>
         </li>
         <li class="right">
-          <a href="glossary.html" title="Glossary"
+          <a href="references.html" title="References"
              accesskey="P">
             previous
           </a>
@@ -68,7 +69,140 @@
 <span id="sc-changelog"></span><h1>Change Log<a class="headerlink" href="#change-log" title="Permalink to this headline">¶</a></h1>
 <p>All notable changes to SeisComP are documented here.</p>
 <div class="section" id="id1">
-<h2>4.8.4<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>4.10.1<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>trunk</p>
+<ul>
+<li><p>Fix reading <code class="docutils literal notranslate"><span class="pre">logging.syslog</span></code> from configuration file in any application.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>4.10.0<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt><strong>IMPORTANT</strong><span class="classifier">Please check if your are affected by the bug concerning the scmaster</span></dt><dd><p>configuration (see below).</p>
+</dd>
+</dl>
+<ul class="simple">
+<li><p>system</p>
+<ul>
+<li><p>Change Linux distribution detection which does not require the presence
+of <code class="docutils literal notranslate"><span class="pre">lsb_release</span></code> anymore. Instead it looks in <code class="docutils literal notranslate"><span class="pre">/etc/os-release</span></code> which is
+way more portable. Furthermore the RHEL based distribution directories
+have been renamed from <code class="docutils literal notranslate"><span class="pre">centos</span></code> to <code class="docutils literal notranslate"><span class="pre">rhel</span></code>.</p></li>
+<li><p>Count started/stopped modules correctly.</p></li>
+</ul>
+</li>
+<li><p>scolv</p>
+<ul>
+<li><p>Fix lat/lon order of modify origin dialog opened from zoomtrace of
+the picker.</p></li>
+</ul>
+</li>
+<li><p>scmaster</p>
+<ul>
+<li><p>Fix saving location of the generated configuration file with <code class="docutils literal notranslate"><span class="pre">seiscomp</span> <span class="pre">setup</span></code>.
+Due to a bug the file was generated in <code class="docutils literal notranslate"><span class="pre">~/.seiscomp/scmaster.cfg</span></code> whereas it
+should have been generated in <code class="docutils literal notranslate"><span class="pre">etc/scmaster.cfg</span></code>. As this is fixed now, please
+remove <code class="docutils literal notranslate"><span class="pre">~/.seiscomp/scmaster.cfg</span></code> if you were affected by the bug otherwise
+this old configuration will take precedence and new configurations will not
+have any effect. This bug has been introduced with version 4.9.0.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>4.9.3<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>trunk</p>
+<ul>
+<li><p>Fix default messaging URL from <code class="docutils literal notranslate"><span class="pre">localhost/productive</span></code> to
+<code class="docutils literal notranslate"><span class="pre">localhost/production</span></code>.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>4.9.2<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>scolv</p>
+<ul>
+<li><p>Fix magnitude tab header update if the represented magnitude updates.
+It prints the current station magnitude counts rather than “0/0”.</p></li>
+</ul>
+</li>
+<li><p>scmaster</p>
+<ul>
+<li><p>Get rid of distutils in setup script</p></li>
+</ul>
+</li>
+<li><p>scqcv</p>
+<ul>
+<li><p>Allow unordered stream list</p></li>
+</ul>
+</li>
+<li><p>screloc</p>
+<ul>
+<li><p>Optionally keep track of the triggering origin ID of a relocation storing
+it as comment in the relocated origin.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2>4.9.1<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>scmaster</p>
+<ul>
+<li><p>Fix setup stage if a database port has been specified explicitly</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h2>4.9.0<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Documentation</p>
+<ul>
+<li><p>Use a single BibTex file and a References section for most external
+references</p></li>
+</ul>
+</li>
+<li><p>Magnitudes</p>
+<ul>
+<li><p>Mwp: Fix correction for radiation pattern. The change systematically
+reduces Mwp by 0.28</p></li>
+</ul>
+</li>
+<li><p>scquery</p>
+<ul>
+<li><p>Add command-line option <code class="docutils literal notranslate"><span class="pre">--print-column-name</span></code> for printing column names
+as a header of the output</p></li>
+</ul>
+</li>
+<li><p>scolv</p>
+<ul>
+<li><p>Select locator type and profile from loaded origin if possible and if
+enabled with option <code class="docutils literal notranslate"><span class="pre">olv.locator.presetFromOrigin</span></code> (default: false)</p></li>
+</ul>
+</li>
+<li><p>scdbstrip</p>
+<ul>
+<li><p>Fix compatibility with latest PostgreSQL versions. Thanks to
+Luca Scarabello for the fix.</p></li>
+</ul>
+</li>
+<li><p>trunk</p>
+<ul>
+<li><p>Fix crash if a spatial map layer has no configured legend items but
+wants to show a legend</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h2>4.8.4<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>scautoloc</p>
 <ul>
@@ -77,22 +211,22 @@
 </li>
 </ul>
 </div>
-<div class="section" id="id2">
-<h2>4.8.3<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h2>4.8.3<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>seiscomp shell</p>
 <ul>
-<li><p>Remove unimplmemented “add” and “edit” commands</p></li>
+<li><p>Remove unimplemented “add” and “edit” commands</p></li>
 </ul>
 </li>
 <li><p>seiscomp setup</p>
 <ul>
-<li><p>In newer versions (at least &gt;=13) of PostgreSQL, some of the commands that
-are run to initiate the seiscomp database need to be run as the database owner.
-Thanks to Morten Sickel for fixing it.</p></li>
+<li><p>In newer versions (at least &gt;=13) of PostgreSQL, some of the commands
+that are run to initiate the seiscomp database need to be run as the
+database owner. Thanks to Morten Sickel for fixing it.</p></li>
 </ul>
 </li>
-<li><p>documentation</p>
+<li><p>Documentation</p>
 <ul>
 <li><p>Fix Datamodel diagrams</p></li>
 <li><p>Add object cross references</p></li>
@@ -100,10 +234,11 @@ Thanks to Morten Sickel for fixing it.</p></li>
 </li>
 <li><p>trunk</p>
 <ul>
-<li><p>Fix XML encoding issue with text in CDATA, e.g. <code class="docutils literal notranslate"><span class="pre">Pick.phaseHint</span></code>. This only
-affects strings which contain special XML characters such as ampersand.</p></li>
-<li><p>Report correct module name with messaging for Python applications. Previous
-versions only reported <code class="docutils literal notranslate"><span class="pre">python</span></code> or <code class="docutils literal notranslate"><span class="pre">python3.8</span></code>.</p></li>
+<li><p>Fix XML encoding issue with text in CDATA, e.g. <code class="docutils literal notranslate"><span class="pre">Pick.phaseHint</span></code>. This
+only affects strings which contain special XML characters such as
+ampersand.</p></li>
+<li><p>Report correct module name with messaging for Python applications.
+Previous versions only reported <code class="docutils literal notranslate"><span class="pre">python</span></code> or <code class="docutils literal notranslate"><span class="pre">python3.8</span></code>.</p></li>
 </ul>
 </li>
 <li><p>scsohlog</p>
@@ -118,8 +253,8 @@ versions only reported <code class="docutils literal notranslate"><span class="p
 </li>
 </ul>
 </div>
-<div class="section" id="id3">
-<h2>4.8.2<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id9">
+<h2>4.8.2<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>scart</p>
 <ul>
@@ -128,8 +263,8 @@ versions only reported <code class="docutils literal notranslate"><span class="p
 </li>
 </ul>
 </div>
-<div class="section" id="id4">
-<h2>4.8.1<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h2>4.8.1<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>fdsnws</p>
 <ul>
@@ -139,8 +274,8 @@ PostgreSQL database is being used</p></li>
 </li>
 </ul>
 </div>
-<div class="section" id="id5">
-<h2>4.8.0<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id11">
+<h2>4.8.0<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">SC_API_VERSION</span> <span class="pre">14.4.0</span></code></p>
 <ul class="simple">
 <li><p>scolv</p>
@@ -153,7 +288,7 @@ PostgreSQL database is being used</p></li>
 </ul>
 </li>
 <li><p>Use configured magnitude digits to display Mw magnitude value</p></li>
-<li><p>Only enable creation of artifical origin in zoom trace if picking
+<li><p>Only enable creation of artificial origin in zoom trace if picking
 is disabled</p></li>
 <li><p>Fix committing of manual amplitudes in the amplitude picker</p></li>
 </ul>
@@ -161,7 +296,7 @@ is disabled</p></li>
 <li><p>scmag</p>
 <ul>
 <li><p>Fix bug that caused multiple occurrences of magnitudes of the same
-type when a new set of manually computed amplitutes has been received</p></li>
+type when a new set of manually computed amplitudes has been received</p></li>
 </ul>
 </li>
 <li><p>trunk</p>
@@ -184,8 +319,8 @@ type when a new set of manually computed amplitutes has been received</p></li>
 </li>
 </ul>
 </div>
-<div class="section" id="id6">
-<h2>4.7.3<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id12">
+<h2>4.7.3<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>trunk</p>
 <ul>
@@ -195,8 +330,8 @@ ro and rw user accounts correctly</p></li>
 </li>
 </ul>
 </div>
-<div class="section" id="id7">
-<h2>4.7.2<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id13">
+<h2>4.7.2<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>trunk</p>
 <ul>
@@ -218,8 +353,8 @@ in SeisComP</p></li>
 </li>
 </ul>
 </div>
-<div class="section" id="id8">
-<h2>4.7.1<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id14">
+<h2>4.7.1<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>trunk</p>
 <ul>
@@ -229,8 +364,8 @@ in SeisComP</p></li>
 </li>
 </ul>
 </div>
-<div class="section" id="id9">
-<h2>4.7.0<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id15">
+<h2>4.7.0<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">SC_API_VERSION</span> <span class="pre">14.3.0</span></code></p>
 <ul class="simple">
 <li><p>Documentation</p>
@@ -258,7 +393,7 @@ currently.</p></li>
 <code class="docutils literal notranslate"><span class="pre">&#64;CONFIGDIR&#64;/spatial/vector</span></code>. Load  BNA files from new geo
 feature directory. The old BNA directories are still
 supported but cause a warning which is logged.</p></li>
-<li><p>Add support for GeoJSON files (<a href="#id10"><span class="problematic" id="id11">*</span></a>.geojson) in the new geo
+<li><p>Add support for GeoJSON files (<a href="#id16"><span class="problematic" id="id17">*</span></a>.geojson) in the new geo
 feature directory.</p></li>
 <li><p>Add data scheme version information to output when starting
 a module with the option <code class="docutils literal notranslate"><span class="pre">-V</span></code></p></li>
@@ -276,7 +411,7 @@ in picker window</p></li>
 </li>
 <li><p>scquery</p>
 <ul>
-<li><p>Add –print-header option for generating information on the query as a
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">--print-header</span></code> option for generating information on the query as a
 header of the output</p></li>
 <li><p>Add examples for PostgreSQL</p></li>
 </ul>
@@ -324,8 +459,8 @@ routing table</p></li>
 </li>
 </ul>
 </div>
-<div class="section" id="id12">
-<h2>4.6.1<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id18">
+<h2>4.6.1<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>scolv</p>
 <ul>
@@ -335,8 +470,8 @@ from 4.6.0)</p></li>
 </li>
 </ul>
 </div>
-<div class="section" id="id13">
-<h2>4.6.0<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id19">
+<h2>4.6.0<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Dependencies</p>
 <ul>
@@ -359,7 +494,7 @@ magnitude, update the region, call processors loaded with plugins.</p></li>
 <li><p>scart</p>
 <ul>
 <li><p>Do not crash when requesting data for non-existing networks from SDS archive</p></li>
-<li><p>Add error output when attempting retrieve non-existing data from SDS archvie</p></li>
+<li><p>Add error output when attempting retrieve non-existing data from SDS archive</p></li>
 </ul>
 </li>
 <li><p>GUI</p>
@@ -386,7 +521,7 @@ smoothly</p></li>
 </li>
 <li><p>trunk</p>
 <ul>
-<li><p>Add support for permanent redirects to fdsnws recordstream</p></li>
+<li><p>Add support for permanent redirects to fdsnws RecordStream</p></li>
 <li><p>Fix MiniSEED reader for records without blockette 1000 and
 for records with blockette 1000 at an offset beyond the
 first 128 bytes</p></li>
@@ -407,7 +542,7 @@ first 128 bytes</p></li>
 </li>
 <li><p>sccnv</p>
 <ul>
-<li><p>Include moment tensor derived origins into ouput document for
+<li><p>Include moment tensor derived origins into output document for
 QuakeML 1.2</p></li>
 </ul>
 </li>
@@ -418,8 +553,8 @@ QuakeML 1.2</p></li>
 </li>
 </ul>
 </div>
-<div class="section" id="id14">
-<h2>4.5.0<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id20">
+<h2>4.5.0<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">SC_API_VERSION</span> <span class="pre">14.2.0</span></code></p>
 <ul>
 <li><p>Magnitudes</p>
@@ -434,40 +569,40 @@ are deprecated and must be replaced by new ones either pre-pending
 <code class="docutils literal notranslate"><span class="pre">magnitudes.</span></code> or <code class="docutils literal notranslate"><span class="pre">amplitudes.</span></code> to the respective parameter.
 Warnings will be written to module logs if deprecated values are found.</p></li>
 <li><p>deprecated bindings parameter values -&gt; new values:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>MLh.maxavg            -&gt; amplitudes.MLh.params
-MLh.ClippingThreshold -&gt; amplitudes.MLh.ClippingThreshold
-MLh.params            -&gt; magnitudes.MLh.params
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MLh</span><span class="o">.</span><span class="n">maxavg</span>            <span class="o">-&gt;</span> <span class="n">amplitudes</span><span class="o">.</span><span class="n">MLh</span><span class="o">.</span><span class="n">params</span>
+<span class="n">MLh</span><span class="o">.</span><span class="n">ClippingThreshold</span> <span class="o">-&gt;</span> <span class="n">amplitudes</span><span class="o">.</span><span class="n">MLh</span><span class="o">.</span><span class="n">ClippingThreshold</span>
+<span class="n">MLh</span><span class="o">.</span><span class="n">params</span>            <span class="o">-&gt;</span> <span class="n">magnitudes</span><span class="o">.</span><span class="n">MLh</span><span class="o">.</span><span class="n">params</span>
 
-md.maxavg             -&gt; magnitudes.md.seismo
-md.taper              -&gt; magnitudes.md.taper
-md.signal_length      -&gt; magnitudes.md.signal_length
-md.butterworth        -&gt; magnitudes.md.butterworth
-md.depthmax           -&gt; magnitudes.md.depthmax
-md.deltamax           -&gt; magnitudes.md.deltamax
-md.snrmin             -&gt; magnitudes.md.snrmin
-md.mdmax              -&gt; magnitudes.md.mdmax
-md.fma                -&gt; magnitudes.md.fma
-md.fmb                -&gt; magnitudes.md.fmb
-md.fmd                -&gt; magnitudes.md.fmd
-md.fmf                -&gt; magnitudes.md.fmf
-md.fmz                -&gt; magnitudes.md.fmz
-md.linearcorrection   -&gt; magnitudes.md.linearcorrection
-md.offset             -&gt; magnitudes.md.offset
-md.stacor             -&gt; magnitudes.md.stacor
+<span class="n">md</span><span class="o">.</span><span class="n">maxavg</span>             <span class="o">-&gt;</span> <span class="n">magnitudes</span><span class="o">.</span><span class="n">md</span><span class="o">.</span><span class="n">seismo</span>
+<span class="n">md</span><span class="o">.</span><span class="n">taper</span>              <span class="o">-&gt;</span> <span class="n">magnitudes</span><span class="o">.</span><span class="n">md</span><span class="o">.</span><span class="n">taper</span>
+<span class="n">md</span><span class="o">.</span><span class="n">signal_length</span>      <span class="o">-&gt;</span> <span class="n">magnitudes</span><span class="o">.</span><span class="n">md</span><span class="o">.</span><span class="n">signal_length</span>
+<span class="n">md</span><span class="o">.</span><span class="n">butterworth</span>        <span class="o">-&gt;</span> <span class="n">magnitudes</span><span class="o">.</span><span class="n">md</span><span class="o">.</span><span class="n">butterworth</span>
+<span class="n">md</span><span class="o">.</span><span class="n">depthmax</span>           <span class="o">-&gt;</span> <span class="n">magnitudes</span><span class="o">.</span><span class="n">md</span><span class="o">.</span><span class="n">depthmax</span>
+<span class="n">md</span><span class="o">.</span><span class="n">deltamax</span>           <span class="o">-&gt;</span> <span class="n">magnitudes</span><span class="o">.</span><span class="n">md</span><span class="o">.</span><span class="n">deltamax</span>
+<span class="n">md</span><span class="o">.</span><span class="n">snrmin</span>             <span class="o">-&gt;</span> <span class="n">magnitudes</span><span class="o">.</span><span class="n">md</span><span class="o">.</span><span class="n">snrmin</span>
+<span class="n">md</span><span class="o">.</span><span class="n">mdmax</span>              <span class="o">-&gt;</span> <span class="n">magnitudes</span><span class="o">.</span><span class="n">md</span><span class="o">.</span><span class="n">mdmax</span>
+<span class="n">md</span><span class="o">.</span><span class="n">fma</span>                <span class="o">-&gt;</span> <span class="n">magnitudes</span><span class="o">.</span><span class="n">md</span><span class="o">.</span><span class="n">fma</span>
+<span class="n">md</span><span class="o">.</span><span class="n">fmb</span>                <span class="o">-&gt;</span> <span class="n">magnitudes</span><span class="o">.</span><span class="n">md</span><span class="o">.</span><span class="n">fmb</span>
+<span class="n">md</span><span class="o">.</span><span class="n">fmd</span>                <span class="o">-&gt;</span> <span class="n">magnitudes</span><span class="o">.</span><span class="n">md</span><span class="o">.</span><span class="n">fmd</span>
+<span class="n">md</span><span class="o">.</span><span class="n">fmf</span>                <span class="o">-&gt;</span> <span class="n">magnitudes</span><span class="o">.</span><span class="n">md</span><span class="o">.</span><span class="n">fmf</span>
+<span class="n">md</span><span class="o">.</span><span class="n">fmz</span>                <span class="o">-&gt;</span> <span class="n">magnitudes</span><span class="o">.</span><span class="n">md</span><span class="o">.</span><span class="n">fmz</span>
+<span class="n">md</span><span class="o">.</span><span class="n">linearcorrection</span>   <span class="o">-&gt;</span> <span class="n">magnitudes</span><span class="o">.</span><span class="n">md</span><span class="o">.</span><span class="n">linearcorrection</span>
+<span class="n">md</span><span class="o">.</span><span class="n">offset</span>             <span class="o">-&gt;</span> <span class="n">magnitudes</span><span class="o">.</span><span class="n">md</span><span class="o">.</span><span class="n">offset</span>
+<span class="n">md</span><span class="o">.</span><span class="n">stacor</span>             <span class="o">-&gt;</span> <span class="n">magnitudes</span><span class="o">.</span><span class="n">md</span><span class="o">.</span><span class="n">stacor</span>
 
-MLr.maxavg            -&gt;  magnitudes.MLr.params
+<span class="n">MLr</span><span class="o">.</span><span class="n">maxavg</span>            <span class="o">-&gt;</span>  <span class="n">magnitudes</span><span class="o">.</span><span class="n">MLr</span><span class="o">.</span><span class="n">params</span>
 
-Ms_20.lowerPeriod     -&gt;  magnitudes.Ms_20.lowerPeriod
-Ms_20.upperPeriod     -&gt;  magnitudes.Ms_20.upperPeriod
-Ms_20.minDist         -&gt;  magnitudes.Ms_20.minDist
-Ms_20.maxDist         -&gt;  magnitudes.Ms_20.maxDist
-Ms_20.maxDepth        -&gt;  magnitudes.Ms_20.maxDepth
+<span class="n">Ms_20</span><span class="o">.</span><span class="n">lowerPeriod</span>     <span class="o">-&gt;</span>  <span class="n">magnitudes</span><span class="o">.</span><span class="n">Ms_20</span><span class="o">.</span><span class="n">lowerPeriod</span>
+<span class="n">Ms_20</span><span class="o">.</span><span class="n">upperPeriod</span>     <span class="o">-&gt;</span>  <span class="n">magnitudes</span><span class="o">.</span><span class="n">Ms_20</span><span class="o">.</span><span class="n">upperPeriod</span>
+<span class="n">Ms_20</span><span class="o">.</span><span class="n">minDist</span>         <span class="o">-&gt;</span>  <span class="n">magnitudes</span><span class="o">.</span><span class="n">Ms_20</span><span class="o">.</span><span class="n">minDist</span>
+<span class="n">Ms_20</span><span class="o">.</span><span class="n">maxDist</span>         <span class="o">-&gt;</span>  <span class="n">magnitudes</span><span class="o">.</span><span class="n">Ms_20</span><span class="o">.</span><span class="n">maxDist</span>
+<span class="n">Ms_20</span><span class="o">.</span><span class="n">maxDepth</span>        <span class="o">-&gt;</span>  <span class="n">magnitudes</span><span class="o">.</span><span class="n">Ms_20</span><span class="o">.</span><span class="n">maxDepth</span>
 
-MLv.logA0             -&gt;  magnitudes.MLv.logA0
-MLv.maxDistanceKm     -&gt;  magnitudes.MLv.maxDistanceKm
+<span class="n">MLv</span><span class="o">.</span><span class="n">logA0</span>             <span class="o">-&gt;</span>  <span class="n">magnitudes</span><span class="o">.</span><span class="n">MLv</span><span class="o">.</span><span class="n">logA0</span>
+<span class="n">MLv</span><span class="o">.</span><span class="n">maxDistanceKm</span>     <span class="o">-&gt;</span>  <span class="n">magnitudes</span><span class="o">.</span><span class="n">MLv</span><span class="o">.</span><span class="n">maxDistanceKm</span>
 
-ML.logA0              -&gt;  magnitudes.ML.logA0
-ML.maxDistanceKm      -&gt;  magnitudes.ML.maxDistanceKm
+<span class="n">ML</span><span class="o">.</span><span class="n">logA0</span>              <span class="o">-&gt;</span>  <span class="n">magnitudes</span><span class="o">.</span><span class="n">ML</span><span class="o">.</span><span class="n">logA0</span>
+<span class="n">ML</span><span class="o">.</span><span class="n">maxDistanceKm</span>      <span class="o">-&gt;</span>  <span class="n">magnitudes</span><span class="o">.</span><span class="n">ML</span><span class="o">.</span><span class="n">maxDistanceKm</span>
 </pre></div>
 </div>
 </li>
@@ -475,14 +610,14 @@ ML.maxDistanceKm      -&gt;  magnitudes.ML.maxDistanceKm
 </li>
 <li><p>scinv</p>
 <ul class="simple">
-<li><p>allow a configurable distance between station and location coordinate
+<li><p>Allow a configurable distance between station and location coordinate
 when calling scinv check</p></li>
-<li><p>test existence of stations, locations and streams when calling scinv check</p></li>
+<li><p>Test existence of stations, locations and streams when calling scinv check</p></li>
 </ul>
 </li>
 <li><p>trunk</p>
 <ul class="simple">
-<li><p>Add CAPS recordstream implementation with service “caps” and “capss”.
+<li><p>Add CAPS RecordStream implementation with service “caps” and “capss”.
 The later establishes an SSL connection.</p></li>
 <li><p>Fix crash of distance computation if distance is close to zero</p></li>
 <li><p>Add RecordStream to retrieve data from a CAPS server, e.g. <code class="docutils literal notranslate"><span class="pre">caps://localhost</span></code></p></li>
@@ -493,7 +628,7 @@ The later establishes an SSL connection.</p></li>
 <li><p>GUI</p>
 <ul>
 <li><p>Make eventedit columns of origin and fm tables configurable</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>eventedit.origin.visibleColumns = Phases, Lat, Lon, Depth, DType, RMS,\
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>eventedit.origin.visibleColumns = Phases, Lat, Lon, Depth, DType, RMS,\
                                   Stat, Method, Agency, Author, Region
 eventedit.fm.visibleColumns = Depth, M, Count, Misfit, STDR, Azi.\
                               Gap(°), Stat, DC(%), CLVD(%), ISO(%),\
@@ -511,8 +646,8 @@ eventedit.fm.visibleColumns = Depth, M, Count, Misfit, STDR, Azi.\
 </li>
 </ul>
 </div>
-<div class="section" id="id15">
-<h2>4.4.0<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id21">
+<h2>4.4.0<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>hypo71</p>
 <ul>
@@ -541,8 +676,8 @@ with encrypted connections.</p></li>
 </li>
 </ul>
 </div>
-<div class="section" id="id16">
-<h2>4.3.0<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id22">
+<h2>4.3.0<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p>scheli</p>
 <ul class="simple">
@@ -552,7 +687,8 @@ scconfig</p></li>
 </li>
 <li><p>scrttv</p>
 <ul class="simple">
-<li><p>Adjust default filter to filter below the Nyquist frequency of most BH? streams</p></li>
+<li><p>Adjust default filter to filter below the Nyquist frequency of most BH?
+streams</p></li>
 <li><p>Add default values for streams configurations</p></li>
 </ul>
 </li>
@@ -562,23 +698,23 @@ scconfig</p></li>
 but an error message will be printed:</p>
 <ul>
 <li><p>Added parameters to description:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>buffer.originKeep
-autoloc.useManualPicks
-autoloc.adoptManualDepth
-autoloc.tryDefaultDepth
-autoloc.stationLocations
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">buffer</span><span class="o">.</span><span class="n">originKeep</span>
+<span class="n">autoloc</span><span class="o">.</span><span class="n">useManualPicks</span>
+<span class="n">autoloc</span><span class="o">.</span><span class="n">adoptManualDepth</span>
+<span class="n">autoloc</span><span class="o">.</span><span class="n">tryDefaultDepth</span>
+<span class="n">autoloc</span><span class="o">.</span><span class="n">stationLocations</span>
 </pre></div>
 </div>
 </li>
 <li><p>Renamed parameters (old -&gt; new):</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>autoloc.maxAge          -&gt; buffer.pickKeep
-autoloc.cleanupInterval -&gt; buffer.cleanupInterval
-autoloc.locator.profile -&gt; locator.profile
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">autoloc</span><span class="o">.</span><span class="n">maxAge</span>          <span class="o">-&gt;</span> <span class="n">buffer</span><span class="o">.</span><span class="n">pickKeep</span>
+<span class="n">autoloc</span><span class="o">.</span><span class="n">cleanupInterval</span> <span class="o">-&gt;</span> <span class="n">buffer</span><span class="o">.</span><span class="n">cleanupInterval</span>
+<span class="n">autoloc</span><span class="o">.</span><span class="n">locator</span><span class="o">.</span><span class="n">profile</span> <span class="o">-&gt;</span> <span class="n">locator</span><span class="o">.</span><span class="n">profile</span>
 </pre></div>
 </div>
 </li>
 <li><p>Removed parameters from description:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>autoloc.wakeupInterval
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">autoloc</span><span class="o">.</span><span class="n">wakeupInterval</span>
 </pre></div>
 </div>
 </li>
@@ -611,8 +747,8 @@ via messaging</p></li>
 </li>
 </ul>
 </div>
-<div class="section" id="id17">
-<h2>4.2.1<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id23">
+<h2>4.2.1<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Documentation</p>
 <ul>
@@ -644,8 +780,8 @@ and resize content after loading</p></li>
 </li>
 </ul>
 </div>
-<div class="section" id="id18">
-<h2>4.2.0<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id24">
+<h2>4.2.0<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>scalert</p>
 <ul>
@@ -677,8 +813,8 @@ and resize content after loading</p></li>
 </li>
 </ul>
 </div>
-<div class="section" id="id19">
-<h2>4.1.2<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id25">
+<h2>4.1.2<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Processing</p>
 <ul>
@@ -688,8 +824,8 @@ parameters are out of range</p></li>
 </li>
 </ul>
 </div>
-<div class="section" id="id20">
-<h2>4.1.1<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id26">
+<h2>4.1.1<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>scmaster</p>
 <ul>
@@ -711,8 +847,8 @@ mechanism table</p></li>
 </li>
 </ul>
 </div>
-<div class="section" id="id21">
-<h2>4.1.0<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id27">
+<h2>4.1.0<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">SC_API_VERSION</span> <span class="pre">14.1.0</span></code></p>
 <ul class="simple">
 <li><p>scmaster</p>
@@ -771,14 +907,14 @@ backfill buffer settings in the bindings the global value had no effect.</p></li
 <li><p>Fixed several segmentation faults in combination with offline
 mode</p></li>
 <li><p>Add origin location method column to event origin table</p></li>
-<li><p>Add shortcuts (ctrl+pgdown, ctrl+pgup) to select the previous and
+<li><p>Add shortcuts (Ctrl+pgdown, Ctrl+pgup) to select the previous and
 next event of the event list from within the locator view</p></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="section" id="id22">
-<h2>4.0.4<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id28">
+<h2>4.0.4<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>trunk</p>
 <ul>
@@ -806,8 +942,8 @@ but print a warning</p></li>
 </li>
 </ul>
 </div>
-<div class="section" id="id23">
-<h2>4.0.3<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id29">
+<h2>4.0.3<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>slmod</p>
 <ul>
@@ -835,8 +971,8 @@ just a subset of input data was forwarded to the client</p></li>
 </li>
 </ul>
 </div>
-<div class="section" id="id24">
-<h2>4.0.2<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id30">
+<h2>4.0.2<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>scautoloc</p>
 <ul>
@@ -856,8 +992,8 @@ e.g. empty end time</p></li>
 </li>
 </ul>
 </div>
-<div class="section" id="id25">
-<h2>4.0.1<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id31">
+<h2>4.0.1<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>LOCSAT</p>
 <ul>
@@ -884,8 +1020,8 @@ Armbruster for providing the patch.</p></li>
 </li>
 </ul>
 </div>
-<div class="section" id="id26">
-<h2>4.0.0<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id32">
+<h2>4.0.0<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">SC_API_VERSION</span> <span class="pre">14.0.0</span></code></p>
 <p>This is the initial release of SeisComP under a new license and with a new
 versioning scheme. Instead of using a release name and a time based version
@@ -940,40 +1076,46 @@ standard.</p></li>
   <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Change Log</a><ul>
-<li><a class="reference internal" href="#id1">4.8.4</a></li>
-<li><a class="reference internal" href="#id2">4.8.3</a></li>
-<li><a class="reference internal" href="#id3">4.8.2</a></li>
-<li><a class="reference internal" href="#id4">4.8.1</a></li>
-<li><a class="reference internal" href="#id5">4.8.0</a></li>
-<li><a class="reference internal" href="#id6">4.7.3</a></li>
-<li><a class="reference internal" href="#id7">4.7.2</a></li>
-<li><a class="reference internal" href="#id8">4.7.1</a></li>
-<li><a class="reference internal" href="#id9">4.7.0</a></li>
-<li><a class="reference internal" href="#id12">4.6.1</a></li>
-<li><a class="reference internal" href="#id13">4.6.0</a></li>
-<li><a class="reference internal" href="#id14">4.5.0</a></li>
-<li><a class="reference internal" href="#id15">4.4.0</a></li>
-<li><a class="reference internal" href="#id16">4.3.0</a></li>
-<li><a class="reference internal" href="#id17">4.2.1</a></li>
-<li><a class="reference internal" href="#id18">4.2.0</a></li>
-<li><a class="reference internal" href="#id19">4.1.2</a></li>
-<li><a class="reference internal" href="#id20">4.1.1</a></li>
-<li><a class="reference internal" href="#id21">4.1.0</a></li>
-<li><a class="reference internal" href="#id22">4.0.4</a></li>
-<li><a class="reference internal" href="#id23">4.0.3</a></li>
-<li><a class="reference internal" href="#id24">4.0.2</a></li>
-<li><a class="reference internal" href="#id25">4.0.1</a></li>
-<li><a class="reference internal" href="#id26">4.0.0</a></li>
+<li><a class="reference internal" href="#id1">4.10.1</a></li>
+<li><a class="reference internal" href="#id2">4.10.0</a></li>
+<li><a class="reference internal" href="#id3">4.9.3</a></li>
+<li><a class="reference internal" href="#id4">4.9.2</a></li>
+<li><a class="reference internal" href="#id5">4.9.1</a></li>
+<li><a class="reference internal" href="#id6">4.9.0</a></li>
+<li><a class="reference internal" href="#id7">4.8.4</a></li>
+<li><a class="reference internal" href="#id8">4.8.3</a></li>
+<li><a class="reference internal" href="#id9">4.8.2</a></li>
+<li><a class="reference internal" href="#id10">4.8.1</a></li>
+<li><a class="reference internal" href="#id11">4.8.0</a></li>
+<li><a class="reference internal" href="#id12">4.7.3</a></li>
+<li><a class="reference internal" href="#id13">4.7.2</a></li>
+<li><a class="reference internal" href="#id14">4.7.1</a></li>
+<li><a class="reference internal" href="#id15">4.7.0</a></li>
+<li><a class="reference internal" href="#id18">4.6.1</a></li>
+<li><a class="reference internal" href="#id19">4.6.0</a></li>
+<li><a class="reference internal" href="#id20">4.5.0</a></li>
+<li><a class="reference internal" href="#id21">4.4.0</a></li>
+<li><a class="reference internal" href="#id22">4.3.0</a></li>
+<li><a class="reference internal" href="#id23">4.2.1</a></li>
+<li><a class="reference internal" href="#id24">4.2.0</a></li>
+<li><a class="reference internal" href="#id25">4.1.2</a></li>
+<li><a class="reference internal" href="#id26">4.1.1</a></li>
+<li><a class="reference internal" href="#id27">4.1.0</a></li>
+<li><a class="reference internal" href="#id28">4.0.4</a></li>
+<li><a class="reference internal" href="#id29">4.0.3</a></li>
+<li><a class="reference internal" href="#id30">4.0.2</a></li>
+<li><a class="reference internal" href="#id31">4.0.1</a></li>
+<li><a class="reference internal" href="#id32">4.0.0</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="glossary.html"
-                        title="previous chapter">Glossary</a></p>
+  <p class="topless"><a href="references.html"
+                        title="previous chapter">References</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="license.html"
-                        title="next chapter">License</a></p>
+  <p class="topless"><a href="installation.html"
+                        title="next chapter"><cite>SeisComP</cite> Installation</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -993,7 +1135,7 @@ standard.</p></li>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

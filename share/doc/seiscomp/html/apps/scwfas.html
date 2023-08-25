@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="seedlink" href="seedlink.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -110,16 +111,16 @@ checks or user authentication.</p>
 <dd><p>Type: <em>string</em></p>
 <p>Defines an alternative SDS archive handler. This is the name
 of an RecordStream interface that can be loaded via a plugin.
-If not given an internal implementation will be used.</p>
+If not given, an internal implementation will be used.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-filebase">
 <code class="sig-name descname">filebase</code><a class="headerlink" href="#confval-filebase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
-<p>Defines the filebase of the SDS archive. If an alternative
-archive handler is defined this value serves as input to
-setSource().
+<p>The filebase of the SDS archive. If an alternative archive
+handler is defined by “handlerSDS”, this value serves
+as input to setSource().
 Default is <code class="docutils literal notranslate"><span class="pre">&#64;ROOTDIR&#64;/var/lib/archive</span></code>.</p>
 </dd></dl>
 
@@ -127,8 +128,9 @@ Default is <code class="docutils literal notranslate"><span class="pre">&#64;ROO
 <dt id="confval-arclink.port">
 <code class="sig-name descname">arclink.port</code><a class="headerlink" href="#confval-arclink.port" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
-<p>Defines the server port for Arclink connections. By default
-the Arclink standard port 18001 will be used.
+<p>The server port for Arclink connections. -1
+deactivates the Arclink server. The standard Arclink port is
+18001.
 Default is <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</p>
 </dd></dl>
 
@@ -136,8 +138,8 @@ Default is <code class="docutils literal notranslate"><span class="pre">-1</span
 <dt id="confval-fdsnws.port">
 <code class="sig-name descname">fdsnws.port</code><a class="headerlink" href="#confval-fdsnws.port" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
-<p>Defines the server port for FDSNWS connections. By default
-port 8080 will be used.
+<p>The server port for FDSNWS connections. -1
+deactivates the FDSN Web server.
 Default is <code class="docutils literal notranslate"><span class="pre">8080</span></code>.</p>
 </dd></dl>
 
@@ -145,7 +147,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">8080</sp
 <dt id="confval-fdsnws.baseURL">
 <code class="sig-name descname">fdsnws.baseURL</code><a class="headerlink" href="#confval-fdsnws.baseURL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
-<p>Defines the base URL of the FDSN webservice that is
+<p>The base URL of the FDSN Web service that is
 given in the WADL document.
 Default is <code class="docutils literal notranslate"><span class="pre">http://localhost:8080/fdsnws</span></code>.</p>
 </dd></dl>
@@ -155,7 +157,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">http://l
 <code class="sig-name descname">fdsnws.maxTimeWindow</code><a class="headerlink" href="#confval-fdsnws.maxTimeWindow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
 <p>Unit: <em>s</em></p>
-<p>Defines the aggregated maximum time window (seconds)
+<p>The aggregated maximum time window (seconds)
 for all requested streams. A value of 0 will deactive
 any restriction.
 Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
@@ -164,6 +166,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">0</span>
 </div>
 <div class="section" id="command-line">
 <h2>Command-line<a class="headerlink" href="#command-line" title="Permalink to this headline">¶</a></h2>
+<p><strong class="program">scwfas [options]</strong></p>
 <div class="section" id="generic">
 <h3>Generic<a class="headerlink" href="#generic" title="Permalink to this headline">¶</a></h3>
 <dl class="option">
@@ -280,6 +283,18 @@ for file output but disabled for console output.</p>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-arclink.port"><code class="xref std std-confval docutils literal notranslate"><span class="pre">arclink.port</span></code></a>.</p>
 </dd></dl>
 
+<dl class="option">
+<dt id="cmdoption-scwfas-fdsnws-port">
+<code class="sig-name descname">--fdsnws-port</code><code class="sig-prename descclassname"> int</code><a class="headerlink" href="#cmdoption-scwfas-fdsnws-port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-fdsnws.port"><code class="xref std std-confval docutils literal notranslate"><span class="pre">fdsnws.port</span></code></a>.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scwfas-fdsnws-baseurl">
+<code class="sig-name descname">--fdsnws-baseurl</code><code class="sig-prename descclassname"> string</code><a class="headerlink" href="#cmdoption-scwfas-fdsnws-baseurl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-fdsnws.baseURL"><code class="xref std std-confval docutils literal notranslate"><span class="pre">fdsnws.baseURL</span></code></a>.</p>
+</dd></dl>
+
 </div>
 </div>
 </div>
@@ -341,7 +356,7 @@ for file output but disabled for console output.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

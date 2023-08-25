@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "FDSNWS" "1" "Jan 17, 2022" "4.8.4" "SeisComP"
+.TH "FDSNWS" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
 .SH NAME
 fdsnws \- SeisComP Documentation
 .
@@ -34,10 +34,12 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 \fBProvides FDSN Web Services\fP
 .SH DESCRIPTION
 .sp
-fdsnws is a server that provides event and station information by \fI\%FDSN Web Services\fP [1]
+fdsnws is a server that provides event and station information by FDSN Web Services
+(fdsn)
 from a SeisComP database and waveforms from a global_recordstream source.
 Also it may be configured to serve data
-availability information as described in the \fI\%IRIS DMC FDSNWS availability Web Service Documentation\fP [2]\&.
+availability information as described in the IRIS DMC FDSNWS availability Web
+Service Documentation ().
 .sp
 \fBCAUTION:\fP
 .INDENT 0.0
@@ -98,8 +100,7 @@ _
 .sp
 The available services can be reached from the fdsnws start page.  The services
 also provide an interactive URL builder constructing the request URL based on
-user inputs. The FDSN specifications can be found on
-\fI\%FDSN Web Services\fP [1]\&.
+user inputs. The FDSN specifications can be found on fdsn\&.
 .sp
 \fBURL\fP
 .INDENT 0.0
@@ -108,7 +109,7 @@ user inputs. The FDSN specifications can be found on
 .UNINDENT
 .sp
 If \fBfdsnws\fP is started, it accepts connections by default on port 8080 which
-can be changed in the configuration. Also please read \fI\%Changing the service port\fP for
+can be changed in the configuration. Also please read \fI\%Changing the Service Port\fP for
 running the services on a privileged port, e.g. port 80 as requested by the
 FDSNWS specification.
 .sp
@@ -177,7 +178,7 @@ Access to drestricted networks and stations is only granted through the
 .UNINDENT
 .sp
 The data channels exposed by this service may be restrict by defining an
-inventory filter, see section \fI\%Filtering the inventory\fP\&.
+inventory filter, see section \fI\%Filtering Inventories\fP\&.
 .SS Service configuration
 .INDENT 0.0
 .IP \(bu 2
@@ -236,11 +237,11 @@ Request URL for querying the information for the GE network on response level:
 .SS Feature notes
 .INDENT 0.0
 .IP \(bu 2
-To enable FDSNXML or StationXML support the plugins \fBfdsnxml\fP resp.
-\fBstaxml\fP have to be loaded
+To enable FDSNXML or StationXML support load the plugin \fBfdsnxml\fP\&. The
+plugin is loaded by default configuration.
 .IP \(bu 2
 \fBupdatedafter\fP request parameter not implemented: The last modification time
-in SeisComP is tracked on the object level. If a child of an object is updated
+in \fISeisComP\fP is tracked on the object level. If a child of an object is updated
 the update time is not propagated to all parents. In order to check if a
 station was updated all children must be evaluated recursively. This operation
 would be much too expensive.
@@ -263,7 +264,7 @@ default: \fBxml\fP
 .UNINDENT
 .sp
 The inventory exposed by this service may be restricted, see section
-\fI\%Filtering the inventory\fP\&.
+\fI\%Filtering Inventories\fP\&.
 .SS Event
 .INDENT 0.0
 .IP \(bu 2
@@ -299,7 +300,7 @@ starting on 18 April 2013:
 .SS Feature Notes
 .INDENT 0.0
 .IP \(bu 2
-SeisComP does not distinguish between catalogs and contributors, but
+\fISeisComP\fP does not distinguish between catalogs and contributors, but
 supports agencyIDs. Hence, if specified, the value of the \fBcontributor\fP
 parameter is mapped to the agencyID. The file
 \fB@DATADIR@/share/fdsn/contributors.xml\fP has to be filled manually with all
@@ -309,7 +310,7 @@ Origin and magnitude filter parameters are always applied to preferred origin
 resp. preferred magnitude
 .IP \(bu 2
 \fBupdatedafter\fP request parameter not implemented: The last modification time
-in SeisComP is tracked on the object level. If a child of an object is updated
+in \fISeisComP\fP is tracked on the object level. If a child of an object is updated
 the update time is not propagated to all parents. In order to check if a
 station was updated all children must be evaluated recursively. This operation
 would be much too expensive.
@@ -343,11 +344,12 @@ default: \fBxml\fP
 .sp
 The data availability web service returns detailed time span information of
 what time series data is available at the DMC archive. The availability information
-can be created by scardac in the SeisComP database from where it is
+can be created by scardac in the \fISeisComP\fP database from where it is
 fetched by fdsnws.
 .sp
 The availability service is no official standard yet. This implementation aims
-to be compatible with the \fI\%IRIS DMC IRISWS availability Web Service\fP implementation.
+to be compatible with the IRIS DMC availability FDSN Web Service
+() implementation.
 .INDENT 0.0
 .IP \(bu 2
 request type: HTTP\-GET, HTTP\-POST
@@ -426,7 +428,7 @@ truncation can easily be done on client side. No additional network traffic is
 generated.
 .UNINDENT
 .UNINDENT
-.SH FILTERING THE INVENTORY
+.SH FILTERING INVENTORIES
 .sp
 The channels served by the \fI\%Station\fP and \fI\%DataSelect\fP services
 may be filtered by specified an INI file in the \fBstationFilter\fP and
@@ -555,12 +557,12 @@ channel is only added if no other include rule exists in the entire rule set.
 .SH CHANGING THE SERVICE PORT
 .sp
 The FDSN Web service specification defines that the Service SHOULD be available
-under port 80. Typically SeisComP runs under a user without root permissions
+under port 80. Typically \fISeisComP\fP runs under a user without root permissions
 and therefore is not allowed to bind to privileged ports (<1024).
 To serve on port 80 you may for instance
 .INDENT 0.0
 .IP \(bu 2
-Run SeisComP with root privileged (not recommended)
+Run \fISeisComP\fP with root privileged (not recommended)
 .IP \(bu 2
 Use a proxy Webserver, e.g. Apache with
 \fI\%mod\-proxy\fP module
@@ -602,7 +604,7 @@ sysop@host:~$ authbind \-\-deep seiscomp exec fdsnws
 .UNINDENT
 .UNINDENT
 .sp
-In order use \fBauthbind\fP when starting \fBfdsnws\fP as SeisComP service the last
+In order use \fBauthbind\fP when starting \fBfdsnws\fP as \fISeisComP\fP service the last
 line in the \fB~/seiscomp/etc/init/fdsnws.py\fP have to be commented in.
 .SH FIREWALL
 .sp
@@ -662,8 +664,7 @@ where GPG stores its files. Let\(aqs use the directory
 .INDENT 0.0
 .IP \(bu 2
 First create the direcory and your own signing key:
-.UNINDENT
-.INDENT 0.0
+.INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
@@ -674,11 +675,9 @@ sysop@host:~$ gpg \-\-homedir ~/seiscomp/var/lib/gpg \-\-gen\-key
 .fi
 .UNINDENT
 .UNINDENT
-.INDENT 0.0
 .IP \(bu 2
 Now import GPG keys of all authentication services you trust:
-.UNINDENT
-.INDENT 0.0
+.INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
@@ -688,12 +687,10 @@ sysop@host:~$ gpg \-\-homedir ~/seiscomp/var/lib/gpg \-\-import <keys.asc
 .fi
 .UNINDENT
 .UNINDENT
-.INDENT 0.0
 .IP \(bu 2
 Finally sign all imported keys with your own key (XXXXXXXX is the ID of
 an imported key):
-.UNINDENT
-.INDENT 0.0
+.INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
@@ -703,18 +700,17 @@ sysop@host:~$ gpg \-\-homedir ~/seiscomp/var/lib/gpg \-\-edit\-key XXXXXXXX sign
 .fi
 .UNINDENT
 .UNINDENT
-.INDENT 0.0
 .IP \(bu 2
 \&...and set auth.enable, either using the "scconfig" tool or:
-.UNINDENT
-.INDENT 0.0
+.INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
 .ft C
-sysop@host:~$ echo "auth.enable = true" >>~/seiscomp/etc/fdsnws.cfg
+sysop@host:~$ echo "auth.enable = true" >> ~/seiscomp/etc/fdsnws.cfg
 .ft P
 .fi
+.UNINDENT
 .UNINDENT
 .UNINDENT
 .SS Usage example
@@ -727,8 +723,7 @@ station AAI (assuming that we are authorized to get data of this station).
 The first step is to obtain the token from an authentication service.
 Assuming that the token is saved in "token.asc", credentials of the
 temporary account can be requested using one of the following commands:
-.UNINDENT
-.INDENT 0.0
+.INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
@@ -739,12 +734,10 @@ sysop@host:~$ curl \-\-data\-binary @token.asc https://geofon.gfz\-potsdam.de/fd
 .fi
 .UNINDENT
 .UNINDENT
-.INDENT 0.0
 .IP \(bu 2
 The resulting file "cred.txt" contains username and password separated by
 a colon, so one can conveniently use a shell expansion:
-.UNINDENT
-.INDENT 0.0
+.INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
@@ -755,12 +748,10 @@ sysop@host:~$ curl \-\-digest "http://\(gacat cred.txt\(ga@geofon.gfz\-potsdam.d
 .fi
 .UNINDENT
 .UNINDENT
-.INDENT 0.0
 .IP \(bu 2
 Using the \fI\%fdsnws_fetch\fP utility, the two steps above can be combined into
 one:
-.UNINDENT
-.INDENT 0.0
+.INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
@@ -770,9 +761,10 @@ sysop@host:~$ fdsnws_fetch \-a token.asc \-s 2015\-12\-15T16:00:00Z \-e 2015\-12
 .fi
 .UNINDENT
 .UNINDENT
+.UNINDENT
 .SH LOGGING
 .sp
-In addition to normal SeisComP logs, fdsnws can create a simple HTTP access log
+In addition to normal \fISeisComP\fP logs, fdsnws can create a simple HTTP access log
 and/or a detailed request log. The locations of log files are specified by
 "accessLog" and "requestLog" in fdsnws.cfg.
 .sp
@@ -890,27 +882,20 @@ the GEOFON datacentre is currently serving between 0.5..1 million FDSNWS
 requests per day.
 .SH RELATED MODULES
 .sp
-GEOFON maintains \fI\%scripts for FDSNWS\fP [3]:
+GEOFON maintains scripts for FDSNWS fdsnws_scripts:
 .INDENT 0.0
 .IP \(bu 2
-The \fBfdsnws_fetch\fP client is a convenient tool for requesting waveforms
-from a FDSN web service hosted by EIDA\&.
+The \fBfdsnws_fetch\fP client is a convenient tool for requesting
+waveforms from a FDSN web service hosted by EIDA nodes.
 .IP \(bu 2
 The \fBfdsnws2sds\fP client is a tool for requesting waveforms
-from a FDSN web service hosted by EIDA and to store them into an SDS archive.
+from a FDSN web service hosted by EIDA nodes and to store them into an
+SDS archive.
 .UNINDENT
 .SH PUBLIC FDSN WEB SERVERS
 .sp
-IRIS maintains a \fI\%list of data centers\fP [4] supporting \fI\%FDSN Web Services\fP [1]\&.
-.SH REFERENCES
-.IP [1] 5
-\fI\%http://www.fdsn.org/webservices/\fP
-.IP [2] 5
-\fI\%https://service.iris.edu/fdsnws/availability/1/\fP
-.IP [3] 5
-\fI\%https://www.seiscomp3.org/doc/applications/fdsnws_scripts.html\fP
-.IP [4] 5
-\fI\%https://www.fdsn.org/webservices/datacenters/\fP
+IRIS maintains a list of data centers ()
+supporting FDSN Web Services (fdsn).
 .SH CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP

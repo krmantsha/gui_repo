@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="scsendjournal" href="scsendjournal.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -90,9 +91,9 @@ defined in</p>
 <div class="section" id="module-setup">
 <h2>Module Setup<a class="headerlink" href="#module-setup" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic" id="scquery-config">
-<li><p>Create the query profiles in <code class="file docutils literal notranslate"><span class="pre">queries.cfg</span></code> in &#64;CONFIGDIR&#64; or &#64;SYSTEMCONFIGDIR&#64;. The
-file contains your database queries. Examples for MariaDB/MySQL and PostgreSQL
-are found in the section <a class="reference internal" href="#scquery-queries"><span class="std std-ref">Queries</span></a>.</p></li>
+<li><p>Create the query profiles in <code class="file docutils literal notranslate"><span class="pre">queries.cfg</span></code> in &#64;SYSTEMCONFIGDIR&#64; or
+&#64;CONFIGDIR&#64;. The file contains your database queries. Examples for
+MariaDB/MySQL and PostgreSQL are found in the section <a class="reference internal" href="#scquery-queries"><span class="std std-ref">Queries</span></a>.</p></li>
 <li><p><strong>Optional:</strong> Add the database connection parameter to the configuration file
 <code class="file docutils literal notranslate"><span class="pre">scquery.cfg</span></code> or <code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code> in &#64;CONFIGDIR&#64; or to &#64;SYSTEMCONFIGDIR&#64;:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">database</span> <span class="o">=</span> mysql://sysop:sysop@localhost/seiscomp
@@ -220,7 +221,7 @@ query.delta_sta_net_mag_type <span class="o">=</span> <span class="s2">&quot;SEL
 <div class="section" id="postgresql">
 <span id="scquery-psql"></span><h3>PostgreSQL<a class="headerlink" href="#postgresql" title="Permalink to this headline">¶</a></h3>
 <p>In contrast to queries for objects in <a class="reference internal" href="#scquery-mariadb"><span class="std std-ref">MariaDB/MySQL</span></a> the
-string “<a href="#id3"><span class="problematic" id="id4">m_</span></a>” must be added to the value and publicID database columns as shown
+string <code class="docutils literal notranslate"><span class="pre">m_</span></code> must be added to the value and publicID database columns as shown
 below for the query “eventFilter”.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">queries</span> <span class="o">=</span> eventFilter
 
@@ -354,14 +355,33 @@ queried with “–db-driver-list”.</p>
 <dl class="option">
 <dt id="cmdoption-scquery-showqueries">
 <code class="sig-name descname">--showqueries</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scquery-showqueries" title="Permalink to this definition">¶</a></dt>
-<dd><p>Show the stored queries in queries.cfg</p>
+<dd><p>Show the queries defined in queries.cfg</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scquery-print-column-name">
+<code class="sig-name descname">--print-column-name</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scquery-print-column-name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the name of each output column in a header</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scquery-print-header">
 <code class="sig-name descname">--print-header</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scquery-print-header" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the query parameters and the query filter description
-as a header of the query output.</p>
+as a header of the query output</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scquery-delimiter">
+<code class="sig-name descname">--delimiter</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scquery-delimiter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Column delimiter. If found, this character will be escaped
+in output values. Default: ‘|’</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scquery-query">
+<code class="sig-name descname">-Q</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--query</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scquery-query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute the given query from the command line.</p>
 </dd></dl>
 
 </div>
@@ -433,7 +453,7 @@ as a header of the query output.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

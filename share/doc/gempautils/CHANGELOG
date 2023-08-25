@@ -1,6 +1,33 @@
 # Change Log
 
 All notable changes to the gempa utils library will be documented in this file.
+Please note that we have changed the date format from year-month-day
+to year.dayofyear to be in sync with other changelogs.
+
+## 2023.083
+
+### Added
+
+-   Simple GeoTIFF reader
+
+## 2023.053
+
+### Added
+
+-   Introduced new ClearSilve template `tz2tz` that converts a given time from
+    one timezone to an other.
+
+## 2022-04-19 4.0.1
+
+### Fixed
+
+-   Minor issues
+
+## 2022-04-12 4.0
+
+### Changed
+
+-   Comprehensive rework of the Http client code
 
 ## 2021-10-27 3.0
 

@@ -197,40 +197,40 @@ scimex inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **criteria.\$name.\***
+   **criteria.$name.\***
    *A definition of an event filter.*
-   \$name is a placeholder for the name to be used.
+   $name is a placeholder for the name to be used.
 
 
-.. confval:: criteria.\$name.latitude
+.. confval:: criteria.$name.latitude
 
    Type: *tuple:double*
 
    Pair of doubles that defines the latitude range, e.g. \-90:90.
 
 
-.. confval:: criteria.\$name.longitude
+.. confval:: criteria.$name.longitude
 
    Type: *tuple:double*
 
    Pair of doubles that defines the longitude range, e.g. \-180:180.
 
 
-.. confval:: criteria.\$name.magnitude
+.. confval:: criteria.$name.magnitude
 
    Type: *tuple:double*
 
    Pair of doubles that defines the magnitude range, e.g. 3:10.
 
 
-.. confval:: criteria.\$name.arrivalcount
+.. confval:: criteria.$name.arrivalcount
 
    Type: *int*
 
    Number of minimum arrivals.
 
 
-.. confval:: criteria.\$name.agencyID
+.. confval:: criteria.$name.agencyID
 
    Type: *list:string*
 
@@ -240,12 +240,12 @@ scimex inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **hosts.\$name.\***
+   **hosts.$name.\***
    *A sink definition used for either import or export.*
-   \$name is a placeholder for the name to be used.
+   $name is a placeholder for the name to be used.
 
 
-.. confval:: hosts.\$name.address
+.. confval:: hosts.$name.address
 
    Type: *string*
 
@@ -254,7 +254,7 @@ scimex inherits :ref:`global options<global-configuration>`.
    'address \= somewhere.com:4803'
 
 
-.. confval:: hosts.\$name.criteria
+.. confval:: hosts.$name.criteria
 
    Type: *string*
 
@@ -262,7 +262,7 @@ scimex inherits :ref:`global options<global-configuration>`.
    The criteria must be defined in the criteria.\* configuration lines.
 
 
-.. confval:: hosts.\$name.filter
+.. confval:: hosts.$name.filter
 
    Type: *boolean*
 
@@ -271,21 +271,21 @@ scimex inherits :ref:`global options<global-configuration>`.
    or more criteria are defined.
    Default is ``true``.
 
-.. confval:: hosts.\$name.conversion
+.. confval:: hosts.$name.conversion
 
    Type: *string*
 
    Optional target format for export.
 
 
-.. confval:: hosts.\$name.useDefinedRoutingTable
+.. confval:: hosts.$name.useDefinedRoutingTable
 
    Type: *boolean*
 
    Enables\/disables defined routing tables.
    Default is ``false``.
 
-.. confval:: hosts.\$name.routingTable
+.. confval:: hosts.$name.routingTable
 
    Type: *list:string*
 

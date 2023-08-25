@@ -31,9 +31,9 @@ Module Setup
 
 .. _scquery_config:
 
-#. Create the query profiles in :file:`queries.cfg` in @CONFIGDIR@ or @SYSTEMCONFIGDIR@. The
-   file contains your database queries. Examples for MariaDB/MySQL and PostgreSQL
-   are found in the section :ref:`scquery_queries`.
+#. Create the query profiles in :file:`queries.cfg` in @SYSTEMCONFIGDIR@ or
+   @CONFIGDIR@. The file contains your database queries. Examples for
+   MariaDB/MySQL and PostgreSQL are found in the section :ref:`scquery_queries`.
 
 #. **Optional:** Add the database connection parameter to the configuration file
    :file:`scquery.cfg` or :file:`global.cfg` in @CONFIGDIR@ or to @SYSTEMCONFIGDIR@:
@@ -182,7 +182,7 @@ PostgreSQL
 ----------
 
 In contrast to queries for objects in :ref:`MariaDB/MySQL <scquery_mariadb>` the
-string "m_" must be added to the value and publicID database columns as shown
+string ``m_`` must be added to the value and publicID database columns as shown
 below for the query "eventFilter".
 
 .. code-block:: sh
@@ -300,10 +300,23 @@ Commands
 
 .. option:: --showqueries
 
-   Show the stored queries in queries.cfg
+   Show the queries defined in queries.cfg
+
+.. option:: --print-column-name
+
+   Print the name of each output column in a header
 
 .. option:: --print-header
 
    Print the query parameters and the query filter description
-   as a header of the query output.
+   as a header of the query output
+
+.. option:: --delimiter
+
+   Column delimiter. If found, this character will be escaped
+   in output values. Default: '\|'
+
+.. option:: -Q, --query
+
+   Execute the given query from the command line.
 

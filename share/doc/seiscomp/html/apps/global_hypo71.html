@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Md" href="global_md.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -72,18 +73,18 @@
           
   <div class="section" id="hypo71">
 <span id="global-hypo71"></span><h1>Hypo71<a class="headerlink" href="#hypo71" title="Permalink to this headline">¶</a></h1>
-<p>This plugin allows the use of the traditional Hypo71PC locator with SeisComP.</p>
+<p>The traditional Hypo71PC locator with SeisComP.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>The Hypo71 locator algorithm by Fred Klein locator <a class="footnote-reference brackets" href="#id6" id="id1">1</a> has
+<p>The Hypo71 locator algorithm by Fred Klein locator (<span id="id1">Lee and Lahr [<a class="reference internal" href="../base/references.html#id45" title="W.H. Lee and J.C. Lahr. Hypo71 (revised): a computer program for determining local earthquake hypocentral parameters, magnitude, and first motion pattern of local earthquakes. US Geol. Survey Open-file Report 75-311, 1975. URL: https://pubs.er.usgs.gov/publication/ofr75311, doi:10.3133/ofr75311.">20</a>]</span>) has
 been implemented into <cite>SeisComP</cite> through the plugin mechanism. The plugin <em>hypo71</em>
 contains the LocatorInterface implementation for Hypo71.
 This plugin uses a slightly modified Hypo71 version from Alexandre Nercessian (IPGP)
 which allows negative earthquake depth (above sea level) and negative stations
 altitude (below sea level - OBS).</p>
-<p>The development of this plugin was co-financed by the European Union and le Ministère
-de l’Ecologie, du Développement Durable, des Transports et du Logement <a class="footnote-reference brackets" href="#lemin" id="id2">2</a>,
-developed by OVSM (IPGP) <a class="footnote-reference brackets" href="#ovsm" id="id3">3</a>.</p>
+<p>The development of this plugin was co-financed by the European Union and
+<a class="reference external" href="http://www.developpement-durable.gouv.fr">le Ministère de l’Ecologie, du Développement Durable, des Transports et du Logement</a>
+and developed by <span id="id2"><em>OVSM, Interreg Caraibes</em> [<a class="reference internal" href="../base/references.html#id149" title="OVSM, Interreg Caraibes. URL: https://www.interreg-caraibes.com.">6</a>]</span> / <span id="id3"><em>IPGP</em> [<a class="reference internal" href="../base/references.html#id116" title="IPGP. URL: http://www.ipgp.fr.">2</a>]</span>.</p>
 </div>
 <div class="section" id="how-it-works">
 <h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
@@ -408,26 +409,9 @@ combo box.</p>
 <div class="section" id="more">
 <h2>More<a class="headerlink" href="#more" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Take a look at Fred Klein HYPOINVERSE Earthquake Location software <a class="footnote-reference brackets" href="#hypoinverse" id="id4">4</a>,</p></li>
-<li><p>Hypo71PC original manual and binary are available on USGS website <a class="footnote-reference brackets" href="#id6" id="id5">1</a>.</p></li>
+<li><p>Take a look at Fred Klein HYPOINVERSE Earthquake Location software (<span id="id4">Klein [<a class="reference internal" href="../base/references.html#id41" title="F.W. Klein. User’s guide to HYPOINVERSE-2000, a Fortran program to solve for earthquake locations and magnitudes. US Geological Survey, 2002-171:, 2002. URL: https://www.usgs.gov/node/279394, doi:10.3133/ofr02171.">19</a>]</span>),</p></li>
+<li><p>Hypo71PC original manual and binary are available on USGS website (<span id="id5">Lee and Lahr [<a class="reference internal" href="../base/references.html#id45" title="W.H. Lee and J.C. Lahr. Hypo71 (revised): a computer program for determining local earthquake hypocentral parameters, magnitude, and first motion pattern of local earthquakes. US Geol. Survey Open-file Report 75-311, 1975. URL: https://pubs.er.usgs.gov/publication/ofr75311, doi:10.3133/ofr75311.">20</a>]</span>).</p></li>
 </ul>
-</div>
-<div class="section" id="references">
-<span id="sec-hypo71-references"></span><h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="id6"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id5">2</a>)</span></dt>
-<dd><p>USGS: Hypo71PC original manual and binary, <a class="reference external" href="https://pubs.er.usgs.gov/publication/ofr75311">https://pubs.er.usgs.gov/publication/ofr75311</a></p>
-</dd>
-<dt class="label" id="lemin"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p>Le Ministère de l’Ecologie, du Développement Durable, des Transports et du Logement: <a class="reference external" href="http://www.developpement-durable.gouv.fr/">http://www.developpement-durable.gouv.fr/</a></p>
-</dd>
-<dt class="label" id="ovsm"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
-<dd><p>OVSM (IPGP): <a class="reference external" href="http://www.ipgp.fr">http://www.ipgp.fr</a>, <a class="reference external" href="https://www.interreg-caraibes.com">https://www.interreg-caraibes.com</a></p>
-</dd>
-<dt class="label" id="hypoinverse"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
-<dd><p>Fred Klein: HYPOINVERSE Earthquake Location, <a class="reference external" href="https://www.usgs.gov/software/hypoinverse-earthquake-location">https://www.usgs.gov/software/hypoinverse-earthquake-location</a></p>
-</dd>
-</dl>
 </div>
 <div class="section" id="configuration">
 <span id="global-hypo71-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
@@ -589,7 +573,6 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
 </ul>
 </li>
 <li><a class="reference internal" href="#more">More</a></li>
-<li><a class="reference internal" href="#references">References</a></li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 </ul>
 </li>
@@ -620,7 +603,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

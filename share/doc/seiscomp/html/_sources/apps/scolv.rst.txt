@@ -95,8 +95,8 @@ scolv can be operated in 2 modes:
 * **Offline without messaging** where all event and station
   inventory parameters are read from an XML files or from the database and
   *updated interactively*. New or updated parameters can be written to an XML file.
-  Open scolv with the option
-  :option:`--offline` and optionally provide the database or inventory and bindings
+  Execute scolv with the command-line option
+  ``--offline`` and optionally provide the database or inventory and bindings
   parameters in :term:`SCML` format to fetch event parameters as well as inventory
   and bindings configuration parameters. Examples: ::
 
@@ -952,8 +952,8 @@ Focal Mechanism list
 --------------------
 
 The Focal Mechanism tab shows all focal mechanisms and moment tensors associated
-to the selected event. You may fix the preferred mechanism or fix/unfix :term:`Mw`
-to become the preferred magnitude.
+to the selected event. You may fix the preferred mechanism or fix/unfix
+:term:`Mw <magnitude, moment (Mw)>` to become the preferred magnitude.
 
 Select a row or cell and
 press the right mouse button to copy the row or cell, respectively.
@@ -1459,6 +1459,8 @@ Furthermore the precision of various values can be configured:
    adjusted in *scheme* section of the :ref:`global configuration <global>`.
 
 
+.. _sec-scolv-hotkeys:
+
 Hotkeys
 =======
 
@@ -1505,7 +1507,7 @@ actions in scolv. The hotkeys are provided for:
 +------------------------+-------------------------------------------------------------+
 | Double click           | Center map at the clicked position                          |
 +------------------------+-------------------------------------------------------------+
-| **Picker**             |                                                             |
+| **Phase picker**       |                                                             |
 +------------------------+-------------------------------------------------------------+
 | 1 .. 9                 | Activate configured phase picking                           |
 +------------------------+-------------------------------------------------------------+
@@ -1618,7 +1620,7 @@ actions in scolv. The hotkeys are provided for:
 +------------------------+-------------------------------------------------------------+
 | Shift+Y                | Increase row height                                         |
 +------------------------+-------------------------------------------------------------+
-| **Magnitude waveforms**|                                                             |
+| **Amplitude picker**   |                                                             |
 +------------------------+-------------------------------------------------------------+
 | F5                     | Compute network magnitudes and return to Magnitudes tab     |
 +------------------------+-------------------------------------------------------------+
@@ -1961,6 +1963,15 @@ scolv inherits :ref:`global options<global-configuration>`.
    fixed to this configured value and the origin is relocated again.
 
 
+.. confval:: olv.locator.presetFromOrigin
+
+   Type: *boolean*
+
+   Whether to preset the locator settings when an origin
+   is being loaded. It tries to figure the locator type
+   from Origin.methodID and the profile from Origin.earthModelID.
+   Default is ``false``.
+
 .. confval:: olv.commit.forceEventAssociation
 
    Type: *boolean*
@@ -2008,18 +2019,18 @@ scolv inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **olv.customCommits.\$name.\***
-   \$name is a placeholder for the name to be used.
+   **olv.customCommits.$name.\***
+   $name is a placeholder for the name to be used.
 
 
-.. confval:: olv.customCommits.\$name.enable
+.. confval:: olv.customCommits.$name.enable
 
    Type: *boolean*
 
    Enable this commit button.
    Default is ``true``.
 
-.. confval:: olv.customCommits.\$name.askForConfirmation
+.. confval:: olv.customCommits.$name.askForConfirmation
 
    Type: *boolean*
 
@@ -2028,14 +2039,14 @@ scolv inherits :ref:`global options<global-configuration>`.
    Cancelling the dialog aborts the commit procedure.
    Default is ``false``.
 
-.. confval:: olv.customCommits.\$name.forceEventAssociation
+.. confval:: olv.customCommits.$name.forceEventAssociation
 
    Type: *boolean*
 
    Associate a new origin to the currently active event or not.
    Default is ``false``.
 
-.. confval:: olv.customCommits.\$name.fixOrigin
+.. confval:: olv.customCommits.$name.fixOrigin
 
    Type: *boolean*
 
@@ -2043,7 +2054,7 @@ scolv inherits :ref:`global options<global-configuration>`.
    solution in the event it is associated to.
    Default is ``false``.
 
-.. confval:: olv.customCommits.\$name.eventType
+.. confval:: olv.customCommits.$name.eventType
 
    Type: *string*
 
@@ -2053,7 +2064,7 @@ scolv inherits :ref:`global options<global-configuration>`.
    \"not existing\".
 
 
-.. confval:: olv.customCommits.\$name.eventTypeCertainty
+.. confval:: olv.customCommits.$name.eventTypeCertainty
 
    Type: *string*
 
@@ -2062,7 +2073,7 @@ scolv inherits :ref:`global options<global-configuration>`.
    the type certainty remains unchanged.
 
 
-.. confval:: olv.customCommits.\$name.originStatus
+.. confval:: olv.customCommits.$name.originStatus
 
    Type: *string*
 
@@ -2071,7 +2082,7 @@ scolv inherits :ref:`global options<global-configuration>`.
    If empty, the origin status will be set to none.
 
 
-.. confval:: olv.customCommits.\$name.magnitudeType
+.. confval:: olv.customCommits.$name.magnitudeType
 
    Type: *string*
 
@@ -2081,7 +2092,7 @@ scolv inherits :ref:`global options<global-configuration>`.
    be reset.
 
 
-.. confval:: olv.customCommits.\$name.eventName
+.. confval:: olv.customCommits.$name.eventName
 
    Type: *string*
 
@@ -2091,7 +2102,7 @@ scolv inherits :ref:`global options<global-configuration>`.
    names with spaces, e.g. \"Quarry XYZ\".
 
 
-.. confval:: olv.customCommits.\$name.eventComment
+.. confval:: olv.customCommits.$name.eventComment
 
    Type: *string*
 
@@ -2099,14 +2110,14 @@ scolv inherits :ref:`global options<global-configuration>`.
    comments with spaces, e.g. \"Blast on Monday morning\".
 
 
-.. confval:: olv.customCommits.\$name.returnToEventList
+.. confval:: olv.customCommits.$name.returnToEventList
 
    Type: *boolean*
 
    Return to the event list after committing or not.
    Default is ``false``.
 
-.. confval:: olv.customCommits.\$name.label
+.. confval:: olv.customCommits.$name.label
 
    Type: *string*
 
@@ -2114,7 +2125,7 @@ scolv inherits :ref:`global options<global-configuration>`.
    spaces, e.g. \"Earthquake reported\".
    Default is ``Commit+``.
 
-.. confval:: olv.customCommits.\$name.color
+.. confval:: olv.customCommits.$name.color
 
    Type: *color*
 
@@ -2122,7 +2133,7 @@ scolv inherits :ref:`global options<global-configuration>`.
    Use hexadecimal values.
 
 
-.. confval:: olv.customCommits.\$name.colorText
+.. confval:: olv.customCommits.$name.colorText
 
    Type: *color*
 
@@ -2130,7 +2141,7 @@ scolv inherits :ref:`global options<global-configuration>`.
    Use hexadecimal values.
 
 
-.. confval:: olv.customCommits.\$name.tooltip
+.. confval:: olv.customCommits.$name.tooltip
 
    Type: *boolean*
 
@@ -2151,6 +2162,13 @@ scolv inherits :ref:`global options<global-configuration>`.
    when in picking mode.
    Default is ``false``.
 
+.. confval:: picker.loadAllPicks
+
+   Type: *boolean*
+
+   Load all existing picks for the requested data time window.
+   Default is ``true``.
+
 .. confval:: picker.ignoreUnconfiguredStations
 
    Type: *boolean*
@@ -2159,12 +2177,22 @@ scolv inherits :ref:`global options<global-configuration>`.
    configured with a detecStream in global bindings.
    Default is ``false``.
 
-.. confval:: picker.loadAllPicks
+.. confval:: picker.limitStationAcquisition
 
    Type: *boolean*
 
-   Load all existing picks for the requested data time window.
-   Default is ``true``.
+   Limit the data acquisition to the number of nearest
+   stations given by \"picker.limitStationAcquisitionCount\".
+   Default is ``false``.
+
+.. confval:: picker.limitStationAcquisitionCount
+
+   Type: *int*
+
+   Limit the data acquisituion to the given number of
+   the nearest stations. Requires to activate
+   \"picker.limitStationAcquisition\".
+   Default is ``10``.
 
 .. confval:: picker.loadStrongMotion
 
@@ -2187,7 +2215,8 @@ scolv inherits :ref:`global options<global-configuration>`.
    Type: *boolean*
 
    If enabled, all three components are shown in the picker
-   zoom trace.
+   zoom trace. The distance is limited to what is configured
+   in \"picker.allComponentsMaximumDistance\".
    Default is ``false``.
 
 .. confval:: picker.allComponentsMaximumDistance
@@ -2196,7 +2225,7 @@ scolv inherits :ref:`global options<global-configuration>`.
 
    Unit: *deg*
 
-   Defines the distance limit for the showAllComponents flag.
+   The distance limit for the \"picker.showAllComponents\" flag.
    Default is ``10``.
 
 .. confval:: picker.usePerStreamTimeWindows
@@ -2374,8 +2403,8 @@ scolv inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **picker.phases.groups.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`picker.phases.groups` to become active.
+   **picker.phases.groups.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`picker.phases.groups` to become active.
 
    .. code-block:: sh
 
@@ -2387,7 +2416,7 @@ scolv inherits :ref:`global options<global-configuration>`.
       picker.phases.groups.c = ...
 
 
-.. confval:: picker.phases.groups.\$name
+.. confval:: picker.phases.groups.$name
 
    Type: *list:string*
 
@@ -2412,8 +2441,8 @@ scolv inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **picker.uncertainties.profile.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`picker.uncertainties.preferred` to become active.
+   **picker.uncertainties.profile.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`picker.uncertainties.preferred` to become active.
 
    .. code-block:: sh
 
@@ -2425,7 +2454,7 @@ scolv inherits :ref:`global options<global-configuration>`.
       picker.uncertainties.profile.c = ...
 
 
-.. confval:: picker.uncertainties.profile.\$name
+.. confval:: picker.uncertainties.profile.$name
 
    Type: *list:string*
 
@@ -2547,8 +2576,8 @@ scolv inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **display.origin.addon.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`display.origin.addons` to become active.
+   **display.origin.addon.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`display.origin.addons` to become active.
 
    .. code-block:: sh
 
@@ -2560,7 +2589,7 @@ scolv inherits :ref:`global options<global-configuration>`.
       display.origin.addon.c.value1 = ...
 
 
-.. confval:: display.origin.addon.\$name.label
+.. confval:: display.origin.addon.$name.label
 
    Type: *string*
 
@@ -2568,7 +2597,7 @@ scolv inherits :ref:`global options<global-configuration>`.
    Location tab of the parameter evaluated by this addon.
 
 
-.. confval:: display.origin.addon.\$name.script
+.. confval:: display.origin.addon.$name.script
 
    Type: *string*
 
@@ -2580,6 +2609,8 @@ Command-line
 ============
 
 .. program:: scolv
+
+:program:`scolv [options]`
 
 
 Generic
@@ -2603,11 +2634,6 @@ Generic
 .. option:: --plugins arg
 
    Load given plugins.
-
-.. option:: -D, --daemon
-
-   Run as daemon. This means the application will fork itself and
-   doesn't need to be started with \&.
 
 .. option:: --auto-shutdown arg
 
@@ -2747,4 +2773,46 @@ Records
 .. option:: --record-type arg
 
    Specify a type for the records being read.
+
+
+Cities
+------
+
+.. option:: --city-xml arg
+
+   The path to the cities XML file. This overrides the default
+   paths. Compare with the global parameter \"citiesXML\"
+
+
+User interface
+--------------
+
+.. option:: -F, --full-screen
+
+   Starts the application filling the entire screen. This only works
+   with GUI applications.
+
+.. option:: -N, --non-interactive
+
+   Use non\-interactive presentation mode. This only works with GUI applications.
+
+
+Options
+-------
+
+.. option:: -O, --origin arg
+
+   Preload origin with given origin ID
+
+.. option:: -E, --event arg
+
+   Preload event with given event ID
+
+.. option:: --offline
+
+   Switch to offline mode
+
+.. option:: --load-event-db arg
+
+   Number of days to load from database
 

@@ -13,6 +13,7 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Database" href="database.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -125,6 +126,20 @@ can be added. An incomplete list of SeisComP C++ interfaces:</p>
 <p>This is just a subset of available extensible interface factories. The
 emphasized entries refer to the factories which are most commonly extended.</p>
 </div>
+<div class="section" id="location-and-configuration">
+<h2>Location and Configuration<a class="headerlink" href="#location-and-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Plugins are located in <code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/share/pugins</span></code>. In order to make a
+plugins available for a module it must be added to the configuration of
+<a class="reference internal" href="../../apps/global.html#confval-plugins"><code class="xref std std-confval docutils literal notranslate"><span class="pre">plugins</span></code></a> of the global parameters of a module or in
+<a class="reference internal" href="../../apps/global.html#id1"><span class="std std-ref">Configuration</span></a>.</p>
+<p>Configuring <a class="reference internal" href="../../apps/global.html#confval-plugins"><code class="xref std std-confval docutils literal notranslate"><span class="pre">plugins</span></code></a> with the name of a plugin will let the exclusively
+use this plugin and no other ones, e.g. default plugins. Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plugins</span> <span class="o">=</span> <span class="n">evrc</span>
+</pre></div>
+</div>
+<p>In order to add a plugin to the default plugins or plugins loaded by before, e.g.
+by the global configuration, load these</p>
+</div>
 </div>
 
 
@@ -149,6 +164,7 @@ emphasized entries refer to the factories which are most commonly extended.</p>
 <li><a class="reference internal" href="#">SeisComP plugins</a><ul>
 <li><a class="reference internal" href="#scope">Scope</a></li>
 <li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#location-and-configuration">Location and Configuration</a></li>
 </ul>
 </li>
 </ul>
@@ -178,7 +194,7 @@ emphasized entries refer to the factories which are most commonly extended.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

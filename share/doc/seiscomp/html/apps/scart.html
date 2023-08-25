@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="scbulletin" href="scbulletin.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -114,7 +115,7 @@ and sort by end time of the records:</p>
 </li>
 <li><p>Collect data from an FDSNWS server using the <a class="reference internal" href="global_recordstream.html#global-recordstream"><span class="std std-ref">RecordStream</span></a>
 interface and write to a miniSEED file. The data streams and the time spans are
-defined in a list file using the option <code class="xref std std-option docutils literal notranslate"><span class="pre">list</span></code>. The list can be generated e.g.
+defined in a list file using the option <code class="docutils literal notranslate"><span class="pre">list</span></code>. The list can be generated e.g.
 by <a class="reference internal" href="scevtstreams.html#scevtstreams"><span class="std std-ref">scevtstreams</span></a>.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scart  -I fdsnws://<span class="o">[</span>server<span class="o">]</span>:80 --list list.file --stdout &gt; file.mseed
 </pre></div>
@@ -136,14 +137,41 @@ is used depending on whether $SEISCOMP_ROOT has been set or not.
 The default operation mode is import. That means that a multiplexed
 MiniSEED file or another record source such as ArcLink is used to import
 records into a SDS structure.</p>
+<div class="section" id="verbosity">
+<h3>Verbosity<a class="headerlink" href="#verbosity" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scart-v">
+<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--verbose</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scart-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verbose mode.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scart-h">
+<code class="sig-name descname">-h</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--help</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scart-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display a help message.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="mode">
+<h3>Mode<a class="headerlink" href="#mode" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scart-d">
+<code class="sig-name descname">-d</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--dump</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scart-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set export (dump) mode. Records are retrieved from an archive and
+written to standard output.</p>
+</dd></dl>
+
 <dl class="option">
 <dt id="cmdoption-scart-i">
 <code class="sig-name descname">-I</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scart-i" title="Permalink to this definition">¶</a></dt>
-<dd><p>Specify the recordstream URL when in import mode.
+<dd><p>Import mode: Specify the recordstream URL when in import mode.
 When using another recordstream than a file (like ArcLink) a stream
-list file is required (default is <a class="reference external" href="file://">file://</a>- (stdin))</p>
+list file is required. Default: <a class="reference external" href="file://">file://</a>- (stdin).</p>
 </dd></dl>
 
+</div>
+<div class="section" id="output">
+<h3>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h3>
 <dl class="option">
 <dt id="cmdoption-scart-t">
 <code class="sig-name descname">-t</code><code class="sig-prename descclassname"> timewindow</code><a class="headerlink" href="#cmdoption-scart-t" title="Permalink to this definition">¶</a></dt>
@@ -152,13 +180,6 @@ records for. Times are UTC and separated by a tilde “~”.
 To dump one hour of waveform data between 2008/01/01 00:00:00 and
 2008/01/01 01:00:00 use
 &lt;-t “2008-01-01 00:00:00~2008-01-01 01:00:00”&gt;.</p>
-</dd></dl>
-
-<dl class="option">
-<dt id="cmdoption-scart-d">
-<code class="sig-name descname">-d</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--dump</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scart-d" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set export (dump) mode. Records are retrieved from an archive and
-written to standard output.</p>
 </dd></dl>
 
 <dl class="option">
@@ -181,7 +202,7 @@ The time format is the same as described in option ‘-t’.</p>
 <dl class="option">
 <dt id="cmdoption-scart-e">
 <code class="sig-name descname">-E</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scart-e" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sort records according to their end time (default is start time).</p>
+<dd><p>Sort records according to their end time. Default: start time.</p>
 </dd></dl>
 
 <dl class="option">
@@ -204,27 +225,21 @@ a value of 1 (real time) is recommended.</p>
 <dl class="option">
 <dt id="cmdoption-scart-n">
 <code class="sig-name descname">-n</code><code class="sig-prename descclassname"> networks</code><a class="headerlink" href="#cmdoption-scart-n" title="Permalink to this definition">¶</a></dt>
-<dd><p>Network list of networks to dump (comma separated) (default is *).</p>
+<dd><p>List of network codes to dump (comma separated). Default: *.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scart-c">
 <code class="sig-name descname">-c</code><code class="sig-prename descclassname"> channels</code><a class="headerlink" href="#cmdoption-scart-c" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify the channel filter for the dumped streams as regular
-expression (default is (B|S|M|H)(L|H)(Z|N|E)). To dump only the
+expression. Default: (B|S|M|H)(L|H)(Z|N|E). To dump only
 BHZ, BHN and BHE streams use BH(Z|N|E).</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scart-files">
 <code class="sig-name descname">--files</code><code class="sig-prename descclassname"> count</code><a class="headerlink" href="#cmdoption-scart-files" title="Permalink to this definition">¶</a></dt>
-<dd><p>Specify the number of file handles to cache (default is 100).</p>
-</dd></dl>
-
-<dl class="option">
-<dt id="cmdoption-scart-v">
-<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--verbose</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scart-v" title="Permalink to this definition">¶</a></dt>
-<dd><p>Verbose mode.</p>
+<dd><p>Specify the number of file handles to cache. Default: 100.</p>
 </dd></dl>
 
 <dl class="option">
@@ -233,12 +248,7 @@ BHZ, BHN and BHE streams use BH(Z|N|E).</p>
 <dd><p>Test mode, no record output. This switch is useful for debugging.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scart-h">
-<code class="sig-name descname">-h</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--help</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scart-h" title="Permalink to this definition">¶</a></dt>
-<dd><p>Display a help message.</p>
-</dd></dl>
-
+</div>
 </div>
 </div>
 
@@ -265,7 +275,12 @@ BHZ, BHN and BHE streams use BH(Z|N|E).</p>
 <li><a class="reference internal" href="#description">Description</a></li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
-<li><a class="reference internal" href="#command-line">Command-line</a></li>
+<li><a class="reference internal" href="#command-line">Command-line</a><ul>
+<li><a class="reference internal" href="#verbosity">Verbosity</a></li>
+<li><a class="reference internal" href="#mode">Mode</a></li>
+<li><a class="reference internal" href="#output">Output</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -295,7 +310,7 @@ BHZ, BHN and BHE streams use BH(Z|N|E).</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

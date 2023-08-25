@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="GUI" href="global_gui.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -84,7 +85,7 @@ input/output channels of the called process: stdin and stdout.</p>
 <p>To enable the ExternalLocator the plugin <code class="docutils literal notranslate"><span class="pre">locext</span></code> must be loaded.</p>
 </div>
 <div class="section" id="commandline-parameters">
-<h2>Commandline parameters<a class="headerlink" href="#commandline-parameters" title="Permalink to this headline">¶</a></h2>
+<h2>Commandline Parameters<a class="headerlink" href="#commandline-parameters" title="Permalink to this headline">¶</a></h2>
 <p>There are several commandline parameters passed to the script depending on
 the locator configuration. The following table summarizes them.</p>
 <table class="docutils align-default">
@@ -151,11 +152,26 @@ just containing an origin.</p>
 </div>
 </div>
 <div class="section" id="example-configuration">
-<h2>Example configuration<a class="headerlink" href="#example-configuration" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ExternalLocator</span><span class="o">.</span><span class="n">profiles</span> <span class="o">=</span> <span class="n">locator1</span><span class="p">:</span><span class="s2">&quot;python /path/to/locator/script.py&quot;</span><span class="p">,</span>\
-                           <span class="n">locator2</span><span class="p">:</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">other</span><span class="o">/</span><span class="n">locator</span><span class="o">/</span><span class="n">script</span>
+<h2>Example Configuration<a class="headerlink" href="#example-configuration" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p>Define the external locator by global configuration e.g. in <code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>plugins = ${plugins}, locext
+
+ExternalLocator.profiles = locator1:&quot;python /path/to/locator/script1.py&quot;,\
+                           locator2:&quot;/path/to/other/locator/script1.sh&quot;
 </pre></div>
 </div>
+<p>with</p>
+<ul class="simple">
+<li><p><em>locator1</em>/<em>locator2</em>: The names of the profiles as shown in <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a>
+or use in ther modules like <a class="reference internal" href="screloc.html#screloc"><span class="std std-ref">screloc</span></a> for calling the external locator,</p></li>
+<li><p><em>script1.py</em>/<em>script2.sh</em>: The names of Python/Bash scripts with full path
+called by the profile to execute the locator given within the scripts.</p></li>
+</ul>
+</li>
+<li><p>Once defined, the external locator can be further configured and called
+within <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a> or by other modules e.g. <a class="reference internal" href="screloc.html#screloc"><span class="std std-ref">screloc</span></a>.</p></li>
+</ol>
 </div>
 <div class="section" id="configuration">
 <span id="global-locext-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
@@ -197,10 +213,10 @@ and path to a script separated by colon.</p>
 <li><a class="reference internal" href="#">LocExt</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
 <li><a class="reference internal" href="#plugin">Plugin</a></li>
-<li><a class="reference internal" href="#commandline-parameters">Commandline parameters</a></li>
+<li><a class="reference internal" href="#commandline-parameters">Commandline Parameters</a></li>
 <li><a class="reference internal" href="#input">Input</a></li>
 <li><a class="reference internal" href="#output">Output</a></li>
-<li><a class="reference internal" href="#example-configuration">Example configuration</a></li>
+<li><a class="reference internal" href="#example-configuration">Example Configuration</a></li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 </ul>
 </li>
@@ -231,7 +247,7 @@ and path to a script separated by colon.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="scqc" href="scqc.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -102,22 +103,26 @@ Currently the following primary magnitude types are implemented.</p>
 <div class="section" id="local-distances">
 <h3>Local distances<a class="headerlink" href="#local-distances" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
-<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-duration-md"><span class="xref std std-term">Md</span></a></dt><dd><p>Duration magnitude as described in <a class="reference external" href="https://earthquake.usgs.gov/research/software/#HYPOINVERSE">HYPOINVERSE</a> <a class="footnote-reference brackets" href="#id3" id="id4">1</a> .</p>
+<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-duration-md"><span class="xref std std-term">Md</span></a></dt><dd><p>Duration magnitude as described in HYPOINVERSE (<span id="id2">Klein [<a class="reference internal" href="../base/references.html#id41" title="F.W. Klein. User’s guide to HYPOINVERSE-2000, a Fortran program to solve for earthquake locations and magnitudes. US Geological Survey, 2002-171:, 2002. URL: https://www.usgs.gov/node/279394, doi:10.3133/ofr02171.">19</a>]</span>).</p>
 </dd>
 <dt><a class="reference internal" href="../base/glossary.html#term-magnitude-jma-m-jma"><span class="xref std std-term">Mjma</span></a></dt><dd><p>Mjma is computed on displacement data using body waves of period &lt; 30s.</p>
 </dd>
-<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-local-ml"><span class="xref std std-term">ML</span></a></dt><dd><p>Local magnitude calculated on the vertical component using a correction term
-to fit with the standard ML.</p>
+<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-local-ml"><span class="xref std std-term">ML</span></a></dt><dd><p>Local (Richter) magnitude calculated on the horizontal components using a
+correction term to fit with the standard ML (<span id="id3">Richter [<a class="reference internal" href="../base/references.html#id52" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. doi:10.1785/BSSA0250010001.">25</a>]</span>).</p>
 </dd>
-<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-local-horizontal-mlh"><span class="xref std std-term">MLh</span></a></dt><dd><p>Local magnitude calculated on the horizontal components to SED specifications.</p>
+<dt><span class="xref std std-term">MLc</span></dt><dd><p>Local custom magnitude calculated on the horizontal components according to
+Hessian Earthquake Service and <span id="id4">Stange [<a class="reference internal" href="../base/references.html#id65" title="S. Stange. ML determination for local and regional events using a sparse network in Southwestern Germany. J. Seismol., 10:247 – 257, 2006. doi:10.1007/s10950-006-9010-6.">29</a>]</span></p>
+</dd>
+<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-local-horizontal-mlh"><span class="xref std std-term">MLh</span></a></dt><dd><p>Local magnitude calculated on the horizontal components according to SED
+specifications.</p>
 </dd>
 <dt><a class="reference internal" href="../base/glossary.html#term-magnitude-local-vertical-mlv"><span class="xref std std-term">MLv</span></a></dt><dd><p>Local magnitude calculated on the vertical component using a correction term
 to fit with the standard ML.</p>
 </dd>
 <dt><a class="reference internal" href="../base/glossary.html#term-magnitude-local-gns-geonet-mlr"><span class="xref std std-term">MLr</span></a></dt><dd><p>Local magnitude calculated from MLv amplitudes based on GNS/GEONET specifications
-for New Zealand.</p>
+for New Zealand (<span id="id5">Ristau <em>et al.</em> [<a class="reference internal" href="../base/references.html#id53" title="J. Ristau, D. Harte, and J. Salichon. A Revised Local Magnitude (ML) Scale for New Zealand Earthquakes. Bull. Seismol. Soc. Am., 106(2):, 2016. doi:10.1785/0120150293.">26</a>]</span>).</p>
 </dd>
-<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-nuttli-mn"><span class="xref std std-term">MN</span></a></dt><dd><p>Nuttli magnitude for Canada and other Cratonic regions.</p>
+<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-nuttli-mn"><span class="xref std std-term">MN</span></a></dt><dd><p>Nuttli magnitude for Canada and other Cratonic regions (<span id="id6">Nuttli [<a class="reference internal" href="../base/references.html#id48" title="O.W. Nuttli. Seismic wave attenuation and magnitude relations for eastern north america. J. Geophys. Res., 5:876 - 885, 1973. doi:10.1029/JB078i005p00876.">22</a>]</span>).</p>
 </dd>
 </dl>
 </div>
@@ -128,9 +133,9 @@ for New Zealand.</p>
 </dd>
 <dt><a class="reference internal" href="../base/glossary.html#term-magnitude-cumulative-body-wave-mbc"><span class="xref std std-term">mBc</span></a></dt><dd><p>Cumulative body wave magnitude</p>
 </dd>
-<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-broadband-body-wave-mb"><span class="xref std std-term">mB</span></a></dt><dd><p>Broad band body wave magnitude after <a class="reference external" href="https://pubs.geoscienceworld.org/ssa/srl/article/79/5/698/143470/The-New-IASPEI-Standard-Broadband-Magnitude-mB">Bormann and Saul</a> <a class="footnote-reference brackets" href="#id5" id="id6">2</a> (2008)</p>
+<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-broadband-body-wave-mb"><span class="xref std std-term">mB</span></a></dt><dd><p>Broad band body wave magnitude after <span id="id7">Bormann and Saul [<a class="reference internal" href="../base/references.html#id16" title="P. Bormann and J. Saul. The new iaspei standard broadband magnitude mb. Seismol. Res. Lett., 5:698 - 705, 2008. doi:10.1785/gssrl.79.5.698.">14</a>]</span></p>
 </dd>
-<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-broadband-p-wave-moment-mwp"><span class="xref std std-term">Mwp</span></a></dt><dd><p>The body wave magnitude of <a class="reference external" href="https://pubs.geoscienceworld.org/bssa/article-pdf/85/2/606/2708350/BSSA0850020606.pdf">Tsuboi</a> <a class="footnote-reference brackets" href="#id8" id="id9">3</a> et al. (1995)</p>
+<dt><a class="reference internal" href="../base/glossary.html#term-magnitude-broadband-p-wave-moment-mwp"><span class="xref std std-term">Mwp</span></a></dt><dd><p>The body wave magnitude of <span id="id8">Tsuboi <em>et al.</em> [<a class="reference internal" href="../base/references.html#id66" title="S. Tsuboi, K. Abe, K. Takano, and Y. Yamanaka. Rapid determination of Mw from broadband P waveforms. Bull. Seismol. Soc. Am., 1995. doi:10.1785/BSSA0850020606.">30</a>]</span></p>
 </dd>
 <dt><a class="reference internal" href="../base/glossary.html#term-magnitude-surface-wave-ms-20"><span class="xref std std-term">Ms_20</span></a></dt><dd><p>Surface-wave magnitude at 20 s period</p>
 </dd>
@@ -143,10 +148,10 @@ for New Zealand.</p>
 <p>Additionally, scmag derives the following magnitudes from primary magnitudes:</p>
 <dl>
 <dt><a class="reference internal" href="../base/glossary.html#term-magnitude-derived-mb-mw-mb"><span class="xref std std-term">Mw(mB)</span></a></dt><dd><p>Estimation of the moment magnitude Mw based on mB using the Mw vs. mB
-regression of <a class="reference external" href="https://pubs.geoscienceworld.org/ssa/srl/article/79/5/698/143470/The-New-IASPEI-Standard-Broadband-Magnitude-mB">Bormann and Saul</a> <a class="footnote-reference brackets" href="#id5" id="id7">2</a> (2008)</p>
+regression of <span id="id9">Bormann and Saul [<a class="reference internal" href="../base/references.html#id16" title="P. Bormann and J. Saul. The new iaspei standard broadband magnitude mb. Seismol. Res. Lett., 5:698 - 705, 2008. doi:10.1785/gssrl.79.5.698.">14</a>]</span></p>
 </dd>
 <dt><a class="reference internal" href="../base/glossary.html#term-magnitude-derived-mwp-mw-mwp"><span class="xref std std-term">Mw(Mwp)</span></a></dt><dd><p>Estimation of the moment magnitude Mw based on Mwp using the Mw vs. Mwp
-regression of <a class="reference external" href="https://tsunamisociety.org/STHVol20N4Y2002.pdf">Whitmore</a> <a class="footnote-reference brackets" href="#id10" id="id11">4</a> et al. (2002)</p>
+regression of <span id="id10">Whitmore <em>et al.</em> [<a class="reference internal" href="../base/references.html#id69" title="P.M. Whitmore, S. Tsuboi, B. Hirshorn, and T.J. Sokolowski. Magnitude dependent correction for Mwp. Science of Tsunami Hazards, 20(4):, 2002.">31</a>]</span></p>
 </dd>
 <dt><a class="reference internal" href="../base/glossary.html#term-magnitude-summary-m"><span class="xref std std-term">M</span></a></dt><dd><p>Summary magnitude, which consists of a weighted average of the individual
 magnitudes and attempts to be a best possible compromise between all magnitudes.
@@ -154,7 +159,7 @@ See below for configuration and also scevent for how to add the summary magnitud
 to the list of possible preferred magnitudes or how to make it always preferred.</p>
 <p>More details are given in the <a class="reference internal" href="#scmag-summarym"><span class="std std-ref">section Summary magnitude</span></a>.</p>
 </dd>
-<dt><span class="xref std std-term">Mw(avg)</span></dt><dd><p>Estimation of the moment magnitude Mw based on a weighted average of other
+<dt>Mw(avg)</dt><dd><p>Estimation of the moment magnitude Mw based on a weighted average of other
 magnitudes, currently MLv, mb and Mw(mB), in future possibly other magnitudes as
 well, especially those suitable for very large events. The purpose of Mw(avg) is
 to have, at any stage during the processing, a “best possible” estimation of the
@@ -206,17 +211,20 @@ selected interactively.</p>
 <span id="scmag-summarym"></span><h2>Summary magnitude<a class="headerlink" href="#summary-magnitude" title="Permalink to this headline">¶</a></h2>
 <p>scmag can compute a summary magnitude as a weighted sum from all available
 <a class="reference internal" href="#scmag-networkm"><span class="std std-ref">network magnitudes</span></a>.
-This magnitude is typically called <strong>M</strong> as configured in <a class="reference internal" href="#confval-summaryMagnitude.type"><code class="xref std std-confval docutils literal notranslate"><span class="pre">summaryMagnitude.type</span></code></a>.</p>
+This magnitude is typically called <strong>M</strong> as configured in
+<a class="reference internal" href="#confval-summaryMagnitude.type"><code class="xref std std-confval docutils literal notranslate"><span class="pre">summaryMagnitude.type</span></code></a>.</p>
 <p>It is computed as a weighted average over the available magnitudes:</p>
 <div class="math">
 <p><img src="../_images/math/ab55f09a7f1d291f1dc066eeb2521869262bf420.png" alt="M = \frac{\sum w_{i} M_{i}}{\sum w_i}
 
 w_{i} = a_i stationCount(M_{i}) + b_i"/></p>
-</div><p>The coefficients a and b can be configured per magnitude type by <a class="reference internal" href="#confval-summaryMagnitude.coefficients.a"><code class="xref std std-confval docutils literal notranslate"><span class="pre">summaryMagnitude.coefficients.a</span></code></a>
+</div><p>The coefficients a and b can be configured per magnitude type by
+<a class="reference internal" href="#confval-summaryMagnitude.coefficients.a"><code class="xref std std-confval docutils literal notranslate"><span class="pre">summaryMagnitude.coefficients.a</span></code></a>
 and <a class="reference internal" href="#confval-summaryMagnitude.coefficients.b"><code class="xref std std-confval docutils literal notranslate"><span class="pre">summaryMagnitude.coefficients.b</span></code></a>, respectively.
-Furthermore each magnitude type can be specifically added to or excluded from the summary magnitude calculation
-as defined in <a class="reference internal" href="#confval-summaryMagnitude.whitelist"><code class="xref std std-confval docutils literal notranslate"><span class="pre">summaryMagnitude.whitelist</span></code></a> or <a class="reference internal" href="#confval-summaryMagnitude.blacklist"><code class="xref std std-confval docutils literal notranslate"><span class="pre">summaryMagnitude.blacklist</span></code></a>,
-respectively.</p>
+Furthermore each magnitude type can be specifically added to or excluded from the
+summary magnitude calculation
+as defined in <a class="reference internal" href="#confval-summaryMagnitude.whitelist"><code class="xref std std-confval docutils literal notranslate"><span class="pre">summaryMagnitude.whitelist</span></code></a> or
+<a class="reference internal" href="#confval-summaryMagnitude.blacklist"><code class="xref std std-confval docutils literal notranslate"><span class="pre">summaryMagnitude.blacklist</span></code></a>, respectively.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>While the magnitudes are computed by scmag the decision about the preferred
@@ -226,24 +234,8 @@ magnitude of an <a class="reference internal" href="../base/glossary.html#term-e
 <div class="section" id="preferred-magnitude">
 <h2>Preferred Magnitude<a class="headerlink" href="#preferred-magnitude" title="Permalink to this headline">¶</a></h2>
 <p>The preferred magnitude of an <a class="reference internal" href="../base/glossary.html#term-event"><span class="xref std std-term">event</span></a> is set automatically by <a class="reference internal" href="scevent.html#scevent"><span class="std std-ref">scevent</span></a>
-or interactively in <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a>. It can be any network magnitude or the summary magnitude.</p>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id4">1</a></span></dt>
-<dd><p><a class="reference external" href="https://earthquake.usgs.gov/research/software/#HYPOINVERSE">https://earthquake.usgs.gov/research/software/#HYPOINVERSE</a></p>
-</dd>
-<dt class="label" id="id5"><span class="brackets">2</span><span class="fn-backref">(<a href="#id6">1</a>,<a href="#id7">2</a>)</span></dt>
-<dd><p><a class="reference external" href="https://pubs.geoscienceworld.org/ssa/srl/article/79/5/698/143470/The-New-IASPEI-Standard-Broadband-Magnitude-mB">https://pubs.geoscienceworld.org/ssa/srl/article/79/5/698/143470/The-New-IASPEI-Standard-Broadband-Magnitude-mB</a></p>
-</dd>
-<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id9">3</a></span></dt>
-<dd><p><a class="reference external" href="https://pubs.geoscienceworld.org/bssa/article-pdf/85/2/606/2708350/BSSA0850020606.pdf">https://pubs.geoscienceworld.org/bssa/article-pdf/85/2/606/2708350/BSSA0850020606.pdf</a></p>
-</dd>
-<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id11">4</a></span></dt>
-<dd><p><a class="reference external" href="https://tsunamisociety.org/STHVol20N4Y2002.pdf">https://tsunamisociety.org/STHVol20N4Y2002.pdf</a></p>
-</dd>
-</dl>
+or interactively in <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a>. It can be any network magnitude or the summary
+magnitude.</p>
 </div>
 <div class="section" id="configuration">
 <span id="scmag-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
@@ -441,8 +433,8 @@ parameter is ignored.</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="id2">
-<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--v</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
+<dt id="id11">
+<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--v</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id11" title="Permalink to this definition">¶</a></dt>
 <dd><p>Increase verbosity level (may be repeated, eg. -vv)</p>
 </dd></dl>
 
@@ -654,7 +646,6 @@ network magnitude.</p>
 <li><a class="reference internal" href="#network-magnitudes">Network magnitudes</a></li>
 <li><a class="reference internal" href="#summary-magnitude">Summary magnitude</a></li>
 <li><a class="reference internal" href="#preferred-magnitude">Preferred Magnitude</a></li>
-<li><a class="reference internal" href="#references">References</a></li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 <li><a class="reference internal" href="#command-line">Command-line</a><ul>
 <li><a class="reference internal" href="#generic">Generic</a></li>
@@ -694,7 +685,7 @@ network magnitude.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

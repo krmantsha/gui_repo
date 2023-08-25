@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCQCV" "1" "Jan 17, 2022" "4.8.4" "SeisComP"
+.TH "SCQCV" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
 .SH NAME
 scqcv \- SeisComP Documentation
 .
@@ -340,8 +340,15 @@ Refer to the parameters by their ConfigName to configure the attributes.
 .B streams.codes
 Type: \fIlist:string\fP
 .sp
-List of channels to display. By default the global
-binding configuration is used which can be overwritten with this parameter.
+The list of channel codes to be displayed. List items may
+contain wildcards and are separated by comma.
+The list is  intersected with all channels configured in inventory.
+.sp
+Examples:
+.sp
+default : display all streams configured by global bindings
+.sp
+default, PF.BON.00.HH? : display default and all HH streams of PF.BON.00
 .UNINDENT
 .INDENT 0.0
 .TP

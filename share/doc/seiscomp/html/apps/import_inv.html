@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="inv2dlsv" href="inv2dlsv.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -77,53 +78,73 @@
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>import_inv is a wrapper for inventory converters. Inventory converters convert
 an input format such as</p>
-<table class="docutils align-default">
+<table class="colwidths-given docutils align-left">
 <colgroup>
-<col style="width: 22%" />
-<col style="width: 78%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 70%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Format</p></th>
-<th class="head"><p>Description</p></th>
+<th class="head"><p>Converter</p></th>
+<th class="head"><p>Conversion</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>sc3</p></td>
-<td><p>SeisComP inventory XML, schema: <code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/share/xml/</span></code></p></td>
+<tr class="row-even"><td><p>scml</p></td>
+<td><p><span class="xref std std-ref">scml2inv</span></p></td>
+<td><p><a class="reference internal" href="../base/concepts/inventory.html#concepts-inventory"><span class="std std-ref">SeisComP inventory XML</span></a>, schema: <code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/share/xml/</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>key</p></td>
-<td><p>SeisComP station keys files (key version 2.5)</p></td>
+<tr class="row-odd"><td><p>sc3</p></td>
+<td><p><span class="xref std std-ref">sc32inv</span></p></td>
+<td><p>Alias for scml for backwards compatibility to SeisComP3</p></td>
 </tr>
 <tr class="row-even"><td><p>arclink</p></td>
+<td><p><span class="xref std std-ref">arclink2inv</span></p></td>
 <td><p>Arclink inventory XML</p></td>
 </tr>
-<tr class="row-odd"><td><p>nettab</p></td>
-<td><p>GEOFON nettabs</p></td>
-</tr>
-<tr class="row-even"><td><p>dlsv</p></td>
+<tr class="row-odd"><td><p>dlsv</p></td>
+<td><p><a class="reference internal" href="dlsv2inv.html#dlsv2inv"><span class="std std-ref">dlsv2inv</span></a></p></td>
 <td><p><a class="reference external" href="http://www.iris.edu/data/dataless.htm">dataless SEED</a></p></td>
 </tr>
-<tr class="row-odd"><td><p>fdsnxml</p></td>
+<tr class="row-even"><td><p>fdsnxml</p></td>
+<td><p><a class="reference internal" href="fdsnxml2inv.html#fdsnxml2inv"><span class="std std-ref">fdsnxml2inv</span></a></p></td>
 <td><p><a class="reference external" href="http://www.fdsn.org/xml/station/">FDSN StationXML</a></p></td>
 </tr>
 </tbody>
 </table>
-<p>to SeisComP inventory XML which is the read by the trunk config module to
+<p>to SeisComP inventory XML which is read by the trunk config module to
 synchronize the local inventory file pool with the central inventory database.</p>
-<p>If another format needs to be converted it is very easy to provide a new
+<p>For printing all available formats call</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ import_inv <span class="nb">help</span> formats
+</pre></div>
+</div>
+<p>When <strong class="program">import_inv help formats</strong> is called it globs for
+<code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/bin/*2inv</span></code>.
+If another format needs to be converted, it is very easy to provide a new
 converter.</p>
 <div class="section" id="converter-interface">
 <h3>Converter interface<a class="headerlink" href="#converter-interface" title="Permalink to this headline">¶</a></h3>
-<p>To make a new converter make with import_inv it must implement an interface
-on shell level. Furthermore the converter program must be named <code class="file docutils literal notranslate"><em><span class="pre">format</span></em><span class="pre">2inv</span></code>
-and must live in <code class="file docutils literal notranslate"><span class="pre">SEISCOMP_ROOT/bin</span></code>.</p>
+<p>For making a new converter work with import_inv it must implement an interface
+on shell level. Furthermore the converter program must be named
+<code class="file docutils literal notranslate"><em><span class="pre">format</span></em><span class="pre">2inv</span></code> and must live in <code class="file docutils literal notranslate"><span class="pre">SEISCOMP_ROOT/bin</span></code>.</p>
 <p>The converter program must take the input location (file, directory, URL, …)
 as first parameter and the output file (SeisComP XML) as second parameter. The
 output file must be optional and default to stdout.</p>
 <p>To add a new converter for a new format, e.g. Excel, place the new converter
-program at <code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/bin/excel2inv</span></code>. When
-<strong class="program">import_inv help formats</strong> is called it globs for
-<code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/bin/*2inv</span></code> and prints all available formats.</p>
+program at <code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/bin/excel2inv</span></code>.</p>
+</div>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>Convert inventory file in FDSN StationXML format (fdsnxml) and copy the content to
+<code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/etc/inventoy/inventory.xml</span></code>. The call will invoke
+<a class="reference internal" href="fdsnxml2inv.html#fdsnxml2inv"><span class="std std-ref">fdsnxml2inv</span></a> for actually making the conversion:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ import_inv fdsnxml inventory_fdsn.xml <span class="nv">$SEISCOMP_ROOT</span>/etc/inventoy/inventory.xml
+</pre></div>
+</div>
+</li>
+</ul>
 </div>
 </div>
 <div class="section" id="configuration">
@@ -293,6 +314,7 @@ parameter is ignored.</p>
 <li><a class="reference internal" href="#">import_inv</a><ul>
 <li><a class="reference internal" href="#description">Description</a><ul>
 <li><a class="reference internal" href="#converter-interface">Converter interface</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
@@ -330,7 +352,7 @@ parameter is ignored.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

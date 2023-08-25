@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="scdispatch" href="scdispatch.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -92,8 +93,7 @@ the database again.</p>
 <h2>Known issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h2>
 <p>When running scdbstrip for the first time on a large database it can happen
 that it aborts in case of MYSQL with the following error message:</p>
-<blockquote>
-<div><div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  <span class="m">3</span>%<span class="o">]</span> Delete origin references of old events...08:48:22 <span class="o">[</span>error<span class="o">]</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  <span class="m">3</span>%<span class="o">]</span> Delete origin references of old events...08:48:22 <span class="o">[</span>error<span class="o">]</span>
 execute<span class="o">(</span><span class="s2">&quot;delete Object from Object, OriginReference, old_events where</span>
 <span class="s2">Object._oid=OriginReference._oid and</span>
 <span class="s2">OriginReference._parent_oid=old_events._oid&quot;</span><span class="o">)</span> <span class="o">=</span> <span class="m">1206</span> <span class="o">(</span>The total number
@@ -104,7 +104,6 @@ Exception: ERROR: <span class="nb">command</span> <span class="s1">&#39;delete O
 <span class="s1">OriginReference._parent_oid=old_events._oid&#39;</span> failed
 </pre></div>
 </div>
-</div></blockquote>
 <p>That means your MYSQL server cannot hold enough data required for deletion.
 There are two solutions to this:</p>
 <ol class="arabic">
@@ -127,13 +126,13 @@ $ scdbstrip -d seis:mypass@localhost/seiscomp --days <span class="m">100</span>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic">
+<ul>
 <li><p>Keep the events of the last 30 days</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdbstrip --days <span class="m">30</span> -d mysql://sysop:sysop@localhost/seiscomp
 </pre></div>
 </div>
 </li>
-</ol>
+</ul>
 </div>
 <div class="section" id="configuration">
 <span id="scdbstrip-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
@@ -446,7 +445,7 @@ before.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

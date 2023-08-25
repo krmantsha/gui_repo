@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCART" "1" "Jan 17, 2022" "4.8.4" "SeisComP"
+.TH "SCART" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
 .SH NAME
 scart \- SeisComP Documentation
 .
@@ -126,13 +126,32 @@ is used depending on whether $SEISCOMP_ROOT has been set or not.
 The default operation mode is import. That means that a multiplexed
 MiniSEED file or another record source such as ArcLink is used to import
 records into a SDS structure.
+.SS Verbosity
+.INDENT 0.0
+.TP
+.B \-v, \-\-verbose
+Verbose mode.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-h, \-\-help
+Display a help message.
+.UNINDENT
+.SS Mode
+.INDENT 0.0
+.TP
+.B \-d, \-\-dump
+Set export (dump) mode. Records are retrieved from an archive and
+written to standard output.
+.UNINDENT
 .INDENT 0.0
 .TP
 .B \-I
-Specify the recordstream URL when in import mode.
+Import mode: Specify the recordstream URL when in import mode.
 When using another recordstream than a file (like ArcLink) a stream
-list file is required (default is \fI\%file://\fP\- (stdin))
+list file is required. Default: \fI\%file://\fP\- (stdin).
 .UNINDENT
+.SS Output
 .INDENT 0.0
 .TP
 .B \-t timewindow
@@ -141,12 +160,6 @@ records for. Times are UTC and separated by a tilde "~".
 To dump one hour of waveform data between 2008/01/01 00:00:00 and
 2008/01/01 01:00:00 use
 <\-t "2008\-01\-01 00:00:00~2008\-01\-01 01:00:00">.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B \-d, \-\-dump
-Set export (dump) mode. Records are retrieved from an archive and
-written to standard output.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -168,7 +181,7 @@ Sort records by [start\-]time. To sort records by their endtime use \-E.
 .INDENT 0.0
 .TP
 .B \-E
-Sort records according to their end time (default is start time).
+Sort records according to their end time. Default: start time.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -188,34 +201,24 @@ a value of 1 (real time) is recommended.
 .INDENT 0.0
 .TP
 .B \-n networks
-Network list of networks to dump (comma separated) (default is *).
+List of network codes to dump (comma separated). Default: *.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-c channels
 Specify the channel filter for the dumped streams as regular
-expression (default is (B|S|M|H)(L|H)(Z|N|E)). To dump only the
+expression. Default: (B|S|M|H)(L|H)(Z|N|E). To dump only
 BHZ, BHN and BHE streams use BH(Z|N|E).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-files count
-Specify the number of file handles to cache (default is 100).
-.UNINDENT
-.INDENT 0.0
-.TP
-.B \-v, \-\-verbose
-Verbose mode.
+Specify the number of file handles to cache. Default: 100.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-test
 Test mode, no record output. This switch is useful for debugging.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B \-h, \-\-help
-Display a help message.
 .UNINDENT
 .SH AUTHOR
 gempa GmbH, GFZ Potsdam

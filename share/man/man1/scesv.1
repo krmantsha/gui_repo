@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCESV" "1" "Jan 17, 2022" "4.8.4" "SeisComP"
+.TH "SCESV" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
 .SH NAME
 scesv \- SeisComP Documentation
 .
@@ -317,63 +317,128 @@ Type: \fIboolean\fP
 Draw borders in the summary panel.
 Default is \fBfalse\fP\&.
 .UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBdisplay.*\fP
+\fIAdjust content or display custom information in the Summary tab.\fP
+.UNINDENT
+.UNINDENT
 .INDENT 0.0
 .TP
 .B display.lonmin
 Type: \fIdouble\fP
 .sp
-Minimum longitude of initial displayed map region.
+Unit: \fIdeg\fP
+.sp
+Minimum longitude of initially displayed map region.
+Default is \fB\-180\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B display.lonmax
 Type: \fIdouble\fP
 .sp
-Maximum longitude of initial displayed map region.
+Unit: \fIdeg\fP
+.sp
+Maximum longitude of initially displayed map region.
+Default is \fB180\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B display.latmin
 Type: \fIdouble\fP
 .sp
-Minimum latitude of initial displayed map region.
+Unit: \fIdeg\fP
+.sp
+Minimum latitude of initially displayed map region.
+Default is \fB\-90\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B display.latmax
 Type: \fIdouble\fP
 .sp
-Maximum latitude of initial displayed map region.
+Unit: \fIdeg\fP
+.sp
+Maximum latitude of initially displayed map region.
+Default is \fB90\fP\&.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBdisplay.event.*\fP
+\fIEvent information\fP
+.UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
 .B display.event.comment.id
 Type: \fIstring\fP
+.sp
+ID of the event comment to be considered.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B display.event.comment.default
 Type: \fIstring\fP
+.sp
+Value to be shown in case no valid event comment is found.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B display.event.comment.label
 Type: \fIstring\fP
+.sp
+Label of the value to be shown.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBdisplay.origin.*\fP
+\fIOrigin information\fP
+.UNINDENT
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBdisplay.origin.comment.*\fP
+\fIDisplay origin comments.\fP
+.UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
 .B display.origin.comment.id
 Type: \fIstring\fP
+.sp
+ID of the origin comment to be considered.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B display.origin.comment.default
 Type: \fIstring\fP
+.sp
+Value to be shown in case no valid origin comment is found.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B display.origin.comment.label
 Type: \fIstring\fP
+.sp
+Label of the value to be shown.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBpoi.*\fP
+\fIDisplay information related to a point of interest (POI)\fP
+\fIread from the cities XML file.\fP
+.UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -382,8 +447,7 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
 .sp
-Maximum distance in degrees of a POI (point of interest read
-from cities.xml) to be taken into account.
+Maximum distance in degrees of a POI to be taken into account.
 Default is \fB20\fP\&.
 .UNINDENT
 .INDENT 0.0
@@ -401,6 +465,178 @@ Type: \fIstring\fP
 Message conversion string that converts a POI into the text
 displayed under the region label. There are different placeholders
 that can be used: @dist@, @dir@, @poi@ and @region@.
+.UNINDENT
+.SH COMMAND-LINE
+.sp
+\fBscesv [options]\fP
+.SS Generic
+.INDENT 0.0
+.TP
+.B \-h, \-\-help
+show help message.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-V, \-\-version
+show version information
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-config\-file arg
+Use alternative configuration file. When this option is used
+the loading of all stages is disabled. Only the given configuration
+file is parsed and used. To use another name for the configuration
+create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-plugins arg
+Load given plugins.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-auto\-shutdown arg
+Enable/disable self\-shutdown because a master module shutdown. This only
+works when messaging is enabled and the master module sends a shutdown
+message (enabled with \-\-start\-stop\-msg for the master module).
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-shutdown\-master\-module arg
+Sets the name of the master\-module used for auto\-shutdown. This
+is the application name of the module actually started. If symlinks
+are used then it is the name of the symlinked application.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-shutdown\-master\-username arg
+Sets the name of the master\-username of the messaging used for
+auto\-shutdown. If "shutdown\-master\-module" is given as well this
+parameter is ignored.
+.UNINDENT
+.SS Verbosity
+.INDENT 0.0
+.TP
+.B \-\-verbosity arg
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-v, \-\-v
+Increase verbosity level (may be repeated, eg. \-vv)
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-q, \-\-quiet
+Quiet mode: no logging output
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-component arg
+Limits the logging to a certain component. This option can be given more than once.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-s, \-\-syslog
+Use syslog logging back end. The output usually goes to /var/lib/messages.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-l, \-\-lockfile arg
+Path to lock file.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-console arg
+Send log output to stdout.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-debug
+Debug mode: \-\-verbosity=4 \-\-console=1
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-log\-file arg
+Use alternative log file.
+.UNINDENT
+.SS Messaging
+.INDENT 0.0
+.TP
+.B \-u, \-\-user arg
+Overrides configuration parameter \fBconnection.username\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-H, \-\-host arg
+Overrides configuration parameter \fBconnection.server\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-t, \-\-timeout arg
+Overrides configuration parameter \fBconnection.timeout\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-g, \-\-primary\-group arg
+Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-S, \-\-subscribe\-group arg
+A group to subscribe to. This option can be given more than once.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-content\-type arg
+Overrides configuration parameter \fBconnection.contentType\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-start\-stop\-msg arg
+Sets sending of a start\- and a stop message.
+.UNINDENT
+.SS Database
+.INDENT 0.0
+.TP
+.B \-\-db\-driver\-list
+List all supported database drivers.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-d, \-\-database arg
+The database connection string, format: \fI\%service://user:pwd@host/database\fP\&.
+"service" is the name of the database driver which can be
+queried with "\-\-db\-driver\-list".
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-config\-module arg
+The configmodule to use.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-inventory\-db arg
+Load the inventory from the given database or file, format: [\fI\%service://]location\fP
+.UNINDENT
+.SS Cities
+.INDENT 0.0
+.TP
+.B \-\-city\-xml arg
+The path to the cities XML file. This overrides the default
+paths. Compare with the global parameter "citiesXML"
+.UNINDENT
+.SS User interface
+.INDENT 0.0
+.TP
+.B \-F, \-\-full\-screen
+Starts the application filling the entire screen. This only works
+with GUI applications.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-N, \-\-non\-interactive
+Use non\-interactive presentation mode. This only works with GUI applications.
 .UNINDENT
 .SH AUTHOR
 gempa GmbH, GFZ Potsdam

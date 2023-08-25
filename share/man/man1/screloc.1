@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCRELOC" "1" "Jan 17, 2022" "4.8.4" "SeisComP"
+.TH "SCRELOC" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
 .SH NAME
 screloc \- SeisComP Documentation
 .
@@ -250,6 +250,15 @@ Type: \fIboolean\fP
 .sp
 If the input origin\(aqs depth is fixed then it will be fixed
 during the relocation process as well.
+Default is \fBfalse\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B reloc.storeSourceOriginID
+Type: \fIboolean\fP
+.sp
+Whether to store the ID of the input origin as comment in the
+relocated origin or not.
 Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0

@@ -113,6 +113,7 @@ class ConfigDBUpdater(seiscomp.client.Application):
             # Switch to offline mode
             self.setMessagingEnabled(False)
             self.setDatabaseEnabled(False, False)
+            self.setLoadConfigModuleEnabled(False)
         except:
             pass
 
@@ -199,6 +200,25 @@ class ConfigDBUpdater(seiscomp.client.Application):
             sys.stderr.write("  + read %d stations\n" %
                              len(list(mod.bindings.keys())))
 
+        return True
+    
+    def printUsage(self):
+
+        print('''Usage:
+  bindings2cfg [options]
+
+Dump global and module bindings configurations''')
+
+        seiscomp.client.Application.printUsage(self)
+
+        print('''Examples:
+Write bindings configuration from key directory to a configuration XML file:
+  bindings2cfg --key-dir ./etc/key -o config.xml
+
+Write bindings configuration from key directory to the seiscomp local database
+  bindings2cfg --key-dir ./etc/key -d mysql://sysop:sysop@localhost/seiscomp
+''')
+        
         return True
 
     def send(self, *args):

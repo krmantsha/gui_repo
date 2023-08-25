@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="scqcv" href="scqcv.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -56,7 +57,7 @@
           <a href="../index.html">Home</a>
         </li>
         <li class="nav-item nav-item-1">
-          <a href="../gui.html" accesskey="U">Graphical user interfaces</a>
+          <a href="../gui.html" accesskey="U">Graphical User Interfaces</a>
         </li> 
       </ul>
     </div>
@@ -144,8 +145,8 @@ scolv -H [host]
 <li><p><strong>Offline without messaging</strong> where all event and station
 inventory parameters are read from an XML files or from the database and
 <em>updated interactively</em>. New or updated parameters can be written to an XML file.
-Open scolv with the option
-<code class="xref std std-option docutils literal notranslate"><span class="pre">--offline</span></code> and optionally provide the database or inventory and bindings
+Execute scolv with the command-line option
+<code class="docutils literal notranslate"><span class="pre">--offline</span></code> and optionally provide the database or inventory and bindings
 parameters in <a class="reference internal" href="../base/glossary.html#term-scml"><span class="xref std std-term">SCML</span></a> format to fetch event parameters as well as inventory
 and bindings configuration parameters. Examples:</p>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>scolv --offline
@@ -833,8 +834,8 @@ press the right mouse button to copy the row or cell, respectively.</p>
 <div class="section" id="focal-mechanism-list">
 <span id="scolv-fm-list"></span><h3>Focal Mechanism list<a class="headerlink" href="#focal-mechanism-list" title="Permalink to this headline">¶</a></h3>
 <p>The Focal Mechanism tab shows all focal mechanisms and moment tensors associated
-to the selected event. You may fix the preferred mechanism or fix/unfix <span class="xref std std-term">Mw</span>
-to become the preferred magnitude.</p>
+to the selected event. You may fix the preferred mechanism or fix/unfix
+<a class="reference internal" href="../base/glossary.html#term-magnitude-moment-mw"><span class="xref std std-term">Mw</span></a> to become the preferred magnitude.</p>
 <p>Select a row or cell and
 press the right mouse button to copy the row or cell, respectively.</p>
 </div>
@@ -1260,7 +1261,7 @@ adjusted in <em>scheme</em> section of the <a class="reference internal" href="g
 </div>
 </div>
 <div class="section" id="hotkeys">
-<h2>Hotkeys<a class="headerlink" href="#hotkeys" title="Permalink to this headline">¶</a></h2>
+<span id="sec-scolv-hotkeys"></span><h2>Hotkeys<a class="headerlink" href="#hotkeys" title="Permalink to this headline">¶</a></h2>
 <p>The following table describes the available key combinations and their triggered
 actions in scolv. The hotkeys are provided for:</p>
 <ul class="simple">
@@ -1328,7 +1329,7 @@ center</p></td>
 <tr class="row-odd"><td><p>Double click</p></td>
 <td><p>Center map at the clicked position</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>Picker</strong></p></td>
+<tr class="row-even"><td><p><strong>Phase picker</strong></p></td>
 <td></td>
 </tr>
 <tr class="row-odd"><td><p>1 .. 9</p></td>
@@ -1496,7 +1497,7 @@ same as ticking the option “Load all picks”.</p></td>
 <tr class="row-even"><td><p>Shift+Y</p></td>
 <td><p>Increase row height</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>Magnitude waveforms</strong></p></td>
+<tr class="row-odd"><td><p><strong>Amplitude picker</strong></p></td>
 <td></td>
 </tr>
 <tr class="row-even"><td><p>F5</p></td>
@@ -1872,6 +1873,16 @@ fixed to this configured value and the origin is relocated again.</p>
 </dd></dl>
 
 <dl class="confval">
+<dt id="confval-olv.locator.presetFromOrigin">
+<code class="sig-name descname">olv.locator.presetFromOrigin</code><a class="headerlink" href="#confval-olv.locator.presetFromOrigin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>boolean</em></p>
+<p>Whether to preset the locator settings when an origin
+is being loaded. It tries to figure the locator type
+from Origin.methodID and the profile from Origin.earthModelID.
+Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
 <dt id="confval-olv.commit.forceEventAssociation">
 <code class="sig-name descname">olv.commit.forceEventAssociation</code><a class="headerlink" href="#confval-olv.commit.forceEventAssociation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>boolean</em></p>
@@ -2070,6 +2081,14 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
 </dd></dl>
 
 <dl class="confval">
+<dt id="confval-picker.loadAllPicks">
+<code class="sig-name descname">picker.loadAllPicks</code><a class="headerlink" href="#confval-picker.loadAllPicks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>boolean</em></p>
+<p>Load all existing picks for the requested data time window.
+Default is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
 <dt id="confval-picker.ignoreUnconfiguredStations">
 <code class="sig-name descname">picker.ignoreUnconfiguredStations</code><a class="headerlink" href="#confval-picker.ignoreUnconfiguredStations" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>boolean</em></p>
@@ -2079,11 +2098,22 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
 </dd></dl>
 
 <dl class="confval">
-<dt id="confval-picker.loadAllPicks">
-<code class="sig-name descname">picker.loadAllPicks</code><a class="headerlink" href="#confval-picker.loadAllPicks" title="Permalink to this definition">¶</a></dt>
+<dt id="confval-picker.limitStationAcquisition">
+<code class="sig-name descname">picker.limitStationAcquisition</code><a class="headerlink" href="#confval-picker.limitStationAcquisition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>boolean</em></p>
-<p>Load all existing picks for the requested data time window.
-Default is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<p>Limit the data acquisition to the number of nearest
+stations given by “picker.limitStationAcquisitionCount”.
+Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-picker.limitStationAcquisitionCount">
+<code class="sig-name descname">picker.limitStationAcquisitionCount</code><a class="headerlink" href="#confval-picker.limitStationAcquisitionCount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>int</em></p>
+<p>Limit the data acquisituion to the given number of
+the nearest stations. Requires to activate
+“picker.limitStationAcquisition”.
+Default is <code class="docutils literal notranslate"><span class="pre">10</span></code>.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -2109,7 +2139,8 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
 <code class="sig-name descname">picker.showAllComponents</code><a class="headerlink" href="#confval-picker.showAllComponents" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>boolean</em></p>
 <p>If enabled, all three components are shown in the picker
-zoom trace.
+zoom trace. The distance is limited to what is configured
+in “picker.allComponentsMaximumDistance”.
 Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
 </dd></dl>
 
@@ -2118,7 +2149,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
 <code class="sig-name descname">picker.allComponentsMaximumDistance</code><a class="headerlink" href="#confval-picker.allComponentsMaximumDistance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
 <p>Unit: <em>deg</em></p>
-<p>Defines the distance limit for the showAllComponents flag.
+<p>The distance limit for the “picker.showAllComponents” flag.
 Default is <code class="docutils literal notranslate"><span class="pre">10</span></code>.</p>
 </dd></dl>
 
@@ -2491,6 +2522,7 @@ Location tab of the parameter evaluated by this addon.</p>
 </div>
 <div class="section" id="command-line">
 <h2>Command-line<a class="headerlink" href="#command-line" title="Permalink to this headline">¶</a></h2>
+<p><strong class="program">scolv [options]</strong></p>
 <div class="section" id="generic">
 <h3>Generic<a class="headerlink" href="#generic" title="Permalink to this headline">¶</a></h3>
 <dl class="option">
@@ -2518,13 +2550,6 @@ create a symbolic link of the application or copy it, eg scautopick -&gt; scauto
 <dt id="cmdoption-scolv-plugins">
 <code class="sig-name descname">--plugins</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scolv-plugins" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load given plugins.</p>
-</dd></dl>
-
-<dl class="option">
-<dt id="cmdoption-scolv-d">
-<code class="sig-name descname">-D</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--daemon</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scolv-d" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run as daemon. This means the application will fork itself and
-doesn’t need to be started with &amp;.</p>
 </dd></dl>
 
 <dl class="option">
@@ -2663,8 +2688,8 @@ parameter is ignored.</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-scolv-database">
-<code class="sig-name descname">-d</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--database</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scolv-database" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-scolv-d">
+<code class="sig-name descname">-d</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--database</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scolv-d" title="Permalink to this definition">¶</a></dt>
 <dd><p>The database connection string, format: <a class="reference external" href="service://user:pwd&#64;host/database">service://user:pwd&#64;host/database</a>.
 “service” is the name of the database driver which can be
 queried with “–db-driver-list”.</p>
@@ -2716,6 +2741,59 @@ is not given “<a class="reference external" href="file://">file://</a>” is u
 <dt id="cmdoption-scolv-record-type">
 <code class="sig-name descname">--record-type</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scolv-record-type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify a type for the records being read.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="cities">
+<h3>Cities<a class="headerlink" href="#cities" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scolv-city-xml">
+<code class="sig-name descname">--city-xml</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scolv-city-xml" title="Permalink to this definition">¶</a></dt>
+<dd><p>The path to the cities XML file. This overrides the default
+paths. Compare with the global parameter “citiesXML”</p>
+</dd></dl>
+
+</div>
+<div class="section" id="user-interface">
+<h3>User interface<a class="headerlink" href="#user-interface" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scolv-f">
+<code class="sig-name descname">-F</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--full-screen</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scolv-f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the application filling the entire screen. This only works
+with GUI applications.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scolv-n">
+<code class="sig-name descname">-N</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--non-interactive</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scolv-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use non-interactive presentation mode. This only works with GUI applications.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="options">
+<h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scolv-o">
+<code class="sig-name descname">-O</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--origin</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scolv-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Preload origin with given origin ID</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scolv-e">
+<code class="sig-name descname">-E</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--event</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scolv-e" title="Permalink to this definition">¶</a></dt>
+<dd><p>Preload event with given event ID</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scolv-offline">
+<code class="sig-name descname">--offline</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scolv-offline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Switch to offline mode</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scolv-load-event-db">
+<code class="sig-name descname">--load-event-db</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scolv-load-event-db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of days to load from database</p>
 </dd></dl>
 
 </div>
@@ -2813,6 +2891,9 @@ is not given “<a class="reference external" href="file://">file://</a>” is u
 <li><a class="reference internal" href="#messaging">Messaging</a></li>
 <li><a class="reference internal" href="#database">Database</a></li>
 <li><a class="reference internal" href="#records">Records</a></li>
+<li><a class="reference internal" href="#cities">Cities</a></li>
+<li><a class="reference internal" href="#user-interface">User interface</a></li>
+<li><a class="reference internal" href="#options">Options</a></li>
 </ul>
 </li>
 </ul>
@@ -2844,7 +2925,7 @@ is not given “<a class="reference external" href="file://">file://</a>” is u
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

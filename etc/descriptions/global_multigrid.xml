@@ -5,25 +5,37 @@
 		<configuration>
 			<group name="map">
 				<group name="multigrid">
-					<description>Configuration of the mapmultigrid plugin allowing
-						 to display multiple grids on maps.
+					<description>
+					Dynamically display multiple grids in Surfer or GeoTIFF
+					format as layers on maps. Also add 'mapmultigrid' to
+					'plugins' and to 'map.customLayers' and define and register
+					grid profiles for activating the layers.
 					 </description>
 					<parameter name="profiles" type="list:string">
 						<description>
-						Registration of profiles
+						Name(s) of 'mapmultigrid' profiles to be considered.
+						Separate multiple names by comma.
 						</description>
 					</parameter>
 					<parameter name="mode" type="string" default="poly">
 						<description>
-						Render mode of the mapmultigrid plugin. Modes are: grid, line, poly.
+						Render mode of the mapmultigrid plugin. Modes are: grid,
+						line, poly. May be overridden per grid profile.
 						</description>
 					</parameter>
 					<group name="profiles">
-						<description>Add one profile per grid file to show on maps.</description>
-						<struct type="Grid profile" link="profiles">
+						<description>
+						Define one grid profile per grid file to show on maps.
+						Add the name of the profile to 'map.mapmultigrid.profiles'
+						for using them.
+						</description>
+						<struct type="grid profile" link="profiles">
 							<parameter type="string" name="watch">
 								<description>
-								Absolute filename to track for changes with inotify.
+								Absolute filename to track for changes with inotify. Supported
+								file formats are: Surfer 6 (binary grids) and GeoTIFF. The GeoTIFF
+								support is experimental and not all GeoTIFF datatypes are supported.
+								The file extension must be tif for GeoTIFF files.
 								</description>
 							</parameter>
 							<parameter type="string" name="title" default="">
@@ -88,60 +100,66 @@
 
 								30.00:ff00fa:"major",60.00:f25ffb:"minor"
 
-								where minor and major refer to a style profile.
+								where minor and major refer to the name of style
+								profiles which must be defined.
 								</description>
 							</parameter>
 							<parameter type="string" name="style">
 								<description>
-								Link to style profile.
+								Name of defined style profile(s) to be
+								considered. Can be ommitted if styles are named
+								in 'stops'.
 								</description>
 							</parameter>
 						</struct>
 					</group>
 					<group name="styles">
 						<description>
-							Add parameters defining the style profiles used
-							by the multi grid profiles.
+							Define style profiles used by the grid profiles.
 						</description>
-					<struct type="Style profile">
+					<struct type="style profile">
 						<group name ="brush">
 							<description>
-							Brushes are used to fill a polygon. They have two attributes: color and pattern. Color followes the described
-							SeisComP3 color definition and patterns are: solid, dense1, dense2, dense3, dense4,
-							dense5, dense6, dense7, nobrush, horizontal, vertical, cross, bdiag, fdiag,
-							diagcross.
+							Brushes are used to fill a polygon. They have two
+							attributes: color and pattern.
 							</description>
 							<parameter type="string" name="color" default="000000FF">
 								<description>
-								The brush color.
+								The brush color following the color definition
+								in SeisComP: color-code name, rgb or
+								hexadecimal representation.
 								</description>
 							</parameter>
 							<parameter type="string" name="pattern" default="solid">
 								<description>
-								The brush pattern
+								The brush pattern. Availble:
+								solid, dense1, dense2, dense3, dense4,
+								dense5, dense6, dense7, nobrush, horizontal,
+								vertical, cross, bdiag, fdiag, diagcross.
 								</description>
 							</parameter>
 						</group>
 						<group name ="pen">
 							<description>
-							Pens are used to draw lines. They have three attributes: color, style and width.
-							Color follows the described SeisComP3 color definition, width is a double and the styles are:
-							nopen, solidline, dotline, dashline, dashdotline, dashdotdotline.
+							Pens are used to draw lines with three
+							attributes: color, style and width.
 							</description>
 							<parameter type="string" name="color" default="000000FF">
 								<description>
-								The pen color in hexadecimal representation.
+								The pen color following the color definition
+								in SeisComP: color-code name, rgb or
+								hexadecimal representation.
 								</description>
 							</parameter>
 							<parameter type="string" name="style" default="solidline">
 								<description>
-								The pen style. Available:
-								nopen, solidline, dotline, dashline, dashdotline, dashdotdotline
+								The pen style. Available: nopen, solidline,
+								dotline, dashline, dashdotline, dashdotdotline.
 								</description>
 							</parameter>
 							<parameter type="double" name="width" default="1.0" unit="px">
 								<description>
-								The pen width. A double.
+								The pen width. A double value.
 								</description>
 							</parameter>
 						</group>

@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCAMP" "1" "Jan 17, 2022" "4.8.4" "SeisComP"
+.TH "SCAMP" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
 .SH NAME
 scamp \- SeisComP Documentation
 .
@@ -56,34 +56,49 @@ discarded. This minimum weight can be configured with
 \fI\%amptool.minimumPickWeight\fP\&.
 .SH AMPLITUDE TYPES
 .sp
-Amplitudes of the following types are currently computed for their corresponding
+Amplitudes of many types are currently computed for their corresponding
 magnitudes.
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+In order to be used by scmag, the input amplitude names for the
+various magnitude types must typically match exactly. Exceptions:
+.INDENT 0.0
+.IP \(bu 2
+MN requires \fIAMN\fP amplitudes,
+.IP \(bu 2
+MLr requires \fIMLv\fP amplitudes.
+.UNINDENT
+.UNINDENT
+.UNINDENT
 .SS Local distances
 .INDENT 0.0
 .TP
 .B Md
-Duration magnitude as described in \fI\%https://earthquake.usgs.gov/research/software/#HYPOINVERSE\fP
+Duration magnitude as described in HYPOINVERSE (klein\-2002).
 .TP
 .B Mjma
 Mjma is computed on displacement data using body waves of period < 30s.
 .TP
 .B ML
-Local magnitude calculated on the vertical component using a correction term
-to fit with the standard ML.
+Local (Richter) magnitude calculated on the horizontal components using a
+correction term to fit with the standard ML (richter\-1935).
+.TP
+.B MLc
+Local custom magnitude calculated on the horizontal components according to
+Hessian Earthquake Service and stange\-2006
 .TP
 .B MLh
-Local magnitude calculated on the horizontal components to SED specifications.
+Local magnitude calculated on the horizontal components according to SED
+specifications.
 .TP
 .B MLv
 Local magnitude calculated on the vertical component using a correction term
 to fit with the standard ML.
 .TP
-.B MLr
-Local magnitude calculated from MLv amplitudes based on GNS/GEONET specifications
-for New Zealand.
-.TP
-.B AMN
-Nuttli magnitude for Canada and other Cratonic regions.
+.B AMN for MN
+Nuttli magnitude for Canada and other Cratonic regions (nuttli\-1973).
 .UNINDENT
 .SS Teleseismic distances
 .INDENT 0.0
@@ -95,10 +110,10 @@ Narrow band body wave magnitude measured on a WWSSN\-SP filtered trace
 Cumulative body wave magnitude
 .TP
 .B mB
-Broad band body wave magnitude
+Broad band body wave magnitude after bormann\-2008
 .TP
 .B Mwp
-The body wave magnitude of Tsuboi et al. (1995)
+The body wave magnitude of tsuboi\-1995
 .TP
 .B Ms_20
 Surface\-wave magnitude at 20 s period
@@ -106,10 +121,6 @@ Surface\-wave magnitude at 20 s period
 .B Ms(BB)
 Broad band surface\-wave magnitude
 .UNINDENT
-.sp
-Note that in order to be used by scmag, the input amplitude names for the
-various magnitude types must match exactly with the exception of the AMN amplitudes
-required by the MN (Nuttli) magnitude\&.
 .SH ACCELERATION INPUT DATA
 .sp
 For amplitudes to be computed, the input waveforms are usually given in velocity.

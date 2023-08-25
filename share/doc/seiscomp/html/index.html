@@ -13,6 +13,7 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Introduction and Scope" href="base/introduction.html" /> 
@@ -23,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -59,7 +60,7 @@
           
   <div class="section" id="welcome">
 <h1>Welcome<a class="headerlink" href="#welcome" title="Permalink to this headline">¶</a></h1>
-<p>This is the documentation for the <cite>SeisComP</cite> version 4.8.4 Release.</p>
+<p>This is the documentation for the <cite>SeisComP</cite> version 4.10.1 Release.</p>
 <p>Please consider <a class="reference internal" href="base/contributing-docs.html"><span class="doc">contributing</span></a> to this documentation.</p>
 <div class="four column layout"><div class="figure align-default" id="id1">
 <img alt="scmv" src="_images/scmv.png" />
@@ -83,7 +84,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="base/introduction.html">Introduction and Scope</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base/overview.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="base/history.html">Historical information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base/history.html">Historical Information</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base/concepts.html">Concepts</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="base/concepts/messaging.html">Messaging: Exchanging information in real-time processing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="base/concepts/modules.html">Modules: Daemon programs and command-line tools</a></li>
@@ -96,18 +97,20 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="base/glossary.html">Glossary</a></li>
-<li class="toctree-l1"><a class="reference internal" href="base/changelog.html">Change Log</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base/license.html">License</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base/citation.html">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base/references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base/changelog.html">Change Log</a></li>
 </ul>
 </div>
 </div>
-<div class="section" id="operating-a-system">
-<h2>Operating a system<a class="headerlink" href="#operating-a-system" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="operating-scname">
+<h2>Operating <cite>SeisComP</cite><a class="headerlink" href="#operating-scname" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="base/installation.html">Installation and Database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="base/getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base/installation.html"><cite>SeisComP</cite> Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base/installation.html#database-server-configuration">Database Server Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base/getting-started.html">Getting Started with <cite>SeisComP</cite></a></li>
 <li class="toctree-l1"><a class="reference internal" href="base/management.html">System management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base/tutorials.html">Tutorials</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="base/tutorials/postinstall.html">Installation on Ubuntu</a></li>
@@ -130,7 +133,7 @@
 <h2>Interactive analysis<a class="headerlink" href="#interactive-analysis" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="gui.html">Graphical user interfaces</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="gui.html">Graphical User Interfaces</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="apps/scesv.html">scesv</a></li>
 <li class="toctree-l2"><a class="reference internal" href="apps/scheli.html">scheli</a></li>
 <li class="toctree-l2"><a class="reference internal" href="apps/scmm.html">scmm</a></li>
@@ -216,12 +219,12 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="base/build.html">Checkout the repositories</a></li>
-<li class="toctree-l1"><a class="reference internal" href="base/build.html#compiling-scname-from-source-code">Compiling <cite>SeisComP</cite> from source code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base/build.html">Getting the Source Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base/build.html#compiling-scname-from-source-code">Compiling <cite>SeisComP</cite> from Source Code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base/contributing-docs.html">Contributing Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base/style-guide.html">Style Guide for Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base/coding-conventions.html">Coding Conventions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="base/tests.html">Unit testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base/tests.html">Unit Testing</a></li>
 </ul>
 </div>
 </div>
@@ -248,7 +251,7 @@
   <ul>
 <li><a class="reference internal" href="#">Welcome</a><ul>
 <li><a class="reference internal" href="#understanding-scname">Understanding <cite>SeisComP</cite></a></li>
-<li><a class="reference internal" href="#operating-a-system">Operating a system</a></li>
+<li><a class="reference internal" href="#operating-scname">Operating <cite>SeisComP</cite></a></li>
 <li><a class="reference internal" href="#interactive-analysis">Interactive analysis</a></li>
 <li><a class="reference internal" href="#modules-and-tools">Modules and tools</a></li>
 <li><a class="reference internal" href="#extensions">Extensions</a></li>
@@ -279,7 +282,7 @@
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

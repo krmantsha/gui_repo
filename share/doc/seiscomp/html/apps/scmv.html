@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="scolv" href="scolv.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -56,7 +57,7 @@
           <a href="../index.html">Home</a>
         </li>
         <li class="nav-item nav-item-1">
-          <a href="../gui.html" accesskey="U">Graphical user interfaces</a>
+          <a href="../gui.html" accesskey="U">Graphical User Interfaces</a>
         </li> 
       </ul>
     </div>
@@ -69,7 +70,7 @@
           
   <div class="section" id="scmv">
 <span id="id1"></span><h1>scmv<a class="headerlink" href="#scmv" title="Permalink to this headline">¶</a></h1>
-<p><strong>Map view.</strong></p>
+<p><strong>Map view</strong></p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>scmv visualizes the actual information regarding earthquakes, trigger status,
@@ -86,9 +87,9 @@ other tabs). In case a new pick is associated to an event, the blinking color
 changes from red to green (default). Events are represented by open circles
 and the depth is color-coded. By right mouse click on the symbol of a station
 more detailed information are shown in an information widget (fig. <a class="reference internal" href="#fig-scmv-infowidget"><span class="std std-ref">Station information widget</span></a>).</p>
-<div class="figure align-center" id="id2">
+<div class="figure align-center" id="id3">
 <span id="fig-scmv-gm"></span><a class="reference internal image-reference" href="../_images/ground-motion.png"><img alt="../_images/ground-motion.png" src="../_images/ground-motion.png" style="width: 16cm;" /></a>
-<p class="caption"><span class="caption-text">Ground motion tab</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Ground motion tab</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 <div class="legend">
 <p>Tab 1-2 = Ground Motion, Network Status tab; Station A = station with ground
 motion between 0 and 200 nm/s; Station B = triggering (red blinking) station;
@@ -105,9 +106,9 @@ parameters of all shown stations. The colors of the triangles represent the data
 the selected parameters of a station, e.g. latency or delay. More detailed information about station quality
 can be derived by opening an information widget (fig. <a class="reference internal" href="#fig-scmv-infowidget"><span class="std std-ref">Station information widget</span></a> left)
 with a right mouse click on the symbol.</p>
-<div class="figure align-center" id="id3">
+<div class="figure align-center" id="id4">
 <span id="fig-scmv-netstat"></span><a class="reference internal image-reference" href="../_images/netstat.png"><img alt="../_images/netstat.png" src="../_images/netstat.png" style="width: 16cm;" /></a>
-<p class="caption"><span class="caption-text">Network status tab</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Network status tab</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 <div class="legend">
 <p>Station A = station with up to 20 sec data latency/delay;
 Station B = station with up to 10 min data latency/delay and a warning;
@@ -118,9 +119,9 @@ Status = connection status.</p>
 </div>
 </div>
 <p>The visualized QC parameters can be selected in the QC parameters widget of scmv.</p>
-<div class="figure align-center" id="id4">
+<div class="figure align-center" id="id5">
 <span id="fig-scmv-qc-select"></span><a class="reference internal image-reference" href="../_images/qc-selection.png"><img alt="../_images/qc-selection.png" src="../_images/qc-selection.png" style="width: 16cm;" /></a>
-<p class="caption"><span class="caption-text">QC parameters selection widget</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">QC parameters selection widget</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </div>
 <p>The station information widget opens by right mouse click on a station symbol
 in one of the scmv maps. The widget gives a more detailed list of parameters.
@@ -128,9 +129,9 @@ For a station general information (coordinates, network code etc.), quality
 parameter (latency, gaps etc.), amplitude information and the actual waveform
 data are provided. For an event information like the location, the number of
 stations and the azimuthal gap are shown.</p>
-<div class="figure align-center" id="id5">
+<div class="figure align-center" id="id6">
 <span id="fig-scmv-infowidget"></span><a class="reference internal image-reference" href="../_images/infowidget-station.png"><img alt="../_images/infowidget-station.png" src="../_images/infowidget-station.png" style="width: 8cm;" /></a>
-<p class="caption"><span class="caption-text">Station information widget</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Station information widget</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
 <p>The info widget of a station shows station information like network code
 and location. The quality of the station can be checked here. The lower
@@ -144,26 +145,26 @@ events. Showing the events can give a convenient overview of the network activit
 If available focal mechanisms are displayed with dashed lines connecting to their location.
 The circles and focal mechanisms are again colored by their depth and sized by
 magnitude.</p>
-<div class="figure align-center" id="id6">
+<div class="figure align-center" id="id7">
 <span id="fig-scmv-historic-origins"></span><a class="reference internal image-reference" href="../_images/historic-origins.png"><img alt="../_images/historic-origins.png" src="../_images/historic-origins.png" style="width: 16cm;" /></a>
-<p class="caption"><span class="caption-text">Show historic origins</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Show historic origins</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
 <div class="legend">
 <p>All historic origins currently saved in scmv are shown as circles.</p>
 </div>
 </div>
 <p>The events shown an the map can be confined by selecting the mode and the status
 of preferred origins in the event selection widget.</p>
-<div class="figure align-center" id="id7">
+<div class="figure align-center" id="id8">
 <span id="fig-scmv-event-select"></span><a class="reference internal image-reference" href="../_images/event-selection.png"><img alt="../_images/event-selection.png" src="../_images/event-selection.png" style="width: 16cm;" /></a>
-<p class="caption"><span class="caption-text">Event selection widget</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Event selection widget</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </div>
 <p>The event information widget opens by right mouse click on an event symbol.
 It shows event details.
 Clicking on the “Show Details” button allows to open the preferred origin of
 the event in other GUIs such as in scolv.</p>
-<div class="figure align-center" id="id8">
+<div class="figure align-center" id="id9">
 <span id="fig-scmv-event-info"></span><a class="reference internal image-reference" href="../_images/event-info.png"><img alt="../_images/event-info.png" src="../_images/event-info.png" style="width: 8cm;" /></a>
-<p class="caption"><span class="caption-text">Event information widget</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Event information widget</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
@@ -440,6 +441,267 @@ Default is <code class="docutils literal notranslate"><span class="pre">180</spa
 </dd></dl>
 
 </div>
+<div class="section" id="command-line">
+<h2>Command-line<a class="headerlink" href="#command-line" title="Permalink to this headline">¶</a></h2>
+<p><strong class="program">scmv [options]</strong></p>
+<div class="section" id="generic">
+<h3>Generic<a class="headerlink" href="#generic" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scmv-h">
+<code class="sig-name descname">-h</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--help</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scmv-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show help message.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-v">
+<code class="sig-name descname">-V</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--version</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scmv-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>show version information</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-config-file">
+<code class="sig-name descname">--config-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-config-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use alternative configuration file. When this option is used
+the loading of all stages is disabled. Only the given configuration
+file is parsed and used. To use another name for the configuration
+create a symbolic link of the application or copy it, eg scautopick -&gt; scautopick2.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-plugins">
+<code class="sig-name descname">--plugins</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-plugins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load given plugins.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-auto-shutdown">
+<code class="sig-name descname">--auto-shutdown</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-auto-shutdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable/disable self-shutdown because a master module shutdown. This only
+works when messaging is enabled and the master module sends a shutdown
+message (enabled with –start-stop-msg for the master module).</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-shutdown-master-module">
+<code class="sig-name descname">--shutdown-master-module</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-shutdown-master-module" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the name of the master-module used for auto-shutdown. This
+is the application name of the module actually started. If symlinks
+are used then it is the name of the symlinked application.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-shutdown-master-username">
+<code class="sig-name descname">--shutdown-master-username</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-shutdown-master-username" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the name of the master-username of the messaging used for
+auto-shutdown. If “shutdown-master-module” is given as well this
+parameter is ignored.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="verbosity">
+<h3>Verbosity<a class="headerlink" href="#verbosity" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scmv-verbosity">
+<code class="sig-name descname">--verbosity</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-verbosity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="id2">
+<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--v</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Increase verbosity level (may be repeated, eg. -vv)</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-q">
+<code class="sig-name descname">-q</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--quiet</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scmv-q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Quiet mode: no logging output</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-component">
+<code class="sig-name descname">--component</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-component" title="Permalink to this definition">¶</a></dt>
+<dd><p>Limits the logging to a certain component. This option can be given more than once.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-s">
+<code class="sig-name descname">-s</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--syslog</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scmv-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use syslog logging back end. The output usually goes to /var/lib/messages.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-l">
+<code class="sig-name descname">-l</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--lockfile</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-l" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to lock file.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-console">
+<code class="sig-name descname">--console</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-console" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send log output to stdout.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-debug">
+<code class="sig-name descname">--debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scmv-debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Debug mode: –verbosity=4 –console=1</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-log-file">
+<code class="sig-name descname">--log-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-log-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use alternative log file.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="messaging">
+<h3>Messaging<a class="headerlink" href="#messaging" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scmv-u">
+<code class="sig-name descname">-u</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--user</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-u" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.username"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.username</span></code></a>.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-host">
+<code class="sig-name descname">-H</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--host</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-host" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.server"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.server</span></code></a>.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-t">
+<code class="sig-name descname">-t</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--timeout</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.timeout"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.timeout</span></code></a>.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-g">
+<code class="sig-name descname">-g</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--primary-group</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-g" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.primaryGroup"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.primaryGroup</span></code></a>.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-subscribe-group">
+<code class="sig-name descname">-S</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--subscribe-group</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-subscribe-group" title="Permalink to this definition">¶</a></dt>
+<dd><p>A group to subscribe to. This option can be given more than once.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-content-type">
+<code class="sig-name descname">--content-type</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-content-type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.contentType"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.contentType</span></code></a>.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-start-stop-msg">
+<code class="sig-name descname">--start-stop-msg</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-start-stop-msg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets sending of a start- and a stop message.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="database">
+<h3>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scmv-db-driver-list">
+<code class="sig-name descname">--db-driver-list</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scmv-db-driver-list" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all supported database drivers.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-d">
+<code class="sig-name descname">-d</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--database</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>The database connection string, format: <a class="reference external" href="service://user:pwd&#64;host/database">service://user:pwd&#64;host/database</a>.
+“service” is the name of the database driver which can be
+queried with “–db-driver-list”.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-config-module">
+<code class="sig-name descname">--config-module</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-config-module" title="Permalink to this definition">¶</a></dt>
+<dd><p>The configmodule to use.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-inventory-db">
+<code class="sig-name descname">--inventory-db</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-inventory-db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the inventory from the given database or file, format: [<a class="reference external" href="service://]location">service://]location</a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="records">
+<h3>Records<a class="headerlink" href="#records" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scmv-record-driver-list">
+<code class="sig-name descname">--record-driver-list</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scmv-record-driver-list" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all supported record stream drivers</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-i">
+<code class="sig-name descname">-I</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--record-url</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>The recordstream source URL, format: [<a class="reference external" href="service://">service://</a>]location[#type].
+“service” is the name of the recordstream driver which can be
+queried with “–record-driver-list”. If “service”
+is not given “<a class="reference external" href="file://">file://</a>” is used.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-record-file">
+<code class="sig-name descname">--record-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-record-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify a file as record source.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-record-type">
+<code class="sig-name descname">--record-type</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-record-type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify a type for the records being read.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="cities">
+<h3>Cities<a class="headerlink" href="#cities" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scmv-city-xml">
+<code class="sig-name descname">--city-xml</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-city-xml" title="Permalink to this definition">¶</a></dt>
+<dd><p>The path to the cities XML file. This overrides the default
+paths. Compare with the global parameter “citiesXML”</p>
+</dd></dl>
+
+</div>
+<div class="section" id="user-interface">
+<h3>User interface<a class="headerlink" href="#user-interface" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scmv-f">
+<code class="sig-name descname">-F</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--full-screen</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scmv-f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the application filling the entire screen. This only works
+with GUI applications.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-n">
+<code class="sig-name descname">-N</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--non-interactive</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scmv-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use non-interactive presentation mode. This only works with GUI applications.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="mapview">
+<h3>Mapview<a class="headerlink" href="#mapview" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scmv-displaymode">
+<code class="sig-name descname">--displaymode</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scmv-displaymode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start scmv as walldisplay.
+Modes: groundmotion, qualitycontrol.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmv-with-legend">
+<code class="sig-name descname">--with-legend</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scmv-with-legend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows the map legend if started as walldisplay.</p>
+</dd></dl>
+
+</div>
+</div>
 </div>
 
 
@@ -477,6 +739,17 @@ Default is <code class="docutils literal notranslate"><span class="pre">180</spa
 </ul>
 </li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#command-line">Command-line</a><ul>
+<li><a class="reference internal" href="#generic">Generic</a></li>
+<li><a class="reference internal" href="#verbosity">Verbosity</a></li>
+<li><a class="reference internal" href="#messaging">Messaging</a></li>
+<li><a class="reference internal" href="#database">Database</a></li>
+<li><a class="reference internal" href="#records">Records</a></li>
+<li><a class="reference internal" href="#cities">Cities</a></li>
+<li><a class="reference internal" href="#user-interface">User interface</a></li>
+<li><a class="reference internal" href="#mapview">Mapview</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -506,7 +779,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">180</spa
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

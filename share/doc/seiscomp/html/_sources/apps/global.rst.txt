@@ -59,9 +59,9 @@ is described in the :ref:`concepts section <concepts>`.
 Bindings
 ========
 
-Bindings provide specific configurations per :ref:`module <global_bindings_module>` and
+Bindings provide specific configurations per :ref:`module <global_module_config>` and
 station and even stream. Read the :ref:`bindings section <global_bindings_config>`
-in concepts for more details.
+in concepts for more details on bindings.
 
 
 Extensions
@@ -95,19 +95,19 @@ Plugins
   The MLh plugin (previously MLsed) is designed to compute amplitudes and magnitudes according to the Swiss Seismological Service (SED) standards.
 * :ref:`Hypo71 <global_hypo71>`
 
-  This plugin allows the use of the traditional Hypo71PC locator with SeisComP.
+  The traditional Hypo71PC locator with SeisComP.
 * :ref:`Md <global_md>`
 
   Duration magnitude plugin
 * :ref:`MLr <global_mlr>`
 
-  The MLr plugin is designed to use the MLv station amplitudes and provides a GNS/Geonet local magnitude. The magnitude uses a station correction term and the hypocentral distance. Hard coded range are 0-20 degrees maximum distance and 800 km maximum depth. (Reference:"A Revised Local Magnitude (ML) Scale for New Zealand Earthquakes" J. Ristau, D. Harte, J. Salichon, BSSA Mar 2016, DOI: 10.1785/0120150293)
+  The GNS/Geonet local magnitude
 * :ref:`iLoc <global_iloc>`
 
-  This plugin allows the use of the iLoc locator with SeisComP.
+  Locator in SeisComP implemented by the plugin lociloc.
 * :ref:`MN <global_mn>`
 
-  The MN plugin is designed to compute the Canadian Nuttli magnitude according to the Geological Survey of Canada.
+  Nuttli magnitude for Canada and other Cratonic regions
 * :ref:`LocExt <global_locext>`
 
   Locator which forwards the processing to external scripts
@@ -119,22 +119,22 @@ Plugins
   RecordStream interface for SeisComP.
 * :ref:`mB_BB <global_mb_bb>`
 
-  mB or mB_BB is a body wave magnitude like mb but with amplitudes measured in a broad frequency range and in longer time windows.
+  Body wave magnitude  at teleseismic distances similar to mb
 * :ref:`mb <global_mb>`
 
-  mb is the teleseismic body wave magnitude
+  Body wave magnitude at teleseismic distances
 * :ref:`Ms_20 <global_ms_20>`
 
-  Ms_20 is the surface wave magnitude measured on the vertical component at around 20 s period in accordance with the IASPEI standards.
+  Surface wave magnitude measured at around 20 s
 * :ref:`MLv <global_mlv>`
 
-  MLv is the Richter (1935) magnitude measured on the vertical component.
+  Local (Richter) magnitude measured on the vertical component
 * :ref:`ML <global_ml>`
 
-  ML is the Richter (1935) magnitude.
+  Standard local (Richter) magnitude
 * :ref:`LOCSAT <global_locsat>`
 
-  LOCSAT locator in SeisComP for computing source time and hypocenter coordinates from phase picks.
+  Locator in SeisComP for computing source time and hypocenter coordinates from phase picks.
 * :ref:`FixedHypocenter <global_fixedhypocenter>`
 
   Locator for re-computing source time with fixed hypocenter
@@ -620,11 +620,11 @@ Configuration
 
 .. note::
 
-   **ttt.\$name.\***
-   \$name is a placeholder for the name to be used.
+   **ttt.$name.\***
+   $name is a placeholder for the name to be used.
 
 
-.. confval:: ttt.\$name.tables
+.. confval:: ttt.$name.tables
 
    Type: *list:string*
 
@@ -721,10 +721,10 @@ NonLinLoc was written by Anthony Lomax (http://alomax.free.fr/nlloc).
 
 .. note::
 
-   **NonLinLoc.profile.\$name.\***
+   **NonLinLoc.profile.$name.\***
    *Defines a regional profile that is used if a prelocation falls*
    *inside the configured region.*
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`NonLinLoc.profiles` to become active.
+   $name is a placeholder for the name to be used and needs to be added to :confval:`NonLinLoc.profiles` to become active.
 
    .. code-block:: sh
 
@@ -736,28 +736,28 @@ NonLinLoc was written by Anthony Lomax (http://alomax.free.fr/nlloc).
       NonLinLoc.profile.c.value1 = ...
 
 
-.. confval:: NonLinLoc.profile.\$name.earthModelID
+.. confval:: NonLinLoc.profile.$name.earthModelID
 
    Type: *string*
 
    earthModelID that is stored in the created origin.
 
 
-.. confval:: NonLinLoc.profile.\$name.methodID
+.. confval:: NonLinLoc.profile.$name.methodID
 
    Type: *string*
 
    methodID that is stored in the created origin.
    Default is ``NonLinLoc``.
 
-.. confval:: NonLinLoc.profile.\$name.tablePath
+.. confval:: NonLinLoc.profile.$name.tablePath
 
    Type: *path*
 
    Path to travel time tables \(grids\).
 
 
-.. confval:: NonLinLoc.profile.\$name.controlFile
+.. confval:: NonLinLoc.profile.$name.controlFile
 
    Type: *path*
 
@@ -765,7 +765,7 @@ NonLinLoc was written by Anthony Lomax (http://alomax.free.fr/nlloc).
    control file will be used instead.
 
 
-.. confval:: NonLinLoc.profile.\$name.transform
+.. confval:: NonLinLoc.profile.$name.transform
 
    Type: *string*
 
@@ -775,7 +775,7 @@ NonLinLoc was written by Anthony Lomax (http://alomax.free.fr/nlloc).
    Default: GLOBAL is assumed.
    Default is ``GLOBAL``.
 
-.. confval:: NonLinLoc.profile.\$name.region
+.. confval:: NonLinLoc.profile.$name.region
 
    Type: *list:double*
 
@@ -790,7 +790,7 @@ NonLinLoc was written by Anthony Lomax (http://alomax.free.fr/nlloc).
    Unit is km.
 
 
-.. confval:: NonLinLoc.profile.\$name.origin
+.. confval:: NonLinLoc.profile.$name.origin
 
    Type: *list:double*
 
@@ -801,7 +801,7 @@ NonLinLoc was written by Anthony Lomax (http://alomax.free.fr/nlloc).
    Unit is degree.
 
 
-.. confval:: NonLinLoc.profile.\$name.rotation
+.. confval:: NonLinLoc.profile.$name.rotation
 
    Type: *double*
 
@@ -817,7 +817,7 @@ NonLinLoc was written by Anthony Lomax (http://alomax.free.fr/nlloc).
 Hypo71 extension
 ----------------
 
-This plugin allows the use of the traditional Hypo71PC locator with SeisComP.
+The traditional Hypo71PC locator with SeisComP.
 
 
 .. note::
@@ -893,8 +893,8 @@ This plugin allows the use of the traditional Hypo71PC locator with SeisComP.
 
 .. note::
 
-   **hypo71.profile.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`hypo71.profiles` to become active.
+   **hypo71.profile.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`hypo71.profiles` to become active.
 
    .. code-block:: sh
 
@@ -906,14 +906,14 @@ This plugin allows the use of the traditional Hypo71PC locator with SeisComP.
       hypo71.profile.c.value1 = ...
 
 
-.. confval:: hypo71.profile.\$name.earthModelID
+.. confval:: hypo71.profile.$name.earthModelID
 
    Type: *string*
 
    Profile's velocity model name.
 
 
-.. confval:: hypo71.profile.\$name.methodID
+.. confval:: hypo71.profile.$name.methodID
 
    Type: *string*
 
@@ -921,14 +921,14 @@ This plugin allows the use of the traditional Hypo71PC locator with SeisComP.
    It is generally the locator's name \(Hypo71\).
    Default is ``Hypo71``.
 
-.. confval:: hypo71.profile.\$name.controlFile
+.. confval:: hypo71.profile.$name.controlFile
 
    Type: *string*
 
    File containing the profile parameters.
 
 
-.. confval:: hypo71.profile.\$name.fixStartDepthOnly
+.. confval:: hypo71.profile.$name.fixStartDepthOnly
 
    Type: *boolean*
 
@@ -945,7 +945,7 @@ This plugin allows the use of the traditional Hypo71PC locator with SeisComP.
 iLoc extension
 --------------
 
-This plugin allows the use of the iLoc locator with SeisComP.
+Locator in SeisComP implemented by the plugin lociloc.
 
 
 .. note::
@@ -975,8 +975,8 @@ This plugin allows the use of the iLoc locator with SeisComP.
 
 .. note::
 
-   **iLoc.profile.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`iLoc.profiles` to become active.
+   **iLoc.profile.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`iLoc.profiles` to become active.
 
    .. code-block:: sh
 
@@ -988,14 +988,14 @@ This plugin allows the use of the iLoc locator with SeisComP.
       iLoc.profile.c.value1 = ...
 
 
-.. confval:: iLoc.profile.\$name.Verbose
+.. confval:: iLoc.profile.$name.Verbose
 
    Type: *boolean*
 
    
    Default is ``true``.
 
-.. confval:: iLoc.profile.\$name.globalModel
+.. confval:: iLoc.profile.$name.globalModel
 
    Type: *string*
 
@@ -1004,28 +1004,28 @@ This plugin allows the use of the iLoc locator with SeisComP.
    unset, the name of the profile is considered instead.
 
 
-.. confval:: iLoc.profile.\$name.UseRSTT
+.. confval:: iLoc.profile.$name.UseRSTT
 
    Type: *boolean*
 
    Use regional seismic travel\-time tables
    Default is ``false``.
 
-.. confval:: iLoc.profile.\$name.UseRSTTPnSn
+.. confval:: iLoc.profile.$name.UseRSTTPnSn
 
    Type: *boolean*
 
    Use regional seismic travel\-time tables for Pn and Sn
    Default is ``true``.
 
-.. confval:: iLoc.profile.\$name.UseRSTTPgLg
+.. confval:: iLoc.profile.$name.UseRSTTPgLg
 
    Type: *boolean*
 
    Use regional seismic travel\-time tables for Pg and Lg
    Default is ``true``.
 
-.. confval:: iLoc.profile.\$name.LocalVmodel
+.. confval:: iLoc.profile.$name.LocalVmodel
 
    Type: *string*
 
@@ -1038,14 +1038,14 @@ This plugin allows the use of the iLoc locator with SeisComP.
    \@DATADIR\@\/iloc\/localmodels\/model.localmodel.dat.
 
 
-.. confval:: iLoc.profile.\$name.DoGridSearch
+.. confval:: iLoc.profile.$name.DoGridSearch
 
    Type: *boolean*
 
    Perform neighbourhood algorithm
    Default is ``true``.
 
-.. confval:: iLoc.profile.\$name.NAsearchRadius
+.. confval:: iLoc.profile.$name.NAsearchRadius
 
    Type: *float*
 
@@ -1055,7 +1055,7 @@ This plugin allows the use of the iLoc locator with SeisComP.
    epicentre
    Default is ``5``.
 
-.. confval:: iLoc.profile.\$name.NAsearchDepth
+.. confval:: iLoc.profile.$name.NAsearchDepth
 
    Type: *float*
 
@@ -1065,7 +1065,7 @@ This plugin allows the use of the iLoc locator with SeisComP.
    depth
    Default is ``300``.
 
-.. confval:: iLoc.profile.\$name.NAsearchOT
+.. confval:: iLoc.profile.$name.NAsearchOT
 
    Type: *float*
 
@@ -1075,7 +1075,7 @@ This plugin allows the use of the iLoc locator with SeisComP.
    origin time
    Default is ``30``.
 
-.. confval:: iLoc.profile.\$name.NAlpNorm
+.. confval:: iLoc.profile.$name.NAlpNorm
 
    Type: *float*
 
@@ -1083,14 +1083,14 @@ This plugin allows the use of the iLoc locator with SeisComP.
    misfit [1,2]
    Default is ``1``.
 
-.. confval:: iLoc.profile.\$name.NAiterMax
+.. confval:: iLoc.profile.$name.NAiterMax
 
    Type: *integer*
 
    Neighbourhood Algorithm: Maximum number of iterations
    Default is ``5``.
 
-.. confval:: iLoc.profile.\$name.NAcells
+.. confval:: iLoc.profile.$name.NAcells
 
    Type: *integer*
 
@@ -1098,28 +1098,28 @@ This plugin allows the use of the iLoc locator with SeisComP.
    at each iteration
    Default is ``25``.
 
-.. confval:: iLoc.profile.\$name.NAinitialSample
+.. confval:: iLoc.profile.$name.NAinitialSample
 
    Type: *integer*
 
    Neighbourhood Algorithm: Size of initial sample
    Default is ``1000``.
 
-.. confval:: iLoc.profile.\$name.NAnextSample
+.. confval:: iLoc.profile.$name.NAnextSample
 
    Type: *integer*
 
    Neighbourhood Algorithm: Size of subsequent samples
    Default is ``100``.
 
-.. confval:: iLoc.profile.\$name.MinDepthPhases
+.. confval:: iLoc.profile.$name.MinDepthPhases
 
    Type: *integer*
 
    Depth resolution: Minimum number of depth phases for depdp
    Default is ``3``.
 
-.. confval:: iLoc.profile.\$name.MaxLocalDistDeg
+.. confval:: iLoc.profile.$name.MaxLocalDistDeg
 
    Type: *float*
 
@@ -1128,14 +1128,14 @@ This plugin allows the use of the iLoc locator with SeisComP.
    Depth resolution: Maximum local distance
    Default is ``0.2``.
 
-.. confval:: iLoc.profile.\$name.MinLocalStations
+.. confval:: iLoc.profile.$name.MinLocalStations
 
    Type: *integer*
 
    Depth resolution: Minimum number of local defining stations
    Default is ``1``.
 
-.. confval:: iLoc.profile.\$name.MaxSPDistDeg
+.. confval:: iLoc.profile.$name.MaxSPDistDeg
 
    Type: *float*
 
@@ -1144,21 +1144,21 @@ This plugin allows the use of the iLoc locator with SeisComP.
    Depth resolution: Maximum distance for using S\-P travel\-time differences.
    Default is ``2.0``.
 
-.. confval:: iLoc.profile.\$name.MinSPpairs
+.. confval:: iLoc.profile.$name.MinSPpairs
 
    Type: *integer*
 
    Depth resolution: Minimum number of defining S\-P phase pairs
    Default is ``3``.
 
-.. confval:: iLoc.profile.\$name.MinCorePhases
+.. confval:: iLoc.profile.$name.MinCorePhases
 
    Type: *integer*
 
    Depth resolution: Minimum number of defining core reflection phases
    Default is ``3``.
 
-.. confval:: iLoc.profile.\$name.MaxShallowDepthError
+.. confval:: iLoc.profile.$name.MaxShallowDepthError
 
    Type: *float*
 
@@ -1167,7 +1167,7 @@ This plugin allows the use of the iLoc locator with SeisComP.
    Depth resolution: Maximum depth error for crustal free\-depth
    Default is ``30.0``.
 
-.. confval:: iLoc.profile.\$name.MaxDeepDepthError
+.. confval:: iLoc.profile.$name.MaxDeepDepthError
 
    Type: *float*
 
@@ -1176,14 +1176,14 @@ This plugin allows the use of the iLoc locator with SeisComP.
    Depth resolution: Maximum depth error for deep free\-depth
    Default is ``60.0``.
 
-.. confval:: iLoc.profile.\$name.DoCorrelatedErrors
+.. confval:: iLoc.profile.$name.DoCorrelatedErrors
 
    Type: *boolean*
 
    Linearized inversion: Account for correlated errors
    Default is ``true``.
 
-.. confval:: iLoc.profile.\$name.SigmaThreshold
+.. confval:: iLoc.profile.$name.SigmaThreshold
 
    Type: *float*
 
@@ -1192,35 +1192,35 @@ This plugin allows the use of the iLoc locator with SeisComP.
    Linearized inversion: Used to exclude big residuals from solution
    Default is ``6.0``.
 
-.. confval:: iLoc.profile.\$name.AllowDamping
+.. confval:: iLoc.profile.$name.AllowDamping
 
    Type: *boolean*
 
    Linearized inversion: Allow damping of model vector
    Default is ``true``.
 
-.. confval:: iLoc.profile.\$name.MinIterations
+.. confval:: iLoc.profile.$name.MinIterations
 
    Type: *integer*
 
    Linearized inversion: Minimum number of iterations
    Default is ``4``.
 
-.. confval:: iLoc.profile.\$name.MaxIterations
+.. confval:: iLoc.profile.$name.MaxIterations
 
    Type: *integer*
 
    Linearized inversion: Maximum number of iterations
    Default is ``20``.
 
-.. confval:: iLoc.profile.\$name.MinNdefPhases
+.. confval:: iLoc.profile.$name.MinNdefPhases
 
    Type: *integer*
 
    Linearized inversion: Minimum number of defining phases
    Default is ``4``.
 
-.. confval:: iLoc.profile.\$name.DoNotRenamePhases
+.. confval:: iLoc.profile.$name.DoNotRenamePhases
 
    Type: *boolean*
 
@@ -1235,8 +1235,7 @@ This plugin allows the use of the iLoc locator with SeisComP.
 MN extension
 ------------
 
-The MN plugin is designed to compute the Canadian Nuttli magnitude
-according to the Geological Survey of Canada.
+Nuttli magnitude for Canada and other Cratonic regions
 
 
 .. note::
@@ -3278,10 +3277,10 @@ and feel.
 
 .. note::
 
-   **eventlist.region.\$name.\***
+   **eventlist.region.$name.\***
    *Defines a rectangular region that can be used as a result*
    *set filter on client side.*
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`eventlist.regions` to become active.
+   $name is a placeholder for the name to be used and needs to be added to :confval:`eventlist.regions` to become active.
 
    .. code-block:: sh
 
@@ -3293,7 +3292,7 @@ and feel.
       eventlist.region.c.value1 = ...
 
 
-.. confval:: eventlist.region.\$name.name
+.. confval:: eventlist.region.$name.name
 
    Type: *string*
 
@@ -3301,7 +3300,7 @@ and feel.
    listbox.
 
 
-.. confval:: eventlist.region.\$name.rect
+.. confval:: eventlist.region.$name.rect
 
    Type: *list:double*
 
@@ -3459,11 +3458,11 @@ and feel.
 
 .. note::
 
-   **eventlist.scripts.column.\$name.\***
-   \$name is a placeholder for the name to be used.
+   **eventlist.scripts.column.$name.\***
+   $name is a placeholder for the name to be used.
 
 
-.. confval:: eventlist.scripts.column.\$name.script
+.. confval:: eventlist.scripts.column.$name.script
 
    Type: *path*
 
@@ -3473,7 +3472,7 @@ and feel.
    displayed in the corresponding event list cell.
 
 
-.. confval:: eventlist.scripts.column.\$name.pos
+.. confval:: eventlist.scripts.column.$name.pos
 
    Type: *int*
 
@@ -3481,14 +3480,14 @@ and feel.
    exceeds the total number of columns then the column is appended to the right.
    Default is ``-1``.
 
-.. confval:: eventlist.scripts.column.\$name.label
+.. confval:: eventlist.scripts.column.$name.label
 
    Type: *string*
 
    Column name shown in header of event list table.
 
 
-.. confval:: eventlist.scripts.column.\$name.types
+.. confval:: eventlist.scripts.column.$name.types
 
    Type: *list:string*
 
@@ -3562,7 +3561,7 @@ and feel.
 LOCSAT extension
 ----------------
 
-LOCSAT locator in SeisComP for computing source time and hypocenter
+Locator in SeisComP for computing source time and hypocenter
 coordinates from phase picks.
 
 
@@ -3864,6 +3863,12 @@ Configuration
    Station correction
    Default is ``0.0``.
 
+.. note::
+   **magnitudes.MLr.\***
+   *Parameter for computing MLr magnitudes for GNS/Geonet from MLv amplitudes.*
+
+
+
 .. confval:: magnitudes.MLr.params
 
    Type: *string*
@@ -3877,6 +3882,12 @@ Configuration
    \"nomag\" is used to disable station magnitudes.
    
    Note: No MLr computation if params is empty.
+
+
+.. note::
+   **amplitudes.MN.\***
+   *Parameters for measuring AMN amplitudes.*
+
 
 
 .. confval:: amplitudes.MN.rms
@@ -3969,6 +3980,12 @@ Configuration
    
    Allowed tokens: Pg, Pn, P, Sg, Sn, S, Lg, Rg, Vmin, Vmax
    Default is ``Rg,Vmin``.
+
+.. note::
+   **magnitudes.MN.\***
+   *Parameters for computing MN magnitudes from AMN amplitudes.*
+
+
 
 .. confval:: magnitudes.MN.minSNR
 
@@ -4103,16 +4120,16 @@ Configuration
 
 .. note::
 
-   **amplitudes.\$name.\***
+   **amplitudes.$name.\***
    *An amplitude profile configures global parameters for a*
    *particular amplitude type. The available amplitude types*
    *are not fixed and can be extended by plugins. The name of*
    *the type must match the one defined in the corresponding*
    *AmplitudeProcessor.*
-   \$name is a placeholder for the name to be used.
+   $name is a placeholder for the name to be used.
 
 
-.. confval:: amplitudes.\$name.saturationThreshold
+.. confval:: amplitudes.$name.saturationThreshold
 
    Type: *string*
 
@@ -4134,14 +4151,14 @@ Configuration
    the check.
    Default is ``false``.
 
-.. confval:: amplitudes.\$name.enable
+.. confval:: amplitudes.$name.enable
 
    Type: *boolean*
 
    Defines if amplitude calculation of certain type is enabled.
    Default is ``true``.
 
-.. confval:: amplitudes.\$name.enableResponses
+.. confval:: amplitudes.$name.enableResponses
 
    Type: *boolean*
 
@@ -4150,7 +4167,7 @@ Configuration
    will be used instead.
    Default is ``false``.
 
-.. confval:: amplitudes.\$name.minSNR
+.. confval:: amplitudes.$name.minSNR
 
    Type: *double*
 
@@ -4159,7 +4176,7 @@ Configuration
    has no global default value.
 
 
-.. confval:: amplitudes.\$name.noiseBegin
+.. confval:: amplitudes.$name.noiseBegin
 
    Type: *double*
 
@@ -4172,7 +4189,7 @@ Configuration
    should only be changed if you know what you are doing.
 
 
-.. confval:: amplitudes.\$name.noiseEnd
+.. confval:: amplitudes.$name.noiseEnd
 
    Type: *double*
 
@@ -4185,7 +4202,7 @@ Configuration
    should only be changed if you know what you are doing.
 
 
-.. confval:: amplitudes.\$name.signalBegin
+.. confval:: amplitudes.$name.signalBegin
 
    Type: *double*
 
@@ -4198,7 +4215,7 @@ Configuration
    changed if you know what you are doing.
 
 
-.. confval:: amplitudes.\$name.signalEnd
+.. confval:: amplitudes.$name.signalEnd
 
    Type: *double*
 
@@ -4211,7 +4228,7 @@ Configuration
    changed if you know what you are doing.
 
 
-.. confval:: amplitudes.\$name.minDist
+.. confval:: amplitudes.$name.minDist
 
    Type: *double*
 
@@ -4224,7 +4241,7 @@ Configuration
    specific.
 
 
-.. confval:: amplitudes.\$name.maxDist
+.. confval:: amplitudes.$name.maxDist
 
    Type: *double*
 
@@ -4237,7 +4254,7 @@ Configuration
    specific.
 
 
-.. confval:: amplitudes.\$name.minDepth
+.. confval:: amplitudes.$name.minDepth
 
    Type: *double*
 
@@ -4250,7 +4267,7 @@ Configuration
    specific.
 
 
-.. confval:: amplitudes.\$name.maxDepth
+.. confval:: amplitudes.$name.maxDepth
 
    Type: *double*
 
@@ -4264,12 +4281,12 @@ Configuration
 
 
 .. note::
-   **amplitudes.\$name.resp.\***
+   **amplitudes.$name.resp.\***
    *Several parameters if usage of full responses is enabled.*
 
 
 
-.. confval:: amplitudes.\$name.resp.taper
+.. confval:: amplitudes.$name.resp.taper
 
    Unit: *s*
 
@@ -4278,7 +4295,7 @@ Configuration
    request: start \- taper and end + taper.
    Default is ``5``.
 
-.. confval:: amplitudes.\$name.resp.minFreq
+.. confval:: amplitudes.$name.resp.minFreq
 
    Unit: *Hz*
 
@@ -4288,7 +4305,7 @@ Configuration
    A value of 0 or lower disables that taper.
    Default is ``0.00833333``.
 
-.. confval:: amplitudes.\$name.resp.maxFreq
+.. confval:: amplitudes.$name.resp.maxFreq
 
    Unit: *Hz*
 
@@ -4437,16 +4454,16 @@ Configuration
 
 .. note::
 
-   **magnitudes.\$name.\***
+   **magnitudes.$name.\***
    *A magnitude profile configures global parameters for a*
    *particular magnitude type. The available magnitude types*
    *are not fixed and can be extended by plugins. The name of*
    *the type must match the one defined in the corresponding*
    *MagnitudeProcessor.*
-   \$name is a placeholder for the name to be used.
+   $name is a placeholder for the name to be used.
 
 
-.. confval:: magnitudes.\$name.multiplier
+.. confval:: magnitudes.$name.multiplier
 
    Type: *double*
 
@@ -4455,7 +4472,7 @@ Configuration
    is usually not required but is here for completeness.
    Default is ``1``.
 
-.. confval:: magnitudes.\$name.offset
+.. confval:: magnitudes.$name.offset
 
    Type: *double*
 
@@ -4698,6 +4715,12 @@ Configuration
    Defines the mininum SNR as returned from AIC.
    Default is ``15``.
 
+.. note::
+   **magnitudes.mB.\***
+   *Parameters for computing mB magnitudes from mB amplitudes.*
+
+
+
 .. confval:: magnitudes.mB.minDist
 
    Type: *double*
@@ -4718,6 +4741,12 @@ Configuration
    Maximum epicentral distance for computing mB.
    Default is ``105``.
 
+.. note::
+   **magnitudes.mb.\***
+   *Parameters for computing mb magnitudes from mb amplitudes.*
+
+
+
 .. confval:: magnitudes.mb.minDist
 
    Type: *double*
@@ -4737,6 +4766,12 @@ Configuration
 
    Maximum epicentral distance for computing mb.
    Default is ``105``.
+
+.. note::
+   **magnitudes.Ms_20.\***
+   *Parameters for computing Ms_20 magnitudes from Ms_20 amplitudes.*
+
+
 
 .. confval:: magnitudes.Ms_20.lowerPeriod
 
@@ -4783,6 +4818,12 @@ Configuration
    Maximum depth for computing Ms_20.
    Default is ``100``.
 
+.. note::
+   **magnitudes.MLv.\***
+   *Parameters for computing MLv magnitudes from MLv amplitudes.*
+
+
+
 .. confval:: magnitudes.MLv.logA0
 
    Type: *string*
@@ -4803,6 +4844,12 @@ Configuration
    Maximum epicentral distance for computing MLv.
    No distance limitation for maxDistanceKm\=\-1
    Default is ``-1.0``.
+
+.. note::
+   **magnitudes.ML.\***
+   *Parameters for computing ML magnitudes from ML amplitudes.*
+
+
 
 .. confval:: magnitudes.ML.logA0
 
@@ -5020,7 +5067,8 @@ Cities
 
 .. option:: --city-xml arg
 
-   The path to the city.xml file. This overrides the default paths.
+   The path to the cities XML file. This overrides the default
+   paths. Compare with the global parameter \"citiesXML\"
 
 
 User interface

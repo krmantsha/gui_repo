@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Acquisition" href="../toc/acquisition.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -112,7 +113,7 @@ is described in the <a class="reference internal" href="../base/concepts.html#co
 <span id="global-bindings"></span><h2>Bindings<a class="headerlink" href="#bindings" title="Permalink to this headline">¶</a></h2>
 <p>Bindings provide specific configurations per <span class="xref std std-ref">module</span> and
 station and even stream. Read the <a class="reference internal" href="../base/concepts/configuration.html#global-bindings-config"><span class="std std-ref">bindings section</span></a>
-in concepts for more details.</p>
+in concepts for more details on bindings.</p>
 </div>
 <div class="section" id="extensions">
 <h2>Extensions<a class="headerlink" href="#extensions" title="Permalink to this headline">¶</a></h2>
@@ -162,19 +163,19 @@ extensions.</p>
 <p>The MLh plugin (previously MLsed) is designed to compute amplitudes and magnitudes according to the Swiss Seismological Service (SED) standards.</p>
 </li>
 <li><p><a class="reference internal" href="global_hypo71.html#global-hypo71"><span class="std std-ref">Hypo71</span></a></p>
-<p>This plugin allows the use of the traditional Hypo71PC locator with SeisComP.</p>
+<p>The traditional Hypo71PC locator with SeisComP.</p>
 </li>
 <li><p><a class="reference internal" href="global_md.html#global-md"><span class="std std-ref">Md</span></a></p>
 <p>Duration magnitude plugin</p>
 </li>
 <li><p><a class="reference internal" href="global_mlr.html#global-mlr"><span class="std std-ref">MLr</span></a></p>
-<p>The MLr plugin is designed to use the MLv station amplitudes and provides a GNS/Geonet local magnitude. The magnitude uses a station correction term and the hypocentral distance. Hard coded range are 0-20 degrees maximum distance and 800 km maximum depth. (Reference:”A Revised Local Magnitude (ML) Scale for New Zealand Earthquakes” J. Ristau, D. Harte, J. Salichon, BSSA Mar 2016, DOI: 10.1785/0120150293)</p>
+<p>The GNS/Geonet local magnitude</p>
 </li>
 <li><p><a class="reference internal" href="global_iloc.html#global-iloc"><span class="std std-ref">iLoc</span></a></p>
-<p>This plugin allows the use of the iLoc locator with SeisComP.</p>
+<p>Locator in SeisComP implemented by the plugin lociloc.</p>
 </li>
 <li><p><a class="reference internal" href="global_mn.html#global-mn"><span class="std std-ref">MN</span></a></p>
-<p>The MN plugin is designed to compute the Canadian Nuttli magnitude according to the Geological Survey of Canada.</p>
+<p>Nuttli magnitude for Canada and other Cratonic regions</p>
 </li>
 <li><p><a class="reference internal" href="global_locext.html#global-locext"><span class="std std-ref">LocExt</span></a></p>
 <p>Locator which forwards the processing to external scripts</p>
@@ -186,22 +187,22 @@ extensions.</p>
 <p>RecordStream interface for SeisComP.</p>
 </li>
 <li><p><a class="reference internal" href="global_mb_bb.html#global-mb-bb"><span class="std std-ref">mB_BB</span></a></p>
-<p>mB or mB_BB is a body wave magnitude like mb but with amplitudes measured in a broad frequency range and in longer time windows.</p>
+<p>Body wave magnitude  at teleseismic distances similar to mb</p>
 </li>
 <li><p><a class="reference internal" href="global_mb.html#global-mb"><span class="std std-ref">mb</span></a></p>
-<p>mb is the teleseismic body wave magnitude</p>
+<p>Body wave magnitude at teleseismic distances</p>
 </li>
 <li><p><a class="reference internal" href="global_ms_20.html#global-ms-20"><span class="std std-ref">Ms_20</span></a></p>
-<p>Ms_20 is the surface wave magnitude measured on the vertical component at around 20 s period in accordance with the IASPEI standards.</p>
+<p>Surface wave magnitude measured at around 20 s</p>
 </li>
 <li><p><a class="reference internal" href="global_mlv.html#global-mlv"><span class="std std-ref">MLv</span></a></p>
-<p>MLv is the Richter (1935) magnitude measured on the vertical component.</p>
+<p>Local (Richter) magnitude measured on the vertical component</p>
 </li>
 <li><p><a class="reference internal" href="global_ml.html#global-ml"><span class="std std-ref">ML</span></a></p>
-<p>ML is the Richter (1935) magnitude.</p>
+<p>Standard local (Richter) magnitude</p>
 </li>
 <li><p><a class="reference internal" href="global_locsat.html#global-locsat"><span class="std std-ref">LOCSAT</span></a></p>
-<p>LOCSAT locator in SeisComP for computing source time and hypocenter coordinates from phase picks.</p>
+<p>Locator in SeisComP for computing source time and hypocenter coordinates from phase picks.</p>
 </li>
 <li><p><a class="reference internal" href="global_fixedhypocenter.html#global-fixedhypocenter"><span class="std std-ref">FixedHypocenter</span></a></p>
 <p>Locator for re-computing source time with fixed hypocenter</p>
@@ -878,7 +879,7 @@ origin of the defined region.</p>
 </div>
 <div class="section" id="hypo71-extension">
 <span id="global-hypo71"></span><h3>Hypo71 extension<a class="headerlink" href="#hypo71-extension" title="Permalink to this headline">¶</a></h3>
-<p>This plugin allows the use of the traditional Hypo71PC locator with SeisComP.</p>
+<p>The traditional Hypo71PC locator with SeisComP.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>hypo71.*</strong>
@@ -1004,7 +1005,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
 </div>
 <div class="section" id="iloc-extension">
 <span id="global-iloc"></span><h3>iLoc extension<a class="headerlink" href="#iloc-extension" title="Permalink to this headline">¶</a></h3>
-<p>This plugin allows the use of the iLoc locator with SeisComP.</p>
+<p>Locator in SeisComP implemented by the plugin lociloc.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>iLoc.*</strong>
@@ -1303,8 +1304,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
 </div>
 <div class="section" id="mn-extension">
 <span id="global-mn"></span><h3>MN extension<a class="headerlink" href="#mn-extension" title="Permalink to this headline">¶</a></h3>
-<p>The MN plugin is designed to compute the Canadian Nuttli magnitude
-according to the Geological Survey of Canada.</p>
+<p>Nuttli magnitude for Canada and other Cratonic regions</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>amplitudes.MN.*</strong>
@@ -3725,7 +3725,7 @@ text color in case of an active alert. E.g. “0:00FF00,900:FF0000”.</p>
 </div>
 <div class="section" id="locsat-extension">
 <span id="global-locsat"></span><h3>LOCSAT extension<a class="headerlink" href="#locsat-extension" title="Permalink to this headline">¶</a></h3>
-<p>LOCSAT locator in SeisComP for computing source time and hypocenter
+<p>Locator in SeisComP for computing source time and hypocenter
 coordinates from phase picks.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4036,6 +4036,11 @@ Default is <code class="docutils literal notranslate"><span class="pre">0.0</spa
 Default is <code class="docutils literal notranslate"><span class="pre">0.0</span></code>.</p>
 </dd></dl>
 
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>magnitudes.MLr.*</strong>
+<em>Parameter for computing MLr magnitudes for GNS/Geonet from MLv amplitudes.</em></p>
+</div>
 <dl class="confval">
 <dt id="confval-magnitudes.MLr.params">
 <code class="sig-name descname">magnitudes.MLr.params</code><a class="headerlink" href="#confval-magnitudes.MLr.params" title="Permalink to this definition">¶</a></dt>
@@ -4050,6 +4055,11 @@ A is used as station correction.
 <p>Note: No MLr computation if params is empty.</p>
 </dd></dl>
 
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>amplitudes.MN.*</strong>
+<em>Parameters for measuring AMN amplitudes.</em></p>
+</div>
 <dl class="confval">
 <dt id="confval-amplitudes.MN.rms">
 <code class="sig-name descname">amplitudes.MN.rms</code><a class="headerlink" href="#confval-amplitudes.MN.rms" title="Permalink to this definition">¶</a></dt>
@@ -4141,6 +4151,11 @@ retrieved or computed, is selected.</p>
 Default is <code class="docutils literal notranslate"><span class="pre">Rg,Vmin</span></code>.</p>
 </dd></dl>
 
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>magnitudes.MN.*</strong>
+<em>Parameters for computing MN magnitudes from AMN amplitudes.</em></p>
+</div>
 <dl class="confval">
 <dt id="confval-magnitudes.MN.minSNR">
 <code class="sig-name descname">magnitudes.MN.minSNR</code><a class="headerlink" href="#confval-magnitudes.MN.minSNR" title="Permalink to this definition">¶</a></dt>
@@ -4874,6 +4889,11 @@ Default is <code class="docutils literal notranslate"><span class="pre">5</span>
 Default is <code class="docutils literal notranslate"><span class="pre">15</span></code>.</p>
 </dd></dl>
 
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>magnitudes.mB.*</strong>
+<em>Parameters for computing mB magnitudes from mB amplitudes.</em></p>
+</div>
 <dl class="confval">
 <dt id="confval-magnitudes.mB.minDist">
 <code class="sig-name descname">magnitudes.mB.minDist</code><a class="headerlink" href="#confval-magnitudes.mB.minDist" title="Permalink to this definition">¶</a></dt>
@@ -4894,6 +4914,11 @@ Default is <code class="docutils literal notranslate"><span class="pre">5</span>
 Default is <code class="docutils literal notranslate"><span class="pre">105</span></code>.</p>
 </dd></dl>
 
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>magnitudes.mb.*</strong>
+<em>Parameters for computing mb magnitudes from mb amplitudes.</em></p>
+</div>
 <dl class="confval">
 <dt id="confval-magnitudes.mb.minDist">
 <code class="sig-name descname">magnitudes.mb.minDist</code><a class="headerlink" href="#confval-magnitudes.mb.minDist" title="Permalink to this definition">¶</a></dt>
@@ -4914,6 +4939,11 @@ Default is <code class="docutils literal notranslate"><span class="pre">5</span>
 Default is <code class="docutils literal notranslate"><span class="pre">105</span></code>.</p>
 </dd></dl>
 
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>magnitudes.Ms_20.*</strong>
+<em>Parameters for computing Ms_20 magnitudes from Ms_20 amplitudes.</em></p>
+</div>
 <dl class="confval">
 <dt id="confval-magnitudes.Ms_20.lowerPeriod">
 <code class="sig-name descname">magnitudes.Ms_20.lowerPeriod</code><a class="headerlink" href="#confval-magnitudes.Ms_20.lowerPeriod" title="Permalink to this definition">¶</a></dt>
@@ -4959,6 +4989,11 @@ Default is <code class="docutils literal notranslate"><span class="pre">160</spa
 Default is <code class="docutils literal notranslate"><span class="pre">100</span></code>.</p>
 </dd></dl>
 
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>magnitudes.MLv.*</strong>
+<em>Parameters for computing MLv magnitudes from MLv amplitudes.</em></p>
+</div>
 <dl class="confval">
 <dt id="confval-magnitudes.MLv.logA0">
 <code class="sig-name descname">magnitudes.MLv.logA0</code><a class="headerlink" href="#confval-magnitudes.MLv.logA0" title="Permalink to this definition">¶</a></dt>
@@ -4980,6 +5015,11 @@ No distance limitation for maxDistanceKm=-1
 Default is <code class="docutils literal notranslate"><span class="pre">-1.0</span></code>.</p>
 </dd></dl>
 
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>magnitudes.ML.*</strong>
+<em>Parameters for computing ML magnitudes from ML amplitudes.</em></p>
+</div>
 <dl class="confval">
 <dt id="confval-magnitudes.ML.logA0">
 <code class="sig-name descname">magnitudes.ML.logA0</code><a class="headerlink" href="#confval-magnitudes.ML.logA0" title="Permalink to this definition">¶</a></dt>
@@ -5259,7 +5299,8 @@ is not given “<a class="reference external" href="file://">file://</a>” is u
 <dl class="option">
 <dt id="cmdoption-global-city-xml">
 <code class="sig-name descname">--city-xml</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-global-city-xml" title="Permalink to this definition">¶</a></dt>
-<dd><p>The path to the city.xml file. This overrides the default paths.</p>
+<dd><p>The path to the cities XML file. This overrides the default
+paths. Compare with the global parameter “citiesXML”</p>
 </dd></dl>
 
 </div>
@@ -5361,7 +5402,7 @@ with GUI applications.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

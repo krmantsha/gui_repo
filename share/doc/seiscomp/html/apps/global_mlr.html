@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="iLoc" href="global_iloc.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -72,51 +73,60 @@
           
   <div class="section" id="mlr">
 <span id="global-mlr"></span><h1>MLr<a class="headerlink" href="#mlr" title="Permalink to this headline">¶</a></h1>
-<p>The MLr plugin is designed to use the MLv station amplitudes
-and provides a GNS/Geonet local magnitude.
-The magnitude uses a station correction term and the hypocentral distance.
-Hard coded range are 0-20 degrees maximum distance and 800 km maximum depth.
-(Reference:”A Revised Local Magnitude (ML) Scale for New Zealand Earthquakes”
-J. Ristau, D. Harte, J. Salichon, BSSA Mar 2016, DOI: 10.1785/0120150293)</p>
+<p>The GNS/Geonet local magnitude</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>The MLr magnitude provides a GNS/Geonet local magnitude (<span id="id1">Ristau <em>et al.</em> [<a class="reference internal" href="../base/references.html#id53" title="J. Ristau, D. Harte, and J. Salichon. A Revised Local Magnitude (ML) Scale for New Zealand Earthquakes. Bull. Seismol. Soc. Am., 106(2):, 2016. doi:10.1785/0120150293.">26</a>]</span>).
+MLr magnitudes are implemented by the <em>mlr</em> plugin.
+It is a modified version of the gempa ML magnitude developed
+at the Liverpool developer meeting (<span id="id2"><em>gempa GmbH</em> [<a class="reference internal" href="../base/references.html#id101" title="gempa GmbH. The SeisComP development and maintenance company. URL: https://www.gempa.de/.">8</a>]</span>) based on the SED
+<a class="reference internal" href="global_mlh.html#global-mlh"><span class="std std-ref">MLh</span></a> magnitude.
+The <em>mlr</em> plugin is designed to use the MLv station amplitudes for computing
+MLr magnitudes.
+The magnitude uses a station correction term and the hypocentral distance.</p>
+</div>
 <div class="section" id="amplitude">
-<h3>Amplitude<a class="headerlink" href="#amplitude" title="Permalink to this headline">¶</a></h3>
-<p>The MLr amplitude calculation is that of the <a class="reference internal" href="global_mlv.html#global-mlv"><span class="std std-ref">MLv</span></a> amplitude computation.</p>
+<h2>Amplitude<a class="headerlink" href="#amplitude" title="Permalink to this headline">¶</a></h2>
+<p>The MLr amplitude calculation is that of <a class="reference internal" href="global_mlv.html#global-mlv"><span class="std std-ref">MLv</span></a>.</p>
 </div>
 <div class="section" id="station-magnitude">
-<h3>Station Magnitude<a class="headerlink" href="#station-magnitude" title="Permalink to this headline">¶</a></h3>
-<p>Magnitude based on SED <a class="reference internal" href="global_mlh.html#global-mlh"><span class="std std-ref">MLh</span></a> magnitude
-The MLr plugin calculates the individual station local magnitude using the following formula:</p>
+<h2>Station Magnitude<a class="headerlink" href="#station-magnitude" title="Permalink to this headline">¶</a></h2>
+<p>The <em>mLr</em> plugin calculates individual MLr station local magnitudes from
+<a class="reference internal" href="global_mlv.html#global-mlv"><span class="std std-ref">MLv</span></a> amplitudes as:</p>
 <div class="math">
-<p><img src="../_images/math/a8c2beee639d04889e9b59b8457cbc4e9340710c.png" alt="mag = \log10(waampl) - \log10(waamplRef)"/></p>
+<p><img src="../_images/math/3b314bd56ab94770a2a623ebc60d9d2527f3eda6.png" alt="MLr = \log10(waampl) - \log10(waamplRef)"/></p>
 </div><div class="math">
 <p><img src="../_images/math/af651135a1453eaa75fcec6a10fd5195d34d83b0.png" alt="\log10(waamplRef)= 0.2869 - 1.272 \times 1^{-3} \times hypdistkm - 1.493 \times \log10(hypdistkm) + StationCorrection"/></p>
-</div><p>waampl is the amplitude produced by the MLr plugin. Hypdistkm is the distance
-from the sensor to the hypocenter in kilometers.
-A(station) Station correction is given by  module.trunk.NZ.WEL.MLR.params, A.
-Station Correction is set to be distance dependent:
-Format: “UpToKilometers A ; UpToNextKilometers A “.
-Option “nomag” disable the station magnitude.</p>
+</div><p>with</p>
+<ul>
+<li><p><em>waampl:</em> the <a class="reference internal" href="global_mlv.html#global-mlv"><span class="std std-ref">MLv</span></a> amplitude.</p></li>
+<li><p><em>hypdistkm:</em> the distance from the sensor to the hypocenter in kilometers.</p></li>
+<li><p><em>A(station):</em> Station correction is given by module.trunk.NZ.WEL.MLR.params, A.
+Station Correction is set to be distance dependent.</p>
+<p>Format: “UpToKilometers A ; UpToNextKilometers A “.
+The option “nomag” disables the station magnitude.</p>
+</li>
+</ul>
+<p>General parameters:</p>
 <ul class="simple">
 <li><p>Amplitude unit in SeisComP: <strong>millimeter</strong> (mm) from <a class="reference internal" href="global_mlv.html#global-mlv"><span class="std std-ref">MLv</span></a></p></li>
 <li><p>Time window: 150 s by <a class="reference internal" href="scautopick.html#scautopick"><span class="std std-ref">scautopick</span></a> or distance dependent</p></li>
-<li><p>Distance range: 0 - 20 deg</p></li>
-<li><p>Depth range: 0 - 800 km</p></li>
+<li><p>Distance range: 0 - 20 deg (hypocentral distance, hard-coded)</p></li>
+<li><p>Depth range: 0 - 800 km (hard-coded)</p></li>
 </ul>
 </div>
-<div class="section" id="overall-event-magnitude">
-<h3>Overall Event Magnitude<a class="headerlink" href="#overall-event-magnitude" title="Permalink to this headline">¶</a></h3>
-<p>The GNS/Geonet Mlr local magnitude is using the default Sc3 behaviour for the automatic network magnitudes.
+<div class="section" id="network-magnitude">
+<h2>Network magnitude<a class="headerlink" href="#network-magnitude" title="Permalink to this headline">¶</a></h2>
+<p>The GNS/Geonet Mlr local magnitude is using the default <cite>SeisComP</cite> behaviour for
+the automatic network magnitudes.
 Hard-coded ranges are 0-20 degrees maximum distance and 800 km maximum depth.</p>
 </div>
 <div class="section" id="configuration">
-<h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
 <p>Add the mlr plugin to the existing plugins in the global configuration.
 Set the calibration parameters in the global bindings. Add MLr to the list of
 magnitudes in the configuration of <a class="reference internal" href="scamp.html#scamp"><span class="std std-ref">scamp</span></a> and <a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a> for computation
 and in <a class="reference internal" href="scesv.html#scesv"><span class="std std-ref">scesv</span></a> for visibility.</p>
-</div>
 </div>
 </div>
 
@@ -140,13 +150,11 @@ and in <a class="reference internal" href="scesv.html#scesv"><span class="std st
   <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">MLr</a><ul>
-<li><a class="reference internal" href="#description">Description</a><ul>
+<li><a class="reference internal" href="#description">Description</a></li>
 <li><a class="reference internal" href="#amplitude">Amplitude</a></li>
 <li><a class="reference internal" href="#station-magnitude">Station Magnitude</a></li>
-<li><a class="reference internal" href="#overall-event-magnitude">Overall Event Magnitude</a></li>
+<li><a class="reference internal" href="#network-magnitude">Network magnitude</a></li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -176,7 +184,7 @@ and in <a class="reference internal" href="scesv.html#scesv"><span class="std st
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

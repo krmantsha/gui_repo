@@ -3,7 +3,7 @@
 <html >
   <head>
     <meta charset="utf-8" />
-    <title>Installation and Database &#8212; SeisComP Release documentation</title>
+    <title>SeisComP Installation &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -13,10 +13,11 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Getting started" href="getting-started.html" />
-    <link rel="prev" title="Citation" href="citation.html" /> 
+    <link rel="next" title="Getting Started with SeisComP" href="getting-started.html" />
+    <link rel="prev" title="Change Log" href="changelog.html" /> 
   </head>
   <body>
     <div class="header">
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -41,13 +42,13 @@
           </a>
         </li>
         <li class="right">
-          <a href="getting-started.html" title="Getting started"
+          <a href="getting-started.html" title="Getting Started with SeisComP"
              accesskey="N">
             next
           </a>
         </li>
         <li class="right">
-          <a href="citation.html" title="Citation"
+          <a href="changelog.html" title="Change Log"
              accesskey="P">
             previous
           </a>
@@ -64,33 +65,44 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="installation-and-database">
-<span id="installation"></span><h1>Installation and Database<a class="headerlink" href="#installation-and-database" title="Permalink to this headline">¶</a></h1>
-<p><cite>SeisComP</cite> is distributed in the form of packages (tar files) for different releases,
-Linux systems and architectures:</p>
+  <div class="section" id="scname-installation">
+<span id="installation"></span><h1><cite>SeisComP</cite> Installation<a class="headerlink" href="#scname-installation" title="Permalink to this headline">¶</a></h1>
+<p><cite>SeisComP</cite> requires a modern Linux operating system as it is developed and tested
+only under Linux. For production systems we recommend Linux distributions with
+long-term support (LTS). The Linux flavors under which <cite>SeisComP</cite> has been tested
+are given along with the <cite>SeisComP</cite> package names on the download sites of
+<a class="reference external" href="https://www.seiscomp.de">SeisComP</a> <a class="footnote-reference brackets" href="#id8" id="id9">2</a> and <a class="reference external" href="https://data.gempa.de/packages/Public/seiscomp/">gempa</a> <a class="footnote-reference brackets" href="#id3" id="id4">1</a>.</p>
+<p>The software can be obtained and installed from</p>
 <ul class="simple">
-<li><p>Acquisition, processing and GUIs (for each supported platform)</p></li>
-<li><p>Maps (maps from the <cite>SeisComP</cite> releases Seattle and Zurich also work
-in later releases)</p></li>
-<li><p>Documentation</p></li>
-<li><p>Station configuration files (optional)</p></li>
+<li><p>Officially released packages (TAR files) for different release versions,
+Linux systems and architectures,</p></li>
+<li><p><a class="reference internal" href="build.html#build"><span class="std std-ref">Source code available on GitHub</span></a>.</p></li>
 </ul>
-<p>Download these from <a class="reference external" href="https://www.seiscomp.de">SeisComP</a> <a class="footnote-reference brackets" href="#id3" id="id4">1</a>.
-This section describes the installation of the binary packages of <cite>SeisComP</cite> on
-an</p>
+<p>Packages may include</p>
 <ul class="simple">
-<li><p><strong class="program">Ubuntu 18</strong>, 64 bit system</p></li>
-<li><p><strong class="program">CentOS 7</strong>, 64 bit system</p></li>
+<li><p>Software for data acquisition, processing and <a class="reference internal" href="glossary.html#term-gui"><span class="xref std std-term">GUIs</span></a> for each
+supported platform,</p></li>
+<li><p>Maps. Maps from the <cite>SeisComP</cite> releases Seattle and Zurich also work
+in later releases</p></li>
+<li><p>Documentation,</p></li>
+<li><p>Station configuration files (optional).</p></li>
+</ul>
+<p>Download these packages from <a class="reference external" href="https://www.seiscomp.de">SeisComP</a> <a class="footnote-reference brackets" href="#id8" id="id10">2</a> or <a class="reference external" href="https://data.gempa.de/packages/Public/seiscomp/">gempa</a> <a class="footnote-reference brackets" href="#id3" id="id5">1</a>.</p>
+<p>The next sections describe the installation of the binary packages of <cite>SeisComP</cite>
+on</p>
+<ul class="simple">
+<li><p><strong class="program">Ubuntu 18</strong>, 64 bit system,</p></li>
+<li><p><strong class="program">CentOS 7</strong>, 64 bit system.</p></li>
 </ul>
 <div class="section" id="hardware-requirements">
 <h2>Hardware Requirements<a class="headerlink" href="#hardware-requirements" title="Permalink to this headline">¶</a></h2>
 <p>The hardware requirements for a seismic system depend on the size of the
 station network to be operated.</p>
 <p>Minimum requirements are:</p>
-<table class="docutils align-default">
+<table class="colwidths-given docutils align-left">
 <colgroup>
-<col style="width: 5%" />
-<col style="width: 95%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p>CPU</p></td>
@@ -103,7 +115,7 @@ station network to be operated.</p>
 <td><p>20 GB</p></td>
 </tr>
 <tr class="row-even"><td><p>OS</p></td>
-<td><p>Ubuntu 16 64bit, Debian 8.0 64bit, CentOS 7 64bit</p></td>
+<td><p>Ubuntu last 3 major LTS versions, 64bit, Debian 8.0 64bit, RHEL 7, CentOS 7 64bit</p></td>
 </tr>
 </tbody>
 </table>
@@ -168,18 +180,17 @@ applications.</p>
 </tbody>
 </table>
 </div>
-<div class="section" id="scname-installation">
-<h2><cite>SeisComP</cite> Installation<a class="headerlink" href="#scname-installation" title="Permalink to this headline">¶</a></h2>
-<p><cite>SeisComP</cite> can be installed from source code or from packages. While the source code
-can be found on <a class="reference external" href="https://github.com/SeisComP">GitHub</a> <a class="footnote-reference brackets" href="#id6" id="id7">2</a>, this documentation focuses on packages. For compilation
-from source code read the section <a class="reference internal" href="build.html#build"><span class="std std-ref">Checkout the repositories</span></a>.</p>
 <div class="section" id="installation-from-packages">
-<h3>Installation from packages<a class="headerlink" href="#installation-from-packages" title="Permalink to this headline">¶</a></h3>
-<p>The next steps describe the installation of <cite>SeisComP</cite> with the compiled <cite>SeisComP</cite>
+<span id="installation-packages"></span><h2>Installation from Packages<a class="headerlink" href="#installation-from-packages" title="Permalink to this headline">¶</a></h2>
+<p>This section describes the installation of <cite>SeisComP</cite> from compiled <cite>SeisComP</cite>
 packages which ship as <code class="file docutils literal notranslate"><span class="pre">*.tar.gz</span></code> files.</p>
+<div class="section" id="steps-to-take">
+<h3>Steps to take<a class="headerlink" href="#steps-to-take" title="Permalink to this headline">¶</a></h3>
+<p>Simply follow a few steps to complete your installation of <cite>SeisComP</cite>:</p>
 <ol class="arabic">
-<li><p>Log in as user, e.g. sysop (the standard user in this documentation)</p></li>
-<li><p>Download the installation packages, e.g. from <a class="reference external" href="https://www.seiscomp.de">SeisComP</a> <a class="footnote-reference brackets" href="#id3" id="id5">1</a> or get the packages from <cite>gempa</cite>:</p>
+<li><p>Log in to your Linux system as user, e.g. sysop, the standard user in this
+documentation.</p></li>
+<li><p>Download the installation packages, e.g. from <a class="reference external" href="https://www.seiscomp.de">SeisComP</a> <a class="footnote-reference brackets" href="#id8" id="id11">2</a> or from <a class="reference external" href="https://data.gempa.de/packages/Public/seiscomp/">gempa</a> <a class="footnote-reference brackets" href="#id3" id="id6">1</a>:</p>
 <ul>
 <li><p><code class="file docutils literal notranslate"><span class="pre">seiscomp-[version]-[OS]-[arch].tar.gz</span></code>: main <cite>SeisComP</cite> package with binaries, etc.
 Ensure to download the right package matching your operating system (OS) and
@@ -187,12 +198,13 @@ hardware architecture (arch: 32 or 64-bit).</p></li>
 <li><p><code class="file docutils literal notranslate"><span class="pre">seiscomp-[version]-doc.tar.gz</span></code>: <cite>SeisComP</cite> documentation.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When receiving the packages from <cite>gempa</cite>, the documentation is already
+<p>When receiving the packages from <a class="reference external" href="https://data.gempa.de/packages/Public/seiscomp/">gempa</a> <a class="footnote-reference brackets" href="#id3" id="id7">1</a>, the documentation is already
 included in the main <cite>SeisComP</cite> package to match the installed version. In this
 case, the documentation does not need to be downloaded and installed separately.</p>
 </div>
 </li>
-<li><p><code class="file docutils literal notranslate"><span class="pre">seiscomp-maps.tar.gz</span></code>: standard <cite>SeisComP</cite> maps.</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">seiscomp-maps.tar.gz</span></code>: standard <cite>SeisComP</cite> maps available on the
+download site of <a class="reference external" href="https://www.seiscomp.de">SeisComP</a> <a class="footnote-reference brackets" href="#id8" id="id12">2</a>.</p></li>
 </ul>
 </li>
 <li><p>Copy the downloaded files to your $HOME directory.</p></li>
@@ -223,10 +235,10 @@ case, the documentation does not need to be downloaded and installed separately.
 <span id="id1"></span><h3>Directory structure<a class="headerlink" href="#directory-structure" title="Permalink to this headline">¶</a></h3>
 <p>All installed files and directories are found below the <em>seiscomp</em> directory.
 The directory structure of the installed system is described the table below.</p>
-<table class="docutils align-default">
+<table class="colwidths-given docutils align-left">
 <colgroup>
-<col style="width: 24%" />
-<col style="width: 76%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Directory</p></th>
@@ -247,24 +259,19 @@ The directory structure of the installed system is described the table below.</p
 <td><p>The manual pages.</p></td>
 </tr>
 <tr class="row-even"><td><p><em>sbin</em></p></td>
-<td><p>The system/service/server binaries such as seedlink.</p></td>
+<td><p>The system/service/server binaries such as <a class="reference internal" href="../apps/seedlink.html#seedlink"><span class="std std-ref">seedlink</span></a>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><em>var</em></p></td>
 <td><p>Variable files whose content is expected to continually change.</p></td>
 </tr>
 <tr class="row-even"><td><p><em>var/log</em></p></td>
-<td><p>Log files of started modules. Usually modules log either to syslog
-or ~/.seiscomp/log. This directory contains the logs of the start
-of each module.</p></td>
+<td><p>Log files of started modules. Usually modules log either to syslog or ~/.seiscomp/log. This directory contains the logs of the start of each module.</p></td>
 </tr>
 <tr class="row-odd"><td><p><em>var/lib</em></p></td>
-<td><p>Default directory for files created by modules such as the
-waveform ringbuffer of SeedLink or the waveform archive created
-by slarchive.</p></td>
+<td><p>Default directory for files created by modules such as the waveform ringbuffer of <a class="reference internal" href="../apps/seedlink.html#seedlink"><span class="std std-ref">seedlink</span></a> or the waveform archive created by <a class="reference internal" href="../apps/slarchive.html#slarchive"><span class="std std-ref">slarchive</span></a>.</p></td>
 </tr>
 <tr class="row-even"><td><p><em>var/run</em></p></td>
-<td><p>Contains the .run and .pid files of modules started by
-<strong class="program">seiscomp</strong>.</p></td>
+<td><p>Contains the .run and .pid files of modules started by <strong class="program">seiscomp</strong>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><em>include</em></p></td>
 <td><p>SDK header files for all libraries.</p></td>
@@ -273,8 +280,7 @@ by slarchive.</p></td>
 <td><p>Application data such as maps, cities.xml and others.</p></td>
 </tr>
 <tr class="row-odd"><td><p><em>share/templates</em></p></td>
-<td><p>Template files used by e.g. SeedLink to create its native
-configuration.</p></td>
+<td><p>Template files used by e.g. <a class="reference internal" href="../apps/seedlink.html#seedlink"><span class="std std-ref">seedlink</span></a> to create its native configuration.</p></td>
 </tr>
 <tr class="row-even"><td><p><em>etc</em></p></td>
 <td><p>Configuration directory.</p></td>
@@ -283,8 +289,7 @@ configuration.</p></td>
 <td><p>Contains all XML module descriptions.</p></td>
 </tr>
 <tr class="row-even"><td><p><em>etc/defaults</em></p></td>
-<td><p>The default configuration files. This directory is read as first
-when a module starts.</p></td>
+<td><p>The default configuration files. This directory is read as first when a module starts.</p></td>
 </tr>
 <tr class="row-odd"><td><p><em>etc/init</em></p></td>
 <td><p>Module init scripts called by <strong class="program">seiscomp</strong>.</p></td>
@@ -297,8 +302,11 @@ when a module starts.</p></td>
 </div>
 <div class="section" id="software-dependencies">
 <span id="id2"></span><h3>Software dependencies<a class="headerlink" href="#software-dependencies" title="Permalink to this headline">¶</a></h3>
-<p><cite>SeisComP</cite> depends on a number of additional packages shipped with each Linux
-distribution. The <strong class="program">seiscomp</strong> tool comes with
+<p><cite>SeisComP</cite> depends on a number of additional software packages shipped with each
+Linux distribution.
+After installation of <cite>SeisComP</cite> these packages can be installed using the
+<strong class="program">seiscomp</strong>.
+The <strong class="program">seiscomp</strong> tool comes with
 the command <strong class="command">install-deps</strong> which installs required packages.
 Read the section <a class="reference internal" href="management.html#system-management"><span class="std std-ref">System management</span></a> for more detailed instructions.
 For example, to install the dependencies for using the MariaDB database,
@@ -358,10 +366,15 @@ They can be installed manually.</p>
 </div>
 </div>
 </div>
+</div>
 <div class="section" id="database-server-configuration">
-<span id="database-configuration"></span><h2>Database Server Configuration<a class="headerlink" href="#database-server-configuration" title="Permalink to this headline">¶</a></h2>
+<span id="database-configuration"></span><h1>Database Server Configuration<a class="headerlink" href="#database-server-configuration" title="Permalink to this headline">¶</a></h1>
+<p><cite>SeisComP</cite> is typically operated with a <a class="reference internal" href="concepts/database.html#concepts-database"><span class="std std-ref">database</span></a> which
+should be optimized. This section describes how to setup and optimize the
+database server. For the setup of the database itself read the section
+<a class="reference internal" href="getting-started.html#getting-started"><span class="std std-ref">Getting Started with SeisComP</span></a>.</p>
 <div class="section" id="mariadb-mysql">
-<span id="database-configuration-mysql"></span><h3>MariaDB / MySQL<a class="headerlink" href="#mariadb-mysql" title="Permalink to this headline">¶</a></h3>
+<span id="database-configuration-mysql"></span><h2>MariaDB / MySQL<a class="headerlink" href="#mariadb-mysql" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p>For better performance with a MariaDB/MySQL database, adjust the memory pool size. Test
 the default of the <strong>buffer_pool_size</strong> before making the change:</p>
@@ -442,14 +455,14 @@ root@host:~$ systemctl restart mariadb
 </div>
 </div>
 <div class="section" id="postgresql">
-<span id="database-configuration-postgresql"></span><h3>PostgreSQL<a class="headerlink" href="#postgresql" title="Permalink to this headline">¶</a></h3>
+<span id="database-configuration-postgresql"></span><h2>PostgreSQL<a class="headerlink" href="#postgresql" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>When using PostgreSQL, the database server must be initialized and secured.</p></li>
-<li><p>By default PostgresSQL does not allow to login with username and password which leads</p></li>
+<li><p>By default PostgresSQL does not allow to login with username and password which
+leads to the fact that <strong class="program">scmaster</strong> can not connect to the database
+after <cite>SeisComP</cite> database initialization. Here an example how to enable
+user/password authentication for local and remote connections.</p></li>
 </ul>
-<p>to the fact that <strong class="program">scmaster</strong> can not connect to the database after SeisComP
-database initialization. Here an example how to enable user/password authentication
-for local and remote connections.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># TYPE  DATABASE        USER            ADDRESS                 METHOD</span>
  <span class="c1"># IPv4 local connections:</span>
  host    seiscomp        sysop           <span class="m">0</span>.0.0.0/0               md5
@@ -465,10 +478,9 @@ can differ between distributions.</p>
 <p><strong class="program">CentOS</strong>:</p>
 <p><code class="file docutils literal notranslate"><span class="pre">/var/lib/pgsql/data/pg_hba.conf</span></code></p>
 </div>
-<ul class="simple">
-<li><p>By default PostgresSQL accepts local connections only. If the database server</p></li>
-</ul>
-<p>and clients are on different machines please change the listen address as
+<ul>
+<li><p>By default PostgresSQL accepts local connections only. If the database server
+and clients are on different machines please change the listen address as
 follows.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">listen_addresses</span> <span class="o">=</span> <span class="m">0</span>.0.0.0/0
 </pre></div>
@@ -481,21 +493,22 @@ follows.</p>
 <p><strong class="program">CentOS</strong>:</p>
 <p><code class="file docutils literal notranslate"><span class="pre">/var/lib/pgsql/data/postgresql.conf</span></code></p>
 </div>
+</li>
+</ul>
 </div>
 <div class="section" id="next-steps">
-<h3>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h3>
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
 <p>Now everything is installed and the system can be configured. The <a class="reference internal" href="getting-started.html#getting-started"><span class="std std-ref">next chapter</span></a>
 chapter explains the first steps.</p>
-</div>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <dl class="footnote brackets">
-<dt class="label" id="id3"><span class="brackets">1</span><span class="fn-backref">(<a href="#id4">1</a>,<a href="#id5">2</a>)</span></dt>
-<dd><p><a class="reference external" href="https://www.seiscomp.de">https://www.seiscomp.de</a></p>
+<dt class="label" id="id3"><span class="brackets">1</span><span class="fn-backref">(<a href="#id4">1</a>,<a href="#id5">2</a>,<a href="#id6">3</a>,<a href="#id7">4</a>)</span></dt>
+<dd><p><a class="reference external" href="https://data.gempa.de/packages/Public/seiscomp/">https://data.gempa.de/packages/Public/seiscomp/</a></p>
 </dd>
-<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id7">2</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/SeisComP">https://github.com/SeisComP</a></p>
+<dt class="label" id="id8"><span class="brackets">2</span><span class="fn-backref">(<a href="#id9">1</a>,<a href="#id10">2</a>,<a href="#id11">3</a>,<a href="#id12">4</a>)</span></dt>
+<dd><p><a class="reference external" href="https://www.seiscomp.de">https://www.seiscomp.de</a></p>
 </dd>
 </dl>
 </div>
@@ -520,31 +533,31 @@ chapter explains the first steps.</p>
 <script>$('#searchbox').show(0);</script>
   <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Installation and Database</a><ul>
+<li><a class="reference internal" href="#"><cite>SeisComP</cite> Installation</a><ul>
 <li><a class="reference internal" href="#hardware-requirements">Hardware Requirements</a></li>
-<li><a class="reference internal" href="#scname-installation"><cite>SeisComP</cite> Installation</a><ul>
-<li><a class="reference internal" href="#installation-from-packages">Installation from packages</a></li>
+<li><a class="reference internal" href="#installation-from-packages">Installation from Packages</a><ul>
+<li><a class="reference internal" href="#steps-to-take">Steps to take</a></li>
 <li><a class="reference internal" href="#directory-structure">Directory structure</a></li>
 <li><a class="reference internal" href="#software-dependencies">Software dependencies</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#database-server-configuration">Database Server Configuration</a><ul>
 <li><a class="reference internal" href="#mariadb-mysql">MariaDB / MySQL</a></li>
 <li><a class="reference internal" href="#postgresql">PostgreSQL</a></li>
 <li><a class="reference internal" href="#next-steps">Next steps</a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="citation.html"
-                        title="previous chapter">Citation</a></p>
+  <p class="topless"><a href="changelog.html"
+                        title="previous chapter">Change Log</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="getting-started.html"
-                        title="next chapter">Getting started</a></p>
+                        title="next chapter">Getting Started with <cite>SeisComP</cite></a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -564,7 +577,7 @@ chapter explains the first steps.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

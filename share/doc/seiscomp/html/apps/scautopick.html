@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="scenvelope" href="scenvelope.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -230,14 +231,14 @@ volume. scautopick will apply the same workflow as in online mode but the
 acquisition of data records has to change. If the input data (file) has been
 read, scautopick will exit and furthermore it must not ask for a particular
 time window, especially not for a real-time time window. To accomplish that
-the command line parameter <code class="xref std std-option docutils literal notranslate"><span class="pre">--playback</span></code> has to be used. Example:</p>
+the command-line parameter <code class="docutils literal notranslate"><span class="pre">`--playback`</span></code> has to be used. Example:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ scautopick --playback -I data.mseed
 </pre></div>
 </div>
 <p>This call will process all records in <code class="file docutils literal notranslate"><span class="pre">data.mseed</span></code> for which bindings
 exist and <strong>send the results to the messaging</strong>. If all data records are processed,
 scautopick will exit. The processing steps are similar to the online mode.</p>
-<p>Use the <code class="xref std std-option docutils literal notranslate"><span class="pre">--ep</span></code> for offline processing <strong>without messaging</strong>. The results are
+<p>Use the <code class="docutils literal notranslate"><span class="pre">`--ep`</span></code> for offline processing <strong>without messaging</strong>. The results are
 printed in <a class="reference internal" href="../base/glossary.html#term-scml"><span class="xref std std-term">SCML</span></a> format. Example:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ scautopick --playback -I data.mseed --ep -d <span class="o">[</span>type<span class="o">]</span>://<span class="o">[</span>host<span class="o">]</span>/<span class="o">[</span>database<span class="o">]</span> &gt; picks.xml
 </pre></div>
@@ -998,7 +999,7 @@ and a new amplitude is available. The output format is a simple ASCII format.</p
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

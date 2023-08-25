@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="LOCSAT" href="global_locsat.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -72,9 +73,11 @@
           
   <div class="section" id="ml">
 <span id="global-ml"></span><h1>ML<a class="headerlink" href="#ml" title="Permalink to this headline">¶</a></h1>
-<p>ML is the Richter (1935) magnitude.</p>
+<p>Standard local (Richter) magnitude</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>ML is the standard local (Richter) magnitude originally designed for
+Southern California by <span id="id1">Richter [<a class="reference internal" href="../base/references.html#id52" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. doi:10.1785/BSSA0250010001.">25</a>]</span>.</p>
 <div class="section" id="amplitude">
 <h3>Amplitude<a class="headerlink" href="#amplitude" title="Permalink to this headline">¶</a></h3>
 <p>The ML amplitude calculation is similar to the original ML. Waveforms from both
@@ -90,7 +93,7 @@ in the global bindings.</p>
 <p><img src="../_images/math/2ac00af8e0cff8bc51992386e723083d633de181.png" alt="ML = \log10(A) - \log10(A0)"/></p>
 </div><p>A is the measured ML Wood-Anderson amplitude in millimeters. The second term
 is the empirical calibration function, which in turn is a function
-of the epicentral distance (see Richter, 1935). This calibration
+of the epicentral distance (<span id="id2">Richter [<a class="reference internal" href="../base/references.html#id52" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. doi:10.1785/BSSA0250010001.">25</a>]</span>). This calibration
 function and distance range can be configured globally or per station using global
 bindings or the global module configuration variable
 module.trunk.global.magnitudes.ML.logA0 in <code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code>, e.g.</p>
@@ -100,7 +103,7 @@ module.trunk.global.magnitudes.ML.logA0 in <code class="file docutils literal no
 </div>
 <p>The <em>logA0</em> configuration string consists of an arbitrary number of
 distance-value pairs separated by semicolons. The distance is in km
-and the value corresponds to the <em>log10(A0)</em> term above.</p>
+and the second value corresponds to the <em>log10(A0)</em> term above.</p>
 <p>Within each interval the values are computed by linear
 interpolation. E.g. for the above default specification, at a
 distance of 80 km the <em>log10(A0)</em> value would be</p>
@@ -195,7 +198,7 @@ line per parameter can be added to the global module configuration (<code class=
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

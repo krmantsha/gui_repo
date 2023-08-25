@@ -13,9 +13,10 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Change Log" href="changelog.html" />
+    <link rel="next" title="License" href="license.html" />
     <link rel="prev" title="Configuration" href="concepts/configuration.html" /> 
   </head>
   <body>
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -41,7 +42,7 @@
           </a>
         </li>
         <li class="right">
-          <a href="changelog.html" title="Change Log"
+          <a href="license.html" title="License"
              accesskey="N">
             next
           </a>
@@ -255,7 +256,7 @@ by P-wave velocities below 8 km/s (average velocity of about 6 km/s).</p>
 <dt id="term-delay">delay</dt><dd><p>The time difference between the arrival time and the end time of the last record achieved plus
 the half record length. The delay can be computed by <a class="reference internal" href="../apps/scqc.html#scqc"><span class="std std-ref">scqc</span></a>.</p>
 </dd>
-<dt id="term-depth-phase">depth Phase</dt><dd><p>see <a class="reference internal" href="#term-0"><span class="xref std std-term">pP phase</span></a> or <a class="reference internal" href="#term-1"><span class="xref std std-term">sP phase</span></a></p>
+<dt id="term-depth-phase">depth Phase</dt><dd><p>see <a class="reference internal" href="#term-0"><span class="xref std std-term">pP phase</span></a> or <a class="reference internal" href="#term-sp-phase"><span class="xref std std-term">sP phase</span></a></p>
 </dd>
 <dt id="term-detection">detection</dt><dd><p>Identification of an arrival of a seismic signal with amplitudes above and/or signal shape
 (waveform) different from seismic noise.</p>
@@ -491,8 +492,8 @@ of the first few cycles of the P-wave restituted to <a class="reference internal
 </ul>
 <p>Read the <a class="reference internal" href="../apps/global_mb.html#global-mb"><span class="std std-ref">technical documentation</span></a> for more details and the configuration.</p>
 </dd>
-<dt id="term-magnitude-broadband-body-wave-mb-bb">magnitude, broadband body-wave (mB_BB)</dt><dd><p>mB_BB is the term recommended by the IASPEI commission for <span class="xref std std-term">mB</span> which
-is used in <cite>SeisComP</cite>.</p>
+<dt id="term-magnitude-broadband-body-wave-mb-bb">magnitude, broadband body-wave (mB_BB)</dt><dd><p>mB_BB is the term recommended by the IASPEI commission for
+<a class="reference internal" href="#term-magnitude-broadband-body-wave-mb"><span class="xref std std-term">magnitude, broadband body-wave (mB)</span></a> which is used in <cite>SeisComP</cite>.</p>
 </dd>
 <dt id="term-magnitude-broadband-body-wave-mb">magnitude, broadband body-wave (mB)</dt><dd><p>mB is a magnitude based on body waves like <a class="reference internal" href="#term-magnitude-body-wave-mb"><span class="xref std std-term">mb</span></a>,
 but with the amplitude measured in a broad frequency range and longer time windows.
@@ -734,10 +735,6 @@ The current version is 2.4, updated August 2012.
 See the <a class="reference external" href="http://www.fdsn.org/pdf/SEEDManual_V2.4.pdf">SEED Reference Manual</a>
 for details.</p>
 </dd>
-<dt id="term-sp-phase">sP phase</dt><dd><p>Another depth phase. The sP is a <a class="reference internal" href="#term-s-wave"><span class="xref std std-term">S wave</span></a> with a takeoff angle of greater than 90° at
-the source that is reflected and converted to <a class="reference internal" href="#term-p-wave"><span class="xref std std-term">P wave</span></a> at the reflection point at the
-surface near the epicenter.</p>
-</dd>
 <dt id="term-s-phase">S phase</dt><dd><p>The S phase is the arrival of the direct <a class="reference internal" href="#term-s-wave"><span class="xref std std-term">S wave</span></a> that traveled through the Earth’s
 crust and mantle observed in epicentral distances up to 100°.</p>
 </dd>
@@ -747,12 +744,13 @@ distances Sn arrives first (see <a class="reference internal" href="#term-sn-pha
 <dt id="term-sn-phase">Sn phase</dt><dd><p>Sn is the S head wave along the Moho arriving first at local distances larger than
 100 km (depending on the crustal thickness). Sn has usually smaller amplitudes than Sg.</p>
 </dd>
-<dt id="term-1">sP phase</dt><dd><p>A P wave starting as an <a class="reference internal" href="#term-s-phase"><span class="xref std std-term">S phase</span></a> at the source and arriving as .
+<dt id="term-sp-phase">sP phase</dt><dd><p>A P wave starting as an <a class="reference internal" href="#term-s-phase"><span class="xref std std-term">S phase</span></a> at the source and arriving as P.
 The S phase has a takeoff angle greater than 90° at the source and therefore
 is first reflected at the surface near the epicenter and then converted into
-a P phase. The sP is a depth phase. For shallow events and at teleseismic
-distances sP has nearly the same path as the P wave except
-for the path from hypocenter of the earthquake to the reflection point at the surface.</p>
+a <a class="reference internal" href="#term-p-wave"><span class="xref std std-term">P wave</span></a> phase. The sP is therefore a depth phase. For shallow
+events and at teleseismic distances sP has nearly the same path as the P
+wave except for the path from hypocenter of the earthquake to the
+reflection point at the surface.</p>
 </dd>
 <dt id="term-pick">pick</dt><dd><ol class="arabic simple">
 <li><p>Automatic or manual determined phase onset</p></li>
@@ -1014,7 +1012,7 @@ bars or megapascals (1 bar equals 1 kg/cm², and 1 megapascal equals 10 bars).</
 source. Rays with takeoff angles less than 90° are labeled with capital letters
 like P or S. If the takeoff angle is greater than 90° the ray is upgoing and is
 labeled with lowercase letters (p or s). Such rays can be reflected at the
-surface near the epicenter forming a depth phase (see <a class="reference internal" href="#term-0"><span class="xref std std-term">pP phase</span></a> or <a class="reference internal" href="#term-1"><span class="xref std std-term">sP phase</span></a>).</p>
+surface near the epicenter forming a depth phase (see <a class="reference internal" href="#term-0"><span class="xref std std-term">pP phase</span></a> or <a class="reference internal" href="#term-sp-phase"><span class="xref std std-term">sP phase</span></a>).</p>
 </dd>
 <dt id="term-teleseismic">teleseismic</dt><dd><p>Pertaining to a seismic source at distances greater than about 2000 km from the
 measurement site.</p>
@@ -1176,8 +1174,8 @@ Standard Seismograph Network (WWSSN).</p>
   <p class="topless"><a href="concepts/configuration.html"
                         title="previous chapter">Configuration</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="changelog.html"
-                        title="next chapter">Change Log</a></p>
+  <p class="topless"><a href="license.html"
+                        title="next chapter">License</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -1197,7 +1195,7 @@ Standard Seismograph Network (WWSSN).</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

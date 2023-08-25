@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="scrttv" href="scrttv.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -56,7 +57,7 @@
           <a href="../index.html">Home</a>
         </li>
         <li class="nav-item nav-item-1">
-          <a href="../gui.html" accesskey="U">Graphical user interfaces</a>
+          <a href="../gui.html" accesskey="U">Graphical User Interfaces</a>
         </li> 
       </ul>
     </div>
@@ -303,8 +304,12 @@ Refer to the parameters by their ConfigName to configure the attributes.</p>
 <dt id="confval-streams.codes">
 <code class="sig-name descname">streams.codes</code><a class="headerlink" href="#confval-streams.codes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
-<p>List of channels to display. By default the global
-binding configuration is used which can be overwritten with this parameter.</p>
+<p>The list of channel codes to be displayed. List items may
+contain wildcards and are separated by comma.
+The list is  intersected with all channels configured in inventory.</p>
+<p>Examples:</p>
+<p>default : display all streams configured by global bindings</p>
+<p>default, PF.BON.00.HH? : display default and all HH streams of PF.BON.00</p>
 </dd></dl>
 
 <dl class="confval">
@@ -2562,7 +2567,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">2</span>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

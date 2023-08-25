@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="ql2sc" href="ql2sc.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -75,10 +76,12 @@
 <p><strong>Provides FDSN Web Services</strong></p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>fdsnws is a server that provides event and station information by <a class="reference external" href="http://www.fdsn.org/webservices/">FDSN Web Services</a> <a class="footnote-reference brackets" href="#id12" id="id13">1</a>
+<p>fdsnws is a server that provides event and station information by FDSN Web Services
+(<span id="id2"><em>FDSN</em> [<a class="reference internal" href="../base/references.html#id92" title="FDSN. International Federation of Digital Seismograph Networks. URL: http://www.fdsn.org/webservices/.">1</a>]</span>)
 from a SeisComP database and waveforms from a <a class="reference internal" href="global_recordstream.html#global-recordstream"><span class="std std-ref">RecordStream</span></a> source.
 Also it may be configured to serve data
-availability information as described in the <a class="reference external" href="https://service.iris.edu/fdsnws/availability/1/">IRIS DMC FDSNWS availability Web Service Documentation</a> <a class="footnote-reference brackets" href="#id16" id="id17">2</a>.</p>
+availability information as described in the IRIS DMC FDSNWS availability Web
+Service Documentation (<span id="id3"></span>).</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p>If you expose the FDSN Web Service as a public service, make sure that
@@ -122,14 +125,13 @@ into the database.</p>
 </table>
 <p>The available services can be reached from the fdsnws start page.  The services
 also provide an interactive URL builder constructing the request URL based on
-user inputs. The FDSN specifications can be found on
-<a class="reference external" href="http://www.fdsn.org/webservices/">FDSN Web Services</a> <a class="footnote-reference brackets" href="#id12" id="id14">1</a>.</p>
+user inputs. The FDSN specifications can be found on <span id="id4"><em>FDSN</em> [<a class="reference internal" href="../base/references.html#id92" title="FDSN. International Federation of Digital Seismograph Networks. URL: http://www.fdsn.org/webservices/.">1</a>]</span>.</p>
 <p><strong>URL</strong></p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://localhost:8080/fdsnws">http://localhost:8080/fdsnws</a></p></li>
 </ul>
 <p>If <code class="docutils literal notranslate"><span class="pre">fdsnws</span></code> is started, it accepts connections by default on port 8080 which
-can be changed in the configuration. Also please read <a class="reference internal" href="#sec-port"><span class="std std-ref">Changing the service port</span></a> for
+can be changed in the configuration. Also please read <a class="reference internal" href="#sec-port"><span class="std std-ref">Changing the Service Port</span></a> for
 running the services on a privileged port, e.g. port 80 as requested by the
 FDSNWS specification.</p>
 <div class="admonition note">
@@ -179,7 +181,7 @@ FDSN specifications.</p>
 <code class="docutils literal notranslate"><span class="pre">queryauth</span></code> method</p></li>
 </ul>
 <p>The data channels exposed by this service may be restrict by defining an
-inventory filter, see section <a class="reference internal" href="#sec-inv-filter"><span class="std std-ref">Filtering the inventory</span></a>.</p>
+inventory filter, see section <a class="reference internal" href="#sec-inv-filter"><span class="std std-ref">Filtering Inventories</span></a>.</p>
 </div>
 <div class="section" id="service-configuration">
 <h4>Service configuration<a class="headerlink" href="#service-configuration" title="Permalink to this headline">¶</a></h4>
@@ -213,8 +215,8 @@ information depth level is selectable</p></li>
 <li><p>Optionally handles time-based conditional HTTP-GET requests as specified by
 <a class="reference external" href="https://tools.ietf.org/html/rfc7232">RFC 7232</a>.</p></li>
 </ul>
-<div class="section" id="id2">
-<h4>URL<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id5">
+<h4>URL<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p><a class="reference external" href="http://localhost:8080/fdsnws/station/1/builder">http://localhost:8080/fdsnws/station/1/builder</a></p></li>
 <li><p><a class="reference external" href="http://localhost:8080/fdsnws/station/1/query">http://localhost:8080/fdsnws/station/1/query</a></p></li>
@@ -222,21 +224,21 @@ information depth level is selectable</p></li>
 <li><p><a class="reference external" href="http://localhost:8080/fdsnws/station/1/application.wadl">http://localhost:8080/fdsnws/station/1/application.wadl</a></p></li>
 </ul>
 </div>
-<div class="section" id="id3">
-<h4>Example<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id6">
+<h4>Example<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
 <ul>
 <li><p>Request URL for querying the information for the GE network on response level:</p>
 <p><a class="reference external" href="http://localhost:8080/fdsnws/station/1/query?net=GE&amp;cha=BH%3F&amp;level=response&amp;nodata=404">http://localhost:8080/fdsnws/station/1/query?net=GE&amp;cha=BH%3F&amp;level=response&amp;nodata=404</a></p>
 </li>
 </ul>
 </div>
-<div class="section" id="id4">
-<h4>Feature notes<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id7">
+<h4>Feature notes<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><p>To enable FDSNXML or StationXML support the plugins <code class="docutils literal notranslate"><span class="pre">fdsnxml</span></code> resp.
-<code class="docutils literal notranslate"><span class="pre">staxml</span></code> have to be loaded</p></li>
+<li><p>To enable FDSNXML or StationXML support load the plugin <code class="docutils literal notranslate"><span class="pre">fdsnxml</span></code>. The
+plugin is loaded by default configuration.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">updatedafter</span></code> request parameter not implemented: The last modification time
-in SeisComP is tracked on the object level. If a child of an object is updated
+in <cite>SeisComP</cite> is tracked on the object level. If a child of an object is updated
 the update time is not propagated to all parents. In order to check if a
 station was updated all children must be evaluated recursively. This operation
 would be much too expensive.</p></li>
@@ -254,7 +256,7 @@ would be much too expensive.</p></li>
 </li>
 </ul>
 <p>The inventory exposed by this service may be restricted, see section
-<a class="reference internal" href="#sec-inv-filter"><span class="std std-ref">Filtering the inventory</span></a>.</p>
+<a class="reference internal" href="#sec-inv-filter"><span class="std std-ref">Filtering Inventories</span></a>.</p>
 </div>
 </div>
 <div class="section" id="event">
@@ -264,8 +266,8 @@ would be much too expensive.</p></li>
 <li><p>Request type: HTTP-GET</p></li>
 <li><p>Events may be filtered e.g. by hypocenter, time and magnitude</p></li>
 </ul>
-<div class="section" id="id5">
-<h4>URL<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id8">
+<h4>URL<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p><a class="reference external" href="http://localhost:8080/fdsnws/event/1/builder">http://localhost:8080/fdsnws/event/1/builder</a></p></li>
 <li><p><a class="reference external" href="http://localhost:8080/fdsnws/event/1/query">http://localhost:8080/fdsnws/event/1/query</a></p></li>
@@ -275,8 +277,8 @@ would be much too expensive.</p></li>
 <li><p><a class="reference external" href="http://localhost:8080/fdsnws/event/1/application.wadl">http://localhost:8080/fdsnws/event/1/application.wadl</a></p></li>
 </ul>
 </div>
-<div class="section" id="id6">
-<h4>Example<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id9">
+<h4>Example<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
 <ul>
 <li><p>Request URL for fetching the event parameters within 10 degrees around 50°N/11°E
 starting on 18 April 2013:</p>
@@ -284,10 +286,10 @@ starting on 18 April 2013:</p>
 </li>
 </ul>
 </div>
-<div class="section" id="id7">
-<h4>Feature Notes<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id10">
+<h4>Feature Notes<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><p>SeisComP does not distinguish between catalogs and contributors, but
+<li><p><cite>SeisComP</cite> does not distinguish between catalogs and contributors, but
 supports agencyIDs. Hence, if specified, the value of the <code class="docutils literal notranslate"><span class="pre">contributor</span></code>
 parameter is mapped to the agencyID. The file
 <code class="docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/share/fdsn/contributors.xml</span></code> has to be filled manually with all
@@ -295,7 +297,7 @@ available agency ids</p></li>
 <li><p>Origin and magnitude filter parameters are always applied to preferred origin
 resp. preferred magnitude</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">updatedafter</span></code> request parameter not implemented: The last modification time
-in SeisComP is tracked on the object level. If a child of an object is updated
+in <cite>SeisComP</cite> is tracked on the object level. If a child of an object is updated
 the update time is not propagated to all parents. In order to check if a
 station was updated all children must be evaluated recursively. This operation
 would be much too expensive.</p></li>
@@ -325,16 +327,17 @@ with <code class="docutils literal notranslate"><span class="pre">includearrival
 <span id="sec-avail"></span><h3>Data Availability<a class="headerlink" href="#data-availability" title="Permalink to this headline">¶</a></h3>
 <p>The data availability web service returns detailed time span information of
 what time series data is available at the DMC archive. The availability information
-can be created by <a class="reference internal" href="scardac.html#scardac"><span class="std std-ref">scardac</span></a> in the SeisComP database from where it is
+can be created by <a class="reference internal" href="scardac.html#scardac"><span class="std std-ref">scardac</span></a> in the <cite>SeisComP</cite> database from where it is
 fetched by fdsnws.</p>
 <p>The availability service is no official standard yet. This implementation aims
-to be compatible with the <a class="reference external" href="https://service.iris.edu/irisws/availability/1/">IRIS DMC IRISWS availability Web Service</a> implementation.</p>
+to be compatible with the IRIS DMC availability FDSN Web Service
+(<span id="id11"></span>) implementation.</p>
 <ul class="simple">
 <li><p>request type: HTTP-GET, HTTP-POST</p></li>
 <li><p>results may be filtered e.g. by channel code, time and quality</p></li>
 </ul>
-<div class="section" id="id8">
-<h4>URL<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id12">
+<h4>URL<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p><a class="reference external" href="http://localhost:8080/ext/availability/1/extent">http://localhost:8080/ext/availability/1/extent</a> - Produces list of available
 time extents (earliest to latest) for selected channels (network, station,
@@ -367,8 +370,8 @@ form your data time span requests</p></li>
 <p>Use <a class="reference internal" href="scardac.html#scardac"><span class="std std-ref">scardac</span></a> for creating the availability information.</p>
 </div>
 </div>
-<div class="section" id="id9">
-<h4>Feature Notes<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id13">
+<h4>Feature Notes<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
 <ul>
 <li><p>The IRISWS availability implementation truncates the time spans of the returned
 data extents and segments to the requested start and end times (if any). This
@@ -397,8 +400,8 @@ generated.</p></li>
 </div>
 </div>
 </div>
-<div class="section" id="filtering-the-inventory">
-<span id="sec-inv-filter"></span><h2>Filtering the inventory<a class="headerlink" href="#filtering-the-inventory" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="filtering-inventories">
+<span id="sec-inv-filter"></span><h2>Filtering Inventories<a class="headerlink" href="#filtering-inventories" title="Permalink to this headline">¶</a></h2>
 <p>The channels served by the <a class="reference internal" href="#sec-station"><span class="std std-ref">Station</span></a> and <a class="reference internal" href="#sec-dataselect"><span class="std std-ref">DataSelect</span></a> services
 may be filtered by specified an INI file in the <code class="docutils literal notranslate"><span class="pre">stationFilter</span></code> and
 <code class="docutils literal notranslate"><span class="pre">dataSelectFilter</span></code> configuration parameter. You may use the same file for both
@@ -493,13 +496,13 @@ and exclude rules. If neither a matching include nor exclude rule is found, then
 channel is only added if no other include rule exists in the entire rule set.</p>
 </div>
 <div class="section" id="changing-the-service-port">
-<span id="sec-port"></span><h2>Changing the service port<a class="headerlink" href="#changing-the-service-port" title="Permalink to this headline">¶</a></h2>
+<span id="sec-port"></span><h2>Changing the Service Port<a class="headerlink" href="#changing-the-service-port" title="Permalink to this headline">¶</a></h2>
 <p>The FDSN Web service specification defines that the Service SHOULD be available
-under port 80. Typically SeisComP runs under a user without root permissions
+under port 80. Typically <cite>SeisComP</cite> runs under a user without root permissions
 and therefore is not allowed to bind to privileged ports (&lt;1024).
 To serve on port 80 you may for instance</p>
 <ul class="simple">
-<li><p>Run SeisComP with root privileged (not recommended)</p></li>
+<li><p>Run <cite>SeisComP</cite> with root privileged (not recommended)</p></li>
 <li><p>Use a proxy Webserver, e.g. Apache with
 <a class="reference external" href="http://httpd.apache.org/docs/2.2/mod/mod_proxy.html">mod-proxy</a> module</p></li>
 <li><p>Configure and use <a class="reference internal" href="#sec-authbind"><span class="std std-ref">Authbind</span></a></p></li>
@@ -523,7 +526,7 @@ as follows:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$ authbind --deep seiscomp <span class="nb">exec</span> fdsnws
 </pre></div>
 </div>
-<p>In order use <code class="docutils literal notranslate"><span class="pre">authbind</span></code> when starting <code class="docutils literal notranslate"><span class="pre">fdsnws</span></code> as SeisComP service the last
+<p>In order use <code class="docutils literal notranslate"><span class="pre">authbind</span></code> when starting <code class="docutils literal notranslate"><span class="pre">fdsnws</span></code> as <cite>SeisComP</cite> service the last
 line in the <code class="docutils literal notranslate"><span class="pre">~/seiscomp/etc/init/fdsnws.py</span></code> have to be commented in.</p>
 </div>
 <div class="section" id="firewall">
@@ -539,7 +542,7 @@ to port 80.</p>
 set up this rule permanently.</p>
 </div>
 <div class="section" id="authentication-extension">
-<h2>Authentication extension<a class="headerlink" href="#authentication-extension" title="Permalink to this headline">¶</a></h2>
+<h2>Authentication Extension<a class="headerlink" href="#authentication-extension" title="Permalink to this headline">¶</a></h2>
 <p>The FDSNWS standard requires HTTP digest authentication as the
 authentication mechanism. The “htpasswd” configuration option is used to
 define the location of the file storing usernames and passwords of users
@@ -568,67 +571,64 @@ arclink-access bindings.</p></li>
 configuration option to “true” and pointing “auth.gnupgHome” to a directory
 where GPG stores its files. Let’s use the directory
 ~/seiscomp/var/lib/gpg, which is the default.</p>
-<ul class="simple">
-<li><p>First create the direcory and your own signing key:</p></li>
-</ul>
+<ul>
+<li><p>First create the direcory and your own signing key:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$ mkdir -m <span class="m">700</span> ~/seiscomp/var/lib/gpg
 sysop@host:~$ gpg --homedir ~/seiscomp/var/lib/gpg --gen-key
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>Now import GPG keys of all authentication services you trust:</p></li>
-</ul>
+</li>
+<li><p>Now import GPG keys of all authentication services you trust:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$ gpg --homedir ~/seiscomp/var/lib/gpg --import &lt;keys.asc
 </pre></div>
 </div>
-<ul class="simple">
+</li>
 <li><p>Finally sign all imported keys with your own key (XXXXXXXX is the ID of
-an imported key):</p></li>
-</ul>
+an imported key):</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$ gpg --homedir ~/seiscomp/var/lib/gpg --edit-key XXXXXXXX sign save
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>…and set auth.enable, either using the “scconfig” tool or:</p></li>
-</ul>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$ <span class="nb">echo</span> <span class="s2">&quot;auth.enable = true&quot;</span> &gt;&gt;~/seiscomp/etc/fdsnws.cfg
+</li>
+<li><p>…and set auth.enable, either using the “scconfig” tool or:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$ <span class="nb">echo</span> <span class="s2">&quot;auth.enable = true&quot;</span> &gt;&gt; ~/seiscomp/etc/fdsnws.cfg
 </pre></div>
 </div>
+</li>
+</ul>
 </div>
 <div class="section" id="usage-example">
 <h3>Usage example<a class="headerlink" href="#usage-example" title="Permalink to this headline">¶</a></h3>
 <p>A client like <a class="reference internal" href="#sec-fdsnws-related"><span class="std std-ref">fdsnws_fetch</span></a> is recommended, but also tools like wget and
 curl can be used. As an example, let’s request data from the restricted
 station AAI (assuming that we are authorized to get data of this station).</p>
-<ul class="simple">
+<ul>
 <li><p>The first step is to obtain the token from an authentication service.
 Assuming that the token is saved in “token.asc”, credentials of the
-temporary account can be requested using one of the following commands:</p></li>
-</ul>
+temporary account can be requested using one of the following commands:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$ wget --post-file token.asc https://geofon.gfz-potsdam.de/fdsnws/dataselect/1/auth -O cred.txt
 sysop@host:~$ curl --data-binary @token.asc https://geofon.gfz-potsdam.de/fdsnws/dataselect/1/auth -o cred.txt
 </pre></div>
 </div>
-<ul class="simple">
+</li>
 <li><p>The resulting file “cred.txt” contains username and password separated by
-a colon, so one can conveniently use a shell expansion:</p></li>
-</ul>
+a colon, so one can conveniently use a shell expansion:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$ wget <span class="s2">&quot;http://`cat cred.txt`@geofon.gfz-potsdam.de/fdsnws/dataselect/1/queryauth?starttime=2015-12-15T16:00:00Z&amp;endtime=2015-12-15T16:10:00Z&amp;network=IA&amp;station=AAI&quot;</span> -O data.mseed
 sysop@host:~$ curl --digest <span class="s2">&quot;http://`cat cred.txt`@geofon.gfz-potsdam.de/fdsnws/dataselect/1/queryauth?starttime=2015-12-15T16:00:00Z&amp;endtime=2015-12-15T16:10:00Z&amp;network=IA&amp;station=AAI&quot;</span> -o data.mseed
 </pre></div>
 </div>
-<ul class="simple">
+</li>
 <li><p>Using the <a class="reference internal" href="#sec-fdsnws-related"><span class="std std-ref">fdsnws_fetch</span></a> utility, the two steps above can be combined into
-one:</p></li>
-</ul>
+one:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$ fdsnws_fetch -a token.asc -s <span class="m">2015</span>-12-15T16:00:00Z -e <span class="m">2015</span>-12-15T16:10:00Z -N IA -S AAI -o data.mseed
 </pre></div>
 </div>
+</li>
+</ul>
 </div>
 </div>
 <div class="section" id="logging">
 <h2>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
-<p>In addition to normal SeisComP logs, fdsnws can create a simple HTTP access log
+<p>In addition to normal <cite>SeisComP</cite> logs, fdsnws can create a simple HTTP access log
 and/or a detailed request log. The locations of log files are specified by
 “accessLog” and “requestLog” in fdsnws.cfg.</p>
 <p>Both logs are text-based and line-oriented. Each line of <em>access</em> log
@@ -706,38 +706,23 @@ the GEOFON datacentre is currently serving between 0.5..1 million FDSNWS
 requests per day.</p>
 </div>
 <div class="section" id="related-modules">
-<span id="sec-fdsnws-related"></span><h2>Related modules<a class="headerlink" href="#related-modules" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="../base/glossary.html#term-geofon"><span class="xref std std-term">GEOFON</span></a> maintains <a class="reference external" href="https://www.seiscomp3.org/doc/applications/fdsnws_scripts.html">scripts for FDSNWS</a> <a class="footnote-reference brackets" href="#id18" id="id19">3</a>:</p>
+<span id="sec-fdsnws-related"></span><h2>Related Modules<a class="headerlink" href="#related-modules" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="../base/glossary.html#term-geofon"><span class="xref std std-term">GEOFON</span></a> maintains scripts for FDSNWS <span id="id14">[<a class="reference internal" href="../base/references.html#id94" title="fdsnws_scripts. SeisComP module. URL: https://www.SeisComP.de/SeisComP3/doc/applications/fdsnws_scripts.html.">7</a>]</span>:</p>
 <ul class="simple">
-<li><p>The <strong class="program">fdsnws_fetch</strong> client is a convenient tool for requesting waveforms
-from a FDSN web service hosted by <a class="reference internal" href="../base/glossary.html#term-eida"><span class="xref std std-term">EIDA</span></a>.</p></li>
+<li><p>The <strong class="program">fdsnws_fetch</strong> client is a convenient tool for requesting
+waveforms from a FDSN web service hosted by <a class="reference internal" href="../base/glossary.html#term-eida"><span class="xref std std-term">EIDA</span></a> nodes.</p></li>
 <li><p>The <strong class="program">fdsnws2sds</strong> client is a tool for requesting waveforms
-from a FDSN web service hosted by <a class="reference internal" href="../base/glossary.html#term-eida"><span class="xref std std-term">EIDA</span></a> and to store them into an <a class="reference internal" href="../base/glossary.html#term-sds"><span class="xref std std-term">SDS</span></a> archive.</p></li>
+from a FDSN web service hosted by <a class="reference internal" href="../base/glossary.html#term-eida"><span class="xref std std-term">EIDA</span></a> nodes and to store them into an
+<a class="reference internal" href="../base/glossary.html#term-sds"><span class="xref std std-term">SDS</span></a> archive.</p></li>
 </ul>
 </div>
 <div class="section" id="public-fdsn-web-servers">
 <h2>Public FDSN Web Servers<a class="headerlink" href="#public-fdsn-web-servers" title="Permalink to this headline">¶</a></h2>
-<p>IRIS maintains a <a class="reference external" href="https://www.fdsn.org/webservices/datacenters/">list of data centers</a> <a class="footnote-reference brackets" href="#id20" id="id21">4</a> supporting <a class="reference external" href="http://www.fdsn.org/webservices/">FDSN Web Services</a> <a class="footnote-reference brackets" href="#id12" id="id15">1</a>.</p>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="id12"><span class="brackets">1</span><span class="fn-backref">(<a href="#id13">1</a>,<a href="#id14">2</a>,<a href="#id15">3</a>)</span></dt>
-<dd><p><a class="reference external" href="http://www.fdsn.org/webservices/">http://www.fdsn.org/webservices/</a></p>
-</dd>
-<dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id17">2</a></span></dt>
-<dd><p><a class="reference external" href="https://service.iris.edu/fdsnws/availability/1/">https://service.iris.edu/fdsnws/availability/1/</a></p>
-</dd>
-<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="#id19">3</a></span></dt>
-<dd><p><a class="reference external" href="https://www.seiscomp3.org/doc/applications/fdsnws_scripts.html">https://www.seiscomp3.org/doc/applications/fdsnws_scripts.html</a></p>
-</dd>
-<dt class="label" id="id20"><span class="brackets"><a class="fn-backref" href="#id21">4</a></span></dt>
-<dd><p><a class="reference external" href="https://www.fdsn.org/webservices/datacenters/">https://www.fdsn.org/webservices/datacenters/</a></p>
-</dd>
-</dl>
+<p>IRIS maintains a list of data centers (<span id="id15"></span>)
+supporting FDSN Web Services (<span id="id16"><em>FDSN</em> [<a class="reference internal" href="../base/references.html#id92" title="FDSN. International Federation of Digital Seismograph Networks. URL: http://www.fdsn.org/webservices/.">1</a>]</span>).</p>
 </div>
 <div class="section" id="fdsnws-configuration">
-<span id="id10"></span><h2>Configuration<a class="headerlink" href="#fdsnws-configuration" title="Permalink to this headline">¶</a></h2>
+<span id="id17"></span><h2>Configuration<a class="headerlink" href="#fdsnws-configuration" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/global.cfg</span></code></div>
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/fdsnws.cfg</span></code></div>
@@ -1155,8 +1140,8 @@ parameter is ignored.</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="id11">
-<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--v</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id11" title="Permalink to this definition">¶</a></dt>
+<dt id="id18">
+<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--v</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id18" title="Permalink to this definition">¶</a></dt>
 <dd><p>Increase verbosity level (may be repeated, eg. -vv)</p>
 </dd></dl>
 
@@ -1301,38 +1286,37 @@ is not given “<a class="reference external" href="file://">file://</a>” is u
 </ul>
 </li>
 <li><a class="reference internal" href="#station">Station</a><ul>
-<li><a class="reference internal" href="#id2">URL</a></li>
-<li><a class="reference internal" href="#id3">Example</a></li>
-<li><a class="reference internal" href="#id4">Feature notes</a></li>
+<li><a class="reference internal" href="#id5">URL</a></li>
+<li><a class="reference internal" href="#id6">Example</a></li>
+<li><a class="reference internal" href="#id7">Feature notes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#event">Event</a><ul>
-<li><a class="reference internal" href="#id5">URL</a></li>
-<li><a class="reference internal" href="#id6">Example</a></li>
-<li><a class="reference internal" href="#id7">Feature Notes</a></li>
+<li><a class="reference internal" href="#id8">URL</a></li>
+<li><a class="reference internal" href="#id9">Example</a></li>
+<li><a class="reference internal" href="#id10">Feature Notes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#data-availability">Data Availability</a><ul>
-<li><a class="reference internal" href="#id8">URL</a></li>
+<li><a class="reference internal" href="#id12">URL</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
-<li><a class="reference internal" href="#id9">Feature Notes</a></li>
+<li><a class="reference internal" href="#id13">Feature Notes</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#filtering-the-inventory">Filtering the inventory</a></li>
-<li><a class="reference internal" href="#changing-the-service-port">Changing the service port</a></li>
+<li><a class="reference internal" href="#filtering-inventories">Filtering Inventories</a></li>
+<li><a class="reference internal" href="#changing-the-service-port">Changing the Service Port</a></li>
 <li><a class="reference internal" href="#authbind">Authbind</a></li>
 <li><a class="reference internal" href="#firewall">Firewall</a></li>
-<li><a class="reference internal" href="#authentication-extension">Authentication extension</a><ul>
+<li><a class="reference internal" href="#authentication-extension">Authentication Extension</a><ul>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 <li><a class="reference internal" href="#usage-example">Usage example</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#logging">Logging</a></li>
-<li><a class="reference internal" href="#related-modules">Related modules</a></li>
+<li><a class="reference internal" href="#related-modules">Related Modules</a></li>
 <li><a class="reference internal" href="#public-fdsn-web-servers">Public FDSN Web Servers</a></li>
-<li><a class="reference internal" href="#references">References</a></li>
 <li><a class="reference internal" href="#fdsnws-configuration">Configuration</a></li>
 <li><a class="reference internal" href="#command-line">Command-line</a><ul>
 <li><a class="reference internal" href="#generic">Generic</a></li>
@@ -1370,7 +1354,7 @@ is not given “<a class="reference external" href="file://">file://</a>” is u
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

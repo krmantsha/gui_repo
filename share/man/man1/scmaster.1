@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCMASTER" "1" "Jan 17, 2022" "4.8.4" "SeisComP"
+.TH "SCMASTER" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
 .SH NAME
 scmaster \- SeisComP Documentation
 .
@@ -241,7 +241,7 @@ Type: \fIpath\fP
 .INDENT 3.5
 \fBqueues.*\fP
 \fISet the parameters for each messaging queue. The queues are used\fP
-\fIwhen listed in the :confval:\(gaqueues\(ga parameter. Several queues\fP
+\fIwhen listed in the "queues" parameter. Several queues\fP
 \fIcan be used in parallel. For queues with without databases leave\fP
 \fIthe processor parameters empty.\fP
 .UNINDENT
@@ -251,7 +251,22 @@ Type: \fIpath\fP
 .INDENT 0.0
 .INDENT 3.5
 \fBqueues.$name.*\fP
-$name is a placeholder for the name to be used.
+$name is a placeholder for the name to be used and needs to be added to \fI\%queues\fP to become active.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+queues = a,b
+queues.a.value1 = ...
+queues.b.value1 = ...
+# c is not active because it has not been added
+# to the list of queues
+queues.c.value1 = ...
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
 .UNINDENT
 .UNINDENT
 .INDENT 0.0

@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Ms_20" href="global_ms_20.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -72,14 +73,17 @@
           
   <div class="section" id="mb">
 <span id="global-mb"></span><h1>mb<a class="headerlink" href="#mb" title="Permalink to this headline">¶</a></h1>
-<p>mb is the teleseismic body wave magnitude</p>
+<p>Body wave magnitude at teleseismic distances</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>Compare also with the <span class="xref std std-ref">mB magnitude</span>.</p>
+<p>mb is the standard body-wave magnitude.
+Compare also with the <a class="reference internal" href="global_mb_bb.html#global-mb-bb"><span class="std std-ref">mB magnitude</span></a>.</p>
 <div class="section" id="amplitude">
 <h3>Amplitude<a class="headerlink" href="#amplitude" title="Permalink to this headline">¶</a></h3>
 <p>mb is defined on the amplitude of the first few cycles of the P-wave,
-typically a time window of 20 s - 30 s. Only the first few cycles are used to minimize the effects of radiation pattern and depth phases, which result in complicate waveform signatures.
+typically a time window of 20 s - 30 s. Only the first few cycles are used to
+minimize the effects of radiation pattern and depth phases, which result in
+complicate waveform signatures.
 In <cite>SeisComP</cite> mb amplitudes are measured on vertical-component displacement seismograms
 in a 30 s time window after simulation of a <a class="reference internal" href="../base/glossary.html#term-wwssn-sp"><span class="xref std std-term">WWSSN_SP</span></a> short-period
 seismometer. Amplitudes are used from stations with epicentral distances between
@@ -101,7 +105,8 @@ have a distinct direct P-wave phase. A correction term for the distance has to
 be determined empirically, which is quite complicate for distances smaller than 20°.
 This reflects the complexity of the body waves that traverse only in the upper
 mantle. mb saturates at about magnitude 5.5 to 6.0 because the maximum amplitudes of larger
-earthquakes occur at lower frequencies than the frequency range between 0.7 Hz - 2 Hz used for the magnitude calculation.</p>
+earthquakes occur at lower frequencies than the frequency range between 0.7 Hz - 2 Hz
+used for the magnitude calculation.</p>
 <ul class="simple">
 <li><p>Amplitude unit in <cite>SeisComP</cite>: <strong>nanometers</strong> (nm)</p></li>
 <li><p>Time window: 30 s</p></li>
@@ -111,7 +116,7 @@ earthquakes occur at lower frequencies than the frequency range between 0.7 Hz -
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In 2013 the IASPEI commission <a class="footnote-reference brackets" href="#iaspei2013" id="id1">1</a> recommended a minimum distance of
+<p>In 2013 the IASPEI commission (<span id="id1">IASPEI [<a class="reference internal" href="../base/references.html#id36" title="IASPEI. Summary of magnitude working group recommendations on standard procedures for determining earthquake magnitudes from digital data. IASPEI Website, 2013. URL: http://www.iaspei.org/commissions/commission-on-seismological-observation-and-interpretation/Summary_WG_recommendations_20130327.pdf.">17</a>]</span>) recommended a minimum distance of
 20 deg. However, <a class="reference internal" href="scautoloc.html#scautoloc"><span class="std std-ref">scautoloc</span></a> requires mb amplitudes by default for
 considering a pick.
 For maintaining consistency, 5 deg is therefore kept as the default
@@ -126,21 +131,13 @@ removed before forming the mean.</p>
 </div>
 <div class="section" id="configuration">
 <h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
-<p>Adjust the configurable parameters in global bindings in the mB section or use <span class="xref std std-ref">global.cfg</span>
-as <a class="reference internal" href="global_mlv.html#global-mlv"><span class="std std-ref">MLv</span></a>. Add mb to the list of computed amplitudes and magnitudes in the configuration of
-<a class="reference internal" href="scamp.html#scamp"><span class="std std-ref">scamp</span></a> and <a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a> and in <a class="reference internal" href="scesv.html#scesv"><span class="std std-ref">scesv</span></a> or <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a> for visibility.</p>
+<p>Adjust the configurable parameters in global bindings in the mB section or use
+<code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code>
+as in <a class="reference internal" href="global_mlv.html#global-mlv"><span class="std std-ref">MLv</span></a>. Add mb to the list of computed amplitudes and magnitudes
+in the configuration of
+<a class="reference internal" href="scamp.html#scamp"><span class="std std-ref">scamp</span></a> and <a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a> and in <a class="reference internal" href="scesv.html#scesv"><span class="std std-ref">scesv</span></a> or <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a>/<a class="reference internal" href="scesv.html#scesv"><span class="std std-ref">scesv</span></a>
+for visibility.</p>
 </div>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="iaspei2013"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>IASPEI  magnitude working group (2013).
-SUMMARY OF MAGNITUDE WORKING GROUP RECOMMENDATIONS ON
-STANDARD PROCEDURES FOR DETERMINING EARTHQUAKE MAGNITUDES FROM DIGITAL DATA,
-<a class="reference external" href="http://www.iaspei.org/commissions/commission-on-seismological-observation-and-interpretation/Summary_WG_recommendations_20130327.pdf">Link to PDF document</a></p>
-</dd>
-</dl>
 </div>
 </div>
 
@@ -171,7 +168,6 @@ STANDARD PROCEDURES FOR DETERMINING EARTHQUAKE MAGNITUDES FROM DIGITAL DATA,
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
 </ul>
@@ -201,7 +197,7 @@ STANDARD PROCEDURES FOR DETERMINING EARTHQUAKE MAGNITUDES FROM DIGITAL DATA,
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

@@ -4,14 +4,16 @@ from __future__ import division, print_function
 
 import glob
 import importlib
+import math
 import os
-import seiscomp.shell
+import platform
 import shutil
 import signal
 import socket
 import subprocess
 import sys
 import traceback
+import seiscomp.shell
 
 # Problem: if
 # import seiscomp.config
@@ -259,7 +261,7 @@ def stop_module(mod):
     try:
         os.remove(env.runFile(mod.name))
     except BaseException:
-        pass
+        return 1
 
     return 0
 
@@ -267,14 +269,52 @@ def stop_module(mod):
 def start_kernel_modules():
     for mod in mods:
         if isinstance(mod, seiscomp.kernel.CoreModule):
-            start_module(mod)
+            return start_module(mod)
+
+    return 1
 
 
 def stop_kernel_modules():
     for mod in reversed(mods):
         if isinstance(mod, seiscomp.kernel.CoreModule):
-            stop_module(mod)
+            return stop_module(mod)
 
+    return 1
+
+def detectOS():
+    OSReleaseMap = {
+        'centos': 'rhel',
+        'rocky': 'rhel',
+        'raspbian': 'debian'
+    }
+
+    try:
+        arch = platform.machine()
+    except BaseException:
+        arch = 'x86_64'
+
+    data = {}
+    with open('/etc/os-release', 'r') as f:
+        for line in f:
+            toks = line.split("=")
+            if len(toks) != 2:
+                continue
+
+            data[toks[0].strip().upper()] = toks[1].strip()
+
+    osID = OSReleaseMap.get(data['ID'].strip('"'))
+    if not osID:
+        osID = data['ID'].strip('"')
+
+    version = data['VERSION_ID'].strip('"')
+    if osID == 'rhel':
+        try:
+            version = str(math.floor(float(version)))
+        except Exception:
+            pass
+
+    name = data['NAME'].strip('"')
+    return name, osID, version, arch
 
 # ------------------------------------------------------------------------------
 # Commandline action handler
@@ -326,7 +366,7 @@ def on_setup(args, flags):
 
 
 def on_setup_help(_):
-    print("Initializes the configuration of all available modules. Each module")
+    print("Initialize the configuration of all available modules. Each module")
     print("implements its own setup handler which is called at this point. The")
     print("initialization takes the installation directory into account and")
     print("should be repeated when copying the system to another directory.")
@@ -399,25 +439,26 @@ def on_disable_help(_):
 
 
 def on_start(args, _):
-    found = 0
+    cntStarted = 0
     if not args:
-        start_kernel_modules()
+        if start_kernel_modules() == 0:
+            cntStarted += 1
         for mod in mods:
             # Kernel modules have been started already
             if isinstance(mod, seiscomp.kernel.CoreModule):
                 continue
             # Module in autorun?
             if env.isModuleEnabled(mod.name):
-                start_module(mod)
-                found += 1
+                if start_module(mod) == 0:
+                    cntStarted += 1
     else:
         for mod in mods:
             if mod.name in args or len(args) == 0:
-                start_module(mod)
-                found += 1
+                if start_module(mod) == 0:
+                    cntStarted += 1
 
     if not useCSV:
-        print("Summary: {} modules started".format(found))
+        print("Summary: {} modules started".format(cntStarted))
 
     return 0
 
@@ -437,16 +478,17 @@ def on_stop(args, _):
             # Kernel modules will be stopped latter
             if isinstance(mod, seiscomp.kernel.CoreModule):
                 continue
-            stop_module(mod)
-            cntStopped += 1
+            if stop_module(mod) == 0:
+                cntStopped += 1
 
         # Stop all kernel modules
-        stop_kernel_modules()
+        if stop_kernel_modules() == 0:
+            cntStopped += 1
     else:
         for mod in reversed(mods):
             if mod.name in args or len(args) == 0:
-                stop_module(mod)
-                cntStopped += 1
+                if stop_module(mod) == 0:
+                    cntStopped += 1
 
     if not useCSV:
         print("Summary: {} modules stopped".format(cntStopped))
@@ -729,7 +771,8 @@ def on_print(args, _):
         print(
             'source "%s/share/shell-completion/seiscomp.bash"' %
             SEISCOMP_ROOT)
-        hostenv = os.path.join(SEISCOMP_ROOT, "etc", "env", "by-hostname", socket.gethostname())
+        hostenv = os.path.join(SEISCOMP_ROOT, "etc", "env", "by-hostname",
+                               socket.gethostname())
         if os.path.isfile(hostenv):
             print('source %s' % hostenv)
     else:
@@ -750,30 +793,20 @@ def on_print_help(_):
 
 
 def on_install_deps_linux(args, _):
-    try:
-        out = subprocess.Popen(['lsb_release', '-sir'],
-                               stdout=subprocess.PIPE).communicate()[0].splitlines()
-        # some OS return release and version in one line
-        if len(out) == 1:
-            out = out[0].split()
 
-        out = [l.decode('utf-8').strip() for l in out]
-    except BaseException:
-        error("lsb_release is not installed")
+    try:
+        name, release, version, arch = detectOS()
+    except BaseException as err:
         print("*********************************************************************")
         print("seiscomp was not able to figure out the installed distribution")
         print("You need to check the documentation for required packages and install")
         print("them manually.")
+        print("Error: {}".format(err))
         print("*********************************************************************")
+
         return 1
 
-    try:
-        release, version = out
-    except BaseException:
-        error("unexpected version result")
-        return 1
-
-    print("Distribution: " + release + " " + version)
+    print("Distribution: {}-{}-{}({}-{})".format(name, version, arch, release, version))
 
     for n in range(version.count('.') + 1):
         ver = version.rsplit('.', n)[0]
@@ -1076,9 +1109,11 @@ def on_alias(args, _):
             pass
 
         if not has_alias:
-            error("  + %s is not defined as an alias" % aliasName)
-            if len(lines) == len(new_lines):
-                return 1
+            print("  + {} is not defined as an alias".format(aliasName))
+            if not interactiveMode:
+                print("  + remove related configuration with '--interactive'")
+                if len(lines) == len(new_lines):
+                    return 1
 
         try:
             f = open(ALIAS_FILE, 'w')
@@ -1091,7 +1126,8 @@ def on_alias(args, _):
         f.close()
 
         if not has_alias:
-            return 1
+            if not interactiveMode:
+                return 1
 
         # remove symlink from bin/mod1
         if os.path.exists(os.path.join("bin", aliasName)):
@@ -1118,27 +1154,30 @@ def on_alias(args, _):
 
         #  delete defaults etc/defaults/mod1.cfg
         default_cfg = os.path.join("etc", "defaults", aliasName + ".cfg")
-        print("  + removing default configuration: {}/{}".format(SEISCOMP_ROOT, default_cfg))
+        print("  + removing default configuration: {}/{}"
+              .format(SEISCOMP_ROOT, default_cfg))
         try:
             os.remove(os.path.join(SEISCOMP_ROOT, default_cfg))
         except BaseException as e:
-            error("    + could not remove" % e)
+            error("    + could not remove %s" % e)
 
         if not interactiveMode:
-            warning("No other configurations were deleted for %s - interactive removal is supported by '--interactive'" % aliasName)
+            warning("No other configuration removed for '%s' - interactive"
+                    " removal is supported by '--interactive'" % aliasName)
             return 0
 
         # test module configuration files
         # SYSTEMCONFIGDIR
         cfg = os.path.join("etc", aliasName + ".cfg")
         if os.path.isfile(cfg):
-            print("  + found module configuration file: {}/{}".format(SEISCOMP_ROOT, cfg))
+            print("  + found module configuration file: {}/{}"
+                  .format(SEISCOMP_ROOT, cfg))
             answer = getInput("    + do you wish to remove it?", 'n', 'yn')
             if answer == "y":
                 try:
                     os.remove(cfg)
                 except Exception as e:
-                    error("    + could not remove the file: %s - try manually" % e)
+                    error("    + could not remove '%s' - try manually" % e)
 
         # CONFIGDIR
         cfg = os.path.join(

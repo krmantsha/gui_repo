@@ -258,8 +258,15 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
    Type: *list:string*
 
-   List of channels to display. By default the global
-   binding configuration is used which can be overwritten with this parameter.
+   The list of channel codes to be displayed. List items may
+   contain wildcards and are separated by comma.
+   The list is	intersected with all channels configured in inventory.
+   
+   Examples:
+   
+   default : display all streams configured by global bindings
+   
+   default, PF.BON.00.HH? : display default and all HH streams of PF.BON.00
 
 
 .. confval:: streams.cumulative
@@ -401,8 +408,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **default.range.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
+   **default.range.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
 
    .. code-block:: sh
 
@@ -414,7 +421,7 @@ scqcv inherits :ref:`global options<global-configuration>`.
       default.range.c.value1 = ...
 
 
-.. confval:: default.range.\$name.count
+.. confval:: default.range.$name.count
 
    Type: *double*
 
@@ -422,14 +429,14 @@ scqcv inherits :ref:`global options<global-configuration>`.
    The range must be considered.
    Default is ``0``.
 
-.. confval:: default.range.\$name.color
+.. confval:: default.range.$name.color
 
    Type: *string*
 
    A color defined by the color definitions below.
 
 
-.. confval:: default.range.\$name.action
+.. confval:: default.range.$name.action
 
    Type: *string*
 
@@ -526,8 +533,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **availability.range.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
+   **availability.range.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
 
    .. code-block:: sh
 
@@ -539,7 +546,7 @@ scqcv inherits :ref:`global options<global-configuration>`.
       availability.range.c.value1 = ...
 
 
-.. confval:: availability.range.\$name.count
+.. confval:: availability.range.$name.count
 
    Type: *double*
 
@@ -547,14 +554,14 @@ scqcv inherits :ref:`global options<global-configuration>`.
    The range must be considered.
    Default is ``0``.
 
-.. confval:: availability.range.\$name.color
+.. confval:: availability.range.$name.color
 
    Type: *string*
 
    A color defined by the color definitions below.
 
 
-.. confval:: availability.range.\$name.action
+.. confval:: availability.range.$name.action
 
    Type: *string*
 
@@ -651,8 +658,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **delay.range.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
+   **delay.range.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
 
    .. code-block:: sh
 
@@ -664,7 +671,7 @@ scqcv inherits :ref:`global options<global-configuration>`.
       delay.range.c.value1 = ...
 
 
-.. confval:: delay.range.\$name.count
+.. confval:: delay.range.$name.count
 
    Type: *double*
 
@@ -672,14 +679,14 @@ scqcv inherits :ref:`global options<global-configuration>`.
    The range must be considered.
    Default is ``0``.
 
-.. confval:: delay.range.\$name.color
+.. confval:: delay.range.$name.color
 
    Type: *string*
 
    A color defined by the color definitions below.
 
 
-.. confval:: delay.range.\$name.action
+.. confval:: delay.range.$name.action
 
    Type: *string*
 
@@ -776,8 +783,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **gap.range.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
+   **gap.range.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
 
    .. code-block:: sh
 
@@ -789,7 +796,7 @@ scqcv inherits :ref:`global options<global-configuration>`.
       gap.range.c.value1 = ...
 
 
-.. confval:: gap.range.\$name.count
+.. confval:: gap.range.$name.count
 
    Type: *double*
 
@@ -797,14 +804,14 @@ scqcv inherits :ref:`global options<global-configuration>`.
    The range must be considered.
    Default is ``0``.
 
-.. confval:: gap.range.\$name.color
+.. confval:: gap.range.$name.color
 
    Type: *string*
 
    A color defined by the color definitions below.
 
 
-.. confval:: gap.range.\$name.action
+.. confval:: gap.range.$name.action
 
    Type: *string*
 
@@ -901,8 +908,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **gapLength.range.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
+   **gapLength.range.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
 
    .. code-block:: sh
 
@@ -914,7 +921,7 @@ scqcv inherits :ref:`global options<global-configuration>`.
       gapLength.range.c.value1 = ...
 
 
-.. confval:: gapLength.range.\$name.count
+.. confval:: gapLength.range.$name.count
 
    Type: *double*
 
@@ -922,14 +929,14 @@ scqcv inherits :ref:`global options<global-configuration>`.
    The range must be considered.
    Default is ``0``.
 
-.. confval:: gapLength.range.\$name.color
+.. confval:: gapLength.range.$name.color
 
    Type: *string*
 
    A color defined by the color definitions below.
 
 
-.. confval:: gapLength.range.\$name.action
+.. confval:: gapLength.range.$name.action
 
    Type: *string*
 
@@ -1026,8 +1033,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **gapInterval.range.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
+   **gapInterval.range.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
 
    .. code-block:: sh
 
@@ -1039,7 +1046,7 @@ scqcv inherits :ref:`global options<global-configuration>`.
       gapInterval.range.c.value1 = ...
 
 
-.. confval:: gapInterval.range.\$name.count
+.. confval:: gapInterval.range.$name.count
 
    Type: *double*
 
@@ -1047,14 +1054,14 @@ scqcv inherits :ref:`global options<global-configuration>`.
    The range must be considered.
    Default is ``0``.
 
-.. confval:: gapInterval.range.\$name.color
+.. confval:: gapInterval.range.$name.color
 
    Type: *string*
 
    A color defined by the color definitions below.
 
 
-.. confval:: gapInterval.range.\$name.action
+.. confval:: gapInterval.range.$name.action
 
    Type: *string*
 
@@ -1151,8 +1158,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **latency.range.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
+   **latency.range.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
 
    .. code-block:: sh
 
@@ -1164,7 +1171,7 @@ scqcv inherits :ref:`global options<global-configuration>`.
       latency.range.c.value1 = ...
 
 
-.. confval:: latency.range.\$name.count
+.. confval:: latency.range.$name.count
 
    Type: *double*
 
@@ -1172,14 +1179,14 @@ scqcv inherits :ref:`global options<global-configuration>`.
    The range must be considered.
    Default is ``0``.
 
-.. confval:: latency.range.\$name.color
+.. confval:: latency.range.$name.color
 
    Type: *string*
 
    A color defined by the color definitions below.
 
 
-.. confval:: latency.range.\$name.action
+.. confval:: latency.range.$name.action
 
    Type: *string*
 
@@ -1278,8 +1285,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **offset.range.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
+   **offset.range.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
 
    .. code-block:: sh
 
@@ -1291,7 +1298,7 @@ scqcv inherits :ref:`global options<global-configuration>`.
       offset.range.c.value1 = ...
 
 
-.. confval:: offset.range.\$name.count
+.. confval:: offset.range.$name.count
 
    Type: *double*
 
@@ -1299,14 +1306,14 @@ scqcv inherits :ref:`global options<global-configuration>`.
    The range must be considered.
    Default is ``0``.
 
-.. confval:: offset.range.\$name.color
+.. confval:: offset.range.$name.color
 
    Type: *string*
 
    A color defined by the color definitions below.
 
 
-.. confval:: offset.range.\$name.action
+.. confval:: offset.range.$name.action
 
    Type: *string*
 
@@ -1403,8 +1410,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **overlap.range.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
+   **overlap.range.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
 
    .. code-block:: sh
 
@@ -1416,7 +1423,7 @@ scqcv inherits :ref:`global options<global-configuration>`.
       overlap.range.c.value1 = ...
 
 
-.. confval:: overlap.range.\$name.count
+.. confval:: overlap.range.$name.count
 
    Type: *double*
 
@@ -1424,14 +1431,14 @@ scqcv inherits :ref:`global options<global-configuration>`.
    The range must be considered.
    Default is ``0``.
 
-.. confval:: overlap.range.\$name.color
+.. confval:: overlap.range.$name.color
 
    Type: *string*
 
    A color defined by the color definitions below.
 
 
-.. confval:: overlap.range.\$name.action
+.. confval:: overlap.range.$name.action
 
    Type: *string*
 
@@ -1528,8 +1535,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **overlapInterval.range.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
+   **overlapInterval.range.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
 
    .. code-block:: sh
 
@@ -1541,7 +1548,7 @@ scqcv inherits :ref:`global options<global-configuration>`.
       overlapInterval.range.c.value1 = ...
 
 
-.. confval:: overlapInterval.range.\$name.count
+.. confval:: overlapInterval.range.$name.count
 
    Type: *double*
 
@@ -1549,14 +1556,14 @@ scqcv inherits :ref:`global options<global-configuration>`.
    The range must be considered.
    Default is ``0``.
 
-.. confval:: overlapInterval.range.\$name.color
+.. confval:: overlapInterval.range.$name.color
 
    Type: *string*
 
    A color defined by the color definitions below.
 
 
-.. confval:: overlapInterval.range.\$name.action
+.. confval:: overlapInterval.range.$name.action
 
    Type: *string*
 
@@ -1653,8 +1660,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **overlapLength.range.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
+   **overlapLength.range.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
 
    .. code-block:: sh
 
@@ -1666,7 +1673,7 @@ scqcv inherits :ref:`global options<global-configuration>`.
       overlapLength.range.c.value1 = ...
 
 
-.. confval:: overlapLength.range.\$name.count
+.. confval:: overlapLength.range.$name.count
 
    Type: *double*
 
@@ -1674,14 +1681,14 @@ scqcv inherits :ref:`global options<global-configuration>`.
    The range must be considered.
    Default is ``0``.
 
-.. confval:: overlapLength.range.\$name.color
+.. confval:: overlapLength.range.$name.color
 
    Type: *string*
 
    A color defined by the color definitions below.
 
 
-.. confval:: overlapLength.range.\$name.action
+.. confval:: overlapLength.range.$name.action
 
    Type: *string*
 
@@ -1778,8 +1785,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **rms.range.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
+   **rms.range.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
 
    .. code-block:: sh
 
@@ -1791,7 +1798,7 @@ scqcv inherits :ref:`global options<global-configuration>`.
       rms.range.c.value1 = ...
 
 
-.. confval:: rms.range.\$name.count
+.. confval:: rms.range.$name.count
 
    Type: *double*
 
@@ -1799,14 +1806,14 @@ scqcv inherits :ref:`global options<global-configuration>`.
    The range must be considered.
    Default is ``0``.
 
-.. confval:: rms.range.\$name.color
+.. confval:: rms.range.$name.color
 
    Type: *string*
 
    A color defined by the color definitions below.
 
 
-.. confval:: rms.range.\$name.action
+.. confval:: rms.range.$name.action
 
    Type: *string*
 
@@ -1903,8 +1910,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **spike.range.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
+   **spike.range.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
 
    .. code-block:: sh
 
@@ -1916,7 +1923,7 @@ scqcv inherits :ref:`global options<global-configuration>`.
       spike.range.c.value1 = ...
 
 
-.. confval:: spike.range.\$name.count
+.. confval:: spike.range.$name.count
 
    Type: *double*
 
@@ -1924,14 +1931,14 @@ scqcv inherits :ref:`global options<global-configuration>`.
    The range must be considered.
    Default is ``0``.
 
-.. confval:: spike.range.\$name.color
+.. confval:: spike.range.$name.color
 
    Type: *string*
 
    A color defined by the color definitions below.
 
 
-.. confval:: spike.range.\$name.action
+.. confval:: spike.range.$name.action
 
    Type: *string*
 
@@ -2028,8 +2035,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **spikeAmplitude.range.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
+   **spikeAmplitude.range.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
 
    .. code-block:: sh
 
@@ -2041,7 +2048,7 @@ scqcv inherits :ref:`global options<global-configuration>`.
       spikeAmplitude.range.c.value1 = ...
 
 
-.. confval:: spikeAmplitude.range.\$name.count
+.. confval:: spikeAmplitude.range.$name.count
 
    Type: *double*
 
@@ -2049,14 +2056,14 @@ scqcv inherits :ref:`global options<global-configuration>`.
    The range must be considered.
    Default is ``0``.
 
-.. confval:: spikeAmplitude.range.\$name.color
+.. confval:: spikeAmplitude.range.$name.color
 
    Type: *string*
 
    A color defined by the color definitions below.
 
 
-.. confval:: spikeAmplitude.range.\$name.action
+.. confval:: spikeAmplitude.range.$name.action
 
    Type: *string*
 
@@ -2153,8 +2160,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **spikeInterval.range.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
+   **spikeInterval.range.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
 
    .. code-block:: sh
 
@@ -2166,7 +2173,7 @@ scqcv inherits :ref:`global options<global-configuration>`.
       spikeInterval.range.c.value1 = ...
 
 
-.. confval:: spikeInterval.range.\$name.count
+.. confval:: spikeInterval.range.$name.count
 
    Type: *double*
 
@@ -2174,14 +2181,14 @@ scqcv inherits :ref:`global options<global-configuration>`.
    The range must be considered.
    Default is ``0``.
 
-.. confval:: spikeInterval.range.\$name.color
+.. confval:: spikeInterval.range.$name.color
 
    Type: *string*
 
    A color defined by the color definitions below.
 
 
-.. confval:: spikeInterval.range.\$name.action
+.. confval:: spikeInterval.range.$name.action
 
    Type: *string*
 
@@ -2278,8 +2285,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **timing.range.\$name.\***
-   \$name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
+   **timing.range.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`ranges` to become active.
 
    .. code-block:: sh
 
@@ -2291,7 +2298,7 @@ scqcv inherits :ref:`global options<global-configuration>`.
       timing.range.c.value1 = ...
 
 
-.. confval:: timing.range.\$name.count
+.. confval:: timing.range.$name.count
 
    Type: *double*
 
@@ -2299,14 +2306,14 @@ scqcv inherits :ref:`global options<global-configuration>`.
    The range must be considered.
    Default is ``0``.
 
-.. confval:: timing.range.\$name.color
+.. confval:: timing.range.$name.color
 
    Type: *string*
 
    A color defined by the color definitions below.
 
 
-.. confval:: timing.range.\$name.action
+.. confval:: timing.range.$name.action
 
    Type: *string*
 
@@ -2345,11 +2352,11 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
 
-   **range.\$name.\***
-   \$name is a placeholder for the name to be used.
+   **range.$name.\***
+   $name is a placeholder for the name to be used.
 
 
-.. confval:: range.\$name.count
+.. confval:: range.$name.count
 
    Type: *double*
 
@@ -2357,14 +2364,14 @@ scqcv inherits :ref:`global options<global-configuration>`.
    The range must be considered.
    Default is ``0``.
 
-.. confval:: range.\$name.color
+.. confval:: range.$name.color
 
    Type: *string*
 
    A color defined by the color definitions below.
 
 
-.. confval:: range.\$name.action
+.. confval:: range.$name.action
 
    Type: *string*
 

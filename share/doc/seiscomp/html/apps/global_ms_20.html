@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="MLv" href="global_mlv.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -72,10 +73,11 @@
           
   <div class="section" id="ms-20">
 <span id="global-ms-20"></span><h1>Ms_20<a class="headerlink" href="#ms-20" title="Permalink to this headline">¶</a></h1>
-<p>Ms_20 is the surface wave magnitude measured on the vertical component at around 20 s period
-in accordance with the IASPEI standards.</p>
+<p>Surface wave magnitude measured at around 20 s</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Ms_20 is the surface wave magnitude measured on the vertical component at around
+20 s period     in accordance with the IASPEI standards.</p>
 <div class="section" id="amplitude">
 <h3>Amplitude<a class="headerlink" href="#amplitude" title="Permalink to this headline">¶</a></h3>
 <p>The Ms_20 amplitudes are calculated on vertical-component displacement seismograms
@@ -84,7 +86,7 @@ corrected for the instrument response of a <a class="reference internal" href=".
 <div class="section" id="station-magnitude">
 <h3>Station Magnitude<a class="headerlink" href="#station-magnitude" title="Permalink to this headline">¶</a></h3>
 <p>Ms_20 is the surface-wave magnitude at 20 s period based on the recommendations
-by the IASPEI magnitude working group issued on 27 March, 2013 <a class="footnote-reference brackets" href="#iaspei2013" id="id1">1</a>.</p>
+by the IASPEI magnitude working group issued on 27 March, 2013 (<span id="id1">IASPEI [<a class="reference internal" href="../base/references.html#id36" title="IASPEI. Summary of magnitude working group recommendations on standard procedures for determining earthquake magnitudes from digital data. IASPEI Website, 2013. URL: http://www.iaspei.org/commissions/commission-on-seismological-observation-and-interpretation/Summary_WG_recommendations_20130327.pdf.">17</a>]</span>).</p>
 <div class="math">
 <p><img src="../_images/math/e09fa212079ab87241b0d94c484f2a485283c708.png" alt="M_s = \log \left(\frac{A}{T}\right) + 1.66 \log(\Delta) + 0.3"/></p>
 </div><p>with</p>
@@ -92,7 +94,7 @@ by the IASPEI magnitude working group issued on 27 March, 2013 <a class="footnot
 seismogram as the maximum absolute trace amplitude of a surface wave at periods between
 18 s and 22 s,</p>
 <p>T: period of the surface wave in seconds.</p>
-<p>The term <em>Ms_20</em> is chosen in accordance with the IASPEI standard as of 2013 <a class="footnote-reference brackets" href="#iaspei2013" id="id2">1</a>.
+<p>The term <em>Ms_20</em> is chosen in accordance with the IASPEI standard as of 2013 (<span id="id2">IASPEI [<a class="reference internal" href="../base/references.html#id36" title="IASPEI. Summary of magnitude working group recommendations on standard procedures for determining earthquake magnitudes from digital data. IASPEI Website, 2013. URL: http://www.iaspei.org/commissions/commission-on-seismological-observation-and-interpretation/Summary_WG_recommendations_20130327.pdf.">17</a>]</span>).
 Alternatively, the term <em>Ms(20)</em> may be used.</p>
 <ul class="simple">
 <li><p>Amplitude unit in <cite>SeisComP</cite>: <strong>nanometer</strong> (nm)</p></li>
@@ -116,17 +118,6 @@ removed before the calculation.</p>
 Ms_20 to the list of computed amplitudes and magnitudes in the configuration of
 <a class="reference internal" href="scamp.html#scamp"><span class="std std-ref">scamp</span></a> and <a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a> and in <a class="reference internal" href="scesv.html#scesv"><span class="std std-ref">scesv</span></a> or <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a> for visibility.</p>
 </div>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="iaspei2013"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
-<dd><p>IASPEI  magnitude working group (2013).
-SUMMARY OF MAGNITUDE WORKING GROUP RECOMMENDATIONS ON
-STANDARD PROCEDURES FOR DETERMINING EARTHQUAKE MAGNITUDES FROM DIGITAL DATA,
-<a class="reference external" href="http://www.iaspei.org/commissions/commission-on-seismological-observation-and-interpretation/Summary_WG_recommendations_20130327.pdf">Link to PDF document</a></p>
-</dd>
-</dl>
 </div>
 </div>
 
@@ -157,7 +148,6 @@ STANDARD PROCEDURES FOR DETERMINING EARTHQUAKE MAGNITUDES FROM DIGITAL DATA,
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
 </ul>
@@ -187,7 +177,7 @@ STANDARD PROCEDURES FOR DETERMINING EARTHQUAKE MAGNITUDES FROM DIGITAL DATA,
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

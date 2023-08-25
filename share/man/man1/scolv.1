@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCOLV" "1" "Jan 17, 2022" "4.8.4" "SeisComP"
+.TH "SCOLV" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
 .SH NAME
 scolv \- SeisComP Documentation
 .
@@ -134,7 +134,7 @@ scolv \-H [host]
 \fBOffline without messaging\fP where all event and station
 inventory parameters are read from an XML files or from the database and
 \fIupdated interactively\fP\&. New or updated parameters can be written to an XML file.
-Open scolv with the option
+Execute scolv with the command\-line option
 \fB\-\-offline\fP and optionally provide the database or inventory and bindings
 parameters in SCML format to fetch event parameters as well as inventory
 and bindings configuration parameters. Examples:
@@ -1050,8 +1050,8 @@ press the right mouse button to copy the row or cell, respectively.
 .SS Focal Mechanism list
 .sp
 The Focal Mechanism tab shows all focal mechanisms and moment tensors associated
-to the selected event. You may fix the preferred mechanism or fix/unfix Mw
-to become the preferred magnitude.
+to the selected event. You may fix the preferred mechanism or fix/unfix
+Mw to become the preferred magnitude.
 .sp
 Select a row or cell and
 press the right mouse button to copy the row or cell, respectively.
@@ -1730,7 +1730,7 @@ Center map at the clicked position
 T}
 _
 T{
-\fBPicker\fP
+\fBPhase picker\fP
 T}	T{
 T}
 _
@@ -2060,7 +2060,7 @@ Increase row height
 T}
 _
 T{
-\fBMagnitude waveforms\fP
+\fBAmplitude picker\fP
 T}	T{
 T}
 _
@@ -2516,6 +2516,16 @@ fixed to this configured value and the origin is relocated again.
 .UNINDENT
 .INDENT 0.0
 .TP
+.B olv.locator.presetFromOrigin
+Type: \fIboolean\fP
+.sp
+Whether to preset the locator settings when an origin
+is being loaded. It tries to figure the locator type
+from Origin.methodID and the profile from Origin.earthModelID.
+Default is \fBfalse\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
 .B olv.commit.forceEventAssociation
 Type: \fIboolean\fP
 .sp
@@ -2723,6 +2733,14 @@ Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
+.B picker.loadAllPicks
+Type: \fIboolean\fP
+.sp
+Load all existing picks for the requested data time window.
+Default is \fBtrue\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
 .B picker.ignoreUnconfiguredStations
 Type: \fIboolean\fP
 .sp
@@ -2732,11 +2750,22 @@ Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B picker.loadAllPicks
+.B picker.limitStationAcquisition
 Type: \fIboolean\fP
 .sp
-Load all existing picks for the requested data time window.
-Default is \fBtrue\fP\&.
+Limit the data acquisition to the number of nearest
+stations given by "picker.limitStationAcquisitionCount".
+Default is \fBfalse\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B picker.limitStationAcquisitionCount
+Type: \fIint\fP
+.sp
+Limit the data acquisituion to the given number of
+the nearest stations. Requires to activate
+"picker.limitStationAcquisition".
+Default is \fB10\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2762,7 +2791,8 @@ Default is \fBfalse\fP\&.
 Type: \fIboolean\fP
 .sp
 If enabled, all three components are shown in the picker
-zoom trace.
+zoom trace. The distance is limited to what is configured
+in "picker.allComponentsMaximumDistance".
 Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
@@ -2772,7 +2802,7 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
 .sp
-Defines the distance limit for the showAllComponents flag.
+The distance limit for the "picker.showAllComponents" flag.
 Default is \fB10\fP\&.
 .UNINDENT
 .INDENT 0.0
@@ -3206,6 +3236,8 @@ Type: \fIstring\fP
 Path to script to execute.
 .UNINDENT
 .SH COMMAND-LINE
+.sp
+\fBscolv [options]\fP
 .SS Generic
 .INDENT 0.0
 .TP
@@ -3229,12 +3261,6 @@ create a symbolic link of the application or copy it, eg scautopick \-> scautopi
 .TP
 .B \-\-plugins arg
 Load given plugins.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B \-D, \-\-daemon
-Run as daemon. This means the application will fork itself and
-doesn\(aqt need to be started with &.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3390,6 +3416,46 @@ Specify a file as record source.
 .TP
 .B \-\-record\-type arg
 Specify a type for the records being read.
+.UNINDENT
+.SS Cities
+.INDENT 0.0
+.TP
+.B \-\-city\-xml arg
+The path to the cities XML file. This overrides the default
+paths. Compare with the global parameter "citiesXML"
+.UNINDENT
+.SS User interface
+.INDENT 0.0
+.TP
+.B \-F, \-\-full\-screen
+Starts the application filling the entire screen. This only works
+with GUI applications.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-N, \-\-non\-interactive
+Use non\-interactive presentation mode. This only works with GUI applications.
+.UNINDENT
+.SS Options
+.INDENT 0.0
+.TP
+.B \-O, \-\-origin arg
+Preload origin with given origin ID
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-E, \-\-event arg
+Preload event with given event ID
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-offline
+Switch to offline mode
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-load\-event\-db arg
+Number of days to load from database
 .UNINDENT
 .SH AUTHOR
 gempa GmbH, GFZ Potsdam

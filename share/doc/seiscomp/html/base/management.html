@@ -13,10 +13,11 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Tutorials" href="tutorials.html" />
-    <link rel="prev" title="Getting started" href="getting-started.html" /> 
+    <link rel="prev" title="Getting Started with SeisComP" href="getting-started.html" /> 
   </head>
   <body>
     <div class="header">
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -47,7 +48,7 @@
           </a>
         </li>
         <li class="right">
-          <a href="getting-started.html" title="Getting started"
+          <a href="getting-started.html" title="Getting Started with SeisComP"
              accesskey="P">
             previous
           </a>
@@ -66,26 +67,28 @@
           
   <div class="section" id="system-management">
 <span id="id1"></span><h1>System management<a class="headerlink" href="#system-management" title="Permalink to this headline">¶</a></h1>
-<p>The installation contains various modules for data acquisition, data
+<p>The installation contains modules for data acquisition, data
 archiving, processing, distribution and much more. To control all these
-module and to update their configuration the central program <strong class="program">seiscomp</strong>
-is used with commands and options.
-<strong class="program">seiscomp</strong> is a Python script and it is installed in <code class="file docutils literal notranslate"><span class="pre">seiscomp/bin/seiscomp</span></code>.</p>
-<p>The graphical tool <a class="reference internal" href="../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> is a user-friendly wrapper
+modules and to update their configuration the central program <strong class="program">seiscomp</strong>
+is used with commands and options.</p>
+<p><strong class="program">seiscomp</strong> is a Python script installed in
+<code class="file docutils literal notranslate"><span class="pre">seiscomp/bin/seiscomp</span></code>.
+The graphical tool <a class="reference internal" href="../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> is a user-friendly wrapper
 tool for many commands in <strong class="program">seiscomp</strong>.</p>
 <p>The entire management framework is built upon Python which is portable to different
 platforms. To make <strong class="program">seiscomp</strong> work, ensure that Python is installed on
 your system.</p>
-<p><strong class="program">seiscomp</strong> can be called from anywhere in the file system and will source the environment
-of its installation automatically. So it is possible to control different
-installations.</p>
+<p><strong class="program">seiscomp</strong> of a particular installation can be called from anywhere in
+the file system with its full path. It will source the environment of the
+installation automatically. Thus, it is possible to control different
+installations on one computer.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>seiscomp should never run with root privileges unless you know exactly what
 you are doing.</p>
 <p><strong class="program">seiscomp</strong> refuses to work when run with root privileges and issues
-an error. To run it with root privileges the command line option
-<code class="xref std std-option docutils literal notranslate"><span class="pre">--asroot</span></code> must be given as first parameter, e.g.:</p>
+an error. To run it with root privileges the command-line option
+<code class="docutils literal notranslate"><span class="pre">--asroot</span></code> must be given as first parameter, e.g.:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">seiscomp</span> <span class="o">--</span><span class="n">asroot</span> <span class="n">start</span> <span class="n">seedlink</span>
 </pre></div>
 </div>
@@ -103,30 +106,41 @@ it to the <code class="docutils literal notranslate"><span class="pre">help</spa
 <span id="sec-management-commands"></span><h2>seiscomp Commands<a class="headerlink" href="#seiscomp-commands" title="Permalink to this headline">¶</a></h2>
 <p>The <em>seiscomp</em> script can be executed with additional commands:</p>
 <ul>
-<li><p><strong>help</strong> [command]</p></li>
-<li><p><strong>setup</strong></p>
-<p>Initializes the configuration of all available modules. Each module implements
-its own setup handler which is called at this point. The initialization takes
-the installation directory into account and should be repeated when copying
-the system to another directory.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>setup might overwrite previous settings with default values.</p>
-</div>
+<li><p><strong>alias</strong> create|remove [new-name] [module name]</p>
+<p>Manages module aliases.</p>
+</li>
+<li><p><strong>check</strong> [module list]</p>
+<p>Checks if all passed modules are still running if they have been started.
+If no modules are listed, all modules are checked.</p>
+</li>
+<li><p><strong>disable</strong> [module list]</p>
+<p>The opposite of enable. Removes the file <code class="file docutils literal notranslate"><span class="pre">etc/init/[module].auto</span></code> for
+each module passed.</p>
+</li>
+<li><p><strong>enable</strong> [module list]</p>
+<p>Enables a module to be started and checked automatically when either <strong class="command">start</strong>
+or <strong class="command">check</strong> is called without arguments. This creates a file <code class="file docutils literal notranslate"><span class="pre">etc/init/[module].auto</span></code>
+for each module passed.</p>
+</li>
+<li><p><strong>exec</strong> [cmd]</p>
+<p>Executes a module.</p>
+</li>
+<li><p><strong>help</strong> [command]</p>
+<p>Prints help on commands.</p>
 </li>
 <li><p><strong>install-deps</strong> [packages]</p>
-<p>Installs 3rd party packages on which <cite>SeisComP</cite> depends such as MariaDB or MySQL. This is
-currently only supported for major Linux distributions. A list of packages
-needs to be given.</p>
-<p>Packages: base, mariadb-server, postgresql-server</p>
+<p>Installs 3rd party packages on which <cite>SeisComP</cite> depends such as MariaDB or MySQL.
+This is currently only supported for major Linux distributions. A list of packages
+needs to be given. Available packages are: <strong>base</strong>, <strong>GUI</strong>,
+<strong>mariadb-server</strong>, <strong>postgresql-server</strong>, <strong>fdsnws</strong>.</p>
 <ol class="arabic">
-<li><p>Install only base system dependencies</p>
+<li><p>Install only base system dependencies:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp install-deps base
 </pre></div>
 </div>
 </li>
-<li><p>Install base system dependencies and MariaDB/MySQL/PostgreSQL server</p>
-<p>MariaDB:</p>
+<li><p>Install base system dependencies and MariaDB/MySQL/PostgreSQL server:</p>
+<p>MariaDB</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">seiscomp</span> <span class="n">install</span><span class="o">-</span><span class="n">deps</span> <span class="n">base</span> <span class="n">mariadb</span><span class="o">-</span><span class="n">server</span>
 </pre></div>
 </div>
@@ -138,13 +152,49 @@ needs to be given.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">seiscomp</span> <span class="n">install</span><span class="o">-</span><span class="n">deps</span> <span class="n">base</span> <span class="n">postgresql</span><span class="o">-</span><span class="n">server</span>
 </pre></div>
 </div>
-<p>Additional dependencies may be installed, e.g.</p>
-<ul class="simple">
-<li><p>gui</p></li>
-<li><p>fdsnws</p></li>
-</ul>
+</li>
+<li><p>Install also gui and fdsnws dependencies:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp install-deps gui fdsnws
+</pre></div>
+</div>
 </li>
 </ol>
+</li>
+<li><p><strong>list</strong> modules|aliases|enabled|disabled</p>
+<p>Lists items.</p>
+</li>
+<li><p><strong>print</strong> crontab|env</p>
+<p>Prints pre-defined parameters.</p>
+</li>
+<li><p><strong>restart</strong> [module list]</p>
+<p>Restarts all the given modules. If no module is passed, all running and enabled modules
+are first stopped and then restarted.</p>
+</li>
+<li><p><strong>setup</strong></p>
+<p>Initializes the configuration of all available modules. Each module implements
+its own setup handler which is called at this point. The initialization takes
+the installation directory into account and should be repeated when copying
+the system to another directory.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>setup might overwrite previous settings with default values.</p>
+</div>
+</li>
+<li><p><strong>shell</strong></p>
+<p>Starts the interactive <cite>SeisComP</cite> <a class="reference internal" href="#system-management-shell"><span class="std std-ref">shell</span></a>, an
+approach to make configuration and manipulation of bindings more easy on the
+command line.</p>
+</li>
+<li><p><strong>start</strong> [module list]</p>
+<p>Starts all modules in [module list]. If no module is named, all enabled modules are
+started.</p>
+</li>
+<li><p><strong>status</strong> [module list]</p>
+<p>Prints the status of some, started, enabled or all modules.</p>
+</li>
+<li><p><strong>stop</strong> [module list]</p>
+<p>Stops all modules in [module list]. If no module name is given, all running modules are
+stopped.</p>
 </li>
 <li><p><strong>update-config</strong> [module list]</p>
 <p>Updates the configuration. Modules should be able to read the configuration
@@ -154,43 +204,6 @@ trunk station bindings and the inventory need to be synchronized with the
 database. If no module list is given, update-config is called for all available
 modules. Otherwise only the modules passed are updated.</p>
 </li>
-<li><p><strong>shell</strong></p>
-<p>Starts the interactive <a class="reference internal" href="#system-management-shell"><span class="std std-ref">seiscomp shell</span></a>, an
-approach to make configuration and manipulation of bindings more easy.</p>
-</li>
-<li><p><strong>enable</strong> [module list]</p>
-<p>Enables a module to be started and checked automatically when either <strong class="command">start</strong>
-or <strong class="command">check</strong> is called without arguments. This creates a file <code class="file docutils literal notranslate"><span class="pre">etc/init/[module].auto</span></code>
-for each module passed.</p>
-</li>
-<li><p><strong>disable</strong> [module list]</p>
-<p>The opposite of enable. Removes the file <code class="file docutils literal notranslate"><span class="pre">etc/init/[module].auto</span></code> for
-each module passed.</p>
-</li>
-<li><p><strong>start</strong> [module-list]</p>
-<p>Starts all modules in [module-list]. If no module is named, all enabled modules are
-started.</p>
-</li>
-<li><p><strong>stop</strong> [module-list]</p>
-<p>Stops all modules in [module-list]. If no module name is given, all running modules are
-stopped.</p>
-</li>
-<li><p><strong>restart</strong> [module-list]</p>
-<p>Restarts all the given modules. If no module is passed, all running and enabled modules
-are first stopped and then restarted.</p>
-</li>
-<li><p><strong>check</strong> [module-list]</p>
-<p>Checks if all passed modules are still running if they have been started.
-If no modules are listed, all modules are checked.</p>
-</li>
-<li><p><strong>status</strong> [module-list]</p>
-<p>Prints the status of some or all modules.</p>
-</li>
-<li><p><strong>list</strong> modules|aliases|enabled|disabled</p></li>
-<li><p><strong>exec</strong> [cmd]</p></li>
-<li><p><strong>alias</strong> create|remove new-name name</p></li>
-<li><p><strong>print</strong> crontab|env</p></li>
-<li><p><strong>shell</strong> starts the <cite>SeisComP</cite> <a class="reference internal" href="#system-management-shell"><span class="std std-ref">shell</span></a></p></li>
 </ul>
 </div>
 <div class="section" id="seiscomp-shell">
@@ -463,7 +476,7 @@ modules.</p>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="getting-started.html"
-                        title="previous chapter">Getting started</a></p>
+                        title="previous chapter">Getting Started with <cite>SeisComP</cite></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="tutorials.html"
                         title="next chapter">Tutorials</a></p>
@@ -486,7 +499,7 @@ modules.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

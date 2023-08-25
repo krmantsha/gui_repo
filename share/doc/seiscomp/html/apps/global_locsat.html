@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="FixedHypocenter" href="global_fixedhypocenter.html" />
@@ -24,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.8.4</span>
+          <span class="version">4.10.1</span>
         </div>
       </div>
     </div>
@@ -72,12 +73,19 @@
           
   <div class="section" id="locsat">
 <span id="global-locsat"></span><h1>LOCSAT<a class="headerlink" href="#locsat" title="Permalink to this headline">¶</a></h1>
-<p>LOCSAT locator in SeisComP for computing source time and hypocenter
+<p>Locator in SeisComP for computing source time and hypocenter
 coordinates from phase picks.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>LOCSAT is a locator in SeisComP for computing source time and hypocenter
+coordinates from phase picks considering:</p>
+<ul class="simple">
+<li><p>Pick time,</p></li>
+<li><p>Backazimuth,</p></li>
+<li><p>Slowness.</p></li>
+</ul>
 <p>The LOCSAT locator interface implements a wrapper for the LocSAT locator
-by S.R. Bratt and W. Nagy <a class="footnote-reference brackets" href="#nagy" id="id1">1</a> (according to the README file shipped with the
+by <span id="id1">Bratt and Nagy [<a class="reference internal" href="../base/references.html#id18" title="S.R. Bratt and W. Nagy. The locsat program. Science Applications International Corporation (SAIC), San Diego, 1991.">16</a>]</span> (according to the README file shipped with the
 LocSAT distribution) referred to as <strong>LOCSAT</strong> in <cite>SeisComP</cite>.</p>
 </div>
 <div class="section" id="travel-time-tables">
@@ -107,8 +115,8 @@ the code:</p>
 <p>However the <cite>SeisComP</cite> wrapper adds this feature. It allows to define a
 <code class="file docutils literal notranslate"><span class="pre">.stacor</span></code> file which defines corrections of observation times
 in seconds. A correction is <strong>subtracted</strong> (not added) from
-the observation time to be compatible with the NonLinLoc station correction
-definitions <a class="footnote-reference brackets" href="#nll" id="id2">2</a>.</p>
+the observation time to be compatible with the NonLinLoc <span id="id2">[<a class="reference internal" href="../base/references.html#id143" title="A. Lomax. The NonLinLoc Software Guide. Manual. URL: http://alomax.free.fr/nlloc/.">21</a>]</span>
+station correction definitions.</p>
 <p>Each LOCSAT profile (travel time table) can have an associated station
 correction file. To use station corrections for the iasp91 tables, the file
 <code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/share/locsat/tables/iasp91.stacor</span></code> needs to be created.</p>
@@ -131,18 +139,6 @@ phase statistics file)</p></li>
 <p>The fourth column (numReadings) is ignored and just provided for compatibility
 reasons with <a class="reference internal" href="global_nonlinloc.html#global-nonlinloc"><span class="std std-ref">NonLinLoc</span></a>.</p>
 </div>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="nagy"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>S.R. Bratt and W. Nagy 1991). The LocSAT Program, Science Applications
-International Corporation (SAIC), San Diego.</p>
-</dd>
-<dt class="label" id="nll"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p>NonLinLoc station corrections: <a class="reference external" href="http://alomax.free.fr/nlloc/soft3.03/control.html#_NLLoc_locdelay_">http://alomax.free.fr/nlloc/soft3.03/control.html#_NLLoc_locdelay_</a></p>
-</dd>
-</dl>
 </div>
 <div class="section" id="configuration">
 <span id="global-locsat-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
@@ -244,7 +240,6 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
 <li><a class="reference internal" href="#travel-time-interface">Travel-time interface</a></li>
 <li><a class="reference internal" href="#configuration-in-scname-modules">Configuration in <cite>SeisComP</cite> modules</a></li>
 <li><a class="reference internal" href="#station-corrections">Station corrections</a></li>
-<li><a class="reference internal" href="#references">References</a></li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 </ul>
 </li>
@@ -275,7 +270,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.8.4</b> Release
+		  Version <b>4.10.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.
