@@ -4,8 +4,8 @@ sources = AGRI_SW:q330
 # Hostname or IP.
 sources.AGRI_SW.address = AGRI
 
-# Source port to receive data packets.
-sources.AGRI_SW.port = 6330
+# Q330 dataport number (1-4).
+sources.AGRI_SW.slot = 1
 
 # Q330 serial number (with 0x prefix).
-sources.AGRI_SW.serial = 0x033500E37167306F
+sources.AGRI_SW.serial = 0x010000124F317716

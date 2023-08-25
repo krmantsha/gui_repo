@@ -2,10 +2,10 @@
 sources = WDF_Q330:q330
 
 # Hostname or IP.
-sources.WDF_Q330.address = WDF
+sources.WDF_Q330.address = CORB
 
 # Source port to receive data packets.
 sources.WDF_Q330.port = 6330
 
 # Q330 serial number (with 0x prefix).
-sources.WDF_Q330.serial = 0x03350059A1947884
+sources.WDF_Q330.serial = 0x0335007560008066
