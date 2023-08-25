@@ -1,0 +1,11 @@
+# Activated plugins for category sources
+sources = KMDR:q330
+
+# Hostname or IP.
+sources.KMDR.address = KMDR
+
+# Source port to receive data packets.
+sources.KMDR.port = 6330
+
+# Q330 serial number (with 0x prefix).
+sources.KMDR.serial = 0x033500A76BEF38B7

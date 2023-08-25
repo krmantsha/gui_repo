@@ -1,0 +1,11 @@
+# Activated plugins for category sources
+sources = pnmr:q330
+
+# Hostname or IP.
+sources.pnmr.address = PNMR
+
+# Source port to receive data packets.
+sources.pnmr.port = 5330
+
+# Q330 serial number (with 0x prefix).
+sources.pnmr.serial = 0x0100001153D329BC
