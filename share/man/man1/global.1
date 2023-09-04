@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "GLOBAL" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
-.SH NAME
-global \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "GLOBAL" "1" "Aug 31, 2023" "2023.217#192b88919" "scanloc: Phase Associator"
+.SH NAME
+global \- scanloc: Phase Associator Documentation
 .sp
 The SeisComP configuration uses a unified schema to configure modules.
 Modules which use the SeisComP libraries can read this configuration
@@ -52,7 +52,7 @@ The parameters are read from file in the following order:
 .sp
 Parameters from \fB@CONFIGDIR@\fP override parameters from \fB@SYSTEMCONFIGDIR@\fP\&.
 .sp
-Most trunk modules read the configuration from the global configuration which can be overridden
+Most \fI\%trunk\fP modules read the configuration from the global configuration which can be overridden
 by the module configuration. Read the concept section on modules
 and the concept section on the configuraion for
 more details.
@@ -82,128 +82,16 @@ station and even stream. Read the bindings section
 in concepts for more details on bindings.
 .SH EXTENSIONS
 .sp
-Extensions add new configuration options to modules\&. It does
+Extensions add new configuration options to \fI\%modules\fP\&. It does
 not matter how those extensions are used. Commonly a module loads a plugin,
 which requires additional configuration parameters \- these are provided by an extension.
 .sp
 There are currently extensions for the following modules, corresponding to the
 plugins shown:
-.TS
-center;
-|l|l|.
-_
-T{
-Module
-T}	T{
-Plugin\(aqs
-T}
-_
-T{
-seedlink
-T}	T{
-caps mseedfifo q330 chain
-T}
-_
-T{
-\fI\%global\fP
-T}	T{
-NonLinLoc MLh Hypo71 Md MLr iLoc MN LocExt GUI RecordStream mB_BB mb Ms_20 MLv ML LOCSAT FixedHypocenter
-T}
-_
-T{
-scm
-T}	T{
-text email ncurses
-T}
-_
-T{
-scevent
-T}	T{
-RegionCheck
-T}
-_
-T{
-kernel
-T}	T{
-messaging
-T}
-_
-.TE
 .sp
 See the documentation for each module for further information about its
 extensions.
-.SH PLUGINS
-.INDENT 0.0
-.IP \(bu 2
-NonLinLoc
-.sp
-NonLinLoc locator wrapper plugin for SeisComP. NonLinLoc was written by Anthony Lomax (\fI\%http://alomax.free.fr/nlloc\fP).
-.IP \(bu 2
-MLh
-.sp
-The MLh plugin (previously MLsed) is designed to compute amplitudes and magnitudes according to the Swiss Seismological Service (SED) standards.
-.IP \(bu 2
-Hypo71
-.sp
-The traditional Hypo71PC locator with SeisComP.
-.IP \(bu 2
-Md
-.sp
-Duration magnitude plugin
-.IP \(bu 2
-MLr
-.sp
-The GNS/Geonet local magnitude
-.IP \(bu 2
-iLoc
-.sp
-Locator in SeisComP implemented by the plugin lociloc.
-.IP \(bu 2
-MN
-.sp
-Nuttli magnitude for Canada and other Cratonic regions
-.IP \(bu 2
-LocExt
-.sp
-Locator which forwards the processing to external scripts
-.IP \(bu 2
-GUI
-.sp
-The GUI configuration plugin extends the configuration of graphical user interfaces to various options to adjust the look and feel.
-.IP \(bu 2
-RecordStream
-.sp
-RecordStream interface for SeisComP.
-.IP \(bu 2
-mB_BB
-.sp
-Body wave magnitude  at teleseismic distances similar to mb
-.IP \(bu 2
-mb
-.sp
-Body wave magnitude at teleseismic distances
-.IP \(bu 2
-Ms_20
-.sp
-Surface wave magnitude measured at around 20 s
-.IP \(bu 2
-MLv
-.sp
-Local (Richter) magnitude measured on the vertical component
-.IP \(bu 2
-ML
-.sp
-Standard local (Richter) magnitude
-.IP \(bu 2
-LOCSAT
-.sp
-Locator in SeisComP for computing source time and hypocenter coordinates from phase picks.
-.IP \(bu 2
-FixedHypocenter
-.sp
-Locator for re\-computing source time with fixed hypocenter
-.UNINDENT
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .INDENT 0.0
 .TP
 .B datacenterID
@@ -215,28 +103,31 @@ its tools. Should not contain spaces.
 .INDENT 0.0
 .TP
 .B agencyID
+Default: \fBGFZ\fP
+.sp
 Type: \fIstring\fP
 .sp
 Defines the agency ID used to set creationInfo.agencyID in
 data model objects. Should not contain spaces.
-Default is \fBGFZ\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B organization
+Default: \fBUnset\fP
+.sp
 Type: \fIstring\fP
 .sp
 Organization name used mainly by ArcLink and SeedLink.
-Default is \fBUnset\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B author
+Default: \fB@appname@@@@hostname@\fP
+.sp
 Type: \fIstring\fP
 .sp
 Defines the author name used to set creationInfo.author in
 data model objects.
-Default is \fB@appname@@@@hostname@\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -251,17 +142,17 @@ Defines a list of modules loaded at startup.
 Type: \fIstring\fP
 .sp
 Path to the cities.xml file. If undefined, the data is read from
-"@CONFIGDIR@/cities.xml" or "@DATADIR@/cities.xml".
-SeisComP ships with "@DATADIR@/cities.xml".
+\(dq@CONFIGDIR@/cities.xml\(dq or \(dq@DATADIR@/cities.xml\(dq.
+SeisComP ships with \(dq@DATADIR@/cities.xml\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B loadCities
 Type: \fIboolean\fP
 .sp
-Load cities from file configured by the "cityXML"
+Load cities from file configured by the \(dqcityXML\(dq
 parameter. GUI and map applications enable loading of cities
-by default considering the parameter "scheme.map.showCities".
+by default considering the parameter \(dqscheme.map.showCities\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -269,7 +160,7 @@ by default considering the parameter "scheme.map.showCities".
 Type: \fIboolean\fP
 .sp
 Load custom FEP (Flinn\-Engdahl polygon) regions from
-"@CONFIGDIR@/fep/" or @DATADIR@/fep/".
+\(dq@CONFIGDIR@/fep/\(dq or @DATADIR@/fep/\(dq.
 GUI and map applications and scevent enable FEP regions by
 default. Explicitly uncheck the option to disregard by these
 applications.
@@ -289,10 +180,11 @@ variables are resolved:
 .INDENT 0.0
 .TP
 .B configModule
+Default: \fBtrunk\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of the configuration module.
-Default is \fBtrunk\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -306,8 +198,8 @@ is established. Override these values only if you know what you
 are doing.
 .sp
 The format is: \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which can be
-queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which can be
+queried with \(dq\-\-db\-driver\-list\(dq.
 .sp
 Note that this parameter overrides \(aqdatabase.type\(aq and
 \(aqdatabase.parameters\(aq if present.
@@ -322,8 +214,8 @@ interface. Please consult the SeisComP documentation for a list of
 supported services and their configuration.
 .sp
 This parameter configures recordstream source URL, format: [\fI\%service://\fP]location[#type].
-"service" is the name of the recordstream implementation.
-If "service" is not given "\fI\%file://\fP" is implied.
+\(dqservice\(dq is the name of the recordstream implementation.
+If \(dqservice\(dq is not given \(dq\fI\%file://\fP\(dq is implied.
 .sp
 This parameter overrides the deprecated recordstream.service and
 recordstream.source and should be used instead.
@@ -331,26 +223,29 @@ recordstream.source and should be used instead.
 .INDENT 0.0
 .TP
 .B logging.level
+Default: \fB2\fP
+.sp
 Type: \fIint\fP
 .sp
 Sets the logging level between 1 and 4 where 1=ERROR, 2=WARNING, 3=INFO and 4=DEBUG.
-Default is \fB2\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B logging.file
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enables logging into a log file.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B logging.syslog
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enables logging to syslog if supported by the host system.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -371,11 +266,12 @@ for file output but disabled for console output.
 .INDENT 0.0
 .TP
 .B logging.context
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 For each log entry print the source file name and line
 number.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -387,66 +283,74 @@ Use UTC instead of localtime in logging timestamps.
 .INDENT 0.0
 .TP
 .B logging.file.rotator
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enables rotation of log files.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B logging.file.rotator.timeSpan
-Type: \fIint\fP
+Default: \fB86400\fP
 .sp
 Unit: \fIs\fP
 .sp
+Type: \fIint\fP
+.sp
 Time span after which a log file is rotated.
-Default is \fB86400\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B logging.file.rotator.archiveSize
+Default: \fB7\fP
+.sp
 Type: \fIint\fP
 .sp
 How many historic log files to keep.
-Default is \fB7\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B logging.file.rotator.maxFileSize
-Type: \fIint\fP
+Default: \fB104857600\fP
 .sp
 Unit: \fIbyte\fP
+.sp
+Type: \fIint\fP
 .sp
 The maximum size of a logfile in byte. The default value
 is 100 megabyte. If a logfile exceeds that size then it
 is rotated. To disable the size limit give 0 or a negative
 value.
-Default is \fB104857600\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B logging.objects.timeSpan
-Type: \fIint\fP
+Default: \fB60\fP
 .sp
 Unit: \fIs\fP
 .sp
+Type: \fIint\fP
+.sp
 Timespan for counting input/output of objects.
-Default is \fB60\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B logging.syslog.facility
+Default: \fBlocal0\fP
+.sp
 Type: \fIstring\fP
 .sp
 Defines the syslog facility to be used according to the
 defined facility names in syslog.h. The default is local0.
 If the given name is invalid or not available, initializing
 logging will fail and the application quits.
-Default is \fBlocal0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B connection.server
+Default: \fBlocalhost\fP
+.sp
 Type: \fIhost\-with\-port\fP
 .sp
 Defines the URL of the messaging server to connect to.
@@ -459,7 +363,6 @@ All default: localhost
 Specfic host: scmp://10.0.1.4:18180/production
 .sp
 Specfic host and SSL encryption: scmps://10.0.1.4:18180/production
-Default is \fBlocalhost\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -476,15 +379,16 @@ let the system to generate one.
 .INDENT 0.0
 .TP
 .B connection.timeout
-Type: \fIint\fP
+Default: \fB3\fP
 .sp
 Unit: \fIs\fP
+.sp
+Type: \fIint\fP
 .sp
 The connection timeout in seconds. 3 seconds are normally
 more than enough. If a client needs to connect to a
 remote system with a slow connection a larger timeout might
 be needed.
-Default is \fB3\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -498,13 +402,14 @@ target group is not explicitely given in the send call.
 .INDENT 0.0
 .TP
 .B connection.contentType
+Default: \fBbinary\fP
+.sp
 Type: \fIstring\fP
 .sp
 Defines the message encoding for sending. Allowed values
-are "binary", "json" or "xml".
+are \(dqbinary\(dq, \(dqjson\(dq or \(dqxml\(dq.
 XML has more overhead in processing but is more robust when
 schema versions between client and server are different.
-Default is \fBbinary\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -622,18 +527,20 @@ List of station types to exclude when loading the inventory.
 .INDENT 0.0
 .TP
 .B recordstream.service
+Default: \fBslink\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of the recordstream service implementation.
-Default is \fBslink\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B recordstream.source
+Default: \fBlocalhost:18000\fP
+.sp
 Type: \fIstring\fP
 .sp
 Service specific parameters like a IP address or a file name to use.
-Default is \fBlocalhost:18000\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -645,26 +552,29 @@ Path to crash handler script
 .INDENT 0.0
 .TP
 .B core.plugins
+Default: \fBdbmysql\fP
+.sp
 Type: \fIlist:string\fP
 .sp
 Defines a list of core modules loaded at startup.
-Default is \fBdbmysql\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B client.startStopMessage
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enables sending of an application start\- and stop message to the STATUS_GROUP.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B client.autoShutdown
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enablgs automatic application shutdown triggered by a status message.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -690,7 +600,7 @@ a command message usually send to the GUI messaging group.
 Currently this flag is only used by GUI applications to
 set an artificial origin and to tell other clients to
 show this origin. To let all connected clients handle the
-command, ".*$" can be used.
+command, \(dq.*$\(dq can be used.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -719,3793 +629,780 @@ Type: \fIlist:string\fP
 .sp
 The list of supported model names per interface.
 .UNINDENT
-.SS NonLinLoc extension
-.sp
-NonLinLoc locator wrapper plugin for SeisComP.
-NonLinLoc was written by Anthony Lomax (\fI\%http://alomax.free.fr/nlloc\fP).
+.SH BINDINGS PARAMETERS
 .INDENT 0.0
 .TP
-.B NonLinLoc.publicID
+.B detecStream
 Type: \fIstring\fP
 .sp
-PublicID creation pattern for an origin created by NonLinLoc.
-Default is \fBNLL.@time/%Y%m%d%H%M%S.%f@.@id@\fP\&.
+Defines the channel code of the preferred stream used by
+e.g. scautopick and scrttv. If no component code is given,
+the vertical component will be fetched from inventory.
+For that the channel orientation (azimuth, dip) will be used.
+If that approach fails, \(aqZ\(aq will be appended and used as
+fallback.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B NonLinLoc.outputPath
-Type: \fIpath\fP
+.B detecLocid
+Type: \fIstring\fP
 .sp
-Defines the output path for all native NonLinLoc input and output files.
-Default is \fB/tmp/sc3.nll\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B NonLinLoc.saveInput
-Type: \fIboolean\fP
-.sp
-Save input files *.obs in outputPath for later processing.
-Setting to false reduces file i/o and saves disk space.
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B NonLinLoc.saveIntermediateOutput
-Type: \fIboolean\fP
-.sp
-Save output files in outputPath for later processing or
-for viewing by the Seismicity Viewer.
-Setting to false reduces file i/o and saves disk space.
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B NonLinLoc.controlFile
-Type: \fIpath\fP
-.sp
-The default NonLinLoc control file to use.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B NonLinLoc.defaultPickError
-Type: \fIdouble\fP
-.sp
-Unit: \fIs\fP
-.sp
-The default pick error in seconds passed to NonLinLoc if a SeisComP pick
-object does not provide pick time uncertainties.
-Default is \fB0.5\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B NonLinLoc.fixedDepthGridSpacing
-Type: \fIdouble\fP
-.sp
-Unit: \fIkm\fP
-.sp
-Since NLL does not support fixing the depth natively so this
-feature is emulated by settings the Z grid very tight around
-the depth to be fixed. This value sets the Z grid spacing.
-Default is \fB0.1\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B NonLinLoc.allowMissingStations
-Type: \fIboolean\fP
-.sp
-Picks from stations with missing configuration will be
-ignored. The origin will be relocated without that pick
-if possible.
-.sp
-If set to false, the plug\-in throws
-an excepection without locating.
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B NonLinLoc.profiles
-Type: \fIlist:string\fP
-.sp
-Defines a list of active profiles to be used by the plugin.
+Defines the location code of the preferred stream used
+eg by scautopick and scrttv.
 .UNINDENT
 .sp
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
-\fBNonLinLoc.profile.$name.*\fP
-\fIDefines a regional profile that is used if a prelocation falls\fP
-\fIinside the configured region.\fP
-$name is a placeholder for the name to be used and needs to be added to \fBNonLinLoc.profiles\fP to become active.
-.INDENT 0.0
-.INDENT 3.5
-.sp
-.nf
-.ft C
-NonLinLoc.profiles = a,b
-NonLinLoc.profile.a.value1 = ...
-NonLinLoc.profile.b.value1 = ...
-# c is not active because it has not been added
-# to the list of NonLinLoc.profiles
-NonLinLoc.profile.c.value1 = ...
-.ft P
-.fi
-.UNINDENT
-.UNINDENT
+\fBamplitudes.*\fP
+\fIDefine general parameters for amplitudes of a certain type.\fP
+\fICreate amplitude type profiles to define the time windows,\fP
+\fIminimum signal\-to\-noise ratio, amplitude thresholds and restitution\fP
+\fIfor measuring amplitudes of a certain type.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
-.B NonLinLoc.profile.$name.earthModelID
+.B amplitudes.saturationThreshold
+Default: \fBfalse\fP
+.sp
+Unit: \fIcounts; %\fP
+.sp
 Type: \fIstring\fP
 .sp
-earthModelID that is stored in the created origin.
+Defines the saturation threshold for the optional saturation check.
+By default the saturation check is disabled but giving a value above
+0 will enable it. Waveforms that are saturated are not used
+for amplitude calculations.
+.sp
+This value can either be an absolute value of counts such
+as \(dq100000\(dq counts or a relative value
+(optionally in percent) with respect to the number of
+effective bits, e.g. \(dq0.8@23\(dq or \(dq80%@23\(dq.
+The first version uses 1**23 * 0.8 whereas the latter
+uses 1**23 * 80/100.
+.sp
+The boolean value \(dqfalse\(dq explicitly disables
+the check.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B NonLinLoc.profile.$name.methodID
-Type: \fIstring\fP
+.B amplitudes.enable
+Default: \fBtrue\fP
 .sp
-methodID that is stored in the created origin.
-Default is \fBNonLinLoc\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B NonLinLoc.profile.$name.tablePath
-Type: \fIpath\fP
-.sp
-Path to travel time tables (grids).
-.UNINDENT
-.INDENT 0.0
-.TP
-.B NonLinLoc.profile.$name.controlFile
-Type: \fIpath\fP
-.sp
-Control file of the current profile. If not set, the default
-control file will be used instead.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B NonLinLoc.profile.$name.transform
-Type: \fIstring\fP
-.sp
-Transformation type of the configured region. Supported are
-SIMPLE and GLOBAL.
-.sp
-Default: GLOBAL is assumed.
-Default is \fBGLOBAL\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B NonLinLoc.profile.$name.region
-Type: \fIlist:double\fP
-.sp
-Defines the 4 corner values of the epicentral region for selecting the profile.
-The original epicentre must be within the region.
-.sp
-If transform is GLOBAL: min_lat, min_lon, max_lat, max_lon.
-The values define the geographic corner coordinates. Unit is degree.
-.sp
-If transform is SIMPLE: xmin, ymin, xmax, ymax.
-The values define the region relative to the configured origin.
-Unit is km.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B NonLinLoc.profile.$name.origin
-Type: \fIlist:double\fP
-.sp
-Unit: \fIdeg\fP
-.sp
-Only used for transformation SIMPLE. Expects 2 values: latitude, longitude.
-The value define the geographic origin of the area spanned by region.
-Unit is degree.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B NonLinLoc.profile.$name.rotation
-Type: \fIdouble\fP
-.sp
-Unit: \fIdeg\fP
-.sp
-Only used for transformation SIMPLE. Defines the rotation around the
-origin of the defined region.
-.UNINDENT
-.SS Hypo71 extension
-.sp
-The traditional Hypo71PC locator with SeisComP.
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBhypo71.*\fP
-\fIGeneral Hypo71 configuration parameters.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B hypo71.logFile
-Type: \fIstring\fP
-.sp
-Temporary file used by Hypo71 to store calculation logs.
-Default is \fB@LOGDIR@/HYPO71.LOG\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B hypo71.inputFile
-Type: \fIstring\fP
-.sp
-Temporary file to write Hypo71 input data to.
-Default is \fB@DATADIR@/hypo71/HYPO71.INP\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B hypo71.outputFile
-Type: \fIstring\fP
-.sp
-Temporary output file to read Hypo71 location data from.
-Default is \fB@DATADIR@/hypo71/HYPO71.PRT\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B hypo71.defaultControlFile
-Type: \fIstring\fP
-.sp
-Hypo71 default profile.
-If no custom profile is specified, this profile will be used by the plugin when proceeding to a localization.
-Default is \fB@DATADIR@/hypo71/profiles/default.hypo71.conf\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B hypo71.hypo71ScriptFile
-Type: \fIstring\fP
-.sp
-Bash script executed when calling the Hypo71 locator plugin for locating the earthquake.
-Default is \fB@DATADIR@/hypo71/run.sh\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B hypo71.profiles
-Type: \fIlist:string\fP
-.sp
-Hypo71 profile name.
-Multiples names may be set. They must be separated by comma.
-Each profile can have different velocity or parameters.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B hypo71.publicID
-Type: \fIstring\fP
-.sp
-Custom patternID to use when generating origin publicID
-.UNINDENT
-.INDENT 0.0
-.TP
-.B hypo71.useHypo71PatternID
 Type: \fIboolean\fP
 .sp
-Specifies if the given publicD should be used for generating origin publicID
+Defines if amplitude calculation is enabled. If disabled,
+this station will be skipped for amplitudes and magnitudes.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.enableResponses
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Activates deconvolution for this station. If no responses are
+configured, an error is raised and the data is not processed.
+This flag will be overridden by the type specific flag
+(see Amplitude type profile).
 .UNINDENT
 .sp
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
-\fBhypo71.profile.*\fP
-\fIProfiles containing the profile\-specific velocity model and the Hypo71 parameters.\fP
-.UNINDENT
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBhypo71.profile.$name.*\fP
-$name is a placeholder for the name to be used and needs to be added to \fBhypo71.profiles\fP to become active.
-.INDENT 0.0
-.INDENT 3.5
-.sp
-.nf
-.ft C
-hypo71.profiles = a,b
-hypo71.profile.a.value1 = ...
-hypo71.profile.b.value1 = ...
-# c is not active because it has not been added
-# to the list of hypo71.profiles
-hypo71.profile.c.value1 = ...
-.ft P
-.fi
-.UNINDENT
-.UNINDENT
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B hypo71.profile.$name.earthModelID
-Type: \fIstring\fP
-.sp
-Profile\(aqs velocity model name.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B hypo71.profile.$name.methodID
-Type: \fIstring\fP
-.sp
-Profile\(aqs method.
-It is generally the locator\(aqs name (Hypo71).
-Default is \fBHypo71\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B hypo71.profile.$name.controlFile
-Type: \fIstring\fP
-.sp
-File containing the profile parameters.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B hypo71.profile.$name.fixStartDepthOnly
-Type: \fIboolean\fP
-.sp
-If the depth is requested to be fixed (e.g. by ticking the option
-in scolv) the plugin performs only one location starting at
-specified depth but with free depth evaluation. This option
-defines whether it should really fix the depth (false) or
-use this fixed depth only as starting point (true).
-Default is \fBfalse\fP\&.
-.UNINDENT
-.SS iLoc extension
-.sp
-Locator in SeisComP implemented by the plugin lociloc.
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBiLoc.*\fP
-\fILocator parameters: iLoc\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profiles
-Type: \fIlist:string\fP
-.sp
-iLoc profile name.
-Multiples names may be set separated by comma.
-Each profile can have different velocity or parameters.
-Default is \fBiasp91,ak135\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBiLoc.profile.*\fP
-\fIProfiles containing the specific locator parameters. For\fP
-\fIthe global models, iasp91 and ak135, profiles are\fP
-\fIautomatically considered with defaults.\fP
-\fITo adjust the profile parameters the corresponding profile\fP
-\fImust be created.\fP
-.UNINDENT
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBiLoc.profile.$name.*\fP
-$name is a placeholder for the name to be used and needs to be added to \fBiLoc.profiles\fP to become active.
-.INDENT 0.0
-.INDENT 3.5
-.sp
-.nf
-.ft C
-iLoc.profiles = a,b
-iLoc.profile.a.value1 = ...
-iLoc.profile.b.value1 = ...
-# c is not active because it has not been added
-# to the list of iLoc.profiles
-iLoc.profile.c.value1 = ...
-.ft P
-.fi
-.UNINDENT
-.UNINDENT
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.Verbose
-Type: \fIboolean\fP
-.sp
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.globalModel
-Type: \fIstring\fP
-.sp
-Name of globally applied velocity model
-into which RSTT or the local model is integrated. If
-unset, the name of the profile is considered instead.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.UseRSTT
-Type: \fIboolean\fP
-.sp
-Use regional seismic travel\-time tables
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.UseRSTTPnSn
-Type: \fIboolean\fP
-.sp
-Use regional seismic travel\-time tables for Pn and Sn
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.UseRSTTPgLg
-Type: \fIboolean\fP
-.sp
-Use regional seismic travel\-time tables for Pg and Lg
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.LocalVmodel
-Type: \fIstring\fP
-.sp
-Full path to a file containing the local velocity model.
-Requires: UseLocalTT = true. Empty string or unset
-disables using a local model in this profile.
-.sp
-Example:
-.sp
-@DATADIR@/iloc/localmodels/model.localmodel.dat.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.DoGridSearch
-Type: \fIboolean\fP
-.sp
-Perform neighbourhood algorithm
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.NAsearchRadius
-Type: \fIfloat\fP
-.sp
-Unit: \fIdeg\fP
-.sp
-Neighbourhood Algorithm: Search radius around initial
-epicentre
-Default is \fB5\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.NAsearchDepth
-Type: \fIfloat\fP
-.sp
-Unit: \fIkm\fP
-.sp
-Neighbourhood Algorithm: Search radius around initial
-depth
-Default is \fB300\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.NAsearchOT
-Type: \fIfloat\fP
-.sp
-Unit: \fIs\fP
-.sp
-Neighbourhood Algorithm: Search radius around initial
-origin time
-Default is \fB30\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.NAlpNorm
-Type: \fIfloat\fP
-.sp
-Neighbourhood Algorithm: p\-value for norm to compute
-misfit [1,2]
-Default is \fB1\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.NAiterMax
-Type: \fIinteger\fP
-.sp
-Neighbourhood Algorithm: Maximum number of iterations
-Default is \fB5\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.NAcells
-Type: \fIinteger\fP
-.sp
-Neighbourhood Algorithm: Number of cells to be resampled
-at each iteration
-Default is \fB25\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.NAinitialSample
-Type: \fIinteger\fP
-.sp
-Neighbourhood Algorithm: Size of initial sample
-Default is \fB1000\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.NAnextSample
-Type: \fIinteger\fP
-.sp
-Neighbourhood Algorithm: Size of subsequent samples
-Default is \fB100\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.MinDepthPhases
-Type: \fIinteger\fP
-.sp
-Depth resolution: Minimum number of depth phases for depdp
-Default is \fB3\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.MaxLocalDistDeg
-Type: \fIfloat\fP
-.sp
-Unit: \fIdeg\fP
-.sp
-Depth resolution: Maximum local distance
-Default is \fB0.2\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.MinLocalStations
-Type: \fIinteger\fP
-.sp
-Depth resolution: Minimum number of local defining stations
-Default is \fB1\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.MaxSPDistDeg
-Type: \fIfloat\fP
-.sp
-Unit: \fIdeg\fP
-.sp
-Depth resolution: Maximum distance for using S\-P travel\-time differences.
-Default is \fB2.0\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.MinSPpairs
-Type: \fIinteger\fP
-.sp
-Depth resolution: Minimum number of defining S\-P phase pairs
-Default is \fB3\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.MinCorePhases
-Type: \fIinteger\fP
-.sp
-Depth resolution: Minimum number of defining core reflection phases
-Default is \fB3\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.MaxShallowDepthError
-Type: \fIfloat\fP
-.sp
-Unit: \fIkm\fP
-.sp
-Depth resolution: Maximum depth error for crustal free\-depth
-Default is \fB30.0\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.MaxDeepDepthError
-Type: \fIfloat\fP
-.sp
-Unit: \fIkm\fP
-.sp
-Depth resolution: Maximum depth error for deep free\-depth
-Default is \fB60.0\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.DoCorrelatedErrors
-Type: \fIboolean\fP
-.sp
-Linearized inversion: Account for correlated errors
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.SigmaThreshold
-Type: \fIfloat\fP
-.sp
-Unit: \fIs\fP
-.sp
-Linearized inversion: Used to exclude big residuals from solution
-Default is \fB6.0\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.AllowDamping
-Type: \fIboolean\fP
-.sp
-Linearized inversion: Allow damping of model vector
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.MinIterations
-Type: \fIinteger\fP
-.sp
-Linearized inversion: Minimum number of iterations
-Default is \fB4\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.MaxIterations
-Type: \fIinteger\fP
-.sp
-Linearized inversion: Maximum number of iterations
-Default is \fB20\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.MinNdefPhases
-Type: \fIinteger\fP
-.sp
-Linearized inversion: Minimum number of defining phases
-Default is \fB4\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B iLoc.profile.$name.DoNotRenamePhases
-Type: \fIboolean\fP
-.sp
-Linearized inversion: Do not rename phases. Deactivating
-allows to rename the phases automatically for this
-profile.
-Default is \fBfalse\fP\&.
-.UNINDENT
-.SS MN extension
-.sp
-Nuttli magnitude for Canada and other Cratonic regions
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBamplitudes.MN.*\fP
-\fIAmplitude control parameters for MN (Nuttli magnitude).\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B amplitudes.MN.velocityModel
-Type: \fIstring\fP
-.sp
-The travel time table set compiled for LocSAT. The tables
-are located in "share/locsat/tables/[vmodel].*".
-Default is \fBiasp91\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBmagnitudes.MN.*\fP
-\fIRegionalization of MN (Nuttli magnitude).\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.MN.region
-Type: \fIpath\fP
-.sp
-The path to the BNA file which defines the valid region
-for the MN magnitude. Note that the entire path from
-source to receiver must lie entirely within the polygon(s).
-Default is \fB@DATADIR@/magnitudes/MN/MN.bna\fP\&.
-.UNINDENT
-.SS LocExt extension
-.sp
-Locator which forwards the processing to external scripts
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBExternalLocator.*\fP
-\fILocator parameters: ExternalLocator\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B ExternalLocator.profiles
-Type: \fIlist:string\fP
-.sp
-A list of profiles defined as tuples of name
-and path to a script separated by colon.
-.UNINDENT
-.SS GUI extension
-.sp
-The GUI configuration plugin extends the configuration of
-graphical user interfaces to various options to adjust the look
-and feel.
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBgroups.*\fP
-\fIConfigures the target messaging groups for various object types.\fP
-\fIThese parameters should only be touched if you know what you\fP
-\fIare doing.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B groups.pick
-Type: \fIstring\fP
-.sp
-Defines the target messaging group for manual picks, e.g.
-made in scolv.
-Default is \fBPICK\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B groups.amplitude
-Type: \fIstring\fP
-.sp
-Defines the target messaging group for amplitudes, e.g.
-computed in scolv.
-Default is \fBAMPLITUDE\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B groups.magnitude
-Type: \fIstring\fP
-.sp
-Defines the target messaging group for magnitudes. scolv does
-not use this group but sends magnitudes together with the
-origin to the origin group.
-Default is \fBMAGNITUDE\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B groups.location
-Type: \fIstring\fP
-.sp
-Defines the target messaging group for origins created in
-e.g. scolv.
-Default is \fBLOCATION\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B groups.focalMechanism
-Type: \fIstring\fP
-.sp
-Defines the target messaging group for focal mechanisms created in
-e.g. scolv.
-Default is \fBFOCMECH\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B groups.event
-Type: \fIstring\fP
-.sp
-Defines the target messaging group for events and event
-journal entries.
-Default is \fBEVENT\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B map.location
-Type: \fIstring\fP
-.sp
-Specified the location and the structure of the map tiles to be used. This
-path is composed of zero or more directives and must include at least one
-conversion specification which starts with is introduced by the character %
-followed by a conversion specifier.  Valid specifiers are s (replaced by
-tile ID), l (tile level), c (tile column) and r (tile row). An example for
-using the OpenStreetMap file structure is /path/to/maps/%l/%c/%r.png.
-Default is \fB@DATADIR@/maps/world%s.png\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B map.format
-Type: \fIstring\fP
-.sp
-Projection of the map tiles. Supported formats are: rectangular and mercator.
-Default is \fBrectangular\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B map.cacheSize
-Type: \fIint\fP
-.sp
-Unit: \fIbytes\fP
-.sp
-Cache size of the map tiles. If 0 is specified a default
-cache size of 32mb is used. The higher the cache size
-the better the performance in higher resolutions. A
-higher cache size causes less image loader calls but
-requires more client memory.
-Default is \fB0\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B map.type
-Type: \fIstring\fP
-.sp
-Used to distinguish tile store implementations provided by plug\-ins.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B map.customLayers
-Type: \fIlist:string\fP
-.sp
-Allows to add custom layers that are included via plugins.
-This is a list of layer names. A plugin must implement
-the layer interface and register itself with the
-name used in this list. The order of layers is the
-default order. The custom layers are prepended to
-the maps defaults layers such as the grid and the cities.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B map.layers
-Type: \fIstring\fP
-.sp
-Defines the order of all configured layers. This
-includes the standard layers (grid, cities) as
-well as custom layers. The name of the grid layer
-is "grid" and the name of the cities
-layer is "cities".
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBmap.layers.events.*\fP
-\fIConfiguration options for the events layer that\fP
-\fIshows all events on the map that are loaded in the\fP
-\fIevent list.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B map.layers.events.visible
-Type: \fIboolean\fP
-.sp
-Show the events layer on maps. Currently only supported
-by scolv.
-Default is \fBfalse\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBmap.layers.fep.*\fP
-\fIConfiguration for the fep layer showing the polygons\fP
-\fIof FEP (FLinn\-Engdahl\-Polygon) files on maps if they\fP
-\fIexist in @DATADIR@/fep or @CONFIGDIR@/fep.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B map.layers.fep.visible
-Type: \fIboolean\fP
-.sp
-Show the fep layer on maps.
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B map.layers.cities.topPopulatedPlaces
-Type: \fIint\fP
-.sp
-Maximum number of cities to be rendered. If
-cityPopulationWeight is less or equal than 0 then
-all cities are rendered ordered by population count,
-highest first.
-To show the N most populated places in the visible
-map region, set
-"scheme.map.cityPopulationWeight" to 0
-and set this parameter to N.
-Default is \fB\-1\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B map.zoom.sensitivity
-Type: \fIdouble\fP
-.sp
-Zoom sensitivity of the map
-Default is \fB0.5\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.*\fP
-\fIThis group defines various options for color, pen, brush, font, etc. for SeisComP\fP
-\fIgraphical user interfaces. There are various conventions to\fP
-\fIdefine colors, fonts and gradients.\fP
-**
-\fIColors are defined in HTML\fP
-\fIconvention, e.g. as rgb values, hexadecimal numbers or color\fP
-\fIkeyword names defined by W3C. If rgb or rgba is used, it must\fP
-\fIbe quoted because the comma is handled as list separator by\fP
-\fIthe configuration.\fP
-\fIExamples: "rgb(255,0,0)", FF00FF40, green.\fP
-**
-\fIGradients are configured as lists of tuples where each tuple\fP
-\fIis colon separated in the form value:color. Value is either\fP
-\fIint or double and color is again a color definition.\fP
-\fIExample: 0:yellow,10:red\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.showMenu
-Type: \fIboolean\fP
-.sp
-Show menu bar.
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.showStatusBar
-Type: \fIboolean\fP
-.sp
-Show status bar.
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.tabPosition
-Type: \fIstring\fP
-.sp
-Set position if tab bar. An unset value lets the application
-decide where to place the tab bar. This option might not be
-supported by all applications. Valid positions are: off, north,
-south, east, west
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.map.stationSize
-Type: \fIint\fP
-.sp
-Unit: \fIpx\fP
-.sp
-The station symbol size (e.g. in scmv).
-Default is \fB8\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.map.originSymbolMinSize
-Type: \fIint\fP
-.sp
-Unit: \fIpx\fP
-.sp
-The origin symbol minimum size. The formula to compute the
-size of the origin symbol is: 4.9*(M\-1.2).
-Default is \fB9\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.map.vectorLayerAntiAlias
-Type: \fIboolean\fP
-.sp
-Apply antialiasing to map layers.
-This improves the visual quality but decreases performance.
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.map.bilinearFilter
-Type: \fIboolean\fP
-.sp
-Apply bilinear filtering to maps.
-The bilinear filter improves the visual quality but decreases
-performance slightly. It is only used for static map images.
-Not while dragging.
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.map.showGrid
-Type: \fIboolean\fP
-.sp
-Display the latitude/longitude grid on maps
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.map.showCities
-Type: \fIboolean\fP
-.sp
-Show cities defined in "citiesXML" on maps
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.map.cityPopulationWeight
-Type: \fIint\fP
-.sp
-Controls at which zoom level a city will be visible. The
-following formula is used:
-screen_width (km) * weight >= population
-Default is \fB150\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.map.showLayers
-Type: \fIboolean\fP
-.sp
-Show custom layers on maps
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.map.showLegends
-Type: \fIboolean\fP
-.sp
-Show map legends initially. Some applications provide
-controls to toggle the visibility in addition to this
-option.
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.map.projection
-Type: \fIstring\fP
-.sp
-SeisComP ships with the rectangular projection built\-in.
-Other projections may be provided through plugins.
-Default is \fBRectangular\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.map.toBGR
-Type: \fIboolean\fP
-.sp
-Converts map colors from RGB color scheme to BGR.
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.map.polygonRoughness
-Type: \fIint\fP
-.sp
-Unit: \fIpx\fP
-.sp
-Minimum screen distance to plot a polygon or polyline line segment.
-Default is \fB3\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.background
-Type: \fIcolor\fP
-.sp
-A general application background color. Can be used to give
-each application a different background color. An unset value
-lets Qt decide.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.map.lines
-Type: \fIcolor\fP
-.sp
-The color of lines in the map (e.g. lines
-connecting the origin and a station).
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.map.outlines
-Type: \fIcolor\fP
-.sp
-The color of station outlines in the map.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.map.stationAnnotations
-Type: \fIcolor\fP
-.sp
-The color of station annotations.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.map.cityLabels
-Type: \fIcolor\fP
-.sp
-The color of city labels.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.map.cityOutlines
-Type: \fIcolor\fP
-.sp
-The color of city outlines.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.map.cityCapital
-Type: \fIcolor\fP
-.sp
-The color of a capital.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.map.cityNormal
-Type: \fIcolor\fP
-.sp
-The color of a "normal" city.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.colors.map.grid.*\fP
-\fIDefines the pen of the latitude/longitude grid of the map.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.map.grid.color
-Type: \fIcolor\fP
-.sp
-The color of the pen.
-Default is \fBFFFFFF\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.map.grid.style
-Type: \fIstring\fP
-.sp
-The style of the pen. Supported values are: NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
-Default is \fBDotLine\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.map.grid.width
-Type: \fIdouble\fP
-.sp
-Unit: \fIpx\fP
-.sp
-The width of the pen.
-Default is \fB1\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.foreground
-Type: \fIcolor\fP
-.sp
-The general color of records/traces.
-Default is \fB808080\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.alternateForeground
-Type: \fIcolor\fP
-.sp
-A general trace color of the alternate trace (eg scheli).
-Default is \fB808080\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.background
-Type: \fIcolor\fP
-.sp
-The general background color of records/traces.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.alternateBackground
-Type: \fIcolor\fP
-.sp
-A general background color of the alternate trace.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.spectrogram
-Type: \fIcolor\fP
-.sp
-The trace color used on top of a spectrogram.
-Default is \fB000000\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.gaps
-Type: \fIcolor\fP
-.sp
-The color of data gaps in trace views.
-Default is \fBFFFF0040\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.overlaps
-Type: \fIcolor\fP
-.sp
-The color of data overlaps in trace views.
-Default is \fBFF00FF40\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.alignment
-Type: \fIcolor\fP
-.sp
-The color of the alignment marker in trace views.
-Default is \fBFF0000\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.colors.records.borders.*\fP
-\fIProperties of record borders\fP
-.UNINDENT
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.colors.records.borders.standard.*\fP
-\fIStandard properties\fP
-.UNINDENT
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.colors.records.borders.standard.pen.*\fP
-\fIDefines the pen of the border line.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.borders.standard.pen.color
-Type: \fIcolor\fP
-.sp
-The color of the pen.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.borders.standard.pen.style
-Type: \fIstring\fP
-.sp
-The style of the pen. Supported values are:
-NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.borders.standard.pen.width
-Type: \fIdouble\fP
-.sp
-Unit: \fIpx\fP
-.sp
-The width of the pen.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.colors.records.borders.standard.brush.*\fP
-\fIDefines the brush of the enlcosed area.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.borders.standard.brush.color
-Type: \fIcolor\fP
-.sp
-The color of the pen.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.borders.standard.brush.style
-Type: \fIstring\fP
-.sp
-The style of the pen. Supported values are, e.g.:
-solid, dense1, dense7, horizontal, vertical,
-cross, bdiag, fdiag, diagcross.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.colors.records.borders.signatureValid.*\fP
-\fIProperties for records with valid signatures\fP
-.UNINDENT
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.colors.records.borders.signatureValid.pen.*\fP
-\fIDefines the pen of the border line.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.borders.signatureValid.pen.color
-Type: \fIcolor\fP
-.sp
-The color of the pen.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.borders.signatureValid.pen.style
-Type: \fIstring\fP
-.sp
-The style of the pen. Supported values are:
-NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.borders.signatureValid.pen.width
-Type: \fIdouble\fP
-.sp
-Unit: \fIpx\fP
-.sp
-The width of the pen.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.colors.records.borders.signatureValid.brush.*\fP
-\fIDefines the brush of the enlcosed area.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.borders.signatureValid.brush.color
-Type: \fIcolor\fP
-.sp
-The color of the pen.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.borders.signatureValid.brush.style
-Type: \fIstring\fP
-.sp
-The style of the pen. Supported values are, e.g.:
-solid, dense1, dense7, horizontal, vertical,
-cross, bdiag, fdiag, diagcross.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.colors.records.borders.signatureInvalid.*\fP
-\fIProperties for records with invalid signatures\fP
-.UNINDENT
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.colors.records.borders.signatureInvalid.pen.*\fP
-\fIDefines the pen of the border line.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.borders.signatureInvalid.pen.color
-Type: \fIcolor\fP
-.sp
-The color of the pen.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.borders.signatureInvalid.pen.style
-Type: \fIstring\fP
-.sp
-The style of the pen. Supported values are:
-NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.borders.signatureInvalid.pen.width
-Type: \fIdouble\fP
-.sp
-Unit: \fIpx\fP
-.sp
-The width of the pen.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.colors.records.borders.signatureInvalid.brush.*\fP
-\fIDefines the brush of the enlcosed area.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.borders.signatureInvalid.brush.color
-Type: \fIcolor\fP
-.sp
-The color of the pen.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.borders.signatureInvalid.brush.style
-Type: \fIstring\fP
-.sp
-The style of the pen. Supported values are, e.g.:
-solid, dense1, dense7, horizontal, vertical,
-cross, bdiag, fdiag, diagcross.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.colors.records.offset.*\fP
-\fIDefines the pen of the record offset line.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.offset.color
-Type: \fIcolor\fP
-.sp
-The color of the pen.
-Default is \fBC0C0FF\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.offset.style
-Type: \fIstring\fP
-.sp
-The style of the pen. Supported values are: NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
-Default is \fBSolidLine\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.offset.width
-Type: \fIdouble\fP
-.sp
-Unit: \fIpx\fP
-.sp
-The width of the pen.
-Default is \fB0.0\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.colors.records.gridPen.*\fP
-\fIDefines the pen of the record grid.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.gridPen.color
-Type: \fIcolor\fP
-.sp
-The color of the pen.
-Default is \fB00000020\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.gridPen.style
-Type: \fIstring\fP
-.sp
-The style of the pen. Supported values are: NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
-Default is \fBDashLine\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.gridPen.width
-Type: \fIdouble\fP
-.sp
-Unit: \fIpx\fP
-.sp
-The width of the pen.
-Default is \fB1.0\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.colors.records.subGridPen.*\fP
-\fIDefines the pen of the secondary record grid.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.subGridPen.color
-Type: \fIcolor\fP
-.sp
-The color of the pen.
-Default is \fB00000000\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.subGridPen.style
-Type: \fIstring\fP
-.sp
-The style of the pen. Supported values are: NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
-Default is \fBDotLine\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.subGridPen.width
-Type: \fIdouble\fP
-.sp
-Unit: \fIpx\fP
-.sp
-The width of the pen.
-Default is \fB1.0\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.colors.records.states.*\fP
-\fIDefines the background color of records depending on their state.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.states.unrequested
-Type: \fIcolor\fP
-.sp
-Additional data which was not requested.
-Default is \fB00000080\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.states.requested
-Type: \fIcolor\fP
-.sp
-Requested data Background color of requested data.
-Default is \fBffff0080\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.states.inProgress
-Type: \fIcolor\fP
-.sp
-Data currently loading.
-Default is \fB00ff0010\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.records.states.notAvailable
-Type: \fIcolor\fP
-.sp
-Data which was requested but is not available.
-Default is \fBff000080\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.picks.manual
-Type: \fIcolor\fP
-.sp
-The color of manual picks.
-Default is \fB00FF00\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.picks.automatic
-Type: \fIcolor\fP
-.sp
-The color of automatic picks.
-Default is \fBFF0000\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.picks.undefined
-Type: \fIcolor\fP
-.sp
-The color of picks with undefined state.
-Default is \fBA0A0A4\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.picks.disabled
-Type: \fIcolor\fP
-.sp
-The color of disabled picks.
-Default is \fBA0A0A4\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.arrivals.manual
-Type: \fIcolor\fP
-.sp
-The color of manual arrivals (arrivals that bind manual picks,
-e.g. residual plot of scolv, manual picker, ...)
-Default is \fB00A000\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.arrivals.automatic
-Type: \fIcolor\fP
-.sp
-The color of automatic arrivals,
-Default is \fBA00000\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.arrivals.theoretical
-Type: \fIcolor\fP
-.sp
-The color of theoretical arrivals.
-Default is \fB0000A0\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.arrivals.undefined
-Type: \fIcolor\fP
-.sp
-The color of arrivals binding picks with undefined state.
-Default is \fBA00000\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.arrivals.disabled
-Type: \fIcolor\fP
-.sp
-The color of disabled arrivals.
-Default is \fBA0A0A4\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.arrivals.residuals
-Type: \fIgradient\fP
-.sp
-The gradient of arrivals residuals. A gradient is defined as
-a list of tuples separated by colon where the first item is
-the value and the second is the color. Colors can be given in
-rgb notation or hexadecimal. When rgb is used double quotes are needed to
-protect the comma inside the rgb definition, e.g.
-\-8:"rgb(0,0,100)", \-4:"rgb(0,0,255)", \-3:"rgb(100,100,255)", ...
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.magnitudes.set
-Type: \fIcolor\fP
-.sp
-The color of active magnitudes.
-Default is \fB00A000\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.magnitudes.unset
-Type: \fIcolor\fP
-.sp
-The color of inactive magnitudes.
-Default is \fB000000\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.magnitudes.disabled
-Type: \fIcolor\fP
-.sp
-The color of disabled magnitudes.
-Default is \fBA0A0A4\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.magnitudes.residuals
-Type: \fIgradient\fP
-.sp
-The gradient of magnitude residuals.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.stations.text
-Type: \fIcolor\fP
-.sp
-The color of the station name.
-Default is \fBffffff\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.stations.associated
-Type: \fIcolor\fP
-.sp
-The color of associated stations (e.g. in scmv).
-Default is \fB82AD58\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.stations.triggering
-Type: \fIcolor\fP
-.sp
-The color of triggered stations.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.stations.triggered0
-Type: \fIcolor\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.stations.triggered1
-Type: \fIcolor\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.stations.triggered2
-Type: \fIcolor\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.stations.disabled
-Type: \fIcolor\fP
-.sp
-The color of disabled stations.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.stations.idle
-Type: \fIcolor\fP
-.sp
-The color of idle stations.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.colors.qc.*\fP
-\fIThe color of QC.delay thresholds in scmv.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.qc.delay0
-Type: \fIcolor\fP
-.sp
-Default is \fB00ffff\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.qc.delay1
-Type: \fIcolor\fP
-.sp
-Default is \fB00ff00\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.qc.delay2
-Type: \fIcolor\fP
-.sp
-Default is \fBfffd00\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.qc.delay3
-Type: \fIcolor\fP
-.sp
-Default is \fBff6633\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.qc.delay4
-Type: \fIcolor\fP
-.sp
-Default is \fBff0000\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.qc.delay5
-Type: \fIcolor\fP
-.sp
-Default is \fBcccccc\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.qc.delay6
-Type: \fIcolor\fP
-.sp
-Default is \fB999999\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.qc.delay7
-Type: \fIcolor\fP
-.sp
-Default is \fB666666\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.qc.qcWarning
-Type: \fIcolor\fP
-.sp
-Default is \fBffff00\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.qc.qcError
-Type: \fIcolor\fP
-.sp
-Default is \fBff0000\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.qc.qcOk
-Type: \fIcolor\fP
-.sp
-Default is \fB00ff00\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.qc.qcNotSet
-Type: \fIcolor\fP
-.sp
-Default is \fB000000\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.colors.gm.*\fP
-\fIThe color of ground motion amplitudes in scmv.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.gm.gm0
-Type: \fIcolor\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.gm.gm1
-Type: \fIcolor\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.gm.gm2
-Type: \fIcolor\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.gm.gm3
-Type: \fIcolor\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.gm.gm4
-Type: \fIcolor\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.gm.gm5
-Type: \fIcolor\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.gm.gm6
-Type: \fIcolor\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.gm.gm7
-Type: \fIcolor\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.gm.gm8
-Type: \fIcolor\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.gm.gm9
-Type: \fIcolor\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.gm.gmNotSet
-Type: \fIcolor\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.recordView.selectedTraceZoom
-Type: \fIcolor\fP
-.sp
-The color of the selected zoom area (e.g. manual picker).
-Default is \fBC0C0FFC0\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.legend.background
-Type: \fIcolor\fP
-.sp
-The map legend background color.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.legend.border
-Type: \fIcolor\fP
-.sp
-The map legend border color.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.legend.text
-Type: \fIcolor\fP
-.sp
-The map legend text color.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.legend.headerText
-Type: \fIcolor\fP
-.sp
-The map legend header color.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.originSymbol.classic
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.originSymbol.depth.gradient
-Type: \fIgradient\fP
-.sp
-The depth gradient.
-Default is \fB0:FF0000,50:ffA500,100:FFFF00,250:00FF00,600:0000FF\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.originSymbol.depth.discrete
-Type: \fIboolean\fP
-.sp
-Setting this parameter to true will not interpolate between
-the depth steps and the color for a depth <= input is used.
-Default is \fBtrue\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.colors.originStatus.*\fP
-\fIThe origin status colors (e.g. in event list).\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.originStatus.automatic
-Type: \fIcolor\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.originStatus.manual
-Type: \fIcolor\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.colors.splash.*\fP
-\fIDefines colors used in the splash screen shown at application startup.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.splash.message
-Type: \fIcolor\fP
-.sp
-Text color of the message string.
-Default is \fB808080\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.colors.splash.version
-Type: \fIcolor\fP
-.sp
-Text color of the version string.
-Default is \fB02589e\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.marker.lineWidth
-Type: \fIint\fP
-.sp
-Unit: \fIpx\fP
-.sp
-The line width of the marker (e.g. picks of manual picker).
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.records.lineWidth
-Type: \fIint\fP
-.sp
-Unit: \fIpx\fP
-.sp
-The line width of the records / traces.
-Default is \fB1\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.records.antiAliasing
-Type: \fIboolean\fP
-.sp
-Configures antialiasing of records / traces. Antialiasing
-needs more two times to storage space as non antialiasing
-but it improves visual quality.
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.records.optimize
-Type: \fIboolean\fP
-.sp
-Configures optimization of trace polylines. If activated
-then lines on the same pixel line or same pixel row
-collapse into single lines.
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.records.borders.drawMode
-Type: \fIstring\fP
-.sp
-Mode for drawing record borders as box or line on top or
-bottom.
-.sp
-Supported values: "topline","box","bottomline"
-Default is \fBbox\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.fonts.base.*\fP
-\fIThe general base font of an application. This overrides\fP
-\fIthe default Qt4 application font.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.base.family
-Type: \fIstring\fP
-.sp
-Sets the family name of the font. The name is case insensitive and may include a foundry name.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.base.size
-Type: \fIint\fP
-.sp
-Defines the point size of the font
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.base.bold
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.base.italic
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.base.underline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.base.overline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.fonts.small.*\fP
-\fIThe smallest available font. If undefined the point size is 2 points smaller than the base font.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.small.family
-Type: \fIstring\fP
-.sp
-Sets the family name of the font. The name is case insensitive and may include a foundry name.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.small.size
-Type: \fIint\fP
-.sp
-Defines the point size of the font
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.small.bold
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.small.italic
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.small.underline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.small.overline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.fonts.normal.*\fP
-\fIThe default text font. If undefined the point size is 2 points larger than the base font.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.normal.family
-Type: \fIstring\fP
-.sp
-Sets the family name of the font. The name is case insensitive and may include a foundry name.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.normal.size
-Type: \fIint\fP
-.sp
-Defines the point size of the font
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.normal.bold
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.normal.italic
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.normal.underline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.normal.overline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.fonts.large.*\fP
-\fIThe largest text font. If undefined the point size is 6 points larger than the base font.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.large.family
-Type: \fIstring\fP
-.sp
-Sets the family name of the font. The name is case insensitive and may include a foundry name.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.large.size
-Type: \fIint\fP
-.sp
-Defines the point size of the font
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.large.bold
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.large.italic
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.large.underline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.large.overline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.fonts.highlight.*\fP
-\fIFont used to highlight text. If undefined it equals the normal font except for a bold font face.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.highlight.family
-Type: \fIstring\fP
-.sp
-Sets the family name of the font. The name is case insensitive and may include a foundry name.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.highlight.size
-Type: \fIint\fP
-.sp
-Defines the point size of the font
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.highlight.bold
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.highlight.italic
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.highlight.underline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.highlight.overline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.fonts.heading1.*\fP
-\fIThe largest heading font. If undefined it uses a bold font face and a font size twice as large as the normal font.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.heading1.family
-Type: \fIstring\fP
-.sp
-Sets the family name of the font. The name is case insensitive and may include a foundry name.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.heading1.size
-Type: \fIint\fP
-.sp
-Defines the point size of the font
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.heading1.bold
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.heading1.italic
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.heading1.underline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.heading1.overline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.fonts.heading2.*\fP
-\fIThe second largest heading font. If undefined it uses a bold font face and a font size twice as large as the base font.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.heading2.family
-Type: \fIstring\fP
-.sp
-Sets the family name of the font. The name is case insensitive and may include a foundry name.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.heading2.size
-Type: \fIint\fP
-.sp
-Defines the point size of the font
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.heading2.bold
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.heading2.italic
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.heading2.underline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.heading2.overline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.fonts.heading3.*\fP
-\fIThe smallest heading font. If undefined it uses a bold font face and a font size 4 points larger than the base font.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.heading3.family
-Type: \fIstring\fP
-.sp
-Sets the family name of the font. The name is case insensitive and may include a foundry name.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.heading3.size
-Type: \fIint\fP
-.sp
-Defines the point size of the font
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.heading3.bold
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.heading3.italic
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.heading3.underline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.heading3.overline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.fonts.cityLabels.*\fP
-\fIFont used for city labels. If undefined it equals the base font.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.cityLabels.family
-Type: \fIstring\fP
-.sp
-Sets the family name of the font. The name is case insensitive and may include a foundry name.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.cityLabels.size
-Type: \fIint\fP
-.sp
-Defines the point size of the font
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.cityLabels.bold
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.cityLabels.italic
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.cityLabels.underline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.cityLabels.overline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.fonts.splashVersion.*\fP
-\fIFont used for version string in the splash dialog shown at application startup. If undefined it equals the base font with a bold font face and a font size of 12.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.splashVersion.family
-Type: \fIstring\fP
-.sp
-Sets the family name of the font. The name is case insensitive and may include a foundry name.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.splashVersion.size
-Type: \fIint\fP
-.sp
-Defines the point size of the font
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.splashVersion.bold
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.splashVersion.italic
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.splashVersion.underline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.splashVersion.overline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.fonts.splashMessage.*\fP
-\fIFont used for the message text in the splash dialog shown at application startup. If undefined it equals the base font with a font size of 12.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.splashMessage.family
-Type: \fIstring\fP
-.sp
-Sets the family name of the font. The name is case insensitive and may include a foundry name.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.splashMessage.size
-Type: \fIint\fP
-.sp
-Defines the point size of the font
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.splashMessage.bold
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.splashMessage.italic
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.splashMessage.underline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.fonts.splashMessage.overline
-Type: \fIboolean\fP
-.sp
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.precision.depth
-Type: \fIint\fP
-.sp
-The precision of depth values.
-Default is \fB0\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.precision.distance
-Type: \fIint\fP
-.sp
-The precision of distance values.
-Default is \fB1\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.precision.location
-Type: \fIint\fP
-.sp
-The precision of lat/lon values.
-Default is \fB2\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.precision.magnitude
-Type: \fIint\fP
-.sp
-The precision of magnitude values.
-Default is \fB2\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.precision.pickTime
-Type: \fIint\fP
-.sp
-The precision of pick times.
-Default is \fB1\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.precision.traceValues
-Type: \fIint\fP
-.sp
-Precision of displayed offset/amp in all trace widgets.
-Default is \fB1\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.precision.rms
-Type: \fIint\fP
-.sp
-Precision of RMS values.
-Default is \fB1\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.precision.uncertainties
-Type: \fIint\fP
-.sp
-Precision of uncertainty values, e.g. latitude errors.
-Default is \fB0\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.unit.distanceInKM
-Type: \fIboolean\fP
-.sp
-Display distances in km?
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.dateTime.useLocalTime
-Type: \fIboolean\fP
-.sp
-Display times in localtime or UTC (default).
-Default is \fBfalse\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.splash.*\fP
-\fIDefines the appearance of the splash screen shown at application startup.\fP
-.UNINDENT
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.splash.message.*\fP
-\fIPosition of the message text.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.splash.message.align
-Type: \fIint\fP
-.sp
-Qt::Alignment bit mask. Default: AlignHCenter | AlignBottom
-Default is \fB44\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.splash.message.pos.*\fP
-\fIPosition in screen coordinates.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.splash.message.pos.x
-Type: \fIint\fP
-.sp
-Unit: \fIpx\fP
-.sp
-Horizontal position.
-Default is \fB200\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.splash.message.pos.y
-Type: \fIint\fP
-.sp
-Unit: \fIpx\fP
-.sp
-Vertical position.
-Default is \fB260\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.splash.version.*\fP
-\fIPosition of the version string\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.splash.version.align
-Type: \fIint\fP
-.sp
-Qt::Alignment bit mask. Default: AlignRight | AlignBottom
-Default is \fB34\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBscheme.splash.version.pos.*\fP
-\fIPosition in screen coordinates.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.splash.version.pos.x
-Type: \fIint\fP
-.sp
-Unit: \fIpx\fP
-.sp
-Horizontal position.
-Default is \fB362\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B scheme.splash.version.pos.y
-Type: \fIint\fP
-.sp
-Unit: \fIpx\fP
-.sp
-Vertical position.
-Default is \fB190\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBevents.timeAgo.*\fP
-\fIDefines maximum age of events to load. The value of all parameters are aggregated.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B events.timeAgo.days
-Type: \fIint\fP
-.sp
-Unit: \fId\fP
-.sp
-Age in days.
-Default is \fB1\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B events.timeAgo.hours
-Type: \fIint\fP
-.sp
-Unit: \fIh\fP
-.sp
-Age in hours.
-Default is \fB0\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B events.timeAgo.minutes
-Type: \fIint\fP
-.sp
-Unit: \fIm\fP
-.sp
-Age in minutes.
-Default is \fB0\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B events.timeAgo.seconds
-Type: \fIint\fP
-.sp
-Unit: \fIs\fP
-.sp
-Age in seconds.
-Default is \fB0\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBmode.*\fP
-\fIConfiguration of special applications modes.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B mode.interactive
-Type: \fIboolean\fP
-.sp
-Defines if application interaction is allowed.
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B mode.fullscreen
-Type: \fIboolean\fP
-.sp
-Defines if the application should be launched in fullscreen
-mode hiding title bar, main menu and status bar.
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B picker.filters
-Type: \fIlist:string\fP
-.sp
-Configures the default filters selectable in manual picker.
-The entry with a leading "@" is selected as default filter.
-Default is \fB"BP 0.1 \- 1 Hz  3rd order;BW(3,0.1,1)","BP 0.1 \- 2 Hz  3rd order;BW(3,0.1,2)","BP 0.4 \- 1 Hz  3rd order;BW(3,0.4,1)","@BP 0.7 \- 2 Hz  3rd order;BW(3,0.7,2)""BP 1 \- 3 Hz  3rd order;BW(3,1.0,3)","BP 2 \- 4 Hz  3rd order;BW(3,2.0,4)","BP 3 \- 6 Hz  3rd order;BW(3,3.0,6)","BP 4 \- 8 Hz  3rd order;BW(3,4.0,8)","BP 1 \- 5 Hz  3rd order;BW(3,1.0,5)","HP 3 Hz  3rd order;BW_HP(3,3)","BP 0.7 \- 2 Hz + STA/LTA(1,50);RMHP(10)\->ITAPER(30)\->BW(3,0.7,2)\->STALTA(1,50)"\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.visibleColumns
-Type: \fIlist:string\fP
-.sp
-Configure the columns of the event list that are visible initially.
-The first column containing the origin time is always visible and cannot
-be hidden. Possible values are: Type, M, TP, Phases, Lat, Lon, Depth, DType, Stat, AzGap, FM, Origins, Agency, Author, Region, ID.
-Default is \fBM, TP, Phases, RMS, Lat, Lon, Depth, Stat, Agency, Region, ID\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.regions
-Type: \fIlist:string\fP
-.sp
-Configured a list of regions that can be used as filter of
-the result set.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.customColumn
-Type: \fIstring\fP
-.sp
-Name of an additional custom column which displays the value
-of certain origin and event comments.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.customColumn.originCommentID
-Type: \fIstring\fP
-.sp
-ID of the origin comment to look up.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.customColumn.eventCommentID
-Type: \fIstring\fP
-.sp
-ID of the event comment to look up.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.customColumn.pos
-Type: \fIint\fP
-.sp
-Position of the column. If the configured position is less than 0 or if it
-exceeds the total number of columns then the column is appended to the right.
-Default is \fB\-1\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.customColumn.default
-Type: \fIstring\fP
-.sp
-Default value to display if the specified origin or event comment id was not found.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.customColumn.colors
-Type: \fIlist:string\fP
-.sp
-Mapping of comment values to colors used as text color. E.g. "foo:#000,bar:red".
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBeventlist.region.$name.*\fP
-\fIDefines a rectangular region that can be used as a result\fP
-\fIset filter on client side.\fP
-$name is a placeholder for the name to be used and needs to be added to \fBeventlist.regions\fP to become active.
-.INDENT 0.0
-.INDENT 3.5
-.sp
-.nf
-.ft C
-eventlist.regions = a,b
-eventlist.region.a.value1 = ...
-eventlist.region.b.value1 = ...
-# c is not active because it has not been added
-# to the list of eventlist.regions
-eventlist.region.c.value1 = ...
-.ft P
-.fi
-.UNINDENT
-.UNINDENT
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.region.$name.name
-Type: \fIstring\fP
-.sp
-Defines the name of the region that shows up in the
-listbox.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.region.$name.rect
-Type: \fIlist:double\fP
-.sp
-Defines a rectangular region with a list of 4 values:
-latmin, lonmin, latmax, lonmax.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.filter.agencies.label
-Type: \fIstring\fP
-.sp
-Defines the text of the option "Show only own events".
-Use double quotes \(aq"\(aq around the string if it contains spaces.
-Default is \fBShow only own events\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.filter.agencies.whitelist
-Type: \fIlist:string\fP
-.sp
-Sets a list of preferred agencies. Events from preferred
-agencies are defined as "own" events.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.filter.agencies.type
-Type: \fIstring\fP
-.sp
-Sets the type of the filter. If type is "events" the agency
-of the preferred origin of the event is checked.
-If type is "origins" the agency of all origins of
-an event is checked and if at least one origins agency is part
-of the whitelist it will pass the filter. Or in other words,
-the event is hidden if no origin is from a preferred agency.
-Default is \fBevents\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.filter.agencies.enabled
-Type: \fIboolean\fP
-.sp
-Sets the default state of the "Show only own events"
-option.
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.filter.types.label
-Type: \fIstring\fP
-.sp
-Defines the text of the option "Hide other/fake events".
-Use double quotes \(aq"\(aq around the string if it contains spaces.
-Default is \fBHide other/fake events\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.filter.types.blacklist
-Type: \fIlist:string\fP
-.sp
-List of event type to be hidden if the "Hide other/fake events"
-option is ticked.
-Use double quotes \(aq"\(aq around the string if it contains spaces.
-Default is \fB"not existing"\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.filter.types.enabled
-Type: \fIboolean\fP
-.sp
-Sets the default state of the "Hide other/fake events"
-option.
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.filter.regions.enabled
-Type: \fIboolean\fP
-.sp
-Sets the default state of the "Hide events outside"
-option.
-Default is \fBfalse\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBeventlist.filter.database.*\fP
-\fIPre\-set options to filter an event list request.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.filter.database.minlat
-Type: \fIdouble\fP
-.sp
-Unit: \fIdeg\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.filter.database.maxlat
-Type: \fIdouble\fP
-.sp
-Unit: \fIdeg\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.filter.database.minlon
-Type: \fIdouble\fP
-.sp
-Unit: \fIdeg\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.filter.database.maxlon
-Type: \fIdouble\fP
-.sp
-Unit: \fIdeg\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.filter.database.mindepth
-Type: \fIdouble\fP
-.sp
-Unit: \fIkm\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.filter.database.maxdepth
-Type: \fIdouble\fP
-.sp
-Unit: \fIkm\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.filter.database.minmag
-Type: \fIdouble\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.filter.database.maxmag
-Type: \fIdouble\fP
-.sp
-\fINo description available\fP
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.scripts.columns
-Type: \fIlist:string\fP
-.sp
-Registration of custom event list columns.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBeventlist.scripts.column.*\fP
-\fIDefinition of custom event list column whose values are filled by external scripts.\fP
-.UNINDENT
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBeventlist.scripts.column.$name.*\fP
+\fBamplitudes.$name.*\fP
+\fIAn amplitude profile configures global parameters for a\fP
+\fIparticular amplitude type. The available amplitude types\fP
+\fIare not fixed and can be extended by plugins. The name of\fP
+\fIthe type must match the one defined in the corresponding\fP
+\fIAmplitudeProcessor.\fP
 $name is a placeholder for the name to be used.
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
-.B eventlist.scripts.column.$name.script
-Type: \fIpath\fP
+.B amplitudes.$name.saturationThreshold
+Default: \fBfalse\fP
 .sp
-External script to invoke for each event list entry. The object represented by the
-list entry is serialized to XML and passed to the script on stdin. If the return
-code of the script is 0 (\(aqsuccess\(aq) then the script result is read from stdout and
-displayed in the corresponding event list cell.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.scripts.column.$name.pos
-Type: \fIint\fP
+Unit: \fIcounts; %\fP
 .sp
-Position of the column. If the configured position is less than 0 or if it
-exceeds the total number of columns then the column is appended to the right.
-Default is \fB\-1\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventlist.scripts.column.$name.label
 Type: \fIstring\fP
 .sp
-Column name shown in header of event list table.
+Defines the saturation threshold for the optional saturation check.
+By default the saturation check is disabled but giving a value above
+0 will enable it. Waveforms that are saturated are not used
+for amplitude calculations.
+.sp
+This value can either be an absolute value of counts such
+as \(dq100000\(dq counts or a relative value
+(optionally in percent) with respect to the number of
+effective bits, e.g. \(dq0.8@23\(dq or \(dq80%@23\(dq.
+The first version uses 1**23 * 0.8 whereas the latter
+uses 1**23 * 80/100.
+.sp
+The boolean value \(dqfalse\(dq explicitly disables
+the check.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B eventlist.scripts.column.$name.types
-Type: \fIlist:string\fP
+.B amplitudes.$name.enable
+Default: \fBtrue\fP
 .sp
-Object types this script should be invoked for. Supported values are \(aqEvent\(aq and \(aqOrigin\(aq.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventedit.origin.visibleColumns
-Type: \fIlist:string\fP
-.sp
-Configure the columns of the event edit origin table
-that are visible initially.
-Possible values are: Phases, Lat, Lon, Depth, DType, RMS, Stat,
-Method, Agency, Author, Region
-Default is \fBPhases, Lat, Lon, Depth, DType, RMS, Stat, Method, Agency, Author, Region\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventedit.fm.visibleColumns
-Type: \fIlist:string\fP
-.sp
-Configure the columns of the event edit focal mechanism
-tab that are visible initially.
-Possible values are: Depth, M, Count, Misfit, STDR,
-AzGap, Stat, DC, CLVD, ISO, S1,
-D1, R1, S2, D2, R2, Agency, Author
-Default is \fBDepth, M, Count, Misfit, STDR, AzGap, Stat, DC, CLVD, ISO, S1, D1, R1, S2, D2, R2, Agency, Author\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBeventsummary.*\fP
-\fIParameters controlling the event summary view used e.g. in scolv.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventsummary.alertTimer.commentId
-Type: \fIstring\fP
-.sp
-Set an alert for every event comment that ID matches
-the specified regular expression, e.g. "
-.nf
-alert_
-.fi
-\&.*".
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventsummary.alertTimer.commentBlacklist
-Type: \fIlist:string\fP
-.sp
-List of comments to ignore, e.g. "nil".
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventsummary.alertTimer.alertGradient
-Type: \fIlist:string\fP
-.sp
-Unit: \fIs:color\fP
-.sp
-Discrete mapping of time values in seconds to colors used as
-text color in case of an active alert. E.g. "0:00FF00,900:FF0000".
-.UNINDENT
-.INDENT 0.0
-.TP
-.B eventsummary.alertTimer.textSize
-Type: \fIint\fP
-.sp
-Unit: \fIpt\fP
-.sp
-The text size of the time ago label in case of an active alert.
-.UNINDENT
-.SS LOCSAT extension
-.sp
-Locator in SeisComP for computing source time and hypocenter
-coordinates from phase picks.
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBLOCSAT.*\fP
-\fILocator parameters: LOCSAT\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B LOCSAT.profiles
-Type: \fIlist:string\fP
-.sp
-Defines a list of available LOCSAT travel\-time tables.
-Default is \fBiasp91, tab\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B LOCSAT.depthInit
-Type: \fIdouble\fP
-.sp
-Unit: \fIkm\fP
-.sp
-The initial depth estimate for LOCSAT.
-Default is \fB20.0\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B LOCSAT.usePickUncertainties
 Type: \fIboolean\fP
 .sp
-Whether to use pick time untertainties for arrival deltim rather
-than a fixed time error. If true then the uncertainties are
-retrieved from each individual pick object. If they are not
-defined then the default pick time uncertainty will be used
-as fallback.
-Default is \fBfalse\fP\&.
+Defines if amplitude calculation of certain type is enabled.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B LOCSAT.defaultTimeError
-Type: \fIdouble\fP
+.B amplitudes.$name.enableResponses
+Default: \fBfalse\fP
 .sp
-Unit: \fIs\fP
-.sp
-The default pick time uncertainty assigned to LOCSAT\(aqs arrival deltim
-attribute if pick uncertainties are not going to be used or
-if they are absent. A time uncertainty of 0 s may result in
-errors of the SVD decomposition in LOCSAT.
-Default is \fB1.0\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B LOCSAT.degreesOfFreedom
-Type: \fIint\fP
-.sp
-Number of degrees of freedom.
-Default is \fB9999\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B LOCSAT.confLevel
-Type: \fIdouble\fP
-.sp
-Confidence level between 0.5 and 1.0.
-Default is \fB0.9\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B LOCSAT.enableConfidenceEllipsoid
 Type: \fIboolean\fP
 .sp
-Compute the confidence ellipsoid from covariance matrix in 3D.
-Default is \fBfalse\fP\&.
-.UNINDENT
-.SS FixedHypocenter extension
-.sp
-Locator for re\-computing source time with fixed hypocenter
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBFixedHypocenter.*\fP
-\fILocator parameters: FixedHypocenter\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B FixedHypocenter.profiles
-Type: \fIlist:string\fP
-.sp
-Defines a list of available travel time tables. Each item
-is a tuple separated by a slash with format "[interface]/[model]".
-Built\-in interfaces are "LOCSAT" and "libtau".
-Other interfaces might be added via plugins. Please check their
-documentation for the required interface name.
-Default is \fBLOCSAT/iasp91,LOCSAT/tab\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B FixedHypocenter.usePickUncertainties
-Type: \fIboolean\fP
-.sp
-Whether to use pick time uncertainties rather than a fixed
-time error. If true, then the uncertainties are retrieved from
-each individual pick object. If they are not defined, then the
-default pick time uncertainty as defined by defaultTimeError
+Activates deconvolution for this amplitude type. If not
+set the global flag \(dqamplitudes.enableResponses\(dq
 will be used instead.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B FixedHypocenter.defaultTimeError
+.B amplitudes.$name.minSNR
 Type: \fIdouble\fP
 .sp
+Defines the mininum SNR to be reached to compute the
+amplitudes. This value is amplitude type specific and
+has no global default value.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.$name.noiseBegin
 Unit: \fIs\fP
 .sp
-The default pick time uncertainty if pick uncertainties are
-not going to be used or if they are absent.
-Default is \fB1.0\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B FixedHypocenter.degreesOfFreedom
-Type: \fIint\fP
-.sp
-Number of degrees of freedom used for error estimate.
-Default is \fB8\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B FixedHypocenter.confLevel
 Type: \fIdouble\fP
 .sp
-Confidence level between 0.5 and 1.
-Default is \fB0.9\fP\&.
-.UNINDENT
-.SH BINDINGS
-.SS Configuration
-.INDENT 0.0
-.TP
-.B amplitudes.MLh.maxavg
-Type: \fIstring\fP
-.sp
-Define combiner operation for both horizontals (min, max, avg).
-Default is \fBmax\fP\&.
+Overrides the default time (relative to the trigger
+time) of the begin of the noise window used to compute
+the noise offset and noise amplitude. Each amplitude
+processor sets its own noise time window and this option
+should only be changed if you know what you are doing.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B amplitudes.MLh.ClippingThreshold
-Type: \fIdouble\fP
-.sp
-MLh clipping level, in raw counts, eg. 80% of 2^23 = 6710886.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.MLh.params
-Type: \fIstring\fP
-.sp
-Defines attenuation parameters for MLh.
-Format: "UpToKilometers A B; UpToNextKilometers A B;".
-Example: "30 nomag; 60 0.018 2.17; 700 0.0038 3.02".
-The first parameter set "30 nomag" means that up to 30km
-from the sensor the magnitude should not be calculated.
-.sp
-Note: No MLh computation if params is empty.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.md.seismo
-Type: \fIint\fP
-.sp
-Default filter type to use before processing and after deconvolution. It\(aqs possible to set :
-1 for a Wood\-Anderson seismometer
-2 for a 5sec generic Seismometer
-3 for a WWSSN LP seismometer
-4 for a WSSN SP seismometer
-5 for a Generic Seismometer
-6 for a Butterworth Low pass filter
-7 for a Butterworth High pass filter
-8 for a Butterworth Band pass filter
-9 for a 1Hz eigen\-frequency L4C seismometer
-Default is \fB9\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.md.taper
-Type: \fIdouble\fP
-.sp
+.B amplitudes.$name.noiseEnd
 Unit: \fIs\fP
 .sp
-taper applied to the signal
-Default is \fB5\fP\&.
+Type: \fIdouble\fP
+.sp
+Overrides the default time (relative to the trigger
+time) of the end of the noise window used to compute
+the noise offset and noise amplitude. Each amplitude
+processor sets its own noise time window and this option
+should only be changed if you know what you are doing.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B magnitudes.md.signal_length
-Type: \fIdouble\fP
-.sp
+.B amplitudes.$name.signalBegin
 Unit: \fIs\fP
 .sp
-signal length used to compute the duration magnitude
-Default is \fB150\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.md.butterworth
-Type: \fIstring\fP
-.sp
-Butterworth filter parameter applied to the signal
-Default is \fB"3,1.5"\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.md.depthmax
 Type: \fIdouble\fP
 .sp
+Overrides the default time (relative to the trigger
+time) of the begin of the signal window used to compute
+the final amplitude. Each amplitude processor sets its
+own signal time window and this option should only be
+changed if you know what you are doing.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.$name.signalEnd
+Unit: \fIs\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Overrides the default time (relative to the trigger
+time) of the end of the signal window used to compute
+the final amplitude. Each amplitude processor sets its
+own signal time window and this option should only be
+changed if you know what you are doing.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.$name.minDist
+Unit: \fIdeg\fP
+.sp
+Type: \fIdouble\fP
+.sp
+The minimum distance required to compute an amplitude.
+This settings has no effect with e.g. scautopick as there
+is no information about the source of the event to compute
+the distance. The default value is implementation
+specific.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.$name.maxDist
+Unit: \fIdeg\fP
+.sp
+Type: \fIdouble\fP
+.sp
+The maximum distance allowed to compute an amplitude.
+This settings has no effect with e.g. scautopick as there
+is no information about the source of the event to compute
+the distance. The default value is implementation
+specific.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.$name.minDepth
 Unit: \fIkm\fP
 .sp
-Maximum depth at which duration magnitude is valid
-Default is \fB200\fP\&.
+Type: \fIdouble\fP
+.sp
+The minimum depth required to compute an amplitude.
+This settings has no effect with e.g. scautopick as there
+is no information about the source of the event to
+retrieve the depth. The default value is implementation
+specific.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B magnitudes.md.deltamax
-Type: \fIdouble\fP
-.sp
+.B amplitudes.$name.maxDepth
 Unit: \fIkm\fP
 .sp
-Maximum distance between earthquake and station at which duration magnitude is valid
-Default is \fB400\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.md.snrmin
 Type: \fIdouble\fP
 .sp
-Signal to noise ratio below which the coda is reached
-Default is \fB1.2\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.md.mdmax
-Type: \fIdouble\fP
-.sp
-Maximum expected duration magnitude value
-This is used to find how much data should be loaded for a given station by reversing the formula
-Default is \fB5.0\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.md.fma
-Type: \fIdouble\fP
-.sp
-FMA regional coefficient
-See Hypo2000 manual
-Default is \fB\-0.87\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.md.fmb
-Type: \fIdouble\fP
-.sp
-FMB regional coefficient
-See Hypo2000 manual
-Default is \fB2.0\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.md.fmd
-Type: \fIdouble\fP
-.sp
-FMD regional coefficient
-See Hypo2000 manual
-Default is \fB0.0035\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.md.fmf
-Type: \fIdouble\fP
-.sp
-FMF regional coefficient
-See Hypo2000 manual
-Default is \fB0.0\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.md.fmz
-Type: \fIdouble\fP
-.sp
-FMZ regional coefficient
-See Hypo2000 manual
-Default is \fB0.0\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.md.linearcorrection
-Type: \fIdouble\fP
-.sp
-Linear correction
-Default is \fB1.0\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.md.offset
-Type: \fIdouble\fP
-.sp
-Offset
-Default is \fB0.0\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.md.stacor
-Type: \fIdouble\fP
-.sp
-Station correction
-Default is \fB0.0\fP\&.
+The maximum depth allowed to compute an amplitude.
+This settings has no effect with e.g. scautopick as there
+is no information about the source of the event to
+retrieve the depth. The default value is implementation
+specific.
 .UNINDENT
 .sp
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
-\fBmagnitudes.MLr.*\fP
-\fIParameter for computing MLr magnitudes for GNS/Geonet from MLv amplitudes.\fP
+\fBamplitudes.$name.resp.*\fP
+\fISeveral parameters if usage of full responses is enabled.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
-.B magnitudes.MLr.params
-Type: \fIstring\fP
+.B amplitudes.$name.resp.taper
+Default: \fB5\fP
 .sp
-Defines Stations Corrections parameters for MLr (GNS/Geonet Local magnitude).
-Format: "UpToKilometers A ; UpToNextKilometers A ;".
-Example: "30 nomag; 60 0.018 ; 700 0.0038 ".
-The first parameter set "30 nomag" means that up to 30km
-from the sensor the magnitude should not be calculated.
-A is used as station correction.
-"nomag" is used to disable station magnitudes.
+Unit: \fIs\fP
 .sp
-Note: No MLr computation if params is empty.
+Defines the length of the taper at either side of the
+waveform. The length will be added to the data
+request: start \- taper and end + taper.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.$name.resp.minFreq
+Default: \fB0.00833333\fP
+.sp
+Unit: \fIHz\fP
+.sp
+After data are converted in to the frequency domain that
+minimum frequency defines the end of the left\-side cosine taper for
+the frequency spectrum. The taper applies from 0Hz to {minFreq}Hz.
+A value of 0 or lower disables that taper.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.$name.resp.maxFreq
+Default: \fB0\fP
+.sp
+Unit: \fIHz\fP
+.sp
+After data are converted in to the frequency domain that
+maximum frequency defines the start of the right\-side cosine taper for
+the frequency spectrum. The taper applies from {maxFreq}Hz to {fNyquist}Hz.
+A value of 0 or lower disables that taper.
 .UNINDENT
 .sp
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
-\fBamplitudes.MN.*\fP
-\fIParameters for measuring AMN amplitudes.\fP
+\fBamplitudes.resp.*\fP
+\fISeveral parameters if usage of full responses is enabled.\fP
+\fIThe parameters of this group will be overridden by type\fP
+\fIspecific settings if given (see Amplitude type profile).\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
-.B amplitudes.MN.rms
+.B amplitudes.resp.taper
+Default: \fB5\fP
+.sp
+Unit: \fIs\fP
+.sp
+Defines the length of the taper at either side of the
+waveform. The length will be added to the data
+request: start \- taper and end + taper.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.resp.minFreq
+Default: \fB0.00833333\fP
+.sp
+Unit: \fIHz\fP
+.sp
+After data are converted in to the frequency domain that
+minimum frequency defines the end of the left\-side cosine taper for
+the frequency spectrum. The taper applies from 0Hz to {minFreq}Hz.
+A value of 0 or lower disables that taper.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.resp.maxFreq
+Default: \fB0\fP
+.sp
+Unit: \fIHz\fP
+.sp
+After data are converted in to the frequency domain that
+maximum frequency defines the start of the right\-side cosine taper for
+the frequency spectrum. The taper applies from {maxFreq}Hz to {fNyquist}Hz.
+A value of 0 or lower disables that taper.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBamplitudes.WoodAnderson.*\fP
+\fIAllows to configure the Wood\-Anderson seismometer response.\fP
+\fIThe default values are according to the version of\fP
+\fIGutenberg (1935). The newer version by Uhrhammer and\fP
+\fICollins (1990) is part of the IASPEI Magnitude\fP
+\fIWorking Group recommendations of 2011 September 9. This\fP
+\fIversion uses gain=2800, T0=0.8, h=0.8.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.WoodAnderson.gain
+Default: \fB2800\fP
+.sp
+Type: \fIdouble\fP
+.sp
+The gain of the Wood\-Anderson response.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.WoodAnderson.T0
+Default: \fB0.8\fP
+.sp
+Unit: \fIs\fP
+.sp
+Type: \fIdouble\fP
+.sp
+The eigen period of the Wood\-Anderson seismometer.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.WoodAnderson.h
+Default: \fB0.8\fP
+.sp
+Type: \fIdouble\fP
+.sp
+The damping constant of the Wood\-Anderson seismometer.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.ML.absMax
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
-Whether to use RMS ratio of signal and noise window for
-SNR computation or the ration of the peak\-trough
-amplitudes of either window.
-Default is \fBfalse\fP\&.
+Whether to use the absolute maximum of the filtered WA
+trace or the difference of the maximum and minimum value
+of the signal window.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B amplitudes.MN.filter
+.B amplitudes.ML.measureType
+Default: \fBAbsMax\fP
+.sp
 Type: \fIstring\fP
 .sp
-The configurable filter such that the V measurement is
-made on a filtered trace. By default, filtering is not
-enabled.
+This parameter allows to set how the amplitude is measured.
+Either by finding the absolute maximum of the demeaned
+trace (AbsMax), the difference of maximum and minimum of
+the signal window (MinMax) or the maximum peak\-trough
+of one cycle (PeakTrough).
 .sp
-See \fI\%https://docs.gempa.de/seiscomp/current/base/filter\-grammar.html\fP
-for how to specify the filter.
+Note that if absMax is already explicitly configured, this
+parameter has no effect.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B amplitudes.MN.Vmin
-Type: \fIdouble\fP
+.B amplitudes.ML.combiner
+Default: \fBaverage\fP
 .sp
-Unit: \fIkm/s\fP
+Type: \fIstring\fP
 .sp
-The minimum phase velocity used to determine the signal
-window end.
-Default is \fB3.2\fP\&.
+Defines the combiner operation for the amplitudes measured
+on either both horizontal component. The default is to
+use the average. Allowed values are: \(dqaverage\(dq,
+\(dqmin\(dq, \(dqmax\(dq and \(dqgeometric_mean\(dq.
+\(dqgeometric_mean\(dq corresponds to averaging single\-trace
+magnitudes instead of their amplitudes.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B amplitudes.MN.Vmax
-Type: \fIdouble\fP
+.B amplitudes.MLv.absMax
+Default: \fBtrue\fP
 .sp
-Unit: \fIkm/s\fP
+Type: \fIboolean\fP
 .sp
-The maximum phase velocity used to determine the signal
-window start.
-Default is \fB3.6\fP\&.
+Whether to use the absolute maximum of the filtered WA
+trace or the difference of the maximum and minimum value
+of the signal window.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B amplitudes.MN.snrWindowSeconds
-Type: \fIdouble\fP
+.B amplitudes.MLv.measureType
+Default: \fBAbsMax\fP
 .sp
-Unit: \fIs\fP
+Type: \fIstring\fP
 .sp
-The length of the SNR window.
-Default is \fB10\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B amplitudes.MN.noiseWindowPreSeconds
-Type: \fIdouble\fP
+This parameter allows to set how the amplitude is measured.
+Either by finding the absolute maximum of the demeaned
+trace (AbsMax), the difference of maximum and minimum of
+the signal window (MinMax) or the maximum peak\-trough
+of one cycle (PeakTrough).
 .sp
-Unit: \fIs\fP
-.sp
-The offset of the noise window. A positive value will move
-the computed noise window to the left on the time axis,
-a negative value will move it to the right on the time axis.
-Default is \fB0\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B amplitudes.MN.signalStartPriorities
-Type: \fIlist:string\fP
-.sp
-The priority list of phase onsets to compute the signal
-start window. Except for Vmin and Vmax, associated phases
-(arrivals) must be present in the origin for this
-particular phase. Picked phases are only considered if
-the origin is a manual origin or the pick is a
-manual pick. The first value in the list which can be
-retrieved or computed, is selected.
-.sp
-Allowed tokens: Pg, Pn, P, Sg, Sn, S, Lg, Rg, Vmin, Vmax
-Default is \fBLg,Sg,Sn,S,Vmax\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B amplitudes.MN.signalEndPriorities
-Type: \fIlist:string\fP
-.sp
-The priority list of phase onsets to compute the signal
-end window. Except for Vmin and Vmax, associated phases
-(arrivals) must be present in the origin for this
-particular phase. Picked phases are only considered if
-the origin is a manual origin or the pick is a
-manual pick. The first value in the list which can be
-retrieved or computed, is selected.
-.sp
-Allowed tokens: Pg, Pn, P, Sg, Sn, S, Lg, Rg, Vmin, Vmax
-Default is \fBRg,Vmin\fP\&.
+Note that if absMax is already explicitly configured, this
+parameter has no effect.
 .UNINDENT
 .sp
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
-\fBmagnitudes.MN.*\fP
-\fIParameters for computing MN magnitudes from AMN amplitudes.\fP
+\fBmagnitudes.*\fP
+\fIDefine magnitude parameters independent of amplitude\-type profiles.\fP
+\fIFor magnitude correction parameters, e.g. network of station corrections,\fP
+\fIcreate a magnitude type profile.\fP
+.UNINDENT
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBmagnitudes.$name.*\fP
+\fIA magnitude profile configures global parameters for a\fP
+\fIparticular magnitude type. The available magnitude types\fP
+\fIare not fixed and can be extended by plugins. The name of\fP
+\fIthe type must match the one defined in the corresponding\fP
+\fIMagnitudeProcessor.\fP
+$name is a placeholder for the name to be used.
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
-.B magnitudes.MN.minSNR
+.B magnitudes.$name.multiplier
+Default: \fB1\fP
+.sp
 Type: \fIdouble\fP
 .sp
-The minimum SNR required for a magnitude to pass
-the QC check. The station magnitude will be computed
-anyway but if the SNR is below this threshold it will
-be associated with weight zero and will not contribute
-to the network magnitude.
-Default is \fB2\fP\&.
+Part of the magnitude station correction. The final
+magnitude value is multiplier*M+offset. This value
+is usually not required but is here for completeness.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B magnitudes.MN.minPeriod
+.B magnitudes.$name.offset
+Default: \fB0\fP
+.sp
 Type: \fIdouble\fP
+.sp
+Part of the magnitude station correction. The final
+magnitude value is multiplier*M+offset. This value
+can be used to correct station magnitudes.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBpicker.BK.*\fP
+\fIBkpicker is an implementation of the Baer/Kradolfer picker adapted\fP
+\fIto SeisComP. It was created by converting Manfred Baers from Fortran\fP
+\fIto C++ and inserting it as a replacement for the picker algorithm.\fP
+\fIThe picker interface name to be used in configuration files is\fP
+\fI\(dqBK\(dq.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B picker.BK.noiseBegin
+Default: \fB0\fP
 .sp
 Unit: \fIs\fP
 .sp
-The minimum period required for a magnitude to pass
-the QC check. The station magnitude will be computed
-anyway but if the period is below this threshold it will
-be associated with weight zero and will not contribute
-to the network magnitude.
-Default is \fB0.01\fP\&.
+Type: \fIdouble\fP
+.sp
+Overrides the relative data acquisition time (relative to the triggering
+pick). This adds a margin to the actual processing and is useful
+to initialize the filter (e.g. bandpass). The data is not used
+at all until signalBegin is reached. The data time window start
+is the minimum of noiseBegin and signalBegin.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B magnitudes.MN.maxPeriod
-Type: \fIdouble\fP
+.B picker.BK.signalBegin
+Default: \fB\-20\fP
 .sp
 Unit: \fIs\fP
 .sp
-The maximum period allowed for a magnitude to pass
-the QC check. The station magnitude will be computed
-anyway but if the period is above this threshold it will
-be associated with weight zero and will not contribute
-to the network magnitude.
-Default is \fB1.3\fP\&.
+Type: \fIdouble\fP
+.sp
+Overrides the default time (relative to the trigger
+time) of the begin of the signal window used to pick.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B magnitudes.MN.minDist
+.B picker.BK.signalEnd
+Default: \fB80\fP
+.sp
+Unit: \fIs\fP
+.sp
 Type: \fIdouble\fP
 .sp
-Unit: \fIdeg\fP
-.sp
-The minimum distance required for a magnitude to pass
-the QC check. The station magnitude will be computed
-anyway but if the distance is below this threshold it
-will be associated with weight zero and will not contribute
-to the network magnitude.
-Default is \fB0.5\fP\&.
+Overrides the default time (relative to the trigger
+time) of the begin of the signal window used to pick.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B magnitudes.MN.maxDist
+.B picker.BK.filterType
+Default: \fBBP\fP
+.sp
+Type: \fIstring\fP
+.sp
+BP (Bandpass) is currently the only option.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B picker.BK.filterPoles
+Default: \fB2\fP
+.sp
+Type: \fIint\fP
+.sp
+Number of poles.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B picker.BK.f1
+Default: \fB5\fP
+.sp
+Unit: \fIHz\fP
+.sp
 Type: \fIdouble\fP
 .sp
-Unit: \fIdeg\fP
+Bandpass lower cutoff freq. in Hz.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B picker.BK.f2
+Default: \fB20\fP
 .sp
-The maximum distance allowed for a magnitude to be
-computed. If the distance exceeds this threshold then
-the computation will be canceled and no station
-magnitude will be available at all.
-Default is \fB30\fP\&.
+Unit: \fIHz\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Bandpass upper cutoff freq. in Hz.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B picker.BK.thrshl1
+Default: \fB10\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Threshold to trigger for pick (c.f. paper), default 10
+.UNINDENT
+.INDENT 0.0
+.TP
+.B picker.BK.thrshl2
+Default: \fB20\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Threshold for updating sigma  (c.f. paper), default 20
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBpicker.AIC.*\fP
+\fIAIC picker is an implementation using the simple non\-AR algorithm of Maeda (1985),\fP
+\fIsee paper of Zhang et al. (2003) in BSSA. The picker interface name to be used in configuration files is\fP
+\fI\(dqAIC\(dq.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B picker.AIC.noiseBegin
+Default: \fB0\fP
+.sp
+Unit: \fIs\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Overrides the relative data acquisition time (relative to the triggering
+pick). This adds a margin to the actual processing and is useful
+to initialize the filter (e.g. bandpass). The data is not used
+at all until signalBegin is reached. The data time window start
+is the minimum of noiseBegin and signalBegin.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B picker.AIC.signalBegin
+Default: \fB\-30\fP
+.sp
+Unit: \fIs\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Overrides the default time (relative to the trigger
+time) of the begin of the signal window used to pick.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B picker.AIC.signalEnd
+Default: \fB10\fP
+.sp
+Unit: \fIs\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Overrides the default time (relative to the trigger
+time) of the begin of the signal window used to pick.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B picker.AIC.filter
+Type: \fIstring\fP
+.sp
+Overrides the default filter which is \(dqraw\(dq. The typical filter grammar can be used.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B picker.AIC.minSNR
+Default: \fB3\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Defines the mininum SNR.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBspicker.L2.*\fP
+\fIL2 is an algorithm to pick S\-phases based on existing P\-phases. The\fP
+\fIpicker interface name to be used in configuration files is\fP
+\fI\(dqS\-L2\(dq.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B spicker.L2.noiseBegin
+Default: \fB\-10\fP
+.sp
+Unit: \fIs\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Overrides the relative data processing start time (relative to the triggering
+pick). This adds a margin to the actual processing and is useful
+to initialize the filter (e.g. bandpass). The data is not used
+at all until signalBegin is reached. The data time window start
+is the minimum of noiseBegin and signalBegin.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B spicker.L2.signalBegin
+Default: \fB0\fP
+.sp
+Unit: \fIs\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Overrides the relative start time (relative to the triggering
+pick) of the begin of the signal processing.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B spicker.L2.signalEnd
+Default: \fB60\fP
+.sp
+Unit: \fIs\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Overrides the relative end time (relative to the triggering
+pick) of the end of the signal window used to pick.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B spicker.L2.filter
+Default: \fBBW(4,0.3,1.0)\fP
+.sp
+Type: \fIstring\fP
+.sp
+Configures the filter used to compute the L2 and to pick
+the onset (with AIC) after the detector triggered.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B spicker.L2.detecFilter
+Default: \fBSTALTA(1,10)\fP
+.sp
+Type: \fIstring\fP
+.sp
+Configures the detector in the filtered L2. This filter is
+applied on top of the base L2 filter.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B spicker.L2.threshold
+Default: \fB3\fP
+.sp
+Type: \fIdouble\fP
+.sp
+The detector threshold that triggers the AIC picker.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B spicker.L2.timeCorr
+Default: \fB0\fP
+.sp
+Unit: \fIs\fP
+.sp
+Type: \fIdouble\fP
+.sp
+The time correction (in seconds) added to the detection time
+before AIC time window is computed.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B spicker.L2.marginAIC
+Default: \fB5\fP
+.sp
+Unit: \fIs\fP
+.sp
+Type: \fIdouble\fP
+.sp
+The AIC time window around the detection used to pick. If 0 AIC is not used.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B spicker.L2.minSNR
+Default: \fB15\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Defines the mininum SNR as returned from AIC.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -4541,9 +1438,11 @@ eg by scautopick and scrttv.
 .INDENT 0.0
 .TP
 .B amplitudes.saturationThreshold
-Type: \fIstring\fP
+Default: \fBfalse\fP
 .sp
 Unit: \fIcounts; %\fP
+.sp
+Type: \fIstring\fP
 .sp
 Defines the saturation threshold for the optional saturation check.
 By default the saturation check is disabled but giving a value above
@@ -4551,35 +1450,36 @@ By default the saturation check is disabled but giving a value above
 for amplitude calculations.
 .sp
 This value can either be an absolute value of counts such
-as "100000" counts or a relative value
+as \(dq100000\(dq counts or a relative value
 (optionally in percent) with respect to the number of
-effective bits, e.g. "0.8@23" or "80%@23".
+effective bits, e.g. \(dq0.8@23\(dq or \(dq80%@23\(dq.
 The first version uses 1**23 * 0.8 whereas the latter
 uses 1**23 * 80/100.
 .sp
-The boolean value "false" explicitly disables
+The boolean value \(dqfalse\(dq explicitly disables
 the check.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B amplitudes.enable
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Defines if amplitude calculation is enabled. If disabled,
 this station will be skipped for amplitudes and magnitudes.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B amplitudes.enableResponses
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activates deconvolution for this station. If no responses are
 configured, an error is raised and the data is not processed.
 This flag will be overridden by the type specific flag
 (see Amplitude type profile).
-Default is \fBfalse\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -4597,9 +1497,11 @@ $name is a placeholder for the name to be used.
 .INDENT 0.0
 .TP
 .B amplitudes.$name.saturationThreshold
-Type: \fIstring\fP
+Default: \fBfalse\fP
 .sp
 Unit: \fIcounts; %\fP
+.sp
+Type: \fIstring\fP
 .sp
 Defines the saturation threshold for the optional saturation check.
 By default the saturation check is disabled but giving a value above
@@ -4607,33 +1509,34 @@ By default the saturation check is disabled but giving a value above
 for amplitude calculations.
 .sp
 This value can either be an absolute value of counts such
-as "100000" counts or a relative value
+as \(dq100000\(dq counts or a relative value
 (optionally in percent) with respect to the number of
-effective bits, e.g. "0.8@23" or "80%@23".
+effective bits, e.g. \(dq0.8@23\(dq or \(dq80%@23\(dq.
 The first version uses 1**23 * 0.8 whereas the latter
 uses 1**23 * 80/100.
 .sp
-The boolean value "false" explicitly disables
+The boolean value \(dqfalse\(dq explicitly disables
 the check.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B amplitudes.$name.enable
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Defines if amplitude calculation of certain type is enabled.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B amplitudes.$name.enableResponses
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activates deconvolution for this amplitude type. If not
-set the global flag "amplitudes.enableResponses"
+set the global flag \(dqamplitudes.enableResponses\(dq
 will be used instead.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -4647,9 +1550,9 @@ has no global default value.
 .INDENT 0.0
 .TP
 .B amplitudes.$name.noiseBegin
-Type: \fIdouble\fP
-.sp
 Unit: \fIs\fP
+.sp
+Type: \fIdouble\fP
 .sp
 Overrides the default time (relative to the trigger
 time) of the begin of the noise window used to compute
@@ -4660,9 +1563,9 @@ should only be changed if you know what you are doing.
 .INDENT 0.0
 .TP
 .B amplitudes.$name.noiseEnd
-Type: \fIdouble\fP
-.sp
 Unit: \fIs\fP
+.sp
+Type: \fIdouble\fP
 .sp
 Overrides the default time (relative to the trigger
 time) of the end of the noise window used to compute
@@ -4673,9 +1576,9 @@ should only be changed if you know what you are doing.
 .INDENT 0.0
 .TP
 .B amplitudes.$name.signalBegin
-Type: \fIdouble\fP
-.sp
 Unit: \fIs\fP
+.sp
+Type: \fIdouble\fP
 .sp
 Overrides the default time (relative to the trigger
 time) of the begin of the signal window used to compute
@@ -4686,9 +1589,9 @@ changed if you know what you are doing.
 .INDENT 0.0
 .TP
 .B amplitudes.$name.signalEnd
-Type: \fIdouble\fP
-.sp
 Unit: \fIs\fP
+.sp
+Type: \fIdouble\fP
 .sp
 Overrides the default time (relative to the trigger
 time) of the end of the signal window used to compute
@@ -4699,9 +1602,9 @@ changed if you know what you are doing.
 .INDENT 0.0
 .TP
 .B amplitudes.$name.minDist
-Type: \fIdouble\fP
-.sp
 Unit: \fIdeg\fP
+.sp
+Type: \fIdouble\fP
 .sp
 The minimum distance required to compute an amplitude.
 This settings has no effect with e.g. scautopick as there
@@ -4712,9 +1615,9 @@ specific.
 .INDENT 0.0
 .TP
 .B amplitudes.$name.maxDist
-Type: \fIdouble\fP
-.sp
 Unit: \fIdeg\fP
+.sp
+Type: \fIdouble\fP
 .sp
 The maximum distance allowed to compute an amplitude.
 This settings has no effect with e.g. scautopick as there
@@ -4725,9 +1628,9 @@ specific.
 .INDENT 0.0
 .TP
 .B amplitudes.$name.minDepth
-Type: \fIdouble\fP
-.sp
 Unit: \fIkm\fP
+.sp
+Type: \fIdouble\fP
 .sp
 The minimum depth required to compute an amplitude.
 This settings has no effect with e.g. scautopick as there
@@ -4738,9 +1641,9 @@ specific.
 .INDENT 0.0
 .TP
 .B amplitudes.$name.maxDepth
-Type: \fIdouble\fP
-.sp
 Unit: \fIkm\fP
+.sp
+Type: \fIdouble\fP
 .sp
 The maximum depth allowed to compute an amplitude.
 This settings has no effect with e.g. scautopick as there
@@ -4759,34 +1662,37 @@ specific.
 .INDENT 0.0
 .TP
 .B amplitudes.$name.resp.taper
+Default: \fB5\fP
+.sp
 Unit: \fIs\fP
 .sp
 Defines the length of the taper at either side of the
 waveform. The length will be added to the data
 request: start \- taper and end + taper.
-Default is \fB5\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B amplitudes.$name.resp.minFreq
+Default: \fB0.00833333\fP
+.sp
 Unit: \fIHz\fP
 .sp
 After data are converted in to the frequency domain that
 minimum frequency defines the end of the left\-side cosine taper for
 the frequency spectrum. The taper applies from 0Hz to {minFreq}Hz.
 A value of 0 or lower disables that taper.
-Default is \fB0.00833333\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B amplitudes.$name.resp.maxFreq
+Default: \fB0\fP
+.sp
 Unit: \fIHz\fP
 .sp
 After data are converted in to the frequency domain that
 maximum frequency defines the start of the right\-side cosine taper for
 the frequency spectrum. The taper applies from {maxFreq}Hz to {fNyquist}Hz.
 A value of 0 or lower disables that taper.
-Default is \fB0\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -4801,34 +1707,37 @@ Default is \fB0\fP\&.
 .INDENT 0.0
 .TP
 .B amplitudes.resp.taper
+Default: \fB5\fP
+.sp
 Unit: \fIs\fP
 .sp
 Defines the length of the taper at either side of the
 waveform. The length will be added to the data
 request: start \- taper and end + taper.
-Default is \fB5\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B amplitudes.resp.minFreq
+Default: \fB0.00833333\fP
+.sp
 Unit: \fIHz\fP
 .sp
 After data are converted in to the frequency domain that
 minimum frequency defines the end of the left\-side cosine taper for
 the frequency spectrum. The taper applies from 0Hz to {minFreq}Hz.
 A value of 0 or lower disables that taper.
-Default is \fB0.00833333\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B amplitudes.resp.maxFreq
+Default: \fB0\fP
+.sp
 Unit: \fIHz\fP
 .sp
 After data are converted in to the frequency domain that
 maximum frequency defines the start of the right\-side cosine taper for
 the frequency spectrum. The taper applies from {maxFreq}Hz to {fNyquist}Hz.
 A value of 0 or lower disables that taper.
-Default is \fB0\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -4846,42 +1755,48 @@ Default is \fB0\fP\&.
 .INDENT 0.0
 .TP
 .B amplitudes.WoodAnderson.gain
+Default: \fB2800\fP
+.sp
 Type: \fIdouble\fP
 .sp
 The gain of the Wood\-Anderson response.
-Default is \fB2800\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B amplitudes.WoodAnderson.T0
-Type: \fIdouble\fP
+Default: \fB0.8\fP
 .sp
 Unit: \fIs\fP
 .sp
+Type: \fIdouble\fP
+.sp
 The eigen period of the Wood\-Anderson seismometer.
-Default is \fB0.8\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B amplitudes.WoodAnderson.h
+Default: \fB0.8\fP
+.sp
 Type: \fIdouble\fP
 .sp
 The damping constant of the Wood\-Anderson seismometer.
-Default is \fB0.8\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B amplitudes.ML.absMax
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Whether to use the absolute maximum of the filtered WA
 trace or the difference of the maximum and minimum value
 of the signal window.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B amplitudes.ML.measureType
+Default: \fBAbsMax\fP
+.sp
 Type: \fIstring\fP
 .sp
 This parameter allows to set how the amplitude is measured.
@@ -4892,34 +1807,37 @@ of one cycle (PeakTrough).
 .sp
 Note that if absMax is already explicitly configured, this
 parameter has no effect.
-Default is \fBAbsMax\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B amplitudes.ML.combiner
+Default: \fBaverage\fP
+.sp
 Type: \fIstring\fP
 .sp
 Defines the combiner operation for the amplitudes measured
 on either both horizontal component. The default is to
-use the average. Allowed values are: "average",
-"min", "max" and "geometric_mean".
-"geometric_mean" corresponds to averaging single\-trace
+use the average. Allowed values are: \(dqaverage\(dq,
+\(dqmin\(dq, \(dqmax\(dq and \(dqgeometric_mean\(dq.
+\(dqgeometric_mean\(dq corresponds to averaging single\-trace
 magnitudes instead of their amplitudes.
-Default is \fBaverage\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B amplitudes.MLv.absMax
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Whether to use the absolute maximum of the filtered WA
 trace or the difference of the maximum and minimum value
 of the signal window.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B amplitudes.MLv.measureType
+Default: \fBAbsMax\fP
+.sp
 Type: \fIstring\fP
 .sp
 This parameter allows to set how the amplitude is measured.
@@ -4930,7 +1848,6 @@ of one cycle (PeakTrough).
 .sp
 Note that if absMax is already explicitly configured, this
 parameter has no effect.
-Default is \fBAbsMax\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -4958,22 +1875,24 @@ $name is a placeholder for the name to be used.
 .INDENT 0.0
 .TP
 .B magnitudes.$name.multiplier
+Default: \fB1\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Part of the magnitude station correction. The final
 magnitude value is multiplier*M+offset. This value
 is usually not required but is here for completeness.
-Default is \fB1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B magnitudes.$name.offset
+Default: \fB0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Part of the magnitude station correction. The final
 magnitude value is multiplier*M+offset. This value
 can be used to correct station magnitudes.
-Default is \fB0\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -4984,96 +1903,105 @@ Default is \fB0\fP\&.
 \fIto SeisComP. It was created by converting Manfred Baers from Fortran\fP
 \fIto C++ and inserting it as a replacement for the picker algorithm.\fP
 \fIThe picker interface name to be used in configuration files is\fP
-\fI"BK".\fP
+\fI\(dqBK\(dq.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.BK.noiseBegin
-Type: \fIdouble\fP
+Default: \fB0\fP
 .sp
 Unit: \fIs\fP
+.sp
+Type: \fIdouble\fP
 .sp
 Overrides the relative data acquisition time (relative to the triggering
 pick). This adds a margin to the actual processing and is useful
 to initialize the filter (e.g. bandpass). The data is not used
 at all until signalBegin is reached. The data time window start
 is the minimum of noiseBegin and signalBegin.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.BK.signalBegin
-Type: \fIdouble\fP
+Default: \fB\-20\fP
 .sp
 Unit: \fIs\fP
 .sp
+Type: \fIdouble\fP
+.sp
 Overrides the default time (relative to the trigger
 time) of the begin of the signal window used to pick.
-Default is \fB\-20\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.BK.signalEnd
-Type: \fIdouble\fP
+Default: \fB80\fP
 .sp
 Unit: \fIs\fP
 .sp
+Type: \fIdouble\fP
+.sp
 Overrides the default time (relative to the trigger
 time) of the begin of the signal window used to pick.
-Default is \fB80\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.BK.filterType
+Default: \fBBP\fP
+.sp
 Type: \fIstring\fP
 .sp
 BP (Bandpass) is currently the only option.
-Default is \fBBP\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.BK.filterPoles
+Default: \fB2\fP
+.sp
 Type: \fIint\fP
 .sp
 Number of poles.
-Default is \fB2\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.BK.f1
-Type: \fIdouble\fP
+Default: \fB5\fP
 .sp
 Unit: \fIHz\fP
 .sp
+Type: \fIdouble\fP
+.sp
 Bandpass lower cutoff freq. in Hz.
-Default is \fB5\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.BK.f2
-Type: \fIdouble\fP
+Default: \fB20\fP
 .sp
 Unit: \fIHz\fP
 .sp
+Type: \fIdouble\fP
+.sp
 Bandpass upper cutoff freq. in Hz.
-Default is \fB20\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.BK.thrshl1
+Default: \fB10\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Threshold to trigger for pick (c.f. paper), default 10
-Default is \fB10\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.BK.thrshl2
+Default: \fB20\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Threshold for updating sigma  (c.f. paper), default 20
-Default is \fB20\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -5082,59 +2010,63 @@ Default is \fB20\fP\&.
 \fBpicker.AIC.*\fP
 \fIAIC picker is an implementation using the simple non\-AR algorithm of Maeda (1985),\fP
 \fIsee paper of Zhang et al. (2003) in BSSA. The picker interface name to be used in configuration files is\fP
-\fI"AIC".\fP
+\fI\(dqAIC\(dq.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.AIC.noiseBegin
-Type: \fIdouble\fP
+Default: \fB0\fP
 .sp
 Unit: \fIs\fP
+.sp
+Type: \fIdouble\fP
 .sp
 Overrides the relative data acquisition time (relative to the triggering
 pick). This adds a margin to the actual processing and is useful
 to initialize the filter (e.g. bandpass). The data is not used
 at all until signalBegin is reached. The data time window start
 is the minimum of noiseBegin and signalBegin.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.AIC.signalBegin
-Type: \fIdouble\fP
+Default: \fB\-30\fP
 .sp
 Unit: \fIs\fP
 .sp
+Type: \fIdouble\fP
+.sp
 Overrides the default time (relative to the trigger
 time) of the begin of the signal window used to pick.
-Default is \fB\-30\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.AIC.signalEnd
-Type: \fIdouble\fP
+Default: \fB10\fP
 .sp
 Unit: \fIs\fP
 .sp
+Type: \fIdouble\fP
+.sp
 Overrides the default time (relative to the trigger
 time) of the begin of the signal window used to pick.
-Default is \fB10\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.AIC.filter
 Type: \fIstring\fP
 .sp
-Overrides the default filter which is "raw". The typical filter grammar can be used.
+Overrides the default filter which is \(dqraw\(dq. The typical filter grammar can be used.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.AIC.minSNR
+Default: \fB3\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Defines the mininum SNR.
-Default is \fB3\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -5143,281 +2075,110 @@ Default is \fB3\fP\&.
 \fBspicker.L2.*\fP
 \fIL2 is an algorithm to pick S\-phases based on existing P\-phases. The\fP
 \fIpicker interface name to be used in configuration files is\fP
-\fI"S\-L2".\fP
+\fI\(dqS\-L2\(dq.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
 .B spicker.L2.noiseBegin
-Type: \fIdouble\fP
+Default: \fB\-10\fP
 .sp
 Unit: \fIs\fP
+.sp
+Type: \fIdouble\fP
 .sp
 Overrides the relative data processing start time (relative to the triggering
 pick). This adds a margin to the actual processing and is useful
 to initialize the filter (e.g. bandpass). The data is not used
 at all until signalBegin is reached. The data time window start
 is the minimum of noiseBegin and signalBegin.
-Default is \fB\-10\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B spicker.L2.signalBegin
-Type: \fIdouble\fP
+Default: \fB0\fP
 .sp
 Unit: \fIs\fP
 .sp
+Type: \fIdouble\fP
+.sp
 Overrides the relative start time (relative to the triggering
 pick) of the begin of the signal processing.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B spicker.L2.signalEnd
-Type: \fIdouble\fP
+Default: \fB60\fP
 .sp
 Unit: \fIs\fP
 .sp
+Type: \fIdouble\fP
+.sp
 Overrides the relative end time (relative to the triggering
 pick) of the end of the signal window used to pick.
-Default is \fB60\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B spicker.L2.filter
+Default: \fBBW(4,0.3,1.0)\fP
+.sp
 Type: \fIstring\fP
 .sp
 Configures the filter used to compute the L2 and to pick
 the onset (with AIC) after the detector triggered.
-Default is \fBBW(4,0.3,1.0)\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B spicker.L2.detecFilter
+Default: \fBSTALTA(1,10)\fP
+.sp
 Type: \fIstring\fP
 .sp
 Configures the detector in the filtered L2. This filter is
 applied on top of the base L2 filter.
-Default is \fBSTALTA(1,10)\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B spicker.L2.threshold
+Default: \fB3\fP
+.sp
 Type: \fIdouble\fP
 .sp
 The detector threshold that triggers the AIC picker.
-Default is \fB3\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B spicker.L2.timeCorr
-Type: \fIdouble\fP
+Default: \fB0\fP
 .sp
 Unit: \fIs\fP
 .sp
+Type: \fIdouble\fP
+.sp
 The time correction (in seconds) added to the detection time
 before AIC time window is computed.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B spicker.L2.marginAIC
-Type: \fIdouble\fP
+Default: \fB5\fP
 .sp
 Unit: \fIs\fP
 .sp
+Type: \fIdouble\fP
+.sp
 The AIC time window around the detection used to pick. If 0 AIC is not used.
-Default is \fB5\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B spicker.L2.minSNR
+Default: \fB15\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Defines the mininum SNR as returned from AIC.
-Default is \fB15\fP\&.
 .UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBmagnitudes.mB.*\fP
-\fIParameters for computing mB magnitudes from mB amplitudes.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.mB.minDist
-Type: \fIdouble\fP
-.sp
-Unit: \fIdeg\fP
-.sp
-Minimum epicentral distance for computing mB. Note: According
-to the IASPEI recommendations in 2013, the minimum distance
-should be 20 deg.
-Default is \fB5\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.mB.maxDist
-Type: \fIdouble\fP
-.sp
-Unit: \fIdeg\fP
-.sp
-Maximum epicentral distance for computing mB.
-Default is \fB105\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBmagnitudes.mb.*\fP
-\fIParameters for computing mb magnitudes from mb amplitudes.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.mb.minDist
-Type: \fIdouble\fP
-.sp
-Unit: \fIdeg\fP
-.sp
-Minimum epicentral distance for computing mb. Note: According
-to the IASPEI recommendations in 2013, the minimum distance
-should be 20 deg.
-Default is \fB5\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.mb.maxDist
-Type: \fIdouble\fP
-.sp
-Unit: \fIdeg\fP
-.sp
-Maximum epicentral distance for computing mb.
-Default is \fB105\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBmagnitudes.Ms_20.*\fP
-\fIParameters for computing Ms_20 magnitudes from Ms_20 amplitudes.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.Ms_20.lowerPeriod
-Type: \fIdouble\fP
-.sp
-Unit: \fIs\fP
-.sp
-Lower period limit of the signal for computing Ms_20.
-Default is \fB18\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.Ms_20.upperPeriod
-Type: \fIdouble\fP
-.sp
-Unit: \fIs\fP
-.sp
-Upper period limit of the signal for computing Ms_20.
-Default is \fB22\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.Ms_20.minDist
-Type: \fIdouble\fP
-.sp
-Unit: \fIdeg\fP
-.sp
-Minimum epicentral distance for computing Ms_20.
-Default is \fB20\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.Ms_20.maxDist
-Type: \fIdouble\fP
-.sp
-Unit: \fIdeg\fP
-.sp
-Maximum epicentral distance for computing Ms_20.
-Default is \fB160\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.Ms_20.maxDepth
-Type: \fIdouble\fP
-.sp
-Unit: \fIkm\fP
-.sp
-Maximum depth for computing Ms_20.
-Default is \fB100\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBmagnitudes.MLv.*\fP
-\fIParameters for computing MLv magnitudes from MLv amplitudes.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.MLv.logA0
-Type: \fIstring\fP
-.sp
-Defines the calibration function log10(A0) for computing MLv.
-Format: any number of distance\-value pairs separated by semicolons
-Example: "0 \-1.3;60 \-2.8;100 \-3.0;400 \-4.5;1000 \-5.85" specifies 4 distance intervals from 0...60, 60...100, 100...400 and 400...1000 km distance. Within these intervals log10(A0) is interpolated linearly between \-1.3...\-2.8, \-2.8...\-3.0, \-3.0...\-4.5 and \-4.5...\-5.8, respectively
-.sp
-Note: The distances of the first and last sample specify the distance range within which MLv shall be computed.
-Default is \fB0 \-1.3;60 \-2.8;100 \-3.0;400 \-4.5;1000 \-5.85\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.MLv.maxDistanceKm
-Type: \fIdouble\fP
-.sp
-Unit: \fIkm\fP
-.sp
-Maximum epicentral distance for computing MLv.
-No distance limitation for maxDistanceKm=\-1
-Default is \fB\-1.0\fP\&.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBmagnitudes.ML.*\fP
-\fIParameters for computing ML magnitudes from ML amplitudes.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.ML.logA0
-Type: \fIstring\fP
-.sp
-Defines the calibration function log10(A0) for computing ML.
-Format: any number of distance\-value pairs separated by semicolons
-Example: "0 \-1.3;60 \-2.8;100 \-3.0,400 \-4.5;1000 \-5.85" specifies 4 distance intervals from 0...60, 60...100, 100...400 and 400...1000 km distance. Within these intervals log10(A0) is interpolated linearly between \-1.3...\-2.8, \-2.8...\-3.0, \-3.0...\-4.5 and \-4.5...\-5.8, respectively
-.sp
-Note: The distances of the first and last sample specify the distance range within which ML shall be computed.
-Default is \fB0 \-1.3;60 \-2.8;100 \-3.0;400 \-4.5;1000 \-5.85\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.ML.maxDistanceKm
-Type: \fIdouble\fP
-.sp
-Unit: \fIkm\fP
-.sp
-Maximum epicentral distance for computing ML.
-No distance limitation for maxDistanceKm=\-1
-Default is \fB\-1.0\fP\&.
-.UNINDENT
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
 .SS Generic
 .INDENT 0.0
 .TP
@@ -5466,7 +2227,7 @@ are used then it is the name of the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Sets the name of the master\-username of the messaging used for
-auto\-shutdown. If "shutdown\-master\-module" is given as well this
+auto\-shutdown. If \(dqshutdown\-master\-module\(dq is given as well this
 parameter is ignored.
 .UNINDENT
 .SS Verbose
@@ -5579,8 +2340,8 @@ List all supported database drivers.
 .TP
 .B \-d, \-\-database arg
 The database connection string, format: \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which can be
-queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which can be
+queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -5607,9 +2368,9 @@ List all supported record stream drivers
 .TP
 .B \-I, \-\-record\-url arg
 The recordstream source URL, format: [\fI\%service://\fP]location[#type].
-"service" is the name of the recordstream driver which can be
-queried with "\-\-record\-driver\-list". If "service"
-is not given "\fI\%file://\fP" is used.
+\(dqservice\(dq is the name of the recordstream driver which can be
+queried with \(dq\-\-record\-driver\-list\(dq. If \(dqservice\(dq
+is not given \(dq\fI\%file://\fP\(dq is used.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -5626,7 +2387,7 @@ Specify a type for the records being read.
 .TP
 .B \-\-city\-xml arg
 The path to the cities XML file. This overrides the default
-paths. Compare with the global parameter "citiesXML"
+paths. Compare with the global parameter \(dqcitiesXML\(dq
 .UNINDENT
 .SS User interface
 .INDENT 0.0
@@ -5641,8 +2402,8 @@ with GUI applications.
 Use non\-interactive presentation mode. This only works with GUI applications.
 .UNINDENT
 .SH AUTHOR
-gempa GmbH, GFZ Potsdam
+GFZ Potsdam
 .SH COPYRIGHT
-gempa GmbH, GFZ Potsdam
+2014, gempa GmbH
 .\" Generated by docutils manpage writer.
 .

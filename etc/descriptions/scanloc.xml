@@ -6,69 +6,110 @@
 		cluster search.
 		</description>
 		<configuration>
-			<parameter name="ignoreOrigins" type="boolean" default="false">
-				<description>
-				Ignore external origins received from messaging or from XML
-				playback.
-
-				Default: Accept external origins from messaging and associate
-				more phases.
-				</description>
-			</parameter>
 			<parameter name="defaultDepth" type="float" unit="km" default="5.0">
-				<description>Default used for locating.</description>
+				<description>
+				Default source depth used for locating origins.
+				</description>
 			</parameter>
 			<parameter name="ignoreDepth" type="float" unit="km" default="650.0">
 				<description>
-				Depths larger than ignoreDepth will be ignored.
+				Maximum depth of an origin to be sent.
 				</description>
 			</parameter>
 			<parameter name="maxRMS" type="float" unit="s" default="1.5">
 				<description>
-				Maximum allowed overall residual.
+				Maximum allowed overall residual of an origin to be sent.
 				</description>
 			</parameter>
 			<parameter name="minScore" type="float" default="0.0">
-				<description>Score to be reached to send origin.</description>
+				<description>
+				Minimum score of an origin to be sent.
+				</description>
 			</parameter>
 			<group name="buffer">
+				<description>
+				Define buffering of picks and origins. scanloc only treats picks
+				and origins kept in the buffer.
+				</description>
 				<parameter name="pickKeep" type="float" unit="s" default="180.0">
 					<description>
-					Time to keep picks in the internal buffer. Time comparison
-					is based on the pick times. In non-real time
-					playbacks the time to keep picks is usually compressed.
+					Time to keep picks. Time comparison is based on the pick
+					times. In non-real time playbacks the time to keep picks is
+					usually compressed.
 					</description>
 				</parameter>
-				<parameter name="ignoreManualOrigins" type="boolean" default="true">
+				<parameter name="pickIgnoreStreamID" type="list::string">
 					<description>
-					Ignore manual external origins received from messaging or
-					from XML playback.
-
-					The parameter &quot;ignoreOrigins&quot; must be inactive for
-					this option to be effective.
+					Ignore picks created on given stream ID(s). Stream IDs may
+					contain wildcards. Separate multiple IDs by comma.
 					</description>
 				</parameter>
 				<parameter name="originKeep" type="float" unit="s" default="180.0">
 					<description>
-					Time to keep origins in the internal buffer. Time comparison
-					is based on the origin times. In non-real time
-					playbacks the time to keep orgins is usually compressed.
+					Time to keep origins. Time comparison is based on the origin
+					times. In non-real time playbacks the time to keep orgins is
+					usually compressed.
+					</description>
+				</parameter>
+				<parameter name="ignoreOrigins" type="boolean" default="false">
+					<description>
+					Ignore and do not buffer external origins received from
+					messaging or from XML files.
+
+					Default: Accept external origins from messaging or XML and
+					associate more phases.
+					</description>
+				</parameter>
+				<parameter name="ignoreManualOrigins" type="boolean" default="true">
+					<description>
+					Ignore and do not buffer manual external origins received
+					from messaging or from XML files.
+
+					The parameter &quot;buffer.ignoreOrigins&quot; must be
+					inactive for this option to be effective.
+					</description>
+				</parameter>
+				<parameter name="originStatusIgnore" type="list:string" default="">
+					<description>
+					Ignore an external origin if its status has any of the given
+					states. Supported states:
+					rejected,reported,preliminary,confirmed,reviewed,final
+
+					The option is ignored for manual origins if
+					buffer.ignoreManualOrigins = false.
+					</description>
+				</parameter>
+				<parameter name="originAuthorWhiteList" type="list:string" default="">
+					<description>
+					Only add external origins from the given authors to the
+					buffer. Separate multiple authors by comma. If omitted, no
+					filtering is applied. Manual origins are treated regardless
+					of the author as defined by
+					&quot;buffer.ignoreManualOrigins&quot;.
+
+					The parameter &quot;buffer.ignoreOrigins&quot; must be
+					inactive for this option to be effective.
 					</description>
 				</parameter>
 			</group>
 			<group name="clusterSearch">
 				<description>
-					Parameters controlling the cluster search based on P phase
-					picks.
+					Parameters controlling the cluster search based on phase
+					picks of configured phase type.
 				</description>
+				<parameter name="phaseType" type="string" default="P">
+					<description>
+					Phase type of considered picks. Valid types: P or Is.
+					</description>
+				</parameter>
 				<parameter name="minSize" type="int" default="4">
 					<description>
-					Minimum number of core points (P picks) to form a cluster.
+					Minimum number of core points (picks) to form a cluster.
 					</description>
 				</parameter>
 				<parameter name="maxPickDelay" type="float" default="-1.0" unit="s">
 					<description>
-					Maximum allowed difference between P picks and cluster reference
+					Maximum allowed difference between considered picks and cluster reference
 					time (latest pick time). Optimum values can be derived from
 					travel times.The cluster search ignores all
 					picks which exceed the value. Using "-1" enables all picks
@@ -84,7 +125,8 @@
 					cluster reference time.
 
 					MaxPickDelay: Setting the cluster reference time is delayed
-					until clusterSearch.minSize picks are available.
+					until clusterSearch.minSize and association.minPhase picks
+					are available.
 					</description>
 				</parameter>
 				<parameter name="regionFilter" type="list:double">
@@ -106,7 +148,7 @@
 					<description>
 					Maximum allowed distance over all core points and
 					maximum allowed distance for neighborhood search. Both account
-					for traveltime difference, inter-station distance and the
+					for travel-time difference, inter-station distance and the
 					configured averageVelocity.
 					</description>
 				</parameter>
@@ -130,11 +172,12 @@
 					and suppress fake events.
 					</description>
 				</parameter>
-				<parameter name="ignorePicks" type="float" default="0.0" unit="s">
+				<parameter name="ignorePickTimeDifference" type="float" default="0.0" unit="s">
 					<description>
-					By default the algorithm creates a new arrival set when there
-					is already a pick with the same stream id assigned.
-					Use this option to ignore surrounding picks.
+					New clusters are formed when new picks arrive and previous
+					clusters have already a pick with the same stream ID as the new pick.
+					Use this option to ignore new picks with the given time difference
+					to cluster picks with the same stream ID.
 					</description>
 				</parameter>
 			</group>
@@ -185,6 +228,15 @@
 					Larger values allow significant correction of initial locations.
 					</description>
 				</parameter>
+				<parameter name="dropReferenceCheck" type="boolean" default="false">
+					<description>
+					Allow S-type picks without checking for a reference pick.
+					References to P picks are typically added to S picks by
+					scautopick but picks from other modules may not have this
+					feature. When this option is active, the reference pick is
+					not tested at all.
+					</description>
+				</parameter>
 				<parameter name="maxSResidual" type="float" unit="s" default="4.0">
 					<description>
 					Maximum allowed difference between measured and predicted arrival
@@ -201,13 +253,13 @@
 				</parameter>
 				<parameter name="tableType" type="string" default="LOCSAT">
 					<description>
-					Type of traveltime tables for phase association.
+					Type of travel-time tables for phase association.
 					May be different from locator. Use e.g. libtau or LOCSAT.
 					</description>
 				</parameter>
 				<parameter name="table" type="string" default="iasp91">
 					<description>
-					Name of traveltime table used for phase association.
+					Name of travel-time table used for phase association.
 					May be different from locator profile. Using a different
 					table/profile may result in increased runtime.
 					</description>
@@ -317,44 +369,43 @@
 				</parameter>
 			</group>
 			<group name="score">
-				<description>
-				Formula to calculate the internal origin score. Configurable are
-				the weighting factors for the following components:
-				used P-phase (score.weights.p), unused P-phase (score.weights.p0),
-				used S-phase (score.weights.s), unused S-phase (score.weights.0),
-				depth (score.weights.depth) and residual (score.weights.residual).
-				</description>
 				<group name="weights">
+					<description>
+					Weight factors controlling the scoring of internal origins
+					based on the following components:
+					used P-phase (p), unused P-phase (p0), used S-phase (s),
+					unused S-phase (s0), depth and residual.
+					</description>
 					<parameter name="p" type="float" default="1.0">
 						<description>
-						Defines the weight of p arrivals for scoring.
+						The weight of number of P arrivals. Also used for Is when
+						considered for clustering.
 						</description>
 					</parameter>
 					<parameter name="p0" type="float" default="0.5">
 						<description>
-						Defines the weight of p arrivals with a weight of zero
-						for scoring.
+						The weight of number of added but unused P arrivals.
+						Also used for Is when considered for clustering.
 						</description>
 					</parameter>
 					<parameter name="s" type="float" default="2.0">
 						<description>
-						Defines the weight of s arrivals for scoring.
+						The weight of number of S arrivals for scoring.
 						</description>
 					</parameter>
 					<parameter name="s0" type="float" default="0.5">
 						<description>
-						Defines the weight of s arrivals with a weight of zero
-						for scoring.
+						The weight of number of added but unused S arrivals.
 						</description>
 					</parameter>
 					<parameter name="depth" type="float" default="1.0">
 						<description>
-						Defines the weight of the depth for scoring.
+						The weight of origin depth.
 						</description>
 					</parameter>
 					<parameter name="residual" type="float" default="1.0">
 						<description>
-						Defines the weight of the residual for scoring
+						The weight of origin RMS residual.
 						</description>
 					</parameter>
 					<parameter name="increaseManual" type="boolean" default="false">
@@ -458,8 +509,18 @@
 				<option flag="" long-flag="origin-keep" argument="arg" param-ref="originKeep"/>
 				<option flag="" long-flag="allow-rejected-picks">
 					<description>
-						Allow processing of picks with evaluation status 'rejected'.
-						Otherwise these picks are ignored.
+					Allow processing of picks with evaluation status 'rejected'.
+					Otherwise these picks are ignored.
+					</description>
+				</option>
+				<option flag="" long-flag="drop-reference-check">
+					<description>
+					Allow S-type picks without checking for a reference pick.
+					References to P picks are typically added to S picks by
+					scautopick but picks from other modules may not have this
+					feature. When this option is active, the reference pick is
+					not tested at all. Manual picks are always considered
+					without a reference chseck.
 					</description>
 				</option>
 				<option flag="" long-flag="filter-pick-author">

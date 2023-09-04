@@ -44,7 +44,8 @@ SeisComP terms
          seedlink:geofon
          scautopick:teleseismic
 
-      which refers to ``etc/key/seedlink/profile_geofon`` and ``etc/key/scautopick/profile_teleseismic``.
+      which refers to :file:`etc/key/seedlink/profile_geofon` and
+      :file:`etc/key/scautopick/profile_teleseismic`.
       Changing the profile changes the bindings of all stations that use this profile.
 
    RecordStream
@@ -93,9 +94,9 @@ Scientific and technical terms
 
    amplitude
       #. General term used for an observation of a wave at a particular time.
-      #. QuakeML object. Amplitudes are computed, e.g. for computing :term:`magnitudes <magnitude>`
-         of different types. Another type is the :term:`SNR`.
-         Amplitude computation depends on the type.
+      #. QuakeML object. Amplitudes are computed, e.g. for computing
+         :term:`magnitudes <magnitude>` of different types. Another type is the
+         :term:`SNR`. Amplitude computation depends on the type.
 
       In SeisComP magnitudes are computed automatically by :program:`scautopick` and
       :program:`scamp` or interactively by :program:`scolv`.
@@ -185,8 +186,7 @@ Scientific and technical terms
    channel code
       Description of characteristics of data related to the recording sensor and
       data logger as well as instrument responses, sampling frequencies, etc.
-      The standard codes are defined in the
-      `SEED manual <https://www.fdsn.org/seed_manual/SEEDManual_V2.4.pdf>`_.
+      The standard codes are defined in the :cite:t:`seed-2012`.
 
    Circum-Pacific belt
       The zone surrounding the Pacific Ocean that is characterized by frequent and strong
@@ -206,12 +206,14 @@ Scientific and technical terms
       come from the same seismic source.
 
    color
-      Colors are given in hexadecimal representation or by :term:`color keyword names <color keyword name>`.
+      Colors are given in hexadecimal or RGB representation or by
+      :term:`color keyword names <color keyword name>`.
 
    color keyword name
       Color keyword names allow the specification of color values by names
-      representing color codes instead of RGB or hexadecimal representation. Find examples
-      on the `website of W3C <https://www.w3.org/TR/SVG11/types.html#ColorKeywords>`_.
+      representing color codes instead of RGB or hexadecimal representation.
+      Find examples on the
+      `website of W3C <https://www.w3.org/TR/SVG11/types.html#ColorKeywords>`_.
       Color keyword names have been introduced in SeisComP in version 4.4.0.
 
    convolution
@@ -451,7 +453,7 @@ Scientific and technical terms
 
    location code
       Description of particular sensor location associated to a station. The standard
-      location codes are defined in the `SEED manual <https://www.fdsn.org/seed_manual/SEEDManual_V2.4.pdf>`_.
+      location codes are defined in the :cite:t:`seed-2012`.
 
    Love wave
       A major type of surface waves having a horizontal motion that is transverse (or perpendicular)
@@ -481,12 +483,16 @@ Scientific and technical terms
       #. body-wave magnitude (mb)
       #. moment magnitude (Mw).
 
-      The magnitude scales 1-3 have limited range and applicability and do not satisfactorily measure the
-      size of the largest earthquakes. The moment magnitude (Mw) scale, based on the concept of seismic moment,
-      is uniformly applicable to all earthquake sizes but is more difficult to compute than the other types. In
-      principal, all magnitude scales could be cross calibrated to yield the same value for any given earthquake, but
-      this expectation has proven to be only approximately true, thus the magnitude type as well as its value
-      is needed to be specified.
+      The magnitude scales 1-3 have limited range and applicability and do not
+      satisfactorily measure the
+      size of the largest earthquakes. The moment magnitude (Mw) scale, based on
+      the concept of seismic moment,
+      is uniformly applicable to all earthquake sizes but is more difficult to
+      compute than the other types. In
+      principal, all magnitude scales could be cross calibrated to yield the same
+      value for any given earthquake, but
+      this expectation has proven to be only approximately true, thus the
+      magnitude type as well as its value is needed to be specified.
 
       Additional or modified magnitudes can be computed by providing plugins.
 
@@ -494,7 +500,7 @@ Scientific and technical terms
       by :program:`scolv`.
 
    magnitude, local (ML)
-      Magnitude scale introduced by Richter in the early 1930s (Richter, 1935)
+      Magnitude scale introduced by Richter in the early 1930s (:cite:t:`richter-1935`)
       to have a common scale for the strength of earthquakes. The basic observation
       is the systematic decay of the logarithm of the maximum
       amplitudes with increasing distance for different earthquakes described by:
@@ -503,7 +509,8 @@ Scientific and technical terms
 
          ML = \log A_{max} - \log A_0
 
-      with A\ :sub:`0` as amplitude of a reference event. For the reference event ML = 0 the formula can be rewritten to
+      with A\ :sub:`0` as amplitude of a reference event. For the reference event
+      ML = 0 the formula can be rewritten to
 
       .. math::
 
@@ -514,11 +521,12 @@ Scientific and technical terms
       recordings of earthquakes smaller than ML 7 at regional stations. It is
       usually a measure of the
       regional-distance S-wave on horizontal component records.
-      The original formula is only valid for records from a Wood-Anderson torsion
-      seismometer with a natural period of
+      The original formula is only valid for records from a :term:`Wood-Anderson torsion
+      seismometer <Wood-Anderson seismometer>` with a natural period of
       0.8 s and shallow earthquakes in California. Therefore calibration functions
       for other regions and wider depth ranges are necessary.
-      A Wood-Anderson seismometer is simulated.
+      A :term:`Wood-Anderson torsion seismometer <Wood-Anderson seismometer>` is
+      simulated when measuring amplitudes.
 
       For amplitudes measured on the vertical component records, additional
       correction factors have to be applied. ML saturates at
@@ -538,8 +546,9 @@ Scientific and technical terms
 
    magnitude, local custom (MLc)
       The local magnitude measured on the horizontal components with
-      custom parametric calibration function, configurable amplitude filtering,
-      Wood-Anderson simulation and distance measure.
+      custom parametric or non-parametric function, configurable amplitude
+      filtering, :term:`Wood-Anderson torsion seismometer <Wood-Anderson
+      seismometer>` and distance measures.
 
       * Amplitude unit in |scname|: **millimeter** (mm)
 
@@ -574,7 +583,7 @@ Scientific and technical terms
 
       * Amplitude unit in SeisComP: **meter/second** (m/s)
 
-      Read the SeisComP documentation of Mn for the configuration.
+      Read the SeisComP documentation of Mn for more details and the configuration.
 
    magnitude, body-wave (mb)
       Magnitude developed for teleseismic body waves. mb is defined on the amplitude
@@ -598,8 +607,8 @@ Scientific and technical terms
       Read the technical documentation of MB_BB for more details and the configuration.
 
    magnitude, cumulative body-wave (mBc)
-      mBc is the cumulative body-wave magnitude. See Bormann and Wylegalla (2005)
-      and  Bormann and Saul (2009) for details.
+      mBc is the cumulative body-wave magnitude. See :cite:t:`bormann-2005`
+      and :cite:t:`bormann-2009` for details.
 
    magnitude, surface wave (Ms)
       Ms is a magnitude scale based on teleseismic surface waves. Historically, Ms
@@ -674,8 +683,9 @@ Scientific and technical terms
 
          M(JMA) = \log \sqrt{{A_N}^2 + {A_E}^2} + 1.73 \log\Delta - 0.83
 
-      This equation is valid for local (< 2000 km) and shallow (< 80 km) earthquakes. For
-      deeper earthquakes additional correction functions have to be applied (Katsumata, 1996).
+      This equation is valid for local (< 2000 km) and shallow (< 80 km)
+      earthquakes. For deeper earthquakes additional correction functions have
+      to be applied (:cite:t:`katsumata-1996`).
 
       * Amplitude unit in SeisComP: **micrometer** (um)
       * Time window: 150 s
@@ -700,12 +710,13 @@ Scientific and technical terms
       Moment magnitude derived as a weighted average of other magnitudes.
 
    magnitude, broadband P-wave moment (Mwp)
-      The Mwp is a rapid estimate of the moment magnitude based on the first-arrival P waves
-      on broadband seismograph records. The displacement seismograms of the P wave
-      portion are considered as source time function approximation. The seismic moment
-      is estimated for each station by integrating the displacement records. The combination
-      of multiple records results in an estimation of the moment magnitude without correction
-      for the source mechanism (Tsuboi et al., 1995).
+      The Mwp is a rapid estimate of the moment magnitude based on the
+      first-arrival P waves on broadband seismograph records. The displacement
+      seismograms of the P wave portion are considered as source time function
+      approximation. The seismic moment is estimated for each station by
+      integrating the displacement records. The combination of multiple records
+      results in an estimation of the moment magnitude without correction
+      for the source mechanism (:cite:t:`tsuboi-1995`).
 
       * Amplitude unit in SeisComP: **nanometer times second** (nm*s)
       * Time window: 95 s
@@ -719,7 +730,7 @@ Scientific and technical terms
 
    magnitude, derived Mwp (Mw(Mwp))
       Moment magnitude derived from :term:`Mwp <magnitude, broadband P-wave moment (Mwp)>`
-      magnitudes using linear conversion after Whitmore et al. (2002):
+      magnitudes using linear conversion after :cite:t:`whitmore-2002`:
 
       Mw(Mwp) = 1.31 Mwp - 1.91
 
@@ -748,9 +759,9 @@ Scientific and technical terms
          primary microseisms).
 
    miniSeed
-      `miniSeed <http://www.iris.edu/data/miniseed.htm>`_ is the standard for
-      the exchange of seismic time series. It uses a fixed record length and
-      applies data compression.
+      miniSEED is the
+      standard for the exchange of seismic time series. It uses a fixed record
+      length and applies data compression as defined in :cite:t:`seed-2012`.
 
    MMI
       Modified Mercalli Intensity
@@ -881,8 +892,7 @@ Scientific and technical terms
       It is controlled as a standard by the International Federation
       of Digital Seismograph Networks (FDSN).
       The current version is 2.4, updated August 2012.
-      See the `SEED Reference Manual <http://www.fdsn.org/pdf/SEEDManual_V2.4.pdf>`_
-      for details.
+      Read :cite:t:`seed-2012` for details.
 
    S phase
       The S phase is the arrival of the direct :term:`S wave` that traveled through the Earth's
@@ -938,7 +948,8 @@ Scientific and technical terms
        information in real-time or time window based.
 
    QuakeML
-      A XML scheme developed as an open standard for seismological meta data exchange (http://www.quakeml.org).
+      A XML scheme developed as an open standard for seismological meta data
+      exchange (http://www.quakeml.org).
 
    radiation pattern
       Dependence of the amplitudes of seismic :term:`P<P wave>` and :term:`S waves<S wave>` on the direction and take-off
@@ -1019,7 +1030,7 @@ Scientific and technical terms
       :term:`SeisComP` Markup Language. SCML is a flavor of `QuakeML
       <https://quake.ethz.ch/quakeml/>`_  and is used by SeisComP and by
       products of :term:`gempa GmbH` for exchange. For details read the
-      SeisComP documentation of the data model.
+      `UML diagram <https://geofon.gfz-potsdam.de/_uml/>`_.
 
    SDS
       SeisComP Data Structure which is used for archiving waveform data. Below the
@@ -1038,7 +1049,7 @@ Scientific and technical terms
       Specific Energy Density
 
    SeedLink
-      `SeedLink <https://docs.gempa.de/seiscomp/current/apps/seedlink.html>`_ is a
+      SeedLink :cite:p:`seedlink` is a
       real-time data acquisition protocol and a client-server software that
       implements this protocol
 
@@ -1056,7 +1067,7 @@ Scientific and technical terms
       processing tool including quality control, event detection and location as
       well as dissemination of event alerts. In the context of the `GITEWS
       <http://www.gitews.de/>`_ project (German Indian Ocean Tsunami Early
-      Warning System) additional functionality were implemented to fulfil the
+      Warning System) additional functionality were implemented to fulfill the
       requirements of 24/7 early warning control centers. Major changes in the
       architecture of SeisComP were necessary and many new features result in
       the upgrade of SeisComP to version 3. Important SeisComP releases are
@@ -1109,7 +1120,7 @@ Scientific and technical terms
       moment tensor inversion. Assuming reasonable values for the rigidity of the
       rock (3-6 x 104 MPa in crust and upper mantle) and the stress drop (2-6 MPa)
       the seismic moment can be related to the surface wave magnitude Ms by the
-      empirical relationship found by Gutenberg and Richter (1956) (units in cgs):
+      empirical relationship found by :cite:t:`gutenberg-1956` (units in cgs):
 
       .. math::
 
@@ -1398,16 +1409,34 @@ Scientific and technical terms
       Attribute of the QuakeML objects Arrival and !MagnitudeReferences defining the
       effect of the referenced object (e.g. Pick).
 
+   Wood-Anderson seismometer
+      Torsion seismometer recording horizontal displacement
+      :term:`amplitudes <amplitude>` described in :cite:t:`richter-1935` and
+      :cite:t:`uhrhammer-1990`. Simulation of the Wood-Anderson seismometer is
+      used for measuring amplitudes for selected :term:`magnitudes <magnitude>`.
+      SeisComP3 and SeisComP in versions 4 and 5 have considered Wood-Anderson
+      instrument parameters originally published by :cite:t:`richter-1935` with
+      gain = 2800, T0 = 0.8 s, h = 0.8. However, updated parameters where
+      published by :cite:t:`uhrhammer-1990` with gain = 2080, T0 = 0.8 s,
+      h = 0.7. These values were part of the IASPEI Magnitude Working Group
+      recommendations of 2011 September 9 and therefore apply by default in later
+      versions of SeisComP. With the original set of values
+      :cite:p:`richter-1935`, magnitudes are systematically overestimated by 0.13.
+      Wood-Anderson seismometers can be simulated by filtering waveforms with
+      :func:`WA`.
+
    WWSSN_SP
       Short period seismograph with a dominant period of 1 s of the World-Wide
-      Standard Seismograph Network (WWSSN).
+      Standard Seismograph Network (WWSSN). WWSSN_SP instruments can be simulated
+      by filtering waveforms with WWSSN_SP.
 
    WWSSN_LP
       Long period seismograph with a dominant period of 20 s of the World-Wide
-      Standard Seismograph Network (WWSSN).
+      Standard Seismograph Network (WWSSN). WWSSN_LP instruments can be simulated
+      by filtering waveforms with WWSSN_LP.
 
    XML
-      Extensible Markup Language
+      Extensible Markup Language a version of which is :term:`SCML`.
 
 
 Distance terms

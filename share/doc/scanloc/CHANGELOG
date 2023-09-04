@@ -2,12 +2,132 @@
 
 All notable changes to scanloc will be documented in this file.
 
+## 2023.218
+
+### Added
+
+-   The command-line option `--drop-reference-check` and the configuration
+    parameter `association.dropReferenceCheck` allow to associate S-type picks
+    which do not have a reference pick. Reference picks are typically added to S
+    picks by scautopick but picks from other modules may not have this feature.
+
+## 2023.214
+
+### Changed
+
+-   Update documentation of phase association.
+
+## 2023.139
+
+### Added
+
+-   In dump_picks the new option `--maximum-delay` allows to only dump picks
+    and amplitdues which were created with delays no longer than the given
+    value. Apply to ignore objects from non-real-time playbacks.
+
+## 2023.116
+
+### Changed
+
+-   Extend travel-time tables `iasp91_scanloc.*` to 120 deg distance.
+-   Add travel-time tables for SKKP, SKS, SS, ScS phases.
+
+## 2023.115
+
+### Added
+
+-   dump_picks has received the new command-line option `--end` to be
+    consistent with other modules.
+
+## 2023.087
+
+### Changed
+
+-   Add `association.maxPResidual` and `association.maxSResidual` to maximum
+    time window for associating picks at maximum distance defined by
+    `association.maxDist`. This may increase the amount of picks available for
+    association.
+-   Add more information to debug output especially during phase association.
+
+## 2023.011
+
+### Added
+
+-   Provide more precise estimate of `clusterSearch.maxPickDelay` for tuning
+    when using `--cluster-search-log-file`.
+-   Add new configuration parameter `buffer.ignorePickByStream` and command-
+    line option `--ignore-picks-stream` for ignoring picks by stream ID.
+
+### Changed
+
+-   Equally apply pick filtering to processing in real time and in XML playbacks.
+-   Rename the configuration parameter `clusterSearch.ignorePicks` to
+    `clusterSearch.ignoreTimeDifference`. `clusterSearch.ignorePicks` is
+    deprecated.
+-   Apply `clusterSearch.ignoreTimeDifference` also to picks with phase type
+    'Is'.
+-   Update cluster reference time based on configuration of
+    `clusterSearch.minSize` and `association.minPhase` if
+    `clusterSearch.referenceTimeMode` = 'MaxPickDelay'. Before, only
+    `clusterSearch.minSize` was considered.
+
+## 2023.004
+
+### Added
+
+-   Allow configuring the type of phase picks considered for clustering by new
+    configuration parameter `clusterSearch.phaseType`.
+
+## 2022-08-23
+
+### Added
+
+-   The new configuration parameter `buffer.originStatusIgnore` allows ignoring
+    external origins based on origin evaluation status.
+
+### Changed
+
+-   Increase fallback slowness for P and S waves to 25 and 40 s/deg, respectively,
+    defining time windows for searching for picks to be associated. The values
+    only apply when the travel-time interface does not provide travel times at
+    the maximum epicentral distance configured by `association.maxDist` seen
+    from latitude=longitude=depth = 0.
+
+## 2022-07-22
+
+### Important
+
+-   The configuration parameter `ignoreOrigins` has been renamed to
+    `buffer.ignoreOrigins` for better consistency with other buffer parameters.
+    `ignoreOrigins` is still considered but a warning is issued when found.
+    `buffer.ignoreOrigins` overrides `ignoreOrigins`.
+
+### Added
+
+-   The new configuration parameter `buffer.originAuthorWhiteList` allows
+    filtering of external origins by a list of author names. When set, other
+    origins are ignored. The parameter simplifies configuring systems with other
+    locator module like screloc in the loop. It allows to exclude origins from
+    these modules to be treated by scanloc. In a redundant system, processing of
+    origins received from a secondary system can be avoided.
+-   More examples in documentation with more explanations of the timing
+    in playbacks.
+
+## 2022-05-31
+
+### Changed
+
+-   Use station elevation for travel time computation. If the station elevation
+    is not available, a value of zero is assumed. Note, neither LOCSAT nor
+    libtau currently consider station elevations for providing travel times via
+    the travel-time interface.
+
 ## 2022-03-29
 
 ### Added
 
--   Do not accept picks when inventory misses sensorLocation coordinates
--   Apply rigorous RMS checks
+-   Do not accept picks when inventory misses sensorLocation coordinates.
+-   Apply rigorous RMS checks.
 
 ## 2022-03-18
 
@@ -410,7 +530,7 @@ All notable changes to scanloc will be documented in this file.
 ### Added
 
 -   Do not try to associate picks to origins which were pick times are before origin
-    time or after first arrival P and S times at `association.maxDistance`.
+    time or after first arrival P and S times at `association.maxDist`.
     The `association.maxResidual` parameter is considered. This implementation
     potentially speeds up the pick association.
 

@@ -1,8 +1,8 @@
-n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
+n # PcP travel-time tables for iasp91_scanloc structure. (From TauP_Table)
 20     # number of depth samples
    0.00   2.50   5.00   7.50  10.00  15.00  20.00  25.00  30.00  40.00
   50.00  75.00 100.00 150.00 200.00 300.00 400.00 500.00 600.00 800.00
-120    # number of distances
+140    # number of distances
    0.00   0.05   0.10   0.15   0.20   0.25   0.30   0.35   0.40   0.45
    0.50   0.60   0.70   0.80   0.90   1.00   1.10   1.20   1.30   1.40
    1.50   1.60   1.70   1.80   1.90   2.00   2.50   3.00   4.00   5.00
@@ -15,6 +15,8 @@ n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
   61.00  62.00  63.00  64.00  65.00  66.00  67.00  68.00  69.00  70.00
   71.00  72.00  73.00  74.00  75.00  76.00  77.00  78.00  79.00  80.00
   81.00  82.00  83.00  84.00  85.00  86.00  87.00  88.00  89.00  90.00
+  91.00  92.00  93.00  94.00  95.00  96.00  97.00  98.00  99.00 100.00
+ 102.00 104.00 106.00 108.00 110.00 112.00 114.00 116.00 118.00 120.00
 #  Travel time for z =    0.0
        511.2674    PcP
        511.2678    PcP
@@ -136,6 +138,26 @@ n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
        773.5572    PcP
        777.9755    PcP
        782.3985    PcP
+       786.8238    PcP
+       791.2541    PcP
+       795.6844    PcP
+       800.1190    PcP
+       804.5551    PcP
+       808.9931    PcP
+       813.4310    PcP
+       817.8690    PcP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    2.5
        510.8363    PcP
        510.8368    PcP
@@ -257,6 +279,26 @@ n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
        773.1378    PcP
        777.5561    PcP
        781.9791    PcP
+       786.4044    PcP
+       790.8347    PcP
+       795.2650    PcP
+       799.6996    PcP
+       804.1358    PcP
+       808.5737    PcP
+       813.0117    PcP
+       817.4496    PcP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    5.0
        510.4053    PcP
        510.4057    PcP
@@ -378,6 +420,26 @@ n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
        772.7183    PcP
        777.1367    PcP
        781.5597    PcP
+       785.9851    PcP
+       790.4153    PcP
+       794.8457    PcP
+       799.2803    PcP
+       803.7165    PcP
+       808.1544    PcP
+       812.5924    PcP
+       817.0303    PcP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    7.5
        509.9743    PcP
        509.9747    PcP
@@ -499,6 +561,26 @@ n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
        772.2989    PcP
        776.7173    PcP
        781.1404    PcP
+       785.5657    PcP
+       789.9960    PcP
+       794.4264    PcP
+       798.8610    PcP
+       803.2972    PcP
+       807.7351    PcP
+       812.1731    PcP
+       816.6110    PcP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    10.0
        509.5432    PcP
        509.5437    PcP
@@ -620,6 +702,26 @@ n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
        771.8795    PcP
        776.2979    PcP
        780.7210    PcP
+       785.1464    PcP
+       789.5767    PcP
+       794.0071    PcP
+       798.4417    PcP
+       802.8779    PcP
+       807.3158    PcP
+       811.7538    PcP
+       816.1917    PcP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    15.0
        508.6812    PcP
        508.6816    PcP
@@ -741,6 +843,26 @@ n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
        771.0408    PcP
        775.4591    PcP
        779.8823    PcP
+       784.3078    PcP
+       788.7380    PcP
+       793.1685    PcP
+       797.6031    PcP
+       802.0393    PcP
+       806.4773    PcP
+       810.9152    PcP
+       815.3532    PcP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    20.0
        507.8191    PcP
        507.8195    PcP
@@ -862,6 +984,26 @@ n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
        770.2020    PcP
        774.6204    PcP
        779.0436    PcP
+       783.4692    PcP
+       787.8994    PcP
+       792.3299    PcP
+       796.7645    PcP
+       801.2008    PcP
+       805.6387    PcP
+       810.0767    PcP
+       814.5146    PcP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    25.0
        507.0499    PcP
        507.0503    PcP
@@ -983,6 +1125,26 @@ n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
        769.4591    PcP
        773.8774    PcP
        778.3008    PcP
+       782.7264    PcP
+       787.1566    PcP
+       791.5872    PcP
+       796.0218    PcP
+       800.4581    PcP
+       804.8960    PcP
+       809.3340    PcP
+       813.7719    PcP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    30.0
        506.2806    PcP
        506.2811    PcP
@@ -1104,6 +1266,26 @@ n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
        768.7162    PcP
        773.1345    PcP
        777.5579    PcP
+       781.9836    PcP
+       786.4139    PcP
+       790.8445    PcP
+       795.2791    PcP
+       799.7154    PcP
+       804.1534    PcP
+       808.5913    PcP
+       813.0293    PcP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    40.0
        504.8895    PcP
        504.8900    PcP
@@ -1225,6 +1407,26 @@ n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
        767.3844    PcP
        771.8028    PcP
        776.2264    PcP
+       780.6522    PcP
+       785.0825    PcP
+       789.5132    PcP
+       793.9478    PcP
+       798.3842    PcP
+       802.8222    PcP
+       807.2601    PcP
+       811.6981    PcP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    50.0
        503.6459    PcP
        503.6464    PcP
@@ -1346,6 +1548,26 @@ n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
        766.2070    PcP
        770.6253    PcP
        775.0491    PcP
+       779.4751    PcP
+       783.9054    PcP
+       788.3362    PcP
+       792.7708    PcP
+       797.2074    PcP
+       801.6453    PcP
+       806.0833    PcP
+       810.5212    PcP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    75.0
        500.5377    PcP
        500.5382    PcP
@@ -1467,6 +1689,26 @@ n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
        763.2651    PcP
        767.6835    PcP
        772.1077    PcP
+       776.5342    PcP
+       780.9644    PcP
+       785.3956    PcP
+       789.8302    PcP
+       794.2671    PcP
+       798.7050    PcP
+       803.1430    PcP
+       807.5809    PcP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    100.0
        497.4307    PcP
        497.4311    PcP
@@ -1588,6 +1830,26 @@ n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
        760.3259    PcP
        764.7446    PcP
        769.1689    PcP
+       773.5958    PcP
+       778.0261    PcP
+       782.4576    PcP
+       786.8922    PcP
+       791.3293    PcP
+       795.7673    PcP
+       800.2052    PcP
+       804.6432    PcP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    150.0
        491.2383    PcP
        491.2387    PcP
@@ -1709,6 +1971,26 @@ n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
        754.4745    PcP
        758.8942    PcP
        763.3184    PcP
+       767.7463    PcP
+       772.1766    PcP
+       776.6088    PcP
+       781.0434    PcP
+       785.4810    PcP
+       789.9190    PcP
+       794.3569    PcP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    200.0
        485.1426    PcP
        485.1431    PcP
@@ -1830,6 +2112,26 @@ n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
        748.7314    PcP
        753.1520    PcP
        757.5763    PcP
+       762.0052    PcP
+       766.4354    PcP
+       770.8684    PcP
+       775.3032    PcP
+       779.7412    PcP
+       784.1791    PcP
+       788.6170    PcP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    300.0
        473.3015    PcP
        473.3019    PcP
@@ -1951,6 +2253,26 @@ n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
        737.6362    PcP
        742.0589    PcP
        746.4840    PcP
+       750.9142    PcP
+       755.3445    PcP
+       759.7789    PcP
+       764.2149    PcP
+       768.6529    PcP
+       773.0908    PcP
+       777.5288    PcP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    400.0
        461.9504    PcP
        461.9508    PcP
@@ -2072,6 +2394,26 @@ n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
        727.0935    PcP
        731.5178    PcP
        735.9451    PcP
+       740.3753    PcP
+       744.8071    PcP
+       749.2417    PcP
+       753.6790    PcP
+       758.1169    PcP
+       762.5549    PcP
+       766.9928    PcP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    500.0
        451.3773    PcP
        451.3777    PcP
@@ -2193,6 +2535,26 @@ n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
        717.4267    PcP
        721.8509    PcP
        726.2808    PcP
+       730.7111    PcP
+       735.1447    PcP
+       739.5801    PcP
+       744.0180    PcP
+       748.4560    PcP
+       752.8939    PcP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    600.0
        441.2037    PcP
        441.2041    PcP
@@ -2314,6 +2676,26 @@ n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
        708.2325    PcP
        712.6592    PcP
        717.0894    PcP
+       721.5208    PcP
+       725.9554    PcP
+       730.3923    PcP
+       734.8303    PcP
+       739.2682    PcP
+       743.7062    PcP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    800.0
        422.5004    PcP
        422.5009    PcP
@@ -2435,3 +2817,23 @@ n # PcP travel-time tables for iasp91 structure. (From TauP_Table)
        691.8150    PcP
        696.2452    PcP
        700.6771    PcP
+       705.1116    PcP
+       709.5489    PcP
+       713.9869    PcP
+       718.4248    PcP
+       722.8628    PcP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none

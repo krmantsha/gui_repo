@@ -37,7 +37,7 @@ def str2time(timestring):
         timestring = timestring.replace(c, " ")
     timestring = timestring.split()
     assert 3 <= len(timestring) <= 6
-    timestring.extend((6-len(timestring))*["0"])
+    timestring.extend((6 - len(timestring)) * ["0"])
     timestring = " ".join(timestring)
 
     fmt = "%Y %m %d %H %M %S"
@@ -60,12 +60,14 @@ class DumpPicks(Application):
         self.manual = False
         self.checkInventory = False
         self.author = None
-        self.tmin = None
-        self.tmax = None
         self.hours = None
         self.start = None
+        self.end = None
         self.network = None
         self.station = None
+        self.tmin = str2time("1970-01-01 00:00:00")
+        self.tmax = str2time(str(datetime.datetime.utcnow()))
+        self.delay = None
 
         self.setMessagingEnabled(False)
         self.setDatabaseEnabled(True, True)
@@ -74,68 +76,108 @@ class DumpPicks(Application):
         self.commandline().addGroup("Dump")
 
         self.commandline().addStringOption(
-            "Dump", "hours", "Start search hours before now. If set, "
-            "--time-window and --start are ignored.")
+            "Dump",
+            "hours",
+            "Start search hours before now. If set, "
+            "--time-window, --start, --end are ignored.",
+        )
 
         self.commandline().addStringOption(
-            "Dump", "start", "Start time of search until now. If set, "
-            "--time-window is ignored.")
+            "Dump",
+            "start",
+            "Start time of search until now. If set, " "--time-window is ignored.",
+        )
 
         self.commandline().addStringOption(
-            "Dump", "time-window,t",
+            "Dump", "end", "End time of search. If set, " "--time-window is ignored."
+        )
+
+        self.commandline().addStringOption(
+            "Dump",
+            "time-window,t",
             "Specify time window (as one -properly quoted- string) "
             "times are of course UTC and separated by a tilde '~'"
-            "Uses: 1970-01-01 00:00:00 to now if not set.")
+            "Uses: 1970-01-01 00:00:00 to now if not set.",
+        )
 
         self.commandline().addStringOption(
-            "Dump", "output,o", "Output file (default is stdout).")
+            "Dump",
+            "maximum-delay",
+            "Maximum allowed delay of picks or amplitudes, hence the difference between "
+            "creation time and actual time value. Allows identifcation of picks found "
+            "in real time.",
+        )
 
         self.commandline().addStringOption(
-            "Dump", "region,r", "region rect \"lat0,lon0,lat1,lon1\"\nlatitude [degree]: "
+            "Dump",
+            "region,r",
+            'Region rect "lat0,lon0,lat1,lon1"\nlatitude [degree]: '
             "-90 - +90\nlongitude [degree]: -180 - +180 or +0 - +360\n"
-            "Uses: \"-90,-180,90,180\" if not set.")
+            'Uses: "-90,-180,90,180" if not set.',
+        )
 
         self.commandline().addOption(
-            "Dump", "check-inventory,c", "Dump picks only when corresponding "
-            "streams are found in inventory.")
+            "Dump",
+            "check-inventory,c",
+            "Dump picks only when corresponding " "streams are found in inventory.",
+        )
 
         self.commandline().addStringOption(
-            "Dump", "origin,O", "Origin ID. Dump all "
-            "picks associated with the origin that has the given origin ID.")
+            "Dump",
+            "origin,O",
+            "Origin ID. Dump all "
+            "picks associated with the origin that has the given origin ID.",
+        )
+
+        self.commandline().addOption("Dump", "manual,m", "Dump only manual picks.")
 
         self.commandline().addOption(
-            "Dump", "manual,m", "Dump only manual picks.")
+            "Dump", "automatic,a", "Dump only automatic picks."
+        )
 
         self.commandline().addOption(
-            "Dump", "automatic,a", "Dump only automatic picks.")
-
-        self.commandline().addOption(
-            "Dump", "no-amp,n", "Do not dump amplitudes from picks. "
-            "Amplitudes are not required by scanloc.")
+            "Dump",
+            "no-amp,n",
+            "Do not dump amplitudes from picks. "
+            "Amplitudes are not required by scanloc.",
+        )
 
         self.commandline().addStringOption("Dump", "author", "Filter picks by author.")
 
         self.commandline().addStringOption(
-            "Dump", "net-sta", "Filter picks and amplitudes by network code or "
-            "network and station code. Format: NET or NET.STA.")
+            "Dump",
+            "net-sta",
+            "Filter picks and amplitudes by network code or "
+            "network and station code. Format: NET or NET.STA.",
+        )
+
+        self.commandline().addGroup("Output")
+        self.commandline().addStringOption(
+            "Output",
+            "output,o",
+            "Name of output file. If not given, XML is written to stdout.",
+        )
 
     def printUsage(self):
-
-        print('''Usage:
+        print(
+            """Usage:
   dump_picks [options]
 
-Read picks from database and dump them to a file or to standard output.''')
+Read picks from database and dump them to a file or to standard output."""
+        )
 
         Application.printUsage(self)
 
-        print('''Examples:
+        print(
+            """Examples:
 Dump all picks within a region and a period of time
-  dump_picks -t "2016-01-20 13:52:00~2016-01-20 13:57:00" -d localhost/seiscomp -r "-90,-180,90,180"
+  dump_picks -d localhost -t "2023-01-20 13:52:00~2023-01-20 13:57:00" -r "-10,-90,10,120"
 
-Search 24 hours before now. Only dump automatic picks from author
-"scautopick@host" without amplitudes
-  dump_picks -d localhost/seiscomp --hours 24 -a -n --author "scautopick@host"
-''')
+Search 24 hours before now for automatic picks from author "scautopick" with
+low delay ignoring amplitudes
+  dump_picks -d localhost --hours 24 -a -n --author "scautopick" --maximum-delay 60
+"""
+        )
 
     def init(self):
         if not Application.init(self):
@@ -166,48 +208,79 @@ Search 24 hours before now. Only dump automatic picks from author
             try:
                 self.hours = float(self.commandline().optionString("hours"))
             except RuntimeError:
-                self.hours = None
+                pass
 
             try:
                 self.start = self.commandline().optionString("start")
             except RuntimeError:
-                self.start = None
+                pass
+
+            try:
+                self.end = self.commandline().optionString("end")
+            except RuntimeError:
+                pass
 
             if self.hours:
-                Logging.debug("Time window set by hours option: ignoring all "
-                              "other time parameters")
-                self.tmin = str2time(str(datetime.datetime.utcnow()
-                                         - datetime.timedelta(hours=self.hours)))
+                Logging.debug(
+                    "Time window set by hours option: ignoring all "
+                    "other time parameters"
+                )
+                self.tmin = str2time(
+                    str(
+                        datetime.datetime.utcnow()
+                        - datetime.timedelta(hours=self.hours)
+                    )
+                )
                 self.tmax = str2time(str(datetime.datetime.utcnow()))
                 self.start = None
+                self.end = None
 
             if self.start:
-                Logging.debug("Time window set by start option: ignoring "
-                              "--time-window")
+                Logging.debug(
+                    "Time window set by start option: ignoring " "--time-window"
+                )
                 self.tmin = str2time(self.start)
-                self.tmax = str2time(str(datetime.datetime.utcnow()))
 
-            if not self.start and not self.hours:
+            if self.end:
+                Logging.debug(
+                    "Time window set by end option: ignoring " "--time-window"
+                )
+                self.tmax = str2time(self.end)
+
+            if not self.start and not self.end and not self.hours:
                 try:
                     self.tmin, self.tmax = map(
                         str2time,
-                        self.commandline().optionString("time-window").split("~"))
+                        self.commandline().optionString("time-window").split("~"),
+                    )
                     Logging.debug("Time window set by time-window option")
                 except RuntimeError:
-                    Logging.debug("No time window given - assuming 1970-01-01 00:00:00 till now")
-                    self.tmin = str2time("1970-01-01 00:00:00")
-                    self.tmax = str2time(str(datetime.datetime.utcnow()))
+                    Logging.debug(
+                        "No time window given - assuming 1970-01-01 00:00:00 till now"
+                    )
 
-            Logging.debug("Considered time window: %s - %s" %
-                          (str(self.tmin), str(self.tmax)))
+            print(
+                f"Considered time window: {str(self.tmin)} - {str(self.tmax)}",
+                file=sys.stderr,
+            )
+            Logging.debug(
+                f"Considered time window: {str(self.tmin)} - {str(self.tmax)}"
+            )
 
-            if float(self.bbox[1]) > 180. or float(self.bbox[3]) > 180.:
+            if float(self.bbox[1]) > 180.0 or float(self.bbox[3]) > 180.0:
                 self.bbox[1] = str(float(self.bbox[1]) - 180)
                 self.bbox[3] = str(float(self.bbox[3]) - 180)
 
         else:
-            Logging.debug("Search for picks is based on originID, ignoring "
-                          "region and time parameters.")
+            Logging.debug(
+                "Search for picks is based on originID, ignoring "
+                "region and time parameters."
+            )
+
+        try:
+            self.delay = float(self.commandline().optionString("maximum-delay"))
+        except RuntimeError:
+            pass
 
         if self.commandline().hasOption("check-inventory"):
             self.checkInventory = True
@@ -235,7 +308,9 @@ Search 24 hours before now. Only dump automatic picks from author
                 self.automatic = True
                 Logging.debug("Dump only automatic picks")
             else:
-                Logging.error("EXIT - Script was started with competing options -a and -m")
+                Logging.error(
+                    "EXIT - Script was started with competing options -a and -m"
+                )
                 print("EXIT - Script was started with competing options -a and -m")
                 return False
         else:
@@ -245,29 +320,34 @@ Search 24 hours before now. Only dump automatic picks from author
         try:
             self.author = self.commandline().optionString("author")
         except RuntimeError:
-            self.author = None
+            pass
 
+        networkStation = None
         try:
             networkStation = self.commandline().optionString("net-sta")
-            Logging.debug("Filter objects by network / station code: {}".format(networkStation))
+            Logging.debug(f"Filter objects by network / station code: {networkStation}")
         except RuntimeError:
-            networkStation = None
+            pass
 
         if networkStation:
             try:
-                self.network = networkStation.split('.')[0]
+                self.network = networkStation.split(".")[0]
             except IndexError:
-                print("Error in network code '{}': Use '--net-sta' with "
-                      "format NET or NET.STA".format(networkStation),
-                      file=sys.stderr)
+                print(
+                    f"Error in network code '{networkStation}': Use '--net-sta' with "
+                    "format NET or NET.STA",
+                    file=sys.stderr,
+                )
                 return False
 
             try:
-                self.station = networkStation.split('.')[1]
+                self.station = networkStation.split(".")[1]
             except IndexError:
-                print("No station code given in '--net-sta {}' - using all "
-                      "stations from network".format(networkStation),
-                      file=sys.stderr)
+                print(
+                    f"No station code given in '--net-sta {networkStation}' - using all "
+                    "stations from network",
+                    file=sys.stderr,
+                )
 
         return True
 
@@ -280,7 +360,7 @@ Search 24 hours before now. Only dump automatic picks from author
         def _time(time):
             return db.timeToString(time)
 
-        colLat, colLon = _T('latitude'), _T('longitude')
+        colLat, colLon = _T("latitude"), _T("longitude")
 
         dbq = self.query()
         ep = DataModel.EventParameters()
@@ -303,33 +383,59 @@ Search 24 hours before now. Only dump automatic picks from author
         else:
             fmt = "%Y-%m-%d %H:%M:%S"
             if self.checkInventory:
-                q = "select distinct(PPick.%s), Pick.* " \
-                    "from PublicObject as PPick, Pick, Network, Station, SensorLocation " \
-                    "where PPick._oid=Pick._oid and Network._oid=Station._parent_oid and " \
-                    "Station._oid=SensorLocation._parent_oid and Station.%s >= %s and " \
-                    "Station.%s <= %s and Station.%s >= %s and Station.%s <= %s and " \
-                    "SensorLocation.%s=Pick.%s and SensorLocation.%s <= Pick.%s and " \
-                    "(SensorLocation.%s is null or SensorLocation.%s > Pick.%s) and " \
-                    "Station.%s=Pick.%s and Network.%s=Pick.%s and " \
-                    "Pick.%s >= '%s' and Pick.%s < '%s'" \
-                    "" % (_T("publicID"),
-                          colLat, self.bbox[0], colLat, self.bbox[2], colLon,
-                          self.bbox[1], colLon, self.bbox[3],
-                          _T("code"), _T("waveformID_locationCode"),
-                          _T("start"), _T("time_value"),
-                          _T("end"), _T("end"), _T("time_value"),
-                          _T("code"), _T("waveformID_stationCode"),
-                          _T("code"), _T("waveformID_networkCode"),
-                          _T("time_value"), self.tmin.toString(fmt),
-                          _T("time_value"), self.tmax.toString(fmt))
+                q = (
+                    "select distinct(PPick.%s), Pick.* "
+                    "from PublicObject as PPick, Pick, Network, Station, SensorLocation "
+                    "where PPick._oid=Pick._oid and Network._oid=Station._parent_oid and "
+                    "Station._oid=SensorLocation._parent_oid and Station.%s >= %s and "
+                    "Station.%s <= %s and Station.%s >= %s and Station.%s <= %s and "
+                    "SensorLocation.%s=Pick.%s and SensorLocation.%s <= Pick.%s and "
+                    "(SensorLocation.%s is null or SensorLocation.%s > Pick.%s) and "
+                    "Station.%s=Pick.%s and Network.%s=Pick.%s and "
+                    "Pick.%s >= '%s' and Pick.%s < '%s'"
+                    ""
+                    % (
+                        _T("publicID"),
+                        colLat,
+                        self.bbox[0],
+                        colLat,
+                        self.bbox[2],
+                        colLon,
+                        self.bbox[1],
+                        colLon,
+                        self.bbox[3],
+                        _T("code"),
+                        _T("waveformID_locationCode"),
+                        _T("start"),
+                        _T("time_value"),
+                        _T("end"),
+                        _T("end"),
+                        _T("time_value"),
+                        _T("code"),
+                        _T("waveformID_stationCode"),
+                        _T("code"),
+                        _T("waveformID_networkCode"),
+                        _T("time_value"),
+                        self.tmin.toString(fmt),
+                        _T("time_value"),
+                        self.tmax.toString(fmt),
+                    )
+                )
             else:
-                q = "select distinct(PPick.%s), Pick.* " \
-                    "from PublicObject as PPick, Pick " \
-                    "where PPick._oid=Pick._oid and " \
-                    "Pick.%s >= '%s' and Pick.%s < '%s'" \
-                    "" % (_T("publicID"),
-                          _T("time_value"), self.tmin.toString(fmt),
-                          _T("time_value"), self.tmax.toString(fmt))
+                q = (
+                    "select distinct(PPick.%s), Pick.* "
+                    "from PublicObject as PPick, Pick "
+                    "where PPick._oid=Pick._oid and "
+                    "Pick.%s >= '%s' and Pick.%s < '%s'"
+                    ""
+                    % (
+                        _T("publicID"),
+                        _T("time_value"),
+                        self.tmin.toString(fmt),
+                        _T("time_value"),
+                        self.tmax.toString(fmt),
+                    )
+                )
 
             if self.manual:
                 q = q + " and Pick.evaluationMode = 'manual' "
@@ -338,19 +444,23 @@ Search 24 hours before now. Only dump automatic picks from author
                 q = q + " and Pick.evaluationMode = 'automatic' "
 
             if self.author:
-                q = q + " and Pick.%s = '%s' " % (_T("creationInfo_author"),
-                                                  self.author)
+                q = q + f" and Pick.{_T('creationInfo_author')} = '{self.author}' "
 
             if self.network:
-                q = q + " and Pick.%s = '%s' " % (_T("waveformID_networkCode"),
-                                                  self.network)
+                q = q + f" and Pick.{_T('waveformID_networkCode')} = '{self.network}' "
 
             if self.station:
-                q = q + " and Pick.%s = '%s' " % (_T("waveformID_stationCode"),
-                                                  self.station)
+                q = q + f" and Pick.{_T('waveformID_stationCode')} = '{self.station}' "
 
             for p in dbq.getObjectIterator(q, DataModel.Pick.TypeInfo()):
-                picks.append(DataModel.Pick.Cast(p))
+                pick = DataModel.Pick.Cast(p)
+                if (
+                    self.delay
+                    and float(pick.creationInfo().creationTime() - pick.time().value())
+                    > self.delay
+                ):
+                    continue
+                picks.append(pick)
 
             for p in picks:
                 dbq.loadComments(p)
@@ -358,37 +468,65 @@ Search 24 hours before now. Only dump automatic picks from author
 
             if not self.noamp:
                 if self.checkInventory:
-                    q = "select distinct(PAmplitude.%s), Amplitude.* " \
+                    q = (
+                        "select distinct(PAmplitude.%s), Amplitude.* "
                         "from PublicObject as PAmplitude, Amplitude, PublicObject \
-                        as PPick, Pick, Network, Station, SensorLocation " \
-                        "where PAmplitude._oid=Amplitude._oid and " \
-                        "PPick._oid=Pick._oid and Network._oid=Station._parent_oid and " \
-                        "Station._oid=SensorLocation._parent_oid and Station.%s >= %s and " \
-                        "Station.%s <= %s and Station.%s >= %s and Station.%s <= %s and " \
-                        "SensorLocation.%s=Pick.%s and SensorLocation.%s <= Pick.%s and " \
-                        "(SensorLocation.%s is null or SensorLocation.%s > Pick.%s) and " \
-                        "Station.%s=Pick.%s and Network.%s=Pick.%s and " \
-                        "Pick.%s >= '%s' and Pick.%s < '%s' and PPick.%s=Amplitude.%s" \
-                        "" % (_T("publicID"),
-                              colLat, self.bbox[0], colLat, self.bbox[2], colLon,
-                              self.bbox[1], colLon, self.bbox[3],
-                              _T("code"), _T("waveformID_locationCode"),
-                              _T("start"), _T("time_value"),
-                              _T("end"), _T("end"), _T("time_value"),
-                              _T("code"), _T("waveformID_stationCode"),
-                              _T("code"), _T("waveformID_networkCode"),
-                              _T("time_value"), self.tmin.toString(fmt),
-                              _T("time_value"), self.tmax.toString(fmt),
-                              _T("publicID"), _T("pickID"))
+                        as PPick, Pick, Network, Station, SensorLocation "
+                        "where PAmplitude._oid=Amplitude._oid and "
+                        "PPick._oid=Pick._oid and Network._oid=Station._parent_oid and "
+                        "Station._oid=SensorLocation._parent_oid and Station.%s >= %s and "
+                        "Station.%s <= %s and Station.%s >= %s and Station.%s <= %s and "
+                        "SensorLocation.%s=Pick.%s and SensorLocation.%s <= Pick.%s and "
+                        "(SensorLocation.%s is null or SensorLocation.%s > Pick.%s) and "
+                        "Station.%s=Pick.%s and Network.%s=Pick.%s and "
+                        "Pick.%s >= '%s' and Pick.%s < '%s' and PPick.%s=Amplitude.%s"
+                        ""
+                        % (
+                            _T("publicID"),
+                            colLat,
+                            self.bbox[0],
+                            colLat,
+                            self.bbox[2],
+                            colLon,
+                            self.bbox[1],
+                            colLon,
+                            self.bbox[3],
+                            _T("code"),
+                            _T("waveformID_locationCode"),
+                            _T("start"),
+                            _T("time_value"),
+                            _T("end"),
+                            _T("end"),
+                            _T("time_value"),
+                            _T("code"),
+                            _T("waveformID_stationCode"),
+                            _T("code"),
+                            _T("waveformID_networkCode"),
+                            _T("time_value"),
+                            self.tmin.toString(fmt),
+                            _T("time_value"),
+                            self.tmax.toString(fmt),
+                            _T("publicID"),
+                            _T("pickID"),
+                        )
+                    )
                 else:
-                    q = "select distinct(PAmplitude.%s), Amplitude.* " \
-                        "from PublicObject as PAmplitude, Amplitude, PublicObject as PPick, Pick " \
-                        "where PAmplitude._oid=Amplitude._oid and PPick._oid=Pick._oid and " \
-                        "Pick.%s >= '%s' and Pick.%s < '%s' and PPick.%s=Amplitude.%s" \
-                        "" % (_T("publicID"),
-                              _T("time_value"), self.tmin.toString(fmt),
-                              _T("time_value"), self.tmax.toString(fmt),
-                              _T("publicID"), _T("pickID"))
+                    q = (
+                        "select distinct(PAmplitude.%s), Amplitude.* "
+                        "from PublicObject as PAmplitude, Amplitude, PublicObject as PPick, Pick "
+                        "where PAmplitude._oid=Amplitude._oid and PPick._oid=Pick._oid and "
+                        "Pick.%s >= '%s' and Pick.%s < '%s' and PPick.%s=Amplitude.%s"
+                        ""
+                        % (
+                            _T("publicID"),
+                            _T("time_value"),
+                            self.tmin.toString(fmt),
+                            _T("time_value"),
+                            self.tmax.toString(fmt),
+                            _T("publicID"),
+                            _T("pickID"),
+                        )
+                    )
 
                 if self.manual:
                     q = q + " and Pick.evaluationMode = 'manual' "
@@ -396,19 +534,31 @@ Search 24 hours before now. Only dump automatic picks from author
                     q = q + " and Pick.evaluationMode = 'automatic' "
 
                 if self.author:
-                    q = q + " and Pick.%s = '%s' " % (_T("creationInfo_author"),
-                                                      self.author)
+                    q = q + f" and Pick.{_T('creationInfo_author')} = '{self.author}' "
 
                 if self.network:
-                    q = q + " and Pick.%s = '%s' " % (_T("waveformID_networkCode"),
-                                                      self.network)
+                    q = q + " and Pick.%s = '%s' " % (
+                        _T("waveformID_networkCode"),
+                        self.network,
+                    )
 
                 if self.station:
-                    q = q + " and Pick.%s = '%s' " % (_T("waveformID_stationCode"),
-                                                      self.station)
+                    q = q + " and Pick.%s = '%s' " % (
+                        _T("waveformID_stationCode"),
+                        self.station,
+                    )
 
                 for a in dbq.getObjectIterator(q, DataModel.Amplitude.TypeInfo()):
                     amp = DataModel.Amplitude.Cast(a)
+                    if (
+                        self.delay
+                        and float(
+                            amp.creationInfo().creationTime()
+                            - amp.timeWindow().reference()
+                        )
+                        > self.delay
+                    ):
+                        continue
                     ep.add(amp)
                     noAmps += 1
 
@@ -418,8 +568,10 @@ Search 24 hours before now. Only dump automatic picks from author
         ar.writeObject(ep)
         ar.close()
 
-        print("Saved: {:d} picks , {:d} amplitudes".format(len(picks), noAmps),
-              file=sys.stderr)
+        print(
+            f"Saved: {len(picks):d} picks , {noAmps:d} amplitudes",
+            file=sys.stderr,
+        )
         return True
 
 

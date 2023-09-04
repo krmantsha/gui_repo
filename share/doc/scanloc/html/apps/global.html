@@ -1,19 +1,20 @@
 <!doctype html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
-    <title>Configuration &#8212; scanloc: Phase Associator  documentation</title>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Global parameters &#8212; scanloc: Phase Associator  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/gempa.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/gempa.css?v=c960eebf" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../_static/gempa.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/scanloc.png"/>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
   </head>
@@ -23,7 +24,7 @@
         <img class="background" src="../_static/icon.png"/>
         <div class="content">
            <span class="title">scanloc: Phase Associator </span>
-           <span class="version">2022.88#fcbc3b22d</span></h1>
+           <span class="version">2023.217#192b88919</span></h1>
         </div>
       </div>
     </div>
@@ -51,81 +52,138 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="configuration">
-<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
-<dl class="confval">
-<dt id="confval-datacenterID">
-<code class="sig-name descname">datacenterID</code><a class="headerlink" href="#confval-datacenterID" title="Permalink to this definition">¶</a></dt>
+  <section id="global-parameters">
+<span id="global"></span><h1>Global parameters<a class="headerlink" href="#global-parameters" title="Permalink to this heading">¶</a></h1>
+<p>The SeisComP configuration uses a unified schema to configure modules.
+Modules which use the SeisComP libraries can read this configuration
+directly and share global configuration options like messaging connections,
+database configurations, logging and much more.
+There are still some modules that do not use the libraries and are called
+<strong>standalone</strong> modules such as <span class="xref std std-ref">seedlink</span> and
+<span class="xref std std-ref">slarchive</span>.
+They need wrappers to generate their native configuration when
+<strong class="command">seiscomp update-config</strong> is run.</p>
+<p>Global parameters can be used by many modules. Thus multiple configuration can be avoided.
+The parameters are read from file in the following order:</p>
+<ol class="arabic simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">&#64;SYSTEMCONFIGDIR&#64;/global.cfg</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">&#64;CONFIGDIR&#64;/global.cfg</span></code></p></li>
+</ol>
+<p>Parameters from <code class="file docutils literal notranslate"><span class="pre">&#64;CONFIGDIR&#64;</span></code> override parameters from <code class="file docutils literal notranslate"><span class="pre">&#64;SYSTEMCONFIGDIR&#64;</span></code>.</p>
+<p>Most <a class="reference internal" href="../base/glossary.html#term-trunk"><span class="xref std std-term">trunk</span></a> modules read the configuration from the global configuration which can be overridden
+by the module configuration. Read the <span class="xref std std-ref">concept section on modules</span>
+and the <span class="xref std std-ref">concept section on the configuraion</span> for
+more details.</p>
+<p>Though it is easy to create the configuration by directly editing the configuration
+files, it is even more convenient to use a configurator.
+SeisComP ships with a graphical configurator and management tool (<span class="xref std std-ref">scconfig</span>)
+which makes it easy to maintain
+module configurations and station bindings even for large networks. It has built-in
+functionality to check the state of all registered modules and to start and stop them.</p>
+<p>The configuration is divided into three parts: <a class="reference internal" href="#global-stations"><span class="std std-ref">stations</span></a>,
+<a class="reference internal" href="#global-modules"><span class="std std-ref">modules</span></a> and <a class="reference internal" href="#global-bindings"><span class="std std-ref">bindings</span></a>.</p>
+<section id="station-meta-data">
+<span id="global-stations"></span><h2>Station meta data<a class="headerlink" href="#station-meta-data" title="Permalink to this heading">¶</a></h2>
+<p>Station meta-data is a fundamental requirement for a seismic processing system and
+for SeisComP. Read the <span class="xref std std-ref">inventory section</span> in concepts for
+more details.</p>
+</section>
+<section id="modules">
+<span id="global-modules"></span><h2>Modules<a class="headerlink" href="#modules" title="Permalink to this heading">¶</a></h2>
+<p>The concepts of <span class="xref std std-ref">modules</span> and <span class="xref std std-ref">their configuration</span>
+is described in the <span class="xref std std-ref">concepts section</span>.</p>
+</section>
+<section id="bindings">
+<span id="global-bindings"></span><h2>Bindings<a class="headerlink" href="#bindings" title="Permalink to this heading">¶</a></h2>
+<p>Bindings provide specific configurations per <span class="xref std std-ref">module</span> and
+station and even stream. Read the <span class="xref std std-ref">bindings section</span>
+in concepts for more details on bindings.</p>
+</section>
+<section id="extensions">
+<h2>Extensions<a class="headerlink" href="#extensions" title="Permalink to this heading">¶</a></h2>
+<p>Extensions add new configuration options to <a class="reference internal" href="../base/glossary.html#term-module"><span class="xref std std-term">modules</span></a>. It does
+not matter how those extensions are used. Commonly a module loads a plugin,
+which requires additional configuration parameters - these are provided by an extension.</p>
+<p>There are currently extensions for the following modules, corresponding to the
+plugins shown:</p>
+<p>See the documentation for each module for further information about its
+extensions.</p>
+</section>
+<section id="module-configuration">
+<span id="global-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-datacenterID">
+<span class="sig-name descname"><span class="pre">datacenterID</span></span><a class="headerlink" href="#confval-datacenterID" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Sets the datacenter ID which is primarily used by Arclink and
 its tools. Should not contain spaces.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-agencyID">
-<code class="sig-name descname">agencyID</code><a class="headerlink" href="#confval-agencyID" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-agencyID">
+<span class="sig-name descname"><span class="pre">agencyID</span></span><a class="headerlink" href="#confval-agencyID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">GFZ</span></code></p>
+<p>Type: <em>string</em></p>
 <p>Defines the agency ID used to set creationInfo.agencyID in
-data model objects. Should not contain spaces.
-Default is <code class="docutils literal notranslate"><span class="pre">GFZ</span></code>.</p>
+data model objects. Should not contain spaces.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-organization">
-<code class="sig-name descname">organization</code><a class="headerlink" href="#confval-organization" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
-<p>Organization name used mainly by ArcLink and SeedLink.
-Default is <code class="docutils literal notranslate"><span class="pre">Unset</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-organization">
+<span class="sig-name descname"><span class="pre">organization</span></span><a class="headerlink" href="#confval-organization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">Unset</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Organization name used mainly by ArcLink and SeedLink.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-author">
-<code class="sig-name descname">author</code><a class="headerlink" href="#confval-author" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-author">
+<span class="sig-name descname"><span class="pre">author</span></span><a class="headerlink" href="#confval-author" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">&#64;appname&#64;&#64;&#64;&#64;hostname&#64;</span></code></p>
+<p>Type: <em>string</em></p>
 <p>Defines the author name used to set creationInfo.author in
-data model objects.
-Default is <code class="docutils literal notranslate"><span class="pre">&#64;appname&#64;&#64;&#64;&#64;hostname&#64;</span></code>.</p>
+data model objects.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-plugins">
-<code class="sig-name descname">plugins</code><a class="headerlink" href="#confval-plugins" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-plugins">
+<span class="sig-name descname"><span class="pre">plugins</span></span><a class="headerlink" href="#confval-plugins" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p>Defines a list of modules loaded at startup.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-cityXML">
-<code class="sig-name descname">cityXML</code><a class="headerlink" href="#confval-cityXML" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-cityXML">
+<span class="sig-name descname"><span class="pre">cityXML</span></span><a class="headerlink" href="#confval-cityXML" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Path to the cities.xml file. If undefined, the data is read from
-“&#64;CONFIGDIR&#64;/cities.xml” or “&#64;DATADIR&#64;/cities.xml”.
-SeisComP ships with “&#64;DATADIR&#64;/cities.xml”.</p>
+&quot;&#64;CONFIGDIR&#64;/cities.xml&quot; or &quot;&#64;DATADIR&#64;/cities.xml&quot;.
+SeisComP ships with &quot;&#64;DATADIR&#64;/cities.xml&quot;.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-loadCities">
-<code class="sig-name descname">loadCities</code><a class="headerlink" href="#confval-loadCities" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-loadCities">
+<span class="sig-name descname"><span class="pre">loadCities</span></span><a class="headerlink" href="#confval-loadCities" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>boolean</em></p>
-<p>Load cities from file configured by the “cityXML”
+<p>Load cities from file configured by the &quot;cityXML&quot;
 parameter. GUI and map applications enable loading of cities
-by default considering the parameter “scheme.map.showCities”.</p>
+by default considering the parameter &quot;scheme.map.showCities&quot;.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-loadRegions">
-<code class="sig-name descname">loadRegions</code><a class="headerlink" href="#confval-loadRegions" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-loadRegions">
+<span class="sig-name descname"><span class="pre">loadRegions</span></span><a class="headerlink" href="#confval-loadRegions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>boolean</em></p>
 <p>Load custom FEP (Flinn-Engdahl polygon) regions from
-“&#64;CONFIGDIR&#64;/fep/” or &#64;DATADIR&#64;/fep/”.
+&quot;&#64;CONFIGDIR&#64;/fep/&quot; or &#64;DATADIR&#64;/fep/&quot;.
 GUI and map applications and scevent enable FEP regions by
 default. Explicitly uncheck the option to disregard by these
 applications.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-publicIDPattern">
-<code class="sig-name descname">publicIDPattern</code><a class="headerlink" href="#confval-publicIDPattern" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-publicIDPattern">
+<span class="sig-name descname"><span class="pre">publicIDPattern</span></span><a class="headerlink" href="#confval-publicIDPattern" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Defines a custom pattern for generation of public object ids. The following
 variables are resolved:
@@ -135,17 +193,17 @@ variables are resolved:
 &#64;time&#64; (current time, use ‘/’ to supply custom format, e.g. &#64;time/%FT%T.%fZ&#64;</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-configModule">
-<code class="sig-name descname">configModule</code><a class="headerlink" href="#confval-configModule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
-<p>Name of the configuration module.
-Default is <code class="docutils literal notranslate"><span class="pre">trunk</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-configModule">
+<span class="sig-name descname"><span class="pre">configModule</span></span><a class="headerlink" href="#confval-configModule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">trunk</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Name of the configuration module.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-database">
-<code class="sig-name descname">database</code><a class="headerlink" href="#confval-database" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-database">
+<span class="sig-name descname"><span class="pre">database</span></span><a class="headerlink" href="#confval-database" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Defines the database connection. If no database is configured
 (which is the default) and a messaging connection is available
@@ -153,156 +211,156 @@ the application will receive the parameters after the connection
 is established. Override these values only if you know what you
 are doing.</p>
 <p>The format is: <a class="reference external" href="service://user:pwd&#64;host/database">service://user:pwd&#64;host/database</a>.
-“service” is the name of the database driver which can be
-queried with “–db-driver-list”.</p>
+&quot;service&quot; is the name of the database driver which can be
+queried with &quot;--db-driver-list&quot;.</p>
 <p>Note that this parameter overrides ‘database.type’ and
 ‘database.parameters’ if present.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-recordstream">
-<code class="sig-name descname">recordstream</code><a class="headerlink" href="#confval-recordstream" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-recordstream">
+<span class="sig-name descname"><span class="pre">recordstream</span></span><a class="headerlink" href="#confval-recordstream" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>SeisComP applications access waveform data through the RecordStream
 interface. Please consult the SeisComP documentation for a list of
 supported services and their configuration.</p>
 <p>This parameter configures recordstream source URL, format: [<a class="reference external" href="service://">service://</a>]location[#type].
-“service” is the name of the recordstream implementation.
-If “service” is not given “<a class="reference external" href="file://">file://</a>” is implied.</p>
+&quot;service&quot; is the name of the recordstream implementation.
+If &quot;service&quot; is not given &quot;<a class="reference external" href="file://">file://</a>&quot; is implied.</p>
 <p>This parameter overrides the deprecated recordstream.service and
 recordstream.source and should be used instead.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-logging.level">
-<code class="sig-name descname">logging.level</code><a class="headerlink" href="#confval-logging.level" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
-<p>Sets the logging level between 1 and 4 where 1=ERROR, 2=WARNING, 3=INFO and 4=DEBUG.
-Default is <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-logging.level">
+<span class="sig-name descname"><span class="pre">logging.level</span></span><a class="headerlink" href="#confval-logging.level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">2</span></code></p>
+<p>Type: <em>int</em></p>
+<p>Sets the logging level between 1 and 4 where 1=ERROR, 2=WARNING, 3=INFO and 4=DEBUG.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-logging.file">
-<code class="sig-name descname">logging.file</code><a class="headerlink" href="#confval-logging.file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Enables logging into a log file.
-Default is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-logging.file">
+<span class="sig-name descname"><span class="pre">logging.file</span></span><a class="headerlink" href="#confval-logging.file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Enables logging into a log file.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-logging.syslog">
-<code class="sig-name descname">logging.syslog</code><a class="headerlink" href="#confval-logging.syslog" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Enables logging to syslog if supported by the host system.
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-logging.syslog">
+<span class="sig-name descname"><span class="pre">logging.syslog</span></span><a class="headerlink" href="#confval-logging.syslog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Enables logging to syslog if supported by the host system.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-logging.components">
-<code class="sig-name descname">logging.components</code><a class="headerlink" href="#confval-logging.components" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-logging.components">
+<span class="sig-name descname"><span class="pre">logging.components</span></span><a class="headerlink" href="#confval-logging.components" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p>Limit the logging to the specified list of components, e.g. ‘Application, Server’</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-logging.component">
-<code class="sig-name descname">logging.component</code><a class="headerlink" href="#confval-logging.component" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-logging.component">
+<span class="sig-name descname"><span class="pre">logging.component</span></span><a class="headerlink" href="#confval-logging.component" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>boolean</em></p>
 <p>For each log entry print the component right after the
 log level. By default the component output is enabled
 for file output but disabled for console output.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-logging.context">
-<code class="sig-name descname">logging.context</code><a class="headerlink" href="#confval-logging.context" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-logging.context">
+<span class="sig-name descname"><span class="pre">logging.context</span></span><a class="headerlink" href="#confval-logging.context" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
 <p>For each log entry print the source file name and line
-number.
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+number.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-logging.utc">
-<code class="sig-name descname">logging.utc</code><a class="headerlink" href="#confval-logging.utc" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-logging.utc">
+<span class="sig-name descname"><span class="pre">logging.utc</span></span><a class="headerlink" href="#confval-logging.utc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>boolean</em></p>
 <p>Use UTC instead of localtime in logging timestamps.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-logging.file.rotator">
-<code class="sig-name descname">logging.file.rotator</code><a class="headerlink" href="#confval-logging.file.rotator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Enables rotation of log files.
-Default is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-logging.file.rotator">
+<span class="sig-name descname"><span class="pre">logging.file.rotator</span></span><a class="headerlink" href="#confval-logging.file.rotator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Enables rotation of log files.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-logging.file.rotator.timeSpan">
-<code class="sig-name descname">logging.file.rotator.timeSpan</code><a class="headerlink" href="#confval-logging.file.rotator.timeSpan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-logging.file.rotator.timeSpan">
+<span class="sig-name descname"><span class="pre">logging.file.rotator.timeSpan</span></span><a class="headerlink" href="#confval-logging.file.rotator.timeSpan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">86400</span></code></p>
 <p>Unit: <em>s</em></p>
-<p>Time span after which a log file is rotated.
-Default is <code class="docutils literal notranslate"><span class="pre">86400</span></code>.</p>
+<p>Type: <em>int</em></p>
+<p>Time span after which a log file is rotated.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-logging.file.rotator.archiveSize">
-<code class="sig-name descname">logging.file.rotator.archiveSize</code><a class="headerlink" href="#confval-logging.file.rotator.archiveSize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
-<p>How many historic log files to keep.
-Default is <code class="docutils literal notranslate"><span class="pre">7</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-logging.file.rotator.archiveSize">
+<span class="sig-name descname"><span class="pre">logging.file.rotator.archiveSize</span></span><a class="headerlink" href="#confval-logging.file.rotator.archiveSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">7</span></code></p>
+<p>Type: <em>int</em></p>
+<p>How many historic log files to keep.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-logging.file.rotator.maxFileSize">
-<code class="sig-name descname">logging.file.rotator.maxFileSize</code><a class="headerlink" href="#confval-logging.file.rotator.maxFileSize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-logging.file.rotator.maxFileSize">
+<span class="sig-name descname"><span class="pre">logging.file.rotator.maxFileSize</span></span><a class="headerlink" href="#confval-logging.file.rotator.maxFileSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">104857600</span></code></p>
 <p>Unit: <em>byte</em></p>
+<p>Type: <em>int</em></p>
 <p>The maximum size of a logfile in byte. The default value
 is 100 megabyte. If a logfile exceeds that size then it
 is rotated. To disable the size limit give 0 or a negative
-value.
-Default is <code class="docutils literal notranslate"><span class="pre">104857600</span></code>.</p>
+value.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-logging.objects.timeSpan">
-<code class="sig-name descname">logging.objects.timeSpan</code><a class="headerlink" href="#confval-logging.objects.timeSpan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-logging.objects.timeSpan">
+<span class="sig-name descname"><span class="pre">logging.objects.timeSpan</span></span><a class="headerlink" href="#confval-logging.objects.timeSpan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">60</span></code></p>
 <p>Unit: <em>s</em></p>
-<p>Timespan for counting input/output of objects.
-Default is <code class="docutils literal notranslate"><span class="pre">60</span></code>.</p>
+<p>Type: <em>int</em></p>
+<p>Timespan for counting input/output of objects.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-logging.syslog.facility">
-<code class="sig-name descname">logging.syslog.facility</code><a class="headerlink" href="#confval-logging.syslog.facility" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-logging.syslog.facility">
+<span class="sig-name descname"><span class="pre">logging.syslog.facility</span></span><a class="headerlink" href="#confval-logging.syslog.facility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">local0</span></code></p>
+<p>Type: <em>string</em></p>
 <p>Defines the syslog facility to be used according to the
 defined facility names in syslog.h. The default is local0.
 If the given name is invalid or not available, initializing
-logging will fail and the application quits.
-Default is <code class="docutils literal notranslate"><span class="pre">local0</span></code>.</p>
+logging will fail and the application quits.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-connection.server">
-<code class="sig-name descname">connection.server</code><a class="headerlink" href="#confval-connection.server" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>host-with-port</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-connection.server">
+<span class="sig-name descname"><span class="pre">connection.server</span></span><a class="headerlink" href="#confval-connection.server" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">localhost</span></code></p>
+<p>Type: <em>host-with-port</em></p>
 <p>Defines the URL of the messaging server to connect to.
 URL format is [scheme://]host[:port][/queue]. Default scheme:
 scmp, default port: 18180, default queue: production.
 Examples:</p>
 <p>All default: localhost</p>
 <p>Specfic host: scmp://10.0.1.4:18180/production</p>
-<p>Specfic host and SSL encryption: scmps://10.0.1.4:18180/production
-Default is <code class="docutils literal notranslate"><span class="pre">localhost</span></code>.</p>
+<p>Specfic host and SSL encryption: scmps://10.0.1.4:18180/production</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-connection.username">
-<code class="sig-name descname">connection.username</code><a class="headerlink" href="#confval-connection.username" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-connection.username">
+<span class="sig-name descname"><span class="pre">connection.username</span></span><a class="headerlink" href="#confval-connection.username" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Defines the username to be used. The length is maybe limited
 by the messaging system used. By default the module name
@@ -312,41 +370,41 @@ errors set a different username. An empty username will
 let the system to generate one.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-connection.timeout">
-<code class="sig-name descname">connection.timeout</code><a class="headerlink" href="#confval-connection.timeout" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-connection.timeout">
+<span class="sig-name descname"><span class="pre">connection.timeout</span></span><a class="headerlink" href="#confval-connection.timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
 <p>Unit: <em>s</em></p>
+<p>Type: <em>int</em></p>
 <p>The connection timeout in seconds. 3 seconds are normally
 more than enough. If a client needs to connect to a
 remote system with a slow connection a larger timeout might
-be needed.
-Default is <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p>
+be needed.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-connection.primaryGroup">
-<code class="sig-name descname">connection.primaryGroup</code><a class="headerlink" href="#confval-connection.primaryGroup" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-connection.primaryGroup">
+<span class="sig-name descname"><span class="pre">connection.primaryGroup</span></span><a class="headerlink" href="#confval-connection.primaryGroup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Defines the primary group of a module. This is the name
 of the group where a module sends its messages to if the
 target group is not explicitely given in the send call.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-connection.contentType">
-<code class="sig-name descname">connection.contentType</code><a class="headerlink" href="#confval-connection.contentType" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-connection.contentType">
+<span class="sig-name descname"><span class="pre">connection.contentType</span></span><a class="headerlink" href="#confval-connection.contentType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">binary</span></code></p>
+<p>Type: <em>string</em></p>
 <p>Defines the message encoding for sending. Allowed values
-are “binary”, “json” or “xml”.
+are &quot;binary&quot;, &quot;json&quot; or &quot;xml&quot;.
 XML has more overhead in processing but is more robust when
-schema versions between client and server are different.
-Default is <code class="docutils literal notranslate"><span class="pre">binary</span></code>.</p>
+schema versions between client and server are different.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-connection.subscriptions">
-<code class="sig-name descname">connection.subscriptions</code><a class="headerlink" href="#confval-connection.subscriptions" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-connection.subscriptions">
+<span class="sig-name descname"><span class="pre">connection.subscriptions</span></span><a class="headerlink" href="#confval-connection.subscriptions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p>Defines a list of message groups to subscribe to. The
 default is usually given by the application and does not
@@ -362,9 +420,9 @@ need to be changed.</p>
 <em>is established. Override these values only if you know what you</em>
 <em>are doing.</em></p>
 </div>
-<dl class="confval">
-<dt id="confval-database.type">
-<code class="sig-name descname">database.type</code><a class="headerlink" href="#confval-database.type" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-database.type">
+<span class="sig-name descname"><span class="pre">database.type</span></span><a class="headerlink" href="#confval-database.type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Defines the database backend to be used. The name corresponds to
 the defined name in the database plugin. Examples are: mysql, postgresql or
@@ -372,9 +430,9 @@ sqlite3. Note that this parameter is deprecated. Please use
 the URL form ‘database = mysql://sysop:sysop&#64;localhost/seiscomp’ instead.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-database.parameters">
-<code class="sig-name descname">database.parameters</code><a class="headerlink" href="#confval-database.parameters" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-database.parameters">
+<span class="sig-name descname"><span class="pre">database.parameters</span></span><a class="headerlink" href="#confval-database.parameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>The database connection parameters. This value depends on the used
 database backend. E.g. sqlite3 expects the path to the database
@@ -384,60 +442,60 @@ Note that this parameter is deprecated. Please use the URL form
 ‘database = mysql://sysop:sysop&#64;localhost/seiscomp’ instead.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-database.inventory">
-<code class="sig-name descname">database.inventory</code><a class="headerlink" href="#confval-database.inventory" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-database.inventory">
+<span class="sig-name descname"><span class="pre">database.inventory</span></span><a class="headerlink" href="#confval-database.inventory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Load the inventory database from a given XML file if set. This
 overrides the inventory definitions loaded from the database backend.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-database.config">
-<code class="sig-name descname">database.config</code><a class="headerlink" href="#confval-database.config" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-database.config">
+<span class="sig-name descname"><span class="pre">database.config</span></span><a class="headerlink" href="#confval-database.config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Load the configuration database from a given XML file if set. This
 overrides the configuration definitions loaded from the database backend.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-processing.whitelist.agencies">
-<code class="sig-name descname">processing.whitelist.agencies</code><a class="headerlink" href="#confval-processing.whitelist.agencies" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-processing.whitelist.agencies">
+<span class="sig-name descname"><span class="pre">processing.whitelist.agencies</span></span><a class="headerlink" href="#confval-processing.whitelist.agencies" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p>Defines a whitelist of agencies that are allowed for processing separated by comma.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-processing.blacklist.agencies">
-<code class="sig-name descname">processing.blacklist.agencies</code><a class="headerlink" href="#confval-processing.blacklist.agencies" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-processing.blacklist.agencies">
+<span class="sig-name descname"><span class="pre">processing.blacklist.agencies</span></span><a class="headerlink" href="#confval-processing.blacklist.agencies" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p>Defines a blacklist of agencies that are not allowed for processing separated by comma.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-inventory.whitelist.nettype">
-<code class="sig-name descname">inventory.whitelist.nettype</code><a class="headerlink" href="#confval-inventory.whitelist.nettype" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-inventory.whitelist.nettype">
+<span class="sig-name descname"><span class="pre">inventory.whitelist.nettype</span></span><a class="headerlink" href="#confval-inventory.whitelist.nettype" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p>List of network types to include when loading the inventory.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-inventory.whitelist.statype">
-<code class="sig-name descname">inventory.whitelist.statype</code><a class="headerlink" href="#confval-inventory.whitelist.statype" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-inventory.whitelist.statype">
+<span class="sig-name descname"><span class="pre">inventory.whitelist.statype</span></span><a class="headerlink" href="#confval-inventory.whitelist.statype" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p>List of station types to include when loading the inventory.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-inventory.blacklist.nettype">
-<code class="sig-name descname">inventory.blacklist.nettype</code><a class="headerlink" href="#confval-inventory.blacklist.nettype" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-inventory.blacklist.nettype">
+<span class="sig-name descname"><span class="pre">inventory.blacklist.nettype</span></span><a class="headerlink" href="#confval-inventory.blacklist.nettype" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p>List of network types to exclude when loading the inventory.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-inventory.blacklist.statype">
-<code class="sig-name descname">inventory.blacklist.statype</code><a class="headerlink" href="#confval-inventory.blacklist.statype" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-inventory.blacklist.statype">
+<span class="sig-name descname"><span class="pre">inventory.blacklist.statype</span></span><a class="headerlink" href="#confval-inventory.blacklist.statype" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p>List of station types to exclude when loading the inventory.</p>
 </dd></dl>
@@ -451,77 +509,77 @@ overrides the configuration definitions loaded from the database backend.</p>
 <em>parameters is deprecated and will be removed in future versions.</em>
 <em>Please use the URL form (recordstream = slink://localhost) in future.</em></p>
 </div>
-<dl class="confval">
-<dt id="confval-recordstream.service">
-<code class="sig-name descname">recordstream.service</code><a class="headerlink" href="#confval-recordstream.service" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
-<p>Name of the recordstream service implementation.
-Default is <code class="docutils literal notranslate"><span class="pre">slink</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-recordstream.service">
+<span class="sig-name descname"><span class="pre">recordstream.service</span></span><a class="headerlink" href="#confval-recordstream.service" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">slink</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Name of the recordstream service implementation.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-recordstream.source">
-<code class="sig-name descname">recordstream.source</code><a class="headerlink" href="#confval-recordstream.source" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
-<p>Service specific parameters like a IP address or a file name to use.
-Default is <code class="docutils literal notranslate"><span class="pre">localhost:18000</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-recordstream.source">
+<span class="sig-name descname"><span class="pre">recordstream.source</span></span><a class="headerlink" href="#confval-recordstream.source" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">localhost:18000</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Service specific parameters like a IP address or a file name to use.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-scripts.crashHandler">
-<code class="sig-name descname">scripts.crashHandler</code><a class="headerlink" href="#confval-scripts.crashHandler" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-scripts.crashHandler">
+<span class="sig-name descname"><span class="pre">scripts.crashHandler</span></span><a class="headerlink" href="#confval-scripts.crashHandler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>path</em></p>
 <p>Path to crash handler script</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-core.plugins">
-<code class="sig-name descname">core.plugins</code><a class="headerlink" href="#confval-core.plugins" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>list:string</em></p>
-<p>Defines a list of core modules loaded at startup.
-Default is <code class="docutils literal notranslate"><span class="pre">dbmysql</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-core.plugins">
+<span class="sig-name descname"><span class="pre">core.plugins</span></span><a class="headerlink" href="#confval-core.plugins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">dbmysql</span></code></p>
+<p>Type: <em>list:string</em></p>
+<p>Defines a list of core modules loaded at startup.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-client.startStopMessage">
-<code class="sig-name descname">client.startStopMessage</code><a class="headerlink" href="#confval-client.startStopMessage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Enables sending of an application start- and stop message to the STATUS_GROUP.
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-client.startStopMessage">
+<span class="sig-name descname"><span class="pre">client.startStopMessage</span></span><a class="headerlink" href="#confval-client.startStopMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Enables sending of an application start- and stop message to the STATUS_GROUP.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-client.autoShutdown">
-<code class="sig-name descname">client.autoShutdown</code><a class="headerlink" href="#confval-client.autoShutdown" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Enablgs automatic application shutdown triggered by a status message.
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-client.autoShutdown">
+<span class="sig-name descname"><span class="pre">client.autoShutdown</span></span><a class="headerlink" href="#confval-client.autoShutdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Enablgs automatic application shutdown triggered by a status message.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-client.shutdownMasterModule">
-<code class="sig-name descname">client.shutdownMasterModule</code><a class="headerlink" href="#confval-client.shutdownMasterModule" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-client.shutdownMasterModule">
+<span class="sig-name descname"><span class="pre">client.shutdownMasterModule</span></span><a class="headerlink" href="#confval-client.shutdownMasterModule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Triggers shutdown if the module name of the received messages match</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-client.shutdownMasterUsername">
-<code class="sig-name descname">client.shutdownMasterUsername</code><a class="headerlink" href="#confval-client.shutdownMasterUsername" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-client.shutdownMasterUsername">
+<span class="sig-name descname"><span class="pre">client.shutdownMasterUsername</span></span><a class="headerlink" href="#confval-client.shutdownMasterUsername" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Triggers shutdown if the user name of the received messages match</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-commands.target">
-<code class="sig-name descname">commands.target</code><a class="headerlink" href="#confval-commands.target" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-commands.target">
+<span class="sig-name descname"><span class="pre">commands.target</span></span><a class="headerlink" href="#confval-commands.target" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>A regular expression of all clients that should handle
 a command message usually send to the GUI messaging group.
 Currently this flag is only used by GUI applications to
 set an artificial origin and to tell other clients to
 show this origin. To let all connected clients handle the
-command, “.*$” can be used.</p>
+command, &quot;.*$&quot; can be used.</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -538,19 +596,19 @@ command, “.*$” can be used.</p>
 <p><strong>ttt.$name.*</strong>
 $name is a placeholder for the name to be used.</p>
 </div>
-<dl class="confval">
-<dt id="confval-ttt.$name.tables">
-<code class="sig-name descname">ttt.$name.tables</code><a class="headerlink" href="#confval-ttt.$name.tables" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-ttt.-name.tables">
+<span class="sig-name descname"><span class="pre">ttt.$name.tables</span></span><a class="headerlink" href="#confval-ttt.-name.tables" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p>The list of supported model names per interface.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="bindings">
-<h1>Bindings<a class="headerlink" href="#bindings" title="Permalink to this headline">¶</a></h1>
-<dl class="confval">
-<dt id="confval-detecStream">
-<code class="sig-name descname">detecStream</code><a class="headerlink" href="#confval-detecStream" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="bindings-parameters">
+<h2>Bindings Parameters<a class="headerlink" href="#bindings-parameters" title="Permalink to this heading">¶</a></h2>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-detecStream">
+<span class="sig-name descname"><span class="pre">detecStream</span></span><a class="headerlink" href="#confval-detecStream" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Defines the channel code of the preferred stream used by
 e.g. scautopick and scrttv. If no component code is given,
@@ -560,9 +618,9 @@ If that approach fails, ‘Z’ will be appended and used as
 fallback.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-detecLocid">
-<code class="sig-name descname">detecLocid</code><a class="headerlink" href="#confval-detecLocid" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-detecLocid">
+<span class="sig-name descname"><span class="pre">detecLocid</span></span><a class="headerlink" href="#confval-detecLocid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Defines the location code of the preferred stream used
 eg by scautopick and scrttv.</p>
@@ -576,44 +634,44 @@ eg by scautopick and scrttv.</p>
 <em>minimum signal-to-noise ratio, amplitude thresholds and restitution</em>
 <em>for measuring amplitudes of a certain type.</em></p>
 </div>
-<dl class="confval">
-<dt id="confval-amplitudes.saturationThreshold">
-<code class="sig-name descname">amplitudes.saturationThreshold</code><a class="headerlink" href="#confval-amplitudes.saturationThreshold" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.saturationThreshold">
+<span class="sig-name descname"><span class="pre">amplitudes.saturationThreshold</span></span><a class="headerlink" href="#confval-amplitudes.saturationThreshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Unit: <em>counts; %</em></p>
+<p>Type: <em>string</em></p>
 <p>Defines the saturation threshold for the optional saturation check.
 By default the saturation check is disabled but giving a value above
 0 will enable it. Waveforms that are saturated are not used
 for amplitude calculations.</p>
 <p>This value can either be an absolute value of counts such
-as “100000” counts or a relative value
+as &quot;100000&quot; counts or a relative value
 (optionally in percent) with respect to the number of
-effective bits, e.g. “0.8&#64;23” or “80%&#64;23”.
+effective bits, e.g. &quot;0.8&#64;23&quot; or &quot;80%&#64;23&quot;.
 The first version uses 1**23 * 0.8 whereas the latter
 uses 1**23 * 80/100.</p>
-<p>The boolean value “false” explicitly disables
-the check.
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<p>The boolean value &quot;false&quot; explicitly disables
+the check.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.enable">
-<code class="sig-name descname">amplitudes.enable</code><a class="headerlink" href="#confval-amplitudes.enable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.enable">
+<span class="sig-name descname"><span class="pre">amplitudes.enable</span></span><a class="headerlink" href="#confval-amplitudes.enable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
 <p>Defines if amplitude calculation is enabled. If disabled,
-this station will be skipped for amplitudes and magnitudes.
-Default is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+this station will be skipped for amplitudes and magnitudes.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.enableResponses">
-<code class="sig-name descname">amplitudes.enableResponses</code><a class="headerlink" href="#confval-amplitudes.enableResponses" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.enableResponses">
+<span class="sig-name descname"><span class="pre">amplitudes.enableResponses</span></span><a class="headerlink" href="#confval-amplitudes.enableResponses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
 <p>Activates deconvolution for this station. If no responses are
 configured, an error is raised and the data is not processed.
 This flag will be overridden by the type specific flag
-(see Amplitude type profile).
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+(see Amplitude type profile).</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -626,58 +684,58 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
 <em>AmplitudeProcessor.</em>
 $name is a placeholder for the name to be used.</p>
 </div>
-<dl class="confval">
-<dt id="confval-amplitudes.$name.saturationThreshold">
-<code class="sig-name descname">amplitudes.$name.saturationThreshold</code><a class="headerlink" href="#confval-amplitudes.$name.saturationThreshold" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.-name.saturationThreshold">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.saturationThreshold</span></span><a class="headerlink" href="#confval-amplitudes.-name.saturationThreshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Unit: <em>counts; %</em></p>
+<p>Type: <em>string</em></p>
 <p>Defines the saturation threshold for the optional saturation check.
 By default the saturation check is disabled but giving a value above
 0 will enable it. Waveforms that are saturated are not used
 for amplitude calculations.</p>
 <p>This value can either be an absolute value of counts such
-as “100000” counts or a relative value
+as &quot;100000&quot; counts or a relative value
 (optionally in percent) with respect to the number of
-effective bits, e.g. “0.8&#64;23” or “80%&#64;23”.
+effective bits, e.g. &quot;0.8&#64;23&quot; or &quot;80%&#64;23&quot;.
 The first version uses 1**23 * 0.8 whereas the latter
 uses 1**23 * 80/100.</p>
-<p>The boolean value “false” explicitly disables
-the check.
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<p>The boolean value &quot;false&quot; explicitly disables
+the check.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.$name.enable">
-<code class="sig-name descname">amplitudes.$name.enable</code><a class="headerlink" href="#confval-amplitudes.$name.enable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Defines if amplitude calculation of certain type is enabled.
-Default is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.-name.enable">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.enable</span></span><a class="headerlink" href="#confval-amplitudes.-name.enable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Defines if amplitude calculation of certain type is enabled.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.$name.enableResponses">
-<code class="sig-name descname">amplitudes.$name.enableResponses</code><a class="headerlink" href="#confval-amplitudes.$name.enableResponses" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.-name.enableResponses">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.enableResponses</span></span><a class="headerlink" href="#confval-amplitudes.-name.enableResponses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
 <p>Activates deconvolution for this amplitude type. If not
-set the global flag “amplitudes.enableResponses”
-will be used instead.
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+set the global flag &quot;amplitudes.enableResponses&quot;
+will be used instead.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.$name.minSNR">
-<code class="sig-name descname">amplitudes.$name.minSNR</code><a class="headerlink" href="#confval-amplitudes.$name.minSNR" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.-name.minSNR">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.minSNR</span></span><a class="headerlink" href="#confval-amplitudes.-name.minSNR" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
 <p>Defines the mininum SNR to be reached to compute the
 amplitudes. This value is amplitude type specific and
 has no global default value.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.$name.noiseBegin">
-<code class="sig-name descname">amplitudes.$name.noiseBegin</code><a class="headerlink" href="#confval-amplitudes.$name.noiseBegin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>Unit: <em>s</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.-name.noiseBegin">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.noiseBegin</span></span><a class="headerlink" href="#confval-amplitudes.-name.noiseBegin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
 <p>Overrides the default time (relative to the trigger
 time) of the begin of the noise window used to compute
 the noise offset and noise amplitude. Each amplitude
@@ -685,11 +743,11 @@ processor sets its own noise time window and this option
 should only be changed if you know what you are doing.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.$name.noiseEnd">
-<code class="sig-name descname">amplitudes.$name.noiseEnd</code><a class="headerlink" href="#confval-amplitudes.$name.noiseEnd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>Unit: <em>s</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.-name.noiseEnd">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.noiseEnd</span></span><a class="headerlink" href="#confval-amplitudes.-name.noiseEnd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
 <p>Overrides the default time (relative to the trigger
 time) of the end of the noise window used to compute
 the noise offset and noise amplitude. Each amplitude
@@ -697,11 +755,11 @@ processor sets its own noise time window and this option
 should only be changed if you know what you are doing.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.$name.signalBegin">
-<code class="sig-name descname">amplitudes.$name.signalBegin</code><a class="headerlink" href="#confval-amplitudes.$name.signalBegin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>Unit: <em>s</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.-name.signalBegin">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.signalBegin</span></span><a class="headerlink" href="#confval-amplitudes.-name.signalBegin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
 <p>Overrides the default time (relative to the trigger
 time) of the begin of the signal window used to compute
 the final amplitude. Each amplitude processor sets its
@@ -709,11 +767,11 @@ own signal time window and this option should only be
 changed if you know what you are doing.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.$name.signalEnd">
-<code class="sig-name descname">amplitudes.$name.signalEnd</code><a class="headerlink" href="#confval-amplitudes.$name.signalEnd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>Unit: <em>s</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.-name.signalEnd">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.signalEnd</span></span><a class="headerlink" href="#confval-amplitudes.-name.signalEnd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
 <p>Overrides the default time (relative to the trigger
 time) of the end of the signal window used to compute
 the final amplitude. Each amplitude processor sets its
@@ -721,11 +779,11 @@ own signal time window and this option should only be
 changed if you know what you are doing.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.$name.minDist">
-<code class="sig-name descname">amplitudes.$name.minDist</code><a class="headerlink" href="#confval-amplitudes.$name.minDist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>Unit: <em>deg</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.-name.minDist">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.minDist</span></span><a class="headerlink" href="#confval-amplitudes.-name.minDist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unit: <em>deg</em></p>
+<p>Type: <em>double</em></p>
 <p>The minimum distance required to compute an amplitude.
 This settings has no effect with e.g. scautopick as there
 is no information about the source of the event to compute
@@ -733,11 +791,11 @@ the distance. The default value is implementation
 specific.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.$name.maxDist">
-<code class="sig-name descname">amplitudes.$name.maxDist</code><a class="headerlink" href="#confval-amplitudes.$name.maxDist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>Unit: <em>deg</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.-name.maxDist">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.maxDist</span></span><a class="headerlink" href="#confval-amplitudes.-name.maxDist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unit: <em>deg</em></p>
+<p>Type: <em>double</em></p>
 <p>The maximum distance allowed to compute an amplitude.
 This settings has no effect with e.g. scautopick as there
 is no information about the source of the event to compute
@@ -745,11 +803,11 @@ the distance. The default value is implementation
 specific.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.$name.minDepth">
-<code class="sig-name descname">amplitudes.$name.minDepth</code><a class="headerlink" href="#confval-amplitudes.$name.minDepth" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>Unit: <em>km</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.-name.minDepth">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.minDepth</span></span><a class="headerlink" href="#confval-amplitudes.-name.minDepth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unit: <em>km</em></p>
+<p>Type: <em>double</em></p>
 <p>The minimum depth required to compute an amplitude.
 This settings has no effect with e.g. scautopick as there
 is no information about the source of the event to
@@ -757,11 +815,11 @@ retrieve the depth. The default value is implementation
 specific.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.$name.maxDepth">
-<code class="sig-name descname">amplitudes.$name.maxDepth</code><a class="headerlink" href="#confval-amplitudes.$name.maxDepth" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>Unit: <em>km</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.-name.maxDepth">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.maxDepth</span></span><a class="headerlink" href="#confval-amplitudes.-name.maxDepth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unit: <em>km</em></p>
+<p>Type: <em>double</em></p>
 <p>The maximum depth allowed to compute an amplitude.
 This settings has no effect with e.g. scautopick as there
 is no information about the source of the event to
@@ -774,36 +832,36 @@ specific.</p>
 <p><strong>amplitudes.$name.resp.*</strong>
 <em>Several parameters if usage of full responses is enabled.</em></p>
 </div>
-<dl class="confval">
-<dt id="confval-amplitudes.$name.resp.taper">
-<code class="sig-name descname">amplitudes.$name.resp.taper</code><a class="headerlink" href="#confval-amplitudes.$name.resp.taper" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unit: <em>s</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.-name.resp.taper">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.resp.taper</span></span><a class="headerlink" href="#confval-amplitudes.-name.resp.taper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
+<p>Unit: <em>s</em></p>
 <p>Defines the length of the taper at either side of the
 waveform. The length will be added to the data
-request: start - taper and end + taper.
-Default is <code class="docutils literal notranslate"><span class="pre">5</span></code>.</p>
+request: start - taper and end + taper.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.$name.resp.minFreq">
-<code class="sig-name descname">amplitudes.$name.resp.minFreq</code><a class="headerlink" href="#confval-amplitudes.$name.resp.minFreq" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unit: <em>Hz</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.-name.resp.minFreq">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.resp.minFreq</span></span><a class="headerlink" href="#confval-amplitudes.-name.resp.minFreq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.00833333</span></code></p>
+<p>Unit: <em>Hz</em></p>
 <p>After data are converted in to the frequency domain that
 minimum frequency defines the end of the left-side cosine taper for
 the frequency spectrum. The taper applies from 0Hz to {minFreq}Hz.
-A value of 0 or lower disables that taper.
-Default is <code class="docutils literal notranslate"><span class="pre">0.00833333</span></code>.</p>
+A value of 0 or lower disables that taper.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.$name.resp.maxFreq">
-<code class="sig-name descname">amplitudes.$name.resp.maxFreq</code><a class="headerlink" href="#confval-amplitudes.$name.resp.maxFreq" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unit: <em>Hz</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.-name.resp.maxFreq">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.resp.maxFreq</span></span><a class="headerlink" href="#confval-amplitudes.-name.resp.maxFreq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Unit: <em>Hz</em></p>
 <p>After data are converted in to the frequency domain that
 maximum frequency defines the start of the right-side cosine taper for
 the frequency spectrum. The taper applies from {maxFreq}Hz to {fNyquist}Hz.
-A value of 0 or lower disables that taper.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+A value of 0 or lower disables that taper.</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -813,36 +871,36 @@ Default is <code class="docutils literal notranslate"><span class="pre">0</span>
 <em>The parameters of this group will be overridden by type</em>
 <em>specific settings if given (see Amplitude type profile).</em></p>
 </div>
-<dl class="confval">
-<dt id="confval-amplitudes.resp.taper">
-<code class="sig-name descname">amplitudes.resp.taper</code><a class="headerlink" href="#confval-amplitudes.resp.taper" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unit: <em>s</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.resp.taper">
+<span class="sig-name descname"><span class="pre">amplitudes.resp.taper</span></span><a class="headerlink" href="#confval-amplitudes.resp.taper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
+<p>Unit: <em>s</em></p>
 <p>Defines the length of the taper at either side of the
 waveform. The length will be added to the data
-request: start - taper and end + taper.
-Default is <code class="docutils literal notranslate"><span class="pre">5</span></code>.</p>
+request: start - taper and end + taper.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.resp.minFreq">
-<code class="sig-name descname">amplitudes.resp.minFreq</code><a class="headerlink" href="#confval-amplitudes.resp.minFreq" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unit: <em>Hz</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.resp.minFreq">
+<span class="sig-name descname"><span class="pre">amplitudes.resp.minFreq</span></span><a class="headerlink" href="#confval-amplitudes.resp.minFreq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.00833333</span></code></p>
+<p>Unit: <em>Hz</em></p>
 <p>After data are converted in to the frequency domain that
 minimum frequency defines the end of the left-side cosine taper for
 the frequency spectrum. The taper applies from 0Hz to {minFreq}Hz.
-A value of 0 or lower disables that taper.
-Default is <code class="docutils literal notranslate"><span class="pre">0.00833333</span></code>.</p>
+A value of 0 or lower disables that taper.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.resp.maxFreq">
-<code class="sig-name descname">amplitudes.resp.maxFreq</code><a class="headerlink" href="#confval-amplitudes.resp.maxFreq" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unit: <em>Hz</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.resp.maxFreq">
+<span class="sig-name descname"><span class="pre">amplitudes.resp.maxFreq</span></span><a class="headerlink" href="#confval-amplitudes.resp.maxFreq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Unit: <em>Hz</em></p>
 <p>After data are converted in to the frequency domain that
 maximum frequency defines the start of the right-side cosine taper for
 the frequency spectrum. The taper applies from {maxFreq}Hz to {fNyquist}Hz.
-A value of 0 or lower disables that taper.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+A value of 0 or lower disables that taper.</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -855,90 +913,90 @@ Default is <code class="docutils literal notranslate"><span class="pre">0</span>
 <em>Working Group recommendations of 2011 September 9. This</em>
 <em>version uses gain=2800, T0=0.8, h=0.8.</em></p>
 </div>
-<dl class="confval">
-<dt id="confval-amplitudes.WoodAnderson.gain">
-<code class="sig-name descname">amplitudes.WoodAnderson.gain</code><a class="headerlink" href="#confval-amplitudes.WoodAnderson.gain" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>The gain of the Wood-Anderson response.
-Default is <code class="docutils literal notranslate"><span class="pre">2800</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.WoodAnderson.gain">
+<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.gain</span></span><a class="headerlink" href="#confval-amplitudes.WoodAnderson.gain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">2800</span></code></p>
+<p>Type: <em>double</em></p>
+<p>The gain of the Wood-Anderson response.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.WoodAnderson.T0">
-<code class="sig-name descname">amplitudes.WoodAnderson.T0</code><a class="headerlink" href="#confval-amplitudes.WoodAnderson.T0" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.WoodAnderson.T0">
+<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.T0</span></span><a class="headerlink" href="#confval-amplitudes.WoodAnderson.T0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.8</span></code></p>
 <p>Unit: <em>s</em></p>
-<p>The eigen period of the Wood-Anderson seismometer.
-Default is <code class="docutils literal notranslate"><span class="pre">0.8</span></code>.</p>
+<p>Type: <em>double</em></p>
+<p>The eigen period of the Wood-Anderson seismometer.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.WoodAnderson.h">
-<code class="sig-name descname">amplitudes.WoodAnderson.h</code><a class="headerlink" href="#confval-amplitudes.WoodAnderson.h" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>The damping constant of the Wood-Anderson seismometer.
-Default is <code class="docutils literal notranslate"><span class="pre">0.8</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.WoodAnderson.h">
+<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.h</span></span><a class="headerlink" href="#confval-amplitudes.WoodAnderson.h" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.8</span></code></p>
+<p>Type: <em>double</em></p>
+<p>The damping constant of the Wood-Anderson seismometer.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.ML.absMax">
-<code class="sig-name descname">amplitudes.ML.absMax</code><a class="headerlink" href="#confval-amplitudes.ML.absMax" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.ML.absMax">
+<span class="sig-name descname"><span class="pre">amplitudes.ML.absMax</span></span><a class="headerlink" href="#confval-amplitudes.ML.absMax" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
 <p>Whether to use the absolute maximum of the filtered WA
 trace or the difference of the maximum and minimum value
-of the signal window.
-Default is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+of the signal window.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.ML.measureType">
-<code class="sig-name descname">amplitudes.ML.measureType</code><a class="headerlink" href="#confval-amplitudes.ML.measureType" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.ML.measureType">
+<span class="sig-name descname"><span class="pre">amplitudes.ML.measureType</span></span><a class="headerlink" href="#confval-amplitudes.ML.measureType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">AbsMax</span></code></p>
+<p>Type: <em>string</em></p>
 <p>This parameter allows to set how the amplitude is measured.
 Either by finding the absolute maximum of the demeaned
 trace (AbsMax), the difference of maximum and minimum of
 the signal window (MinMax) or the maximum peak-trough
 of one cycle (PeakTrough).</p>
 <p>Note that if absMax is already explicitly configured, this
-parameter has no effect.
-Default is <code class="docutils literal notranslate"><span class="pre">AbsMax</span></code>.</p>
+parameter has no effect.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.ML.combiner">
-<code class="sig-name descname">amplitudes.ML.combiner</code><a class="headerlink" href="#confval-amplitudes.ML.combiner" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.ML.combiner">
+<span class="sig-name descname"><span class="pre">amplitudes.ML.combiner</span></span><a class="headerlink" href="#confval-amplitudes.ML.combiner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">average</span></code></p>
+<p>Type: <em>string</em></p>
 <p>Defines the combiner operation for the amplitudes measured
 on either both horizontal component. The default is to
-use the average. Allowed values are: “average”,
-“min”, “max” and “geometric_mean”.
-“geometric_mean” corresponds to averaging single-trace
-magnitudes instead of their amplitudes.
-Default is <code class="docutils literal notranslate"><span class="pre">average</span></code>.</p>
+use the average. Allowed values are: &quot;average&quot;,
+&quot;min&quot;, &quot;max&quot; and &quot;geometric_mean&quot;.
+&quot;geometric_mean&quot; corresponds to averaging single-trace
+magnitudes instead of their amplitudes.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.MLv.absMax">
-<code class="sig-name descname">amplitudes.MLv.absMax</code><a class="headerlink" href="#confval-amplitudes.MLv.absMax" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.MLv.absMax">
+<span class="sig-name descname"><span class="pre">amplitudes.MLv.absMax</span></span><a class="headerlink" href="#confval-amplitudes.MLv.absMax" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
 <p>Whether to use the absolute maximum of the filtered WA
 trace or the difference of the maximum and minimum value
-of the signal window.
-Default is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+of the signal window.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.MLv.measureType">
-<code class="sig-name descname">amplitudes.MLv.measureType</code><a class="headerlink" href="#confval-amplitudes.MLv.measureType" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.MLv.measureType">
+<span class="sig-name descname"><span class="pre">amplitudes.MLv.measureType</span></span><a class="headerlink" href="#confval-amplitudes.MLv.measureType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">AbsMax</span></code></p>
+<p>Type: <em>string</em></p>
 <p>This parameter allows to set how the amplitude is measured.
 Either by finding the absolute maximum of the demeaned
 trace (AbsMax), the difference of maximum and minimum of
 the signal window (MinMax) or the maximum peak-trough
 of one cycle (PeakTrough).</p>
 <p>Note that if absMax is already explicitly configured, this
-parameter has no effect.
-Default is <code class="docutils literal notranslate"><span class="pre">AbsMax</span></code>.</p>
+parameter has no effect.</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -958,24 +1016,24 @@ Default is <code class="docutils literal notranslate"><span class="pre">AbsMax</
 <em>MagnitudeProcessor.</em>
 $name is a placeholder for the name to be used.</p>
 </div>
-<dl class="confval">
-<dt id="confval-magnitudes.$name.multiplier">
-<code class="sig-name descname">magnitudes.$name.multiplier</code><a class="headerlink" href="#confval-magnitudes.$name.multiplier" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-magnitudes.-name.multiplier">
+<span class="sig-name descname"><span class="pre">magnitudes.$name.multiplier</span></span><a class="headerlink" href="#confval-magnitudes.-name.multiplier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+<p>Type: <em>double</em></p>
 <p>Part of the magnitude station correction. The final
 magnitude value is multiplier*M+offset. This value
-is usually not required but is here for completeness.
-Default is <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
+is usually not required but is here for completeness.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-magnitudes.$name.offset">
-<code class="sig-name descname">magnitudes.$name.offset</code><a class="headerlink" href="#confval-magnitudes.$name.offset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-magnitudes.-name.offset">
+<span class="sig-name descname"><span class="pre">magnitudes.$name.offset</span></span><a class="headerlink" href="#confval-magnitudes.-name.offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>double</em></p>
 <p>Part of the magnitude station correction. The final
 magnitude value is multiplier*M+offset. This value
-can be used to correct station magnitudes.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+can be used to correct station magnitudes.</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -987,87 +1045,87 @@ Default is <code class="docutils literal notranslate"><span class="pre">0</span>
 <em>The picker interface name to be used in configuration files is</em>
 <em>“BK”.</em></p>
 </div>
-<dl class="confval">
-<dt id="confval-picker.BK.noiseBegin">
-<code class="sig-name descname">picker.BK.noiseBegin</code><a class="headerlink" href="#confval-picker.BK.noiseBegin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-picker.BK.noiseBegin">
+<span class="sig-name descname"><span class="pre">picker.BK.noiseBegin</span></span><a class="headerlink" href="#confval-picker.BK.noiseBegin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
 <p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
 <p>Overrides the relative data acquisition time (relative to the triggering
 pick). This adds a margin to the actual processing and is useful
 to initialize the filter (e.g. bandpass). The data is not used
 at all until signalBegin is reached. The data time window start
-is the minimum of noiseBegin and signalBegin.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+is the minimum of noiseBegin and signalBegin.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-picker.BK.signalBegin">
-<code class="sig-name descname">picker.BK.signalBegin</code><a class="headerlink" href="#confval-picker.BK.signalBegin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-picker.BK.signalBegin">
+<span class="sig-name descname"><span class="pre">picker.BK.signalBegin</span></span><a class="headerlink" href="#confval-picker.BK.signalBegin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">-20</span></code></p>
 <p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
 <p>Overrides the default time (relative to the trigger
-time) of the begin of the signal window used to pick.
-Default is <code class="docutils literal notranslate"><span class="pre">-20</span></code>.</p>
+time) of the begin of the signal window used to pick.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-picker.BK.signalEnd">
-<code class="sig-name descname">picker.BK.signalEnd</code><a class="headerlink" href="#confval-picker.BK.signalEnd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-picker.BK.signalEnd">
+<span class="sig-name descname"><span class="pre">picker.BK.signalEnd</span></span><a class="headerlink" href="#confval-picker.BK.signalEnd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">80</span></code></p>
 <p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
 <p>Overrides the default time (relative to the trigger
-time) of the begin of the signal window used to pick.
-Default is <code class="docutils literal notranslate"><span class="pre">80</span></code>.</p>
+time) of the begin of the signal window used to pick.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-picker.BK.filterType">
-<code class="sig-name descname">picker.BK.filterType</code><a class="headerlink" href="#confval-picker.BK.filterType" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
-<p>BP (Bandpass) is currently the only option.
-Default is <code class="docutils literal notranslate"><span class="pre">BP</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-picker.BK.filterType">
+<span class="sig-name descname"><span class="pre">picker.BK.filterType</span></span><a class="headerlink" href="#confval-picker.BK.filterType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">BP</span></code></p>
+<p>Type: <em>string</em></p>
+<p>BP (Bandpass) is currently the only option.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-picker.BK.filterPoles">
-<code class="sig-name descname">picker.BK.filterPoles</code><a class="headerlink" href="#confval-picker.BK.filterPoles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
-<p>Number of poles.
-Default is <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-picker.BK.filterPoles">
+<span class="sig-name descname"><span class="pre">picker.BK.filterPoles</span></span><a class="headerlink" href="#confval-picker.BK.filterPoles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">2</span></code></p>
+<p>Type: <em>int</em></p>
+<p>Number of poles.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-picker.BK.f1">
-<code class="sig-name descname">picker.BK.f1</code><a class="headerlink" href="#confval-picker.BK.f1" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-picker.BK.f1">
+<span class="sig-name descname"><span class="pre">picker.BK.f1</span></span><a class="headerlink" href="#confval-picker.BK.f1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
 <p>Unit: <em>Hz</em></p>
-<p>Bandpass lower cutoff freq. in Hz.
-Default is <code class="docutils literal notranslate"><span class="pre">5</span></code>.</p>
+<p>Type: <em>double</em></p>
+<p>Bandpass lower cutoff freq. in Hz.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-picker.BK.f2">
-<code class="sig-name descname">picker.BK.f2</code><a class="headerlink" href="#confval-picker.BK.f2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-picker.BK.f2">
+<span class="sig-name descname"><span class="pre">picker.BK.f2</span></span><a class="headerlink" href="#confval-picker.BK.f2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">20</span></code></p>
 <p>Unit: <em>Hz</em></p>
-<p>Bandpass upper cutoff freq. in Hz.
-Default is <code class="docutils literal notranslate"><span class="pre">20</span></code>.</p>
+<p>Type: <em>double</em></p>
+<p>Bandpass upper cutoff freq. in Hz.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-picker.BK.thrshl1">
-<code class="sig-name descname">picker.BK.thrshl1</code><a class="headerlink" href="#confval-picker.BK.thrshl1" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>Threshold to trigger for pick (c.f. paper), default 10
-Default is <code class="docutils literal notranslate"><span class="pre">10</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-picker.BK.thrshl1">
+<span class="sig-name descname"><span class="pre">picker.BK.thrshl1</span></span><a class="headerlink" href="#confval-picker.BK.thrshl1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Threshold to trigger for pick (c.f. paper), default 10</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-picker.BK.thrshl2">
-<code class="sig-name descname">picker.BK.thrshl2</code><a class="headerlink" href="#confval-picker.BK.thrshl2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>Threshold for updating sigma  (c.f. paper), default 20
-Default is <code class="docutils literal notranslate"><span class="pre">20</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-picker.BK.thrshl2">
+<span class="sig-name descname"><span class="pre">picker.BK.thrshl2</span></span><a class="headerlink" href="#confval-picker.BK.thrshl2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">20</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Threshold for updating sigma  (c.f. paper), default 20</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -1077,52 +1135,52 @@ Default is <code class="docutils literal notranslate"><span class="pre">20</span
 <em>see paper of Zhang et al. (2003) in BSSA. The picker interface name to be used in configuration files is</em>
 <em>“AIC”.</em></p>
 </div>
-<dl class="confval">
-<dt id="confval-picker.AIC.noiseBegin">
-<code class="sig-name descname">picker.AIC.noiseBegin</code><a class="headerlink" href="#confval-picker.AIC.noiseBegin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-picker.AIC.noiseBegin">
+<span class="sig-name descname"><span class="pre">picker.AIC.noiseBegin</span></span><a class="headerlink" href="#confval-picker.AIC.noiseBegin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
 <p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
 <p>Overrides the relative data acquisition time (relative to the triggering
 pick). This adds a margin to the actual processing and is useful
 to initialize the filter (e.g. bandpass). The data is not used
 at all until signalBegin is reached. The data time window start
-is the minimum of noiseBegin and signalBegin.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+is the minimum of noiseBegin and signalBegin.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-picker.AIC.signalBegin">
-<code class="sig-name descname">picker.AIC.signalBegin</code><a class="headerlink" href="#confval-picker.AIC.signalBegin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-picker.AIC.signalBegin">
+<span class="sig-name descname"><span class="pre">picker.AIC.signalBegin</span></span><a class="headerlink" href="#confval-picker.AIC.signalBegin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">-30</span></code></p>
 <p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
 <p>Overrides the default time (relative to the trigger
-time) of the begin of the signal window used to pick.
-Default is <code class="docutils literal notranslate"><span class="pre">-30</span></code>.</p>
+time) of the begin of the signal window used to pick.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-picker.AIC.signalEnd">
-<code class="sig-name descname">picker.AIC.signalEnd</code><a class="headerlink" href="#confval-picker.AIC.signalEnd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-picker.AIC.signalEnd">
+<span class="sig-name descname"><span class="pre">picker.AIC.signalEnd</span></span><a class="headerlink" href="#confval-picker.AIC.signalEnd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code></p>
 <p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
 <p>Overrides the default time (relative to the trigger
-time) of the begin of the signal window used to pick.
-Default is <code class="docutils literal notranslate"><span class="pre">10</span></code>.</p>
+time) of the begin of the signal window used to pick.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-picker.AIC.filter">
-<code class="sig-name descname">picker.AIC.filter</code><a class="headerlink" href="#confval-picker.AIC.filter" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-picker.AIC.filter">
+<span class="sig-name descname"><span class="pre">picker.AIC.filter</span></span><a class="headerlink" href="#confval-picker.AIC.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
-<p>Overrides the default filter which is “raw”. The typical filter grammar can be used.</p>
+<p>Overrides the default filter which is &quot;raw&quot;. The typical filter grammar can be used.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-picker.AIC.minSNR">
-<code class="sig-name descname">picker.AIC.minSNR</code><a class="headerlink" href="#confval-picker.AIC.minSNR" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>Defines the mininum SNR.
-Default is <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-picker.AIC.minSNR">
+<span class="sig-name descname"><span class="pre">picker.AIC.minSNR</span></span><a class="headerlink" href="#confval-picker.AIC.minSNR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Defines the mininum SNR.</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -1132,370 +1190,1042 @@ Default is <code class="docutils literal notranslate"><span class="pre">3</span>
 <em>picker interface name to be used in configuration files is</em>
 <em>“S-L2”.</em></p>
 </div>
-<dl class="confval">
-<dt id="confval-spicker.L2.noiseBegin">
-<code class="sig-name descname">spicker.L2.noiseBegin</code><a class="headerlink" href="#confval-spicker.L2.noiseBegin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-spicker.L2.noiseBegin">
+<span class="sig-name descname"><span class="pre">spicker.L2.noiseBegin</span></span><a class="headerlink" href="#confval-spicker.L2.noiseBegin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">-10</span></code></p>
 <p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
 <p>Overrides the relative data processing start time (relative to the triggering
 pick). This adds a margin to the actual processing and is useful
 to initialize the filter (e.g. bandpass). The data is not used
 at all until signalBegin is reached. The data time window start
-is the minimum of noiseBegin and signalBegin.
-Default is <code class="docutils literal notranslate"><span class="pre">-10</span></code>.</p>
+is the minimum of noiseBegin and signalBegin.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-spicker.L2.signalBegin">
-<code class="sig-name descname">spicker.L2.signalBegin</code><a class="headerlink" href="#confval-spicker.L2.signalBegin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-spicker.L2.signalBegin">
+<span class="sig-name descname"><span class="pre">spicker.L2.signalBegin</span></span><a class="headerlink" href="#confval-spicker.L2.signalBegin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
 <p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
 <p>Overrides the relative start time (relative to the triggering
-pick) of the begin of the signal processing.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+pick) of the begin of the signal processing.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-spicker.L2.signalEnd">
-<code class="sig-name descname">spicker.L2.signalEnd</code><a class="headerlink" href="#confval-spicker.L2.signalEnd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-spicker.L2.signalEnd">
+<span class="sig-name descname"><span class="pre">spicker.L2.signalEnd</span></span><a class="headerlink" href="#confval-spicker.L2.signalEnd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">60</span></code></p>
 <p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
 <p>Overrides the relative end time (relative to the triggering
-pick) of the end of the signal window used to pick.
-Default is <code class="docutils literal notranslate"><span class="pre">60</span></code>.</p>
+pick) of the end of the signal window used to pick.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-spicker.L2.filter">
-<code class="sig-name descname">spicker.L2.filter</code><a class="headerlink" href="#confval-spicker.L2.filter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-spicker.L2.filter">
+<span class="sig-name descname"><span class="pre">spicker.L2.filter</span></span><a class="headerlink" href="#confval-spicker.L2.filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">BW(4,0.3,1.0)</span></code></p>
+<p>Type: <em>string</em></p>
 <p>Configures the filter used to compute the L2 and to pick
-the onset (with AIC) after the detector triggered.
-Default is <code class="docutils literal notranslate"><span class="pre">BW(4,0.3,1.0)</span></code>.</p>
+the onset (with AIC) after the detector triggered.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-spicker.L2.detecFilter">
-<code class="sig-name descname">spicker.L2.detecFilter</code><a class="headerlink" href="#confval-spicker.L2.detecFilter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-spicker.L2.detecFilter">
+<span class="sig-name descname"><span class="pre">spicker.L2.detecFilter</span></span><a class="headerlink" href="#confval-spicker.L2.detecFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">STALTA(1,10)</span></code></p>
+<p>Type: <em>string</em></p>
 <p>Configures the detector in the filtered L2. This filter is
-applied on top of the base L2 filter.
-Default is <code class="docutils literal notranslate"><span class="pre">STALTA(1,10)</span></code>.</p>
+applied on top of the base L2 filter.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-spicker.L2.threshold">
-<code class="sig-name descname">spicker.L2.threshold</code><a class="headerlink" href="#confval-spicker.L2.threshold" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>The detector threshold that triggers the AIC picker.
-Default is <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-spicker.L2.threshold">
+<span class="sig-name descname"><span class="pre">spicker.L2.threshold</span></span><a class="headerlink" href="#confval-spicker.L2.threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
+<p>Type: <em>double</em></p>
+<p>The detector threshold that triggers the AIC picker.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-spicker.L2.timeCorr">
-<code class="sig-name descname">spicker.L2.timeCorr</code><a class="headerlink" href="#confval-spicker.L2.timeCorr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-spicker.L2.timeCorr">
+<span class="sig-name descname"><span class="pre">spicker.L2.timeCorr</span></span><a class="headerlink" href="#confval-spicker.L2.timeCorr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
 <p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
 <p>The time correction (in seconds) added to the detection time
-before AIC time window is computed.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+before AIC time window is computed.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-spicker.L2.marginAIC">
-<code class="sig-name descname">spicker.L2.marginAIC</code><a class="headerlink" href="#confval-spicker.L2.marginAIC" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-spicker.L2.marginAIC">
+<span class="sig-name descname"><span class="pre">spicker.L2.marginAIC</span></span><a class="headerlink" href="#confval-spicker.L2.marginAIC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
 <p>Unit: <em>s</em></p>
-<p>The AIC time window around the detection used to pick. If 0 AIC is not used.
-Default is <code class="docutils literal notranslate"><span class="pre">5</span></code>.</p>
+<p>Type: <em>double</em></p>
+<p>The AIC time window around the detection used to pick. If 0 AIC is not used.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-spicker.L2.minSNR">
-<code class="sig-name descname">spicker.L2.minSNR</code><a class="headerlink" href="#confval-spicker.L2.minSNR" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>Defines the mininum SNR as returned from AIC.
-Default is <code class="docutils literal notranslate"><span class="pre">15</span></code>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-spicker.L2.minSNR">
+<span class="sig-name descname"><span class="pre">spicker.L2.minSNR</span></span><a class="headerlink" href="#confval-spicker.L2.minSNR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">15</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Defines the mininum SNR as returned from AIC.</p>
 </dd></dl>
 
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-0">
+<span class="sig-name descname"><span class="pre">detecStream</span></span><a class="headerlink" href="#confval-0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Defines the channel code of the preferred stream used by
+e.g. scautopick and scrttv. If no component code is given,
+the vertical component will be fetched from inventory.
+For that the channel orientation (azimuth, dip) will be used.
+If that approach fails, ‘Z’ will be appended and used as
+fallback.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-1">
+<span class="sig-name descname"><span class="pre">detecLocid</span></span><a class="headerlink" href="#confval-1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Defines the location code of the preferred stream used
+eg by scautopick and scrttv.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>amplitudes.*</strong>
+<em>Define general parameters for amplitudes of a certain type.</em>
+<em>Create amplitude type profiles to define the time windows,</em>
+<em>minimum signal-to-noise ratio, amplitude thresholds and restitution</em>
+<em>for measuring amplitudes of a certain type.</em></p>
 </div>
-<div class="section" id="command-line">
-<h1>Command Line<a class="headerlink" href="#command-line" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="generic">
-<h2>Generic<a class="headerlink" href="#generic" title="Permalink to this headline">¶</a></h2>
-<dl class="option">
-<dt id="cmdoption-h">
-<code class="sig-name descname">-h</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--help</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-h" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-2">
+<span class="sig-name descname"><span class="pre">amplitudes.saturationThreshold</span></span><a class="headerlink" href="#confval-2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Unit: <em>counts; %</em></p>
+<p>Type: <em>string</em></p>
+<p>Defines the saturation threshold for the optional saturation check.
+By default the saturation check is disabled but giving a value above
+0 will enable it. Waveforms that are saturated are not used
+for amplitude calculations.</p>
+<p>This value can either be an absolute value of counts such
+as &quot;100000&quot; counts or a relative value
+(optionally in percent) with respect to the number of
+effective bits, e.g. &quot;0.8&#64;23&quot; or &quot;80%&#64;23&quot;.
+The first version uses 1**23 * 0.8 whereas the latter
+uses 1**23 * 80/100.</p>
+<p>The boolean value &quot;false&quot; explicitly disables
+the check.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-3">
+<span class="sig-name descname"><span class="pre">amplitudes.enable</span></span><a class="headerlink" href="#confval-3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Defines if amplitude calculation is enabled. If disabled,
+this station will be skipped for amplitudes and magnitudes.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-4">
+<span class="sig-name descname"><span class="pre">amplitudes.enableResponses</span></span><a class="headerlink" href="#confval-4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Activates deconvolution for this station. If no responses are
+configured, an error is raised and the data is not processed.
+This flag will be overridden by the type specific flag
+(see Amplitude type profile).</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>amplitudes.$name.*</strong>
+<em>An amplitude profile configures global parameters for a</em>
+<em>particular amplitude type. The available amplitude types</em>
+<em>are not fixed and can be extended by plugins. The name of</em>
+<em>the type must match the one defined in the corresponding</em>
+<em>AmplitudeProcessor.</em>
+$name is a placeholder for the name to be used.</p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-5">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.saturationThreshold</span></span><a class="headerlink" href="#confval-5" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Unit: <em>counts; %</em></p>
+<p>Type: <em>string</em></p>
+<p>Defines the saturation threshold for the optional saturation check.
+By default the saturation check is disabled but giving a value above
+0 will enable it. Waveforms that are saturated are not used
+for amplitude calculations.</p>
+<p>This value can either be an absolute value of counts such
+as &quot;100000&quot; counts or a relative value
+(optionally in percent) with respect to the number of
+effective bits, e.g. &quot;0.8&#64;23&quot; or &quot;80%&#64;23&quot;.
+The first version uses 1**23 * 0.8 whereas the latter
+uses 1**23 * 80/100.</p>
+<p>The boolean value &quot;false&quot; explicitly disables
+the check.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-6">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.enable</span></span><a class="headerlink" href="#confval-6" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Defines if amplitude calculation of certain type is enabled.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-7">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.enableResponses</span></span><a class="headerlink" href="#confval-7" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Activates deconvolution for this amplitude type. If not
+set the global flag &quot;amplitudes.enableResponses&quot;
+will be used instead.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-8">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.minSNR</span></span><a class="headerlink" href="#confval-8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>double</em></p>
+<p>Defines the mininum SNR to be reached to compute the
+amplitudes. This value is amplitude type specific and
+has no global default value.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-9">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.noiseBegin</span></span><a class="headerlink" href="#confval-9" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
+<p>Overrides the default time (relative to the trigger
+time) of the begin of the noise window used to compute
+the noise offset and noise amplitude. Each amplitude
+processor sets its own noise time window and this option
+should only be changed if you know what you are doing.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-10">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.noiseEnd</span></span><a class="headerlink" href="#confval-10" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
+<p>Overrides the default time (relative to the trigger
+time) of the end of the noise window used to compute
+the noise offset and noise amplitude. Each amplitude
+processor sets its own noise time window and this option
+should only be changed if you know what you are doing.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-11">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.signalBegin</span></span><a class="headerlink" href="#confval-11" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
+<p>Overrides the default time (relative to the trigger
+time) of the begin of the signal window used to compute
+the final amplitude. Each amplitude processor sets its
+own signal time window and this option should only be
+changed if you know what you are doing.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-12">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.signalEnd</span></span><a class="headerlink" href="#confval-12" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
+<p>Overrides the default time (relative to the trigger
+time) of the end of the signal window used to compute
+the final amplitude. Each amplitude processor sets its
+own signal time window and this option should only be
+changed if you know what you are doing.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-13">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.minDist</span></span><a class="headerlink" href="#confval-13" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unit: <em>deg</em></p>
+<p>Type: <em>double</em></p>
+<p>The minimum distance required to compute an amplitude.
+This settings has no effect with e.g. scautopick as there
+is no information about the source of the event to compute
+the distance. The default value is implementation
+specific.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-14">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.maxDist</span></span><a class="headerlink" href="#confval-14" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unit: <em>deg</em></p>
+<p>Type: <em>double</em></p>
+<p>The maximum distance allowed to compute an amplitude.
+This settings has no effect with e.g. scautopick as there
+is no information about the source of the event to compute
+the distance. The default value is implementation
+specific.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-15">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.minDepth</span></span><a class="headerlink" href="#confval-15" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unit: <em>km</em></p>
+<p>Type: <em>double</em></p>
+<p>The minimum depth required to compute an amplitude.
+This settings has no effect with e.g. scautopick as there
+is no information about the source of the event to
+retrieve the depth. The default value is implementation
+specific.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-16">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.maxDepth</span></span><a class="headerlink" href="#confval-16" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unit: <em>km</em></p>
+<p>Type: <em>double</em></p>
+<p>The maximum depth allowed to compute an amplitude.
+This settings has no effect with e.g. scautopick as there
+is no information about the source of the event to
+retrieve the depth. The default value is implementation
+specific.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>amplitudes.$name.resp.*</strong>
+<em>Several parameters if usage of full responses is enabled.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-17">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.resp.taper</span></span><a class="headerlink" href="#confval-17" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
+<p>Unit: <em>s</em></p>
+<p>Defines the length of the taper at either side of the
+waveform. The length will be added to the data
+request: start - taper and end + taper.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-18">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.resp.minFreq</span></span><a class="headerlink" href="#confval-18" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.00833333</span></code></p>
+<p>Unit: <em>Hz</em></p>
+<p>After data are converted in to the frequency domain that
+minimum frequency defines the end of the left-side cosine taper for
+the frequency spectrum. The taper applies from 0Hz to {minFreq}Hz.
+A value of 0 or lower disables that taper.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-19">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.resp.maxFreq</span></span><a class="headerlink" href="#confval-19" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Unit: <em>Hz</em></p>
+<p>After data are converted in to the frequency domain that
+maximum frequency defines the start of the right-side cosine taper for
+the frequency spectrum. The taper applies from {maxFreq}Hz to {fNyquist}Hz.
+A value of 0 or lower disables that taper.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>amplitudes.resp.*</strong>
+<em>Several parameters if usage of full responses is enabled.</em>
+<em>The parameters of this group will be overridden by type</em>
+<em>specific settings if given (see Amplitude type profile).</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-20">
+<span class="sig-name descname"><span class="pre">amplitudes.resp.taper</span></span><a class="headerlink" href="#confval-20" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
+<p>Unit: <em>s</em></p>
+<p>Defines the length of the taper at either side of the
+waveform. The length will be added to the data
+request: start - taper and end + taper.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-21">
+<span class="sig-name descname"><span class="pre">amplitudes.resp.minFreq</span></span><a class="headerlink" href="#confval-21" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.00833333</span></code></p>
+<p>Unit: <em>Hz</em></p>
+<p>After data are converted in to the frequency domain that
+minimum frequency defines the end of the left-side cosine taper for
+the frequency spectrum. The taper applies from 0Hz to {minFreq}Hz.
+A value of 0 or lower disables that taper.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-22">
+<span class="sig-name descname"><span class="pre">amplitudes.resp.maxFreq</span></span><a class="headerlink" href="#confval-22" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Unit: <em>Hz</em></p>
+<p>After data are converted in to the frequency domain that
+maximum frequency defines the start of the right-side cosine taper for
+the frequency spectrum. The taper applies from {maxFreq}Hz to {fNyquist}Hz.
+A value of 0 or lower disables that taper.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>amplitudes.WoodAnderson.*</strong>
+<em>Allows to configure the Wood-Anderson seismometer response.</em>
+<em>The default values are according to the version of</em>
+<em>Gutenberg (1935). The newer version by Uhrhammer and</em>
+<em>Collins (1990) is part of the IASPEI Magnitude</em>
+<em>Working Group recommendations of 2011 September 9. This</em>
+<em>version uses gain=2800, T0=0.8, h=0.8.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-23">
+<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.gain</span></span><a class="headerlink" href="#confval-23" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">2800</span></code></p>
+<p>Type: <em>double</em></p>
+<p>The gain of the Wood-Anderson response.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-24">
+<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.T0</span></span><a class="headerlink" href="#confval-24" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.8</span></code></p>
+<p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
+<p>The eigen period of the Wood-Anderson seismometer.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-25">
+<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.h</span></span><a class="headerlink" href="#confval-25" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.8</span></code></p>
+<p>Type: <em>double</em></p>
+<p>The damping constant of the Wood-Anderson seismometer.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-26">
+<span class="sig-name descname"><span class="pre">amplitudes.ML.absMax</span></span><a class="headerlink" href="#confval-26" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Whether to use the absolute maximum of the filtered WA
+trace or the difference of the maximum and minimum value
+of the signal window.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-27">
+<span class="sig-name descname"><span class="pre">amplitudes.ML.measureType</span></span><a class="headerlink" href="#confval-27" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">AbsMax</span></code></p>
+<p>Type: <em>string</em></p>
+<p>This parameter allows to set how the amplitude is measured.
+Either by finding the absolute maximum of the demeaned
+trace (AbsMax), the difference of maximum and minimum of
+the signal window (MinMax) or the maximum peak-trough
+of one cycle (PeakTrough).</p>
+<p>Note that if absMax is already explicitly configured, this
+parameter has no effect.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-28">
+<span class="sig-name descname"><span class="pre">amplitudes.ML.combiner</span></span><a class="headerlink" href="#confval-28" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">average</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Defines the combiner operation for the amplitudes measured
+on either both horizontal component. The default is to
+use the average. Allowed values are: &quot;average&quot;,
+&quot;min&quot;, &quot;max&quot; and &quot;geometric_mean&quot;.
+&quot;geometric_mean&quot; corresponds to averaging single-trace
+magnitudes instead of their amplitudes.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-29">
+<span class="sig-name descname"><span class="pre">amplitudes.MLv.absMax</span></span><a class="headerlink" href="#confval-29" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Whether to use the absolute maximum of the filtered WA
+trace or the difference of the maximum and minimum value
+of the signal window.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-30">
+<span class="sig-name descname"><span class="pre">amplitudes.MLv.measureType</span></span><a class="headerlink" href="#confval-30" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">AbsMax</span></code></p>
+<p>Type: <em>string</em></p>
+<p>This parameter allows to set how the amplitude is measured.
+Either by finding the absolute maximum of the demeaned
+trace (AbsMax), the difference of maximum and minimum of
+the signal window (MinMax) or the maximum peak-trough
+of one cycle (PeakTrough).</p>
+<p>Note that if absMax is already explicitly configured, this
+parameter has no effect.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>magnitudes.*</strong>
+<em>Define magnitude parameters independent of amplitude-type profiles.</em>
+<em>For magnitude correction parameters, e.g. network of station corrections,</em>
+<em>create a magnitude type profile.</em></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>magnitudes.$name.*</strong>
+<em>A magnitude profile configures global parameters for a</em>
+<em>particular magnitude type. The available magnitude types</em>
+<em>are not fixed and can be extended by plugins. The name of</em>
+<em>the type must match the one defined in the corresponding</em>
+<em>MagnitudeProcessor.</em>
+$name is a placeholder for the name to be used.</p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-31">
+<span class="sig-name descname"><span class="pre">magnitudes.$name.multiplier</span></span><a class="headerlink" href="#confval-31" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Part of the magnitude station correction. The final
+magnitude value is multiplier*M+offset. This value
+is usually not required but is here for completeness.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-32">
+<span class="sig-name descname"><span class="pre">magnitudes.$name.offset</span></span><a class="headerlink" href="#confval-32" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Part of the magnitude station correction. The final
+magnitude value is multiplier*M+offset. This value
+can be used to correct station magnitudes.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>picker.BK.*</strong>
+<em>Bkpicker is an implementation of the Baer/Kradolfer picker adapted</em>
+<em>to SeisComP. It was created by converting Manfred Baers from Fortran</em>
+<em>to C++ and inserting it as a replacement for the picker algorithm.</em>
+<em>The picker interface name to be used in configuration files is</em>
+<em>“BK”.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-33">
+<span class="sig-name descname"><span class="pre">picker.BK.noiseBegin</span></span><a class="headerlink" href="#confval-33" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
+<p>Overrides the relative data acquisition time (relative to the triggering
+pick). This adds a margin to the actual processing and is useful
+to initialize the filter (e.g. bandpass). The data is not used
+at all until signalBegin is reached. The data time window start
+is the minimum of noiseBegin and signalBegin.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-34">
+<span class="sig-name descname"><span class="pre">picker.BK.signalBegin</span></span><a class="headerlink" href="#confval-34" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">-20</span></code></p>
+<p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
+<p>Overrides the default time (relative to the trigger
+time) of the begin of the signal window used to pick.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-35">
+<span class="sig-name descname"><span class="pre">picker.BK.signalEnd</span></span><a class="headerlink" href="#confval-35" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">80</span></code></p>
+<p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
+<p>Overrides the default time (relative to the trigger
+time) of the begin of the signal window used to pick.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-36">
+<span class="sig-name descname"><span class="pre">picker.BK.filterType</span></span><a class="headerlink" href="#confval-36" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">BP</span></code></p>
+<p>Type: <em>string</em></p>
+<p>BP (Bandpass) is currently the only option.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-37">
+<span class="sig-name descname"><span class="pre">picker.BK.filterPoles</span></span><a class="headerlink" href="#confval-37" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">2</span></code></p>
+<p>Type: <em>int</em></p>
+<p>Number of poles.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-38">
+<span class="sig-name descname"><span class="pre">picker.BK.f1</span></span><a class="headerlink" href="#confval-38" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
+<p>Unit: <em>Hz</em></p>
+<p>Type: <em>double</em></p>
+<p>Bandpass lower cutoff freq. in Hz.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-39">
+<span class="sig-name descname"><span class="pre">picker.BK.f2</span></span><a class="headerlink" href="#confval-39" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">20</span></code></p>
+<p>Unit: <em>Hz</em></p>
+<p>Type: <em>double</em></p>
+<p>Bandpass upper cutoff freq. in Hz.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-40">
+<span class="sig-name descname"><span class="pre">picker.BK.thrshl1</span></span><a class="headerlink" href="#confval-40" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Threshold to trigger for pick (c.f. paper), default 10</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-41">
+<span class="sig-name descname"><span class="pre">picker.BK.thrshl2</span></span><a class="headerlink" href="#confval-41" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">20</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Threshold for updating sigma  (c.f. paper), default 20</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>picker.AIC.*</strong>
+<em>AIC picker is an implementation using the simple non-AR algorithm of Maeda (1985),</em>
+<em>see paper of Zhang et al. (2003) in BSSA. The picker interface name to be used in configuration files is</em>
+<em>“AIC”.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-42">
+<span class="sig-name descname"><span class="pre">picker.AIC.noiseBegin</span></span><a class="headerlink" href="#confval-42" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
+<p>Overrides the relative data acquisition time (relative to the triggering
+pick). This adds a margin to the actual processing and is useful
+to initialize the filter (e.g. bandpass). The data is not used
+at all until signalBegin is reached. The data time window start
+is the minimum of noiseBegin and signalBegin.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-43">
+<span class="sig-name descname"><span class="pre">picker.AIC.signalBegin</span></span><a class="headerlink" href="#confval-43" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">-30</span></code></p>
+<p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
+<p>Overrides the default time (relative to the trigger
+time) of the begin of the signal window used to pick.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-44">
+<span class="sig-name descname"><span class="pre">picker.AIC.signalEnd</span></span><a class="headerlink" href="#confval-44" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code></p>
+<p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
+<p>Overrides the default time (relative to the trigger
+time) of the begin of the signal window used to pick.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-45">
+<span class="sig-name descname"><span class="pre">picker.AIC.filter</span></span><a class="headerlink" href="#confval-45" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Overrides the default filter which is &quot;raw&quot;. The typical filter grammar can be used.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-46">
+<span class="sig-name descname"><span class="pre">picker.AIC.minSNR</span></span><a class="headerlink" href="#confval-46" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Defines the mininum SNR.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>spicker.L2.*</strong>
+<em>L2 is an algorithm to pick S-phases based on existing P-phases. The</em>
+<em>picker interface name to be used in configuration files is</em>
+<em>“S-L2”.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-47">
+<span class="sig-name descname"><span class="pre">spicker.L2.noiseBegin</span></span><a class="headerlink" href="#confval-47" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">-10</span></code></p>
+<p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
+<p>Overrides the relative data processing start time (relative to the triggering
+pick). This adds a margin to the actual processing and is useful
+to initialize the filter (e.g. bandpass). The data is not used
+at all until signalBegin is reached. The data time window start
+is the minimum of noiseBegin and signalBegin.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-48">
+<span class="sig-name descname"><span class="pre">spicker.L2.signalBegin</span></span><a class="headerlink" href="#confval-48" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
+<p>Overrides the relative start time (relative to the triggering
+pick) of the begin of the signal processing.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-49">
+<span class="sig-name descname"><span class="pre">spicker.L2.signalEnd</span></span><a class="headerlink" href="#confval-49" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">60</span></code></p>
+<p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
+<p>Overrides the relative end time (relative to the triggering
+pick) of the end of the signal window used to pick.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-50">
+<span class="sig-name descname"><span class="pre">spicker.L2.filter</span></span><a class="headerlink" href="#confval-50" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">BW(4,0.3,1.0)</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Configures the filter used to compute the L2 and to pick
+the onset (with AIC) after the detector triggered.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-51">
+<span class="sig-name descname"><span class="pre">spicker.L2.detecFilter</span></span><a class="headerlink" href="#confval-51" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">STALTA(1,10)</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Configures the detector in the filtered L2. This filter is
+applied on top of the base L2 filter.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-52">
+<span class="sig-name descname"><span class="pre">spicker.L2.threshold</span></span><a class="headerlink" href="#confval-52" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
+<p>Type: <em>double</em></p>
+<p>The detector threshold that triggers the AIC picker.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-53">
+<span class="sig-name descname"><span class="pre">spicker.L2.timeCorr</span></span><a class="headerlink" href="#confval-53" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
+<p>The time correction (in seconds) added to the detection time
+before AIC time window is computed.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-54">
+<span class="sig-name descname"><span class="pre">spicker.L2.marginAIC</span></span><a class="headerlink" href="#confval-54" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
+<p>Unit: <em>s</em></p>
+<p>Type: <em>double</em></p>
+<p>The AIC time window around the detection used to pick. If 0 AIC is not used.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-55">
+<span class="sig-name descname"><span class="pre">spicker.L2.minSNR</span></span><a class="headerlink" href="#confval-55" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">15</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Defines the mininum SNR as returned from AIC.</p>
+</dd></dl>
+
+</section>
+<section id="command-line-options">
+<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this heading">¶</a></h2>
+<section id="generic">
+<h3>Generic<a class="headerlink" href="#generic" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-h">
+<span id="cmdoption-help"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-h" title="Permalink to this definition">¶</a></dt>
 <dd><p>show help message.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-v">
-<code class="sig-name descname">-V</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--version</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-v" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-V">
+<span id="cmdoption-version"></span><span class="sig-name descname"><span class="pre">-V</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--version</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-V" title="Permalink to this definition">¶</a></dt>
 <dd><p>show version information</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-config-file">
-<code class="sig-name descname">--config-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-config-file" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-config-file">
+<span class="sig-name descname"><span class="pre">--config-file</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-config-file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use alternative configuration file. When this option is used
 the loading of all stages is disabled. Only the given configuration
 file is parsed and used. To use another name for the configuration
 create a symbolic link of the application or copy it, eg scautopick -&gt; scautopick2.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-plugins">
-<code class="sig-name descname">--plugins</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-plugins" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-plugins">
+<span class="sig-name descname"><span class="pre">--plugins</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-plugins" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load given plugins.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-d">
-<code class="sig-name descname">-D</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--daemon</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-d" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-D">
+<span id="cmdoption-daemon"></span><span class="sig-name descname"><span class="pre">-D</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--daemon</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-D" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run as daemon. This means the application will fork itself and
 doesn’t need to be started with &amp;.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-auto-shutdown">
-<code class="sig-name descname">--auto-shutdown</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-auto-shutdown" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-auto-shutdown">
+<span class="sig-name descname"><span class="pre">--auto-shutdown</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-auto-shutdown" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable/disable self-shutdown because a master module shutdown. This only
 works when messaging is enabled and the master module sends a shutdown
-message (enabled with –start-stop-msg for the master module).</p>
+message (enabled with --start-stop-msg for the master module).</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-shutdown-master-module">
-<code class="sig-name descname">--shutdown-master-module</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-shutdown-master-module" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-shutdown-master-module">
+<span class="sig-name descname"><span class="pre">--shutdown-master-module</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-shutdown-master-module" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the name of the master-module used for auto-shutdown. This
 is the application name of the module actually started. If symlinks
 are used then it is the name of the symlinked application.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-shutdown-master-username">
-<code class="sig-name descname">--shutdown-master-username</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-shutdown-master-username" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-shutdown-master-username">
+<span class="sig-name descname"><span class="pre">--shutdown-master-username</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-shutdown-master-username" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the name of the master-username of the messaging used for
-auto-shutdown. If “shutdown-master-module” is given as well this
+auto-shutdown. If &quot;shutdown-master-module&quot; is given as well this
 parameter is ignored.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="verbose">
-<h2>Verbose<a class="headerlink" href="#verbose" title="Permalink to this headline">¶</a></h2>
-<dl class="option">
-<dt id="cmdoption-verbosity">
-<code class="sig-name descname">--verbosity</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-verbosity" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="verbose">
+<h3>Verbose<a class="headerlink" href="#verbose" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-verbosity">
+<span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-verbosity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="id1">
-<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--v</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-v">
+<span id="cmdoption-v"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--v</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-v" title="Permalink to this definition">¶</a></dt>
 <dd><p>Increase verbosity level (may be repeated, eg. -vv)</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-q">
-<code class="sig-name descname">-q</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--quiet</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-q" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-q">
+<span id="cmdoption-quiet"></span><span class="sig-name descname"><span class="pre">-q</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--quiet</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-q" title="Permalink to this definition">¶</a></dt>
 <dd><p>Quiet mode: no logging output</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-print-component">
-<code class="sig-name descname">--print-component</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-print-component" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-print-component">
+<span class="sig-name descname"><span class="pre">--print-component</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-print-component" title="Permalink to this definition">¶</a></dt>
 <dd><p>For each log entry print the component right after the
 log level. By default the component output is enabled
 for file output but disabled for console output.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-print-context">
-<code class="sig-name descname">--print-context</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-print-context" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-print-context">
+<span class="sig-name descname"><span class="pre">--print-context</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-print-context" title="Permalink to this definition">¶</a></dt>
 <dd><p>For each log entry print the source file name and line
 number.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-component">
-<code class="sig-name descname">--component</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-component" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-component">
+<span class="sig-name descname"><span class="pre">--component</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-component" title="Permalink to this definition">¶</a></dt>
 <dd><p>Limits the logging to a certain component. This option can be given more than once.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-s">
-<code class="sig-name descname">-s</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--syslog</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-s" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-s">
+<span id="cmdoption-syslog"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--syslog</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use syslog logging back end. The output usually goes to /var/lib/messages.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-l">
-<code class="sig-name descname">-l</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--lockfile</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-l" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-l">
+<span id="cmdoption-lockfile"></span><span class="sig-name descname"><span class="pre">-l</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--lockfile</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-l" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path to lock file.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-console">
-<code class="sig-name descname">--console</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-console" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-console">
+<span class="sig-name descname"><span class="pre">--console</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-console" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send log output to stdout.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-debug">
-<code class="sig-name descname">--debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-debug" title="Permalink to this definition">¶</a></dt>
-<dd><p>Debug mode: –verbosity=4 –console=1</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-debug">
+<span class="sig-name descname"><span class="pre">--debug</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Debug mode: --verbosity=4 --console=1</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-trace">
-<code class="sig-name descname">--trace</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-trace" title="Permalink to this definition">¶</a></dt>
-<dd><p>Trace mode: –verbosity=4 –console=1 –print-component=1 –print-context=1</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-trace">
+<span class="sig-name descname"><span class="pre">--trace</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-trace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trace mode: --verbosity=4 --console=1 --print-component=1 --print-context=1</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-log-file">
-<code class="sig-name descname">--log-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-log-file" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-log-file">
+<span class="sig-name descname"><span class="pre">--log-file</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-log-file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use alternative log file.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="messaging">
-<h2>Messaging<a class="headerlink" href="#messaging" title="Permalink to this headline">¶</a></h2>
-<dl class="option">
-<dt id="cmdoption-u">
-<code class="sig-name descname">-u</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--user</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-u" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="messaging">
+<h3>Messaging<a class="headerlink" href="#messaging" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-u">
+<span id="cmdoption-user"></span><span class="sig-name descname"><span class="pre">-u</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--user</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-u" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-connection.username"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.username</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-host">
-<code class="sig-name descname">-H</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--host</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-host" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-H">
+<span id="cmdoption-host"></span><span class="sig-name descname"><span class="pre">-H</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--host</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-H" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-connection.server"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.server</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-t">
-<code class="sig-name descname">-t</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--timeout</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-t" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-t">
+<span id="cmdoption-timeout"></span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--timeout</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-connection.timeout"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.timeout</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-g">
-<code class="sig-name descname">-g</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--primary-group</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-g" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-g">
+<span id="cmdoption-primary-group"></span><span class="sig-name descname"><span class="pre">-g</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--primary-group</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-g" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-connection.primaryGroup"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.primaryGroup</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-subscribe-group">
-<code class="sig-name descname">-S</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--subscribe-group</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-subscribe-group" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-S">
+<span id="cmdoption-subscribe-group"></span><span class="sig-name descname"><span class="pre">-S</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--subscribe-group</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-S" title="Permalink to this definition">¶</a></dt>
 <dd><p>A group to subscribe to. This option can be given more than once.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-content-type">
-<code class="sig-name descname">--content-type</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-content-type" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-content-type">
+<span class="sig-name descname"><span class="pre">--content-type</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-content-type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-connection.contentType"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.contentType</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-start-stop-msg">
-<code class="sig-name descname">--start-stop-msg</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-start-stop-msg" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-start-stop-msg">
+<span class="sig-name descname"><span class="pre">--start-stop-msg</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-start-stop-msg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets sending of a start- and a stop message.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="database">
-<h2>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h2>
-<dl class="option">
-<dt id="cmdoption-db-driver-list">
-<code class="sig-name descname">--db-driver-list</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-db-driver-list" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="database">
+<h3>Database<a class="headerlink" href="#database" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-db-driver-list">
+<span class="sig-name descname"><span class="pre">--db-driver-list</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-db-driver-list" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all supported database drivers.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-database">
-<code class="sig-name descname">-d</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--database</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-database" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-d">
+<span id="cmdoption-database"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--database</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-d" title="Permalink to this definition">¶</a></dt>
 <dd><p>The database connection string, format: <a class="reference external" href="service://user:pwd&#64;host/database">service://user:pwd&#64;host/database</a>.
-“service” is the name of the database driver which can be
-queried with “–db-driver-list”.</p>
+&quot;service&quot; is the name of the database driver which can be
+queried with &quot;--db-driver-list&quot;.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-config-module">
-<code class="sig-name descname">--config-module</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-config-module" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-config-module">
+<span class="sig-name descname"><span class="pre">--config-module</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-config-module" title="Permalink to this definition">¶</a></dt>
 <dd><p>The configmodule to use.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-inventory-db">
-<code class="sig-name descname">--inventory-db</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-inventory-db" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-inventory-db">
+<span class="sig-name descname"><span class="pre">--inventory-db</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-inventory-db" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load the inventory from the given database or file, format: [<a class="reference external" href="service://]location">service://]location</a></p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-config-db">
-<code class="sig-name descname">--config-db</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-config-db" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-config-db">
+<span class="sig-name descname"><span class="pre">--config-db</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-config-db" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load the configuration from the given database or file, format: [<a class="reference external" href="service://]location">service://]location</a></p>
 </dd></dl>
 
-</div>
-<div class="section" id="records">
-<h2>Records<a class="headerlink" href="#records" title="Permalink to this headline">¶</a></h2>
-<dl class="option">
-<dt id="cmdoption-record-driver-list">
-<code class="sig-name descname">--record-driver-list</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-record-driver-list" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="records">
+<h3>Records<a class="headerlink" href="#records" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-record-driver-list">
+<span class="sig-name descname"><span class="pre">--record-driver-list</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-record-driver-list" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all supported record stream drivers</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-i">
-<code class="sig-name descname">-I</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--record-url</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-i" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-I">
+<span id="cmdoption-record-url"></span><span class="sig-name descname"><span class="pre">-I</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--record-url</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-I" title="Permalink to this definition">¶</a></dt>
 <dd><p>The recordstream source URL, format: [<a class="reference external" href="service://">service://</a>]location[#type].
-“service” is the name of the recordstream driver which can be
-queried with “–record-driver-list”. If “service”
-is not given “<a class="reference external" href="file://">file://</a>” is used.</p>
+&quot;service&quot; is the name of the recordstream driver which can be
+queried with &quot;--record-driver-list&quot;. If &quot;service&quot;
+is not given &quot;<a class="reference external" href="file://">file://</a>&quot; is used.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-record-file">
-<code class="sig-name descname">--record-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-record-file" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-record-file">
+<span class="sig-name descname"><span class="pre">--record-file</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-record-file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify a file as record source.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-record-type">
-<code class="sig-name descname">--record-type</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-record-type" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-record-type">
+<span class="sig-name descname"><span class="pre">--record-type</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-record-type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify a type for the records being read.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="cities">
-<h2>Cities<a class="headerlink" href="#cities" title="Permalink to this headline">¶</a></h2>
-<dl class="option">
-<dt id="cmdoption-city-xml">
-<code class="sig-name descname">--city-xml</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-city-xml" title="Permalink to this definition">¶</a></dt>
-<dd><p>The path to the city.xml file. This overrides the default paths.</p>
+</section>
+<section id="cities">
+<h3>Cities<a class="headerlink" href="#cities" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-city-xml">
+<span class="sig-name descname"><span class="pre">--city-xml</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-city-xml" title="Permalink to this definition">¶</a></dt>
+<dd><p>The path to the cities XML file. This overrides the default
+paths. Compare with the global parameter &quot;citiesXML&quot;</p>
 </dd></dl>
 
-</div>
-<div class="section" id="user-interface">
-<h2>User interface<a class="headerlink" href="#user-interface" title="Permalink to this headline">¶</a></h2>
-<dl class="option">
-<dt id="cmdoption-f">
-<code class="sig-name descname">-F</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--full-screen</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-f" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="user-interface">
+<h3>User interface<a class="headerlink" href="#user-interface" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-F">
+<span id="cmdoption-full-screen"></span><span class="sig-name descname"><span class="pre">-F</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--full-screen</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-F" title="Permalink to this definition">¶</a></dt>
 <dd><p>Starts the application filling the entire screen. This only works
 with GUI applications.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-n">
-<code class="sig-name descname">-N</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--non-interactive</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-n" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-N">
+<span id="cmdoption-non-interactive"></span><span class="sig-name descname"><span class="pre">-N</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--non-interactive</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-N" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use non-interactive presentation mode. This only works with GUI applications.</p>
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -1508,17 +2238,23 @@ with GUI applications.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Configuration</a></li>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Global parameters</a><ul>
+<li><a class="reference internal" href="#station-meta-data">Station meta data</a></li>
+<li><a class="reference internal" href="#modules">Modules</a></li>
 <li><a class="reference internal" href="#bindings">Bindings</a></li>
-<li><a class="reference internal" href="#command-line">Command Line</a><ul>
+<li><a class="reference internal" href="#extensions">Extensions</a></li>
+<li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
+<li><a class="reference internal" href="#bindings-parameters">Bindings Parameters</a></li>
+<li><a class="reference internal" href="#command-line-options">Command-Line Options</a><ul>
 <li><a class="reference internal" href="#generic">Generic</a></li>
 <li><a class="reference internal" href="#verbose">Verbose</a></li>
 <li><a class="reference internal" href="#messaging">Messaging</a></li>
@@ -1529,7 +2265,10 @@ with GUI applications.</p>
 </ul>
 </li>
 </ul>
+</li>
+</ul>
 
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -1544,7 +2283,7 @@ with GUI applications.</p>
     <div class="footer">
       <div class="container">
         <div class="content">
-        Release <b></b> version <b>2022.88#fcbc3b22d</b>
+        Release <b></b> version <b>2023.217#192b88919</b>
           <div class="copyright">
             &copy; Copyright <a href="https://www.gempa.de">2014, gempa GmbH.</a>
           </div>

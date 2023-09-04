@@ -1,19 +1,20 @@
 <!doctype html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Change Log &#8212; scanloc: Phase Associator  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/gempa.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/gempa.css?v=c960eebf" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../_static/gempa.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/scanloc.png"/>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="References" href="references.html" /> 
@@ -24,7 +25,7 @@
         <img class="background" src="../_static/icon.png"/>
         <div class="content">
            <span class="title">scanloc: Phase Associator </span>
-           <span class="version">2022.88#fcbc3b22d</span></h1>
+           <span class="version">2023.217#192b88919</span></h1>
         </div>
       </div>
     </div>
@@ -58,84 +59,243 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="change-log">
-<span id="sec-changelog"></span><h1>Change Log<a class="headerlink" href="#change-log" title="Permalink to this headline">¶</a></h1>
+  <section id="change-log">
+<span id="sec-changelog"></span><h1>Change Log<a class="headerlink" href="#change-log" title="Permalink to this heading">¶</a></h1>
 <p>All notable changes to scanloc will be documented in this file.</p>
-<div class="section" id="id1">
-<h2>2022-03-29<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="added">
-<h3>Added<a class="headerlink" href="#added" title="Permalink to this headline">¶</a></h3>
+<section id="id1">
+<h2>2023.218<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<section id="added">
+<h3>Added<a class="headerlink" href="#added" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Do not accept picks when inventory misses sensorLocation coordinates</p></li>
-<li><p>Apply rigorous RMS checks</p></li>
+<li><p>The command-line option <code class="docutils literal notranslate"><span class="pre">--drop-reference-check</span></code> and the configuration
+parameter <code class="docutils literal notranslate"><span class="pre">association.dropReferenceCheck</span></code> allow to associate S-type picks
+which do not have a reference pick. Reference picks are typically added to S
+picks by scautopick but picks from other modules may not have this feature.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id2">
-<h2>2022-03-18<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="changed">
-<h3>Changed<a class="headerlink" href="#changed" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id2">
+<h2>2023.214<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<section id="changed">
+<h3>Changed<a class="headerlink" href="#changed" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Update documentation of phase association.</p></li>
+</ul>
+</section>
+</section>
+<section id="id3">
+<h2>2023.139<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<section id="id4">
+<h3>Added<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>In dump_picks the new option <code class="docutils literal notranslate"><span class="pre">--maximum-delay</span></code> allows to only dump picks
+and amplitdues which were created with delays no longer than the given
+value. Apply to ignore objects from non-real-time playbacks.</p></li>
+</ul>
+</section>
+</section>
+<section id="id5">
+<h2>2023.116<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<section id="id6">
+<h3>Changed<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Extend travel-time tables <code class="docutils literal notranslate"><span class="pre">iasp91_scanloc.*</span></code> to 120 deg distance.</p></li>
+<li><p>Add travel-time tables for SKKP, SKS, SS, ScS phases.</p></li>
+</ul>
+</section>
+</section>
+<section id="id7">
+<h2>2023.115<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
+<section id="id8">
+<h3>Added<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>dump_picks has received the new command-line option <code class="docutils literal notranslate"><span class="pre">--end</span></code> to be
+consistent with other modules.</p></li>
+</ul>
+</section>
+</section>
+<section id="id9">
+<h2>2023.087<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
+<section id="id10">
+<h3>Changed<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">association.maxPResidual</span></code> and <code class="docutils literal notranslate"><span class="pre">association.maxSResidual</span></code> to maximum
+time window for associating picks at maximum distance defined by
+<code class="docutils literal notranslate"><span class="pre">association.maxDist</span></code>. This may increase the amount of picks available for
+association.</p></li>
+<li><p>Add more information to debug output especially during phase association.</p></li>
+</ul>
+</section>
+</section>
+<section id="id11">
+<h2>2023.011<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h2>
+<section id="id12">
+<h3>Added<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Provide more precise estimate of <code class="docutils literal notranslate"><span class="pre">clusterSearch.maxPickDelay</span></code> for tuning
+when using <code class="docutils literal notranslate"><span class="pre">--cluster-search-log-file</span></code>.</p></li>
+<li><p>Add new configuration parameter <code class="docutils literal notranslate"><span class="pre">buffer.ignorePickByStream</span></code> and command-
+line option <code class="docutils literal notranslate"><span class="pre">--ignore-picks-stream</span></code> for ignoring picks by stream ID.</p></li>
+</ul>
+</section>
+<section id="id13">
+<h3>Changed<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Equally apply pick filtering to processing in real time and in XML playbacks.</p></li>
+<li><p>Rename the configuration parameter <code class="docutils literal notranslate"><span class="pre">clusterSearch.ignorePicks</span></code> to
+<code class="docutils literal notranslate"><span class="pre">clusterSearch.ignoreTimeDifference</span></code>. <code class="docutils literal notranslate"><span class="pre">clusterSearch.ignorePicks</span></code> is
+deprecated.</p></li>
+<li><p>Apply <code class="docutils literal notranslate"><span class="pre">clusterSearch.ignoreTimeDifference</span></code> also to picks with phase type
+‘Is’.</p></li>
+<li><p>Update cluster reference time based on configuration of
+<code class="docutils literal notranslate"><span class="pre">clusterSearch.minSize</span></code> and <code class="docutils literal notranslate"><span class="pre">association.minPhase</span></code> if
+<code class="docutils literal notranslate"><span class="pre">clusterSearch.referenceTimeMode</span></code> = ‘MaxPickDelay’. Before, only
+<code class="docutils literal notranslate"><span class="pre">clusterSearch.minSize</span></code> was considered.</p></li>
+</ul>
+</section>
+</section>
+<section id="id14">
+<h2>2023.004<a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h2>
+<section id="id15">
+<h3>Added<a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Allow configuring the type of phase picks considered for clustering by new
+configuration parameter <code class="docutils literal notranslate"><span class="pre">clusterSearch.phaseType</span></code>.</p></li>
+</ul>
+</section>
+</section>
+<section id="id16">
+<h2>2022-08-23<a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h2>
+<section id="id17">
+<h3>Added<a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>The new configuration parameter <code class="docutils literal notranslate"><span class="pre">buffer.originStatusIgnore</span></code> allows ignoring
+external origins based on origin evaluation status.</p></li>
+</ul>
+</section>
+<section id="id18">
+<h3>Changed<a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Increase fallback slowness for P and S waves to 25 and 40 s/deg, respectively,
+defining time windows for searching for picks to be associated. The values
+only apply when the travel-time interface does not provide travel times at
+the maximum epicentral distance configured by <code class="docutils literal notranslate"><span class="pre">association.maxDist</span></code> seen
+from latitude=longitude=depth = 0.</p></li>
+</ul>
+</section>
+</section>
+<section id="id19">
+<h2>2022-07-22<a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h2>
+<section id="important">
+<h3>Important<a class="headerlink" href="#important" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>The configuration parameter <code class="docutils literal notranslate"><span class="pre">ignoreOrigins</span></code> has been renamed to
+<code class="docutils literal notranslate"><span class="pre">buffer.ignoreOrigins</span></code> for better consistency with other buffer parameters.
+<code class="docutils literal notranslate"><span class="pre">ignoreOrigins</span></code> is still considered but a warning is issued when found.
+<code class="docutils literal notranslate"><span class="pre">buffer.ignoreOrigins</span></code> overrides <code class="docutils literal notranslate"><span class="pre">ignoreOrigins</span></code>.</p></li>
+</ul>
+</section>
+<section id="id20">
+<h3>Added<a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>The new configuration parameter <code class="docutils literal notranslate"><span class="pre">buffer.originAuthorWhiteList</span></code> allows
+filtering of external origins by a list of author names. When set, other
+origins are ignored. The parameter simplifies configuring systems with other
+locator module like screloc in the loop. It allows to exclude origins from
+these modules to be treated by scanloc. In a redundant system, processing of
+origins received from a secondary system can be avoided.</p></li>
+<li><p>More examples in documentation with more explanations of the timing
+in playbacks.</p></li>
+</ul>
+</section>
+</section>
+<section id="id21">
+<h2>2022-05-31<a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h2>
+<section id="id22">
+<h3>Changed<a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Use station elevation for travel time computation. If the station elevation
+is not available, a value of zero is assumed. Note, neither LOCSAT nor
+libtau currently consider station elevations for providing travel times via
+the travel-time interface.</p></li>
+</ul>
+</section>
+</section>
+<section id="id23">
+<h2>2022-03-29<a class="headerlink" href="#id23" title="Permalink to this heading">¶</a></h2>
+<section id="id24">
+<h3>Added<a class="headerlink" href="#id24" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Do not accept picks when inventory misses sensorLocation coordinates.</p></li>
+<li><p>Apply rigorous RMS checks.</p></li>
+</ul>
+</section>
+</section>
+<section id="id25">
+<h2>2022-03-18<a class="headerlink" href="#id25" title="Permalink to this heading">¶</a></h2>
+<section id="id26">
+<h3>Changed<a class="headerlink" href="#id26" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Update documentation of S-phase picker and debugger.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id3">
-<h2>2022-03-14<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id4">
-<h3>Changed<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id27">
+<h2>2022-03-14<a class="headerlink" href="#id27" title="Permalink to this heading">¶</a></h2>
+<section id="id28">
+<h3>Changed<a class="headerlink" href="#id28" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Optimize cluster search.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id5">
-<h2>2022-03-11<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id6">
-<h3>Changed<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id29">
+<h2>2022-03-11<a class="headerlink" href="#id29" title="Permalink to this heading">¶</a></h2>
+<section id="id30">
+<h3>Changed<a class="headerlink" href="#id30" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Update documentation.</p></li>
 <li><p>Update command-line help (<code class="docutils literal notranslate"><span class="pre">-h</span></code>).</p></li>
 <li><p>Minor optimizations.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id7">
-<h2>2022-03-09<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="fixed">
-<h3>Fixed<a class="headerlink" href="#fixed" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id31">
+<h2>2022-03-09<a class="headerlink" href="#id31" title="Permalink to this heading">¶</a></h2>
+<section id="fixed">
+<h3>Fixed<a class="headerlink" href="#fixed" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Process picks and origins without evaluation mode like automatic ones and
 do not shut down.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id8">
-<h2>2022-02-14<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id9">
-<h3>Changed<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id32">
+<h2>2022-02-14<a class="headerlink" href="#id32" title="Permalink to this heading">¶</a></h2>
+<section id="id33">
+<h3>Changed<a class="headerlink" href="#id33" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Improve origin relocation.</p></li>
 <li><p>Improve origins quality checks.</p></li>
 <li><p>Update documentation.</p></li>
 <li><p>Update auxiliary scripts: playback_picks, dump_picks.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id10">
-<h2>2022-01-02<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id11">
-<h3>Fixed<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id34">
+<h2>2022-01-02<a class="headerlink" href="#id34" title="Permalink to this heading">¶</a></h2>
+<section id="id35">
+<h3>Fixed<a class="headerlink" href="#id35" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Correct typos in documentation.</p></li>
 <li><p>Initialize variables in dump_picks script.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id12">
-<h2>2021-12-15<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id13">
-<h3>Added<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id36">
+<h2>2021-12-15<a class="headerlink" href="#id36" title="Permalink to this heading">¶</a></h2>
+<section id="id37">
+<h3>Added<a class="headerlink" href="#id37" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>dump_picks:</p>
 <ul>
@@ -145,23 +305,23 @@ network or by network and station code</p></li>
 </ul>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="id14">
-<h2>2021-11-23<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id15">
-<h3>Added<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id38">
+<h2>2021-11-23<a class="headerlink" href="#id38" title="Permalink to this heading">¶</a></h2>
+<section id="id39">
+<h3>Added<a class="headerlink" href="#id39" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>playback_picks: The new command-line option <code class="docutils literal notranslate"><span class="pre">--mode</span></code> allows adding a constant
 number of seconds to pick, creation and amplitude reference times when sending
 to the messaging for mimicking real-time playbacks at current time.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id16">
-<h2>2021-11-10<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id17">
-<h3>Added<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id40">
+<h2>2021-11-10<a class="headerlink" href="#id40" title="Permalink to this heading">¶</a></h2>
+<section id="id41">
+<h3>Added<a class="headerlink" href="#id41" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>The command-line option <code class="docutils literal notranslate"><span class="pre">--filter-pick-author</span></code> provides filtering of picks by
 author. Then only picks created by the given author are considered. The
@@ -169,89 +329,89 @@ options allows specific tuning of scanloc based on picks from different
 picker modules where only picks from one picker should be used e.g. in a
 pipeline.</p></li>
 </ul>
-</div>
-<div class="section" id="id18">
-<h3>Changed<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id42">
+<h3>Changed<a class="headerlink" href="#id42" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>New layout for documentation</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id19">
-<h2>2021-10-27<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id20">
-<h3>Added<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id43">
+<h2>2021-10-27<a class="headerlink" href="#id43" title="Permalink to this heading">¶</a></h2>
+<section id="id44">
+<h3>Added<a class="headerlink" href="#id44" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Picks with evaluation status ‘rejected’ are ignored. For considering
 rejected picks use the command-line option <code class="docutils literal notranslate"><span class="pre">--allow-rejected-picks</span></code>.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id21">
-<h2>2021-10-25<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id22">
-<h3>Changed<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id45">
+<h2>2021-10-25<a class="headerlink" href="#id45" title="Permalink to this heading">¶</a></h2>
+<section id="id46">
+<h3>Changed<a class="headerlink" href="#id46" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Clean up source code.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id23">
-<h2>2021-09-22<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id24">
-<h3>Added<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id47">
+<h2>2021-09-22<a class="headerlink" href="#id47" title="Permalink to this heading">¶</a></h2>
+<section id="id48">
+<h3>Added<a class="headerlink" href="#id48" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Log pick author name in pick processing in debug output.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id25">
-<h2>2021-09-17<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id26">
-<h3>Fixed<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id49">
+<h2>2021-09-17<a class="headerlink" href="#id49" title="Permalink to this heading">¶</a></h2>
+<section id="id50">
+<h3>Fixed<a class="headerlink" href="#id50" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>With the configuration parameter <code class="docutils literal notranslate"><span class="pre">locator.fixDepth</span></code> the depth is only fixed
 to <code class="docutils literal notranslate"><span class="pre">defaultDepth</span></code> if previous attempts to locate fail. The depth is not fixed
 in general.</p></li>
 <li><p>Improved debug logging of locator actions.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id27">
-<h2>2021-09-14<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id28">
-<h3>Fixed<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id51">
+<h2>2021-09-14<a class="headerlink" href="#id51" title="Permalink to this heading">¶</a></h2>
+<section id="id52">
+<h3>Fixed<a class="headerlink" href="#id52" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Origin relocation after arrival removal due to max residual check</p></li>
 <li><p>The dump_picks script writes picks to XML file with option <code class="docutils literal notranslate"><span class="pre">-o</span></code>.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id29">
-<h2>2021-09-06<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id30">
-<h3>Added<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id53">
+<h2>2021-09-06<a class="headerlink" href="#id53" title="Permalink to this heading">¶</a></h2>
+<section id="id54">
+<h3>Added<a class="headerlink" href="#id54" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Before associating a new manual S-pick to an origin, an S pick with the same
 station-location is removed from the origin avoiding multiple S picks from the
 same station-location.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id31">
-<h2>2021-09-03<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id32">
-<h3>Changed<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id55">
+<h2>2021-09-03<a class="headerlink" href="#id55" title="Permalink to this heading">¶</a></h2>
+<section id="id56">
+<h3>Changed<a class="headerlink" href="#id56" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Update the documentation of cluster reference time.</p></li>
 <li><p>Arrange configuration parameters in scconfig in more logical order.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id33">
-<h2>2021-09-01<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id34">
-<h3>Added<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id57">
+<h2>2021-09-01<a class="headerlink" href="#id57" title="Permalink to this heading">¶</a></h2>
+<section id="id58">
+<h3>Added<a class="headerlink" href="#id58" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>The timing section of the documentation now explains the cluster reference time</p></li>
 <li><p>The new configuration parameter <code class="docutils literal notranslate"><span class="pre">clusterSearch.reference</span></code> allows to delay
@@ -260,21 +420,21 @@ for forming new cluster. The option is relevant if only very few stations with
 significantly different data delay provide the picks.</p></li>
 <li><p>The command-line help provides the synopsis and examples.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id35">
-<h2>2021-08-21<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id36">
-<h3>Added<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id59">
+<h2>2021-08-21<a class="headerlink" href="#id59" title="Permalink to this heading">¶</a></h2>
+<section id="id60">
+<h3>Added<a class="headerlink" href="#id60" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Send a journal entry if the origin status is set to track the history.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id37">
-<h2>2021-08-21<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id38">
-<h3>Added<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id61">
+<h2>2021-08-21<a class="headerlink" href="#id61" title="Permalink to this heading">¶</a></h2>
+<section id="id62">
+<h3>Added<a class="headerlink" href="#id62" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Add option <code class="docutils literal notranslate"><span class="pre">buffer.ignoreManualOrigins</span></code> to ignore manual origins in real time
 and XML playbacks.
@@ -284,85 +444,85 @@ by generated by an operator with scolv.</p></li>
 <li><p>Consider option <code class="docutils literal notranslate"><span class="pre">ignoreOrigins</span></code> also in XML playbacks.</p></li>
 <li><p>Describe the status of origins in documentation.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id39">
-<h2>2021-06-28<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id40">
-<h3>Changed<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id63">
+<h2>2021-06-28<a class="headerlink" href="#id63" title="Permalink to this heading">¶</a></h2>
+<section id="id64">
+<h3>Changed<a class="headerlink" href="#id64" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Add compatibility of script <code class="docutils literal notranslate"><span class="pre">playback_picks</span></code> for Python3.</p></li>
 <li><p>Adjust debug output of origin residual check.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id41">
-<h2>2021-06-23<a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id42">
-<h3>Added<a class="headerlink" href="#id42" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id65">
+<h2>2021-06-23<a class="headerlink" href="#id65" title="Permalink to this heading">¶</a></h2>
+<section id="id66">
+<h3>Added<a class="headerlink" href="#id66" title="Permalink to this heading">¶</a></h3>
 <ul>
 <li><p>New command line option <code class="docutils literal notranslate"><span class="pre">--timing</span></code>. The option sets the timing
 reference in offline processing mode. Available options are:
 pickTime or creationTime. Default is pickTime. The following example
 sets the reference time to creationTime.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>--timing creationTime
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>--timing<span class="w"> </span>creationTime
 </pre></div>
 </div>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="id43">
-<h2>2021-06-16<a class="headerlink" href="#id43" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id44">
-<h3>Added<a class="headerlink" href="#id44" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id67">
+<h2>2021-06-16<a class="headerlink" href="#id67" title="Permalink to this heading">¶</a></h2>
+<section id="id68">
+<h3>Added<a class="headerlink" href="#id68" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>New command line option <code class="docutils literal notranslate"><span class="pre">--final-only</span></code> which can be used in offline
 processing mode to limit the result set to final origins only.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id45">
-<h2>2021-04-22<a class="headerlink" href="#id45" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id46">
-<h3>Fixed<a class="headerlink" href="#id46" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id69">
+<h2>2021-04-22<a class="headerlink" href="#id69" title="Permalink to this heading">¶</a></h2>
+<section id="id70">
+<h3>Fixed<a class="headerlink" href="#id70" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Ignore picks without phase hint, do not crash.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id47">
-<h2>2021-01-22<a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id48">
-<h3>Added<a class="headerlink" href="#id48" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id71">
+<h2>2021-01-22<a class="headerlink" href="#id71" title="Permalink to this heading">¶</a></h2>
+<section id="id72">
+<h3>Added<a class="headerlink" href="#id72" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>In ep playbacks the list of origins in command line output also shows
 corresponding event index.</p></li>
 <li><p>A warning is issued if the number of buffered origins reaches the configured
 maximum</p></li>
 </ul>
-</div>
-<div class="section" id="id49">
-<h3>Changed<a class="headerlink" href="#id49" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id73">
+<h3>Changed<a class="headerlink" href="#id73" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Update documentation.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id50">
-<h2>2020-09-16<a class="headerlink" href="#id50" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id51">
-<h3>Added<a class="headerlink" href="#id51" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id74">
+<h2>2020-09-16<a class="headerlink" href="#id74" title="Permalink to this heading">¶</a></h2>
+<section id="id75">
+<h3>Added<a class="headerlink" href="#id75" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>In ep playbacks the list of origins in command line output also shows the RMS
 of the origin.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id52">
-<h2>2020-09-14<a class="headerlink" href="#id52" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id53">
-<h3>Added<a class="headerlink" href="#id53" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id76">
+<h2>2020-09-14<a class="headerlink" href="#id76" title="Permalink to this heading">¶</a></h2>
+<section id="id77">
+<h3>Added<a class="headerlink" href="#id77" title="Permalink to this heading">¶</a></h3>
 <ul>
 <li><p>When creating and relocating a new origin the depth type is written to the
 origin. While normally relocated origins receive the depth type
@@ -371,31 +531,31 @@ origin. While normally relocated origins receive the depth type
 systems with release jakarta-2018.327.p23 and older generate a link to the
 Python interpreter must be created. The exact version depends on your
 SeisComP3 installation. Example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> <span class="nv">$SEISCOMP_ROOT</span>/bin/
-<span class="nv">version</span><span class="o">=</span><span class="sb">`</span>ldd <span class="nv">$SEISCOMP_ROOT</span>/lib/python/seiscomp3/_Core.so <span class="p">|</span><span class="se">\</span>
-         sgrep libpython <span class="p">|</span> cut -c <span class="m">11</span><span class="sb">`</span>
-ln -s /usr/bin/python<span class="nv">$version</span> seiscomp-python
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="nv">$SEISCOMP_ROOT</span>/bin/
+<span class="nv">version</span><span class="o">=</span><span class="sb">`</span>ldd<span class="w"> </span><span class="nv">$SEISCOMP_ROOT</span>/lib/python/seiscomp3/_Core.so<span class="w"> </span><span class="p">|</span><span class="se">\</span>
+<span class="w">         </span>sgrep<span class="w"> </span>libpython<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-c<span class="w"> </span><span class="m">11</span><span class="sb">`</span>
+ln<span class="w"> </span>-s<span class="w"> </span>/usr/bin/python<span class="nv">$version</span><span class="w"> </span>seiscomp-python
 </pre></div>
 </div>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="id54">
-<h2>2020-09-11<a class="headerlink" href="#id54" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id55">
-<h3>Added<a class="headerlink" href="#id55" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id78">
+<h2>2020-09-11<a class="headerlink" href="#id78" title="Permalink to this heading">¶</a></h2>
+<section id="id79">
+<h3>Added<a class="headerlink" href="#id79" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>scanloc provides the densely sampled travel-time tables <code class="docutils literal notranslate"><span class="pre">iasp91_scanloc.*</span></code>
 based on the iasp91 model. The considered velocity model has been added in
 <code class="docutils literal notranslate"><span class="pre">iasp91_scanloc.tvel</span></code>.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id56">
-<h2>2020-08-14<a class="headerlink" href="#id56" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id57">
-<h3>Added<a class="headerlink" href="#id57" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id80">
+<h2>2020-08-14<a class="headerlink" href="#id80" title="Permalink to this heading">¶</a></h2>
+<section id="id81">
+<h3>Added<a class="headerlink" href="#id81" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>The dump_picks script only dumped picks for which the corresponding stream was
 found in the inventory. The restriction has been removed and all picks are dumped.
@@ -408,50 +568,50 @@ search for picks in alternative ways overriding <code class="docutils literal no
 </ul>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="id58">
-<h2>2020-05-18<a class="headerlink" href="#id58" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id59">
-<h3>Fixed<a class="headerlink" href="#id59" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id82">
+<h2>2020-05-18<a class="headerlink" href="#id82" title="Permalink to this heading">¶</a></h2>
+<section id="id83">
+<h3>Fixed<a class="headerlink" href="#id83" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Make sure that the preferred origin has been sent before the origin
 will be removed from cache.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id60">
-<h2>Changed<a class="headerlink" href="#id60" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="id84">
+<h2>Changed<a class="headerlink" href="#id84" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Make parameter <code class="docutils literal notranslate"><span class="pre">publication.wakeUpInterval</span></code> configurable in scconfig</p></li>
 <li><p>Set the default back value <code class="docutils literal notranslate"><span class="pre">publication.intervalTimeSlope</span></code> = 0.5 as the
 missing of last origins has been resolved. Compare with changes on 2020-03-26.</p></li>
 </ul>
-</div>
-<div class="section" id="id61">
-<h2>2020-05-08<a class="headerlink" href="#id61" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id62">
-<h3>Changed<a class="headerlink" href="#id62" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id85">
+<h2>2020-05-08<a class="headerlink" href="#id85" title="Permalink to this heading">¶</a></h2>
+<section id="id86">
+<h3>Changed<a class="headerlink" href="#id86" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Make code compatible with Ubuntu 20.04.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id63">
-<h2>2020-05-05<a class="headerlink" href="#id63" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id64">
-<h3>Fixed<a class="headerlink" href="#id64" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id87">
+<h2>2020-05-05<a class="headerlink" href="#id87" title="Permalink to this heading">¶</a></h2>
+<section id="id88">
+<h3>Fixed<a class="headerlink" href="#id88" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Fixes a problem that was introduced with the last release. If the parameter
 <code class="docutils literal notranslate"><span class="pre">score.weights.increaseManual</span></code> is enabled and the pick evaluation mode is not
 set scanloc crashes.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id65">
-<h2>2020-03-27<a class="headerlink" href="#id65" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id66">
-<h3>Added<a class="headerlink" href="#id66" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id89">
+<h2>2020-03-27<a class="headerlink" href="#id89" title="Permalink to this heading">¶</a></h2>
+<section id="id90">
+<h3>Added<a class="headerlink" href="#id90" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Add configuration parameter <code class="docutils literal notranslate"><span class="pre">score.weights.increaseManual</span></code> to increase the
 score weight of manual picks by a factor of 1.0001. This gives higher priority
@@ -459,85 +619,85 @@ to manual picks than to automatic ones. In case manual and automatic picks
 co-exist for the same event and could be associated manual ones may be
 preferred if the solution score is otherwise the same.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id67">
-<h2>2020-03-26<a class="headerlink" href="#id67" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id68">
-<h3>Added<a class="headerlink" href="#id68" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id91">
+<h2>2020-03-26<a class="headerlink" href="#id91" title="Permalink to this heading">¶</a></h2>
+<section id="id92">
+<h3>Added<a class="headerlink" href="#id92" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Show the associator and locator configuration in debug output.</p></li>
 </ul>
-</div>
-<div class="section" id="id69">
-<h3>Changed<a class="headerlink" href="#id69" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id93">
+<h3>Changed<a class="headerlink" href="#id93" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Set the default value <code class="docutils literal notranslate"><span class="pre">publication.intervalTimeSlope</span> <span class="pre">=</span> <span class="pre">0</span></code> in order not to miss
 any origin.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id70">
-<h2>2020-03-06<a class="headerlink" href="#id70" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id71">
-<h3>Changed<a class="headerlink" href="#id71" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id94">
+<h2>2020-03-06<a class="headerlink" href="#id94" title="Permalink to this heading">¶</a></h2>
+<section id="id95">
+<h3>Changed<a class="headerlink" href="#id95" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Provide Python3 support for dump_picks and playback_picks.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id72">
-<h2>2020-02-26<a class="headerlink" href="#id72" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id73">
-<h3>Changed<a class="headerlink" href="#id73" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id96">
+<h2>2020-02-26<a class="headerlink" href="#id96" title="Permalink to this heading">¶</a></h2>
+<section id="id97">
+<h3>Changed<a class="headerlink" href="#id97" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Improved documentation.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id74">
-<h2>2020-02-03<a class="headerlink" href="#id74" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id75">
-<h3>Fixed<a class="headerlink" href="#id75" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id98">
+<h2>2020-02-03<a class="headerlink" href="#id98" title="Permalink to this heading">¶</a></h2>
+<section id="id99">
+<h3>Fixed<a class="headerlink" href="#id99" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>scanloc stops processing after an exception of type <code class="docutils literal notranslate"><span class="pre">TimeSpan::operator=():</span> <span class="pre">double</span>
 <span class="pre">doesn't</span> <span class="pre">fit</span> <span class="pre">into</span> <span class="pre">int</span></code>. The exception occurred when a travel time table was not
 available for a specific phase type.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id76">
-<h2>2019-12-02<a class="headerlink" href="#id76" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id77">
-<h3>Changed<a class="headerlink" href="#id77" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id100">
+<h2>2019-12-02<a class="headerlink" href="#id100" title="Permalink to this heading">¶</a></h2>
+<section id="id101">
+<h3>Changed<a class="headerlink" href="#id101" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Adjusted the documentation of the the S-phase picker.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id78">
-<h2>2019-11-26<a class="headerlink" href="#id78" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id79">
-<h3>Changed<a class="headerlink" href="#id79" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id102">
+<h2>2019-11-26<a class="headerlink" href="#id102" title="Permalink to this heading">¶</a></h2>
+<section id="id103">
+<h3>Changed<a class="headerlink" href="#id103" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Improved association of P phases.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id80">
-<h2>2019-10-17<a class="headerlink" href="#id80" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id81">
-<h3>Fixed<a class="headerlink" href="#id81" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id104">
+<h2>2019-10-17<a class="headerlink" href="#id104" title="Permalink to this heading">¶</a></h2>
+<section id="id105">
+<h3>Fixed<a class="headerlink" href="#id105" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Corrected control of S-phase association by association.maxSResidual. The
 parameter was not completely considered before.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id82">
-<h2>2019-09-16<a class="headerlink" href="#id82" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id83">
-<h3>Fixed<a class="headerlink" href="#id83" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id106">
+<h2>2019-09-16<a class="headerlink" href="#id106" title="Permalink to this heading">¶</a></h2>
+<section id="id107">
+<h3>Fixed<a class="headerlink" href="#id107" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Corrected phase association of P phases which was unreliable and mostly
 supported by clustering requiring larger values for <code class="docutils literal notranslate"><span class="pre">maxPickDelay</span></code> and
@@ -547,9 +707,9 @@ significant speed up of the clustering.</p></li>
 are kept in the internal buffer for associating. As are result more previously
 unassociated phases are now associated.</p></li>
 </ul>
-</div>
-<div class="section" id="id84">
-<h3>Changed<a class="headerlink" href="#id84" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id108">
+<h3>Changed<a class="headerlink" href="#id108" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Replaced the parameter <code class="docutils literal notranslate"><span class="pre">association.minScore</span></code> by <code class="docutils literal notranslate"><span class="pre">association.minPhase</span></code>. Now,
 the number of phases is used instead of the score to trigger phase
@@ -558,9 +718,9 @@ when improved by phase association.</p></li>
 <li><p>Adjusted the documentation, increased the readability of configuration
 parameters: adjust order and tool tips.</p></li>
 </ul>
-</div>
-<div class="section" id="id85">
-<h3>Added<a class="headerlink" href="#id85" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id109">
+<h3>Added<a class="headerlink" href="#id109" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>When a cluster is found it is relocated and additional phases are added.
 Unstable locations from relocation based on few phases may prevent
@@ -572,32 +732,32 @@ association of picks from P and S phases. <code class="docutils literal notransl
 a final check of all station residuals.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">association.minPhase</span></code> replacing <code class="docutils literal notranslate"><span class="pre">association.minScore</span></code>. See above.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id86">
-<h2>2019-09-04<a class="headerlink" href="#id86" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id87">
-<h3>Fixed<a class="headerlink" href="#id87" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id110">
+<h2>2019-09-04<a class="headerlink" href="#id110" title="Permalink to this heading">¶</a></h2>
+<section id="id111">
+<h3>Fixed<a class="headerlink" href="#id111" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Fixed the options <code class="docutils literal notranslate"><span class="pre">-a</span></code> and <code class="docutils literal notranslate"><span class="pre">-m</span></code> in the dump_picks script.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id88">
-<h2>2019-08-29<a class="headerlink" href="#id88" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id89">
-<h3>Added<a class="headerlink" href="#id89" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id112">
+<h2>2019-08-29<a class="headerlink" href="#id112" title="Permalink to this heading">¶</a></h2>
+<section id="id113">
+<h3>Added<a class="headerlink" href="#id113" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>We have set timesUsed = true for arrivals in preliminary origins. When sending
 preliminary origins the pick times can therefore now be used for relocating the
 preliminary origins from scanloc without modification in scolv or screloc.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id90">
-<h2>2019-08-21<a class="headerlink" href="#id90" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id91">
-<h3>Added<a class="headerlink" href="#id91" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id114">
+<h2>2019-08-21<a class="headerlink" href="#id114" title="Permalink to this heading">¶</a></h2>
+<section id="id115">
+<h3>Added<a class="headerlink" href="#id115" title="Permalink to this heading">¶</a></h3>
 <ul>
 <li><p>The default travel time table of SeisComP for LocSAT provide the times in
 intervals of 1 degree epicentral distance. Thus the curvature of the
@@ -611,103 +771,103 @@ added. Configuration example for associating and locating:</p>
 </div>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="id92">
-<h2>2019-05-15<a class="headerlink" href="#id92" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id93">
-<h3>Added<a class="headerlink" href="#id93" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id116">
+<h2>2019-05-15<a class="headerlink" href="#id116" title="Permalink to this heading">¶</a></h2>
+<section id="id117">
+<h3>Added<a class="headerlink" href="#id117" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Do not try to associate picks to origins which were pick times are before origin
-time or after first arrival P and S times at <code class="docutils literal notranslate"><span class="pre">association.maxDistance</span></code>.
+time or after first arrival P and S times at <code class="docutils literal notranslate"><span class="pre">association.maxDist</span></code>.
 The <code class="docutils literal notranslate"><span class="pre">association.maxResidual</span></code> parameter is considered. This implementation
 potentially speeds up the pick association.</p></li>
 </ul>
-</div>
-<div class="section" id="id94">
-<h3>Fixed<a class="headerlink" href="#id94" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id118">
+<h3>Fixed<a class="headerlink" href="#id118" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Include the split cluster in the check for the maximum number of cluster.
 Otherwise the total number of origins may be higher than <code class="docutils literal notranslate"><span class="pre">maxOrigins</span></code></p></li>
 <li><p>Event association check. It could happen that origins were ignored by
 the preferred origin score check causing more load.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id95">
-<h2>2019-04-17<a class="headerlink" href="#id95" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id96">
-<h3>Fixed<a class="headerlink" href="#id96" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id119">
+<h2>2019-04-17<a class="headerlink" href="#id119" title="Permalink to this heading">¶</a></h2>
+<section id="id120">
+<h3>Fixed<a class="headerlink" href="#id120" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Segfault caused by missing null pointer check.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id97">
-<h2>2019-04-10<a class="headerlink" href="#id97" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id98">
-<h3>Changed<a class="headerlink" href="#id98" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id121">
+<h2>2019-04-10<a class="headerlink" href="#id121" title="Permalink to this heading">¶</a></h2>
+<section id="id122">
+<h3>Changed<a class="headerlink" href="#id122" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Code cleanup.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id99">
-<h2>2019-03-06<a class="headerlink" href="#id99" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id100">
-<h3>Changed<a class="headerlink" href="#id100" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id123">
+<h2>2019-03-06<a class="headerlink" href="#id123" title="Permalink to this heading">¶</a></h2>
+<section id="id124">
+<h3>Changed<a class="headerlink" href="#id124" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Adjust output when using the parameter <code class="docutils literal notranslate"><span class="pre">--cluster-search-log-file</span></code>. Consider
 also invalid clusters.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id101">
-<h2>2019-03-06<a class="headerlink" href="#id101" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id102">
-<h3>Added<a class="headerlink" href="#id102" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id125">
+<h2>2019-03-06<a class="headerlink" href="#id125" title="Permalink to this heading">¶</a></h2>
+<section id="id126">
+<h3>Added<a class="headerlink" href="#id126" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Out the lower limit of the recommended <code class="docutils literal notranslate"><span class="pre">maxPickDelay</span></code> parameter when running
 scanloc with <code class="docutils literal notranslate"><span class="pre">--cluster-search-log-file</span></code>. The value can be considered for
 tuning the cluster search.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id103">
-<h2>2019-02-28<a class="headerlink" href="#id103" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id104">
-<h3>Changed<a class="headerlink" href="#id104" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id127">
+<h2>2019-02-28<a class="headerlink" href="#id127" title="Permalink to this heading">¶</a></h2>
+<section id="id128">
+<h3>Changed<a class="headerlink" href="#id128" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Do not trigger cluster search if the new pick will not be used.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id105">
-<h2>2019-02-27<a class="headerlink" href="#id105" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id106">
-<h3>Added<a class="headerlink" href="#id106" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id129">
+<h2>2019-02-27<a class="headerlink" href="#id129" title="Permalink to this heading">¶</a></h2>
+<section id="id130">
+<h3>Added<a class="headerlink" href="#id130" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>new command line option <code class="docutils literal notranslate"><span class="pre">author</span></code> to dump_picks script. With
 that option it is possible to filter the result pick set additionally
 by author.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id107">
-<h2>2019-02-01<a class="headerlink" href="#id107" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id108">
-<h3>Added<a class="headerlink" href="#id108" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id131">
+<h2>2019-02-01<a class="headerlink" href="#id131" title="Permalink to this heading">¶</a></h2>
+<section id="id132">
+<h3>Added<a class="headerlink" href="#id132" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>New command line option <code class="docutils literal notranslate"><span class="pre">--cluster-search-log-file</span></code>. Location of
 the cluster search log file used to store additional information e.g.
 the found clusters and split clusters.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id109">
-<h2>2019-01-21<a class="headerlink" href="#id109" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id110">
-<h3>Added<a class="headerlink" href="#id110" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id133">
+<h2>2019-01-21<a class="headerlink" href="#id133" title="Permalink to this heading">¶</a></h2>
+<section id="id134">
+<h3>Added<a class="headerlink" href="#id134" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>New config option <code class="docutils literal notranslate"><span class="pre">clusterSearch.regionFilter</span></code>. With this option
 enabled scanloc takes only picks for the cluster search into account
@@ -715,44 +875,44 @@ those sensor locations are inside the defined region. The region is
 defined by latitude, longitude and a radius in km. By default the
 region filter is disabled.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id111">
-<h2>2019-01-15<a class="headerlink" href="#id111" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id112">
-<h3>Fixed<a class="headerlink" href="#id112" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id135">
+<h2>2019-01-15<a class="headerlink" href="#id135" title="Permalink to this heading">¶</a></h2>
+<section id="id136">
+<h3>Fixed<a class="headerlink" href="#id136" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>scanloc locator bug. In case of the initial relocation attempt fails
 the algorithm tries to relocate the origin by selecting the first pick.
 This stage of the relocation process always failed.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id113">
-<h2>2018-09-10<a class="headerlink" href="#id113" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id114">
-<h3>Added<a class="headerlink" href="#id114" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id137">
+<h2>2018-09-10<a class="headerlink" href="#id137" title="Permalink to this heading">¶</a></h2>
+<section id="id138">
+<h3>Added<a class="headerlink" href="#id138" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Add the documentation of the parameters <code class="docutils literal notranslate"><span class="pre">association.maxDist</span></code> and
 <code class="docutils literal notranslate"><span class="pre">association.stationConfig</span></code>. Both parameters control the epicentral distances
 within which stations can be considered for providing picks to association.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id115">
-<h2>2018-07-09<a class="headerlink" href="#id115" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id116">
-<h3>Changed<a class="headerlink" href="#id116" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id139">
+<h2>2018-07-09<a class="headerlink" href="#id139" title="Permalink to this heading">¶</a></h2>
+<section id="id140">
+<h3>Changed<a class="headerlink" href="#id140" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>When reading a station configuration file trailing spaces and line breaks
 are removed.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id117">
-<h2>2018-06-11<a class="headerlink" href="#id117" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id118">
-<h3>Changed<a class="headerlink" href="#id118" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id141">
+<h2>2018-06-11<a class="headerlink" href="#id141" title="Permalink to this heading">¶</a></h2>
+<section id="id142">
+<h3>Changed<a class="headerlink" href="#id142" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>When associating P picks scanloc checks if the corresponding station location
 already contributes a P pick on the same location and does not accept
@@ -761,23 +921,23 @@ to the streamID. However, other picker modules or operators may pick on
 other streams. Therefore, the locationID instead of the streamID
 is tested.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id119">
-<h2>2018-04-17<a class="headerlink" href="#id119" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id120">
-<h3>Added<a class="headerlink" href="#id120" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id143">
+<h2>2018-04-17<a class="headerlink" href="#id143" title="Permalink to this heading">¶</a></h2>
+<section id="id144">
+<h3>Added<a class="headerlink" href="#id144" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>New config option <code class="docutils literal notranslate"><span class="pre">locator.fixDepth</span></code>. Scanloc relocates origins in
 several stages. With this option enabled the relocation process forces the
 depth to default value in case of all previous relocation attempts fail.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id121">
-<h2>2018-04-05<a class="headerlink" href="#id121" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id122">
-<h3>Added<a class="headerlink" href="#id122" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id145">
+<h2>2018-04-05<a class="headerlink" href="#id145" title="Permalink to this heading">¶</a></h2>
+<section id="id146">
+<h3>Added<a class="headerlink" href="#id146" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>In playback mode (<code class="docutils literal notranslate"><span class="pre">--ep</span></code> option), the timing of scanloc origins is obscured
 since usually many more origins than in real time are available within
@@ -785,42 +945,42 @@ short time intervals. Therefore the publication parameters are now automatically
 set to zero and the available origins are published immediately as soon as
 they are available. Otherwise origins may be lost.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id123">
-<h2>2018-04-03<a class="headerlink" href="#id123" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id124">
-<h3>Fixed<a class="headerlink" href="#id124" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id147">
+<h2>2018-04-03<a class="headerlink" href="#id147" title="Permalink to this heading">¶</a></h2>
+<section id="id148">
+<h3>Fixed<a class="headerlink" href="#id148" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Optimized distance calculation in cluster search. Re-tuning of the cluster
 search may significantly increase the performance.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id125">
-<h2>2018-03-15<a class="headerlink" href="#id125" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id126">
-<h3>Fixed<a class="headerlink" href="#id126" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id149">
+<h2>2018-03-15<a class="headerlink" href="#id149" title="Permalink to this heading">¶</a></h2>
+<section id="id150">
+<h3>Fixed<a class="headerlink" href="#id150" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>The parameter <code class="docutils literal notranslate"><span class="pre">association.maxDist</span></code> is given in units of km but it
 was compared with epicentral distance in degree. The conflict is fixed
 and the parameter is now used consistently in units of km.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id127">
-<h2>2018-02-01<a class="headerlink" href="#id127" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id128">
-<h3>Added<a class="headerlink" href="#id128" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id151">
+<h2>2018-02-01<a class="headerlink" href="#id151" title="Permalink to this heading">¶</a></h2>
+<section id="id152">
+<h3>Added<a class="headerlink" href="#id152" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Mark core points in cluster results.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id129">
-<h2>2018-01-31<a class="headerlink" href="#id129" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id130">
-<h3>Added<a class="headerlink" href="#id130" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id153">
+<h2>2018-01-31<a class="headerlink" href="#id153" title="Permalink to this heading">¶</a></h2>
+<section id="id154">
+<h3>Added<a class="headerlink" href="#id154" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>New config parameter <code class="docutils literal notranslate"><span class="pre">clusterSearch.checkOrigins</span></code>. In case of a
 cluster contains picks with the same stream ID the cluster is split
@@ -828,12 +988,12 @@ into combinations. For each combination scanloc creates an origin which
 might not fulfill the cluster search criteria anymore. Enable this config
 option to skip these origins. This feature is disabled by default.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id131">
-<h2>2018-01-19<a class="headerlink" href="#id131" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id132">
-<h3>Changed<a class="headerlink" href="#id132" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id155">
+<h2>2018-01-19<a class="headerlink" href="#id155" title="Permalink to this heading">¶</a></h2>
+<section id="id156">
+<h3>Changed<a class="headerlink" href="#id156" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>The S-AIC picker outputs more debug information with respect to
 processing. This only affects the saic plugin. The plugin version
@@ -842,392 +1002,392 @@ was removed and the log component was changed from <code class="docutils literal
 to <code class="docutils literal notranslate"><span class="pre">S-AIC</span></code>. If component logging is enabled in any SC3 application,
 then this component will be used as log prefix.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id133">
-<h2>2018-01-15<a class="headerlink" href="#id133" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id134">
-<h3>Added<a class="headerlink" href="#id134" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id157">
+<h2>2018-01-15<a class="headerlink" href="#id157" title="Permalink to this heading">¶</a></h2>
+<section id="id158">
+<h3>Added<a class="headerlink" href="#id158" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>More unit tests used for internal package build only.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id135">
-<h2>2017-11-15<a class="headerlink" href="#id135" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id136">
-<h3>Added<a class="headerlink" href="#id136" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id159">
+<h2>2017-11-15<a class="headerlink" href="#id159" title="Permalink to this heading">¶</a></h2>
+<section id="id160">
+<h3>Added<a class="headerlink" href="#id160" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Added <code class="docutils literal notranslate"><span class="pre">--db-disable</span></code> flag to disable database usage.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id137">
-<h2>2017-09-25<a class="headerlink" href="#id137" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id138">
-<h3>Fixed<a class="headerlink" href="#id138" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id161">
+<h2>2017-09-25<a class="headerlink" href="#id161" title="Permalink to this heading">¶</a></h2>
+<section id="id162">
+<h3>Fixed<a class="headerlink" href="#id162" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Bug in station configuration file reading when configured in
 <code class="docutils literal notranslate"><span class="pre">association.stationConfig</span></code>.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id139">
-<h2>2017-09-06<a class="headerlink" href="#id139" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id140">
-<h3>Fixed<a class="headerlink" href="#id140" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id163">
+<h2>2017-09-06<a class="headerlink" href="#id163" title="Permalink to this heading">¶</a></h2>
+<section id="id164">
+<h3>Fixed<a class="headerlink" href="#id164" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Cluster search.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id141">
-<h2>2017-09-04<a class="headerlink" href="#id141" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id142">
-<h3>Fixed<a class="headerlink" href="#id142" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id165">
+<h2>2017-09-04<a class="headerlink" href="#id165" title="Permalink to this heading">¶</a></h2>
+<section id="id166">
+<h3>Fixed<a class="headerlink" href="#id166" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Bug in close pick detection.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id143">
-<h2>2017-08-28<a class="headerlink" href="#id143" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id144">
-<h3>Changed<a class="headerlink" href="#id144" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id167">
+<h2>2017-08-28<a class="headerlink" href="#id167" title="Permalink to this heading">¶</a></h2>
+<section id="id168">
+<h3>Changed<a class="headerlink" href="#id168" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Improve cluster search performance.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id145">
-<h2>2017-08-08<a class="headerlink" href="#id145" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id146">
-<h3>Fixed<a class="headerlink" href="#id146" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id169">
+<h2>2017-08-08<a class="headerlink" href="#id169" title="Permalink to this heading">¶</a></h2>
+<section id="id170">
+<h3>Fixed<a class="headerlink" href="#id170" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ignorePicks</span></code> configuration parameter. Floating point numbers were not
 handled properly.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id147">
-<h2>2017-07-03<a class="headerlink" href="#id147" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id148">
-<h3>Fixed<a class="headerlink" href="#id148" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id171">
+<h2>2017-07-03<a class="headerlink" href="#id171" title="Permalink to this heading">¶</a></h2>
+<section id="id172">
+<h3>Fixed<a class="headerlink" href="#id172" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Enhance debug output.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id149">
-<h2>2017-06-28<a class="headerlink" href="#id149" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id150">
-<h3>Fixed<a class="headerlink" href="#id150" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id173">
+<h2>2017-06-28<a class="headerlink" href="#id173" title="Permalink to this heading">¶</a></h2>
+<section id="id174">
+<h3>Fixed<a class="headerlink" href="#id174" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Avoid duplicates in cluster search.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id151">
-<h2>2017-06-20<a class="headerlink" href="#id151" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id152">
-<h3>Fixed<a class="headerlink" href="#id152" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id175">
+<h2>2017-06-20<a class="headerlink" href="#id175" title="Permalink to this heading">¶</a></h2>
+<section id="id176">
+<h3>Fixed<a class="headerlink" href="#id176" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Flush origin outbox on shutdown.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id153">
-<h2>2017-06-15<a class="headerlink" href="#id153" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id154">
-<h3>Fixed<a class="headerlink" href="#id154" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id177">
+<h2>2017-06-15<a class="headerlink" href="#id177" title="Permalink to this heading">¶</a></h2>
+<section id="id178">
+<h3>Fixed<a class="headerlink" href="#id178" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Cluster search reference time calculation. Instead of using the pick with the
 latest pick time the algorithm used always the first pick as cluster reference
 time.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id155">
-<h2>2017-06-09<a class="headerlink" href="#id155" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id156">
-<h3>Fixed<a class="headerlink" href="#id156" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id179">
+<h2>2017-06-09<a class="headerlink" href="#id179" title="Permalink to this heading">¶</a></h2>
+<section id="id180">
+<h3>Fixed<a class="headerlink" href="#id180" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Cluster search</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id157">
-<h2>2017-05-15<a class="headerlink" href="#id157" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id158">
-<h3>Added<a class="headerlink" href="#id158" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id181">
+<h2>2017-05-15<a class="headerlink" href="#id181" title="Permalink to this heading">¶</a></h2>
+<section id="id182">
+<h3>Added<a class="headerlink" href="#id182" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>station configuration support by configuration of <code class="docutils literal notranslate"><span class="pre">association.stationConfig</span></code>
 like in scautoloc.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id159">
-<h2>2017-03-22<a class="headerlink" href="#id159" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id160">
-<h3>Added<a class="headerlink" href="#id160" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id183">
+<h2>2017-03-22<a class="headerlink" href="#id183" title="Permalink to this heading">¶</a></h2>
+<section id="id184">
+<h3>Added<a class="headerlink" href="#id184" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Added object flow to soh log</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id161">
-<h2>2017-03-20<a class="headerlink" href="#id161" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id162">
-<h3>Fixed<a class="headerlink" href="#id162" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id185">
+<h2>2017-03-20<a class="headerlink" href="#id185" title="Permalink to this heading">¶</a></h2>
+<section id="id186">
+<h3>Fixed<a class="headerlink" href="#id186" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Fixed station epoch cache lookup.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id163">
-<h2>2017-03-12<a class="headerlink" href="#id163" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id164">
-<h3>Added<a class="headerlink" href="#id164" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id187">
+<h2>2017-03-12<a class="headerlink" href="#id187" title="Permalink to this heading">¶</a></h2>
+<section id="id188">
+<h3>Added<a class="headerlink" href="#id188" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Association of phases with zero weight (extended feature requiring specific
 license).</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id165">
-<h2>2017-03-09<a class="headerlink" href="#id165" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id166">
-<h3>Fixed<a class="headerlink" href="#id166" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id189">
+<h2>2017-03-09<a class="headerlink" href="#id189" title="Permalink to this heading">¶</a></h2>
+<section id="id190">
+<h3>Fixed<a class="headerlink" href="#id190" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Message group handling.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id167">
-<h2>2017-02-27<a class="headerlink" href="#id167" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id168">
-<h3>Added<a class="headerlink" href="#id168" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id191">
+<h2>2017-02-27<a class="headerlink" href="#id191" title="Permalink to this heading">¶</a></h2>
+<section id="id192">
+<h3>Added<a class="headerlink" href="#id192" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Default values for options in dump_picks</p></li>
 <li><p>Add amplitudes to dump_picks and playback_picks</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id169">
-<h2>2017-02-24<a class="headerlink" href="#id169" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id170">
-<h3>Added<a class="headerlink" href="#id170" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id193">
+<h2>2017-02-24<a class="headerlink" href="#id193" title="Permalink to this heading">¶</a></h2>
+<section id="id194">
+<h3>Added<a class="headerlink" href="#id194" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>The script playback_picks supports different pipelines.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id171">
-<h2>2017-02-20<a class="headerlink" href="#id171" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="removed">
-<h3>Removed<a class="headerlink" href="#removed" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id195">
+<h2>2017-02-20<a class="headerlink" href="#id195" title="Permalink to this heading">¶</a></h2>
+<section id="removed">
+<h3>Removed<a class="headerlink" href="#removed" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Region check and rect filter.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id172">
-<h2>2017-02-16<a class="headerlink" href="#id172" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id173">
-<h3>Added<a class="headerlink" href="#id173" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id196">
+<h2>2017-02-16<a class="headerlink" href="#id196" title="Permalink to this heading">¶</a></h2>
+<section id="id197">
+<h3>Added<a class="headerlink" href="#id197" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Configurable locator interface and traveltime table.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id174">
-<h2>2017-02-16<a class="headerlink" href="#id174" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id175">
-<h3>Fixed<a class="headerlink" href="#id175" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id198">
+<h2>2017-02-16<a class="headerlink" href="#id198" title="Permalink to this heading">¶</a></h2>
+<section id="id199">
+<h3>Fixed<a class="headerlink" href="#id199" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>New command line option <code class="docutils literal notranslate"><span class="pre">--locator-list</span></code></p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id176">
-<h2>2017-02-09<a class="headerlink" href="#id176" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id177">
-<h3>Added<a class="headerlink" href="#id177" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id200">
+<h2>2017-02-09<a class="headerlink" href="#id200" title="Permalink to this heading">¶</a></h2>
+<section id="id201">
+<h3>Added<a class="headerlink" href="#id201" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Support to list registered locators.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id178">
-<h2>2017-01-12<a class="headerlink" href="#id178" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id179">
-<h3>Removed<a class="headerlink" href="#id179" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id202">
+<h2>2017-01-12<a class="headerlink" href="#id202" title="Permalink to this heading">¶</a></h2>
+<section id="id203">
+<h3>Removed<a class="headerlink" href="#id203" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Removed region and rect filter from XML description and documentation.
 This filter will be removed in the near future.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id180">
-<h2>2016-12-16<a class="headerlink" href="#id180" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id181">
-<h3>Fixed<a class="headerlink" href="#id181" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id204">
+<h2>2016-12-16<a class="headerlink" href="#id204" title="Permalink to this heading">¶</a></h2>
+<section id="id205">
+<h3>Fixed<a class="headerlink" href="#id205" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Region filter test.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id182">
-<h2>2016-06-31<a class="headerlink" href="#id182" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id183">
-<h3>Added<a class="headerlink" href="#id183" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id206">
+<h2>2016-06-31<a class="headerlink" href="#id206" title="Permalink to this heading">¶</a></h2>
+<section id="id207">
+<h3>Added<a class="headerlink" href="#id207" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>New configuration parameter <code class="docutils literal notranslate"><span class="pre">clusterSearch.regions</span></code> which can be used to
 specify non-rectangular region filters.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id184">
-<h2>2016-06-08<a class="headerlink" href="#id184" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id185">
-<h3>Fixed<a class="headerlink" href="#id185" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id208">
+<h2>2016-06-08<a class="headerlink" href="#id208" title="Permalink to this heading">¶</a></h2>
+<section id="id209">
+<h3>Fixed<a class="headerlink" href="#id209" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Sending of origins in offline mode.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id186">
-<h2>2016-03-10<a class="headerlink" href="#id186" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id187">
-<h3>Fixed<a class="headerlink" href="#id187" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id210">
+<h2>2016-03-10<a class="headerlink" href="#id210" title="Permalink to this heading">¶</a></h2>
+<section id="id211">
+<h3>Fixed<a class="headerlink" href="#id211" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Support association of manual S picks with no reference P pick.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id188">
-<h2>2016-03-10<a class="headerlink" href="#id188" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id189">
-<h3>Fixed<a class="headerlink" href="#id189" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id212">
+<h2>2016-03-10<a class="headerlink" href="#id212" title="Permalink to this heading">¶</a></h2>
+<section id="id213">
+<h3>Fixed<a class="headerlink" href="#id213" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Use database even for <code class="docutils literal notranslate"><span class="pre">--ep</span></code> to read inventory unless <code class="docutils literal notranslate"><span class="pre">--inventory-db</span></code>.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id190">
-<h2>2016-03-09<a class="headerlink" href="#id190" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id191">
-<h3>Added<a class="headerlink" href="#id191" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id214">
+<h2>2016-03-09<a class="headerlink" href="#id214" title="Permalink to this heading">¶</a></h2>
+<section id="id215">
+<h3>Added<a class="headerlink" href="#id215" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>New configuration parameter <code class="docutils literal notranslate"><span class="pre">clusterSearch.maxPickDelay</span></code> which can be used
 to specify the maximum difference between pick times and first pick time
 taken into account by the clustersearch. By default all picks are taken
 into account.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id192">
-<h2>2016-01-07<a class="headerlink" href="#id192" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id193">
-<h3>Added<a class="headerlink" href="#id193" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id216">
+<h2>2016-01-07<a class="headerlink" href="#id216" title="Permalink to this heading">¶</a></h2>
+<section id="id217">
+<h3>Added<a class="headerlink" href="#id217" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Remove sorted picks with too large residual, starting with picks with
 largest residual, relocate and evaluate residuals after each removal.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id194">
-<h2>2015-12-22<a class="headerlink" href="#id194" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="fixes">
-<h3>Fixes<a class="headerlink" href="#fixes" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id218">
+<h2>2015-12-22<a class="headerlink" href="#id218" title="Permalink to this heading">¶</a></h2>
+<section id="fixes">
+<h3>Fixes<a class="headerlink" href="#fixes" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Use correct distance calculation on sphere.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id195">
-<h2>2015-12-18<a class="headerlink" href="#id195" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id196">
-<h3>Fixed<a class="headerlink" href="#id196" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id219">
+<h2>2015-12-18<a class="headerlink" href="#id219" title="Permalink to this heading">¶</a></h2>
+<section id="id220">
+<h3>Fixed<a class="headerlink" href="#id220" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Dump_picks uses correct column names if a prefix is configured e.g.
 with PostgreSQL.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id197">
-<h2>2015-12-01<a class="headerlink" href="#id197" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id198">
-<h3>Fixed<a class="headerlink" href="#id198" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id221">
+<h2>2015-12-01<a class="headerlink" href="#id221" title="Permalink to this heading">¶</a></h2>
+<section id="id222">
+<h3>Fixed<a class="headerlink" href="#id222" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Reject origins with depths greater than ignore depth.</p></li>
 </ul>
-</div>
-<div class="section" id="id199">
-<h3>Added<a class="headerlink" href="#id199" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id223">
+<h3>Added<a class="headerlink" href="#id223" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Check for outlier arrivals one by one and relocated after every removal.</p></li>
 <li><p>Repeat outlier arrival check until remainders are kept.</p></li>
 <li><p>Check depth and score after outlier removal.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id200">
-<h2>2015-08-25<a class="headerlink" href="#id200" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id201">
-<h3>Added<a class="headerlink" href="#id201" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id224">
+<h2>2015-08-25<a class="headerlink" href="#id224" title="Permalink to this heading">¶</a></h2>
+<section id="id225">
+<h3>Added<a class="headerlink" href="#id225" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Offline and online processing examples to documentation.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id202">
-<h2>2015-07-10<a class="headerlink" href="#id202" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id203">
-<h3>Added<a class="headerlink" href="#id203" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id226">
+<h2>2015-07-10<a class="headerlink" href="#id226" title="Permalink to this heading">¶</a></h2>
+<section id="id227">
+<h3>Added<a class="headerlink" href="#id227" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Fixed cluster search origin check. Limits the number of origins to the
 configured threshold.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id204">
-<h2>2015-05-26<a class="headerlink" href="#id204" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id205">
-<h3>Added<a class="headerlink" href="#id205" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id228">
+<h2>2015-05-26<a class="headerlink" href="#id228" title="Permalink to this heading">¶</a></h2>
+<section id="id229">
+<h3>Added<a class="headerlink" href="#id229" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Offline processing of events.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id206">
-<h2>2015-04-23<a class="headerlink" href="#id206" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id207">
-<h3>Fixed<a class="headerlink" href="#id207" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id230">
+<h2>2015-04-23<a class="headerlink" href="#id230" title="Permalink to this heading">¶</a></h2>
+<section id="id231">
+<h3>Fixed<a class="headerlink" href="#id231" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Fixed crash when pick could not been loaded from database.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id208">
-<h2>2015-03-30<a class="headerlink" href="#id208" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id209">
-<h3>Fixed<a class="headerlink" href="#id209" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id232">
+<h2>2015-03-30<a class="headerlink" href="#id232" title="Permalink to this heading">¶</a></h2>
+<section id="id233">
+<h3>Fixed<a class="headerlink" href="#id233" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Incoming origins will be checked for double assigned picks.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id210">
-<h2>2015-02-24<a class="headerlink" href="#id210" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id211">
-<h3>Added<a class="headerlink" href="#id211" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id234">
+<h2>2015-02-24<a class="headerlink" href="#id234" title="Permalink to this heading">¶</a></h2>
+<section id="id235">
+<h3>Added<a class="headerlink" href="#id235" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>New configuration parameter <code class="docutils literal notranslate"><span class="pre">clusterSearch.maxOrigins</span></code>.</p></li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -1240,446 +1400,497 @@ configured threshold.</p></li>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Change Log</a><ul>
-<li><a class="reference internal" href="#id1">2022-03-29</a><ul>
+<li><a class="reference internal" href="#id1">2023.218</a><ul>
 <li><a class="reference internal" href="#added">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id2">2022-03-18</a><ul>
+<li><a class="reference internal" href="#id2">2023.214</a><ul>
 <li><a class="reference internal" href="#changed">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id3">2022-03-14</a><ul>
-<li><a class="reference internal" href="#id4">Changed</a></li>
+<li><a class="reference internal" href="#id3">2023.139</a><ul>
+<li><a class="reference internal" href="#id4">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id5">2022-03-11</a><ul>
+<li><a class="reference internal" href="#id5">2023.116</a><ul>
 <li><a class="reference internal" href="#id6">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id7">2022-03-09</a><ul>
-<li><a class="reference internal" href="#fixed">Fixed</a></li>
+<li><a class="reference internal" href="#id7">2023.115</a><ul>
+<li><a class="reference internal" href="#id8">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id8">2022-02-14</a><ul>
-<li><a class="reference internal" href="#id9">Changed</a></li>
+<li><a class="reference internal" href="#id9">2023.087</a><ul>
+<li><a class="reference internal" href="#id10">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id10">2022-01-02</a><ul>
-<li><a class="reference internal" href="#id11">Fixed</a></li>
+<li><a class="reference internal" href="#id11">2023.011</a><ul>
+<li><a class="reference internal" href="#id12">Added</a></li>
+<li><a class="reference internal" href="#id13">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id12">2021-12-15</a><ul>
-<li><a class="reference internal" href="#id13">Added</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id14">2021-11-23</a><ul>
+<li><a class="reference internal" href="#id14">2023.004</a><ul>
 <li><a class="reference internal" href="#id15">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id16">2021-11-10</a><ul>
+<li><a class="reference internal" href="#id16">2022-08-23</a><ul>
 <li><a class="reference internal" href="#id17">Added</a></li>
 <li><a class="reference internal" href="#id18">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id19">2021-10-27</a><ul>
+<li><a class="reference internal" href="#id19">2022-07-22</a><ul>
+<li><a class="reference internal" href="#important">Important</a></li>
 <li><a class="reference internal" href="#id20">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id21">2021-10-25</a><ul>
+<li><a class="reference internal" href="#id21">2022-05-31</a><ul>
 <li><a class="reference internal" href="#id22">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id23">2021-09-22</a><ul>
+<li><a class="reference internal" href="#id23">2022-03-29</a><ul>
 <li><a class="reference internal" href="#id24">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id25">2021-09-17</a><ul>
-<li><a class="reference internal" href="#id26">Fixed</a></li>
+<li><a class="reference internal" href="#id25">2022-03-18</a><ul>
+<li><a class="reference internal" href="#id26">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id27">2021-09-14</a><ul>
-<li><a class="reference internal" href="#id28">Fixed</a></li>
+<li><a class="reference internal" href="#id27">2022-03-14</a><ul>
+<li><a class="reference internal" href="#id28">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id29">2021-09-06</a><ul>
-<li><a class="reference internal" href="#id30">Added</a></li>
+<li><a class="reference internal" href="#id29">2022-03-11</a><ul>
+<li><a class="reference internal" href="#id30">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id31">2021-09-03</a><ul>
-<li><a class="reference internal" href="#id32">Changed</a></li>
+<li><a class="reference internal" href="#id31">2022-03-09</a><ul>
+<li><a class="reference internal" href="#fixed">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id33">2021-09-01</a><ul>
-<li><a class="reference internal" href="#id34">Added</a></li>
+<li><a class="reference internal" href="#id32">2022-02-14</a><ul>
+<li><a class="reference internal" href="#id33">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id35">2021-08-21</a><ul>
-<li><a class="reference internal" href="#id36">Added</a></li>
+<li><a class="reference internal" href="#id34">2022-01-02</a><ul>
+<li><a class="reference internal" href="#id35">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id37">2021-08-21</a><ul>
-<li><a class="reference internal" href="#id38">Added</a></li>
+<li><a class="reference internal" href="#id36">2021-12-15</a><ul>
+<li><a class="reference internal" href="#id37">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id39">2021-06-28</a><ul>
-<li><a class="reference internal" href="#id40">Changed</a></li>
+<li><a class="reference internal" href="#id38">2021-11-23</a><ul>
+<li><a class="reference internal" href="#id39">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id41">2021-06-23</a><ul>
-<li><a class="reference internal" href="#id42">Added</a></li>
+<li><a class="reference internal" href="#id40">2021-11-10</a><ul>
+<li><a class="reference internal" href="#id41">Added</a></li>
+<li><a class="reference internal" href="#id42">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id43">2021-06-16</a><ul>
+<li><a class="reference internal" href="#id43">2021-10-27</a><ul>
 <li><a class="reference internal" href="#id44">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id45">2021-04-22</a><ul>
-<li><a class="reference internal" href="#id46">Fixed</a></li>
+<li><a class="reference internal" href="#id45">2021-10-25</a><ul>
+<li><a class="reference internal" href="#id46">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id47">2021-01-22</a><ul>
+<li><a class="reference internal" href="#id47">2021-09-22</a><ul>
 <li><a class="reference internal" href="#id48">Added</a></li>
-<li><a class="reference internal" href="#id49">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id50">2020-09-16</a><ul>
-<li><a class="reference internal" href="#id51">Added</a></li>
+<li><a class="reference internal" href="#id49">2021-09-17</a><ul>
+<li><a class="reference internal" href="#id50">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id52">2020-09-14</a><ul>
-<li><a class="reference internal" href="#id53">Added</a></li>
+<li><a class="reference internal" href="#id51">2021-09-14</a><ul>
+<li><a class="reference internal" href="#id52">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id54">2020-09-11</a><ul>
-<li><a class="reference internal" href="#id55">Added</a></li>
+<li><a class="reference internal" href="#id53">2021-09-06</a><ul>
+<li><a class="reference internal" href="#id54">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id56">2020-08-14</a><ul>
-<li><a class="reference internal" href="#id57">Added</a></li>
+<li><a class="reference internal" href="#id55">2021-09-03</a><ul>
+<li><a class="reference internal" href="#id56">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id58">2020-05-18</a><ul>
-<li><a class="reference internal" href="#id59">Fixed</a></li>
+<li><a class="reference internal" href="#id57">2021-09-01</a><ul>
+<li><a class="reference internal" href="#id58">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id60">Changed</a></li>
-<li><a class="reference internal" href="#id61">2020-05-08</a><ul>
-<li><a class="reference internal" href="#id62">Changed</a></li>
+<li><a class="reference internal" href="#id59">2021-08-21</a><ul>
+<li><a class="reference internal" href="#id60">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id63">2020-05-05</a><ul>
-<li><a class="reference internal" href="#id64">Fixed</a></li>
+<li><a class="reference internal" href="#id61">2021-08-21</a><ul>
+<li><a class="reference internal" href="#id62">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id65">2020-03-27</a><ul>
+<li><a class="reference internal" href="#id63">2021-06-28</a><ul>
+<li><a class="reference internal" href="#id64">Changed</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id65">2021-06-23</a><ul>
 <li><a class="reference internal" href="#id66">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id67">2020-03-26</a><ul>
+<li><a class="reference internal" href="#id67">2021-06-16</a><ul>
 <li><a class="reference internal" href="#id68">Added</a></li>
-<li><a class="reference internal" href="#id69">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id70">2020-03-06</a><ul>
-<li><a class="reference internal" href="#id71">Changed</a></li>
+<li><a class="reference internal" href="#id69">2021-04-22</a><ul>
+<li><a class="reference internal" href="#id70">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id72">2020-02-26</a><ul>
+<li><a class="reference internal" href="#id71">2021-01-22</a><ul>
+<li><a class="reference internal" href="#id72">Added</a></li>
 <li><a class="reference internal" href="#id73">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id74">2020-02-03</a><ul>
-<li><a class="reference internal" href="#id75">Fixed</a></li>
+<li><a class="reference internal" href="#id74">2020-09-16</a><ul>
+<li><a class="reference internal" href="#id75">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id76">2019-12-02</a><ul>
-<li><a class="reference internal" href="#id77">Changed</a></li>
+<li><a class="reference internal" href="#id76">2020-09-14</a><ul>
+<li><a class="reference internal" href="#id77">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id78">2019-11-26</a><ul>
-<li><a class="reference internal" href="#id79">Changed</a></li>
+<li><a class="reference internal" href="#id78">2020-09-11</a><ul>
+<li><a class="reference internal" href="#id79">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id80">2019-10-17</a><ul>
-<li><a class="reference internal" href="#id81">Fixed</a></li>
+<li><a class="reference internal" href="#id80">2020-08-14</a><ul>
+<li><a class="reference internal" href="#id81">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id82">2019-09-16</a><ul>
+<li><a class="reference internal" href="#id82">2020-05-18</a><ul>
 <li><a class="reference internal" href="#id83">Fixed</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#id84">Changed</a></li>
-<li><a class="reference internal" href="#id85">Added</a></li>
+<li><a class="reference internal" href="#id85">2020-05-08</a><ul>
+<li><a class="reference internal" href="#id86">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id86">2019-09-04</a><ul>
-<li><a class="reference internal" href="#id87">Fixed</a></li>
+<li><a class="reference internal" href="#id87">2020-05-05</a><ul>
+<li><a class="reference internal" href="#id88">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id88">2019-08-29</a><ul>
-<li><a class="reference internal" href="#id89">Added</a></li>
+<li><a class="reference internal" href="#id89">2020-03-27</a><ul>
+<li><a class="reference internal" href="#id90">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id90">2019-08-21</a><ul>
-<li><a class="reference internal" href="#id91">Added</a></li>
+<li><a class="reference internal" href="#id91">2020-03-26</a><ul>
+<li><a class="reference internal" href="#id92">Added</a></li>
+<li><a class="reference internal" href="#id93">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id92">2019-05-15</a><ul>
-<li><a class="reference internal" href="#id93">Added</a></li>
-<li><a class="reference internal" href="#id94">Fixed</a></li>
+<li><a class="reference internal" href="#id94">2020-03-06</a><ul>
+<li><a class="reference internal" href="#id95">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id95">2019-04-17</a><ul>
-<li><a class="reference internal" href="#id96">Fixed</a></li>
+<li><a class="reference internal" href="#id96">2020-02-26</a><ul>
+<li><a class="reference internal" href="#id97">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id97">2019-04-10</a><ul>
-<li><a class="reference internal" href="#id98">Changed</a></li>
+<li><a class="reference internal" href="#id98">2020-02-03</a><ul>
+<li><a class="reference internal" href="#id99">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id99">2019-03-06</a><ul>
-<li><a class="reference internal" href="#id100">Changed</a></li>
+<li><a class="reference internal" href="#id100">2019-12-02</a><ul>
+<li><a class="reference internal" href="#id101">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id101">2019-03-06</a><ul>
-<li><a class="reference internal" href="#id102">Added</a></li>
+<li><a class="reference internal" href="#id102">2019-11-26</a><ul>
+<li><a class="reference internal" href="#id103">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id103">2019-02-28</a><ul>
-<li><a class="reference internal" href="#id104">Changed</a></li>
+<li><a class="reference internal" href="#id104">2019-10-17</a><ul>
+<li><a class="reference internal" href="#id105">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id105">2019-02-27</a><ul>
-<li><a class="reference internal" href="#id106">Added</a></li>
+<li><a class="reference internal" href="#id106">2019-09-16</a><ul>
+<li><a class="reference internal" href="#id107">Fixed</a></li>
+<li><a class="reference internal" href="#id108">Changed</a></li>
+<li><a class="reference internal" href="#id109">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id107">2019-02-01</a><ul>
-<li><a class="reference internal" href="#id108">Added</a></li>
+<li><a class="reference internal" href="#id110">2019-09-04</a><ul>
+<li><a class="reference internal" href="#id111">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id109">2019-01-21</a><ul>
-<li><a class="reference internal" href="#id110">Added</a></li>
+<li><a class="reference internal" href="#id112">2019-08-29</a><ul>
+<li><a class="reference internal" href="#id113">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id111">2019-01-15</a><ul>
-<li><a class="reference internal" href="#id112">Fixed</a></li>
+<li><a class="reference internal" href="#id114">2019-08-21</a><ul>
+<li><a class="reference internal" href="#id115">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id113">2018-09-10</a><ul>
-<li><a class="reference internal" href="#id114">Added</a></li>
+<li><a class="reference internal" href="#id116">2019-05-15</a><ul>
+<li><a class="reference internal" href="#id117">Added</a></li>
+<li><a class="reference internal" href="#id118">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id115">2018-07-09</a><ul>
-<li><a class="reference internal" href="#id116">Changed</a></li>
+<li><a class="reference internal" href="#id119">2019-04-17</a><ul>
+<li><a class="reference internal" href="#id120">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id117">2018-06-11</a><ul>
-<li><a class="reference internal" href="#id118">Changed</a></li>
+<li><a class="reference internal" href="#id121">2019-04-10</a><ul>
+<li><a class="reference internal" href="#id122">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id119">2018-04-17</a><ul>
-<li><a class="reference internal" href="#id120">Added</a></li>
+<li><a class="reference internal" href="#id123">2019-03-06</a><ul>
+<li><a class="reference internal" href="#id124">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id121">2018-04-05</a><ul>
-<li><a class="reference internal" href="#id122">Added</a></li>
+<li><a class="reference internal" href="#id125">2019-03-06</a><ul>
+<li><a class="reference internal" href="#id126">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id123">2018-04-03</a><ul>
-<li><a class="reference internal" href="#id124">Fixed</a></li>
+<li><a class="reference internal" href="#id127">2019-02-28</a><ul>
+<li><a class="reference internal" href="#id128">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id125">2018-03-15</a><ul>
-<li><a class="reference internal" href="#id126">Fixed</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id127">2018-02-01</a><ul>
-<li><a class="reference internal" href="#id128">Added</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id129">2018-01-31</a><ul>
+<li><a class="reference internal" href="#id129">2019-02-27</a><ul>
 <li><a class="reference internal" href="#id130">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id131">2018-01-19</a><ul>
-<li><a class="reference internal" href="#id132">Changed</a></li>
+<li><a class="reference internal" href="#id131">2019-02-01</a><ul>
+<li><a class="reference internal" href="#id132">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id133">2018-01-15</a><ul>
+<li><a class="reference internal" href="#id133">2019-01-21</a><ul>
 <li><a class="reference internal" href="#id134">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id135">2017-11-15</a><ul>
-<li><a class="reference internal" href="#id136">Added</a></li>
+<li><a class="reference internal" href="#id135">2019-01-15</a><ul>
+<li><a class="reference internal" href="#id136">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id137">2017-09-25</a><ul>
-<li><a class="reference internal" href="#id138">Fixed</a></li>
+<li><a class="reference internal" href="#id137">2018-09-10</a><ul>
+<li><a class="reference internal" href="#id138">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id139">2017-09-06</a><ul>
-<li><a class="reference internal" href="#id140">Fixed</a></li>
+<li><a class="reference internal" href="#id139">2018-07-09</a><ul>
+<li><a class="reference internal" href="#id140">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id141">2017-09-04</a><ul>
-<li><a class="reference internal" href="#id142">Fixed</a></li>
+<li><a class="reference internal" href="#id141">2018-06-11</a><ul>
+<li><a class="reference internal" href="#id142">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id143">2017-08-28</a><ul>
-<li><a class="reference internal" href="#id144">Changed</a></li>
+<li><a class="reference internal" href="#id143">2018-04-17</a><ul>
+<li><a class="reference internal" href="#id144">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id145">2017-08-08</a><ul>
-<li><a class="reference internal" href="#id146">Fixed</a></li>
+<li><a class="reference internal" href="#id145">2018-04-05</a><ul>
+<li><a class="reference internal" href="#id146">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id147">2017-07-03</a><ul>
+<li><a class="reference internal" href="#id147">2018-04-03</a><ul>
 <li><a class="reference internal" href="#id148">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id149">2017-06-28</a><ul>
+<li><a class="reference internal" href="#id149">2018-03-15</a><ul>
 <li><a class="reference internal" href="#id150">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id151">2017-06-20</a><ul>
-<li><a class="reference internal" href="#id152">Fixed</a></li>
+<li><a class="reference internal" href="#id151">2018-02-01</a><ul>
+<li><a class="reference internal" href="#id152">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id153">2017-06-15</a><ul>
-<li><a class="reference internal" href="#id154">Fixed</a></li>
+<li><a class="reference internal" href="#id153">2018-01-31</a><ul>
+<li><a class="reference internal" href="#id154">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id155">2017-06-09</a><ul>
-<li><a class="reference internal" href="#id156">Fixed</a></li>
+<li><a class="reference internal" href="#id155">2018-01-19</a><ul>
+<li><a class="reference internal" href="#id156">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id157">2017-05-15</a><ul>
+<li><a class="reference internal" href="#id157">2018-01-15</a><ul>
 <li><a class="reference internal" href="#id158">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id159">2017-03-22</a><ul>
+<li><a class="reference internal" href="#id159">2017-11-15</a><ul>
 <li><a class="reference internal" href="#id160">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id161">2017-03-20</a><ul>
+<li><a class="reference internal" href="#id161">2017-09-25</a><ul>
 <li><a class="reference internal" href="#id162">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id163">2017-03-12</a><ul>
-<li><a class="reference internal" href="#id164">Added</a></li>
+<li><a class="reference internal" href="#id163">2017-09-06</a><ul>
+<li><a class="reference internal" href="#id164">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id165">2017-03-09</a><ul>
+<li><a class="reference internal" href="#id165">2017-09-04</a><ul>
 <li><a class="reference internal" href="#id166">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id167">2017-02-27</a><ul>
-<li><a class="reference internal" href="#id168">Added</a></li>
+<li><a class="reference internal" href="#id167">2017-08-28</a><ul>
+<li><a class="reference internal" href="#id168">Changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id169">2017-02-24</a><ul>
-<li><a class="reference internal" href="#id170">Added</a></li>
+<li><a class="reference internal" href="#id169">2017-08-08</a><ul>
+<li><a class="reference internal" href="#id170">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id171">2017-02-20</a><ul>
+<li><a class="reference internal" href="#id171">2017-07-03</a><ul>
+<li><a class="reference internal" href="#id172">Fixed</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id173">2017-06-28</a><ul>
+<li><a class="reference internal" href="#id174">Fixed</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id175">2017-06-20</a><ul>
+<li><a class="reference internal" href="#id176">Fixed</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id177">2017-06-15</a><ul>
+<li><a class="reference internal" href="#id178">Fixed</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id179">2017-06-09</a><ul>
+<li><a class="reference internal" href="#id180">Fixed</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id181">2017-05-15</a><ul>
+<li><a class="reference internal" href="#id182">Added</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id183">2017-03-22</a><ul>
+<li><a class="reference internal" href="#id184">Added</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id185">2017-03-20</a><ul>
+<li><a class="reference internal" href="#id186">Fixed</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id187">2017-03-12</a><ul>
+<li><a class="reference internal" href="#id188">Added</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id189">2017-03-09</a><ul>
+<li><a class="reference internal" href="#id190">Fixed</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id191">2017-02-27</a><ul>
+<li><a class="reference internal" href="#id192">Added</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id193">2017-02-24</a><ul>
+<li><a class="reference internal" href="#id194">Added</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id195">2017-02-20</a><ul>
 <li><a class="reference internal" href="#removed">Removed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id172">2017-02-16</a><ul>
-<li><a class="reference internal" href="#id173">Added</a></li>
+<li><a class="reference internal" href="#id196">2017-02-16</a><ul>
+<li><a class="reference internal" href="#id197">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id174">2017-02-16</a><ul>
-<li><a class="reference internal" href="#id175">Fixed</a></li>
+<li><a class="reference internal" href="#id198">2017-02-16</a><ul>
+<li><a class="reference internal" href="#id199">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id176">2017-02-09</a><ul>
-<li><a class="reference internal" href="#id177">Added</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id178">2017-01-12</a><ul>
-<li><a class="reference internal" href="#id179">Removed</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id180">2016-12-16</a><ul>
-<li><a class="reference internal" href="#id181">Fixed</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id182">2016-06-31</a><ul>
-<li><a class="reference internal" href="#id183">Added</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id184">2016-06-08</a><ul>
-<li><a class="reference internal" href="#id185">Fixed</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id186">2016-03-10</a><ul>
-<li><a class="reference internal" href="#id187">Fixed</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id188">2016-03-10</a><ul>
-<li><a class="reference internal" href="#id189">Fixed</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id190">2016-03-09</a><ul>
-<li><a class="reference internal" href="#id191">Added</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id192">2016-01-07</a><ul>
-<li><a class="reference internal" href="#id193">Added</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id194">2015-12-22</a><ul>
-<li><a class="reference internal" href="#fixes">Fixes</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id195">2015-12-18</a><ul>
-<li><a class="reference internal" href="#id196">Fixed</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id197">2015-12-01</a><ul>
-<li><a class="reference internal" href="#id198">Fixed</a></li>
-<li><a class="reference internal" href="#id199">Added</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id200">2015-08-25</a><ul>
+<li><a class="reference internal" href="#id200">2017-02-09</a><ul>
 <li><a class="reference internal" href="#id201">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id202">2015-07-10</a><ul>
-<li><a class="reference internal" href="#id203">Added</a></li>
+<li><a class="reference internal" href="#id202">2017-01-12</a><ul>
+<li><a class="reference internal" href="#id203">Removed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id204">2015-05-26</a><ul>
-<li><a class="reference internal" href="#id205">Added</a></li>
+<li><a class="reference internal" href="#id204">2016-12-16</a><ul>
+<li><a class="reference internal" href="#id205">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id206">2015-04-23</a><ul>
-<li><a class="reference internal" href="#id207">Fixed</a></li>
+<li><a class="reference internal" href="#id206">2016-06-31</a><ul>
+<li><a class="reference internal" href="#id207">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id208">2015-03-30</a><ul>
+<li><a class="reference internal" href="#id208">2016-06-08</a><ul>
 <li><a class="reference internal" href="#id209">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id210">2015-02-24</a><ul>
-<li><a class="reference internal" href="#id211">Added</a></li>
+<li><a class="reference internal" href="#id210">2016-03-10</a><ul>
+<li><a class="reference internal" href="#id211">Fixed</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id212">2016-03-10</a><ul>
+<li><a class="reference internal" href="#id213">Fixed</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id214">2016-03-09</a><ul>
+<li><a class="reference internal" href="#id215">Added</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id216">2016-01-07</a><ul>
+<li><a class="reference internal" href="#id217">Added</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id218">2015-12-22</a><ul>
+<li><a class="reference internal" href="#fixes">Fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id219">2015-12-18</a><ul>
+<li><a class="reference internal" href="#id220">Fixed</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id221">2015-12-01</a><ul>
+<li><a class="reference internal" href="#id222">Fixed</a></li>
+<li><a class="reference internal" href="#id223">Added</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id224">2015-08-25</a><ul>
+<li><a class="reference internal" href="#id225">Added</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id226">2015-07-10</a><ul>
+<li><a class="reference internal" href="#id227">Added</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id228">2015-05-26</a><ul>
+<li><a class="reference internal" href="#id229">Added</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id230">2015-04-23</a><ul>
+<li><a class="reference internal" href="#id231">Fixed</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id232">2015-03-30</a><ul>
+<li><a class="reference internal" href="#id233">Fixed</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id234">2015-02-24</a><ul>
+<li><a class="reference internal" href="#id235">Added</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="references.html"
-                        title="previous chapter">References</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="references.html"
+                          title="previous chapter">References</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -1694,7 +1905,7 @@ configured threshold.</p></li>
     <div class="footer">
       <div class="container">
         <div class="content">
-        Release <b></b> version <b>2022.88#fcbc3b22d</b>
+        Release <b></b> version <b>2023.217#192b88919</b>
           <div class="copyright">
             &copy; Copyright <a href="https://www.gempa.de">2014, gempa GmbH.</a>
           </div>

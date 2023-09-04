@@ -3,12 +3,10 @@
 Dense Travel-Time Tables
 ========================
 
-The default travel time tables of SeisComP for
-`LOCSAT <https://docs.gempa.de/seiscomp/current/apps/global_locsat.html>`_
-provide the times in
-intervals of 1 degree epicentral distance. Thus, the curvature of the travel-time
-curve at closer distance is not well imaged potentially resulting in wrong
-locations or missing event solutions. Therefore, the LOCSAT tables,
+The default travel time tables of SeisComP for :cite:t:`locsat` provide the
+times in intervals of 1 degree epicentral distance. Thus, the curvature of the
+travel-time curve at closer distance is not well imaged potentially resulting in
+wrong locations or missing event solutions. Therefore, the LOCSAT tables,
 *iasp91_scanloc*, based on the IASP91 model with higher spacial sampling are
 added. The tables are located in :file:`$SEISCOMP_ROOT/share/locsat/tables`.
 
@@ -28,7 +26,7 @@ Configuration
 Configure :confval:`association.table` and :confval:`locator.profile` with
 *iasp91_scanloc* for making use of the provided LOCSAT tables.
 
-.. code-block:: sh
+.. code-block:: params
 
    # Type of travel-time tables for phase association. May be different from locator.
    # Use e.g. libtau or LOCSAT.

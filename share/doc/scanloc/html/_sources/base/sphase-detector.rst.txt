@@ -125,7 +125,7 @@ debugging GUI:
 #. **Global module parameters:** Add the plugin *spickdbg* to the global
    configuration of :cite:t:`scolv` (:file:`scolv.cfg`)
 
-   .. code-block:: sh
+   .. code-block:: params
 
       plugins = ${plugins}, spickdbg
 

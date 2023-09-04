@@ -1,8 +1,8 @@
-n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
+n # p,P,Pn,Pdiff,PKP,PKiKP,PKIKP,PcP,pP,pPdiff,pPKP,pPKIKP,pPKiKP,sP,sPdiff,sPKP,sPKIKP,sPKiKP travel-time tables for iasp91_scanloc structure. (From TauP_Table)
 20     # number of depth samples
    0.00   2.50   5.00   7.50  10.00  15.00  20.00  25.00  30.00  40.00
   50.00  75.00 100.00 150.00 200.00 300.00 400.00 500.00 600.00 800.00
-120    # number of distances
+140    # number of distances
    0.00   0.05   0.10   0.15   0.20   0.25   0.30   0.35   0.40   0.45
    0.50   0.60   0.70   0.80   0.90   1.00   1.10   1.20   1.30   1.40
    1.50   1.60   1.70   1.80   1.90   2.00   2.50   3.00   4.00   5.00
@@ -15,26 +15,28 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
   61.00  62.00  63.00  64.00  65.00  66.00  67.00  68.00  69.00  70.00
   71.00  72.00  73.00  74.00  75.00  76.00  77.00  78.00  79.00  80.00
   81.00  82.00  83.00  84.00  85.00  86.00  87.00  88.00  89.00  90.00
+  91.00  92.00  93.00  94.00  95.00  96.00  97.00  98.00  99.00 100.00
+ 102.00 104.00 106.00 108.00 110.00 112.00 114.00 116.00 118.00 120.00
 #  Travel time for z =    0.0
-         0.0000    Pg
-         0.9586    Pg
-         1.9172    Pg
-         2.8757    Pg
-         3.8342    Pg
-         4.7927    Pg
-         5.7513    Pg
-         6.7098    Pg
-         7.6683    Pg
-         8.6268    Pg
-         9.5853    Pg
-        11.5023    Pg
-        13.4193    Pg
-        15.3364    Pg
-        17.2534    Pg
-        19.1704    Pg
-        21.0874    Pg
-        23.0044    Pg
-        24.9214    Pg
+         0.0000    P
+         0.9586    P
+         1.9172    P
+         2.8757    P
+         3.8342    P
+         4.7927    P
+         5.7513    P
+         6.7098    P
+         7.6683    P
+         8.6268    P
+         9.5853    P
+        11.5023    P
+        13.4193    P
+        15.3364    P
+        17.2534    P
+        19.1704    P
+        21.0874    P
+        23.0044    P
+        24.9214    P
         26.7740    P
         28.1493    P
         29.5246    P
@@ -136,6 +138,26 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
        771.9355    P
        776.6756    P
        781.3328    P
+       785.9680    P
+       790.5955    P
+       795.2012    P
+       799.7937    P
+       804.3483    P
+       808.8822    P
+       813.3877    P
+       817.8642    P
+       822.3075    Pdiff
+       826.7464    Pdiff
+       835.6242    Pdiff
+       844.5021    Pdiff
+      1105.7253    PKiKP
+      1109.4446    PKiKP
+      1113.1983    PKiKP
+      1116.9859    PKiKP
+      1120.8048    PKIKP
+      1124.6340    PKIKP
+      1128.4632    PKIKP
+      1132.2889    PKIKP
 #  Travel time for z =    2.5
          0.4310    p
          1.0509    p
@@ -154,8 +176,8 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
         17.2569    p
         19.1731    p
         21.0893    p
-        23.0041    Pg
-        24.9206    Pg
+        23.0041    P
+        24.9206    P
         26.4738    P
         27.8491    P
         29.2244    P
@@ -257,6 +279,26 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
        771.5180    P
        776.2576    P
        780.9146    P
+       785.5497    P
+       790.1771    P
+       794.7827    P
+       799.3752    P
+       803.9295    P
+       808.4634    P
+       812.9687    P
+       817.4449    P
+       821.8882    Pdiff
+       826.3271    Pdiff
+       835.2049    Pdiff
+       844.0828    Pdiff
+      1105.2963    PKiKP
+      1109.0156    PKiKP
+      1112.7693    PKiKP
+      1116.5570    PKiKP
+      1120.3759    PKIKP
+      1124.2051    PKIKP
+      1128.0343    PKIKP
+      1131.8600    PKIKP
 #  Travel time for z =    5.0
          0.8621    p
          1.2889    p
@@ -378,6 +420,26 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
        771.1005    P
        775.8396    P
        780.4963    P
+       785.1315    P
+       789.7588    P
+       794.3643    P
+       798.9566    P
+       803.5107    P
+       808.0446    P
+       812.5496    P
+       817.0257    P
+       821.4689    Pdiff
+       825.9078    Pdiff
+       834.7856    Pdiff
+       843.6635    Pdiff
+      1104.8673    PKiKP
+      1108.5866    PKiKP
+      1112.3404    PKiKP
+      1116.1281    PKiKP
+      1119.9471    PKIKP
+      1123.7762    PKIKP
+      1127.6054    PKIKP
+      1131.4312    PKIKP
 #  Travel time for z =    7.5
          1.2931    p
          1.6093    p
@@ -396,7 +458,7 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
         17.2925    p
         19.2039    p
         21.1159    p
-        23.0061    Pg
+        23.0061    P
         24.4984    P
         25.8737    P
         27.2490    P
@@ -499,6 +561,26 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
        770.6830    P
        775.4215    P
        780.0781    P
+       784.7133    P
+       789.3405    P
+       793.9458    P
+       798.5381    P
+       803.0919    P
+       807.6259    P
+       812.1305    P
+       816.6064    P
+       821.0496    Pdiff
+       825.4885    Pdiff
+       834.3663    Pdiff
+       843.2442    Pdiff
+      1104.4383    PKiKP
+      1108.1576    PKiKP
+      1111.9115    PKiKP
+      1115.6992    PKiKP
+      1119.5182    PKIKP
+      1123.3474    PKIKP
+      1127.1765    PKIKP
+      1131.0023    PKIKP
 #  Travel time for z =    10.0
          1.7241    p
          1.9723    p
@@ -516,8 +598,8 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
         15.4229    p
         17.3270    p
         19.2340    p
-        21.1049    Pg
-        22.8102    Pg
+        21.1049    P
+        22.8102    P
         24.1985    P
         25.5738    P
         26.9491    P
@@ -620,6 +702,26 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
        770.2656    P
        775.0035    P
        779.6599    P
+       784.2951    P
+       788.9222    P
+       793.5274    P
+       798.1195    P
+       802.6732    P
+       807.2071    P
+       811.7115    P
+       816.1872    P
+       820.6303    Pdiff
+       825.0692    Pdiff
+       833.9470    Pdiff
+       842.8249    Pdiff
+      1104.0092    PKiKP
+      1107.7286    PKiKP
+      1111.4825    PKiKP
+      1115.2703    PKiKP
+      1119.0893    PKIKP
+      1122.9185    PKIKP
+      1126.7477    PKIKP
+      1130.5734    PKIKP
 #  Travel time for z =    15.0
          2.5862    p
          2.7578    p
@@ -635,9 +737,9 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
         11.7791    p
         13.6531    p
         15.5414    p
-        17.3034    Pg
-        19.0087    Pg
-        20.7139    Pg
+        17.3034    P
+        19.0087    P
+        20.7139    P
         22.2238    P
         23.5992    P
         24.9745    P
@@ -741,6 +843,26 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
        769.4307    P
        774.1675    P
        778.8235    P
+       783.4587    P
+       788.0856    P
+       792.6906    P
+       797.2825    P
+       801.8357    P
+       806.3696    P
+       810.8734    P
+       815.3488    P
+       819.7917    Pdiff
+       824.2306    Pdiff
+       833.1085    Pdiff
+       841.9863    Pdiff
+      1103.1512    PKiKP
+      1106.8707    PKiKP
+      1110.6247    PKiKP
+      1114.4125    PKiKP
+      1118.2316    PKIKP
+      1122.0607    PKIKP
+      1125.8899    PKIKP
+      1129.7156    PKIKP
 #  Travel time for z =    20.0
          3.4483    p
          3.5786    p
@@ -750,14 +872,14 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
          5.8983    p
          6.6982    p
          7.5348    p
-         8.3874    Pg
-         9.2400    Pg
-        10.0926    Pg
-        11.7979    Pg
-        13.5031    Pg
-        15.2083    Pg
-        16.9136    Pg
-        18.6188    Pg
+         8.3874    P
+         9.2400    P
+        10.0926    P
+        11.7979    P
+        13.5031    P
+        15.2083    P
+        16.9136    P
+        18.6188    P
         20.2497    P
         21.6250    P
         23.0003    P
@@ -862,6 +984,26 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
        768.5958    P
        773.3316    P
        777.9871    P
+       782.6223    P
+       787.2490    P
+       791.8538    P
+       796.4455    P
+       800.9982    P
+       805.5321    P
+       810.0354    P
+       814.5104    P
+       818.9532    Pdiff
+       823.3921    Pdiff
+       832.2700    Pdiff
+       841.1478    Pdiff
+      1102.2932    PKiKP
+      1106.0127    PKiKP
+      1109.7668    PKiKP
+      1113.5547    PKiKP
+      1117.3738    PKIKP
+      1121.2030    PKIKP
+      1125.0322    PKIKP
+      1128.8579    PKIKP
 #  Travel time for z =    25.0
          4.2175    p
          4.3199    p
@@ -983,6 +1125,26 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
        767.8573    P
        772.5918    P
        777.2469    P
+       781.8821    P
+       786.5086    P
+       791.1130    P
+       795.7045    P
+       800.2566    P
+       804.7906    P
+       809.2933    P
+       813.7678    P
+       818.2105    Pdiff
+       822.6494    Pdiff
+       831.5273    Pdiff
+       840.4051    Pdiff
+      1101.5285    PKiKP
+      1105.2481    PKiKP
+      1109.0023    PKiKP
+      1112.7902    PKiKP
+      1116.6095    PKIKP
+      1120.4386    PKIKP
+      1124.2678    PKIKP
+      1128.0935    PKIKP
 #  Travel time for z =    30.0
          4.9867    p
          5.0710    p
@@ -1104,6 +1266,26 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
        767.1188    P
        771.8521    P
        776.5067    P
+       781.1419    P
+       785.7681    P
+       790.3723    P
+       794.9635    P
+       799.5152    P
+       804.0491    P
+       808.5512    P
+       813.0253    P
+       817.4679    Pdiff
+       821.9068    Pdiff
+       830.7846    Pdiff
+       839.6625    Pdiff
+      1100.7639    PKiKP
+      1104.4835    PKiKP
+      1108.2378    PKiKP
+      1112.0258    PKiKP
+      1115.8451    PKIKP
+      1119.6743    PKIKP
+      1123.5035    PKIKP
+      1127.3292    PKIKP
 #  Travel time for z =    40.0
          6.3778    p
          6.4381    p
@@ -1225,6 +1407,26 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
        765.7971    P
        770.5275    P
        775.1811    P
+       779.8163    P
+       784.4420    P
+       789.0455    P
+       793.6362    P
+       798.1867    P
+       802.7206    P
+       807.2212    P
+       811.6944    P
+       816.1367    Pdiff
+       820.5756    Pdiff
+       829.4535    Pdiff
+       838.3313    Pdiff
+      1099.3830    PKiKP
+      1103.1028    PKiKP
+      1106.8574    PKiKP
+      1110.6455    PKiKP
+      1114.4650    PKIKP
+      1118.2941    PKIKP
+      1122.1233    PKIKP
+      1125.9490    PKIKP
 #  Travel time for z =    50.0
          7.6214    p
          7.6672    p
@@ -1346,6 +1548,26 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
        764.6308    P
        769.3580    P
        774.0105    P
+       778.6457    P
+       783.2709    P
+       787.8736    P
+       792.4634    P
+       797.0128    P
+       801.5467    P
+       806.0458    P
+       810.5179    P
+       814.9599    Pdiff
+       819.3988    Pdiff
+       828.2766    Pdiff
+       837.1545    Pdiff
+      1098.1508    PKiKP
+      1101.8707    PKiKP
+      1105.6256    PKiKP
+      1109.4139    PKiKP
+      1113.2335    PKIKP
+      1117.0627    PKIKP
+      1120.8919    PKIKP
+      1124.7175    PKIKP
 #  Travel time for z =    75.0
         10.7296    p
         10.7581    p
@@ -1467,6 +1689,26 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
        761.7172    P
        766.4363    P
        771.0859    P
+       775.7211    P
+       780.3449    P
+       784.9458    P
+       789.5333    P
+       794.0800    P
+       798.6139    P
+       803.1091    P
+       807.5786    P
+       812.0196    Pdiff
+       816.4586    Pdiff
+       825.3364    Pdiff
+       834.2142    Pdiff
+      1095.0712    PKiKP
+      1098.7915    PKiKP
+      1102.5471    PKiKP
+      1106.3358    PKiKP
+      1110.1559    PKIKP
+      1113.9850    PKIKP
+      1117.8142    PKIKP
+      1121.6398    PKIKP
 #  Travel time for z =    100.0
         13.8367    p
         13.8574    p
@@ -1588,6 +1830,26 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
        758.8063    P
        763.5174    P
        768.1640    P
+       772.7992    P
+       777.4216    P
+       782.0206    P
+       786.6058    P
+       791.1499    P
+       795.6838    P
+       800.1749    P
+       804.6417    P
+       809.0820    Pdiff
+       813.5209    Pdiff
+       822.3987    Pdiff
+       831.2766    Pdiff
+      1091.9929    PKiKP
+      1095.7137    PKiKP
+      1099.4700    PKiKP
+      1103.2591    PKiKP
+      1107.0796    PKIKP
+      1110.9088    PKIKP
+      1114.7379    PKIKP
+      1118.5634    PKIKP
 #  Travel time for z =    150.0
         20.0291    p
         20.0423    p
@@ -1709,6 +1971,26 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
        753.0128    P
        757.7073    P
        762.3480    P
+       766.9832    P
+       771.6027    P
+       776.1979    P
+       780.7785    P
+       785.3171    P
+       789.8503    P
+       794.3340    P
+       798.7949    Pdiff
+       803.2338    Pdiff
+       807.6728    Pdiff
+       816.5506    Pdiff
+       825.4284    Pdiff
+      1085.8591    PKiKP
+      1089.5806    PKiKP
+      1093.3384    PKiKP
+      1097.1285    PKiKP
+      1100.9498    PKIKP
+      1104.7790    PKIKP
+      1108.6081    PKIKP
+      1112.4335    PKIKP
 #  Travel time for z =    200.0
         26.1248    p
         26.1344    p
@@ -1830,6 +2112,26 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
        747.3263    P
        752.0064    P
        756.6416    P
+       761.2753    P
+       765.8894    P
+       770.4845    P
+       775.0594    P
+       779.5933    P
+       784.1180    P
+       788.6017    P
+       793.0552    Pdiff
+       797.4941    Pdiff
+       801.9330    Pdiff
+       810.8109    Pdiff
+       819.6887    Pdiff
+      1079.8239    PKiKP
+      1083.5463    PKiKP
+      1087.3056    PKiKP
+      1091.0968    PKiKP
+      1094.9188    PKIKP
+      1098.7479    PKIKP
+      1102.5771    PKIKP
+      1106.4023    PKIKP
 #  Travel time for z =    300.0
         37.9659    p
         37.9721    p
@@ -1951,6 +2253,26 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
        736.3322    P
        740.9891    P
        745.6242    P
+       750.2516    P
+       754.8574    P
+       759.4501    P
+       764.0051    P
+       768.5390    P
+       773.0458    P
+       777.5235    P
+       781.9673    Pdiff
+       786.4062    Pdiff
+       790.8451    Pdiff
+       799.7229    Pdiff
+       808.6008    Pdiff
+      1068.1105    PKiKP
+      1071.8355    PKiKP
+      1075.5971    PKiKP
+      1079.3908    PKiKP
+      1083.2140    PKIKP
+      1087.0432    PKIKP
+      1090.8724    PKIKP
+      1094.6970    PKIKP
 #  Travel time for z =    400.0
         49.3170    p
         49.3215    p
@@ -2072,6 +2394,26 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
        725.8877    P
        730.5303    P
        735.1655    P
+       739.7860    P
+       744.3827    P
+       748.9652    P
+       753.5063    P
+       758.0402    P
+       762.5275    P
+       766.9921    P
+       771.4317    Pdiff
+       775.8706    Pdiff
+       780.3095    Pdiff
+       789.1874    Pdiff
+       798.0652    Pdiff
+      1056.8971    PKiKP
+      1060.6260    PKiKP
+      1064.3892    PKiKP
+      1068.1855    PKiKP
+      1072.0102    PKIKP
+      1075.8393    PKIKP
+      1079.6683    PKIKP
+      1083.4923    PKIKP
 #  Travel time for z =    500.0
         59.8901    p
         59.8937    p
@@ -2193,6 +2535,26 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
        716.3214    P
        720.9565    P
        725.5865    P
+       730.1957    P
+       734.7908    P
+       739.3532    P
+       743.8871    P
+       748.4025    P
+       752.8863    P
+       757.3322    Pdiff
+       761.7711    Pdiff
+       766.2101    Pdiff
+       770.6490    Pdiff
+       779.5268    Pdiff
+       788.4047    Pdiff
+      1046.4772    PKiKP
+      1050.2103    PKiKP
+      1053.9753    PKiKP
+      1057.7747    PKiKP
+      1061.6008    PKIKP
+      1065.4300    PKIKP
+      1069.2586    PKIKP
+      1073.0821    PKIKP
 #  Travel time for z =    600.0
         70.0637    p
         70.0667    p
@@ -2314,6 +2676,26 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
        707.2285    P
        711.8636    P
        716.4851    P
+       721.0831    P
+       725.6675    P
+       730.2109    P
+       734.7448    P
+       739.2363    P
+       743.7042    P
+       748.1449    Pdiff
+       752.5838    Pdiff
+       757.0228    Pdiff
+       761.4617    Pdiff
+       770.3395    Pdiff
+       779.2174    Pdiff
+      1036.4685    PKiKP
+      1040.2061    PKiKP
+      1043.9740    PKiKP
+      1047.7762    PKiKP
+      1051.6033    PKIKP
+      1055.4325    PKIKP
+      1059.2607    PKIKP
+      1063.0837    PKIKP
 #  Travel time for z =    800.0
         88.7670    p
         88.7689    p
@@ -2435,3 +2817,23 @@ n # p,pP,Pg,Pn,P,Pb travel-time tables for iasp91 structure. (From TauP_Table)
        691.0482    P
        695.6658    P
        700.2609    P
+       704.8409    P
+       709.3794    P
+       713.9133    P
+       718.3982    P
+       722.8622    P
+       727.3017    Pdiff
+       731.7406    Pdiff
+       736.1795    Pdiff
+       740.6184    Pdiff
+       745.0573    Pdiff
+       753.9352    Pdiff
+       762.8130    Pdiff
+      1018.1499    PKiKP
+      1021.8928    PKiKP
+      1025.6683    PKiKP
+      1029.4767    PKiKP
+      1033.3056    PKIKP
+      1037.1348    PKIKP
+      1040.9620    PKIKP
+      1044.7838    PKIKP

@@ -1,7 +1,91 @@
+.. _global:
+
+*****************
+Global parameters
+*****************
+
+The SeisComP configuration uses a unified schema to configure modules.
+Modules which use the SeisComP libraries can read this configuration
+directly and share global configuration options like messaging connections,
+database configurations, logging and much more.
+There are still some modules that do not use the libraries and are called
+**standalone** modules such as :ref:`seedlink` and
+:ref:`slarchive`.
+They need wrappers to generate their native configuration when
+:command:`seiscomp update-config` is run.
+
+Global parameters can be used by many modules. Thus multiple configuration can be avoided.
+The parameters are read from file in the following order:
+
+#. :file:`@SYSTEMCONFIGDIR@/global.cfg`
+#. :file:`@CONFIGDIR@/global.cfg`
+
+Parameters from :file:`@CONFIGDIR@` override parameters from :file:`@SYSTEMCONFIGDIR@`.
+
+Most :term:`trunk` modules read the configuration from the global configuration which can be overridden
+by the module configuration. Read the :ref:`concept section on modules <concepts_modules>`
+and the :ref:`concept section on the configuraion <concepts_configuration>` for
+more details.
+
+Though it is easy to create the configuration by directly editing the configuration
+files, it is even more convenient to use a configurator.
+SeisComP ships with a graphical configurator and management tool (:ref:`scconfig`)
+which makes it easy to maintain
+module configurations and station bindings even for large networks. It has built-in
+functionality to check the state of all registered modules and to start and stop them.
+
+The configuration is divided into three parts: :ref:`stations <global-stations>`,
+:ref:`modules <global_modules>` and :ref:`bindings <global_bindings>`.
+
+.. _global-stations:
+
+Station meta data
+=================
+
+Station meta-data is a fundamental requirement for a seismic processing system and
+for SeisComP. Read the :ref:`inventory section<concepts_inventory>` in concepts for
+more details.
+
+.. _global_modules:
+
+Modules
+=======
+
+The concepts of :ref:`modules <concepts_modules>` and :ref:`their configuration <global_modules_config>`
+is described in the :ref:`concepts section <concepts>`.
+
+.. _global_bindings:
+
+Bindings
+========
+
+Bindings provide specific configurations per :ref:`module <global_module_config>` and
+station and even stream. Read the :ref:`bindings section <global_bindings_config>`
+in concepts for more details on bindings.
 
 
-Configuration
-=============
+Extensions
+==========
+
+Extensions add new configuration options to :term:`modules<module>`. It does
+not matter how those extensions are used. Commonly a module loads a plugin,
+which requires additional configuration parameters - these are provided by an extension.
+
+There are currently extensions for the following modules, corresponding to the
+plugins shown:
+
+.. include:: /base/extensions.doc
+
+See the documentation for each module for further information about its
+extensions.
+
+
+
+.. _global-configuration:
+
+
+Module Configuration
+====================
 
 
 
@@ -15,26 +99,32 @@ Configuration
 
 .. confval:: agencyID
 
+   Default: ``GFZ``
+
    Type: *string*
 
    Defines the agency ID used to set creationInfo.agencyID in
    data model objects. Should not contain spaces.
-   Default is ``GFZ``.
+
 
 .. confval:: organization
+
+   Default: ``Unset``
 
    Type: *string*
 
    Organization name used mainly by ArcLink and SeedLink.
-   Default is ``Unset``.
+
 
 .. confval:: author
+
+   Default: ``@appname@@@@hostname@``
 
    Type: *string*
 
    Defines the author name used to set creationInfo.author in
    data model objects.
-   Default is ``@appname@@@@hostname@``.
+
 
 .. confval:: plugins
 
@@ -86,10 +176,12 @@ Configuration
 
 .. confval:: configModule
 
+   Default: ``trunk``
+
    Type: *string*
 
    Name of the configuration module.
-   Default is ``trunk``.
+
 
 .. confval:: database
 
@@ -127,24 +219,30 @@ Configuration
 
 .. confval:: logging.level
 
+   Default: ``2``
+
    Type: *int*
 
    Sets the logging level between 1 and 4 where 1\=ERROR, 2\=WARNING, 3\=INFO and 4\=DEBUG.
-   Default is ``2``.
+
 
 .. confval:: logging.file
+
+   Default: ``true``
 
    Type: *boolean*
 
    Enables logging into a log file.
-   Default is ``true``.
+
 
 .. confval:: logging.syslog
+
+   Default: ``false``
 
    Type: *boolean*
 
    Enables logging to syslog if supported by the host system.
-   Default is ``false``.
+
 
 .. confval:: logging.components
 
@@ -164,11 +262,13 @@ Configuration
 
 .. confval:: logging.context
 
+   Default: ``false``
+
    Type: *boolean*
 
    For each log entry print the source file name and line
    number.
-   Default is ``false``.
+
 
 .. confval:: logging.utc
 
@@ -179,49 +279,61 @@ Configuration
 
 .. confval:: logging.file.rotator
 
+   Default: ``true``
+
    Type: *boolean*
 
    Enables rotation of log files.
-   Default is ``true``.
+
 
 .. confval:: logging.file.rotator.timeSpan
 
-   Type: *int*
+   Default: ``86400``
 
    Unit: *s*
 
+   Type: *int*
+
    Time span after which a log file is rotated.
-   Default is ``86400``.
+
 
 .. confval:: logging.file.rotator.archiveSize
+
+   Default: ``7``
 
    Type: *int*
 
    How many historic log files to keep.
-   Default is ``7``.
+
 
 .. confval:: logging.file.rotator.maxFileSize
 
-   Type: *int*
+   Default: ``104857600``
 
    Unit: *byte*
+
+   Type: *int*
 
    The maximum size of a logfile in byte. The default value
    is 100 megabyte. If a logfile exceeds that size then it
    is rotated. To disable the size limit give 0 or a negative
    value.
-   Default is ``104857600``.
+
 
 .. confval:: logging.objects.timeSpan
 
-   Type: *int*
+   Default: ``60``
 
    Unit: *s*
 
+   Type: *int*
+
    Timespan for counting input\/output of objects.
-   Default is ``60``.
+
 
 .. confval:: logging.syslog.facility
+
+   Default: ``local0``
 
    Type: *string*
 
@@ -229,9 +341,11 @@ Configuration
    defined facility names in syslog.h. The default is local0.
    If the given name is invalid or not available, initializing
    logging will fail and the application quits.
-   Default is ``local0``.
+
 
 .. confval:: connection.server
+
+   Default: ``localhost``
 
    Type: *host-with-port*
 
@@ -245,7 +359,7 @@ Configuration
    Specfic host: scmp:\/\/10.0.1.4:18180\/production
    
    Specfic host and SSL encryption: scmps:\/\/10.0.1.4:18180\/production
-   Default is ``localhost``.
+
 
 .. confval:: connection.username
 
@@ -261,15 +375,17 @@ Configuration
 
 .. confval:: connection.timeout
 
-   Type: *int*
+   Default: ``3``
 
    Unit: *s*
+
+   Type: *int*
 
    The connection timeout in seconds. 3 seconds are normally
    more than enough. If a client needs to connect to a
    remote system with a slow connection a larger timeout might
    be needed.
-   Default is ``3``.
+
 
 .. confval:: connection.primaryGroup
 
@@ -282,13 +398,15 @@ Configuration
 
 .. confval:: connection.contentType
 
+   Default: ``binary``
+
    Type: *string*
 
    Defines the message encoding for sending. Allowed values
    are \"binary\", \"json\" or \"xml\".
    XML has more overhead in processing but is more robust when
    schema versions between client and server are different.
-   Default is ``binary``.
+
 
 .. confval:: connection.subscriptions
 
@@ -401,17 +519,21 @@ Configuration
 
 .. confval:: recordstream.service
 
+   Default: ``slink``
+
    Type: *string*
 
    Name of the recordstream service implementation.
-   Default is ``slink``.
+
 
 .. confval:: recordstream.source
+
+   Default: ``localhost:18000``
 
    Type: *string*
 
    Service specific parameters like a IP address or a file name to use.
-   Default is ``localhost:18000``.
+
 
 .. confval:: scripts.crashHandler
 
@@ -422,24 +544,30 @@ Configuration
 
 .. confval:: core.plugins
 
+   Default: ``dbmysql``
+
    Type: *list:string*
 
    Defines a list of core modules loaded at startup.
-   Default is ``dbmysql``.
+
 
 .. confval:: client.startStopMessage
+
+   Default: ``false``
 
    Type: *boolean*
 
    Enables sending of an application start\- and stop message to the STATUS_GROUP.
-   Default is ``false``.
+
 
 .. confval:: client.autoShutdown
+
+   Default: ``false``
 
    Type: *boolean*
 
    Enablgs automatic application shutdown triggered by a status message.
-   Default is ``false``.
+
 
 .. confval:: client.shutdownMasterModule
 
@@ -491,8 +619,8 @@ Configuration
 
 
 
-Bindings
-========
+Bindings Parameters
+===================
 
 
 .. confval:: detecStream
@@ -526,9 +654,11 @@ Bindings
 
 .. confval:: amplitudes.saturationThreshold
 
-   Type: *string*
+   Default: ``false``
 
    Unit: *counts; %*
+
+   Type: *string*
 
    Defines the saturation threshold for the optional saturation check.
    By default the saturation check is disabled but giving a value above
@@ -544,17 +674,21 @@ Bindings
    
    The boolean value \"false\" explicitly disables
    the check.
-   Default is ``false``.
+
 
 .. confval:: amplitudes.enable
+
+   Default: ``true``
 
    Type: *boolean*
 
    Defines if amplitude calculation is enabled. If disabled,
    this station will be skipped for amplitudes and magnitudes.
-   Default is ``true``.
+
 
 .. confval:: amplitudes.enableResponses
+
+   Default: ``false``
 
    Type: *boolean*
 
@@ -562,7 +696,7 @@ Bindings
    configured, an error is raised and the data is not processed.
    This flag will be overridden by the type specific flag
    \(see Amplitude type profile\).
-   Default is ``false``.
+
 
 .. note::
 
@@ -577,9 +711,11 @@ Bindings
 
 .. confval:: amplitudes.$name.saturationThreshold
 
-   Type: *string*
+   Default: ``false``
 
    Unit: *counts; %*
+
+   Type: *string*
 
    Defines the saturation threshold for the optional saturation check.
    By default the saturation check is disabled but giving a value above
@@ -595,23 +731,27 @@ Bindings
    
    The boolean value \"false\" explicitly disables
    the check.
-   Default is ``false``.
+
 
 .. confval:: amplitudes.$name.enable
+
+   Default: ``true``
 
    Type: *boolean*
 
    Defines if amplitude calculation of certain type is enabled.
-   Default is ``true``.
+
 
 .. confval:: amplitudes.$name.enableResponses
+
+   Default: ``false``
 
    Type: *boolean*
 
    Activates deconvolution for this amplitude type. If not
    set the global flag \"amplitudes.enableResponses\"
    will be used instead.
-   Default is ``false``.
+
 
 .. confval:: amplitudes.$name.minSNR
 
@@ -624,9 +764,9 @@ Bindings
 
 .. confval:: amplitudes.$name.noiseBegin
 
-   Type: *double*
-
    Unit: *s*
+
+   Type: *double*
 
    Overrides the default time \(relative to the trigger
    time\) of the begin of the noise window used to compute
@@ -637,9 +777,9 @@ Bindings
 
 .. confval:: amplitudes.$name.noiseEnd
 
-   Type: *double*
-
    Unit: *s*
+
+   Type: *double*
 
    Overrides the default time \(relative to the trigger
    time\) of the end of the noise window used to compute
@@ -650,9 +790,9 @@ Bindings
 
 .. confval:: amplitudes.$name.signalBegin
 
-   Type: *double*
-
    Unit: *s*
+
+   Type: *double*
 
    Overrides the default time \(relative to the trigger
    time\) of the begin of the signal window used to compute
@@ -663,9 +803,9 @@ Bindings
 
 .. confval:: amplitudes.$name.signalEnd
 
-   Type: *double*
-
    Unit: *s*
+
+   Type: *double*
 
    Overrides the default time \(relative to the trigger
    time\) of the end of the signal window used to compute
@@ -676,9 +816,9 @@ Bindings
 
 .. confval:: amplitudes.$name.minDist
 
-   Type: *double*
-
    Unit: *deg*
+
+   Type: *double*
 
    The minimum distance required to compute an amplitude.
    This settings has no effect with e.g. scautopick as there
@@ -689,9 +829,9 @@ Bindings
 
 .. confval:: amplitudes.$name.maxDist
 
-   Type: *double*
-
    Unit: *deg*
+
+   Type: *double*
 
    The maximum distance allowed to compute an amplitude.
    This settings has no effect with e.g. scautopick as there
@@ -702,9 +842,9 @@ Bindings
 
 .. confval:: amplitudes.$name.minDepth
 
-   Type: *double*
-
    Unit: *km*
+
+   Type: *double*
 
    The minimum depth required to compute an amplitude.
    This settings has no effect with e.g. scautopick as there
@@ -715,9 +855,9 @@ Bindings
 
 .. confval:: amplitudes.$name.maxDepth
 
-   Type: *double*
-
    Unit: *km*
+
+   Type: *double*
 
    The maximum depth allowed to compute an amplitude.
    This settings has no effect with e.g. scautopick as there
@@ -734,14 +874,18 @@ Bindings
 
 .. confval:: amplitudes.$name.resp.taper
 
+   Default: ``5``
+
    Unit: *s*
 
    Defines the length of the taper at either side of the
    waveform. The length will be added to the data
    request: start \- taper and end + taper.
-   Default is ``5``.
+
 
 .. confval:: amplitudes.$name.resp.minFreq
+
+   Default: ``0.00833333``
 
    Unit: *Hz*
 
@@ -749,9 +893,11 @@ Bindings
    minimum frequency defines the end of the left\-side cosine taper for
    the frequency spectrum. The taper applies from 0Hz to {minFreq}Hz.
    A value of 0 or lower disables that taper.
-   Default is ``0.00833333``.
+
 
 .. confval:: amplitudes.$name.resp.maxFreq
+
+   Default: ``0``
 
    Unit: *Hz*
 
@@ -759,7 +905,7 @@ Bindings
    maximum frequency defines the start of the right\-side cosine taper for
    the frequency spectrum. The taper applies from {maxFreq}Hz to {fNyquist}Hz.
    A value of 0 or lower disables that taper.
-   Default is ``0``.
+
 
 .. note::
    **amplitudes.resp.\***
@@ -771,14 +917,18 @@ Bindings
 
 .. confval:: amplitudes.resp.taper
 
+   Default: ``5``
+
    Unit: *s*
 
    Defines the length of the taper at either side of the
    waveform. The length will be added to the data
    request: start \- taper and end + taper.
-   Default is ``5``.
+
 
 .. confval:: amplitudes.resp.minFreq
+
+   Default: ``0.00833333``
 
    Unit: *Hz*
 
@@ -786,9 +936,11 @@ Bindings
    minimum frequency defines the end of the left\-side cosine taper for
    the frequency spectrum. The taper applies from 0Hz to {minFreq}Hz.
    A value of 0 or lower disables that taper.
-   Default is ``0.00833333``.
+
 
 .. confval:: amplitudes.resp.maxFreq
+
+   Default: ``0``
 
    Unit: *Hz*
 
@@ -796,7 +948,7 @@ Bindings
    maximum frequency defines the start of the right\-side cosine taper for
    the frequency spectrum. The taper applies from {maxFreq}Hz to {fNyquist}Hz.
    A value of 0 or lower disables that taper.
-   Default is ``0``.
+
 
 .. note::
    **amplitudes.WoodAnderson.\***
@@ -811,37 +963,47 @@ Bindings
 
 .. confval:: amplitudes.WoodAnderson.gain
 
+   Default: ``2800``
+
    Type: *double*
 
    The gain of the Wood\-Anderson response.
-   Default is ``2800``.
+
 
 .. confval:: amplitudes.WoodAnderson.T0
 
-   Type: *double*
+   Default: ``0.8``
 
    Unit: *s*
 
+   Type: *double*
+
    The eigen period of the Wood\-Anderson seismometer.
-   Default is ``0.8``.
+
 
 .. confval:: amplitudes.WoodAnderson.h
+
+   Default: ``0.8``
 
    Type: *double*
 
    The damping constant of the Wood\-Anderson seismometer.
-   Default is ``0.8``.
+
 
 .. confval:: amplitudes.ML.absMax
+
+   Default: ``true``
 
    Type: *boolean*
 
    Whether to use the absolute maximum of the filtered WA
    trace or the difference of the maximum and minimum value
    of the signal window.
-   Default is ``true``.
+
 
 .. confval:: amplitudes.ML.measureType
+
+   Default: ``AbsMax``
 
    Type: *string*
 
@@ -853,9 +1015,11 @@ Bindings
    
    Note that if absMax is already explicitly configured, this
    parameter has no effect.
-   Default is ``AbsMax``.
+
 
 .. confval:: amplitudes.ML.combiner
+
+   Default: ``average``
 
    Type: *string*
 
@@ -865,18 +1029,22 @@ Bindings
    \"min\", \"max\" and \"geometric_mean\".
    \"geometric_mean\" corresponds to averaging single\-trace
    magnitudes instead of their amplitudes.
-   Default is ``average``.
+
 
 .. confval:: amplitudes.MLv.absMax
+
+   Default: ``true``
 
    Type: *boolean*
 
    Whether to use the absolute maximum of the filtered WA
    trace or the difference of the maximum and minimum value
    of the signal window.
-   Default is ``true``.
+
 
 .. confval:: amplitudes.MLv.measureType
+
+   Default: ``AbsMax``
 
    Type: *string*
 
@@ -888,7 +1056,7 @@ Bindings
    
    Note that if absMax is already explicitly configured, this
    parameter has no effect.
-   Default is ``AbsMax``.
+
 
 .. note::
    **magnitudes.\***
@@ -911,21 +1079,25 @@ Bindings
 
 .. confval:: magnitudes.$name.multiplier
 
+   Default: ``1``
+
    Type: *double*
 
    Part of the magnitude station correction. The final
    magnitude value is multiplier\*M+offset. This value
    is usually not required but is here for completeness.
-   Default is ``1``.
+
 
 .. confval:: magnitudes.$name.offset
+
+   Default: ``0``
 
    Type: *double*
 
    Part of the magnitude station correction. The final
    magnitude value is multiplier\*M+offset. This value
    can be used to correct station magnitudes.
-   Default is ``0``.
+
 
 .. note::
    **picker.BK.\***
@@ -939,82 +1111,100 @@ Bindings
 
 .. confval:: picker.BK.noiseBegin
 
-   Type: *double*
+   Default: ``0``
 
    Unit: *s*
+
+   Type: *double*
 
    Overrides the relative data acquisition time \(relative to the triggering
    pick\). This adds a margin to the actual processing and is useful
    to initialize the filter \(e.g. bandpass\). The data is not used
    at all until signalBegin is reached. The data time window start
    is the minimum of noiseBegin and signalBegin.
-   Default is ``0``.
+
 
 .. confval:: picker.BK.signalBegin
 
-   Type: *double*
+   Default: ``-20``
 
    Unit: *s*
 
+   Type: *double*
+
    Overrides the default time \(relative to the trigger
    time\) of the begin of the signal window used to pick.
-   Default is ``-20``.
+
 
 .. confval:: picker.BK.signalEnd
 
-   Type: *double*
+   Default: ``80``
 
    Unit: *s*
 
+   Type: *double*
+
    Overrides the default time \(relative to the trigger
    time\) of the begin of the signal window used to pick.
-   Default is ``80``.
+
 
 .. confval:: picker.BK.filterType
+
+   Default: ``BP``
 
    Type: *string*
 
    BP \(Bandpass\) is currently the only option.
-   Default is ``BP``.
+
 
 .. confval:: picker.BK.filterPoles
+
+   Default: ``2``
 
    Type: *int*
 
    Number of poles.
-   Default is ``2``.
+
 
 .. confval:: picker.BK.f1
 
-   Type: *double*
+   Default: ``5``
 
    Unit: *Hz*
 
+   Type: *double*
+
    Bandpass lower cutoff freq. in Hz.
-   Default is ``5``.
+
 
 .. confval:: picker.BK.f2
 
-   Type: *double*
+   Default: ``20``
 
    Unit: *Hz*
 
+   Type: *double*
+
    Bandpass upper cutoff freq. in Hz.
-   Default is ``20``.
+
 
 .. confval:: picker.BK.thrshl1
+
+   Default: ``10``
 
    Type: *double*
 
    Threshold to trigger for pick \(c.f. paper\), default 10
-   Default is ``10``.
+
 
 .. confval:: picker.BK.thrshl2
+
+   Default: ``20``
 
    Type: *double*
 
    Threshold for updating sigma  \(c.f. paper\), default 20
-   Default is ``20``.
+
 
 .. note::
    **picker.AIC.\***
@@ -1026,36 +1216,42 @@ Bindings
 
 .. confval:: picker.AIC.noiseBegin
 
-   Type: *double*
+   Default: ``0``
 
    Unit: *s*
+
+   Type: *double*
 
    Overrides the relative data acquisition time \(relative to the triggering
    pick\). This adds a margin to the actual processing and is useful
    to initialize the filter \(e.g. bandpass\). The data is not used
    at all until signalBegin is reached. The data time window start
    is the minimum of noiseBegin and signalBegin.
-   Default is ``0``.
+
 
 .. confval:: picker.AIC.signalBegin
 
-   Type: *double*
+   Default: ``-30``
 
    Unit: *s*
 
+   Type: *double*
+
    Overrides the default time \(relative to the trigger
    time\) of the begin of the signal window used to pick.
-   Default is ``-30``.
+
 
 .. confval:: picker.AIC.signalEnd
 
-   Type: *double*
+   Default: ``10``
 
    Unit: *s*
 
+   Type: *double*
+
    Overrides the default time \(relative to the trigger
    time\) of the begin of the signal window used to pick.
-   Default is ``10``.
+
 
 .. confval:: picker.AIC.filter
 
@@ -1066,10 +1262,12 @@ Bindings
 
 .. confval:: picker.AIC.minSNR
 
+   Default: ``3``
+
    Type: *double*
 
    Defines the mininum SNR.
-   Default is ``3``.
+
 
 .. note::
    **spicker.L2.\***
@@ -1081,90 +1279,862 @@ Bindings
 
 .. confval:: spicker.L2.noiseBegin
 
-   Type: *double*
+   Default: ``-10``
 
    Unit: *s*
+
+   Type: *double*
 
    Overrides the relative data processing start time \(relative to the triggering
    pick\). This adds a margin to the actual processing and is useful
    to initialize the filter \(e.g. bandpass\). The data is not used
    at all until signalBegin is reached. The data time window start
    is the minimum of noiseBegin and signalBegin.
-   Default is ``-10``.
+
 
 .. confval:: spicker.L2.signalBegin
 
-   Type: *double*
+   Default: ``0``
 
    Unit: *s*
+
+   Type: *double*
 
    Overrides the relative start time \(relative to the triggering
    pick\) of the begin of the signal processing.
-   Default is ``0``.
+
 
 .. confval:: spicker.L2.signalEnd
 
-   Type: *double*
+   Default: ``60``
 
    Unit: *s*
 
+   Type: *double*
+
    Overrides the relative end time \(relative to the triggering
    pick\) of the end of the signal window used to pick.
-   Default is ``60``.
+
 
 .. confval:: spicker.L2.filter
+
+   Default: ``BW(4,0.3,1.0)``
 
    Type: *string*
 
    Configures the filter used to compute the L2 and to pick
    the onset \(with AIC\) after the detector triggered.
-   Default is ``BW(4,0.3,1.0)``.
+
 
 .. confval:: spicker.L2.detecFilter
+
+   Default: ``STALTA(1,10)``
 
    Type: *string*
 
    Configures the detector in the filtered L2. This filter is
    applied on top of the base L2 filter.
-   Default is ``STALTA(1,10)``.
+
 
 .. confval:: spicker.L2.threshold
+
+   Default: ``3``
 
    Type: *double*
 
    The detector threshold that triggers the AIC picker.
-   Default is ``3``.
+
 
 .. confval:: spicker.L2.timeCorr
 
-   Type: *double*
+   Default: ``0``
 
    Unit: *s*
+
+   Type: *double*
 
    The time correction \(in seconds\) added to the detection time
    before AIC time window is computed.
-   Default is ``0``.
+
 
 .. confval:: spicker.L2.marginAIC
 
-   Type: *double*
+   Default: ``5``
 
    Unit: *s*
 
+   Type: *double*
+
    The AIC time window around the detection used to pick. If 0 AIC is not used.
-   Default is ``5``.
+
 
 .. confval:: spicker.L2.minSNR
+
+   Default: ``15``
 
    Type: *double*
 
    Defines the mininum SNR as returned from AIC.
-   Default is ``15``.
+
+
+.. confval:: detecStream
+
+   Type: *string*
+
+   Defines the channel code of the preferred stream used by
+   e.g. scautopick and scrttv. If no component code is given,
+   the vertical component will be fetched from inventory.
+   For that the channel orientation \(azimuth, dip\) will be used.
+   If that approach fails, 'Z' will be appended and used as
+   fallback.
+
+
+.. confval:: detecLocid
+
+   Type: *string*
+
+   Defines the location code of the preferred stream used
+   eg by scautopick and scrttv.
+
+
+.. note::
+   **amplitudes.\***
+   *Define general parameters for amplitudes of a certain type.*
+   *Create amplitude type profiles to define the time windows,*
+   *minimum signal-to-noise ratio, amplitude thresholds and restitution*
+   *for measuring amplitudes of a certain type.*
 
 
 
-Command Line
-============
+.. confval:: amplitudes.saturationThreshold
+
+   Default: ``false``
+
+   Unit: *counts; %*
+
+   Type: *string*
+
+   Defines the saturation threshold for the optional saturation check.
+   By default the saturation check is disabled but giving a value above
+   0 will enable it. Waveforms that are saturated are not used
+   for amplitude calculations.
+   
+   This value can either be an absolute value of counts such
+   as \"100000\" counts or a relative value
+   \(optionally in percent\) with respect to the number of
+   effective bits, e.g. \"0.8\@23\" or \"80%\@23\".
+   The first version uses 1\*\*23 \* 0.8 whereas the latter
+   uses 1\*\*23 \* 80\/100.
+   
+   The boolean value \"false\" explicitly disables
+   the check.
+
+
+.. confval:: amplitudes.enable
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   Defines if amplitude calculation is enabled. If disabled,
+   this station will be skipped for amplitudes and magnitudes.
+
+
+.. confval:: amplitudes.enableResponses
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Activates deconvolution for this station. If no responses are
+   configured, an error is raised and the data is not processed.
+   This flag will be overridden by the type specific flag
+   \(see Amplitude type profile\).
+
+
+.. note::
+
+   **amplitudes.$name.\***
+   *An amplitude profile configures global parameters for a*
+   *particular amplitude type. The available amplitude types*
+   *are not fixed and can be extended by plugins. The name of*
+   *the type must match the one defined in the corresponding*
+   *AmplitudeProcessor.*
+   $name is a placeholder for the name to be used.
+
+
+.. confval:: amplitudes.$name.saturationThreshold
+
+   Default: ``false``
+
+   Unit: *counts; %*
+
+   Type: *string*
+
+   Defines the saturation threshold for the optional saturation check.
+   By default the saturation check is disabled but giving a value above
+   0 will enable it. Waveforms that are saturated are not used
+   for amplitude calculations.
+   
+   This value can either be an absolute value of counts such
+   as \"100000\" counts or a relative value
+   \(optionally in percent\) with respect to the number of
+   effective bits, e.g. \"0.8\@23\" or \"80%\@23\".
+   The first version uses 1\*\*23 \* 0.8 whereas the latter
+   uses 1\*\*23 \* 80\/100.
+   
+   The boolean value \"false\" explicitly disables
+   the check.
+
+
+.. confval:: amplitudes.$name.enable
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   Defines if amplitude calculation of certain type is enabled.
+
+
+.. confval:: amplitudes.$name.enableResponses
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Activates deconvolution for this amplitude type. If not
+   set the global flag \"amplitudes.enableResponses\"
+   will be used instead.
+
+
+.. confval:: amplitudes.$name.minSNR
+
+   Type: *double*
+
+   Defines the mininum SNR to be reached to compute the
+   amplitudes. This value is amplitude type specific and
+   has no global default value.
+
+
+.. confval:: amplitudes.$name.noiseBegin
+
+   Unit: *s*
+
+   Type: *double*
+
+   Overrides the default time \(relative to the trigger
+   time\) of the begin of the noise window used to compute
+   the noise offset and noise amplitude. Each amplitude
+   processor sets its own noise time window and this option
+   should only be changed if you know what you are doing.
+
+
+.. confval:: amplitudes.$name.noiseEnd
+
+   Unit: *s*
+
+   Type: *double*
+
+   Overrides the default time \(relative to the trigger
+   time\) of the end of the noise window used to compute
+   the noise offset and noise amplitude. Each amplitude
+   processor sets its own noise time window and this option
+   should only be changed if you know what you are doing.
+
+
+.. confval:: amplitudes.$name.signalBegin
+
+   Unit: *s*
+
+   Type: *double*
+
+   Overrides the default time \(relative to the trigger
+   time\) of the begin of the signal window used to compute
+   the final amplitude. Each amplitude processor sets its
+   own signal time window and this option should only be
+   changed if you know what you are doing.
+
+
+.. confval:: amplitudes.$name.signalEnd
+
+   Unit: *s*
+
+   Type: *double*
+
+   Overrides the default time \(relative to the trigger
+   time\) of the end of the signal window used to compute
+   the final amplitude. Each amplitude processor sets its
+   own signal time window and this option should only be
+   changed if you know what you are doing.
+
+
+.. confval:: amplitudes.$name.minDist
+
+   Unit: *deg*
+
+   Type: *double*
+
+   The minimum distance required to compute an amplitude.
+   This settings has no effect with e.g. scautopick as there
+   is no information about the source of the event to compute
+   the distance. The default value is implementation
+   specific.
+
+
+.. confval:: amplitudes.$name.maxDist
+
+   Unit: *deg*
+
+   Type: *double*
+
+   The maximum distance allowed to compute an amplitude.
+   This settings has no effect with e.g. scautopick as there
+   is no information about the source of the event to compute
+   the distance. The default value is implementation
+   specific.
+
+
+.. confval:: amplitudes.$name.minDepth
+
+   Unit: *km*
+
+   Type: *double*
+
+   The minimum depth required to compute an amplitude.
+   This settings has no effect with e.g. scautopick as there
+   is no information about the source of the event to
+   retrieve the depth. The default value is implementation
+   specific.
+
+
+.. confval:: amplitudes.$name.maxDepth
+
+   Unit: *km*
+
+   Type: *double*
+
+   The maximum depth allowed to compute an amplitude.
+   This settings has no effect with e.g. scautopick as there
+   is no information about the source of the event to
+   retrieve the depth. The default value is implementation
+   specific.
+
+
+.. note::
+   **amplitudes.$name.resp.\***
+   *Several parameters if usage of full responses is enabled.*
+
+
+
+.. confval:: amplitudes.$name.resp.taper
+
+   Default: ``5``
+
+   Unit: *s*
+
+   Defines the length of the taper at either side of the
+   waveform. The length will be added to the data
+   request: start \- taper and end + taper.
+
+
+.. confval:: amplitudes.$name.resp.minFreq
+
+   Default: ``0.00833333``
+
+   Unit: *Hz*
+
+   After data are converted in to the frequency domain that
+   minimum frequency defines the end of the left\-side cosine taper for
+   the frequency spectrum. The taper applies from 0Hz to {minFreq}Hz.
+   A value of 0 or lower disables that taper.
+
+
+.. confval:: amplitudes.$name.resp.maxFreq
+
+   Default: ``0``
+
+   Unit: *Hz*
+
+   After data are converted in to the frequency domain that
+   maximum frequency defines the start of the right\-side cosine taper for
+   the frequency spectrum. The taper applies from {maxFreq}Hz to {fNyquist}Hz.
+   A value of 0 or lower disables that taper.
+
+
+.. note::
+   **amplitudes.resp.\***
+   *Several parameters if usage of full responses is enabled.*
+   *The parameters of this group will be overridden by type*
+   *specific settings if given (see Amplitude type profile).*
+
+
+
+.. confval:: amplitudes.resp.taper
+
+   Default: ``5``
+
+   Unit: *s*
+
+   Defines the length of the taper at either side of the
+   waveform. The length will be added to the data
+   request: start \- taper and end + taper.
+
+
+.. confval:: amplitudes.resp.minFreq
+
+   Default: ``0.00833333``
+
+   Unit: *Hz*
+
+   After data are converted in to the frequency domain that
+   minimum frequency defines the end of the left\-side cosine taper for
+   the frequency spectrum. The taper applies from 0Hz to {minFreq}Hz.
+   A value of 0 or lower disables that taper.
+
+
+.. confval:: amplitudes.resp.maxFreq
+
+   Default: ``0``
+
+   Unit: *Hz*
+
+   After data are converted in to the frequency domain that
+   maximum frequency defines the start of the right\-side cosine taper for
+   the frequency spectrum. The taper applies from {maxFreq}Hz to {fNyquist}Hz.
+   A value of 0 or lower disables that taper.
+
+
+.. note::
+   **amplitudes.WoodAnderson.\***
+   *Allows to configure the Wood-Anderson seismometer response.*
+   *The default values are according to the version of*
+   *Gutenberg (1935). The newer version by Uhrhammer and*
+   *Collins (1990) is part of the IASPEI Magnitude*
+   *Working Group recommendations of 2011 September 9. This*
+   *version uses gain=2800, T0=0.8, h=0.8.*
+
+
+
+.. confval:: amplitudes.WoodAnderson.gain
+
+   Default: ``2800``
+
+   Type: *double*
+
+   The gain of the Wood\-Anderson response.
+
+
+.. confval:: amplitudes.WoodAnderson.T0
+
+   Default: ``0.8``
+
+   Unit: *s*
+
+   Type: *double*
+
+   The eigen period of the Wood\-Anderson seismometer.
+
+
+.. confval:: amplitudes.WoodAnderson.h
+
+   Default: ``0.8``
+
+   Type: *double*
+
+   The damping constant of the Wood\-Anderson seismometer.
+
+
+.. confval:: amplitudes.ML.absMax
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   Whether to use the absolute maximum of the filtered WA
+   trace or the difference of the maximum and minimum value
+   of the signal window.
+
+
+.. confval:: amplitudes.ML.measureType
+
+   Default: ``AbsMax``
+
+   Type: *string*
+
+   This parameter allows to set how the amplitude is measured.
+   Either by finding the absolute maximum of the demeaned
+   trace \(AbsMax\), the difference of maximum and minimum of
+   the signal window \(MinMax\) or the maximum peak\-trough
+   of one cycle \(PeakTrough\).
+   
+   Note that if absMax is already explicitly configured, this
+   parameter has no effect.
+
+
+.. confval:: amplitudes.ML.combiner
+
+   Default: ``average``
+
+   Type: *string*
+
+   Defines the combiner operation for the amplitudes measured
+   on either both horizontal component. The default is to
+   use the average. Allowed values are: \"average\",
+   \"min\", \"max\" and \"geometric_mean\".
+   \"geometric_mean\" corresponds to averaging single\-trace
+   magnitudes instead of their amplitudes.
+
+
+.. confval:: amplitudes.MLv.absMax
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   Whether to use the absolute maximum of the filtered WA
+   trace or the difference of the maximum and minimum value
+   of the signal window.
+
+
+.. confval:: amplitudes.MLv.measureType
+
+   Default: ``AbsMax``
+
+   Type: *string*
+
+   This parameter allows to set how the amplitude is measured.
+   Either by finding the absolute maximum of the demeaned
+   trace \(AbsMax\), the difference of maximum and minimum of
+   the signal window \(MinMax\) or the maximum peak\-trough
+   of one cycle \(PeakTrough\).
+   
+   Note that if absMax is already explicitly configured, this
+   parameter has no effect.
+
+
+.. note::
+   **magnitudes.\***
+   *Define magnitude parameters independent of amplitude-type profiles.*
+   *For magnitude correction parameters, e.g. network of station corrections,*
+   *create a magnitude type profile.*
+
+
+
+.. note::
+
+   **magnitudes.$name.\***
+   *A magnitude profile configures global parameters for a*
+   *particular magnitude type. The available magnitude types*
+   *are not fixed and can be extended by plugins. The name of*
+   *the type must match the one defined in the corresponding*
+   *MagnitudeProcessor.*
+   $name is a placeholder for the name to be used.
+
+
+.. confval:: magnitudes.$name.multiplier
+
+   Default: ``1``
+
+   Type: *double*
+
+   Part of the magnitude station correction. The final
+   magnitude value is multiplier\*M+offset. This value
+   is usually not required but is here for completeness.
+
+
+.. confval:: magnitudes.$name.offset
+
+   Default: ``0``
+
+   Type: *double*
+
+   Part of the magnitude station correction. The final
+   magnitude value is multiplier\*M+offset. This value
+   can be used to correct station magnitudes.
+
+
+.. note::
+   **picker.BK.\***
+   *Bkpicker is an implementation of the Baer/Kradolfer picker adapted*
+   *to SeisComP. It was created by converting Manfred Baers from Fortran*
+   *to C++ and inserting it as a replacement for the picker algorithm.*
+   *The picker interface name to be used in configuration files is*
+   *"BK".*
+
+
+
+.. confval:: picker.BK.noiseBegin
+
+   Default: ``0``
+
+   Unit: *s*
+
+   Type: *double*
+
+   Overrides the relative data acquisition time \(relative to the triggering
+   pick\). This adds a margin to the actual processing and is useful
+   to initialize the filter \(e.g. bandpass\). The data is not used
+   at all until signalBegin is reached. The data time window start
+   is the minimum of noiseBegin and signalBegin.
+
+
+.. confval:: picker.BK.signalBegin
+
+   Default: ``-20``
+
+   Unit: *s*
+
+   Type: *double*
+
+   Overrides the default time \(relative to the trigger
+   time\) of the begin of the signal window used to pick.
+
+
+.. confval:: picker.BK.signalEnd
+
+   Default: ``80``
+
+   Unit: *s*
+
+   Type: *double*
+
+   Overrides the default time \(relative to the trigger
+   time\) of the begin of the signal window used to pick.
+
+
+.. confval:: picker.BK.filterType
+
+   Default: ``BP``
+
+   Type: *string*
+
+   BP \(Bandpass\) is currently the only option.
+
+
+.. confval:: picker.BK.filterPoles
+
+   Default: ``2``
+
+   Type: *int*
+
+   Number of poles.
+
+
+.. confval:: picker.BK.f1
+
+   Default: ``5``
+
+   Unit: *Hz*
+
+   Type: *double*
+
+   Bandpass lower cutoff freq. in Hz.
+
+
+.. confval:: picker.BK.f2
+
+   Default: ``20``
+
+   Unit: *Hz*
+
+   Type: *double*
+
+   Bandpass upper cutoff freq. in Hz.
+
+
+.. confval:: picker.BK.thrshl1
+
+   Default: ``10``
+
+   Type: *double*
+
+   Threshold to trigger for pick \(c.f. paper\), default 10
+
+
+.. confval:: picker.BK.thrshl2
+
+   Default: ``20``
+
+   Type: *double*
+
+   Threshold for updating sigma  \(c.f. paper\), default 20
+
+
+.. note::
+   **picker.AIC.\***
+   *AIC picker is an implementation using the simple non-AR algorithm of Maeda (1985),*
+   *see paper of Zhang et al. (2003) in BSSA. The picker interface name to be used in configuration files is*
+   *"AIC".*
+
+
+
+.. confval:: picker.AIC.noiseBegin
+
+   Default: ``0``
+
+   Unit: *s*
+
+   Type: *double*
+
+   Overrides the relative data acquisition time \(relative to the triggering
+   pick\). This adds a margin to the actual processing and is useful
+   to initialize the filter \(e.g. bandpass\). The data is not used
+   at all until signalBegin is reached. The data time window start
+   is the minimum of noiseBegin and signalBegin.
+
+
+.. confval:: picker.AIC.signalBegin
+
+   Default: ``-30``
+
+   Unit: *s*
+
+   Type: *double*
+
+   Overrides the default time \(relative to the trigger
+   time\) of the begin of the signal window used to pick.
+
+
+.. confval:: picker.AIC.signalEnd
+
+   Default: ``10``
+
+   Unit: *s*
+
+   Type: *double*
+
+   Overrides the default time \(relative to the trigger
+   time\) of the begin of the signal window used to pick.
+
+
+.. confval:: picker.AIC.filter
+
+   Type: *string*
+
+   Overrides the default filter which is \"raw\". The typical filter grammar can be used.
+
+
+.. confval:: picker.AIC.minSNR
+
+   Default: ``3``
+
+   Type: *double*
+
+   Defines the mininum SNR.
+
+
+.. note::
+   **spicker.L2.\***
+   *L2 is an algorithm to pick S-phases based on existing P-phases. The*
+   *picker interface name to be used in configuration files is*
+   *"S-L2".*
+
+
+
+.. confval:: spicker.L2.noiseBegin
+
+   Default: ``-10``
+
+   Unit: *s*
+
+   Type: *double*
+
+   Overrides the relative data processing start time \(relative to the triggering
+   pick\). This adds a margin to the actual processing and is useful
+   to initialize the filter \(e.g. bandpass\). The data is not used
+   at all until signalBegin is reached. The data time window start
+   is the minimum of noiseBegin and signalBegin.
+
+
+.. confval:: spicker.L2.signalBegin
+
+   Default: ``0``
+
+   Unit: *s*
+
+   Type: *double*
+
+   Overrides the relative start time \(relative to the triggering
+   pick\) of the begin of the signal processing.
+
+
+.. confval:: spicker.L2.signalEnd
+
+   Default: ``60``
+
+   Unit: *s*
+
+   Type: *double*
+
+   Overrides the relative end time \(relative to the triggering
+   pick\) of the end of the signal window used to pick.
+
+
+.. confval:: spicker.L2.filter
+
+   Default: ``BW(4,0.3,1.0)``
+
+   Type: *string*
+
+   Configures the filter used to compute the L2 and to pick
+   the onset \(with AIC\) after the detector triggered.
+
+
+.. confval:: spicker.L2.detecFilter
+
+   Default: ``STALTA(1,10)``
+
+   Type: *string*
+
+   Configures the detector in the filtered L2. This filter is
+   applied on top of the base L2 filter.
+
+
+.. confval:: spicker.L2.threshold
+
+   Default: ``3``
+
+   Type: *double*
+
+   The detector threshold that triggers the AIC picker.
+
+
+.. confval:: spicker.L2.timeCorr
+
+   Default: ``0``
+
+   Unit: *s*
+
+   Type: *double*
+
+   The time correction \(in seconds\) added to the detection time
+   before AIC time window is computed.
+
+
+.. confval:: spicker.L2.marginAIC
+
+   Default: ``5``
+
+   Unit: *s*
+
+   Type: *double*
+
+   The AIC time window around the detection used to pick. If 0 AIC is not used.
+
+
+.. confval:: spicker.L2.minSNR
+
+   Default: ``15``
+
+   Type: *double*
+
+   Defines the mininum SNR as returned from AIC.
+
+
+
+
+Command-Line Options
+====================
 
 
 Generic
@@ -1354,7 +2324,8 @@ Cities
 
 .. option:: --city-xml arg
 
-   The path to the city.xml file. This overrides the default paths.
+   The path to the cities XML file. This overrides the default
+   paths. Compare with the global parameter \"citiesXML\"
 
 
 User interface

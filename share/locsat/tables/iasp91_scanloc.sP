@@ -1,8 +1,8 @@
-n # sP travel-time tables for iasp91 structure. (From TauP_Table)
+n # sP travel-time tables for iasp91_scanloc structure. (From TauP_Table)
 20     # number of depth samples
    0.00   2.50   5.00   7.50  10.00  15.00  20.00  25.00  30.00  40.00
   50.00  75.00 100.00 150.00 200.00 300.00 400.00 500.00 600.00 800.00
-120    # number of distances
+140    # number of distances
    0.00   0.05   0.10   0.15   0.20   0.25   0.30   0.35   0.40   0.45
    0.50   0.60   0.70   0.80   0.90   1.00   1.10   1.20   1.30   1.40
    1.50   1.60   1.70   1.80   1.90   2.00   2.50   3.00   4.00   5.00
@@ -15,7 +15,29 @@ n # sP travel-time tables for iasp91 structure. (From TauP_Table)
   61.00  62.00  63.00  64.00  65.00  66.00  67.00  68.00  69.00  70.00
   71.00  72.00  73.00  74.00  75.00  76.00  77.00  78.00  79.00  80.00
   81.00  82.00  83.00  84.00  85.00  86.00  87.00  88.00  89.00  90.00
+  91.00  92.00  93.00  94.00  95.00  96.00  97.00  98.00  99.00 100.00
+ 102.00 104.00 106.00 108.00 110.00 112.00 114.00 116.00 118.00 120.00
 #  Travel time for z =    0.0
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
         -1.0000    none
         -1.0000    none
         -1.0000    none
@@ -257,6 +279,26 @@ n # sP travel-time tables for iasp91 structure. (From TauP_Table)
        772.6717    sP
        777.4122    sP
        782.0695    sP
+       786.7047    sP
+       791.3322    sP
+       795.9380    sP
+       800.5306    sP
+       805.0854    sP
+       809.6193    sP
+       814.1249    sP
+       818.6014    sP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    5.0
         -1.0000    none
          2.1713    sP
@@ -378,6 +420,26 @@ n # sP travel-time tables for iasp91 structure. (From TauP_Table)
        773.4080    sP
        778.1488    sP
        782.8062    sP
+       787.4414    sP
+       792.0690    sP
+       796.6749    sP
+       801.2675    sP
+       805.8224    sP
+       810.3563    sP
+       814.8621    sP
+       819.3387    sP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    7.5
         -1.0000    none
          2.7775    sP
@@ -499,6 +561,26 @@ n # sP travel-time tables for iasp91 structure. (From TauP_Table)
        774.1443    sP
        778.8854    sP
        783.5429    sP
+       788.1781    sP
+       792.8057    sP
+       797.4117    sP
+       802.0044    sP
+       806.5594    sP
+       811.0933    sP
+       815.5993    sP
+       820.0760    sP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    10.0
         -1.0000    none
         -1.0000    none
@@ -620,6 +702,26 @@ n # sP travel-time tables for iasp91 structure. (From TauP_Table)
        774.8806    sP
        779.6220    sP
        784.2796    sP
+       788.9148    sP
+       793.5425    sP
+       798.1485    sP
+       802.7413    sP
+       807.2964    sP
+       811.8303    sP
+       816.3364    sP
+       820.8133    sP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    15.0
         -1.0000    none
         -1.0000    none
@@ -741,6 +843,26 @@ n # sP travel-time tables for iasp91 structure. (From TauP_Table)
        776.3531    sP
        781.0951    sP
        785.7530    sP
+       790.3881    sP
+       795.0160    sP
+       799.6221    sP
+       804.2150    sP
+       808.7704    sP
+       813.3043    sP
+       817.8108    sP
+       822.2878    sP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    20.0
         -1.0000    none
         -1.0000    none
@@ -862,6 +984,26 @@ n # sP travel-time tables for iasp91 structure. (From TauP_Table)
        777.8256    sP
        782.5683    sP
        787.2263    sP
+       791.8615    sP
+       796.4894    sP
+       801.0957    sP
+       805.6888    sP
+       810.2444    sP
+       814.7783    sP
+       819.2851    sP
+       823.7623    sP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    25.0
         -1.0000    none
         -1.0000    none
@@ -983,6 +1125,26 @@ n # sP travel-time tables for iasp91 structure. (From TauP_Table)
        779.1414    sP
        783.8848    sP
        788.5431    sP
+       793.1783    sP
+       797.8064    sP
+       802.4128    sP
+       807.0060    sP
+       811.5619    sP
+       816.0959    sP
+       820.6030    sP
+       825.0804    sP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    30.0
         -1.0000    none
         -1.0000    none
@@ -1104,6 +1266,26 @@ n # sP travel-time tables for iasp91 structure. (From TauP_Table)
        780.4573    sP
        785.2014    sP
        789.8599    sP
+       794.4951    sP
+       799.1233    sP
+       803.7299    sP
+       808.3232    sP
+       812.8795    sP
+       817.4134    sP
+       821.9208    sP
+       826.3985    sP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    40.0
         -1.0000    none
         -1.0000    none
@@ -1225,6 +1407,26 @@ n # sP travel-time tables for iasp91 structure. (From TauP_Table)
        782.8704    sP
        787.6161    sP
        792.2752    sP
+       796.9104    sP
+       801.5389    sP
+       806.1459    sP
+       810.7394    sP
+       815.2963    sP
+       819.8303    sP
+       824.3385    sP
+       828.8167    sP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    50.0
         -1.0000    none
         -1.0000    none
@@ -1346,6 +1548,26 @@ n # sP travel-time tables for iasp91 structure. (From TauP_Table)
        785.0637    sP
        789.8111    sP
        794.4708    sP
+       799.1060    sP
+       803.7347    sP
+       808.3421    sP
+       812.9361    sP
+       817.4937    sP
+       822.0276    sP
+       826.5367    sP
+       831.0154    sP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    75.0
         -1.0000    none
         -1.0000    none
@@ -1467,6 +1689,26 @@ n # sP travel-time tables for iasp91 structure. (From TauP_Table)
        790.5385    sP
        795.2897    sP
        799.9514    sP
+       804.5866    sP
+       809.2161    sP
+       813.8245    sP
+       818.4192    sP
+       822.9786    sP
+       827.5125    sP
+       832.0237    sP
+       836.5039    sP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    100.0
         -1.0000    none
         -1.0000    none
@@ -1588,6 +1830,26 @@ n # sP travel-time tables for iasp91 structure. (From TauP_Table)
        796.0012    sP
        800.7549    sP
        805.4200    sP
+       810.0552    sP
+       814.6855    sP
+       819.2948    sP
+       823.8900    sP
+       828.4517    sP
+       832.9856    sP
+       837.4989    sP
+       841.9805    sP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    150.0
         -1.0000    none
         -1.0000    none
@@ -1709,6 +1971,26 @@ n # sP travel-time tables for iasp91 structure. (From TauP_Table)
        806.8941    sP
        811.6528    sP
        816.3249    sP
+       820.9601    sP
+       825.5919    sP
+       830.2033    sP
+       834.7984    sP
+       839.3655    sP
+       843.8994    sP
+       848.4171    sP
+       852.9008    sP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    200.0
         -1.0000    none
         -1.0000    none
@@ -1830,6 +2112,26 @@ n # sP travel-time tables for iasp91 structure. (From TauP_Table)
        817.7568    sP
        822.5206    sP
        827.1997    sP
+       831.8349    sP
+       836.4683    sP
+       841.0817    sP
+       845.6769    sP
+       850.2495    sP
+       854.7834    sP
+       859.3055    sP
+       863.7892    sP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    300.0
         -1.0000    none
         -1.0000    none
@@ -1951,6 +2253,26 @@ n # sP travel-time tables for iasp91 structure. (From TauP_Table)
        839.0685    sP
        843.8416    sP
        848.5374    sP
+       853.1780    sP
+       857.8132    sP
+       862.4324    sP
+       867.0275    sP
+       871.6076    sP
+       876.1455    sP
+       880.6769    sP
+       885.1607    sP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    400.0
         -1.0000    none
         -1.0000    none
@@ -2072,6 +2394,26 @@ n # sP travel-time tables for iasp91 structure. (From TauP_Table)
        859.5418    sP
        864.3314    sP
        869.0474    sP
+       873.6952    sP
+       878.3304    sP
+       882.9533    sP
+       887.5529    sP
+       892.1387    sP
+       896.6832    sP
+       901.2171    sP
+       905.7083    sP
+       910.1749    sP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    500.0
         -1.0000    none
         -1.0000    none
@@ -2193,6 +2535,26 @@ n # sP travel-time tables for iasp91 structure. (From TauP_Table)
        878.4481    sP
        883.2598    sP
        887.9982    sP
+       892.6542    sP
+       897.2894    sP
+       901.9162    sP
+       906.5211    sP
+       911.1127    sP
+       915.6652    sP
+       920.1991    sP
+       924.7015    sP
+       929.1754    sP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    600.0
         -1.0000    none
         -1.0000    none
@@ -2314,6 +2676,26 @@ n # sP travel-time tables for iasp91 structure. (From TauP_Table)
        896.4591    sP
        901.2947    sP
        906.0526    sP
+       910.7225    sP
+       915.3576    sP
+       919.9888    sP
+       924.5992    sP
+       929.1944    sP
+       933.7583    sP
+       938.2923    sP
+       942.8067    sP
+       947.2888    sP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
 #  Travel time for z =    800.0
         -1.0000    none
         -1.0000    none
@@ -2435,3 +2817,23 @@ n # sP travel-time tables for iasp91 structure. (From TauP_Table)
        928.6802    sP
        933.5660    sP
        938.3657    sP
+       943.0897    sP
+       947.7399    sP
+       952.3751    sP
+       956.9991    sP
+       961.6001    sP
+       966.1872    sP
+       970.7333    sP
+       975.2672    sP
+       979.7601    sP
+       984.2273    sP
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
+        -1.0000    none
