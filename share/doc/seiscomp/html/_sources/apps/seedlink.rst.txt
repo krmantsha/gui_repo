@@ -47,7 +47,7 @@ section 5.1.1.5. Antelope, Earthworm and NAQS can also import data from
 SeisComP. In SeisComP the class :ref:`RecordStream <global_recordstream>` is implemented that supports both
 SeedLink and ArcLink sources; this class is used by all SeisComP modules that
 work with waveform data. On a lower level, SeedLink clients can be implemented
-using the `libslink`_ software library or its Java counterpart, JSeedLink. Libslink
+using the :cite:t:`libslink` software library or its Java counterpart, JSeedLink. Libslink
 supports Linux/UNIX, Windows and MacOS X platforms, and comes with an exhaustive
 documentation in form of UNIX manual pages.
 
@@ -57,15 +57,16 @@ documentation in form of UNIX manual pages.
    :align: left
 
    :ref:`seedlink-sources-antelope-label` * ,  Antelope, Chad Trabant (IRIS)
-   :ref:`seedlink-sources-caps-label`       ,  `CAPS server <https://docs.gempa.de/caps/current/index.html>`_ , `gempa GmbH <https://www.gempa.de>`_
+   :ref:`seedlink-sources-caps-label`       ,  CAPS server :cite:p:`caps` , `gempa GmbH <https://www.gempa.de>`_
    :ref:`seedlink-sources-chain-label`      ,  SeedLink, GFZ
-   dm24 **    ,  Guralp DM24, GFZ; based on libgcf2 from Guralp
+   dm24 **                                  ,  Guralp DM24, GFZ; based on libgcf2 from Guralp
    :ref:`seedlink-sources-dr24-label`       ,  Geotech DR24, GFZ
-   :ref:`seedlink-sources-echopro_3ch100hz-label` /  :ref:`seedlink-sources-echopro_6ch200hz-label`   ,  Kelunji Echo/EchoPro, Oyvind Natvik (UiB)
+   :ref:`seedlink-sources-echopro_3ch100hz-label` /  :ref:`seedlink-sources-echopro_6ch200hz-label`, Kelunji Echo/EchoPro, Oyvind Natvik (UiB)
    :ref:`seedlink-sources-edata-label`      ,  Earth Data PS2400/PS6-24, GFZ
    :ref:`seedlink-sources-ewexport-label`   ,  "Earthworm export server (TCP/IP), Chad Trabant (IRIS)"
-   :ref:`seedlink-sources-ewexport_pasv-label`   ,  Earthworm passive export server (TCP/IP), Chad Trabant (IRIS)
-   :ref:`seedlink-sources-fs_mseed-label`,  miniSEED file plugin,
+   :ref:`seedlink-sources-ewexport_pasv-label`,  Earthworm passive export server (TCP/IP), Chad Trabant (IRIS)
+   :ref:`seedlink-sources-fs_mseed-label`   ,  miniSEED file plugin,
+   :ref:`seedlink-sources-gdrt-label`       ,  GDRT server, GFZ
    :ref:`seedlink-sources-hrd24-label`      ,  Nanometrics HRD24, GFZ; Recai Yalgin
    :ref:`seedlink-sources-liss-label`       ,  LISS, Chad Trabant (IRIS)
    :ref:`seedlink-sources-m24-label` *      ,  Lennartz M24, Lennartz Electronic GmbH
@@ -84,8 +85,8 @@ documentation in form of UNIX manual pages.
    :ref:`seedlink-sources-reftek-label`     ,  RefTek RTPD, "GFZ; based on software library provided by RefTek, Inc."
    :ref:`seedlink-sources-sadc-label`       ,  SARA SADC10/18/20/30, GFZ
    :ref:`seedlink-sources-scream-label`     ,  SCREAM, Reinoud Sleeman (KNMI)
-   :ref:`seedlink-sources-scream_ring-label`  ,  SCREAM, "Reinoud Sleeman (KNMI), This is the second revision of the scream plugin which supports buffering for short-term completeness."
-   :ref:`seedlink-sources-vaisala-label`     ,  Vaisala ASCII protocol (serial plugin), GFZ
+   :ref:`seedlink-sources-scream_ring-label`,  SCREAM, "Reinoud Sleeman (KNMI), This is the second revision of the scream plugin which supports buffering for short-term completeness."
+   :ref:`seedlink-sources-vaisala-label`    ,  Vaisala ASCII protocol (serial plugin), GFZ
    :ref:`seedlink-sources-wago-label`       ,  WAGO MODBUS/TCP devices, GFZ
    :ref:`seedlink-sources-wave24-label` *   ,  Wave24, MicroStep-MIS
    :ref:`seedlink-sources-win-label`        ,  WIN, GFZ; based on source code of WIN system
@@ -470,18 +471,10 @@ Again, the **source** and **proc** definition is used to resolve the streams pro
 template file at :file:`share/templates/seedlink/[source]/streams_[proc].tpl`.
 
 
-References
-==========
-
-.. target-notes::
-
-.. _`libslink` : https://ds.iris.edu/ds/nodes/dmc/software/downloads/libslink/
-
-
 .. _seedlink_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 
 .. note::
@@ -497,12 +490,14 @@ Configuration
 
 .. confval:: port
 
+   Default: ``18000``
+
    Type: *int*
 
    Defines the Seedlink port to accept requests. If this port
    is changed and other modules depend on it \(slarchive, processing\)
    those ports must be updated as well\!
-   Default is ``18000``.
+
 
 .. confval:: filebase
 
@@ -522,12 +517,16 @@ Configuration
 
 .. confval:: trusted
 
+   Default: ``127.0.0.0/8``
+
    Type: *list:string*
 
    List of trusted addresses.
-   Default is ``127.0.0.0/8``.
+
 
 .. confval:: access
+
+   Default: ``0.0.0.0/0``
 
    Type: *list:string*
 
@@ -535,16 +534,20 @@ Configuration
    that can access stations. Per station access definitions
    supersede this parameter. By default any client can access
    all stations.
-   Default is ``0.0.0.0/0``.
+
 
 .. confval:: stream_check
+
+   Default: ``true``
 
    Type: *boolean*
 
    Check start and end times of streams.
-   Default is ``true``.
+
 
 .. confval:: gap_check_pattern
+
+   Default: ``XXXXX``
 
    Type: *string*
 
@@ -552,51 +555,63 @@ Configuration
    match given pattern. Register all gaps that are larger than +\-0.5 seconds.
    gap_check_pattern \= [EBLV][HLNG][ZNE]\|S[NG][ZNE].
    Disabled to save memory.
-   Default is ``XXXXX``.
+
 
 .. confval:: gap_treshold
+
+   Default: ``500000``
 
    Type: *int*
 
    Time difference between records \(microseconds\) above which a gap is declared.
-   Default is ``500000``.
+
 
 .. confval:: window_extraction
+
+   Default: ``true``
 
    Type: *boolean*
 
    Can be enabled or disabled. Required for slinktool option \-tw.
-   Default is ``true``.
+
 
 .. confval:: window_extraction_trusted
+
+   Default: ``true``
 
    Type: *boolean*
 
    Same as window_extraction for trusted IP addresses.
-   Default is ``true``.
+
 
 .. confval:: websocket
+
+   Default: ``false``
 
    Type: *boolean*
 
    Allow websocket connections.
-   Default is ``false``.
+
 
 .. confval:: websocket_trusted
+
+   Default: ``false``
 
    Type: *boolean*
 
    Same as websocket for trusted IP addresses.
-   Default is ``false``.
+
 
 .. confval:: msrtsimul
+
+   Default: ``false``
 
    Type: *boolean*
 
    If activated Seedlink uses the mseedfifo to read records and
    only the mseedfifo_plugin is started. This command is useful
    to playback historic data by eg msrtsimul.
-   Default is ``false``.
+
 
 .. confval:: inventory_connection
 
@@ -612,49 +627,63 @@ Configuration
 
 .. confval:: info
 
+   Default: ``streams``
+
    Type: *string*
 
    Info level provided to arbitrary hosts.
-   Default is ``streams``.
+
 
 .. confval:: info_trusted
+
+   Default: ``all``
 
    Type: *string*
 
    Info level provided to trusted hosts.
-   Default is ``all``.
+
 
 .. confval:: request_log
+
+   Default: ``true``
 
    Type: *boolean*
 
    Whether requests should be logged.
-   Default is ``true``.
+
 
 .. confval:: proc_gap_warn
+
+   Default: ``10``
 
    Type: *int*
 
    Unit: *microseconds*
 
    Give warning if an input channel has time gap larger than this \(microseconds\).
-   Default is ``10``.
+
 
 .. confval:: proc_gap_flush
+
+   Default: ``100000``
 
    Type: *int*
 
    Flush streams if an input channel has time gap larger than this \(microseconds\).
-   Default is ``100000``.
+
 
 .. confval:: proc_gap_reset
+
+   Default: ``1000000``
 
    Type: *int*
 
    Reset FIR filters if an input channel has time gap larger than this \(microseconds\).
-   Default is ``1000000``.
+
 
 .. confval:: backfill_buffer
+
+   Default: ``0``
 
    Type: *float*
 
@@ -662,9 +691,11 @@ Configuration
 
    Enable backfilling buffer for out\-of\-order records.
    This values defines its capacity in seconds.
-   Default is ``0``.
+
 
 .. confval:: seq_gap_limit
+
+   Default: ``100000``
 
    Type: *int*
 
@@ -672,78 +703,98 @@ Configuration
    packet with requested sequence number is not found. If seq_gap_limit is
    exceeded, data flow starts from the next packet coming in, otherwise
    from the oldest packet in buffer.
-   Default is ``100000``.
+
 
 .. confval:: connections
+
+   Default: ``500``
 
    Type: *int*
 
    Total number of TCP\/IP connections allowed.
-   Default is ``500``.
+
 
 .. confval:: connections_per_ip
+
+   Default: ``20``
 
    Type: *int*
 
    Maximum number of TCP\/IP connections per IP.
-   Default is ``20``.
+
 
 .. confval:: bytespersec
+
+   Default: ``0``
 
    Type: *int*
 
    Unit: *B/s*
 
    Maximum speed per connection \(0: throttle disabled\).
-   Default is ``0``.
+
 
 .. confval:: lockfile
+
+   Default: ``@ROOTDIR@/var/run/seedlink.pid``
 
    Type: *string*
 
    Path to lockfile to prevent multiple instances.
-   Default is ``@ROOTDIR@/var/run/seedlink.pid``.
+
 
 .. confval:: buffers
+
+   Default: ``100``
 
    Type: *int*
 
    Size of memory buffer \(number of recent Mini\-SEED records kept in RAM\).
-   Default is ``100``.
+
 
 .. confval:: segments
+
+   Default: ``50``
 
    Type: *int*
 
    Number of disk buffer segments \(files under <dir>\/station\/segments\/
    where <dir> is the directory given by the filebase parameter\).
-   Default is ``50``.
+
 
 .. confval:: segsize
+
+   Default: ``1000``
 
    Type: *int*
 
    Size of one disk buffer segment in the records \(512\-byte units\).
-   Default is ``1000``.
+
 
 .. confval:: blanks
+
+   Default: ``10``
 
    Type: *int*
 
    Number of blank records to insert after the re\-scan of disk buffer
    if <dir>\/station\/buffer.xml is not found \(assuming the server
    did not terminate correctly\).
-   Default is ``10``.
+
 
 .. confval:: encoding
+
+   Default: ``steim2``
 
    Type: *string*
 
    Encoding of Mini\-SEED records created by SeedLink. The value must be
    steim1 or steim2. If omitted, the global encoding parameter is used.
-   Default is ``steim2``.
+
 
 .. confval:: sequence_file_cleanup
+
+   Default: ``0``
 
    Type: *int*
 
@@ -752,7 +803,7 @@ Configuration
    If configured with a value greater than zero then all sequence files
    created by the chain plugin are deleted which are older than X minutes
    before Seedlink is started.
-   Default is ``0``.
+
 
 .. _seedlink/caps:
 
@@ -765,21 +816,25 @@ Global options for the CAPS plugin
 
 .. confval:: plugins.caps.maxTimeDiff
 
+   Default: ``86400``
+
    Type: *float*
 
    The maxmimum time difference with respect to current
    time of the end time of a received record. If
    exceeded then the end time will not be logged into
    the state file.
-   Default is ``86400``.
+
 
 .. confval:: plugins.caps.inOrder
+
+   Default: ``false``
 
    Type: *boolean*
 
    Request all records in\-order. Out\-of\-order records will
    be skipped.
-   Default is ``false``.
+
 
 .. _seedlink/mseedfifo:
 
@@ -802,10 +857,12 @@ Global options for the mseedfifo plugin
 
 .. confval:: plugins.mseedfifo.noexit
 
+   Default: ``false``
+
    Type: *boolean*
 
    Do not exit plugin if writer closes the fifo.
-   Default is ``false``.
+
 
 .. _seedlink/q330:
 
@@ -818,10 +875,12 @@ Global options for the Q330 plugin
 
 .. confval:: plugins.q330.udpbase
 
+   Default: ``5500``
+
    Type: *int*
 
    UDP base port used when udp port is defined as \"auto\"
-   Default is ``5500``.
+
 
 .. _seedlink/chain:
 
@@ -834,32 +893,35 @@ Global options for the chain plugin
 
 .. confval:: plugins.chain.dialupConnections
 
+   Default: ``0``
+
    Type: *int*
 
    Defines the maximum number of concurrent dial\-up
    connections. A value of 0 does not limit the
    concurrent connections.
-   Default is ``0``.
+
 
 .. confval:: plugins.chain.loadTimeTable
+
+   Default: ``true``
 
    Type: *boolean*
 
    If enabled load_timetable is used by the chain plugin to request
    the available time windows of each stream in the Seedlink buffer
    to discard older records.
-   Default is ``true``.
 
 
-Bindings
-========
 
+Bindings Parameters
+===================
 
-Configuration
--------------
 
 
 .. confval:: access
+
+   Default: ``0.0.0.0/0``
 
    Type: *list:string*
 
@@ -868,38 +930,46 @@ Configuration
    matches one of those the station is shown \(slinktool \-L, etc.\) and
    accessible. If omitted, the global access parameter is used.
    If the global access parameter is not set any client can access the station.
-   Default is ``0.0.0.0/0``.
+
 
 .. confval:: buffers
+
+   Default: ``100``
 
    Type: *int*
 
    Size of memory buffer \(number of recent Mini\-SEED records kept in RAM\).
-   Default is ``100``.
+
 
 .. confval:: segments
+
+   Default: ``50``
 
    Type: *int*
 
    Number of disk buffer segments \(files under <dir>\/station\/segments\/
    where <dir> is the directory given by the filebase parameter\).
-   Default is ``50``.
+
 
 .. confval:: segsize
+
+   Default: ``1000``
 
    Type: *int*
 
    Size of one disk buffer segment in the records \(512\-byte units\).
-   Default is ``1000``.
+
 
 .. confval:: blanks
+
+   Default: ``10``
 
    Type: *int*
 
    Number of blank records to insert after the re\-scan of disk buffer
    if <dir>\/station\/buffer.xml is not found \(assuming the server
    did not terminate correctly\).
-   Default is ``10``.
+
 
 .. confval:: encoding
 
@@ -911,13 +981,15 @@ Configuration
 
 .. confval:: backfill_buffer
 
+   Default: ``0``
+
    Type: *float*
 
    Unit: *s*
 
    Enable backfilling buffer for out\-of\-order records when raw samples
    are transmitted. This values defines its capacity in seconds.
-   Default is ``0``.
+
 
 .. confval:: proc
 
@@ -939,7 +1011,7 @@ Configuration
    Defines a list of extension bindings to be used.
    Each binding can then be configured individually.
 
-   Available identifiers: :ref:`seedlink-sources-antelope-label` :ref:`seedlink-sources-caps-label` :ref:`seedlink-sources-chain-label` :ref:`seedlink-sources-dr24-label` :ref:`seedlink-sources-echopro_3ch100hz-label` :ref:`seedlink-sources-echopro_6ch200hz-label` :ref:`seedlink-sources-edata-label` :ref:`seedlink-sources-ewexport-label` :ref:`seedlink-sources-ewexport_pasv-label` :ref:`seedlink-sources-fs_mseed-label` :ref:`seedlink-sources-hrd24-label` :ref:`seedlink-sources-liss-label` :ref:`seedlink-sources-m24-label` :ref:`seedlink-sources-minilogger-label` :ref:`seedlink-sources-miscScript-label` :ref:`seedlink-sources-miscSerial-label` :ref:`seedlink-sources-mk6-label` :ref:`seedlink-sources-mppt-label` :ref:`seedlink-sources-mseedfifo-label` :ref:`seedlink-sources-mseedscan-label` :ref:`seedlink-sources-mws-label` :ref:`seedlink-sources-naqs-label` :ref:`seedlink-sources-nmxp-label` :ref:`seedlink-sources-ps2400_eth-label` :ref:`seedlink-sources-q330-label` :ref:`seedlink-sources-reftek-label` :ref:`seedlink-sources-sadc-label` :ref:`seedlink-sources-scream-label` :ref:`seedlink-sources-scream_ring-label` :ref:`seedlink-sources-vaisala-label` :ref:`seedlink-sources-wago-label` :ref:`seedlink-sources-wave24-label` :ref:`seedlink-sources-win-label`
+   Available identifiers: :ref:`seedlink-sources-antelope-label` :ref:`seedlink-sources-caps-label` :ref:`seedlink-sources-chain-label` :ref:`seedlink-sources-dr24-label` :ref:`seedlink-sources-echopro_3ch100hz-label` :ref:`seedlink-sources-echopro_6ch200hz-label` :ref:`seedlink-sources-edata-label` :ref:`seedlink-sources-ewexport-label` :ref:`seedlink-sources-ewexport_pasv-label` :ref:`seedlink-sources-fs_mseed-label` :ref:`seedlink-sources-gdrt-label` :ref:`seedlink-sources-gmeteo-label` :ref:`seedlink-sources-hrd24-label` :ref:`seedlink-sources-liss-label` :ref:`seedlink-sources-m24-label` :ref:`seedlink-sources-minilogger-label` :ref:`seedlink-sources-miscScript-label` :ref:`seedlink-sources-miscSerial-label` :ref:`seedlink-sources-mk6-label` :ref:`seedlink-sources-mppt-label` :ref:`seedlink-sources-mseedfifo-label` :ref:`seedlink-sources-mseedscan-label` :ref:`seedlink-sources-mws-label` :ref:`seedlink-sources-naqs-label` :ref:`seedlink-sources-nmxp-label` :ref:`seedlink-sources-ps2400_eth-label` :ref:`seedlink-sources-q330-label` :ref:`seedlink-sources-reftek-label` :ref:`seedlink-sources-sadc-label` :ref:`seedlink-sources-scream-label` :ref:`seedlink-sources-scream_ring-label` :ref:`seedlink-sources-vaisala-label` :ref:`seedlink-sources-wago-label` :ref:`seedlink-sources-wave24-label` :ref:`seedlink-sources-win-label`
 
    .. code-block:: sh
 
@@ -962,31 +1034,37 @@ Configuration
 .. _seedlink-sources-antelope-label:
 
 antelope
-^^^^^^^^
+--------
 
 Antelope ORB (TCP/IP)
 
 .. confval:: sources.antelope.select
 
+   Default: ``*``
+
    Type: *string*
 
    Regular expression to match ORB packets, default is all
    waveform data.
-   Default is ``*``.
+
 
 .. confval:: sources.antelope.address
+
+   Default: ``localhost``
 
    Type: *string*
 
    Hostname or IP of the Antelope ORB.
-   Default is ``localhost``.
+
 
 .. confval:: sources.antelope.port
+
+   Default: ``39136``
 
    Type: *int*
 
    Port of the Antelope ORB.
-   Default is ``39136``.
+
 
 .. confval:: sources.antelope.proc
 
@@ -999,24 +1077,28 @@ Antelope ORB (TCP/IP)
 .. _seedlink-sources-caps-label:
 
 caps
-^^^^
+----
 
 Transfers data from CAPS to SeedLink server
 
 .. confval:: sources.caps.address
 
+   Default: ``localhost:18002``
+
    Type: *string*
 
    CAPS URL to fetch data from, format: [[caps\|capss]:\/\/][user:pass\@]host[:port]
-   Default is ``localhost:18002``.
+
 
 .. confval:: sources.caps.streams
+
+   Default: ``*.*``
 
    Type: *string*
 
    Comma separated list of streams. Stream format is [LOC.CHA].
    Streams may contain wildcards
-   Default is ``*.*``.
+
 
 .. confval:: sources.caps.proc
 
@@ -1029,23 +1111,27 @@ Transfers data from CAPS to SeedLink server
 .. _seedlink-sources-chain-label:
 
 chain
-^^^^^
+-----
 
 Seedlink server (TCP/IP)
 
 .. confval:: sources.chain.address
 
+   Default: ``geofon.gfz-potsdam.de``
+
    Type: *string*
 
    Hostname or IP of the Seedlink server.
-   Default is ``geofon.gfz-potsdam.de``.
+
 
 .. confval:: sources.chain.port
+
+   Default: ``18000``
 
    Type: *int*
 
    Port of the Seedlink server
-   Default is ``18000``.
+
 
 .. confval:: sources.chain.selectors
 
@@ -1112,6 +1198,8 @@ Seedlink server (TCP/IP)
 
 .. confval:: sources.chain.batchmode
 
+   Default: ``true``
+
    Type: *boolean*
 
    If enabled then the chain plugin tries to subscribe for
@@ -1119,31 +1207,37 @@ Seedlink server (TCP/IP)
    than the old handshake. Not all SeedLink servers support
    the BATCH mode so it needs to be turned off in case of
    problems.
-   Default is ``true``.
+
 
 .. confval:: sources.chain.dialup.enable
+
+   Default: ``false``
 
    Type: *boolean*
 
    Enables dialup mode. Needs schedule and uptime to be
    set accordingly.
-   Default is ``false``.
+
 
 .. confval:: sources.chain.dialup.uptime
+
+   Default: ``600``
 
    Type: *int*
 
    Unit: *s*
 
    Dialup uptime in seconds.
-   Default is ``600``.
+
 
 .. confval:: sources.chain.dialup.schedule
+
+   Default: ``0,30 * * * *``
 
    Type: *string*
 
    The dialup schedula in cron format.
-   Default is ``0,30 * * * *``.
+
 
 .. confval:: sources.chain.dialup.ifup
 
@@ -1190,107 +1284,127 @@ Seedlink server (TCP/IP)
 .. _seedlink-sources-dr24-label:
 
 dr24
-^^^^
+----
 
 Geotech DR24 (serial plugin)
 
 .. confval:: sources.dr24.comport
 
+   Default: ``/dev/data``
+
    Type: *string*
 
    Serial port.
-   Default is ``/dev/data``.
+
 
 .. confval:: sources.dr24.baudrate
+
+   Default: ``19200``
 
    Type: *int*
 
    Baud rate.
-   Default is ``19200``.
+
 
 .. confval:: sources.dr24.proc
+
+   Default: ``dr24_20``
 
    Type: *string*
 
    Name of the proc object \(defined in streams.xml\); used for processing
    raw streams \(streams submitted by a plugin as raw samples\).
-   Default is ``dr24_20``.
+
 
 .. _seedlink-sources-echopro_3ch100hz-label:
 
 echopro_3ch100hz
-^^^^^^^^^^^^^^^^
+----------------
 
 Kelunji Echo/EchoPro serial plugin (3 Ch, 200 Hz)
 
 .. confval:: sources.echopro_3ch100hz.comport
 
+   Default: ``/dev/ttyS0``
+
    Type: *string*
 
    Serial Port.
-   Default is ``/dev/ttyS0``.
+
 
 .. confval:: sources.echopro_3ch100hz.proc
+
+   Default: ``echopro_100``
 
    Type: *string*
 
    Name of stream processing scheme.
-   Default is ``echopro_100``.
+
 
 .. _seedlink-sources-echopro_6ch200hz-label:
 
 echopro_6ch200hz
-^^^^^^^^^^^^^^^^
+----------------
 
 Kelunji Echo/EchoPro serial plugin (6 Ch, 100 Hz)
 
 .. confval:: sources.echopro_6ch200hz.comport
 
+   Default: ``/dev/ttyS0``
+
    Type: *string*
 
    Serial Port.
-   Default is ``/dev/ttyS0``.
+
 
 .. confval:: sources.echopro_6ch200hz.proc
+
+   Default: ``echopro_200``
 
    Type: *string*
 
    Name of stream processing scheme.
-   Default is ``echopro_200``.
+
 
 .. _seedlink-sources-edata-label:
 
 edata
-^^^^^
+-----
 
 EarthData PS6-24 (serial plugin)
 
 .. confval:: sources.edata.comport
 
+   Default: ``/dev/data``
+
    Type: *string*
 
    Serial port.
-   Default is ``/dev/data``.
+
 
 .. confval:: sources.edata.baudrate
+
+   Default: ``115200``
 
    Type: *int*
 
    Baud rate.
-   Default is ``115200``.
+
 
 .. confval:: sources.edata.proc
+
+   Default: ``edata_100``
 
    Type: *string*
 
    Name of the proc object \(defined in streams.xml\); used for processing
    raw streams \(streams submitted by a plugin as raw samples\).
-   Default is ``edata_100``.
+
 
 .. _seedlink-sources-ewexport-label:
 
 ewexport
-^^^^^^^^
+--------
 
 Earthworm export server (TCP/IP)
 
@@ -1318,22 +1432,26 @@ Earthworm export server (TCP/IP)
 
 .. confval:: sources.ewexport.heartbeat.message
 
+   Default: ``alive``
+
    Type: *string*
 
    Text for heartbeat to server.
-   Default is ``alive``.
+
 
 .. confval:: sources.ewexport.heartbeat.rate
+
+   Default: ``120``
 
    Type: *int*
 
    Rate at which to expect heartbeats from server in seconds.
-   Default is ``120``.
+
 
 .. _seedlink-sources-ewexport_pasv-label:
 
 ewexport_pasv
-^^^^^^^^^^^^^
+-------------
 
 Earthworm passive export server (TCP/IP)
 
@@ -1361,42 +1479,52 @@ Earthworm passive export server (TCP/IP)
 
 .. confval:: sources.ewexport_pasv.heartbeat.message
 
+   Default: ``alive``
+
    Type: *string*
 
    Text for heartbeat to server.
-   Default is ``alive``.
+
 
 .. confval:: sources.ewexport_pasv.heartbeat.rate
+
+   Default: ``120``
 
    Type: *int*
 
    Rate at which to expect heartbeats from server in seconds.
-   Default is ``120``.
+
 
 .. _seedlink-sources-fs_mseed-label:
 
 fs_mseed
-^^^^^^^^
+--------
 
 Mini-SEED file plugin
 
 .. confval:: sources.fs_mseed.input_type
 
+   Default: ``ddb``
+
    Type: *string*
 
-   Default is ``ddb``.
+   *No description available*
 
 .. confval:: sources.fs_mseed.data_format
 
+   Default: ``mseed``
+
    Type: *string*
 
-   Default is ``mseed``.
+   *No description available*
 
 .. confval:: sources.fs_mseed.location
 
+   Default: ``@ROOTDIR@/var/lib/seedlink/indata``
+
    Type: *path*
 
-   Default is ``@ROOTDIR@/var/lib/seedlink/indata``.
+   *No description available*
 
 .. confval:: sources.fs_mseed.pattern
 
@@ -1411,50 +1539,64 @@ Mini-SEED file plugin
 
 .. confval:: sources.fs_mseed.scan_level
 
+   Default: ``2``
+
    Type: *int*
 
    Look for data files at the 1st or 2nd directory level.
-   Default is ``2``.
+
 
 .. confval:: sources.fs_mseed.move_files
+
+   Default: ``true``
 
    Type: *boolean*
 
    Move file to subdirectory \"processed\" before starting to read it.
-   Default is ``true``.
+
 
 .. confval:: sources.fs_mseed.delete_files
+
+   Default: ``false``
 
    Type: *boolean*
 
    Delete processed files.
-   Default is ``false``.
+
 
 .. confval:: sources.fs_mseed.use_timestamp
+
+   Default: ``false``
 
    Type: *boolean*
 
    Look only for files that are newer than the last file processed.
-   Default is ``false``.
+
 
 .. confval:: sources.fs_mseed.timestamp_file
+
+   Default: ``@ROOTDIR@/var/run/seedlink/fs_mseed.tim``
 
    Type: *path*
 
    Timestamp file is used to save the modification time of the last
    file processed.
-   Default is ``@ROOTDIR@/var/run/seedlink/fs_mseed.tim``.
+
 
 .. confval:: sources.fs_mseed.polltime
+
+   Default: ``10``
 
    Type: *int*
 
    Unit: *s*
 
    New files are searched for every \"polltime\" seconds.
-   Default is ``10``.
+
 
 .. confval:: sources.fs_mseed.delay
+
+   Default: ``30``
 
    Type: *int*
 
@@ -1462,30 +1604,36 @@ Mini-SEED file plugin
 
    Wait until the file is at least n seconds old, before trying to
    read it.
-   Default is ``30``.
+
 
 .. confval:: sources.fs_mseed.verbosity
+
+   Default: ``1``
 
    Type: *int*
 
    Tells how many debugging messages are printed.
-   Default is ``1``.
+
 
 .. confval:: sources.fs_mseed.zero_sample_limit
+
+   Default: ``10``
 
    Type: *int*
 
    Maximum number of consecutive zeros in datastream before data
    gap will be declared \(\-1 \= disabled\).
-   Default is ``10``.
+
 
 .. confval:: sources.fs_mseed.default_timing_quality
+
+   Default: ``-1``
 
    Type: *int*
 
    If timing quality is not available, use this value as default
    \(\-1 \= disabled\).
-   Default is ``-1``.
+
 
 .. confval:: sources.fs_mseed.proc
 
@@ -1514,116 +1662,308 @@ Mini-SEED file plugin
 
    *No description available*
 
+.. _seedlink-sources-gdrt-label:
+
+gdrt
+----
+
+GDRT (GFZ Displacement Real-Time) is the data format of the Real-time Precise
+Point Positioning (RTPPP) provided by the Helmholtz Centre Potsdam – GFZ German
+Research Centre for Geosciences. This development was supported by the German
+Federal Ministry of Education and Research (BMBF) within the EWRICA project.
+
+The GDRT plugin is a SeedLink plugin that converts GDRT UDP messages to
+miniSEED channels according to the following table:
+
++-------+---------------------+----------------+---------------------------------------+-------------------+
+| Index | Field name          | Format         | Description                           | miniSEED channel  |
++=======+=====================+================+=======================================+===================+
+|   1   | Start of message    | character(1)   | A fixed character '>'                 |                   |
++-------+---------------------+----------------+---------------------------------------+-------------------+
+|   2   | Station ID          | character(4)   | GDRT station ID                       |                   |
++-------+---------------------+----------------+---------------------------------------+-------------------+
+|   3   | Epoch time          | integer(4)     | UTC time (year, month, day, hour,     |                   |
+|       |                     | integer(2)     | minute, second)                       |                   |
+|       |                     | integer(2)     |                                       |                   |
+|       |                     | integer(2)     |                                       |                   |
+|       |                     | integer(2)     |                                       |                   |
+|       |                     | double(%5.2f)  |                                       |                   |
++-------+---------------------+----------------+---------------------------------------+-------------------+
+|   4   | Solution type       | integer(2)     | 0: Single point positioning (SPP)     |     LBS           |
+|       |                     |                +---------------------------------------+                   |
+|       |                     |                | +1: Precise point positioning (PPP)   |                   |
+|       |                     |                +---------------------------------------+                   |
+|       |                     |                | +2: Precise point positioning         |                   |
+|       |                     |                | ambiguity resolution (PPP-AR)         |                   |
+|       |                     |                +---------------------------------------+                   |
+|       |                     |                | +4: Precise point positioning         |                   |
+|       |                     |                | regional augmentation (PPP-RA)        |                   |
++-------+---------------------+----------------+---------------------------------------+-------------------+
+|   5   | Observation type    | integer(2)     | +1: GPS                               |     LBO           |
+|       |                     |                +---------------------------------------+                   |
+|       |                     |                | +2: GLONASS                           |                   |
+|       |                     |                +---------------------------------------+                   |
+|       |                     |                | +4: Galileo                           |                   |
+|       |                     |                +---------------------------------------+                   |
+|       |                     |                | +8: BDS                               |                   |
+|       |                     |                +---------------------------------------+                   |
+|       |                     |                | +16: Seismic data                     |                   |
++-------+---------------------+----------------+---------------------------------------+-------------------+
+|   6   | Positioning type    | integer(2)     | 1: Coordinate fixed solution          |     LBP           |
+|       |                     |                +---------------------------------------+                   |
+|       |                     |                | 2: Static solution                    |                   |
+|       |                     |                +---------------------------------------+                   |
+|       |                     |                | 3: Kinematic solution                 |                   |
+|       |                     |                +---------------------------------------+                   |
+|       |                     |                | 4: Dynamic solution                   |                   |
++-------+---------------------+----------------+---------------------------------------+-------------------+
+|   7   | Processing type     | integer(2)     | 1: Real-time solution                 |     LBT           |
+|       |                     |                +---------------------------------------+                   |
+|       |                     |                | 2: Post-processing solution           |                   |
++-------+---------------------+----------------+---------------------------------------+-------------------+
+|   8   | Ratio of            | double(%6.2f)  | The ratio value of PPP ambiguty       |     LBR (×100)    |
+|       | ambiguity fix       |                | fixing (larger value means more       |                   |
+|       |                     |                | reliable ambiguity fixing)            |                   |
++-------+---------------------+----------------+---------------------------------------+-------------------+
+|   9   | Number of           | integer(2)     | Number of satellites used for the     |     LBC (summed)  |
+|       | satellites          | integer(2)     | solution (GPS, GLONASS, Galileo, BDS) |                   |
+|       |                     | integer(2)     |                                       |                   |
+|       |                     | integer(2)     |                                       |                   |
++-------+---------------------+----------------+---------------------------------------+-------------------+
+|  10   | Coordinate X        | double(%14.4f) | Coordinates X, Y, and Z in the Earth  |     LBX           |
++-------+---------------------+----------------+ Centered Earth Fixed (ECEF)           +-------------------+
+|  11   | Coordinate Y        | double(%14.4f) | coordinate system in meters           |     LBY           |
++-------+---------------------+----------------+                                       +-------------------+
+|  12   | Coordinate Z        | double(%14.4f) |                                       |     LBZ           |
++-------+---------------------+----------------+---------------------------------------+-------------------+
+|  13   | Variance of         | double(%14.4f) | Variance of coordinates (m²)          |     LB1           |
+|       | coordinate X        |                |                                       |                   |
++-------+---------------------+----------------+                                       +-------------------+
+|  14   | Variance of         | double(%14.4f) |                                       |     LB2           |
+|       | coordinate Y        |                |                                       |                   |
++-------+---------------------+----------------+                                       +-------------------+
+|  15   | Variance of         | double(%14.4f) |                                       |     LB3           |
+|       | coordinate Z        |                |                                       |                   |
++-------+---------------------+----------------+---------------------------------------+-------------------+
+|  16   | Covariance of       | double(%14.4f) | Covariance of coordinates (m²)        |     LB4           |
+|       | coordinates X and Y |                |                                       |                   |
++-------+---------------------+----------------+                                       +-------------------+
+|  17   | Covariance of       | double(%14.4f) |                                       |     LB5           |
+|       | coordinates X and Z |                |                                       |                   |
++-------+---------------------+----------------+                                       +-------------------+
+|  18   | Covariance of       | double(%14.4f) |                                       |     LB6           |
+|       | coordinates Y and Z |                |                                       |                   |
++-------+---------------------+----------------+---------------------------------------+-------------------+
+|  19   | Correction          | string(4)      | Name of orbit/clock/upd product and   |                   |
+|       | information         |                | name of three used reference stations |                   |
+|       |                     |                | in PPP-RA, separated with '+'         |                   |
++-------+---------------------+----------------+---------------------------------------+-------------------+
+|  20   | End of message      | character(1)   | A fixed character '!'                 |                   |
++-------+---------------------+----------------+---------------------------------------+-------------------+
+
+.. confval:: sources.gdrt.station
+
+   Type: *string*
+
+   GDRT station code.
+
+
+.. confval:: sources.gdrt.locationCode
+
+   Type: *string*
+
+   Sensor location code.
+
+
+.. confval:: sources.gdrt.sampleRate
+
+   Default: ``1.0``
+
+   Type: *double*
+
+   Unit: *Hz*
+
+   Sample rate in Hz.
+
+
+.. confval:: sources.gdrt.udpport
+
+   Default: ``9999``
+
+   Type: *int*
+
+   UDP port for receiving GDRT messages. By default port 9999 will be used.
+
+
+.. _seedlink-sources-gmeteo-label:
+
+gmeteo
+------
+
+GFZ meteo protocol (serial plugin)
+
+.. confval:: sources.gmeteo.comport
+
+   Default: ``/dev/meteo``
+
+   Type: *string*
+
+   Serial port.
+
+
+.. confval:: sources.gmeteo.baudrate
+
+   Default: ``19200``
+
+   Type: *int*
+
+   Baud rate.
+
+
+.. confval:: sources.gmeteo.proc
+
+   Default: ``gmeteo``
+
+   Type: *string*
+
+   Name of the proc object \(defined in streams.xml\); used for processing
+   raw streams \(streams submitted by a plugin as raw samples\).
+
+
 .. _seedlink-sources-hrd24-label:
 
 hrd24
-^^^^^
+-----
 
 Nanometrics HRD24 (serial plugin)
 
 .. confval:: sources.hrd24.comport
 
+   Default: ``/dev/data``
+
    Type: *string*
 
    Serial port.
-   Default is ``/dev/data``.
+
 
 .. confval:: sources.hrd24.baudrate
+
+   Default: ``19200``
 
    Type: *int*
 
    Baud rate.
-   Default is ``19200``.
+
 
 .. confval:: sources.hrd24.bundles
+
+   Default: ``59``
 
    Type: *int*
 
    Number of bundles in packet.
-   Default is ``59``.
+
 
 .. confval:: sources.hrd24.proc
+
+   Default: ``hrd24_100``
 
    Type: *string*
 
    Name of the proc object \(defined in streams.xml\); used for processing
    raw streams \(streams submitted by a plugin as raw samples\).
-   Default is ``hrd24_100``.
+
 
 .. _seedlink-sources-liss-label:
 
 liss
-^^^^
+----
 
 LISS server (TCP/IP)
 
 .. confval:: sources.liss.address
 
+   Default: ``"$STATION.$NET.liss.org"``
+
    Type: *string*
 
    Hostname or IP of the LISS server.
-   Default is ``"$STATION.$NET.liss.org"``.
+
 
 .. confval:: sources.liss.port
+
+   Default: ``4000``
 
    Type: *int*
 
    Port of the LISS server
-   Default is ``4000``.
+
 
 .. _seedlink-sources-m24-label:
 
 m24
-^^^
+---
 
 Lennartz M24
 
 .. confval:: sources.m24.comport
 
+   Default: ``/dev/data``
+
    Type: *string*
 
    Serial port.
-   Default is ``/dev/data``.
+
 
 .. confval:: sources.m24.baudrate
+
+   Default: ``19200``
 
    Type: *int*
 
    Baud rate.
-   Default is ``19200``.
+
 
 .. confval:: sources.m24.time_offset
+
+   Default: ``0``
 
    Type: *int*
 
    Time offset in usecs.
-   Default is ``0``.
+
 
 .. confval:: sources.m24.proc
+
+   Default: ``m24_100``
 
    Type: *string*
 
    Name of the proc object \(defined in streams.xml\); used for processing
    raw streams \(streams submitted by a plugin as raw samples\).
-   Default is ``m24_100``.
+
 
 .. _seedlink-sources-minilogger-label:
 
 minilogger
-^^^^^^^^^^
+----------
 
 SEP064 USB Seismometer Interface
 
 .. confval:: sources.minilogger.port_path_hint
+
+   Default: ``/dev/ttyACM0``
 
    Type: *string*
 
    Device path and name of port for USB Seismometer Interface.
    If the specified port cannot be opened or is not a USB Seismometer
    Interface device, all available ports will be scanned.
-   Default is ``/dev/ttyACM0``.
+
 
 .. confval:: sources.minilogger.allow_set_interface_attribs
+
+   Default: ``1``
 
    Type: *int*
 
@@ -1632,9 +1972,11 @@ SEP064 USB Seismometer Interface
    Setting 1 \(\=Yes\) may help successful detection and correct reading of the
    USB Seismometer Interface device, particularly for the RasberryPi, but can
    have adverse effects on other devices, terminals, etc. open on the system.
-   Default is ``1``.
+
 
 .. confval:: sources.minilogger.mswrite_header_sample_rate
+
+   Default: ``-1``
 
    Type: *double*
 
@@ -1643,56 +1985,68 @@ SEP064 USB Seismometer Interface
    times. This estimated sample rate will vary slightly over time, potentially
    producing errors in some software when reading the miniseed files.
    See also: nominal_sample_rate
-   Default is ``-1``.
+
 
 .. confval:: sources.minilogger.mswrite_data_encoding_type
+
+   Default: ``STEIM2``
 
    Type: *string*
 
    SEED data encoding type for writing miniseed files.
    Supported values are: INT16, INT32, STEIM1, STEIM2
-   Default is ``STEIM2``.
+
 
 .. confval:: sources.minilogger.channel_prefix
+
+   Default: ``SH``
 
    Type: *string*
 
    The initial letters to set for the miniseed header 'channel', will be
    prepended to the component.
-   Default is ``SH``.
+
 
 .. confval:: sources.minilogger.component
+
+   Default: ``Z``
 
    Type: *string*
 
    Component of seismogram, one of Z, N or E.
-   Default is ``Z``.
+
 
 .. confval:: sources.minilogger.do_settings_sep064
+
+   Default: ``1``
 
    Type: *int*
 
    Set sample rate and gain on SEP 064 device, 0\=NO, 1\=Yes.
-   Default is ``1``.
+
 
 .. confval:: sources.minilogger.nominal_sample_rate
+
+   Default: ``80``
 
    Type: *int*
 
    Nominal sample rate per second, one of 20, 40 or 80.
-   Default is ``80``.
+
 
 .. confval:: sources.minilogger.nominal_gain
+
+   Default: ``4``
 
    Type: *int*
 
    Nominal gain, one of 1, 2 or 4.
-   Default is ``4``.
+
 
 .. _seedlink-sources-miscScript-label:
 
 miscScript
-^^^^^^^^^^
+----------
 
 Misceallaneous script
 
@@ -1712,92 +2066,114 @@ Misceallaneous script
 
 .. confval:: sources.miscScript.proc
 
+   Default: ``auto``
+
    Type: *string*
 
    Name of the proc object used for channel naming \(and eventually down sampling\). If this field is left to default \(auto\), a basic proc \(without decimation\) will be automatically generated.
-   Default is ``auto``.
+
 
 .. confval:: sources.miscScript.channels
+
+   Default: ``HHZ,HHN,HHE``
 
    Type: *string*
 
    Names of the channels. These names are only used if you choose to automatically generate the proc. Nevertheless, even if you are not using the auto proc, it is important to declare correctly this list as the number of channels is used to size the internal plugin's buffers. If you do not want seedlink to use one of the channels, replace it names with \"none\". Example : 01HHZ,none,none,02HHZ,HHE,HHN
-   Default is ``HHZ,HHN,HHE``.
+
 
 .. confval:: sources.miscScript.sample_frequency
+
+   Default: ``1``
 
    Type: *string*
 
    Sampling frequency. Must be integer or a fraction of integers.
-   Default is ``1``.
+
 
 .. confval:: sources.miscScript.flush_period
+
+   Default: ``0``
 
    Type: *int*
 
    This parameter aims at enforcing the sending of seedlink data blocks \(512bytes\) even if they are not yet full. 0 means no enforcing.
-   Default is ``0``.
+
 
 .. _seedlink-sources-miscSerial-label:
 
 miscSerial
-^^^^^^^^^^
+----------
 
 Miscellaneous ASCII serial Plugin (serial plugin)
 
 .. confval:: sources.miscSerial.comport
 
+   Default: ``/dev/data``
+
    Type: *string*
 
    Serial port.
-   Default is ``/dev/data``.
+
 
 .. confval:: sources.miscSerial.baudrate
+
+   Default: ``9600``
 
    Type: *int*
 
    Baud rate.
-   Default is ``9600``.
+
 
 .. confval:: sources.miscSerial.proc
+
+   Default: ``auto``
 
    Type: *string*
 
    Name of the proc object used for channel naming \(and eventually down sampling\). If this field is left to default \(auto\), a basic proc \(without decimation\) will be automatically generated.
-   Default is ``auto``.
+
 
 .. confval:: sources.miscSerial.channels
+
+   Default: ``HHZ,HHN,HHE``
 
    Type: *string*
 
    Names of the channels. These names are only used if you choose to automatically generate the proc. Nevertheless, even if you are not using the auto proc, it is important to declare correctly this list as the number of channels is used to size the internal plugin's buffers. If you do not want seedlink to use one of the channels, replace it names with \"none\". Example : 01HHZ,none,none,02HHZ,HHE,HHN
-   Default is ``HHZ,HHN,HHE``.
+
 
 .. confval:: sources.miscSerial.sample_frequency
+
+   Default: ``1``
 
    Type: *string*
 
    Sampling frequency. Must be integer or a fraction of integers.
-   Default is ``1``.
+
 
 .. confval:: sources.miscSerial.flush_period
+
+   Default: ``0``
 
    Type: *int*
 
    This parameter aims at enforcing the sending of seedlink data blocks \(512bytes, even if they are not yet full. 0 means no enforcing.
-   Default is ``0``.
+
 
 .. confval:: sources.miscSerial.serial_clock_period
+
+   Default: ``0``
 
    Type: *int*
 
    If this parameter is not 0, a date frame \(\"YYYY,mm,dd hh:mm:ss\\n\"\) will be send on serial port every serial_clock_period seconds.
-   Default is ``0``.
+
 
 .. _seedlink-sources-mk6-label:
 
 mk6
-^^^
+---
 
 MK6
 
@@ -1812,11 +2188,13 @@ MK6
 .. _seedlink-sources-mppt-label:
 
 mppt
-^^^^
+----
 
 SunSaver MPPT via Modbus TCP/IP
 
 .. confval:: sources.mppt.address
+
+   Default: ``localhost``
 
    Type: *string*
 
@@ -1825,10 +2203,21 @@ SunSaver MPPT via Modbus TCP/IP
 
 .. confval:: sources.mppt.port
 
+   Default: ``502``
+
    Type: *int*
 
    TCP port.
-   Default is ``502``.
+
+
+.. confval:: sources.mppt.unit_id
+
+   Default: ``1``
+
+   Type: *int*
+
+   Modbus unit identifier.
+
 
 .. confval:: sources.mppt.channels
 
@@ -1839,23 +2228,25 @@ SunSaver MPPT via Modbus TCP/IP
 
 .. confval:: sources.mppt.proc
 
+   Default: ``mppt``
+
    Type: *string*
 
    Name of the proc object \(defined in streams.xml\); used for processing
    raw streams \(streams submitted by a plugin as raw samples\).
-   Default is ``mppt``.
+
 
 .. _seedlink-sources-mseedfifo-label:
 
 mseedfifo
-^^^^^^^^^
+---------
 
 mseedfifo_plugin
 
 .. _seedlink-sources-mseedscan-label:
 
 mseedscan
-^^^^^^^^^
+---------
 
 MseedScan transfers new or changed miniSEED files from a directory
 to a SeedLink server. It recursively a directory
@@ -1874,91 +2265,111 @@ the controlling SeedLink server.
 .. _seedlink-sources-mws-label:
 
 mws
-^^^
+---
 
 MWS (serial plugin)
 
 .. confval:: sources.mws.comport
 
+   Default: ``/dev/weatherstation``
+
    Type: *string*
 
    Serial port.
-   Default is ``/dev/weatherstation``.
+
 
 .. confval:: sources.mws.baudrate
+
+   Default: ``19200``
 
    Type: *int*
 
    Baud rate.
-   Default is ``19200``.
+
 
 .. confval:: sources.mws.proc
+
+   Default: ``mws``
 
    Type: *string*
 
    Name of the proc object \(defined in streams.xml\); used for processing
    raw streams \(streams submitted by a plugin as raw samples\).
-   Default is ``mws``.
+
 
 .. _seedlink-sources-naqs-label:
 
 naqs
-^^^^
+----
 
 NAQS (TCP/IP)
 
 .. confval:: sources.naqs.address
 
+   Default: ``localhost``
+
    Type: *string*
 
    Address of server, required.
-   Default is ``localhost``.
+
 
 .. confval:: sources.naqs.port
+
+   Default: ``28000``
 
    Type: *int*
 
    Specify the NAQS control\/data port.
-   Default is ``28000``.
+
 
 .. confval:: sources.naqs.proc
+
+   Default: ``naqs_bb40_sm100``
 
    Type: *string*
 
    Name of the proc object \(defined in streams.xml\); used for processing
    raw streams \(streams submitted by a plugin as raw samples\).
-   Default is ``naqs_bb40_sm100``.
+
 
 .. _seedlink-sources-nmxp-label:
 
 nmxp
-^^^^
+----
 
 NAQS (TCP/IP) with nmxptool. nmxptool is not part of SeisComP and needs to be installed
 under $INSTALLDIR/share/plugins/seedlink/.
 
 .. confval:: sources.nmxp.address
 
+   Default: ``idahub.ucsd.edu``
+
    Type: *string*
 
    Hostname or IP of the NAQS server.
-   Default is ``idahub.ucsd.edu``.
+
 
 .. confval:: sources.nmxp.port
+
+   Default: ``28000``
 
    Type: *int*
 
    TCP port of the NAQS server.
-   Default is ``28000``.
+
 
 .. confval:: sources.nmxp.max_latency
+
+   Default: ``300``
 
    Type: *int*
 
    Max latency in seconds \(time to wait for missing packets\).
-   Default is ``300``.
+
 
 .. confval:: sources.nmxp.short_term_completion
+
+   Default: ``-1``
 
    Type: *int*
 
@@ -1973,7 +2384,7 @@ under $INSTALLDIR/share/plugins/seedlink/.
    [1..300] decompressed packets are received in chronological order
    but waiting for missing packets at most SECs seconds. This requires
    NaqsServer version greater than 1.90.
-   Default is ``-1``.
+
 
 .. confval:: sources.nmxp.additional_options
 
@@ -1984,16 +2395,18 @@ under $INSTALLDIR/share/plugins/seedlink/.
 
 .. confval:: sources.nmxp.proc
 
+   Default: ``naqs_bb40_sm100``
+
    Type: *string*
 
    Name of the proc object \(defined in streams.xml\); used for processing
    raw streams \(streams submitted by a plugin as raw samples\).
-   Default is ``naqs_bb40_sm100``.
+
 
 .. _seedlink-sources-ps2400_eth-label:
 
 ps2400_eth
-^^^^^^^^^^
+----------
 
 The ps2400_eth plug-in fetches data from a Earth Data PS2400/PS6-24
 digitizer (firmware >= 2.23) using TCP/IP. Other configurable parameters
@@ -2001,30 +2414,36 @@ are in $SEISCOMP_ROOT/share/templates/seedlink/ps2400_eth/plugins.ini.tpl.
 
 .. confval:: sources.ps2400_eth.address
 
+   Default: ``127.0.0.1``
+
    Type: *string*
 
    IP of the Earth Data PS2400\/PS6\-24 digitizer.
-   Default is ``127.0.0.1``.
+
 
 .. confval:: sources.ps2400_eth.port
+
+   Default: ``1411``
 
    Type: *int*
 
    Port of the Earth Data PS2400\/PS6\-24 digitizer.
-   Default is ``1411``.
+
 
 .. confval:: sources.ps2400_eth.proc
+
+   Default: ``ps2400_eth_edata_100``
 
    Type: *string*
 
    Name of the proc object \(defined in streams.xml\); used for processing
    raw streams \(streams submitted by a plugin as raw samples\).
-   Default is ``ps2400_eth_edata_100``.
+
 
 .. _seedlink-sources-q330-label:
 
 q330
-^^^^
+----
 
 Quanterra Q330 (UDP/IP)
 
@@ -2037,17 +2456,21 @@ Quanterra Q330 (UDP/IP)
 
 .. confval:: sources.q330.port
 
+   Default: ``5330``
+
    Type: *int*
 
    Source port to receive data packets.
-   Default is ``5330``.
+
 
 .. confval:: sources.q330.udpport
+
+   Default: ``auto``
 
    Type: *string*
 
    UDP port.
-   Default is ``auto``.
+
 
 .. confval:: sources.q330.proc
 
@@ -2068,45 +2491,55 @@ Quanterra Q330 (UDP/IP)
 
 .. confval:: sources.q330.slot
 
+   Default: ``1``
+
    Type: *int*
 
    Q330 dataport number \(1\-4\).
-   Default is ``1``.
+
 
 .. confval:: sources.q330.serial
+
+   Default: ``0x0100000123456789``
 
    Type: *string*
 
    Q330 serial number \(with 0x prefix\).
-   Default is ``0x0100000123456789``.
+
 
 .. confval:: sources.q330.auth
+
+   Default: ``0x00``
 
    Type: *string*
 
    Q330 auth code \(with 0x prefix\).
-   Default is ``0x00``.
+
 
 .. _seedlink-sources-reftek-label:
 
 reftek
-^^^^^^
+------
 
 RefTek RTPD (TCP/IP)
 
 .. confval:: sources.reftek.address
 
+   Default: ``127.0.0.1``
+
    Type: *string*
 
    Hostname or IP of the RTPD server.
-   Default is ``127.0.0.1``.
+
 
 .. confval:: sources.reftek.port
+
+   Default: ``2543``
 
    Type: *int*
 
    Port of the RTPD server.
-   Default is ``2543``.
+
 
 .. confval:: sources.reftek.map
 
@@ -2124,12 +2557,16 @@ RefTek RTPD (TCP/IP)
 
 .. confval:: sources.reftek.unit
 
+   Default: ``91F3``
+
    Type: *string*
 
    The unit id.
-   Default is ``91F3``.
+
 
 .. confval:: sources.reftek.proc
+
+   Default: ``reftek``
 
    Type: *string*
 
@@ -2142,9 +2579,11 @@ RefTek RTPD (TCP/IP)
    \$SEISCOMP_ROOT\/var\/lib\/seedlink\/streams.xml .
    
    Example template: \$SEISCOMP_ROOT\/share\/templates\/seedlink\/reftek\/streams_reftek.tpl
-   Default is ``reftek``.
+
 
 .. confval:: sources.reftek.timeout
+
+   Default: ``60``
 
    Type: *int*
 
@@ -2153,71 +2592,85 @@ RefTek RTPD (TCP/IP)
    Timeout length in seconds. If no data is received from a Reftek
    unit during this period, the plugin assumes that the unit is
    disconnected.
-   Default is ``60``.
+
 
 .. confval:: sources.reftek.default_tq
+
+   Default: ``40``
 
    Type: *int*
 
    Default timing quality in percents. This value will be used when
    no timing quality information is available. Can be \-1 to omit
    the blockette 1001 altogether.
-   Default is ``40``.
+
 
 .. confval:: sources.reftek.unlock_tq
+
+   Default: ``10``
 
    Type: *int*
 
    Timing quality to use when GPS is out of lock.
-   Default is ``10``.
+
 
 .. confval:: sources.reftek.log_soh
+
+   Default: ``true``
 
    Type: *boolean*
 
    Send Reftek state\-of\-health data as Mini\-SEED LOG stream.
-   Default is ``true``.
+
 
 .. _seedlink-sources-sadc-label:
 
 sadc
-^^^^
+----
 
 SADC10/18/20/30 (serial plugin)
 
 .. confval:: sources.sadc.comport
 
+   Default: ``/dev/data``
+
    Type: *string*
 
    Serial port.
-   Default is ``/dev/data``.
+
 
 .. confval:: sources.sadc.baudrate
+
+   Default: ``38400``
 
    Type: *int*
 
    Baud rate.
-   Default is ``38400``.
+
 
 .. confval:: sources.sadc.pctime
+
+   Default: ``0``
 
    Type: *int*
 
    Use PC time for initial time setting.
-   Default is ``0``.
+
 
 .. confval:: sources.sadc.proc
+
+   Default: ``sadc_100``
 
    Type: *string*
 
    Name of the proc object \(defined in streams.xml\); used for processing
    raw streams \(streams submitted by a plugin as raw samples\).
-   Default is ``sadc_100``.
+
 
 .. _seedlink-sources-scream-label:
 
 scream
-^^^^^^
+------
 
 SCREAM! server (TCP/UDP/IP) plugin that receives data via
 the SCREAM! protocol and sends raw data to Seedlink. The mapping
@@ -2227,19 +2680,25 @@ specified otherwise (parameter 'map').
 
 .. confval:: sources.scream.address
 
+   Default: ``127.0.0.1``
+
    Type: *string*
 
    IP of the SCREAM\! server.
-   Default is ``127.0.0.1``.
+
 
 .. confval:: sources.scream.port
+
+   Default: ``1567``
 
    Type: *int*
 
    Port of the SCREAM\!
-   Default is ``1567``.
+
 
 .. confval:: sources.scream.tcp
+
+   Default: ``false``
 
    Type: *boolean*
 
@@ -2247,7 +2706,7 @@ specified otherwise (parameter 'map').
    UDP but TCP is used instead. This needs a propert
    configuration of the SCREAM\! server to accept TCP
    connections.
-   Default is ``false``.
+
 
 .. confval:: sources.scream.proc
 
@@ -2280,7 +2739,7 @@ specified otherwise (parameter 'map').
 .. _seedlink-sources-scream_ring-label:
 
 scream_ring
-^^^^^^^^^^^
+-----------
 
 SCREAM! server plugin that receives data via
 the SCREAM! protocol and sends raw data to Seedlink. The mapping
@@ -2292,19 +2751,25 @@ completeness.
 
 .. confval:: sources.scream_ring.address
 
+   Default: ``127.0.0.1``
+
    Type: *string*
 
    IP of the SCREAM\! server.
-   Default is ``127.0.0.1``.
+
 
 .. confval:: sources.scream_ring.port
+
+   Default: ``1567``
 
    Type: *int*
 
    Port of the SCREAM\!
-   Default is ``1567``.
+
 
 .. confval:: sources.scream_ring.tcp
+
+   Default: ``false``
 
    Type: *boolean*
 
@@ -2312,14 +2777,16 @@ completeness.
    UDP but TCP is used instead. This needs a propert
    configuration of the SCREAM\! server to accept TCP
    connections.
-   Default is ``false``.
+
 
 .. confval:: sources.scream_ring.tcpport
+
+   Default: ``1567``
 
    Type: *int*
 
    TCP request port of the SCREAM\! for backfill requests
-   Default is ``1567``.
+
 
 .. confval:: sources.scream_ring.proc
 
@@ -2331,11 +2798,13 @@ completeness.
 
 .. confval:: sources.scream_ring.rsize
 
+   Default: ``1000``
+
    Type: *int*
 
    Size of the stream ringbuffers \(small values are useful for RT systems;
    large values for decreasing gaps\).
-   Default is ``1000``.
+
 
 .. confval:: sources.scream_ring.map
 
@@ -2360,36 +2829,42 @@ completeness.
 .. _seedlink-sources-vaisala-label:
 
 vaisala
-^^^^^^^
+-------
 
 Vaisala ASCII protocol (serial plugin)
 
 .. confval:: sources.vaisala.comport
 
+   Default: ``/dev/weatherstation``
+
    Type: *string*
 
    Serial port.
-   Default is ``/dev/weatherstation``.
+
 
 .. confval:: sources.vaisala.baudrate
+
+   Default: ``19200``
 
    Type: *int*
 
    Baud rate.
-   Default is ``19200``.
+
 
 .. confval:: sources.vaisala.proc
+
+   Default: ``vaisala``
 
    Type: *string*
 
    Name of the proc object \(defined in streams.xml\); used for processing
    raw streams \(streams submitted by a plugin as raw samples\).
-   Default is ``mws``.
+
 
 .. _seedlink-sources-wago-label:
 
 wago
-^^^^
+----
 
 WAGO Controller (T-Elektronik)
 
@@ -2402,10 +2877,12 @@ WAGO Controller (T-Elektronik)
 
 .. confval:: sources.wago.port
 
+   Default: ``502``
+
    Type: *int*
 
    TCP port.
-   Default is ``502``.
+
 
 .. confval:: sources.wago.channels
 
@@ -2416,54 +2893,64 @@ WAGO Controller (T-Elektronik)
 
 .. confval:: sources.wago.proc
 
+   Default: ``wago``
+
    Type: *string*
 
    Name of the proc object \(defined in streams.xml\); used for processing
    raw streams \(streams submitted by a plugin as raw samples\).
-   Default is ``wago``.
+
 
 .. _seedlink-sources-wave24-label:
 
 wave24
-^^^^^^
+------
 
 Wave24
 
 .. confval:: sources.wave24.comport
 
+   Default: ``/dev/data``
+
    Type: *string*
 
    Serial port.
-   Default is ``/dev/data``.
+
 
 .. confval:: sources.wave24.baudrate
+
+   Default: ``57600``
 
    Type: *int*
 
    Baud rate.
-   Default is ``57600``.
+
 
 .. confval:: sources.wave24.proc
+
+   Default: ``wave24bb``
 
    Type: *string*
 
    Name of the proc object \(defined in streams.xml\); used for processing
    raw streams \(streams submitted by a plugin as raw samples\).
-   Default is ``wave24bb``.
+
 
 .. _seedlink-sources-win-label:
 
 win
-^^^
+---
 
 WIN server
 
 .. confval:: sources.win.udpport
 
+   Default: ``18000``
+
    Type: *int*
 
    UDP port to receive data packets.
-   Default is ``18000``.
+
 
 .. confval:: sources.win.map
 
@@ -2493,9 +2980,11 @@ WIN server
 
 .. confval:: sources.win.proc
 
+   Default: ``win``
+
    Type: *string*
 
    Name of the proc object \(defined in streams.xml\); used for processing
    raw streams \(streams submitted by a plugin as raw samples\).
-   Default is ``win``.
+
 

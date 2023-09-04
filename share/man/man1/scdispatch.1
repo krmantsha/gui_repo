@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCDISPATCH" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCDISPATCH" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scdispatch \- SeisComP Documentation
 .
@@ -31,7 +31,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
 .sp
-\fBReads objects (event, origin, etc) from a SC3ML file and sends the objects
+\fBRead objects (event, origin, etc) from a SCML file and sends the objects
 to the messaging system.\fP
 .SH DESCRIPTION
 .sp
@@ -161,9 +161,7 @@ objects from persistent storage to allow repeated reloading of a file.
 .INDENT 3.5
 The following will clear all events from the database and any other
 other object persistence. Modify the mysql command to suit your db setup.
-.UNINDENT
-.UNINDENT
-.INDENT 3.0
+.INDENT 0.0
 .INDENT 3.5
 .sp
 .nf
@@ -179,7 +177,9 @@ seiscomp start
 .UNINDENT
 .UNINDENT
 .UNINDENT
-.SH CONFIGURATION
+.UNINDENT
+.UNINDENT
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/scdispatch.cfg\fP
@@ -191,25 +191,29 @@ seiscomp start
 .sp
 .sp
 scdispatch inherits global options\&.
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
+.sp
+\fBscdispatch [options]\fP
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -219,55 +223,60 @@ Load given plugins.
 .INDENT 0.0
 .TP
 .B \-D, \-\-daemon
-Run as daemon. This means the application will fork itself and
-doesn\(aqt need to be started with &.
+Run as daemon. This means the application will fork itself
+and doesn\(aqt need to be started with &.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-auto\-shutdown arg
-Enable/disable self\-shutdown because a master module shutdown. This only
-works when messaging is enabled and the master module sends a shutdown
-message (enabled with \-\-start\-stop\-msg for the master module).
+Enable/disable self\-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with \-\-start\-stop\-msg
+for the master module).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-module arg
-Sets the name of the master\-module used for auto\-shutdown. This
-is the application name of the module actually started. If symlinks
-are used then it is the name of the symlinked application.
+Set the name of the master\-module used for auto\-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-username arg
-Sets the name of the master\-username of the messaging used for
-auto\-shutdown. If "shutdown\-master\-module" is given as well this
-parameter is ignored.
+Set the name of the master\-username of the messaging
+used for auto\-shutdown. If "shutdown\-master\-module" is
+given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -282,7 +291,8 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -313,7 +323,8 @@ Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
 .INDENT 0.0
 .TP
 .B \-S, \-\-subscribe\-group arg
-A group to subscribe to. This option can be given more than once.
+A group to subscribe to.
+This option can be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -323,7 +334,7 @@ Overrides configuration parameter \fBconnection.contentType\fP\&.
 .INDENT 0.0
 .TP
 .B \-\-start\-stop\-msg arg
-Sets sending of a start\- and a stop message.
+Set sending of a start and a stop message.
 .UNINDENT
 .SS Database
 .INDENT 0.0
@@ -334,19 +345,21 @@ List all supported database drivers.
 .INDENT 0.0
 .TP
 .B \-d, \-\-database arg
-The database connection string, format: \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which can be
-queried with "\-\-db\-driver\-list".
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+"service" is the name of the database driver which
+can be queried with "\-\-db\-driver\-list".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-module arg
-The configmodule to use.
+The config module to use.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-inventory\-db arg
-Load the inventory from the given database or file, format: [\fI\%service://]location\fP
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -362,13 +375,14 @@ File to dispatch to messaging.
 .INDENT 0.0
 .TP
 .B \-O, \-\-operation flag
-Operation to use: add, update, remove, merge or merge\-without\-remove.
-Merge and merge\-without\-remove are special operations and require
-a database connection. Both will read a corresponding object
-from the database and calculate the differences which will be
-sent to the messaging. Merge\-no\-remove behaves like merge
-with the exception that remove operations will be filtered
-out that no objects in the database will be removed.
+Operation to use: add, update, remove, merge or
+merge\-without\-remove.
+Merge and merge\-without\-remove are special operations and
+require a database connection. Both will read a corresponding
+object from the database and calculate the differences which
+will be sent to the messaging. Merge\-no\-remove behaves like
+merge with the exception that remove operations will be
+filtered out that no objects in the database will be removed.
 .sp
 If add, update or remove is specified then all objects in
 XML are sent with the given operation regardless of their
@@ -377,15 +391,16 @@ existence in the database or not.
 .INDENT 0.0
 .TP
 .B \-\-routingtable flag
-Specify routing table as comma separated list of object:group pairs,
-e.g. "Origin:LOCATION,Event:EVENT". When an objects
-should be routed to a group and no table entry for that perticular
-class type is available, all parent objects are checked for
-valid routing entries and the first found is used. E.g. if only
-"Origin:LOCATION" is specified but the input file
-contains also Arrivals which are child objects of Origin then
-the routing entry of Origin is used because of the parent\-child
-relationship between Origin and Arrival.
+Specify routing table as comma separated list of object:group
+pairs, e.g. "Origin:LOCATION,Event:EVENT". When an
+object should be routed to a group and no table entry for
+that perticular class type is available, all parent objects
+are checked for valid routing entries and the first found is
+used. E.g. if only "Origin:LOCATION" is specified
+but the input file contains also Arrivals which are child
+objects of Origin then the routing entry of Origin is used
+because of the parent\-child relationship between Origin and
+Arrival.
 .UNINDENT
 .INDENT 0.0
 .TP

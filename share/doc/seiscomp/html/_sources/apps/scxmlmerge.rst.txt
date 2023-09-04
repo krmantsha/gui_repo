@@ -6,34 +6,35 @@
 scxmlmerge
 ##########
 
-**Merge the content of multiple XML files in SC3ML format.**
+**Merge the content of multiple XML files in SCML format.**
 
 
 Description
 ===========
 
-scxmlmerge reads all SeisComP elements from one or more XML files in SC3ML format.
-It merges the content and prints the result to standard output. The input can contain
-and :ref:`SeisComP element<api-datamodel-python>` and the content can
-be filtered to print only some elements such as EventParameters.
+scxmlmerge reads all |scname| elements from one or more XML files in :term:`SCML`
+format. It merges the content and prints the result to standard output. The
+input can contain and :ref:`SeisComP element<api-datamodel-python>` and the
+content can be filtered to print only some elements such as EventParameters.
 The output can be redirected into one single file and used by other applications.
 
 The supported :ref:`SeisComP elements<api-datamodel-python>` are:
 
+* Config
+* DataAvailability
 * EventParameters
 * Inventory
-* Config
-* Routing
 * QualityControl
-* DataAvailability
+* Routing
 
 By default all supported elements will be parsed and merged. Duplicates are removed.
 Use options to restrict the element types.
 
-.. note::
+There are alternative modules for processing inventory XML files:
 
-    Use also :ref:`scinv` for merging inventory XML files and for extracting
-    inventory information.
+* :ref:`scinv`: Merge inventory XML files, extract inventory information.
+* :ref:`invextr`: Extract and filter inventory information.
+
 
 Examples
 ========
@@ -54,8 +55,8 @@ Examples
 
 .. _scxmlmerge_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 | :file:`etc/defaults/global.cfg`
 | :file:`etc/defaults/scxmlmerge.cfg`
@@ -69,8 +70,8 @@ scxmlmerge inherits :ref:`global options<global-configuration>`.
 
 
 
-Command-line
-============
+Command-Line Options
+====================
 
 .. program:: scxmlmerge
 
@@ -82,11 +83,11 @@ Generic
 
 .. option:: -h, --help
 
-   show help message.
+   Show help message.
 
 .. option:: -V, --version
 
-   show version information
+   Show version information.
 
 
 Verbosity
@@ -94,15 +95,16 @@ Verbosity
 
 .. option:: --verbosity arg
 
-   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
 
 .. option:: -v, --v
 
-   Increase verbosity level \(may be repeated, eg. \-vv\)
+   Increase verbosity level \(may be repeated, eg. \-vv\).
 
 .. option:: -q, --quiet
 
-   Quiet mode: no logging output
+   Quiet mode: no logging output.
 
 .. option:: --print-component arg
 
@@ -112,11 +114,13 @@ Verbosity
 
 .. option:: --component arg
 
-   Limits the logging to a certain component. This option can be given more than once.
+   Limit the logging to a certain component. This option can
+   be given more than once.
 
 .. option:: -s, --syslog
 
-   Use syslog logging back end. The output usually goes to \/var\/lib\/messages.
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
 
 .. option:: -l, --lockfile arg
 
@@ -128,11 +132,14 @@ Verbosity
 
 .. option:: --debug
 
-   Debug mode: \-\-verbosity\=4 \-\-console\=1
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
 
 .. option:: --trace
 
-   Trace mode: \-\-verbosity\=4 \-\-console\=1 \-\-print\-component\=1 \-\-print\-context\=1
+   Execute in trace mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 \-\-print\-component\=1
+   \-\-print\-context\=1 .
 
 .. option:: --log-file arg
 
@@ -142,27 +149,27 @@ Verbosity
 Options
 -------
 
-.. option:: --event E
+.. option:: --event
 
-   Include Event Parameters
+   Include Event Parameters.
 
-.. option:: --inventory I
+.. option:: --inventory
 
-   Include Inventory
+   Include Inventory.
 
-.. option:: --config C
+.. option:: --config
 
-   Include Config
+   Include Config.
 
-.. option:: --routing R
+.. option:: --routing
 
-   Include Routing
+   Include Routing.
 
-.. option:: --quality Q
+.. option:: --quality
 
-   Include QualityControl
+   Include QualityControl.
 
-.. option:: --availability Y
+.. option:: --availability
 
-   Include DataAvailability
+   Include DataAvailability.
 

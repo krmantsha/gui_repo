@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SEEDLINK" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SEEDLINK" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 seedlink \- SeisComP Documentation
 .
@@ -66,7 +66,7 @@ section 5.1.1.5. Antelope, Earthworm and NAQS can also import data from
 SeisComP. In SeisComP the class RecordStream is implemented that supports both
 SeedLink and ArcLink sources; this class is used by all SeisComP modules that
 work with waveform data. On a lower level, SeedLink clients can be implemented
-using the \fI\%libslink\fP [1] software library or its Java counterpart, JSeedLink. Libslink
+using the libslink software library or its Java counterpart, JSeedLink. Libslink
 supports Linux/UNIX, Windows and MacOS X platforms, and comes with an exhaustive
 documentation in form of UNIX manual pages.
 .TS
@@ -92,7 +92,7 @@ _
 T{
 \fI\%caps\fP
 T}	T{
-\fI\%CAPS server\fP
+CAPS server caps
 T}	T{
 \fI\%gempa GmbH\fP
 T}
@@ -157,6 +157,14 @@ T{
 T}	T{
 miniSEED file plugin
 T}	T{
+T}
+_
+T{
+\fI\%gdrt\fP
+T}	T{
+GDRT server
+T}	T{
+GFZ
 T}
 _
 T{
@@ -759,10 +767,7 @@ can be added by creation a corresponding template file.
 .sp
 Again, the \fBsource\fP and \fBproc\fP definition is used to resolve the streams proc
 template file at \fBshare/templates/seedlink/[source]/streams_[proc].tpl\fP\&.
-.SH REFERENCES
-.IP [1] 5
-\fI\%https://ds.iris.edu/ds/nodes/dmc/software/downloads/libslink/\fP
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .sp
 \fBNOTE:\fP
 .INDENT 0.0
@@ -779,12 +784,13 @@ seedlink is a standalone module and does not inherit global options\&.
 .INDENT 0.0
 .TP
 .B port
+Default: \fB18000\fP
+.sp
 Type: \fIint\fP
 .sp
 Defines the Seedlink port to accept requests. If this port
 is changed and other modules depend on it (slarchive, processing)
 those ports must be updated as well!
-Default is \fB18000\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -805,90 +811,100 @@ of configured stations. 1 or 2 characters long, uppercase.
 .INDENT 0.0
 .TP
 .B trusted
+Default: \fB127.0.0.0/8\fP
+.sp
 Type: \fIlist:string\fP
 .sp
 List of trusted addresses.
-Default is \fB127.0.0.0/8\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B access
+Default: \fB0.0.0.0/0\fP
+.sp
 Type: \fIlist:string\fP
 .sp
 List of IP addresses or IP/mask pairs (in ipchains/iptables syntax)
 that can access stations. Per station access definitions
 supersede this parameter. By default any client can access
 all stations.
-Default is \fB0.0.0.0/0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B stream_check
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Check start and end times of streams.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B gap_check_pattern
+Default: \fBXXXXX\fP
+.sp
 Type: \fIstring\fP
 .sp
 If stream_check = enabled, also check for gaps in all channels that
 match given pattern. Register all gaps that are larger than +\-0.5 seconds.
 gap_check_pattern = [EBLV][HLNG][ZNE]|S[NG][ZNE].
 Disabled to save memory.
-Default is \fBXXXXX\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B gap_treshold
+Default: \fB500000\fP
+.sp
 Type: \fIint\fP
 .sp
 Time difference between records (microseconds) above which a gap is declared.
-Default is \fB500000\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B window_extraction
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Can be enabled or disabled. Required for slinktool option \-tw.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B window_extraction_trusted
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Same as window_extraction for trusted IP addresses.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B websocket
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Allow websocket connections.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B websocket_trusted
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Same as websocket for trusted IP addresses.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B msrtsimul
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 If activated Seedlink uses the mseedfifo to read records and
 only the mseedfifo_plugin is started. This command is useful
 to playback historic data by eg msrtsimul.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -905,156 +921,175 @@ this computer.
 .INDENT 0.0
 .TP
 .B info
+Default: \fBstreams\fP
+.sp
 Type: \fIstring\fP
 .sp
 Info level provided to arbitrary hosts.
-Default is \fBstreams\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B info_trusted
+Default: \fBall\fP
+.sp
 Type: \fIstring\fP
 .sp
 Info level provided to trusted hosts.
-Default is \fBall\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B request_log
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Whether requests should be logged.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B proc_gap_warn
+Default: \fB10\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fImicroseconds\fP
 .sp
 Give warning if an input channel has time gap larger than this (microseconds).
-Default is \fB10\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B proc_gap_flush
+Default: \fB100000\fP
+.sp
 Type: \fIint\fP
 .sp
 Flush streams if an input channel has time gap larger than this (microseconds).
-Default is \fB100000\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B proc_gap_reset
+Default: \fB1000000\fP
+.sp
 Type: \fIint\fP
 .sp
 Reset FIR filters if an input channel has time gap larger than this (microseconds).
-Default is \fB1000000\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B backfill_buffer
+Default: \fB0\fP
+.sp
 Type: \fIfloat\fP
 .sp
 Unit: \fIs\fP
 .sp
 Enable backfilling buffer for out\-of\-order records.
 This values defines its capacity in seconds.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B seq_gap_limit
+Default: \fB100000\fP
+.sp
 Type: \fIint\fP
 .sp
 Maximum allowed deviation from the sequence number of oldest packet if
 packet with requested sequence number is not found. If seq_gap_limit is
 exceeded, data flow starts from the next packet coming in, otherwise
 from the oldest packet in buffer.
-Default is \fB100000\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B connections
+Default: \fB500\fP
+.sp
 Type: \fIint\fP
 .sp
 Total number of TCP/IP connections allowed.
-Default is \fB500\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B connections_per_ip
+Default: \fB20\fP
+.sp
 Type: \fIint\fP
 .sp
 Maximum number of TCP/IP connections per IP.
-Default is \fB20\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B bytespersec
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIB/s\fP
 .sp
 Maximum speed per connection (0: throttle disabled).
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B lockfile
+Default: \fB@ROOTDIR@/var/run/seedlink.pid\fP
+.sp
 Type: \fIstring\fP
 .sp
 Path to lockfile to prevent multiple instances.
-Default is \fB@ROOTDIR@/var/run/seedlink.pid\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B buffers
+Default: \fB100\fP
+.sp
 Type: \fIint\fP
 .sp
 Size of memory buffer (number of recent Mini\-SEED records kept in RAM).
-Default is \fB100\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B segments
+Default: \fB50\fP
+.sp
 Type: \fIint\fP
 .sp
 Number of disk buffer segments (files under <dir>/station/segments/
 where <dir> is the directory given by the filebase parameter).
-Default is \fB50\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B segsize
+Default: \fB1000\fP
+.sp
 Type: \fIint\fP
 .sp
 Size of one disk buffer segment in the records (512\-byte units).
-Default is \fB1000\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B blanks
+Default: \fB10\fP
+.sp
 Type: \fIint\fP
 .sp
 Number of blank records to insert after the re\-scan of disk buffer
 if <dir>/station/buffer.xml is not found (assuming the server
 did not terminate correctly).
-Default is \fB10\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B encoding
+Default: \fBsteim2\fP
+.sp
 Type: \fIstring\fP
 .sp
 Encoding of Mini\-SEED records created by SeedLink. The value must be
 steim1 or steim2. If omitted, the global encoding parameter is used.
-Default is \fBsteim2\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sequence_file_cleanup
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fImin\fP
@@ -1062,7 +1097,6 @@ Unit: \fImin\fP
 If configured with a value greater than zero then all sequence files
 created by the chain plugin are deleted which are older than X minutes
 before Seedlink is started.
-Default is \fB0\fP\&.
 .UNINDENT
 .SS caps extension
 .sp
@@ -1070,22 +1104,24 @@ Global options for the CAPS plugin
 .INDENT 0.0
 .TP
 .B plugins.caps.maxTimeDiff
+Default: \fB86400\fP
+.sp
 Type: \fIfloat\fP
 .sp
 The maxmimum time difference with respect to current
 time of the end time of a received record. If
 exceeded then the end time will not be logged into
 the state file.
-Default is \fB86400\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.caps.inOrder
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Request all records in\-order. Out\-of\-order records will
 be skipped.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .SS mseedfifo extension
 .sp
@@ -1103,10 +1139,11 @@ by the alias name.
 .INDENT 0.0
 .TP
 .B plugins.mseedfifo.noexit
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Do not exit plugin if writer closes the fifo.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .SS q330 extension
 .sp
@@ -1114,10 +1151,11 @@ Global options for the Q330 plugin
 .INDENT 0.0
 .TP
 .B plugins.q330.udpbase
+Default: \fB5500\fP
+.sp
 Type: \fIint\fP
 .sp
 UDP base port used when udp port is defined as "auto"
-Default is \fB5500\fP\&.
 .UNINDENT
 .SS chain extension
 .sp
@@ -1125,28 +1163,31 @@ Global options for the chain plugin
 .INDENT 0.0
 .TP
 .B plugins.chain.dialupConnections
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 Defines the maximum number of concurrent dial\-up
 connections. A value of 0 does not limit the
 concurrent connections.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.chain.loadTimeTable
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 If enabled load_timetable is used by the chain plugin to request
 the available time windows of each stream in the Seedlink buffer
 to discard older records.
-Default is \fBtrue\fP\&.
 .UNINDENT
-.SH BINDINGS
-.SS Configuration
+.SH BINDINGS PARAMETERS
 .INDENT 0.0
 .TP
 .B access
+Default: \fB0.0.0.0/0\fP
+.sp
 Type: \fIlist:string\fP
 .sp
 List of IP addresses or IP/mask pairs (in ipchains/iptables syntax).
@@ -1154,42 +1195,45 @@ Only if a client\(aqs IP address
 matches one of those the station is shown (slinktool \-L, etc.) and
 accessible. If omitted, the global access parameter is used.
 If the global access parameter is not set any client can access the station.
-Default is \fB0.0.0.0/0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B buffers
+Default: \fB100\fP
+.sp
 Type: \fIint\fP
 .sp
 Size of memory buffer (number of recent Mini\-SEED records kept in RAM).
-Default is \fB100\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B segments
+Default: \fB50\fP
+.sp
 Type: \fIint\fP
 .sp
 Number of disk buffer segments (files under <dir>/station/segments/
 where <dir> is the directory given by the filebase parameter).
-Default is \fB50\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B segsize
+Default: \fB1000\fP
+.sp
 Type: \fIint\fP
 .sp
 Size of one disk buffer segment in the records (512\-byte units).
-Default is \fB1000\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B blanks
+Default: \fB10\fP
+.sp
 Type: \fIint\fP
 .sp
 Number of blank records to insert after the re\-scan of disk buffer
 if <dir>/station/buffer.xml is not found (assuming the server
 did not terminate correctly).
-Default is \fB10\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1202,13 +1246,14 @@ steim1 or steim2. If omitted, the global encoding parameter is used.
 .INDENT 0.0
 .TP
 .B backfill_buffer
+Default: \fB0\fP
+.sp
 Type: \fIfloat\fP
 .sp
 Unit: \fIs\fP
 .sp
 Enable backfilling buffer for out\-of\-order records when raw samples
 are transmitted. This values defines its capacity in seconds.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1232,7 +1277,7 @@ Type: \fIlist:string\fP
 Defines a list of extension bindings to be used.
 Each binding can then be configured individually.
 .sp
-Available identifiers: \fI\%antelope\fP \fI\%caps\fP \fI\%chain\fP \fI\%dr24\fP \fI\%echopro_3ch100hz\fP \fI\%echopro_6ch200hz\fP \fI\%edata\fP \fI\%ewexport\fP \fI\%ewexport_pasv\fP \fI\%fs_mseed\fP \fI\%hrd24\fP \fI\%liss\fP \fI\%m24\fP \fI\%minilogger\fP \fI\%miscScript\fP \fI\%miscSerial\fP \fI\%mk6\fP \fI\%mppt\fP \fI\%mseedfifo\fP \fI\%mseedscan\fP \fI\%mws\fP \fI\%naqs\fP \fI\%nmxp\fP \fI\%ps2400_eth\fP \fI\%q330\fP \fI\%reftek\fP \fI\%sadc\fP \fI\%scream\fP \fI\%scream_ring\fP \fI\%vaisala\fP \fI\%wago\fP \fI\%wave24\fP \fI\%win\fP
+Available identifiers: \fI\%antelope\fP \fI\%caps\fP \fI\%chain\fP \fI\%dr24\fP \fI\%echopro_3ch100hz\fP \fI\%echopro_6ch200hz\fP \fI\%edata\fP \fI\%ewexport\fP \fI\%ewexport_pasv\fP \fI\%fs_mseed\fP \fI\%gdrt\fP \fI\%gmeteo\fP \fI\%hrd24\fP \fI\%liss\fP \fI\%m24\fP \fI\%minilogger\fP \fI\%miscScript\fP \fI\%miscSerial\fP \fI\%mk6\fP \fI\%mppt\fP \fI\%mseedfifo\fP \fI\%mseedscan\fP \fI\%mws\fP \fI\%naqs\fP \fI\%nmxp\fP \fI\%ps2400_eth\fP \fI\%q330\fP \fI\%reftek\fP \fI\%sadc\fP \fI\%scream\fP \fI\%scream_ring\fP \fI\%vaisala\fP \fI\%wago\fP \fI\%wave24\fP \fI\%win\fP
 .INDENT 7.0
 .INDENT 3.5
 .sp
@@ -1263,27 +1308,30 @@ Antelope ORB (TCP/IP)
 .INDENT 0.0
 .TP
 .B sources.antelope.select
+Default: \fB*\fP
+.sp
 Type: \fIstring\fP
 .sp
 Regular expression to match ORB packets, default is all
 waveform data.
-Default is \fB*\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.antelope.address
+Default: \fBlocalhost\fP
+.sp
 Type: \fIstring\fP
 .sp
 Hostname or IP of the Antelope ORB.
-Default is \fBlocalhost\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.antelope.port
+Default: \fB39136\fP
+.sp
 Type: \fIint\fP
 .sp
 Port of the Antelope ORB.
-Default is \fB39136\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1299,19 +1347,21 @@ Transfers data from CAPS to SeedLink server
 .INDENT 0.0
 .TP
 .B sources.caps.address
+Default: \fBlocalhost:18002\fP
+.sp
 Type: \fIstring\fP
 .sp
 CAPS URL to fetch data from, format: [[caps|capss]://][user:pass@]host[:port]
-Default is \fBlocalhost:18002\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.caps.streams
+Default: \fB*.*\fP
+.sp
 Type: \fIstring\fP
 .sp
 Comma separated list of streams. Stream format is [LOC.CHA].
 Streams may contain wildcards
-Default is \fB*.*\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1327,18 +1377,20 @@ Seedlink server (TCP/IP)
 .INDENT 0.0
 .TP
 .B sources.chain.address
+Default: \fBgeofon.gfz\-potsdam.de\fP
+.sp
 Type: \fIstring\fP
 .sp
 Hostname or IP of the Seedlink server.
-Default is \fBgeofon.gfz\-potsdam.de\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.chain.port
+Default: \fB18000\fP
+.sp
 Type: \fIint\fP
 .sp
 Port of the Seedlink server
-Default is \fB18000\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1406,6 +1458,8 @@ unset unless you know what you are doing.
 .INDENT 0.0
 .TP
 .B sources.chain.batchmode
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 If enabled then the chain plugin tries to subscribe for
@@ -1413,34 +1467,36 @@ channels with the BATCH command which is magnitudes faster
 than the old handshake. Not all SeedLink servers support
 the BATCH mode so it needs to be turned off in case of
 problems.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.chain.dialup.enable
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enables dialup mode. Needs schedule and uptime to be
 set accordingly.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.chain.dialup.uptime
+Default: \fB600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Dialup uptime in seconds.
-Default is \fB600\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.chain.dialup.schedule
+Default: \fB0,30 * * * *\fP
+.sp
 Type: \fIstring\fP
 .sp
 The dialup schedula in cron format.
-Default is \fB0,30 * * * *\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1490,27 +1546,30 @@ Geotech DR24 (serial plugin)
 .INDENT 0.0
 .TP
 .B sources.dr24.comport
+Default: \fB/dev/data\fP
+.sp
 Type: \fIstring\fP
 .sp
 Serial port.
-Default is \fB/dev/data\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.dr24.baudrate
+Default: \fB19200\fP
+.sp
 Type: \fIint\fP
 .sp
 Baud rate.
-Default is \fB19200\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.dr24.proc
+Default: \fBdr24_20\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of the proc object (defined in streams.xml); used for processing
 raw streams (streams submitted by a plugin as raw samples).
-Default is \fBdr24_20\fP\&.
 .UNINDENT
 .SS echopro_3ch100hz
 .sp
@@ -1518,18 +1577,20 @@ Kelunji Echo/EchoPro serial plugin (3 Ch, 200 Hz)
 .INDENT 0.0
 .TP
 .B sources.echopro_3ch100hz.comport
+Default: \fB/dev/ttyS0\fP
+.sp
 Type: \fIstring\fP
 .sp
 Serial Port.
-Default is \fB/dev/ttyS0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.echopro_3ch100hz.proc
+Default: \fBechopro_100\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of stream processing scheme.
-Default is \fBechopro_100\fP\&.
 .UNINDENT
 .SS echopro_6ch200hz
 .sp
@@ -1537,18 +1598,20 @@ Kelunji Echo/EchoPro serial plugin (6 Ch, 100 Hz)
 .INDENT 0.0
 .TP
 .B sources.echopro_6ch200hz.comport
+Default: \fB/dev/ttyS0\fP
+.sp
 Type: \fIstring\fP
 .sp
 Serial Port.
-Default is \fB/dev/ttyS0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.echopro_6ch200hz.proc
+Default: \fBechopro_200\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of stream processing scheme.
-Default is \fBechopro_200\fP\&.
 .UNINDENT
 .SS edata
 .sp
@@ -1556,27 +1619,30 @@ EarthData PS6\-24 (serial plugin)
 .INDENT 0.0
 .TP
 .B sources.edata.comport
+Default: \fB/dev/data\fP
+.sp
 Type: \fIstring\fP
 .sp
 Serial port.
-Default is \fB/dev/data\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.edata.baudrate
+Default: \fB115200\fP
+.sp
 Type: \fIint\fP
 .sp
 Baud rate.
-Default is \fB115200\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.edata.proc
+Default: \fBedata_100\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of the proc object (defined in streams.xml); used for processing
 raw streams (streams submitted by a plugin as raw samples).
-Default is \fBedata_100\fP\&.
 .UNINDENT
 .SS ewexport
 .sp
@@ -1606,18 +1672,20 @@ raw streams (streams submitted by a plugin as raw samples).
 .INDENT 0.0
 .TP
 .B sources.ewexport.heartbeat.message
+Default: \fBalive\fP
+.sp
 Type: \fIstring\fP
 .sp
 Text for heartbeat to server.
-Default is \fBalive\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.ewexport.heartbeat.rate
+Default: \fB120\fP
+.sp
 Type: \fIint\fP
 .sp
 Rate at which to expect heartbeats from server in seconds.
-Default is \fB120\fP\&.
 .UNINDENT
 .SS ewexport_pasv
 .sp
@@ -1647,18 +1715,20 @@ raw streams (streams submitted by a plugin as raw samples).
 .INDENT 0.0
 .TP
 .B sources.ewexport_pasv.heartbeat.message
+Default: \fBalive\fP
+.sp
 Type: \fIstring\fP
 .sp
 Text for heartbeat to server.
-Default is \fBalive\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.ewexport_pasv.heartbeat.rate
+Default: \fB120\fP
+.sp
 Type: \fIint\fP
 .sp
 Rate at which to expect heartbeats from server in seconds.
-Default is \fB120\fP\&.
 .UNINDENT
 .SS fs_mseed
 .sp
@@ -1666,23 +1736,29 @@ Mini\-SEED file plugin
 .INDENT 0.0
 .TP
 .B sources.fs_mseed.input_type
+Default: \fBddb\fP
+.sp
 Type: \fIstring\fP
 .sp
-Default is \fBddb\fP\&.
+\fINo description available\fP
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.fs_mseed.data_format
+Default: \fBmseed\fP
+.sp
 Type: \fIstring\fP
 .sp
-Default is \fBmseed\fP\&.
+\fINo description available\fP
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.fs_mseed.location
+Default: \fB@ROOTDIR@/var/lib/seedlink/indata\fP
+.sp
 Type: \fIpath\fP
 .sp
-Default is \fB@ROOTDIR@/var/lib/seedlink/indata\fP\&.
+\fINo description available\fP
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1698,90 +1774,100 @@ If no pattern is specified all files will be processed.
 .INDENT 0.0
 .TP
 .B sources.fs_mseed.scan_level
+Default: \fB2\fP
+.sp
 Type: \fIint\fP
 .sp
 Look for data files at the 1st or 2nd directory level.
-Default is \fB2\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.fs_mseed.move_files
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Move file to subdirectory "processed" before starting to read it.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.fs_mseed.delete_files
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Delete processed files.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.fs_mseed.use_timestamp
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Look only for files that are newer than the last file processed.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.fs_mseed.timestamp_file
+Default: \fB@ROOTDIR@/var/run/seedlink/fs_mseed.tim\fP
+.sp
 Type: \fIpath\fP
 .sp
 Timestamp file is used to save the modification time of the last
 file processed.
-Default is \fB@ROOTDIR@/var/run/seedlink/fs_mseed.tim\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.fs_mseed.polltime
+Default: \fB10\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 New files are searched for every "polltime" seconds.
-Default is \fB10\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.fs_mseed.delay
+Default: \fB30\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Wait until the file is at least n seconds old, before trying to
 read it.
-Default is \fB30\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.fs_mseed.verbosity
+Default: \fB1\fP
+.sp
 Type: \fIint\fP
 .sp
 Tells how many debugging messages are printed.
-Default is \fB1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.fs_mseed.zero_sample_limit
+Default: \fB10\fP
+.sp
 Type: \fIint\fP
 .sp
 Maximum number of consecutive zeros in datastream before data
 gap will be declared (\-1 = disabled).
-Default is \fB10\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.fs_mseed.default_timing_quality
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 If timing quality is not available, use this value as default
 (\-1 = disabled).
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1815,41 +1901,430 @@ Type: \fIstring\fP
 .sp
 \fINo description available\fP
 .UNINDENT
+.SS gdrt
+.sp
+GDRT (GFZ Displacement Real\-Time) is the data format of the Real\-time Precise
+Point Positioning (RTPPP) provided by the Helmholtz Centre Potsdam – GFZ German
+Research Centre for Geosciences. This development was supported by the German
+Federal Ministry of Education and Research (BMBF) within the EWRICA project.
+.sp
+The GDRT plugin is a SeedLink plugin that converts GDRT UDP messages to
+miniSEED channels according to the following table:
+.TS
+center;
+|l|l|l|l|l|.
+_
+T{
+Index
+T}	T{
+Field name
+T}	T{
+Format
+T}	T{
+Description
+T}	T{
+miniSEED channel
+T}
+_
+T{
+1
+T}	T{
+Start of message
+T}	T{
+character(1)
+T}	T{
+A fixed character \(aq>\(aq
+T}	T{
+T}
+_
+T{
+2
+T}	T{
+Station ID
+T}	T{
+character(4)
+T}	T{
+GDRT station ID
+T}	T{
+T}
+_
+T{
+3
+T}	T{
+Epoch time
+T}	T{
+integer(4)
+integer(2)
+integer(2)
+integer(2)
+integer(2)
+double(%5.2f)
+T}	T{
+UTC time (year, month, day, hour,
+minute, second)
+T}	T{
+T}
+_
+T{
+4
+T}	T{
+Solution type
+T}	T{
+integer(2)
+T}	T{
+0: Single point positioning (SPP)
+T}	T{
+LBS
+T}
+_
+T{
++1: Precise point positioning (PPP)
+T}
+_
+T{
++2: Precise point positioning
+ambiguity resolution (PPP\-AR)
+T}
+_
+T{
++4: Precise point positioning
+regional augmentation (PPP\-RA)
+T}
+_
+T{
+5
+T}	T{
+Observation type
+T}	T{
+integer(2)
+T}	T{
++1: GPS
+T}	T{
+LBO
+T}
+_
+T{
++2: GLONASS
+T}
+_
+T{
++4: Galileo
+T}
+_
+T{
++8: BDS
+T}
+_
+T{
++16: Seismic data
+T}
+_
+T{
+6
+T}	T{
+Positioning type
+T}	T{
+integer(2)
+T}	T{
+1: Coordinate fixed solution
+T}	T{
+LBP
+T}
+_
+T{
+2: Static solution
+T}
+_
+T{
+3: Kinematic solution
+T}
+_
+T{
+4: Dynamic solution
+T}
+_
+T{
+7
+T}	T{
+Processing type
+T}	T{
+integer(2)
+T}	T{
+1: Real\-time solution
+T}	T{
+LBT
+T}
+_
+T{
+2: Post\-processing solution
+T}
+_
+T{
+8
+T}	T{
+Ratio of
+ambiguity fix
+T}	T{
+double(%6.2f)
+T}	T{
+The ratio value of PPP ambiguty
+fixing (larger value means more
+reliable ambiguity fixing)
+T}	T{
+LBR (×100)
+T}
+_
+T{
+9
+T}	T{
+Number of
+satellites
+T}	T{
+integer(2)
+integer(2)
+integer(2)
+integer(2)
+T}	T{
+Number of satellites used for the
+solution (GPS, GLONASS, Galileo, BDS)
+T}	T{
+LBC (summed)
+T}
+_
+T{
+10
+T}	T{
+Coordinate X
+T}	T{
+double(%14.4f)
+T}	T{
+Coordinates X, Y, and Z in the Earth
+Centered Earth Fixed (ECEF)
+coordinate system in meters
+T}	T{
+LBX
+T}
+_
+T{
+11
+T}	T{
+Coordinate Y
+T}	T{
+double(%14.4f)
+T}	T{
+LBY
+T}
+_
+T{
+12
+T}	T{
+Coordinate Z
+T}	T{
+double(%14.4f)
+T}	T{
+LBZ
+T}
+_
+T{
+13
+T}	T{
+Variance of
+coordinate X
+T}	T{
+double(%14.4f)
+T}	T{
+Variance of coordinates (m²)
+T}	T{
+LB1
+T}
+_
+T{
+14
+T}	T{
+Variance of
+coordinate Y
+T}	T{
+double(%14.4f)
+T}	T{
+LB2
+T}
+_
+T{
+15
+T}	T{
+Variance of
+coordinate Z
+T}	T{
+double(%14.4f)
+T}	T{
+LB3
+T}
+_
+T{
+16
+T}	T{
+Covariance of
+coordinates X and Y
+T}	T{
+double(%14.4f)
+T}	T{
+Covariance of coordinates (m²)
+T}	T{
+LB4
+T}
+_
+T{
+17
+T}	T{
+Covariance of
+coordinates X and Z
+T}	T{
+double(%14.4f)
+T}	T{
+LB5
+T}
+_
+T{
+18
+T}	T{
+Covariance of
+coordinates Y and Z
+T}	T{
+double(%14.4f)
+T}	T{
+LB6
+T}
+_
+T{
+19
+T}	T{
+Correction
+information
+T}	T{
+string(4)
+T}	T{
+Name of orbit/clock/upd product and
+name of three used reference stations
+in PPP\-RA, separated with \(aq+\(aq
+T}	T{
+T}
+_
+T{
+20
+T}	T{
+End of message
+T}	T{
+character(1)
+T}	T{
+A fixed character \(aq!\(aq
+T}	T{
+T}
+_
+.TE
+.INDENT 0.0
+.TP
+.B sources.gdrt.station
+Type: \fIstring\fP
+.sp
+GDRT station code.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B sources.gdrt.locationCode
+Type: \fIstring\fP
+.sp
+Sensor location code.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B sources.gdrt.sampleRate
+Default: \fB1.0\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIHz\fP
+.sp
+Sample rate in Hz.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B sources.gdrt.udpport
+Default: \fB9999\fP
+.sp
+Type: \fIint\fP
+.sp
+UDP port for receiving GDRT messages. By default port 9999 will be used.
+.UNINDENT
+.SS gmeteo
+.sp
+GFZ meteo protocol (serial plugin)
+.INDENT 0.0
+.TP
+.B sources.gmeteo.comport
+Default: \fB/dev/meteo\fP
+.sp
+Type: \fIstring\fP
+.sp
+Serial port.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B sources.gmeteo.baudrate
+Default: \fB19200\fP
+.sp
+Type: \fIint\fP
+.sp
+Baud rate.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B sources.gmeteo.proc
+Default: \fBgmeteo\fP
+.sp
+Type: \fIstring\fP
+.sp
+Name of the proc object (defined in streams.xml); used for processing
+raw streams (streams submitted by a plugin as raw samples).
+.UNINDENT
 .SS hrd24
 .sp
 Nanometrics HRD24 (serial plugin)
 .INDENT 0.0
 .TP
 .B sources.hrd24.comport
+Default: \fB/dev/data\fP
+.sp
 Type: \fIstring\fP
 .sp
 Serial port.
-Default is \fB/dev/data\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.hrd24.baudrate
+Default: \fB19200\fP
+.sp
 Type: \fIint\fP
 .sp
 Baud rate.
-Default is \fB19200\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.hrd24.bundles
+Default: \fB59\fP
+.sp
 Type: \fIint\fP
 .sp
 Number of bundles in packet.
-Default is \fB59\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.hrd24.proc
+Default: \fBhrd24_100\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of the proc object (defined in streams.xml); used for processing
 raw streams (streams submitted by a plugin as raw samples).
-Default is \fBhrd24_100\fP\&.
 .UNINDENT
 .SS liss
 .sp
@@ -1857,18 +2332,20 @@ LISS server (TCP/IP)
 .INDENT 0.0
 .TP
 .B sources.liss.address
+Default: \fB"$STATION.$NET.liss.org"\fP
+.sp
 Type: \fIstring\fP
 .sp
 Hostname or IP of the LISS server.
-Default is \fB"$STATION.$NET.liss.org"\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.liss.port
+Default: \fB4000\fP
+.sp
 Type: \fIint\fP
 .sp
 Port of the LISS server
-Default is \fB4000\fP\&.
 .UNINDENT
 .SS m24
 .sp
@@ -1876,35 +2353,39 @@ Lennartz M24
 .INDENT 0.0
 .TP
 .B sources.m24.comport
+Default: \fB/dev/data\fP
+.sp
 Type: \fIstring\fP
 .sp
 Serial port.
-Default is \fB/dev/data\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.m24.baudrate
+Default: \fB19200\fP
+.sp
 Type: \fIint\fP
 .sp
 Baud rate.
-Default is \fB19200\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.m24.time_offset
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 Time offset in usecs.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.m24.proc
+Default: \fBm24_100\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of the proc object (defined in streams.xml); used for processing
 raw streams (streams submitted by a plugin as raw samples).
-Default is \fBm24_100\fP\&.
 .UNINDENT
 .SS minilogger
 .sp
@@ -1912,16 +2393,19 @@ SEP064 USB Seismometer Interface
 .INDENT 0.0
 .TP
 .B sources.minilogger.port_path_hint
+Default: \fB/dev/ttyACM0\fP
+.sp
 Type: \fIstring\fP
 .sp
 Device path and name of port for USB Seismometer Interface.
 If the specified port cannot be opened or is not a USB Seismometer
 Interface device, all available ports will be scanned.
-Default is \fB/dev/ttyACM0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.minilogger.allow_set_interface_attribs
+Default: \fB1\fP
+.sp
 Type: \fIint\fP
 .sp
 Allow low\-level setting of port interface attributes when available
@@ -1929,11 +2413,12 @@ ports are scanned to find a USB Seismometer Interface device, 0=NO, 1=Yes.
 Setting 1 (=Yes) may help successful detection and correct reading of the
 USB Seismometer Interface device, particularly for the RasberryPi, but can
 have adverse effects on other devices, terminals, etc. open on the system.
-Default is \fB1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.minilogger.mswrite_header_sample_rate
+Default: \fB\-1\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Sets a fixed sample rate to report in the miniseed file header.
@@ -1941,57 +2426,62 @@ The default (\-1) sets an estimated sample rate based on recent packet start
 times. This estimated sample rate will vary slightly over time, potentially
 producing errors in some software when reading the miniseed files.
 See also: nominal_sample_rate
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.minilogger.mswrite_data_encoding_type
+Default: \fBSTEIM2\fP
+.sp
 Type: \fIstring\fP
 .sp
 SEED data encoding type for writing miniseed files.
 Supported values are: INT16, INT32, STEIM1, STEIM2
-Default is \fBSTEIM2\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.minilogger.channel_prefix
+Default: \fBSH\fP
+.sp
 Type: \fIstring\fP
 .sp
 The initial letters to set for the miniseed header \(aqchannel\(aq, will be
 prepended to the component.
-Default is \fBSH\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.minilogger.component
+Default: \fBZ\fP
+.sp
 Type: \fIstring\fP
 .sp
 Component of seismogram, one of Z, N or E.
-Default is \fBZ\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.minilogger.do_settings_sep064
+Default: \fB1\fP
+.sp
 Type: \fIint\fP
 .sp
 Set sample rate and gain on SEP 064 device, 0=NO, 1=Yes.
-Default is \fB1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.minilogger.nominal_sample_rate
+Default: \fB80\fP
+.sp
 Type: \fIint\fP
 .sp
 Nominal sample rate per second, one of 20, 40 or 80.
-Default is \fB80\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.minilogger.nominal_gain
+Default: \fB4\fP
+.sp
 Type: \fIint\fP
 .sp
 Nominal gain, one of 1, 2 or 4.
-Default is \fB4\fP\&.
 .UNINDENT
 .SS miscScript
 .sp
@@ -2013,34 +2503,38 @@ Script arguments.
 .INDENT 0.0
 .TP
 .B sources.miscScript.proc
+Default: \fBauto\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of the proc object used for channel naming (and eventually down sampling). If this field is left to default (auto), a basic proc (without decimation) will be automatically generated.
-Default is \fBauto\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.miscScript.channels
+Default: \fBHHZ,HHN,HHE\fP
+.sp
 Type: \fIstring\fP
 .sp
 Names of the channels. These names are only used if you choose to automatically generate the proc. Nevertheless, even if you are not using the auto proc, it is important to declare correctly this list as the number of channels is used to size the internal plugin\(aqs buffers. If you do not want seedlink to use one of the channels, replace it names with "none". Example : 01HHZ,none,none,02HHZ,HHE,HHN
-Default is \fBHHZ,HHN,HHE\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.miscScript.sample_frequency
+Default: \fB1\fP
+.sp
 Type: \fIstring\fP
 .sp
 Sampling frequency. Must be integer or a fraction of integers.
-Default is \fB1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.miscScript.flush_period
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 This parameter aims at enforcing the sending of seedlink data blocks (512bytes) even if they are not yet full. 0 means no enforcing.
-Default is \fB0\fP\&.
 .UNINDENT
 .SS miscSerial
 .sp
@@ -2048,58 +2542,65 @@ Miscellaneous ASCII serial Plugin (serial plugin)
 .INDENT 0.0
 .TP
 .B sources.miscSerial.comport
+Default: \fB/dev/data\fP
+.sp
 Type: \fIstring\fP
 .sp
 Serial port.
-Default is \fB/dev/data\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.miscSerial.baudrate
+Default: \fB9600\fP
+.sp
 Type: \fIint\fP
 .sp
 Baud rate.
-Default is \fB9600\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.miscSerial.proc
+Default: \fBauto\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of the proc object used for channel naming (and eventually down sampling). If this field is left to default (auto), a basic proc (without decimation) will be automatically generated.
-Default is \fBauto\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.miscSerial.channels
+Default: \fBHHZ,HHN,HHE\fP
+.sp
 Type: \fIstring\fP
 .sp
 Names of the channels. These names are only used if you choose to automatically generate the proc. Nevertheless, even if you are not using the auto proc, it is important to declare correctly this list as the number of channels is used to size the internal plugin\(aqs buffers. If you do not want seedlink to use one of the channels, replace it names with "none". Example : 01HHZ,none,none,02HHZ,HHE,HHN
-Default is \fBHHZ,HHN,HHE\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.miscSerial.sample_frequency
+Default: \fB1\fP
+.sp
 Type: \fIstring\fP
 .sp
 Sampling frequency. Must be integer or a fraction of integers.
-Default is \fB1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.miscSerial.flush_period
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 This parameter aims at enforcing the sending of seedlink data blocks (512bytes, even if they are not yet full. 0 means no enforcing.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.miscSerial.serial_clock_period
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 If this parameter is not 0, a date frame ("YYYY,mm,dd hh:mm:ss\en") will be send on serial port every serial_clock_period seconds.
-Default is \fB0\fP\&.
 .UNINDENT
 .SS mk6
 .sp
@@ -2118,6 +2619,8 @@ SunSaver MPPT via Modbus TCP/IP
 .INDENT 0.0
 .TP
 .B sources.mppt.address
+Default: \fBlocalhost\fP
+.sp
 Type: \fIstring\fP
 .sp
 Hostname or IP.
@@ -2125,10 +2628,20 @@ Hostname or IP.
 .INDENT 0.0
 .TP
 .B sources.mppt.port
+Default: \fB502\fP
+.sp
 Type: \fIint\fP
 .sp
 TCP port.
-Default is \fB502\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B sources.mppt.unit_id
+Default: \fB1\fP
+.sp
+Type: \fIint\fP
+.sp
+Modbus unit identifier.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2140,11 +2653,12 @@ List of channels.
 .INDENT 0.0
 .TP
 .B sources.mppt.proc
+Default: \fBmppt\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of the proc object (defined in streams.xml); used for processing
 raw streams (streams submitted by a plugin as raw samples).
-Default is \fBmppt\fP\&.
 .UNINDENT
 .SS mseedfifo
 .sp
@@ -2170,27 +2684,30 @@ MWS (serial plugin)
 .INDENT 0.0
 .TP
 .B sources.mws.comport
+Default: \fB/dev/weatherstation\fP
+.sp
 Type: \fIstring\fP
 .sp
 Serial port.
-Default is \fB/dev/weatherstation\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.mws.baudrate
+Default: \fB19200\fP
+.sp
 Type: \fIint\fP
 .sp
 Baud rate.
-Default is \fB19200\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.mws.proc
+Default: \fBmws\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of the proc object (defined in streams.xml); used for processing
 raw streams (streams submitted by a plugin as raw samples).
-Default is \fBmws\fP\&.
 .UNINDENT
 .SS naqs
 .sp
@@ -2198,27 +2715,30 @@ NAQS (TCP/IP)
 .INDENT 0.0
 .TP
 .B sources.naqs.address
+Default: \fBlocalhost\fP
+.sp
 Type: \fIstring\fP
 .sp
 Address of server, required.
-Default is \fBlocalhost\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.naqs.port
+Default: \fB28000\fP
+.sp
 Type: \fIint\fP
 .sp
 Specify the NAQS control/data port.
-Default is \fB28000\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.naqs.proc
+Default: \fBnaqs_bb40_sm100\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of the proc object (defined in streams.xml); used for processing
 raw streams (streams submitted by a plugin as raw samples).
-Default is \fBnaqs_bb40_sm100\fP\&.
 .UNINDENT
 .SS nmxp
 .sp
@@ -2227,30 +2747,35 @@ under $INSTALLDIR/share/plugins/seedlink/.
 .INDENT 0.0
 .TP
 .B sources.nmxp.address
+Default: \fBidahub.ucsd.edu\fP
+.sp
 Type: \fIstring\fP
 .sp
 Hostname or IP of the NAQS server.
-Default is \fBidahub.ucsd.edu\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.nmxp.port
+Default: \fB28000\fP
+.sp
 Type: \fIint\fP
 .sp
 TCP port of the NAQS server.
-Default is \fB28000\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.nmxp.max_latency
+Default: \fB300\fP
+.sp
 Type: \fIint\fP
 .sp
 Max latency in seconds (time to wait for missing packets).
-Default is \fB300\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.nmxp.short_term_completion
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Short\-Term\-Completion (default \-1).
@@ -2264,7 +2789,6 @@ waiting for missing packets.
 [1..300] decompressed packets are received in chronological order
 but waiting for missing packets at most SECs seconds. This requires
 NaqsServer version greater than 1.90.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2276,11 +2800,12 @@ Defines additional options passed to nmxptool.
 .INDENT 0.0
 .TP
 .B sources.nmxp.proc
+Default: \fBnaqs_bb40_sm100\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of the proc object (defined in streams.xml); used for processing
 raw streams (streams submitted by a plugin as raw samples).
-Default is \fBnaqs_bb40_sm100\fP\&.
 .UNINDENT
 .SS ps2400_eth
 .sp
@@ -2290,27 +2815,30 @@ are in $SEISCOMP_ROOT/share/templates/seedlink/ps2400_eth/plugins.ini.tpl.
 .INDENT 0.0
 .TP
 .B sources.ps2400_eth.address
+Default: \fB127.0.0.1\fP
+.sp
 Type: \fIstring\fP
 .sp
 IP of the Earth Data PS2400/PS6\-24 digitizer.
-Default is \fB127.0.0.1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.ps2400_eth.port
+Default: \fB1411\fP
+.sp
 Type: \fIint\fP
 .sp
 Port of the Earth Data PS2400/PS6\-24 digitizer.
-Default is \fB1411\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.ps2400_eth.proc
+Default: \fBps2400_eth_edata_100\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of the proc object (defined in streams.xml); used for processing
 raw streams (streams submitted by a plugin as raw samples).
-Default is \fBps2400_eth_edata_100\fP\&.
 .UNINDENT
 .SS q330
 .sp
@@ -2325,18 +2853,20 @@ Hostname or IP.
 .INDENT 0.0
 .TP
 .B sources.q330.port
+Default: \fB5330\fP
+.sp
 Type: \fIint\fP
 .sp
 Source port to receive data packets.
-Default is \fB5330\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.q330.udpport
+Default: \fBauto\fP
+.sp
 Type: \fIstring\fP
 .sp
 UDP port.
-Default is \fBauto\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2358,26 +2888,29 @@ If proc is not given, the streams are taken as provided by the DAS.
 .INDENT 0.0
 .TP
 .B sources.q330.slot
+Default: \fB1\fP
+.sp
 Type: \fIint\fP
 .sp
 Q330 dataport number (1\-4).
-Default is \fB1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.q330.serial
+Default: \fB0x0100000123456789\fP
+.sp
 Type: \fIstring\fP
 .sp
 Q330 serial number (with 0x prefix).
-Default is \fB0x0100000123456789\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.q330.auth
+Default: \fB0x00\fP
+.sp
 Type: \fIstring\fP
 .sp
 Q330 auth code (with 0x prefix).
-Default is \fB0x00\fP\&.
 .UNINDENT
 .SS reftek
 .sp
@@ -2385,18 +2918,20 @@ RefTek RTPD (TCP/IP)
 .INDENT 0.0
 .TP
 .B sources.reftek.address
+Default: \fB127.0.0.1\fP
+.sp
 Type: \fIstring\fP
 .sp
 Hostname or IP of the RTPD server.
-Default is \fB127.0.0.1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.reftek.port
+Default: \fB2543\fP
+.sp
 Type: \fIint\fP
 .sp
 Port of the RTPD server.
-Default is \fB2543\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2415,14 +2950,17 @@ the Seedlink station name e.g. ABCD.
 .INDENT 0.0
 .TP
 .B sources.reftek.unit
+Default: \fB91F3\fP
+.sp
 Type: \fIstring\fP
 .sp
 The unit id.
-Default is \fB91F3\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.reftek.proc
+Default: \fBreftek\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of the proc object uniquely defined in a template file of
@@ -2434,11 +2972,12 @@ The template file is used to generate
 $SEISCOMP_ROOT/var/lib/seedlink/streams.xml .
 .sp
 Example template: $SEISCOMP_ROOT/share/templates/seedlink/reftek/streams_reftek.tpl
-Default is \fBreftek\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.reftek.timeout
+Default: \fB60\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
@@ -2446,33 +2985,35 @@ Unit: \fIs\fP
 Timeout length in seconds. If no data is received from a Reftek
 unit during this period, the plugin assumes that the unit is
 disconnected.
-Default is \fB60\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.reftek.default_tq
+Default: \fB40\fP
+.sp
 Type: \fIint\fP
 .sp
 Default timing quality in percents. This value will be used when
 no timing quality information is available. Can be \-1 to omit
 the blockette 1001 altogether.
-Default is \fB40\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.reftek.unlock_tq
+Default: \fB10\fP
+.sp
 Type: \fIint\fP
 .sp
 Timing quality to use when GPS is out of lock.
-Default is \fB10\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.reftek.log_soh
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Send Reftek state\-of\-health data as Mini\-SEED LOG stream.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .SS sadc
 .sp
@@ -2480,35 +3021,39 @@ SADC10/18/20/30 (serial plugin)
 .INDENT 0.0
 .TP
 .B sources.sadc.comport
+Default: \fB/dev/data\fP
+.sp
 Type: \fIstring\fP
 .sp
 Serial port.
-Default is \fB/dev/data\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.sadc.baudrate
+Default: \fB38400\fP
+.sp
 Type: \fIint\fP
 .sp
 Baud rate.
-Default is \fB38400\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.sadc.pctime
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 Use PC time for initial time setting.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.sadc.proc
+Default: \fBsadc_100\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of the proc object (defined in streams.xml); used for processing
 raw streams (streams submitted by a plugin as raw samples).
-Default is \fBsadc_100\fP\&.
 .UNINDENT
 .SS scream
 .sp
@@ -2520,29 +3065,32 @@ specified otherwise (parameter \(aqmap\(aq).
 .INDENT 0.0
 .TP
 .B sources.scream.address
+Default: \fB127.0.0.1\fP
+.sp
 Type: \fIstring\fP
 .sp
 IP of the SCREAM! server.
-Default is \fB127.0.0.1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.scream.port
+Default: \fB1567\fP
+.sp
 Type: \fIint\fP
 .sp
 Port of the SCREAM!
-Default is \fB1567\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.scream.tcp
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enables TCP/IP mode. By default the data is received via
 UDP but TCP is used instead. This needs a propert
 configuration of the SCREAM! server to accept TCP
 connections.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2584,37 +3132,41 @@ completeness.
 .INDENT 0.0
 .TP
 .B sources.scream_ring.address
+Default: \fB127.0.0.1\fP
+.sp
 Type: \fIstring\fP
 .sp
 IP of the SCREAM! server.
-Default is \fB127.0.0.1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.scream_ring.port
+Default: \fB1567\fP
+.sp
 Type: \fIint\fP
 .sp
 Port of the SCREAM!
-Default is \fB1567\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.scream_ring.tcp
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enables TCP/IP mode. By default the data is received via
 UDP but TCP is used instead. This needs a propert
 configuration of the SCREAM! server to accept TCP
 connections.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.scream_ring.tcpport
+Default: \fB1567\fP
+.sp
 Type: \fIint\fP
 .sp
 TCP request port of the SCREAM! for backfill requests
-Default is \fB1567\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2627,11 +3179,12 @@ raw streams (streams submitted by a plugin as raw samples).
 .INDENT 0.0
 .TP
 .B sources.scream_ring.rsize
+Default: \fB1000\fP
+.sp
 Type: \fIint\fP
 .sp
 Size of the stream ringbuffers (small values are useful for RT systems;
 large values for decreasing gaps).
-Default is \fB1000\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2659,27 +3212,30 @@ Vaisala ASCII protocol (serial plugin)
 .INDENT 0.0
 .TP
 .B sources.vaisala.comport
+Default: \fB/dev/weatherstation\fP
+.sp
 Type: \fIstring\fP
 .sp
 Serial port.
-Default is \fB/dev/weatherstation\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.vaisala.baudrate
+Default: \fB19200\fP
+.sp
 Type: \fIint\fP
 .sp
 Baud rate.
-Default is \fB19200\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.vaisala.proc
+Default: \fBvaisala\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of the proc object (defined in streams.xml); used for processing
 raw streams (streams submitted by a plugin as raw samples).
-Default is \fBmws\fP\&.
 .UNINDENT
 .SS wago
 .sp
@@ -2694,10 +3250,11 @@ Hostname or IP.
 .INDENT 0.0
 .TP
 .B sources.wago.port
+Default: \fB502\fP
+.sp
 Type: \fIint\fP
 .sp
 TCP port.
-Default is \fB502\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2709,11 +3266,12 @@ List of channels.
 .INDENT 0.0
 .TP
 .B sources.wago.proc
+Default: \fBwago\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of the proc object (defined in streams.xml); used for processing
 raw streams (streams submitted by a plugin as raw samples).
-Default is \fBwago\fP\&.
 .UNINDENT
 .SS wave24
 .sp
@@ -2721,27 +3279,30 @@ Wave24
 .INDENT 0.0
 .TP
 .B sources.wave24.comport
+Default: \fB/dev/data\fP
+.sp
 Type: \fIstring\fP
 .sp
 Serial port.
-Default is \fB/dev/data\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.wave24.baudrate
+Default: \fB57600\fP
+.sp
 Type: \fIint\fP
 .sp
 Baud rate.
-Default is \fB57600\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sources.wave24.proc
+Default: \fBwave24bb\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of the proc object (defined in streams.xml); used for processing
 raw streams (streams submitted by a plugin as raw samples).
-Default is \fBwave24bb\fP\&.
 .UNINDENT
 .SS win
 .sp
@@ -2749,10 +3310,11 @@ WIN server
 .INDENT 0.0
 .TP
 .B sources.win.udpport
+Default: \fB18000\fP
+.sp
 Type: \fIint\fP
 .sp
 UDP port to receive data packets.
-Default is \fB18000\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2783,11 +3345,12 @@ If no channel mappings are given, the map file defined in map
 .INDENT 0.0
 .TP
 .B sources.win.proc
+Default: \fBwin\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of the proc object (defined in streams.xml); used for processing
 raw streams (streams submitted by a plugin as raw samples).
-Default is \fBwin\fP\&.
 .UNINDENT
 .SH AUTHOR
 gempa GmbH, GFZ Potsdam

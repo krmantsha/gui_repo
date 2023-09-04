@@ -6,29 +6,43 @@
 scdbstrip
 #########
 
-**Database clean-up of processing results.**
+**Clean up a database from event and waveform quality parameters.**
 
 
 Description
 ===========
 
-SeisComP's :ref:`scmaster` is continuously writing to the database. This causes
+|scname|'s :ref:`scmaster` is continuously writing to the database. This causes
 the database to grow and to occupy much space on the harddisc. scdbstrip taggles
 this problem and removes processed objects from the database older than a
 configurable time span. The time comparison considers the object time, not the
 time of their creation.
 
-This clean-up procedure is based on events. scdbstrip will remove all events
-with an origin time older than specified. It will also remove all associated
+This clean-up procedure is based on
+
+* Events, event parameters,
+* waveform quality control, QC, parameters.
+
+scdbstrip will remove all events with an origin time and QC parameters older or
+younger than specified. Default is 'older'. It will also remove all associated
 objects such as picks, origins, arrivals, amplitudes and so on.
 
 scdbstrip does not run as a daemon. To remove old objects continuously scdbstrip
 should be added to the list of cronjobs running every e.g. 30 minutes. The more
 often it runs the less objects it has to remove and the faster it will unlock
-the database again.
+the database again. The timing and the parameters to be removed is controlled
+by module configuration or command-line options.
 
 
-Known issues
+.. hint ::
+
+   For removing specific parameters and not all in a time range, use
+   :ref:`scdispatch` along with XML files created by :ref:`scxmldump` and
+   :ref:`scqueryqc` for event parameters and waveform QC parameters,
+   respectively.
+
+
+Known Issues
 ============
 
 When running scdbstrip for the first time on a large database it can happen
@@ -50,15 +64,16 @@ that it aborts in case of MYSQL with the following error message:
 That means your MYSQL server cannot hold enough data required for deletion.
 There are two solutions to this:
 
-#. Increase the memory pool used by MYSQL by changing the configuration to:
+#. Increase the memory pool used by MYSQL by changing the configuration. The
+   minimum is 64 MBytes but modern system typically have a larger default:
 
    .. code-block:: sh
 
       innodb_buffer_pool_size = 64M
 
    The size of the new buffer depends on the size of the database that should
-   be cleaned up.
-
+   be cleaned up. Read also the section :ref:`database_configuration`. It
+   provides more options for optimizing your database server.
 
 #. Run scdbstrip on smaller batches for the first time:
 
@@ -73,17 +88,23 @@ There are two solutions to this:
 Examples
 ========
 
-* Keep the events of the last 30 days
+* Remove event and waveform quality parameters older than 30 days
 
   .. code-block:: sh
 
-     scdbstrip --days 30 -d mysql://sysop:sysop@localhost/seiscomp
+     scdbstrip -d mysql://sysop:sysop@localhost/seiscomp --days 30
+
+* Only remove waveform QC parameters older than 30 days but no others
+
+  .. code-block:: sh
+
+     scdbstrip -d mysql://sysop:sysop@localhost/seiscomp --days 30 --qc-only
 
 
 .. _scdbstrip_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 | :file:`etc/defaults/global.cfg`
 | :file:`etc/defaults/scdbstrip.cfg`
@@ -96,6 +117,35 @@ scdbstrip inherits :ref:`global options<global-configuration>`.
 
 
 
+.. confval:: database.cleanup.invertMode
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Delete all parameters after the specified time period,
+   not before.
+
+
+.. confval:: database.cleanup.eventParameters
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   Strip all event parameters including events, origins,
+   magnitudes, amplitudes, arrivals, picks, focal mechanisms.
+
+
+.. confval:: database.cleanup.qualityControl
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   Strip waveform quality control \(QC\) parameters.
+
+
 .. note::
    **database.cleanup.keep.\***
    *Parameters controlling the time to keep objects in the database.*
@@ -106,36 +156,44 @@ scdbstrip inherits :ref:`global options<global-configuration>`.
 
 .. confval:: database.cleanup.keep.days
 
+   Default: ``30``
+
    Type: *int*
 
    The number of days to preserve in the database. This
    value is added to the whole timespan. Hours
    and minutes are configured separately.
-   Default is ``30``.
+
 
 .. confval:: database.cleanup.keep.hours
+
+   Default: ``0``
 
    Type: *int*
 
    The number of hours to preserve in the database. This
    value is added to the whole timespan. Days
    and minutes are configured separately.
-   Default is ``0``.
+
 
 .. confval:: database.cleanup.keep.minutes
+
+   Default: ``0``
 
    Type: *int*
 
    The number of minutes to preserve in the database. This
    value is added to the whole timespan. Days
    and hours are configured separately.
-   Default is ``0``.
 
 
-Command-line
-============
+
+Command-Line Options
+====================
 
 .. program:: scdbstrip
+
+:program:`scdbstrip [options]`
 
 
 Generic
@@ -143,27 +201,24 @@ Generic
 
 .. option:: -h, --help
 
-   show help message.
+   Show help message.
 
 .. option:: -V, --version
 
-   show version information
+   Show version information.
 
 .. option:: --config-file arg
 
-   Use alternative configuration file. When this option is used
-   the loading of all stages is disabled. Only the given configuration
-   file is parsed and used. To use another name for the configuration
-   create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+   Use alternative configuration file. When this option is
+   used the loading of all stages is disabled. Only the
+   given configuration file is parsed and used. To use
+   another name for the configuration create a symbolic
+   link of the application or copy it. Example:
+   scautopick \-> scautopick2.
 
 .. option:: --plugins arg
 
    Load given plugins.
-
-.. option:: -D, --daemon
-
-   Run as daemon. This means the application will fork itself and
-   doesn't need to be started with \&.
 
 .. option:: --first-new
 
@@ -175,23 +230,26 @@ Verbosity
 
 .. option:: --verbosity arg
 
-   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
 
 .. option:: -v, --v
 
-   Increase verbosity level \(may be repeated, eg. \-vv\)
+   Increase verbosity level \(may be repeated, eg. \-vv\).
 
 .. option:: -q, --quiet
 
-   Quiet mode: no logging output
+   Quiet mode: no logging output.
 
 .. option:: --component arg
 
-   Limits the logging to a certain component. This option can be given more than once.
+   Limit the logging to a certain component. This option can
+   be given more than once.
 
 .. option:: -s, --syslog
 
-   Use syslog logging back end. The output usually goes to \/var\/lib\/messages.
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
 
 .. option:: -l, --lockfile arg
 
@@ -203,7 +261,8 @@ Verbosity
 
 .. option:: --debug
 
-   Debug mode: \-\-verbosity\=4 \-\-console\=1
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
 
 .. option:: --log-file arg
 
@@ -219,58 +278,23 @@ Database
 
 .. option:: -d, --database arg
 
-   The database connection string, format: service:\/\/user:pwd\@host\/database.
-   \"service\" is the name of the database driver which can be
-   queried with \"\-\-db\-driver\-list\".
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
 
 .. option:: --config-module arg
 
-   The configmodule to use.
+   The config module to use.
 
 .. option:: --inventory-db arg
 
-   Load the inventory from the given database or file, format: [service:\/\/]location
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
 
 .. option:: --db-disable
 
    Do not use the database at all
-
-
-Settings
---------
-
-.. option:: --days arg
-
-   Overrides configuration parameter :confval:`database.cleanup.keep.days`.
-   The number of days to keep. Hours and minutes are also
-   used the compute the whole time span.
-
-.. option:: --hours arg
-
-   Overrides configuration parameter :confval:`database.cleanup.keep.hours`.
-   The number of hours to keep. Days and minutes are also
-   used the compute the whole time span.
-
-.. option:: --minutes arg
-
-   Overrides configuration parameter :confval:`database.cleanup.keep.minutes`.
-   The number of minutes to keep. Days and hours are also
-   used the compute the whole time span.
-
-.. option:: --datetime arg
-
-   Replaces the days:hours:minutes timespan definition by an
-   arbtrary absolute timestamp in UTC. The format is
-   %Y\-%m\-%d %H:%M:%S.
-
-.. option:: -i, --invert
-
-   Delete all events after the specified time period and not
-   before.
-
-.. option:: --keep-events
-
-   Event\-IDs to keep in the database separated with comma.
 
 
 Mode
@@ -278,7 +302,55 @@ Mode
 
 .. option:: --check
 
+   Checks if unreachable objects exist.
 
 .. option:: --clean-unused
 
+   Remove all unreachable objects when in checkmode. Default:
+   off.
+
+
+Objects
+-------
+
+.. option:: -E, --ep-only
+
+   Strip only event parameters. Other parameters, like QC, are
+   are ignored.
+
+.. option:: -Q, --qc-only
+
+   Strip only waveform quality control \(QC\) parameters. Other
+   parameters, like event parameters, are are ignored.
+   Overrides 'eq\-only'.
+
+
+Timespan
+--------
+
+.. option:: --days arg
+
+   Overrides configuration parameter :confval:`database.cleanup.keep.days`.
+
+.. option:: --hours arg
+
+   Overrides configuration parameter :confval:`database.cleanup.keep.hours`.
+
+.. option:: --minutes arg
+
+   Overrides configuration parameter :confval:`database.cleanup.keep.minutes`.
+
+.. option:: --datetime arg
+
+   Replaces the days:hours:minutes timespan definition by an
+   aribtrary absolute timestamp in UTC. The format is
+   %Y\-%m\-%d %H:%M:%S.
+
+.. option:: -i, --invert
+
+   Overrides configuration parameter :confval:`database.cleanup.invertMode`.
+
+.. option:: --keep-events
+
+   IDs of events to keep in the database separated with comma.
 

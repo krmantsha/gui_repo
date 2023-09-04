@@ -30,7 +30,30 @@
 
 
 namespace Seiscomp {
+
+namespace DataModel {
+
+
+/** @version 15.1 */
+const char *QML_NS();
+/** @version 15.1 */
+const char *QML_NS_RT();
+/** @version 15.1 */
+const char *QML_NS_BED();
+/** @version 15.1 */
+const char *QML_NS_BED_RT();
+
+/** @version 15.1 */
+constexpr const char *QML_SMIPrefixEnvVar = "QML_SMI_PREFIX";
+/** @version 15.1 */
+const std::string &QML_SMIPrefix();
+
+
+}
+
+
 namespace QML {
+
 
 class TypeMapper {
 	public:
@@ -50,43 +73,33 @@ class TypeMapper {
 		 * @return The QML event type string
 		 */
 		static std::string EventTypeToString(DataModel::EventType type);
+
+		/**
+		 * @brief Maps an EventTypeCertainty to an QML event type string.
+		 * @param type The EventTypeCertainty
+		 * @return The QML event type certainty string
+		 */
+		static std::string EventTypeCertaintyToString(DataModel::EventTypeCertainty type);
 };
+
 
 class Exporter : public IO::XML::Exporter {
 	public:
 		Exporter();
 
 	protected:
-		virtual void collectNamespaces(Core::BaseObject *);
+		void collectNamespaces(Core::BaseObject *) override;
 };
+
 
 class RTExporter : public IO::XML::Exporter {
 	public:
 		RTExporter();
 
 	protected:
-		virtual void collectNamespaces(Core::BaseObject *);
+		void collectNamespaces(Core::BaseObject *) override;
 };
 
-struct Formatter {
-	virtual void to(std::string& v) {}
-	virtual void from(std::string& v) {}
-};
-
-template <typename T>
-struct TypedClassHandler : IO::XML::TypedClassHandler<T> {
-	void add(const char *property, const char *name, Formatter *format = nullptr,
-	         IO::XML::ClassHandler::Type t = IO::XML::ClassHandler::Optional,
-	         IO::XML::ClassHandler::Location l = IO::XML::ClassHandler::Element);
-	void add(const char *property, Formatter *format = nullptr,
-	         IO::XML::ClassHandler::Type t = IO::XML::ClassHandler::Optional,
-	         IO::XML::ClassHandler::Location l = IO::XML::ClassHandler::Element);
-	void addList(const char *properties,
-	             IO::XML::ClassHandler::Type t = IO::XML::ClassHandler::Optional,
-	             IO::XML::ClassHandler::Location l = IO::XML::ClassHandler::Element);
-	void addPID();
-	void addEmptyPID();
-};
 
 }
 }

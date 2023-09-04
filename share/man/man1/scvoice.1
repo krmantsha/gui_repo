@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCVOICE" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCVOICE" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scvoice \- SeisComP Documentation
 .
@@ -171,7 +171,7 @@ scripts.alert = /home/sysop/.seiscomp/alert.sh
 .UNINDENT
 .UNINDENT
 .UNINDENT
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/scvoice.cfg\fP
@@ -186,17 +186,18 @@ scvoice inherits global options\&.
 .INDENT 0.0
 .TP
 .B firstNew
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
-Treats an event as new event when it is seen the first time.
-Default is \fBfalse\fP\&.
+Treat an event as new event when it is seen the first time.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B agencyIDs
 Type: \fIlist:string\fP
 .sp
-Defines a white list of agencyIDs to alert an event. The
+Define a white list of agencyIDs to alert an event. The
 agencyID is extracted from the preferred origin of the event.
 If this list is empty, all agencies are allowed.
 .UNINDENT
@@ -207,16 +208,18 @@ Type: \fIstring\fP
 .sp
 The default message string for the event\-script is
 "earthquake, [HOURS] hours [MINS] minutes ago, [DESC],
-magnitude [MAG], depth [DEP] kilometers" whereas [DESC] is the
-string given in the event.description attribute. This string can be
-overwritten using one of the following options.
-There are three placeholders that can be used: @region@, @dist@ and
-@poi@.
+magnitude [MAG], depth [DEP] kilometers" whereas [DESC]
+is the string given in the event.description attribute.
+This string can be overwritten using one of the following
+options. There are three placeholders that can be used:
+@region@, @dist@ and @poi@.
 Example: "@region@, @dist@ kilometers from @poi@ away".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B poi.maxDist
+Default: \fB20\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
@@ -224,15 +227,15 @@ Unit: \fIdeg\fP
 When using the nearest point of interest (city) as part of the
 message string, specify the maximum distance in degrees from the
 event. Any point of interest farther away will be ignored.
-Default is \fB20\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B poi.minPopulation
+Default: \fB50000\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Minimum population for a city to become a point of interest.
-Default is \fB50000\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -263,25 +266,29 @@ declared; the message string, a flag (1=new event,
 magnitude (optional when set) are passed as parameter
 $1, $2, $3, $4 and $5.
 .UNINDENT
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
+.sp
+\fBscvoice [options]\fP
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -291,29 +298,31 @@ Load given plugins.
 .INDENT 0.0
 .TP
 .B \-D, \-\-daemon
-Run as daemon. This means the application will fork itself and
-doesn\(aqt need to be started with &.
+Run as daemon. This means the application will fork itself
+and doesn\(aqt need to be started with &.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-auto\-shutdown arg
-Enable/disable self\-shutdown because a master module shutdown. This only
-works when messaging is enabled and the master module sends a shutdown
-message (enabled with \-\-start\-stop\-msg for the master module).
+Enable/disable self\-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with \-\-start\-stop\-msg
+for the master module).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-module arg
-Sets the name of the master\-module used for auto\-shutdown. This
-is the application name of the module actually started. If symlinks
-are used then it is the name of the symlinked application.
+Set the name of the master\-module used for auto\-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-username arg
-Sets the name of the master\-username of the messaging used for
-auto\-shutdown. If "shutdown\-master\-module" is given as well this
-parameter is ignored.
+Set the name of the master\-username of the messaging
+used for auto\-shutdown. If "shutdown\-master\-module" is
+given as well, this parameter is ignored.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -324,27 +333,30 @@ Overrides configuration parameter \fI\%firstNew\fP\&.
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -359,7 +371,8 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -390,7 +403,8 @@ Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
 .INDENT 0.0
 .TP
 .B \-S, \-\-subscribe\-group arg
-A group to subscribe to. This option can be given more than once.
+A group to subscribe to.
+This option can be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -400,7 +414,7 @@ Overrides configuration parameter \fBconnection.contentType\fP\&.
 .INDENT 0.0
 .TP
 .B \-\-start\-stop\-msg arg
-Sets sending of a start\- and a stop message.
+Set sending of a start and a stop message.
 .UNINDENT
 .SS Database
 .INDENT 0.0
@@ -411,19 +425,21 @@ List all supported database drivers.
 .INDENT 0.0
 .TP
 .B \-d, \-\-database arg
-The database connection string, format: \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which can be
-queried with "\-\-db\-driver\-list".
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+"service" is the name of the database driver which
+can be queried with "\-\-db\-driver\-list".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-module arg
-The configmodule to use.
+The config module to use.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-inventory\-db arg
-Load the inventory from the given database or file, format: [\fI\%service://]location\fP
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -466,8 +482,8 @@ Overrides configuration parameter \fI\%poi.minPopulation\fP\&.
 .INDENT 0.0
 .TP
 .B \-E, \-\-eventid arg
-Specify event ID that is used for testing. After running the alert
-scripts scvoice will exit.
+Specify event ID that is used for testing.
+After running the alert scripts scvoice will exit.
 .UNINDENT
 .SH AUTHOR
 gempa GmbH, GFZ Potsdam

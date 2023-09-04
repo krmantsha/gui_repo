@@ -25,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -72,7 +72,7 @@
 <span id="tutorials-servefdsnws"></span><h1>Enable local FDSNWS server<a class="headerlink" href="#enable-local-fdsnws-server" title="Permalink to this headline">¶</a></h1>
 <p>You will …</p>
 <ul class="simple">
-<li><p>Enable FDSN web service <a class="footnote-reference brackets" href="#fdsn-spec" id="id1">1</a> to serve waveforms and inventory for
+<li><p>Enable FDSN web service by <a class="reference internal" href="../../apps/fdsnws.html#fdsnws"><span class="std std-ref">fdsnws</span></a> to serve waveforms and inventory for
 a configured station</p></li>
 </ul>
 <p>Pre-requisites for this tutorial:</p>
@@ -105,7 +105,7 @@ The availability information can be retrieved using <a class="reference internal
 <div class="section" id="set-up">
 <h2>Set-up<a class="headerlink" href="#set-up" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
-<li><p>Configure <strong class="program">fdsnws</strong>:</p>
+<li><p>Configure <a class="reference internal" href="../../apps/fdsnws.html#fdsnws"><span class="std std-ref">fdsnws</span></a>:</p>
 <ul class="simple">
 <li><p>set the <a class="reference internal" href="../concepts/recordstream.html#concepts-recordstream"><span class="std std-ref">RecordStream</span></a> to point to archived data.</p></li>
 <li><p>configured and enable the desired services.</p></li>
@@ -113,11 +113,11 @@ The availability information can be retrieved using <a class="reference internal
 </li>
 <li><p>Enable and start fdsnws locally:</p>
 <ul>
-<li><p>in <strong class="program">scconfig</strong>, go to the System tab.
+<li><p>in <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a>, go to the System tab.
 Click on the line for the “fdsnws” module, and press “Enable module(s)”.
 Then restart SeisComP.</p></li>
 <li><p>or from the command line</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ seiscomp enable fdsnws
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ seiscomp <span class="nb">enable</span> fdsnws
 $ seiscomp start fdsnws
 </pre></div>
 </div>
@@ -130,7 +130,7 @@ $ seiscomp start fdsnws
 Information about requests handled goes to the file named in <cite>accessLog</cite>,
 if you set this.</p>
 <p>To see the available configuration options, go to the Modules tab in
-<strong class="program">scconfig</strong>.
+<a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a>.
 Under Utilities open “fdsnws” to reveal the options.
 To disable fdsnws-event, for instance, unlock the “serveEvent” area
 and uncheck this parameter.</p>
@@ -139,18 +139,18 @@ SeisComP <a class="reference internal" href="../concepts/inventory.html#concepts
 <cite>dataSelectFilter</cite> and <cite>stationFilter</cite> options.</p>
 </div>
 <div class="section" id="visiting-the-service">
-<span id="tutorials-servefdsnws-visit"></span><h2>Visiting the service<a class="headerlink" href="#visiting-the-service" title="Permalink to this headline">¶</a></h2>
-<p>Once <strong class="program">fdsnws</strong> is running, you can visit the local web server
+<span id="tutorials-servefdsnws-visit"></span><h2>Visiting the Service<a class="headerlink" href="#visiting-the-service" title="Permalink to this headline">¶</a></h2>
+<p>Once <a class="reference internal" href="../../apps/fdsnws.html#fdsnws"><span class="std std-ref">fdsnws</span></a> is running, you can visit the local web server
 that it runs.
 In your browser, visit <a class="reference external" href="http://localhost:8080/fdsnws/dataselect/1/">http://localhost:8080/fdsnws/dataselect/1/</a></p>
-<div class="figure align-center" id="id3">
+<div class="figure align-center" id="id2">
 <a class="reference internal image-reference" href="../../_images/servefdsnws_dataselect.png"><img alt="../../_images/servefdsnws_dataselect.png" src="../../_images/servefdsnws_dataselect.png" style="width: 16cm;" /></a>
 <p class="caption"><span class="caption-text">Information screen shown by fdsnws-dataselect at
-<a class="reference external" href="http://localhost:8080/fdsnws/dataselect/1/">http://localhost:8080/fdsnws/dataselect/1/</a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<a class="reference external" href="http://localhost:8080/fdsnws/dataselect/1/">http://localhost:8080/fdsnws/dataselect/1/</a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="check-it-works">
-<h2>Check it works<a class="headerlink" href="#check-it-works" title="Permalink to this headline">¶</a></h2>
+<h2>Check it Works<a class="headerlink" href="#check-it-works" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p>If you visit the URL <a class="reference external" href="http://localhost:8080/fdsnws/dataselect/1/version">http://localhost:8080/fdsnws/dataselect/1/version</a>
 you should receive a version number string - currently <cite>1.1.0</cite>.</p></li>
@@ -158,36 +158,37 @@ you should receive a version number string - currently <cite>1.1.0</cite>.</p></
 <li><p>The fdsnws-station service should give a list of networks configured
 and served by the service, e.g. visiting
 <a class="reference external" href="http://localhost:8080/fdsnws/station/1/query?level=network&amp;format=text">http://localhost:8080/fdsnws/station/1/query?level=network&amp;format=text</a>
-produces:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Network|Description|StartTime|EndTime|TotalStations</span>
-<span class="n">GE</span><span class="o">|</span><span class="n">GEOFON</span> <span class="n">Program</span><span class="p">,</span> <span class="n">GFZ</span> <span class="n">Potsdam</span><span class="p">,</span> <span class="n">Germany</span><span class="o">|</span><span class="mi">1993</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="o">||</span><span class="mi">84</span>
+produces</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#Network|Description|StartTime|EndTime|TotalStations</span>
+GE<span class="p">|</span>GEOFON Program, GFZ Potsdam, Germany<span class="p">|</span><span class="m">1993</span>-01-01T00:00:00<span class="o">||</span><span class="m">84</span>
 </pre></div>
 </div>
 <p>Omitting the <cite>format=text</cite> argument in the query string of the above URL
 results in the service returning a StationXML file.</p>
 </li>
 </ul>
-<div class="figure align-center" id="id4">
+<div class="figure align-center" id="id3">
 <a class="reference internal image-reference" href="../../_images/servefdsnws_stationxml.png"><img alt="../../_images/servefdsnws_stationxml.png" src="../../_images/servefdsnws_stationxml.png" style="width: 16cm;" /></a>
-<p class="caption"><span class="caption-text">Example of StationXML returned by the fdsnws-station service at</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Example of StationXML returned by the fdsnws-station service at</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 <div class="legend">
 <p><a class="reference external" href="http://localhost:8080/fdsnws/station/1/query?level=network">http://localhost:8080/fdsnws/station/1/query?level=network</a></p>
 </div>
 </div>
 </div>
 <div class="section" id="further-information">
-<h2>Further information<a class="headerlink" href="#further-information" title="Permalink to this headline">¶</a></h2>
+<h2>Further Information<a class="headerlink" href="#further-information" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>The <a class="reference external" href="https://geofon.gfz-potsdam.de/waveform/builder.php">URL Builder at GEOFON</a> <a class="footnote-reference brackets" href="#id5" id="id6">2</a>
+<li><p>The <a class="reference external" href="https://geofon.gfz-potsdam.de/waveform/builder.php">URL Builder at GEOFON</a>
 lets you fill out a form to tailor your request.
 The URL to use to make your request is displayed at the bottom of that page.</p></li>
-<li><p>More example requests are at the <a class="reference external" href="https://geofon.gfz-potsdam.de/waveform/webservices.php">FDSNWS description at GEOFON</a> <a class="footnote-reference brackets" href="#id7" id="id8">3</a></p></li>
-<li><p>The FDSN Web Services specification document <a class="footnote-reference brackets" href="#fdsn-spec" id="id2">1</a> provides the
+<li><p>More example requests are at the
+<a class="reference external" href="https://geofon.gfz-potsdam.de/waveform/webservices.php">FDSNWS description at GEOFON</a></p></li>
+<li><p>The FDSN Web Services specification document <span id="id1">[<a class="reference internal" href="../references.html#id107" title="FDSN Web Service Specifications. International Federation of Digital Seismograph Networks. URL: http://www.fdsn.org/webservices/FDSN-WS-Specifications-1.2.pdf.">5</a>]</span> provides the
 technical documentation and examples.</p></li>
 </ul>
 </div>
 <div class="section" id="final-tests">
-<h2>Final tests<a class="headerlink" href="#final-tests" title="Permalink to this headline">¶</a></h2>
+<h2>Final Tests<a class="headerlink" href="#final-tests" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p>The station should now be visible when you query your local fdsnws instance.
 In your browser, visit
@@ -200,22 +201,6 @@ actually present in your archive.
 The above example is just for the first hour of 2020.</p>
 </li>
 </ul>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id6">2</a></span></dt>
-<dd><p><a class="reference external" href="https://geofon.gfz-potsdam.de/waveform/builder.php">https://geofon.gfz-potsdam.de/waveform/builder.php</a></p>
-</dd>
-<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id8">3</a></span></dt>
-<dd><p><a class="reference external" href="https://geofon.gfz-potsdam.de/waveform/webservices.php">https://geofon.gfz-potsdam.de/waveform/webservices.php</a></p>
-</dd>
-<dt class="label" id="fdsn-spec"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
-<dd><p>International Federation of Digital Seismograph Networks (2019-04-02).
-FDSN Web Service Specifications Version 1.2.
-At <a class="reference external" href="http://www.fdsn.org/webservices/FDSN-WS-Specifications-1.2.pdf">http://www.fdsn.org/webservices/FDSN-WS-Specifications-1.2.pdf</a></p>
-</dd>
-</dl>
 </div>
 </div>
 
@@ -240,11 +225,10 @@ At <a class="reference external" href="http://www.fdsn.org/webservices/FDSN-WS-S
   <ul>
 <li><a class="reference internal" href="#">Enable local FDSNWS server</a><ul>
 <li><a class="reference internal" href="#set-up">Set-up</a></li>
-<li><a class="reference internal" href="#visiting-the-service">Visiting the service</a></li>
-<li><a class="reference internal" href="#check-it-works">Check it works</a></li>
-<li><a class="reference internal" href="#further-information">Further information</a></li>
-<li><a class="reference internal" href="#final-tests">Final tests</a></li>
-<li><a class="reference internal" href="#references">References</a></li>
+<li><a class="reference internal" href="#visiting-the-service">Visiting the Service</a></li>
+<li><a class="reference internal" href="#check-it-works">Check it Works</a></li>
+<li><a class="reference internal" href="#further-information">Further Information</a></li>
+<li><a class="reference internal" href="#final-tests">Final Tests</a></li>
 </ul>
 </li>
 </ul>
@@ -274,7 +258,7 @@ At <a class="reference external" href="http://www.fdsn.org/webservices/FDSN-WS-S
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

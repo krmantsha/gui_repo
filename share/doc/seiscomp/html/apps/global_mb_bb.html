@@ -17,7 +17,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="mb" href="global_mb.html" />
-    <link rel="prev" title="RecordStream" href="global_recordstream.html" /> 
+    <link rel="prev" title="FX-DFX" href="global_fx-dfx.html" /> 
   </head>
   <body>
     <div class="header">
@@ -25,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -48,7 +48,7 @@
           </a>
         </li>
         <li class="right">
-          <a href="global_recordstream.html" title="RecordStream"
+          <a href="global_fx-dfx.html" title="FX-DFX"
              accesskey="P">
             previous
           </a>
@@ -77,7 +77,7 @@
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>The name <strong>mB</strong> is used in <cite>SeisComP</cite> as a synonym for <strong>mB_BB</strong> which is recommended
-by the IASPEI commission (<span id="id1">IASPEI [<a class="reference internal" href="../base/references.html#id36" title="IASPEI. Summary of magnitude working group recommendations on standard procedures for determining earthquake magnitudes from digital data. IASPEI Website, 2013. URL: http://www.iaspei.org/commissions/commission-on-seismological-observation-and-interpretation/Summary_WG_recommendations_20130327.pdf.">17</a>]</span>).</p>
+by the IASPEI commission (<span id="id1">IASPEI [<a class="reference internal" href="../base/references.html#id40" title="IASPEI. Summary of magnitude working group recommendations on standard procedures for determining earthquake magnitudes from digital data. IASPEI Website, 2013. URL: http://www.iaspei.org/commissions/commission-on-seismological-observation-and-interpretation/Summary_WG_recommendations_20130327.pdf.">43</a>]</span>).</p>
 <p>mB is a magnitude based on body waves like <a class="reference internal" href="global_mb.html#global-mb"><span class="std std-ref">mb</span></a>, but with the amplitude
 measured in a broad
 frequency range and longer time windows. Instead of amplitude measurements on displacement
@@ -85,13 +85,13 @@ data together with the dominant period, the maximum velocity amplitude Vmax is t
 directly from velocity-proportional records with <img class="math" src="../_images/math/3e38ca2d603956fc616a5148453d32f873cfdbd0.png" alt="V = 2 \pi A/T"/>. The time
 window for the
 measurement can be determined by the duration of the high-frequency (1-3 Hz) radiation
-(<span id="id2">Bormann and Saul [<a class="reference internal" href="../base/references.html#id16" title="P. Bormann and J. Saul. The new iaspei standard broadband magnitude mb. Seismol. Res. Lett., 5:698 - 705, 2008. doi:10.1785/gssrl.79.5.698.">14</a>]</span>). This time window usually contains the phases P, pP, sP, PcP, but
+(<span id="id2">Bormann and Saul [<a class="reference internal" href="../base/references.html#id18" title="P. Bormann and J. Saul. The new iaspei standard broadband magnitude mb. Seismol. Res. Lett., 5:698 - 705, 2008. doi:10.1785/gssrl.79.5.698.">35</a>]</span>). This time window usually contains the phases P, pP, sP, PcP, but
 not PP. According to the long time window and broad frequency range used for amplitude
 measurements mB saturates not like mb.</p>
 <div class="section" id="amplitude">
 <h3>Amplitude<a class="headerlink" href="#amplitude" title="Permalink to this headline">¶</a></h3>
 <p>The mB amplitudes are calculated on vertical-component displacement seismograms
-in accordance with <span id="id3">Bormann and Saul [<a class="reference internal" href="../base/references.html#id16" title="P. Bormann and J. Saul. The new iaspei standard broadband magnitude mb. Seismol. Res. Lett., 5:698 - 705, 2008. doi:10.1785/gssrl.79.5.698.">14</a>]</span> and similar to <a class="reference internal" href="global_mb.html#global-mb"><span class="std std-ref">mb</span></a>.
+in accordance with <span id="id3">Bormann and Saul [<a class="reference internal" href="../base/references.html#id18" title="P. Bormann and J. Saul. The new iaspei standard broadband magnitude mb. Seismol. Res. Lett., 5:698 - 705, 2008. doi:10.1785/gssrl.79.5.698.">35</a>]</span> and similar to <a class="reference internal" href="global_mb.html#global-mb"><span class="std std-ref">mb</span></a>.
 A default time window of 60 s is considered for amplitude measurements
 at stations in the distance range of 5° to 105°.
 If the epicentral is known, the length of the time window after the P wave onset is</p>
@@ -102,7 +102,7 @@ amplitudes are configurable in the global bindings.</p>
 </div>
 <div class="section" id="station-magnitude">
 <h3>Station Magnitude<a class="headerlink" href="#station-magnitude" title="Permalink to this headline">¶</a></h3>
-<p>The mB station magntiudes are calculated in accordance with <span id="id4">Bormann and Saul [<a class="reference internal" href="../base/references.html#id16" title="P. Bormann and J. Saul. The new iaspei standard broadband magnitude mb. Seismol. Res. Lett., 5:698 - 705, 2008. doi:10.1785/gssrl.79.5.698.">14</a>]</span>.</p>
+<p>The mB station magntiudes are calculated in accordance with <span id="id4">Bormann and Saul [<a class="reference internal" href="../base/references.html#id18" title="P. Bormann and J. Saul. The new iaspei standard broadband magnitude mb. Seismol. Res. Lett., 5:698 - 705, 2008. doi:10.1785/gssrl.79.5.698.">35</a>]</span>.</p>
 <div class="math">
 <p><img src="../_images/math/c4e29d7f89b54eff7de102b648e87d8c0f96afd6.png" alt="mB = \log \left(\frac{A}{2\Pi}\right) + Q(h,\Delta) - 3.0"/></p>
 </div><p>with A as the displacement amplitude in micrometers, T as the dominant period of
@@ -117,9 +117,9 @@ the signal in seconds, Q as a correction term for depth and distance.</p>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In 2013 the IASPEI commission (<span id="id5">IASPEI [<a class="reference internal" href="../base/references.html#id36" title="IASPEI. Summary of magnitude working group recommendations on standard procedures for determining earthquake magnitudes from digital data. IASPEI Website, 2013. URL: http://www.iaspei.org/commissions/commission-on-seismological-observation-and-interpretation/Summary_WG_recommendations_20130327.pdf.">17</a>]</span>) recommended a minimum
+<p>In 2013 the IASPEI commission (<span id="id5">IASPEI [<a class="reference internal" href="../base/references.html#id40" title="IASPEI. Summary of magnitude working group recommendations on standard procedures for determining earthquake magnitudes from digital data. IASPEI Website, 2013. URL: http://www.iaspei.org/commissions/commission-on-seismological-observation-and-interpretation/Summary_WG_recommendations_20130327.pdf.">43</a>]</span>) recommended a minimum
 distance of
-20 deg. However, the calibration formula (<span id="id6">Bormann and Saul [<a class="reference internal" href="../base/references.html#id16" title="P. Bormann and J. Saul. The new iaspei standard broadband magnitude mb. Seismol. Res. Lett., 5:698 - 705, 2008. doi:10.1785/gssrl.79.5.698.">14</a>]</span>) which is
+20 deg. However, the calibration formula (<span id="id6">Bormann and Saul [<a class="reference internal" href="../base/references.html#id18" title="P. Bormann and J. Saul. The new iaspei standard broadband magnitude mb. Seismol. Res. Lett., 5:698 - 705, 2008. doi:10.1785/gssrl.79.5.698.">35</a>]</span>) which is
 integrated in
 <cite>SeisComP</cite> allows the extension down to 5 deg while maintaining consistent magnitudes
 at 20 deg and beyond. Therefore, 5 deg is used as the default in
@@ -175,8 +175,8 @@ in the configuration of
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="global_recordstream.html"
-                        title="previous chapter">RecordStream</a></p>
+  <p class="topless"><a href="global_fx-dfx.html"
+                        title="previous chapter">FX-DFX</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="global_mb.html"
                         title="next chapter">mb</a></p>
@@ -199,7 +199,7 @@ in the configuration of
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

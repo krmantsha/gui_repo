@@ -565,6 +565,10 @@ class GFArchive(seiscomp.core.BaseObject):
         r"""getTravelTime(GFArchive self, string phase, string model, GFSource source, GFReceiver receiver) -> Seiscomp::Core::Optional< double >::Impl"""
         return _io.GFArchive_getTravelTime(self, phase, model, source, receiver)
 
+    def hasLocalTravelTimes(self):
+        r"""hasLocalTravelTimes(GFArchive self) -> bool"""
+        return _io.GFArchive_hasLocalTravelTimes(self)
+
     @staticmethod
     def Create(service):
         r"""Create(char const * service) -> GFArchive"""
@@ -1036,9 +1040,9 @@ class ExportSink(object):
     __repr__ = _swig_repr
     __swig_destroy__ = _io.delete_ExportSink
 
-    def write(self, data, size):
-        r"""write(ExportSink self, char const * data, int size) -> int"""
-        return _io.ExportSink_write(self, data, size)
+    def write(self, data):
+        r"""write(ExportSink self, char const * data) -> int"""
+        return _io.ExportSink_write(self, data)
 
     def __init__(self):
         r"""__init__(ExportSink self) -> ExportSink"""
@@ -1218,11 +1222,17 @@ class XMLArchive(seiscomp.core.GenericArchive):
 
     def read(self, *args):
         r"""
-        read(XMLArchive self, int & value)
+        read(XMLArchive self, std::int8_t & value)
+        read(XMLArchive self, std::int16_t & value)
+        read(XMLArchive self, std::int32_t & value)
+        read(XMLArchive self, std::int64_t & value)
         read(XMLArchive self, float & value)
         read(XMLArchive self, double & value)
         read(XMLArchive self, std::vector< char,std::allocator< char > > & value)
-        read(XMLArchive self, std::vector< int,std::allocator< int > > & value)
+        read(XMLArchive self, std::vector< int8_t,std::allocator< int8_t > > & value)
+        read(XMLArchive self, std::vector< int16_t,std::allocator< int16_t > > & value)
+        read(XMLArchive self, std::vector< int32_t,std::allocator< int32_t > > & value)
+        read(XMLArchive self, std::vector< int64_t,std::allocator< int64_t > > & value)
         read(XMLArchive self, vectorf value)
         read(XMLArchive self, vectord value)
         read(XMLArchive self, std::vector< std::string,std::allocator< std::string > > & value)
@@ -1238,11 +1248,17 @@ class XMLArchive(seiscomp.core.GenericArchive):
 
     def write(self, *args):
         r"""
-        write(XMLArchive self, int value)
+        write(XMLArchive self, std::int8_t value)
+        write(XMLArchive self, std::int16_t value)
+        write(XMLArchive self, std::int32_t value)
+        write(XMLArchive self, std::int64_t value)
         write(XMLArchive self, float value)
         write(XMLArchive self, double value)
         write(XMLArchive self, std::vector< char,std::allocator< char > > & value)
-        write(XMLArchive self, std::vector< int,std::allocator< int > > & value)
+        write(XMLArchive self, std::vector< int8_t,std::allocator< int8_t > > & value)
+        write(XMLArchive self, std::vector< int16_t,std::allocator< int16_t > > & value)
+        write(XMLArchive self, std::vector< int32_t,std::allocator< int32_t > > & value)
+        write(XMLArchive self, std::vector< int64_t,std::allocator< int64_t > > & value)
         write(XMLArchive self, vectorf value)
         write(XMLArchive self, vectord value)
         write(XMLArchive self, std::vector< std::string,std::allocator< std::string > > & value)
@@ -1252,7 +1268,6 @@ class XMLArchive(seiscomp.core.GenericArchive):
         write(XMLArchive self, bool value)
         write(XMLArchive self, vectorc value)
         write(XMLArchive self, string value)
-        write(XMLArchive self, time_t value)
         write(XMLArchive self, Time value)
         """
         return _io.XMLArchive_write(self, *args)
@@ -1294,11 +1309,17 @@ class BinaryArchive(seiscomp.core.GenericArchive):
 
     def read(self, *args):
         r"""
-        read(BinaryArchive self, int & value)
+        read(BinaryArchive self, std::int8_t & value)
+        read(BinaryArchive self, std::int16_t & value)
+        read(BinaryArchive self, std::int32_t & value)
+        read(BinaryArchive self, std::int64_t & value)
         read(BinaryArchive self, float & value)
         read(BinaryArchive self, double & value)
         read(BinaryArchive self, std::vector< char,std::allocator< char > > & value)
-        read(BinaryArchive self, std::vector< int,std::allocator< int > > & value)
+        read(BinaryArchive self, std::vector< int8_t,std::allocator< int8_t > > & value)
+        read(BinaryArchive self, std::vector< int16_t,std::allocator< int16_t > > & value)
+        read(BinaryArchive self, std::vector< int32_t,std::allocator< int32_t > > & value)
+        read(BinaryArchive self, std::vector< int64_t,std::allocator< int64_t > > & value)
         read(BinaryArchive self, vectorf value)
         read(BinaryArchive self, vectord value)
         read(BinaryArchive self, std::vector< std::string,std::allocator< std::string > > & value)
@@ -1314,11 +1335,17 @@ class BinaryArchive(seiscomp.core.GenericArchive):
 
     def write(self, *args):
         r"""
-        write(BinaryArchive self, int value)
+        write(BinaryArchive self, std::int8_t value)
+        write(BinaryArchive self, std::int16_t value)
+        write(BinaryArchive self, std::int32_t value)
+        write(BinaryArchive self, std::int64_t value)
         write(BinaryArchive self, float value)
         write(BinaryArchive self, double value)
         write(BinaryArchive self, std::vector< char,std::allocator< char > > & value)
-        write(BinaryArchive self, std::vector< int,std::allocator< int > > & value)
+        write(BinaryArchive self, std::vector< int8_t,std::allocator< int8_t > > & value)
+        write(BinaryArchive self, std::vector< int16_t,std::allocator< int16_t > > & value)
+        write(BinaryArchive self, std::vector< int32_t,std::allocator< int32_t > > & value)
+        write(BinaryArchive self, std::vector< int64_t,std::allocator< int64_t > > & value)
         write(BinaryArchive self, vectorf value)
         write(BinaryArchive self, vectord value)
         write(BinaryArchive self, std::vector< std::string,std::allocator< std::string > > & value)
@@ -1328,7 +1355,6 @@ class BinaryArchive(seiscomp.core.GenericArchive):
         write(BinaryArchive self, bool value)
         write(BinaryArchive self, vectorc value)
         write(BinaryArchive self, string value)
-        write(BinaryArchive self, time_t value)
         write(BinaryArchive self, Time value)
         """
         return _io.BinaryArchive_write(self, *args)
@@ -2107,6 +2133,10 @@ class RecordIIRFilterF(RecordFilterInterface):
 
 
 
+    def lastError(self):
+        r"""lastError(RecordIIRFilterF self) -> string"""
+        return _io.RecordIIRFilterF_lastError(self)
+
     def feed(self, rec):
         r"""feed(RecordIIRFilterF self, Record rec) -> Record"""
         return _io.RecordIIRFilterF_feed(self, rec)
@@ -2157,6 +2187,10 @@ class RecordIIRFilterD(RecordFilterInterface):
     __bool__ = __nonzero__
 
 
+
+    def lastError(self):
+        r"""lastError(RecordIIRFilterD self) -> string"""
+        return _io.RecordIIRFilterD_lastError(self)
 
     def feed(self, rec):
         r"""feed(RecordIIRFilterD self, Record rec) -> Record"""

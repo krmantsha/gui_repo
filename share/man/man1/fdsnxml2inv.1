@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "FDSNXML2INV" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "FDSNXML2INV" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 fdsnxml2inv \- SeisComP Documentation
 .
@@ -31,7 +31,8 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
 .sp
-\fBConvert station inventory between FDSN StationXML format and SeisComP inventory XML.\fP
+\fBConvert station inventory between FDSN StationXML format and
+SeisComP inventory XML.\fP
 .SH DESCRIPTION
 .sp
 fdsnws2inv is an inventory converter. It converts station meta data from
@@ -65,7 +66,7 @@ fdsnxml2inv \-\-to\-staxml \-f inventory_sc.xml > inventory_fdns.xml
 .UNINDENT
 .UNINDENT
 .UNINDENT
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/fdsnxml2inv.cfg\fP
@@ -77,27 +78,29 @@ fdsnxml2inv \-\-to\-staxml \-f inventory_sc.xml > inventory_fdns.xml
 .sp
 .sp
 fdsnxml2inv inherits global options\&.
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
 .sp
 \fBfdsnxml2inv [OPTIONS] input [output]\fP
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -107,34 +110,37 @@ Load given plugins.
 .INDENT 0.0
 .TP
 .B \-D, \-\-daemon
-Run as daemon. This means the application will fork itself and
-doesn\(aqt need to be started with &.
+Run as daemon. This means the application will fork itself
+and doesn\(aqt need to be started with &.
 .UNINDENT
 .SS Verbosity
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -149,12 +155,27 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-log\-file arg
 Use alternative log file.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-print\-component arg
+For each log entry print the component right after the
+log level. By default the component output is enabled
+for file output but disabled for console output.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-trace
+Execute in trace mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 \-\-print\-component=1
+\-\-print\-context=1 .
 .UNINDENT
 .SS Convert
 .INDENT 0.0
@@ -165,19 +186,20 @@ Generate formatted SCML. Otherwise, output XML to a single line.
 .INDENT 0.0
 .TP
 .B \-\-to\-staxml
-Converts from SCML to StationXML and expects SCML as input.
+Convert from SCML to StationXML and expects SCML as input.
 If not given, input is SCML and output is StationXML.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-relaxed\-ns\-check
-Enables relaxed XML namespace checks. This will also accept
-tags within a different namespace than defined in the supported schema.
+Enable relaxed XML namespace checks. This will also accept
+tags within a different namespace than defined in the
+supported schema.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-log\-stages
-Adds more output to stderr for all channel response stages
+Add more output to stderr for all channel response stages
 when converting from StationXML.
 .UNINDENT
 .SH AUTHOR

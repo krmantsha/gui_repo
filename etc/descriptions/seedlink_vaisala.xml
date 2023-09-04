@@ -9,7 +9,7 @@
 			<parameter name="baudrate" type="int" default="19200">
 				<description>Baud rate.</description>
 			</parameter>
-			<parameter name="proc" type="string" default="mws">
+			<parameter name="proc" type="string" default="vaisala">
 				<description>
 				Name of the proc object (defined in streams.xml); used for processing
 				raw streams (streams submitted by a plugin as raw samples).

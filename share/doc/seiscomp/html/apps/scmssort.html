@@ -25,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -78,50 +78,65 @@
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>scmssort reads unsorted (and possibly multiplexed) MiniSEED files and sorts
 the individual records by time. This is useful e.g. for simulating data
-acquisition and playbacks. Removing of duplicate data and trimming of time window is available.</p>
+acquisition and playbacks. Removing of duplicate data and trimming of time
+window is available.</p>
 <p>scmssort reads single files and output to the command line. Cat many files
-to read them at the same time. In this way huge amount of data can be processed efficiently.</p>
+to read them at the same time. In this way huge amount of data can be processed
+efficiently.</p>
 <p>Applications to miniSEED records:</p>
 <ul class="simple">
-<li><p>Sort by time, e.g. for playbacks</p></li>
-<li><p>Remove duplicates and clean archives</p></li>
-<li><p>Filter based on</p>
+<li><p>Sort records by time, e.g. for playbacks.</p></li>
+<li><p>Remove duplicate records from files and clean waveform archives.</p></li>
+<li><p>Filter data records, i.e. keep or remove them, based on</p>
 <ul>
-<li><p>time windows</p></li>
-<li><p>stream lists</p></li>
+<li><p>time windows,</p></li>
+<li><p>stream lists where each line has the format NET.STA.LOC.CHA including regular
+expressions. Such stream lists can be generated, e.g., using <a class="reference internal" href="scinv.html#scinv"><span class="std std-ref">scinv</span></a>.</p></li>
 </ul>
 </li>
 </ul>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>Combine with <a class="reference internal" href="scart.html#scart"><span class="std std-ref">scart</span></a> or <a class="reference internal" href="msrtsimul.html#msrtsimul"><span class="std std-ref">msrtsimul</span></a> to archive data or to make playbacks
-with real-time simulations.</p>
+<ul class="simple">
+<li><p>Combine with <a class="reference internal" href="scart.html#scart"><span class="std std-ref">scart</span></a> or <a class="reference internal" href="msrtsimul.html#msrtsimul"><span class="std std-ref">msrtsimul</span></a> to archive data or to make
+playbacks with real-time simulations.</p></li>
+<li><p>Filter data by stream IDs using NSLC lists which can be generated using
+<a class="reference internal" href="scinv.html#scinv"><span class="std std-ref">scinv</span></a>.</p></li>
+</ul>
 </div>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
-<li><p>Read a single file. The records are sorted by endtime. Duplicated records are
-removed.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scmssort -u -E -v unsorted.mseed &gt; sorted.mseed
+<li><p>Read a single miniSEED data file. The records are sorted by endtime and
+duplicates are removed.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scmssort -vuE unsorted.mseed &gt; sorted.mseed
 </pre></div>
 </div>
 </li>
-<li><p>Read all files ending with “.mseed” at the same time. The data are trimmed to a time window and duplicated
-data are removed</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cat *.mseed <span class="p">|</span> scmssort -u -E -v -t <span class="s1">&#39;2020-03-28 15:48~2020-03-28 16:18&#39;</span> &gt; sorted.mseed
+<li><p>Read all files ending with “.mseed” at the same time. The data are trimmed
+to a time window and duplicated or empty records are ignored.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cat *.mseed <span class="p">|</span> scmssort -vuiE -t <span class="s1">&#39;2020-03-28 15:48~2020-03-28 16:18&#39;</span> &gt; sorted.mseed
 </pre></div>
 </div>
 </li>
-<li><p>Extract streams by time, stream code and sort records by end time</p>
-<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>echo CX.PB01..BH? | scmssort -v -E -t &#39;2007-03-28 15:48~2007-03-28 16:18&#39; -u -l - test.mseed &gt; sorted.mseed
+<li><p>Remove streams listed by stream code and sort records by end time. Also ignore
+duplicated or empty records. Stream lists can be generated, e.g., by <a class="reference internal" href="scinv.html#scinv"><span class="std std-ref">scinv</span></a>.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scmssort -vuiE --rm -l stream-list.txt test.mseed &gt; sorted.mseed
+</pre></div>
+</div>
+</li>
+<li><p>Extract streams by time and stream code and sort records by end time. Also ignore
+duplicated or empty records.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> CX.PB01..BH? <span class="p">|</span> scmssort -vuE -t <span class="s1">&#39;2007-03-28 15:48~2007-03-28 16:18&#39;</span> -l - test.mseed &gt; sorted.mseed
+scmssort -vuiE -t <span class="s1">&#39;2007-03-28 15:48~2007-03-28 16:18&#39;</span> -l stream-list.txt test.mseed &gt; sorted.mseed
 </pre></div>
 </div>
 </li>
 </ol>
 </div>
-<div class="section" id="command-line">
-<h2>Command-line<a class="headerlink" href="#command-line" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="command-line-options">
+<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
 <p><strong class="program">scmssort [options] input</strong></p>
 <div class="section" id="options">
 <h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
@@ -132,9 +147,15 @@ data are removed</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-scmssort-v">
-<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--verbose</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scmssort-v" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run in verbose mode.</p>
+<dt id="cmdoption-scmssort-e">
+<code class="sig-name descname">-E</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--sort-by-end-time</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scmssort-e" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort by end time.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmssort-i">
+<code class="sig-name descname">-i</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--ignore</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scmssort-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ignore all records which have no data samples.</p>
 </dd></dl>
 
 <dl class="option">
@@ -144,18 +165,20 @@ data are removed</p>
 line. Instead of a file read the from stdin (-). Line
 format: NET.STA.LOC.CHA - wildcards and regular expressions
 are considered. Example: CX.*..BH? .</p>
+<p>NSLC lists may be generated, e.g., using scinv.</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-scmssort-e">
-<code class="sig-name descname">-E</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--sort-by-end-time</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scmssort-e" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sort by end time.</p>
+<dt id="cmdoption-scmssort-o">
+<code class="sig-name descname">-o</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--output</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scmssort-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of output file for miniSEED data (default is stdout).</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-scmssort-u">
-<code class="sig-name descname">-u</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--uniqueness</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scmssort-u" title="Permalink to this definition">¶</a></dt>
-<dd><p>Ensure uniqueness of output, i.e. skip duplicate records.</p>
+<dt id="cmdoption-scmssort-r">
+<code class="sig-name descname">-r</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--rm</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scmssort-r" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove all traces in stream list given by –list
+instead of keeping them.</p>
 </dd></dl>
 
 <dl class="option">
@@ -165,6 +188,18 @@ are considered. Example: CX.*..BH? .</p>
 Times are of course UTC and separated by a tilde ~</p>
 <p>Example:</p>
 <p>‘2020-03-28 15:48~2020-03-28 16:18’</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmssort-u">
+<code class="sig-name descname">-u</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--uniqueness</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scmssort-u" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure uniqueness of output, i.e. skip duplicate records.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scmssort-v">
+<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--verbose</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scmssort-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run in verbose mode.</p>
 </dd></dl>
 
 </div>
@@ -193,7 +228,7 @@ Times are of course UTC and separated by a tilde ~</p>
 <li><a class="reference internal" href="#">scmssort</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
-<li><a class="reference internal" href="#command-line">Command-line</a><ul>
+<li><a class="reference internal" href="#command-line-options">Command-Line Options</a><ul>
 <li><a class="reference internal" href="#options">Options</a></li>
 </ul>
 </li>
@@ -226,7 +261,7 @@ Times are of course UTC and separated by a tilde ~</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

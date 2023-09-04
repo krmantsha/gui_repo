@@ -202,8 +202,8 @@ Search station/network
 
 .. _scmv_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 | :file:`etc/defaults/global.cfg`
 | :file:`etc/defaults/scmv.cfg`
@@ -220,55 +220,73 @@ scmv inherits :ref:`global options<global-configuration>`.
 
    Type: *string*
 
-   Set one of the available displaymodes: groundmotion or qualitycontrol
+   Start scmv in one of the available display modes:
+   
+   groundmotion or qualitycontrol
+   
+   and without tabs and menus as walldisplay.
 
 
 .. confval:: groundMotionRecordLifeSpan
+
+   Default: ``300``
 
    Type: *int*
 
    Unit: *s*
 
-   Sets the maximum latency in seconds of the ground motion records to be valid.
-   Default is ``300``.
+   Set the maximum latency in seconds of the ground motion records
+   to be valid.
+
 
 .. confval:: removeEventDataOlderThan
 
+   Default: ``43200``
+
    Type: *double*
 
    Unit: *s*
 
-   Sets the time span in seconds to keep events.
-   Default is ``43200``.
+   Set the time span in seconds to keep events.
+
 
 .. confval:: readEventsNotOlderThan
 
+   Default: ``0``
+
    Type: *double*
 
    Unit: *s*
 
-   Sets the time span in seconds to read events initially from database.
-   Default is ``0``.
+   Set the time span in seconds to read events initially from
+   database.
+
 
 .. confval:: centerOrigins
 
+   Default: ``false``
+
    Type: *boolean*
 
-   If a new origin\/event is set\/selected this option defines if the map is centered
-   or not at the origin location.
-   Default is ``false``.
+   If a new origin\/event is set\/selected this option defines if the
+   map is centered or not at the origin location.
+
 
 .. confval:: eventActivityLifeSpan
+
+   Default: ``900``
 
    Type: *double*
 
    Unit: *s*
 
-   Time span of which an event is active after origin time to show blinking associated
-   stations.
-   Default is ``900``.
+   Time span of which an event is active after origin time to
+   show blinking associated stations.
+
 
 .. confval:: expiredEventsInterval
+
+   Default: ``0``
 
    Type: *double*
 
@@ -278,44 +296,55 @@ scmv inherits :ref:`global options<global-configuration>`.
    for expired events. A negative or zero value disables the interval
    check and expired events are only removed when a new event is declared
    or an existing event is updated.
-   Default is ``0``.
+
 
 .. confval:: annotations
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Enables\/disabled drawing of station annotations at startup.
-   Default is ``false``.
+   Enable\/disable drawing of station annotations at startup.
+
 
 .. confval:: annotationsWithChannels
 
+   Default: ``true``
+
    Type: *boolean*
 
-   Enables\/disabled drawing of station annotations with location\/channel codes.
-   Default is ``true``.
+   Enable\/disable drawing of station annotations with
+   location\/channel codes.
+
 
 .. confval:: mapLegendPosition
 
+   Default: ``topleft``
+
    Type: *string*
 
-   Sets the location of the map symbol legend \(QC, ground motion\).
+   Set the location of the map symbol legend \(QC, ground motion\).
    Use either: topleft, topright, bottomright or bottomleft.
-   Default is ``topleft``.
+
 
 .. confval:: eventLegendPosition
 
+   Default: ``bottomleft``
+
    Type: *string*
 
-   Sets the location of the event symbol legend. Use either:
+   Set the location of the event symbol legend. Use either:
    topleft, topright, bottomright or bottomleft.
-   Default is ``bottomleft``.
+
 
 .. confval:: eventTable.visible
+
+   Default: ``false``
 
    Type: *boolean*
 
    Whether to show the event table initially or not.
-   Default is ``false``.
+
 
 .. confval:: eventTable.columns
 
@@ -323,62 +352,73 @@ scmv inherits :ref:`global options<global-configuration>`.
 
    The columns that are visible in the table. If nothing
    is specified then all columns are visible. Valid column names are:
-   \"Event\", \"Origin Time\", \"Magnitude\", \"Magnitude Type\",
-   \"Region\", \"Latitude\", \"Longitude\", \"Depth\".
+   \"Event\", \"Origin Time\", \"Magnitude\",
+   \"Magnitude Type\", \"Region\", \"Latitude\",
+   \"Longitude\", \"Depth\".
 
 
 .. confval:: stations.groundMotionFilter
 
+   Default: ``"RMHP(50)>>ITAPER(20)>>BW(2,0.04,2)"``
+
    Type: *string*
 
-   Sets the filter applied to determine ground motion.
+   The filter applied to waveforms for measuring ground motion.
 
 
 .. note::
    **display.\***
-   *Allows to define an initial rectangular region for the map.*
+   *Allow to define an initial rectangular region for the map.*
 
 
 
 .. confval:: display.latmin
+
+   Default: ``-90``
 
    Type: *double*
 
    Unit: *deg*
 
    Minimum latitude in degrees.
-   Default is ``-90``.
+
 
 .. confval:: display.lonmin
+
+   Default: ``-180``
 
    Type: *double*
 
    Unit: *deg*
 
    Minimum longitude in degrees.
-   Default is ``-180``.
+
 
 .. confval:: display.latmax
+
+   Default: ``90``
 
    Type: *double*
 
    Unit: *deg*
 
    Maximum latitude in degrees.
-   Default is ``90``.
+
 
 .. confval:: display.lonmax
+
+   Default: ``180``
 
    Type: *double*
 
    Unit: *deg*
 
    Maximum longitude in degrees.
-   Default is ``180``.
 
 
-Command-line
-============
+
+Command-Line Options
+====================
 
 .. program:: scmv
 
@@ -390,18 +430,20 @@ Generic
 
 .. option:: -h, --help
 
-   show help message.
+   Show help message.
 
 .. option:: -V, --version
 
-   show version information
+   Show version information.
 
 .. option:: --config-file arg
 
-   Use alternative configuration file. When this option is used
-   the loading of all stages is disabled. Only the given configuration
-   file is parsed and used. To use another name for the configuration
-   create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+   Use alternative configuration file. When this option is
+   used the loading of all stages is disabled. Only the
+   given configuration file is parsed and used. To use
+   another name for the configuration create a symbolic
+   link of the application or copy it. Example:
+   scautopick \-> scautopick2.
 
 .. option:: --plugins arg
 
@@ -409,21 +451,23 @@ Generic
 
 .. option:: --auto-shutdown arg
 
-   Enable\/disable self\-shutdown because a master module shutdown. This only
-   works when messaging is enabled and the master module sends a shutdown
-   message \(enabled with \-\-start\-stop\-msg for the master module\).
+   Enable\/disable self\-shutdown because a master module shutdown.
+   This only works when messaging is enabled and the master
+   module sends a shutdown message \(enabled with \-\-start\-stop\-msg
+   for the master module\).
 
 .. option:: --shutdown-master-module arg
 
-   Sets the name of the master\-module used for auto\-shutdown. This
-   is the application name of the module actually started. If symlinks
-   are used then it is the name of the symlinked application.
+   Set the name of the master\-module used for auto\-shutdown.
+   This is the application name of the module actually
+   started. If symlinks are used, then it is the name of
+   the symlinked application.
 
 .. option:: --shutdown-master-username arg
 
-   Sets the name of the master\-username of the messaging used for
-   auto\-shutdown. If \"shutdown\-master\-module\" is given as well this
-   parameter is ignored.
+   Set the name of the master\-username of the messaging
+   used for auto\-shutdown. If \"shutdown\-master\-module\" is
+   given as well, this parameter is ignored.
 
 
 Verbosity
@@ -431,23 +475,26 @@ Verbosity
 
 .. option:: --verbosity arg
 
-   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
 
 .. option:: -v, --v
 
-   Increase verbosity level \(may be repeated, eg. \-vv\)
+   Increase verbosity level \(may be repeated, eg. \-vv\).
 
 .. option:: -q, --quiet
 
-   Quiet mode: no logging output
+   Quiet mode: no logging output.
 
 .. option:: --component arg
 
-   Limits the logging to a certain component. This option can be given more than once.
+   Limit the logging to a certain component. This option can
+   be given more than once.
 
 .. option:: -s, --syslog
 
-   Use syslog logging back end. The output usually goes to \/var\/lib\/messages.
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
 
 .. option:: -l, --lockfile arg
 
@@ -459,11 +506,24 @@ Verbosity
 
 .. option:: --debug
 
-   Debug mode: \-\-verbosity\=4 \-\-console\=1
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
 
 .. option:: --log-file arg
 
    Use alternative log file.
+
+.. option:: --print-component arg
+
+   For each log entry print the component right after the
+   log level. By default the component output is enabled
+   for file output but disabled for console output.
+
+.. option:: --trace
+
+   Execute in trace mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 \-\-print\-component\=1
+   \-\-print\-context\=1 .
 
 
 Messaging
@@ -487,7 +547,8 @@ Messaging
 
 .. option:: -S, --subscribe-group arg
 
-   A group to subscribe to. This option can be given more than once.
+   A group to subscribe to.
+   This option can be given more than once.
 
 .. option:: --content-type arg
 
@@ -495,7 +556,7 @@ Messaging
 
 .. option:: --start-stop-msg arg
 
-   Sets sending of a start\- and a stop message.
+   Set sending of a start and a stop message.
 
 
 Database
@@ -507,17 +568,23 @@ Database
 
 .. option:: -d, --database arg
 
-   The database connection string, format: service:\/\/user:pwd\@host\/database.
-   \"service\" is the name of the database driver which can be
-   queried with \"\-\-db\-driver\-list\".
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
 
 .. option:: --config-module arg
 
-   The configmodule to use.
+   The config module to use.
 
 .. option:: --inventory-db arg
 
-   Load the inventory from the given database or file, format: [service:\/\/]location
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
+
+.. option:: --db-disable
+
+   Do not use the database at all
 
 
 Records
@@ -525,14 +592,16 @@ Records
 
 .. option:: --record-driver-list
 
-   List all supported record stream drivers
+   List all supported record stream drivers.
 
 .. option:: -I, --record-url arg
 
-   The recordstream source URL, format: [service:\/\/]location[#type].
-   \"service\" is the name of the recordstream driver which can be
-   queried with \"\-\-record\-driver\-list\". If \"service\"
-   is not given \"file:\/\/\" is used.
+   The recordstream source URL, format:
+   [service:\/\/]location[#type].
+   \"service\" is the name of the recordstream driver
+   which can be queried with \"\-\-record\-driver\-list\".
+   If \"service\" is not given, \"file:\/\/\" is
+   used.
 
 .. option:: --record-file arg
 
@@ -549,7 +618,7 @@ Cities
 .. option:: --city-xml arg
 
    The path to the cities XML file. This overrides the default
-   paths. Compare with the global parameter \"citiesXML\"
+   paths. Compare with the global parameter \"citiesXML\".
 
 
 User interface
@@ -557,12 +626,13 @@ User interface
 
 .. option:: -F, --full-screen
 
-   Starts the application filling the entire screen. This only works
-   with GUI applications.
+   Start the application filling the entire screen.
+   This only works with GUI applications.
 
 .. option:: -N, --non-interactive
 
-   Use non\-interactive presentation mode. This only works with GUI applications.
+   Use non\-interactive presentation mode. This only works with
+   GUI applications.
 
 
 Mapview
@@ -571,9 +641,9 @@ Mapview
 .. option:: --displaymode arg
 
    Start scmv as walldisplay.
-   Modes: groundmotion, qualitycontrol.
+   Modes: groundmotion, qualitycontrol
 
 .. option:: --with-legend
 
-   Shows the map legend if started as walldisplay.
+   Show the map legend if started as walldisplay.
 

@@ -25,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -76,7 +76,7 @@
 <p>The traditional Hypo71PC locator with SeisComP.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>The Hypo71 locator algorithm by Fred Klein locator (<span id="id1">Lee and Lahr [<a class="reference internal" href="../base/references.html#id45" title="W.H. Lee and J.C. Lahr. Hypo71 (revised): a computer program for determining local earthquake hypocentral parameters, magnitude, and first motion pattern of local earthquakes. US Geol. Survey Open-file Report 75-311, 1975. URL: https://pubs.er.usgs.gov/publication/ofr75311, doi:10.3133/ofr75311.">20</a>]</span>) has
+<p>The Hypo71 locator algorithm by Fred Klein locator (<span id="id1">Lee and Lahr [<a class="reference internal" href="../base/references.html#id51" title="W.H. Lee and J.C. Lahr. Hypo71 (revised): a computer program for determining local earthquake hypocentral parameters, magnitude, and first motion pattern of local earthquakes. US Geol. Survey Open-file Report 75-311, 1975. URL: https://pubs.er.usgs.gov/publication/ofr75311, doi:10.3133/ofr75311.">48</a>]</span>) has
 been implemented into <cite>SeisComP</cite> through the plugin mechanism. The plugin <em>hypo71</em>
 contains the LocatorInterface implementation for Hypo71.
 This plugin uses a slightly modified Hypo71 version from Alexandre Nercessian (IPGP)
@@ -84,7 +84,7 @@ which allows negative earthquake depth (above sea level) and negative stations
 altitude (below sea level - OBS).</p>
 <p>The development of this plugin was co-financed by the European Union and
 <a class="reference external" href="http://www.developpement-durable.gouv.fr">le Ministère de l’Ecologie, du Développement Durable, des Transports et du Logement</a>
-and developed by <span id="id2"><em>OVSM, Interreg Caraibes</em> [<a class="reference internal" href="../base/references.html#id149" title="OVSM, Interreg Caraibes. URL: https://www.interreg-caraibes.com.">6</a>]</span> / <span id="id3"><em>IPGP</em> [<a class="reference internal" href="../base/references.html#id116" title="IPGP. URL: http://www.ipgp.fr.">2</a>]</span>.</p>
+and developed by <span id="id2"><em>OVSM, Interreg Caraibes</em> [<a class="reference internal" href="../base/references.html#id173" title="OVSM, Interreg Caraibes. URL: https://www.interreg-caraibes.com.">17</a>]</span> / <span id="id3"><em>IPGP</em> [<a class="reference internal" href="../base/references.html#id138" title="IPGP. URL: http://www.ipgp.fr.">11</a>]</span>.</p>
 </div>
 <div class="section" id="how-it-works">
 <h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
@@ -409,12 +409,12 @@ combo box.</p>
 <div class="section" id="more">
 <h2>More<a class="headerlink" href="#more" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Take a look at Fred Klein HYPOINVERSE Earthquake Location software (<span id="id4">Klein [<a class="reference internal" href="../base/references.html#id41" title="F.W. Klein. User’s guide to HYPOINVERSE-2000, a Fortran program to solve for earthquake locations and magnitudes. US Geological Survey, 2002-171:, 2002. URL: https://www.usgs.gov/node/279394, doi:10.3133/ofr02171.">19</a>]</span>),</p></li>
-<li><p>Hypo71PC original manual and binary are available on USGS website (<span id="id5">Lee and Lahr [<a class="reference internal" href="../base/references.html#id45" title="W.H. Lee and J.C. Lahr. Hypo71 (revised): a computer program for determining local earthquake hypocentral parameters, magnitude, and first motion pattern of local earthquakes. US Geol. Survey Open-file Report 75-311, 1975. URL: https://pubs.er.usgs.gov/publication/ofr75311, doi:10.3133/ofr75311.">20</a>]</span>).</p></li>
+<li><p>Take a look at Fred Klein HYPOINVERSE Earthquake Location software (<span id="id4">Klein [<a class="reference internal" href="../base/references.html#id47" title="F.W. Klein. User’s guide to HYPOINVERSE-2000, a Fortran program to solve for earthquake locations and magnitudes. US Geological Survey, 2002-171:, 2002. URL: https://www.usgs.gov/node/279394, doi:10.3133/ofr02171.">47</a>]</span>),</p></li>
+<li><p>Hypo71PC original manual and binary are available on USGS website (<span id="id5">Lee and Lahr [<a class="reference internal" href="../base/references.html#id51" title="W.H. Lee and J.C. Lahr. Hypo71 (revised): a computer program for determining local earthquake hypocentral parameters, magnitude, and first motion pattern of local earthquakes. US Geol. Survey Open-file Report 75-311, 1975. URL: https://pubs.er.usgs.gov/publication/ofr75311, doi:10.3133/ofr75311.">48</a>]</span>).</p></li>
 </ul>
 </div>
-<div class="section" id="configuration">
-<span id="global-hypo71-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-configuration">
+<span id="global-hypo71-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>hypo71.*</strong>
@@ -423,42 +423,42 @@ combo box.</p>
 <dl class="confval">
 <dt id="confval-hypo71.logFile">
 <code class="sig-name descname">hypo71.logFile</code><a class="headerlink" href="#confval-hypo71.logFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
-<p>Temporary file used by Hypo71 to store calculation logs.
-Default is <code class="docutils literal notranslate"><span class="pre">&#64;LOGDIR&#64;/HYPO71.LOG</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">&#64;LOGDIR&#64;/HYPO71.LOG</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Temporary file used by Hypo71 to store calculation logs.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-hypo71.inputFile">
 <code class="sig-name descname">hypo71.inputFile</code><a class="headerlink" href="#confval-hypo71.inputFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
-<p>Temporary file to write Hypo71 input data to.
-Default is <code class="docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/hypo71/HYPO71.INP</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/hypo71/HYPO71.INP</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Temporary file to write Hypo71 input data to.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-hypo71.outputFile">
 <code class="sig-name descname">hypo71.outputFile</code><a class="headerlink" href="#confval-hypo71.outputFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
-<p>Temporary output file to read Hypo71 location data from.
-Default is <code class="docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/hypo71/HYPO71.PRT</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/hypo71/HYPO71.PRT</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Temporary output file to read Hypo71 location data from.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-hypo71.defaultControlFile">
 <code class="sig-name descname">hypo71.defaultControlFile</code><a class="headerlink" href="#confval-hypo71.defaultControlFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/hypo71/profiles/default.hypo71.conf</span></code></p>
+<p>Type: <em>string</em></p>
 <p>Hypo71 default profile.
-If no custom profile is specified, this profile will be used by the plugin when proceeding to a localization.
-Default is <code class="docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/hypo71/profiles/default.hypo71.conf</span></code>.</p>
+If no custom profile is specified, this profile will be used by the plugin when proceeding to a localization.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-hypo71.hypo71ScriptFile">
 <code class="sig-name descname">hypo71.hypo71ScriptFile</code><a class="headerlink" href="#confval-hypo71.hypo71ScriptFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
-<p>Bash script executed when calling the Hypo71 locator plugin for locating the earthquake.
-Default is <code class="docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/hypo71/run.sh</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/hypo71/run.sh</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Bash script executed when calling the Hypo71 locator plugin for locating the earthquake.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -512,10 +512,10 @@ hypo71.profile.c.value1 <span class="o">=</span> ...
 <dl class="confval">
 <dt id="confval-hypo71.profile.$name.methodID">
 <code class="sig-name descname">hypo71.profile.$name.methodID</code><a class="headerlink" href="#confval-hypo71.profile.$name.methodID" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">Hypo71</span></code></p>
+<p>Type: <em>string</em></p>
 <p>Profile’s method.
-It is generally the locator’s name (Hypo71).
-Default is <code class="docutils literal notranslate"><span class="pre">Hypo71</span></code>.</p>
+It is generally the locator’s name (Hypo71).</p>
 </dd></dl>
 
 <dl class="confval">
@@ -528,13 +528,13 @@ Default is <code class="docutils literal notranslate"><span class="pre">Hypo71</
 <dl class="confval">
 <dt id="confval-hypo71.profile.$name.fixStartDepthOnly">
 <code class="sig-name descname">hypo71.profile.$name.fixStartDepthOnly</code><a class="headerlink" href="#confval-hypo71.profile.$name.fixStartDepthOnly" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
 <p>If the depth is requested to be fixed (e.g. by ticking the option
 in scolv) the plugin performs only one location starting at
 specified depth but with free depth evaluation. This option
 defines whether it should really fix the depth (false) or
-use this fixed depth only as starting point (true).
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+use this fixed depth only as starting point (true).</p>
 </dd></dl>
 
 </div>
@@ -573,7 +573,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
 </ul>
 </li>
 <li><a class="reference internal" href="#more">More</a></li>
-<li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
 </ul>
 </li>
 </ul>
@@ -603,7 +603,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

@@ -25,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -193,8 +193,8 @@ no spaces</p></td>
 </tbody>
 </table>
 </div>
-<div class="section" id="configuration">
-<span id="slarchive-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-configuration">
+<span id="slarchive-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>slarchive is a <a class="reference internal" href="../base/glossary.html#term-standalone-module"><span class="xref std std-term">standalone module</span></a> and does not inherit <a class="reference internal" href="global.html#global-configuration"><span class="std std-ref">global options</span></a>.</p>
@@ -207,96 +207,97 @@ no spaces</p></td>
 <dl class="confval">
 <dt id="confval-address">
 <code class="sig-name descname">address</code><a class="headerlink" href="#confval-address" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code></p>
+<p>Type: <em>string</em></p>
 <p>Host of the Seedlink server to connect to. If the acquisition
-is running on one system nothing needs to be changed.
-Default is <code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code>.</p>
+is running on one system nothing needs to be changed.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-port">
 <code class="sig-name descname">port</code><a class="headerlink" href="#confval-port" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">18000</span></code></p>
+<p>Type: <em>int</em></p>
 <p>The port of the Seedlink server to connect to. If the acquisition
 is running on one system this port must match the configured
-local Seedlink port.
-Default is <code class="docutils literal notranslate"><span class="pre">18000</span></code>.</p>
+local Seedlink port.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-archive">
 <code class="sig-name descname">archive</code><a class="headerlink" href="#confval-archive" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">var/lib/archive</span></code></p>
+<p>Type: <em>string</em></p>
 <p>Path to waveform archive where all data is stored. Relative paths
 (as the default) are treated relative to the installation
-directory ($SEISCOMP_ROOT).
-Default is <code class="docutils literal notranslate"><span class="pre">var/lib/archive</span></code>.</p>
+directory ($SEISCOMP_ROOT).</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-buffer">
 <code class="sig-name descname">buffer</code><a class="headerlink" href="#confval-buffer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">1000</span></code></p>
+<p>Type: <em>int</em></p>
 <p>Number of records (512 byte units) to buffer before flushing to
-disk.
-Default is <code class="docutils literal notranslate"><span class="pre">1000</span></code>.</p>
+disk.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-delay">
 <code class="sig-name descname">delay</code><a class="headerlink" href="#confval-delay" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">30</span></code></p>
+<p>Type: <em>int</em></p>
 <p>Unit: <em>s</em></p>
 <p>The network reconnect delay (in seconds) for the connection
 to the SeedLink server. If the connection breaks for any
 reason this will govern how soon a reconnection should be
-attempted. The default value is 30 seconds.
-Default is <code class="docutils literal notranslate"><span class="pre">30</span></code>.</p>
+attempted. The default value is 30 seconds.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-networkTimeout">
 <code class="sig-name descname">networkTimeout</code><a class="headerlink" href="#confval-networkTimeout" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">900</span></code></p>
+<p>Type: <em>int</em></p>
 <p>Unit: <em>s</em></p>
 <p>The network timeout (in seconds) for the connection to the
 SeedLink server. If no data [or keep alive packets?] are received
 in this time range the connection is closed and re-established
 (after the reconnect delay has expired). The default value is
-600 seconds. A value of 0 disables the timeout.
-Default is <code class="docutils literal notranslate"><span class="pre">900</span></code>.</p>
+600 seconds. A value of 0 disables the timeout.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-idleTimeout">
 <code class="sig-name descname">idleTimeout</code><a class="headerlink" href="#confval-idleTimeout" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">300</span></code></p>
+<p>Type: <em>int</em></p>
 <p>Unit: <em>s</em></p>
 <p>Timeout for closing idle data stream files in seconds. The idle
 time of the data streams is only checked when some packets has
 arrived. If no packets arrived no idle stream files will be
 closed. There is no reason to change this parameter except for
 the unusual cases where the process is running against an open
-file number limit. Default is 300 seconds.
-Default is <code class="docutils literal notranslate"><span class="pre">300</span></code>.</p>
+file number limit. Default is 300 seconds.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-keepalive">
 <code class="sig-name descname">keepalive</code><a class="headerlink" href="#confval-keepalive" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>int</em></p>
 <p>Unit: <em>s</em></p>
 <p>Interval (in seconds) at which keepalive (heartbeat) packets
 are sent to the server. Keepalive packets are only sent if
 nothing is received within the interval. This requires a
-Seedlink version &gt;= 3.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+Seedlink version &gt;= 3.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-validation.certs">
 <code class="sig-name descname">validation.certs</code><a class="headerlink" href="#confval-validation.certs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">var/lib/certs</span></code></p>
+<p>Type: <em>string</em></p>
 <p>Path to cerificate store where all certificates and CRLs are stored. Relative
 paths(as the default) are treated relative to the installation
 directory ($SEISCOMP_ROOT).
@@ -313,14 +314,14 @@ each certificate or CRL with the same hash value. Gaps in the sequence numbers
 are not supported, it is assumed that there are no more objects with the same
 hash beyond the first missing number in the sequence.”
 The hash value can be obtained as follows:</p>
-<p>openssl x509 -hash -noout -in &lt;file&gt;
-Default is <code class="docutils literal notranslate"><span class="pre">var/lib/certs</span></code>.</p>
+<p>openssl x509 -hash -noout -in &lt;file&gt;</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-validation.mode">
 <code class="sig-name descname">validation.mode</code><a class="headerlink" href="#confval-validation.mode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">ignore</span></code></p>
+<p>Type: <em>string</em></p>
 <p>Signatures are expected to be carried in blockette 2000
 as opaque data. Modes:</p>
 <p>ignore : Signatures will be ignored and no further actions
@@ -329,15 +330,12 @@ warning: Signatures will be checked and all received records
 which do not carry a valid signature or no signature
 at all will be logged with at warning level.
 skip   : All received records without a valid signature
-will be ignored and will not be processed.
-Default is <code class="docutils literal notranslate"><span class="pre">ignore</span></code>.</p>
+will be ignored and will not be processed.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="bindings">
-<h2>Bindings<a class="headerlink" href="#bindings" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id2">
-<h3>Configuration<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="bindings-parameters">
+<h2>Bindings Parameters<a class="headerlink" href="#bindings-parameters" title="Permalink to this headline">¶</a></h2>
 <dl class="confval">
 <dt id="confval-selectors">
 <code class="sig-name descname">selectors</code><a class="headerlink" href="#confval-selectors" title="Permalink to this definition">¶</a></dt>
@@ -350,17 +348,16 @@ more information.</p>
 <dl class="confval">
 <dt id="confval-keep">
 <code class="sig-name descname">keep</code><a class="headerlink" href="#confval-keep" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">30</span></code></p>
+<p>Type: <em>int</em></p>
 <p>Unit: <em>day</em></p>
 <p>Number of days the data is kept in the archive. This
-requires purge_datafile to be run as cronjob.
-Default is <code class="docutils literal notranslate"><span class="pre">30</span></code>.</p>
+requires purge_datafile to be run as cronjob.</p>
 </dd></dl>
 
 </div>
-</div>
-<div class="section" id="command-line">
-<h2>Command-line<a class="headerlink" href="#command-line" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="command-line-options">
+<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
 <p><strong class="program">slarchive [OPTION]... [host][:][port]</strong></p>
 <p>Address ([host][:][port]) is a required argument. It specifies the address
 of the SeedLink server in host:port format. Either the host, port or both
@@ -381,8 +378,8 @@ If only ‘:’ is specified ‘localhost:18000’ is assumed.</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="id3">
-<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
+<dt id="id2">
+<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Be more verbose. This flag can be used multiple times (“-v -v” or “-vv”)
 for more verbosity. One flag: report basic handshaking (link configuration) details and
 briefly report each packet received. Two flags: report the details of the handshaking,
@@ -538,8 +535,8 @@ are specified for a given stream with the ‘-S’ or ‘-l’ options.</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="id4">
-<code class="sig-name descname">-S</code><code class="sig-prename descclassname"> stream[:selectors]</code><a class="headerlink" href="#id4" title="Permalink to this definition">¶</a></dt>
+<dt id="id3">
+<code class="sig-name descname">-S</code><code class="sig-prename descclassname"> stream[:selectors]</code><a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
 <dd><p>The connection will be configured in multi-station mode with optional SeedLink selectors
 for each station, see examples below. Stream should be provided in NET_STA format. If no
 selectors are provided for a given stream, the default selectors will be used, if defined.</p>
@@ -585,12 +582,9 @@ server will send data indefinitely. This option will override any saved state in
 <li><a class="reference internal" href="#command-line-execution">Command-Line Execution</a></li>
 <li><a class="reference internal" href="#multiple-instances">Multiple Instances</a></li>
 <li><a class="reference internal" href="#sds-definition">SDS definition</a></li>
-<li><a class="reference internal" href="#configuration">Configuration</a></li>
-<li><a class="reference internal" href="#bindings">Bindings</a><ul>
-<li><a class="reference internal" href="#id2">Configuration</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#command-line">Command-line</a></li>
+<li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
+<li><a class="reference internal" href="#bindings-parameters">Bindings Parameters</a></li>
+<li><a class="reference internal" href="#command-line-options">Command-Line Options</a></li>
 </ul>
 </li>
 </ul>
@@ -620,7 +614,7 @@ server will send data indefinitely. This option will override any saved state in
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

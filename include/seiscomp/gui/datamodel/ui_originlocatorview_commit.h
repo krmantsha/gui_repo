@@ -65,7 +65,7 @@ public:
     {
         if (OriginCommitOptions->objectName().isEmpty())
             OriginCommitOptions->setObjectName(QString::fromUtf8("OriginCommitOptions"));
-        OriginCommitOptions->resize(459, 537);
+        OriginCommitOptions->resize(585, 704);
         vboxLayout = new QVBoxLayout(OriginCommitOptions);
 #ifndef Q_OS_MAC
         vboxLayout->setSpacing(6);

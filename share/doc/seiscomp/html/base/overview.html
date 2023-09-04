@@ -25,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -84,9 +84,9 @@ Read the <a class="reference internal" href="concepts/modules.html#concepts-modu
 <li><p>Providing a user interface for manually reviewing events</p></li>
 </ul>
 <p>and many more. Key features are summarized in the <a class="reference internal" href="introduction.html#introduction"><span class="std std-ref">introduction</span></a>.</p>
-<div class="figure align-center" id="id2">
+<div class="figure align-center" id="id9">
 <a class="reference internal image-reference" href="../_images/sc-interaction.png"><img alt="../_images/sc-interaction.png" src="../_images/sc-interaction.png" style="width: 16cm;" /></a>
-<p class="caption"><span class="caption-text">Real-time data acquisition, archiving and automatic processing combined with manual analysis.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Real-time data acquisition, archiving and automatic processing combined with manual analysis.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 <div class="section" id="data-acquisition-modules">
 <h3>Data acquisition modules<a class="headerlink" href="#data-acquisition-modules" title="Permalink to this headline">¶</a></h3>
@@ -148,9 +148,9 @@ The messaging system is controlled by <a class="reference internal" href="../app
 and only the module <a class="reference internal" href="../apps/scmaster.html#scmaster"><span class="std std-ref">scmaster</span></a> is allowed
 write access to the database.
 Additional details are found under <a class="reference internal" href="concepts/messaging.html#concepts-messaging"><span class="std std-ref">Messaging system</span></a> in the <a class="reference internal" href="concepts.html#concepts"><span class="std std-ref">Concepts</span></a> chapter.</p>
-<div class="figure align-center" id="id3">
+<div class="figure align-center" id="id10">
 <a class="reference internal image-reference" href="../_images/sc_system_standard.jpg"><img alt="../_images/sc_system_standard.jpg" src="../_images/sc_system_standard.jpg" style="width: 10cm;" /></a>
-<p class="caption"><span class="caption-text">Modular organization of <cite>SeisComP</cite> with messaging system, RecordStream interface and database.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Modular organization of <cite>SeisComP</cite> with messaging system, RecordStream interface and database.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="waveform-data">
@@ -171,9 +171,9 @@ following the SEED naming convention,</p>
 </div>
 <p>Here <em>alphanumeric</em> means the digits 0 to 9, and uppercase letters A-Z.</p>
 <p>For publicly-available seismic stations these are typically supplied
-by external servers such as <a class="reference internal" href="../apps/seedlink.html#seedlink"><span class="std std-ref">seedlink</span></a> or <a class="reference external" href="https://docs.gempa.de/caps/current/">CAPS</a> <a class="footnote-reference brackets" href="#id6" id="id7">1</a> servers.
-For example, the <a class="reference external" href="https://geofon.gfz-potsdam.de">GEOFON</a> <a class="footnote-reference brackets" href="#id8" id="id9">2</a> seismic network makes data available at port 18000
-at geofon.gfz-potsdam.de.</p>
+by external servers such as <a class="reference internal" href="../apps/seedlink.html#seedlink"><span class="std std-ref">seedlink</span></a> or <span id="id2"><em>CAPS</em> [<a class="reference internal" href="references.html#id87" title="CAPS. gempa module. URL: https://docs.gempa.de/caps/current/index.html.">3</a>]</span> servers.
+For example, the <span id="id3"><em>GEOFON</em> [<a class="reference internal" href="references.html#id119" title="GEOFON. GFZ German Resarch Center for Geosciences. URL: https://geofon.gfz-potsdam.de/.">9</a>]</span> seismic network makes data available at port 18000
+at geofon.gfz-potsdam.de which you may query and test using <a class="reference internal" href="../apps/slinktool.html#slinktool"><span class="std std-ref">slinktool</span></a>.</p>
 <p>If you operate your own seismic network, you may collect data directly
 from your station’s digitizer using one of the many plugins included with
 the <a class="reference internal" href="../apps/seedlink.html#seedlink"><span class="std std-ref">seedlink</span></a> module.
@@ -190,23 +190,23 @@ important for exploring your system configuration, and developing
 <p>Finally, being both a collector and a server of waveform data,
 <a class="reference internal" href="../apps/seedlink.html#seedlink"><span class="std std-ref">seedlink</span></a> allows you to chain <cite>SeisComP</cite> installations together to
 obtain waveform data from upstream sources and relay it to other data users.</p>
-<div class="figure align-center" id="id4">
+<div class="figure align-center" id="id11">
 <a class="reference internal image-reference" href="../_images/sc-acquisition-server.png"><img alt="../_images/sc-acquisition-server.png" src="../_images/sc-acquisition-server.png" style="width: 10cm;" /></a>
 <p class="caption"><span class="caption-text">Data flow from data centers and stations via plugins to seedlink and the waveform archive
-both providing the data to local or remote <cite>SeisComP</cite> modules or other clients.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+both providing the data to local or remote <cite>SeisComP</cite> modules or other clients.</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="access-to-waveform-data">
-<h2>Access to waveform data<a class="headerlink" href="#access-to-waveform-data" title="Permalink to this headline">¶</a></h2>
+<h2>Access to Waveform Data<a class="headerlink" href="#access-to-waveform-data" title="Permalink to this headline">¶</a></h2>
 <p><cite>SeisComP</cite> modules can access waveform data from many difference sources,
 such as a Seedlink server or an FDSN web service.</p>
 <p>In <cite>SeisComP</cite> terminology, the data from these sources are <em>record streams</em>.
 Access to the waveform data can be configured by setting an appropriate <a class="reference internal" href="glossary.html#term-recordstream"><span class="xref std std-term">RecordStream</span></a>.
 Read the <a class="reference internal" href="concepts/recordstream.html#concepts-recordstream"><span class="std std-ref">concept description of the RecordStream</span></a>
 and <a class="reference internal" href="../apps/global_recordstream.html#global-recordstream"><span class="std std-ref">technical documentation of the various implementations</span></a> for many more details.</p>
-<div class="figure align-center" id="id5">
+<div class="figure align-center" id="id12">
 <a class="reference internal image-reference" href="../_images/recordstream.png"><img alt="../_images/recordstream.png" src="../_images/recordstream.png" style="width: 10cm;" /></a>
-<p class="caption"><span class="caption-text">The RecordStream interface provides flexible access to waveform data.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">The RecordStream interface provides flexible access to waveform data.</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
 </div>
 <p>Taken together, this design gives <cite>SeisComP</cite> operators much flexibility.
 Since messages can be exchanged between different computers, and
@@ -237,9 +237,10 @@ Today there are some common formats to store metadata:</p>
 <li><p>ArcLink XML.</p></li>
 </ul>
 <p>Dataless SEED can be imported to, and exported from, <cite>SeisComP</cite> if needed.</p>
-<p>You can get inventory information from various public sources including <a class="reference external" href="https://www.orfeus-eu.org/data/eida/">EIDA</a> <a class="footnote-reference brackets" href="#id10" id="id11">3</a> or
-<a class="reference external" href="https://service.iris.edu/fdsnws/">IRIS</a> <a class="footnote-reference brackets" href="#id12" id="id13">4</a> and many more. <a class="reference external" href="https://smp.gempa.de">SMP</a> <a class="footnote-reference brackets" href="#id14" id="id15">5</a> allows you to create and share meta data from your own
-station network and to export an intentory in <a class="reference internal" href="glossary.html#term-scml"><span class="xref std std-term">SCML</span></a> format.</p>
+<p>You can get inventory information from various public sources including
+<span id="id4"><em>EIDA</em> [<a class="reference internal" href="references.html#id99" title="EIDA. European Integrated Data Archive, Orfeus. URL: https://www.orfeus-eu.org/data/eida/.">4</a>]</span> or <span id="id5"><em>IRIS</em> [<a class="reference internal" href="references.html#id134" title="IRIS. Incorporated Research Institutions for Seismology. URL: https://www.iris.edu.">13</a>]</span> and many more. <span id="id6"><em>SMP</em> [<a class="reference internal" href="references.html#id262" title="SMP. Station Management Portal by gempa GmbH. URL: https://smp.gempa.de/.">21</a>]</span> allows you to
+create and share meta data from your own
+station network and to export an inventory in <a class="reference internal" href="glossary.html#term-scml"><span class="xref std std-term">SCML</span></a> format.</p>
 <p>Inventories for all considered recording stations need to be imported
 into <cite>SeisComP</cite>. and loaded into its database, before data can be processed.
 There are various tools to do this.
@@ -252,10 +253,11 @@ for all the streams AND must match the <a class="reference internal" href="gloss
 </div>
 <div class="section" id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
-<p>The basics of configuring a <cite>SeisComP</cite> system are described in the <a class="reference internal" href="concepts/configuration.html#concepts-configuration"><span class="std std-ref">concepts section</span></a>.
-The <a class="reference internal" href="tutorials.html#tutorials"><span class="std std-ref">Tutorials</span></a> of this documentation provide step-by-step recipes.
-The modules documentation explains the modules functioning, their configuration and
-command-line parameters and give additional examples and links to related topics.</p>
+<p>The basics of configuring a <cite>SeisComP</cite> system are described in the
+<a class="reference internal" href="concepts/configuration.html#concepts-configuration"><span class="std std-ref">concepts section</span></a>. The <a class="reference internal" href="tutorials.html#tutorials"><span class="std std-ref">Tutorials</span></a> of this
+documentation provide step-by-step recipes. The modules documentation explains
+the modules functioning, their configuration and command-line parameters and
+give additional examples and links to related topics.</p>
 </div>
 <div class="section" id="what-next">
 <h2>What next?<a class="headerlink" href="#what-next" title="Permalink to this headline">¶</a></h2>
@@ -271,44 +273,21 @@ should a locatable <a class="reference internal" href="glossary.html#term-event"
 is running.</p>
 </div>
 <div class="section" id="where-to-go-for-more-help">
-<h2>Where to go for more help<a class="headerlink" href="#where-to-go-for-more-help" title="Permalink to this headline">¶</a></h2>
+<h2>Where to Go for More Help<a class="headerlink" href="#where-to-go-for-more-help" title="Permalink to this headline">¶</a></h2>
 <p>The <a class="reference internal" href="tutorials/help.html#tutorials-help"><span class="std std-ref">tutorial on help</span></a> provides comprehensive list of options
 to get help on <cite>SeisComP</cite>.
-Most <cite>SeisComP</cite> modules have built-in help messages and descriptive HTML documentation.
-Read the <a class="reference internal" href="tutorials/help.html#tutorials-help"><span class="std std-ref">tutorial on help</span></a> for a neat introduction.</p>
-<p>There are other sources of information beyond this documentation.
-The <a class="reference external" href="https://forum.seiscomp.de">SeisComP forum</a> <a class="footnote-reference brackets" href="#id16" id="id17">6</a> has many useful contributions from the community.
+Most <cite>SeisComP</cite> modules have built-in help messages and descriptive HTML
+documentation. Read the <a class="reference internal" href="tutorials/help.html#tutorials-help"><span class="std std-ref">tutorial on help</span></a> for a neat
+introduction.</p>
+<p>There are other sources of information beyond this documentation. The
+<span id="id7"><em>SeisComP forum</em> [<a class="reference internal" href="references.html#id250" title="SeisComP forum. GFZ. URL: https://forum.seiscomp.de/.">23</a>]</span> has many useful contributions from the community.
 You are encouraged to register and post your own questions and comments there.</p>
-<p>Professional support including installation, training courses, maintenance, module development
-and modification is provided world-wide by <a class="reference external" href="https://www.gempa.de">gempa GmbH</a> <a class="footnote-reference brackets" href="#id18" id="id19">7</a>, a software company out-sourced from GFZ
-and founded by the main <cite>SeisComP</cite> developers.</p>
+<p>Professional support including installation, training courses, maintenance,
+module development and modification is provided world-wide by
+<a class="reference external" href="https://www.gempa.de/">gempa GmbH</a> <span id="id8">[<a class="reference internal" href="references.html#id118" title="gempa GmbH. The SeisComP development and maintenance company. URL: https://www.gempa.de/.">26</a>]</span>, a
+software company out-sourced from GFZ and founded by the main <cite>SeisComP</cite>
+developers.</p>
 <p>Enjoy <cite>SeisComP</cite>!</p>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id7">1</a></span></dt>
-<dd><p><a class="reference external" href="https://docs.gempa.de/caps/current/">https://docs.gempa.de/caps/current/</a></p>
-</dd>
-<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id9">2</a></span></dt>
-<dd><p><a class="reference external" href="https://geofon.gfz-potsdam.de">https://geofon.gfz-potsdam.de</a></p>
-</dd>
-<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id11">3</a></span></dt>
-<dd><p><a class="reference external" href="https://www.orfeus-eu.org/data/eida/">https://www.orfeus-eu.org/data/eida/</a></p>
-</dd>
-<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id13">4</a></span></dt>
-<dd><p><a class="reference external" href="https://service.iris.edu/fdsnws/">https://service.iris.edu/fdsnws/</a></p>
-</dd>
-<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id15">5</a></span></dt>
-<dd><p><a class="reference external" href="https://smp.gempa.de">https://smp.gempa.de</a></p>
-</dd>
-<dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id17">6</a></span></dt>
-<dd><p><a class="reference external" href="https://forum.seiscomp.de">https://forum.seiscomp.de</a></p>
-</dd>
-<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="#id19">7</a></span></dt>
-<dd><p><a class="reference external" href="https://www.gempa.de">https://www.gempa.de</a></p>
-</dd>
-</dl>
 </div>
 </div>
 
@@ -342,12 +321,11 @@ and founded by the main <cite>SeisComP</cite> developers.</p>
 </li>
 <li><a class="reference internal" href="#communication-and-database-access">Communication and database access</a></li>
 <li><a class="reference internal" href="#waveform-data">Waveform data</a></li>
-<li><a class="reference internal" href="#access-to-waveform-data">Access to waveform data</a></li>
+<li><a class="reference internal" href="#access-to-waveform-data">Access to Waveform Data</a></li>
 <li><a class="reference internal" href="#station-metadata">Station metadata</a></li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 <li><a class="reference internal" href="#what-next">What next?</a></li>
-<li><a class="reference internal" href="#where-to-go-for-more-help">Where to go for more help</a></li>
-<li><a class="reference internal" href="#references">References</a></li>
+<li><a class="reference internal" href="#where-to-go-for-more-help">Where to Go for More Help</a></li>
 </ul>
 </li>
 </ul>
@@ -377,7 +355,7 @@ and founded by the main <cite>SeisComP</cite> developers.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

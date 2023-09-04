@@ -6,7 +6,8 @@
 fdsnxml2inv
 ###########
 
-**Convert station inventory between FDSN StationXML format and SeisComP inventory XML.**
+**Convert station inventory between FDSN StationXML format and
+SeisComP inventory XML.**
 
 
 Description
@@ -35,8 +36,8 @@ Examples
 
 .. _fdsnxml2inv_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 | :file:`etc/defaults/global.cfg`
 | :file:`etc/defaults/fdsnxml2inv.cfg`
@@ -50,8 +51,8 @@ fdsnxml2inv inherits :ref:`global options<global-configuration>`.
 
 
 
-Command-line
-============
+Command-Line Options
+====================
 
 .. program:: fdsnxml2inv
 
@@ -63,18 +64,20 @@ Generic
 
 .. option:: -h, --help
 
-   show help message.
+   Show help message.
 
 .. option:: -V, --version
 
-   show version information
+   Show version information.
 
 .. option:: --config-file arg
 
-   Use alternative configuration file. When this option is used
-   the loading of all stages is disabled. Only the given configuration
-   file is parsed and used. To use another name for the configuration
-   create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+   Use alternative configuration file. When this option is
+   used the loading of all stages is disabled. Only the
+   given configuration file is parsed and used. To use
+   another name for the configuration create a symbolic
+   link of the application or copy it. Example:
+   scautopick \-> scautopick2.
 
 .. option:: --plugins arg
 
@@ -82,8 +85,8 @@ Generic
 
 .. option:: -D, --daemon
 
-   Run as daemon. This means the application will fork itself and
-   doesn't need to be started with \&.
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
 
 
 Verbosity
@@ -91,23 +94,26 @@ Verbosity
 
 .. option:: --verbosity arg
 
-   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
 
 .. option:: -v, --v
 
-   Increase verbosity level \(may be repeated, eg. \-vv\)
+   Increase verbosity level \(may be repeated, eg. \-vv\).
 
 .. option:: -q, --quiet
 
-   Quiet mode: no logging output
+   Quiet mode: no logging output.
 
 .. option:: --component arg
 
-   Limits the logging to a certain component. This option can be given more than once.
+   Limit the logging to a certain component. This option can
+   be given more than once.
 
 .. option:: -s, --syslog
 
-   Use syslog logging back end. The output usually goes to \/var\/lib\/messages.
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
 
 .. option:: -l, --lockfile arg
 
@@ -119,11 +125,24 @@ Verbosity
 
 .. option:: --debug
 
-   Debug mode: \-\-verbosity\=4 \-\-console\=1
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
 
 .. option:: --log-file arg
 
    Use alternative log file.
+
+.. option:: --print-component arg
+
+   For each log entry print the component right after the
+   log level. By default the component output is enabled
+   for file output but disabled for console output.
+
+.. option:: --trace
+
+   Execute in trace mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 \-\-print\-component\=1
+   \-\-print\-context\=1 .
 
 
 Convert
@@ -135,16 +154,17 @@ Convert
 
 .. option:: --to-staxml
 
-   Converts from SCML to StationXML and expects SCML as input.
+   Convert from SCML to StationXML and expects SCML as input.
    If not given, input is SCML and output is StationXML.
 
 .. option:: --relaxed-ns-check
 
-   Enables relaxed XML namespace checks. This will also accept
-   tags within a different namespace than defined in the supported schema.
+   Enable relaxed XML namespace checks. This will also accept
+   tags within a different namespace than defined in the
+   supported schema.
 
 .. option:: --log-stages
 
-   Adds more output to stderr for all channel response stages
+   Add more output to stderr for all channel response stages
    when converting from StationXML.
 

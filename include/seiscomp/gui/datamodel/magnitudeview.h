@@ -203,6 +203,7 @@ class SC_GUI_API MagnitudeView : public QWidget {
 
 	public slots:
 		void drawStations(bool);
+		void drawStationAnnotations(bool);
 
 		void setOrigin(Seiscomp::DataModel::Origin *, Seiscomp::DataModel::Event *);
 
@@ -250,6 +251,8 @@ class SC_GUI_API MagnitudeView : public QWidget {
 
 		void debugCreateMagRef();
 		void evaluationStatusChanged(int index);
+
+		void magnitudeCommentChanged(QString);
 
 
 	protected:

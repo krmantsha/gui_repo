@@ -6,7 +6,7 @@
 ql2sc
 #####
 
-**QuakeLink (gempa GmbH) to SeisComP event parameter exchange**
+**QuakeLink (gempa GmbH) to SeisComP event parameter exchange.**
 
 
 Description
@@ -22,9 +22,10 @@ possible server-side filters should be preferred to reduce both the network
 bandwidth consumption as well as the CPU and memory utilization on the local
 machine.
 
+
 .. _ql2sc_event_filter:
 
-Server-side event filter
+Server-Side Event Filter
 ========================
 
 QuakeLink provides a filter syntax similar to SQL-WHERE clauses which may be
@@ -33,11 +34,15 @@ used to filter interesting events on the server side:
 .. code-block:: none
 
    clause    := condition[ AND|OR [(]clause[)]]
-   condition := MAG|DEPTH|LAT|LON|PHASES|OTIME|UPDATED [op float|time]|[IS [NOT] NULL]
-   op        := =|&gt;|&gt;=|&lt;|&lt;=|eq|gt|ge|lt|ge
+   condition := MAG|DEPTH|LAT|LON|PHASES|DIST(lat,lon) op {float} |
+                DIST(lat,lon) IN [{float}, {float}] |
+                UPDATED|OTIME op time |
+                AGENCY|AUTHOR|STATUS|ESTATUS|EMODE|TYPE|REGION|MAG_T op 'string' |
+                MAG|DEPTH|LAT|LON|PHASES|OTIME|UPDATED IS [NOT] NULL
+   op        := =|!=|>|>=|<|<=|eq|gt|ge|lt|ge
    time      := %Y,%m,%d[,%H,%M,%S,%f]
 
-E.g. the following filter string would select only those events with a minimum
+E.g., the following filter string would select only those events with a minimum
 magnitude of 6, detected by at least 10 stations and which are shallower than
 100km:
 
@@ -45,9 +50,17 @@ magnitude of 6, detected by at least 10 stations and which are shallower than
 
    MAG >= 6.0 AND PHASES >= 10 AND DEPTH < 100
 
+.. note::
+
+   The supported filter commands depend on the specific QuakeLink version. To
+   list all available options you may connect to the server, e.g., using
+   `telnet localhost 18010`, and request the help page of the `SELECT` command
+   using `help select`.
+
+
 .. _ql2sc_object_filter:
 
-Server-side object filter
+Server-Side Object Filter
 =========================
 
 QuakeLink provides a coarse object filter for the most relevant SeisComP objects:
@@ -63,9 +76,10 @@ staMts       include moment tensor station contributions and phase settings
 preferred    include only preferred origin and magnitude information
 ============ ==============================================================
 
+
 .. _routing:
 
-Local object filter and routing
+Local Object Filter and Routing
 ===============================
 
 Subsequent to the server-side filters a routing table defines which objects to
@@ -73,13 +87,15 @@ import and to which message group to send them. Depending on the |scname| module
 listening to the specified message groups an object may be further processed.
 Typically no modules (other than :ref:`scmaster`) is connected to the
 ``IMPORT_GROUP`` so that objects sent to this group are just stored to the
-database. If an object should be discarded the special group identifier ``NULL``
+database. If an object should be discarded, the special group identifier ``NULL``
 may be used.
 
 The routing table is defined as a comma-separated list of
 ``object name:group name`` pairs. Also the routing rules are inherited
-recursively within the SeisComP object tree. If no explicit rule exists for an object
-the routing of its parent is evaluated up to the ``EventParameters`` root node.
+recursively within the SeisComP object tree. If no explicit rule exists for an
+object, the routing of its parent is evaluated up to the ``EventParameters``
+root node.
+
 
 Examples
 --------
@@ -104,6 +120,7 @@ Sends origins and it's children arrival, origin uncertainty to the ``LOCATION``
 group but the magnitude children to the ``MAGNITUDE`` group. Skips picks,
 amplitudes, focal mechanisms and events.
 
+
 Default routing table
 ---------------------
 
@@ -118,7 +135,7 @@ By default we route:
 * Origins (including its StationMagnitude and Magnitude children) to the
   ``LOCATION`` to allow event association.
 * FocalMechanisms to the ``FOCMECH`` group to trigger processing by specialized
-  applications, e.g. graphical user interfaces for strong motion analysis or
+  applications, e.g., graphical user interfaces for strong motion analysis or
   tsunami risk assessment.
 
 We don't route events at all. With the help of :ref:`scevent` locations are
@@ -134,15 +151,12 @@ second one the Magnitude. The Origin message immediately triggers magnitude
 calculation, potentially for a magnitude type which is received with the second
 message.
 
-The default routing table is set to:
+The default routing table is set as given in :confval:`host.$name.routingTable`.
 
-.. code-block:: none
-
-   Pick:IMPORT_GROUP,Amplitude:IMPORT_GROUP,FocalMechanism:FOCMECH,Origin:LOCATION
 
 .. _agency_filter:
 
-Agency list filter
+Agency List Filter
 ==================
 
 In addition to the local object filter the user may choose to accept only those
@@ -152,19 +166,33 @@ defined in the ``processing.whitelist.agencies`` or
 ``creationInfo.agencyID`` of amplitudes, arrivals, comments, events, focal
 mechanisms, magnitudes, moment tensors, origins, picks and station magnitudes is
 evaluated. Objects with unmatched or unset agency information are filtered out.
-If objects with unset agency id should match then empty string ``""`` has to be
+If objects with unset agency ID should match, then empty string ``""`` has to be
 added to the white list.
 
 The agency filter is applied on remote as well as local objects. In this way
 remote objects may be excluded from import and local objects my be protected
 from overriding or removing. Also the filter is applied recursively. If parent
-object (e.g. an origin) is filtered out all of its children (e.g. magnitudes)
-are also skipped even if they carry a different agency id.
+object (e.g., an origin) is filtered out, all of its children (e.g., magnitudes)
+are also skipped even if they carry a different agency ID.
 
 .. note::
 
    The agency white list filter might be essential to avoid circular event
    updates between cross-connected SeisComP systems.
+
+
+.. _publicID_filter:
+
+PublicID Prefix Filter
+======================
+
+In addition to the :ref:`agency filter<agency_filter>` incoming or local objects
+can be skipped by checking their publicID prefix. It behaves similar to the
+:ref:`agency filter<agency_filter>` but checks the ``publicID`` attribute rather
+than the ``creationInfo.agencyID`` attribute.
+Prefixes can be configure as white- or blacklist with
+``processing.whitelist.publicIDs = ...`` and
+``processing.blacklist.publicIDs = ...``.
 
 
 Workflow
@@ -192,12 +220,12 @@ The ``ADD`` and ``REMOVE`` operation always generates notifies of the same type
 for all children of the current object. ``ADD`` notifiers are collected top-down,
 ``REMOVE`` notifiers are collected bottom-up.
 
-Because the order of child objects is arbitrary, e.g. the arrivals of an origin,
+Because the order of child objects is arbitrary, e.g., the arrivals of an origin,
 each object on the remote side has to be found in the set of local objects. For
-public objects (e.g. origins, magnitudes, magnitudes..), the ``publicID`` property
-is used for comparison. All other objects are compared by looking at their index
-properties. For e.g. arrivals this is the ``pickID`` property, for comments the
-``id`` property.
+public objects (e.g., origins, magnitudes, magnitudes..), the ``publicID``
+property is used for comparison. All other objects are compared by looking at
+their index properties. For e.g., arrivals this is the ``pickID`` property, for
+comments the ``id`` property.
 
 Ones all notifiers are collected they are send to the local messaging system.
 For performance reasons and because of the processing logic of listening |scname|
@@ -217,14 +245,14 @@ limit is reached.
    locations based on an incomplete dataset.
 
 
-Event attributes
+Event Attributes
 ================
 
 It might be desirable to synchronize event attributes set at the source with
 the local system. In particular the event type, the type uncertainty, event
 descriptions and comments might be of interest. Because it is not advisable
 to route events and let :ref:`scevent` associate imported origins it can
-happen that the imported event id is different from the event id of the local
+happen that the imported event ID is different from the event ID of the local
 system. The input host configuration parameter :confval:`syncEventAttributes`
 controls that behaviour. It is set to true by default which means that imported
 event attributes are going to be imported as well. ql2sc does not update
@@ -232,13 +260,14 @@ directly the attributes but commandates scevent in as many cases as possible
 to do so. To find the matching local event it takes the first occurrence which
 has associated the currently imported preferred origin.
 
+
 Limitations
 -----------
 
 There are limitations to this process to avoid infinite loops when cross
 connecting two systems. Prior to sending the commands to scevent to change a
 particular attribute ql2sc checks if that attribute has been set already by
-another module (via JournalEntry database table). If not then ql2sc is allowed
+another module (via JournalEntry database table). If not, then ql2sc is allowed
 to request an attribute change otherwise not. To illustrate the issue take the
 following example:
 
@@ -268,22 +297,25 @@ Caveats
 
 Specific combinations of remote and local object filters may result in the loss
 of data. If for instance origins are imported from system ``A`` to ``B`` and
-additional magnitudes for the received origins are calculated on ``B`` care must
+additional magnitudes for the received origins are calculated on ``B``, care must
 be taken. Without protection a new event update containing the same origin will
 ``REMOVE`` all newly calculated magnitudes on ``B`` since they are not included
 in the magnitude set sent by ``A``.
 
 To avoid losing these local magnitudes one may decide to block magnitudes from
 import by routing them to ``NULL``. If magnitudes from ``A`` and from ``B``
-should be available an :ref:`agency filter<agency_filter>` may be defined. Make
-sure ``A`` and ``B`` uses distinct agency IDs and add the agency ID of ``B`` to
-``processing.blacklist.agencies``.
+should be available, an :ref:`agency filter<agency_filter>` or
+:ref:`publicID filter<publicID_filter>` may be defined.
+
+Make sure ``A`` and ``B`` use either distinct agency IDs or distinct publicID
+patterns and add the agency ID of ``B`` to ``processing.blacklist.agencies`` or
+the publicID prefix of ``B`` to ``processing.blacklist.publicIDs``.
 
 
 .. _ql2sc_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 | :file:`etc/defaults/global.cfg`
 | :file:`etc/defaults/ql2sc.cfg`
@@ -298,21 +330,27 @@ ql2sc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: backLog
 
+   Default: ``1800``
+
    Type: *int*
 
    Unit: *s*
 
    Number of seconds to fetch missed updates on start up.
-   Default is ``1800``.
+
 
 .. confval:: cacheSize
+
+   Default: ``5000``
 
    Type: *int*
 
    Number of public objects to cache.
-   Default is ``5000``.
+
 
 .. confval:: batchSize
+
+   Default: ``2000``
 
    Type: *int*
 
@@ -320,19 +358,21 @@ ql2sc inherits :ref:`global options<global-configuration>`.
    to 0 no size limit is enforced. Make sure to not hit the
    overall message size limited of 16MiB which is enforced by
    the messaging system.
-   Default is ``2000``.
+
 
 .. confval:: eventAssociationTimeout
+
+   Default: ``10``
 
    Type: *int*
 
    Unit: *s*
 
    If event synchronisation is enabled and an incoming origin
-   is not yet associated with an event on the target machine
+   is not yet associated with an event on the target machine,
    then this timeout defines the maximum number of seconds to
    wait for an association.
-   Default is ``10``.
+
 
 .. confval:: hosts
 
@@ -368,6 +408,8 @@ ql2sc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: host.$name.url
 
+   Default: ``ql://localhost:18010``
+
    Type: *string*
 
    URL of the QuakeLink service, the scheme 'qls' enables SSL.
@@ -375,36 +417,62 @@ ql2sc inherits :ref:`global options<global-configuration>`.
    Format: [ql[s]:\/\/][user:pwd\@][host][:port].
    
    If set to an empty string the application will run without any QuakeLink connection attempt.
-   Default is ``ql://localhost:18010``.
+
 
 .. confval:: host.$name.gzip
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Enables\/disables GZip \(GNU zip\) compression.
-   Default is ``false``.
+   Enable\/disable GZip \(GNU zip\) compression.
+
 
 .. confval:: host.$name.native
+
+   Default: ``false``
 
    Type: *boolean*
 
    Request native data instead of XML format.
    Native data export may be disabled on some hosts.
-   Default is ``false``.
+
 
 .. confval:: host.$name.syncEventAttributes
 
+   Default: ``true``
+
    Type: *boolean*
 
-   Tries to update the event attributes of the target event
+   Try to update the event attributes of the target event
    with the attributes of the source event which includes
    event type and event certainty. It will not import
    events but tries to find the associated event of the
    input preferred origin at the target system and will
    update the event attributes via journaling.
-   Default is ``true``.
+
+
+.. confval:: host.$name.syncPreferred
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Synchronize the preferred origin and preferred
+   magnitude selection if different from the imported
+   selection. ql2sc will wait for the event association
+   of an imported origin and check if the preferred origin
+   or preferred magnitude is different from the imported
+   Quakelink event. If so it will send a journal to
+   force selection of the preferred origin and selection
+   of the preferred magnitude type. These are the same
+   operations as within scolv to fix an origin and
+   a particular magnitude type.
+
 
 .. confval:: host.$name.keepAlive
+
+   Default: ``false``
 
    Type: *boolean*
 
@@ -412,7 +480,7 @@ ql2sc inherits :ref:`global options<global-configuration>`.
    prevent connection reset by firewalls on long idle
    periods. If activated the client will reset the
    connection if no alive message is received within 60s.
-   Default is ``false``.
+
 
 .. confval:: host.$name.filter
 
@@ -428,12 +496,14 @@ ql2sc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: host.$name.routingTable
 
+   Default: ``Pick:IMPORT_GROUP,Amplitude:IMPORT_GROUP,FocalMechanism:EVENT,Origin:EVENT``
+
    Type: *list:string*
 
-   Maps datamodel class names to messaging groups. For unmapped objects
+   Map datamodel class names to messaging groups. For unmapped objects
    the mapping of their parent objects is evaluated recursively. Objects
    may be excluded by mapping them to 'NULL'.
-   Default is ``Pick:IMPORT_GROUP,Amplitude:IMPORT_GROUP,FocalMechanism:FOCMECH,Origin:LOCATION``.
+
 
 .. note::
    **host.$name.data.\***
@@ -444,51 +514,81 @@ ql2sc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: host.$name.data.picks
 
+   Default: ``true``
+
    Type: *boolean*
 
    Include picks
-   Default is ``true``.
+
 
 .. confval:: host.$name.data.amplitudes
+
+   Default: ``true``
 
    Type: *boolean*
 
    Include amplitudes
-   Default is ``true``.
+
 
 .. confval:: host.$name.data.arrivals
+
+   Default: ``true``
 
    Type: *boolean*
 
    Include origin arrivals
-   Default is ``true``.
+
 
 .. confval:: host.$name.data.staMags
+
+   Default: ``true``
 
    Type: *boolean*
 
    Include origin station magnitudes
-   Default is ``true``.
+
 
 .. confval:: host.$name.data.staMts
+
+   Default: ``true``
 
    Type: *boolean*
 
    Include moment tensor station contributions and phase settings
-   Default is ``true``.
+
 
 .. confval:: host.$name.data.preferred
+
+   Default: ``true``
 
    Type: *boolean*
 
    Include only preferred origin and magnitude information
-   Default is ``true``.
 
 
-Command-line
-============
+.. confval:: processing.blacklist.publicIDs
+
+   Type: *list:string*
+
+   Defines a whitelist of publicID prefixes that are
+   allowed for processing. Separate items by comma.
+
+
+.. confval:: processing.whitelist.publicIDs
+
+   Type: *list:string*
+
+   Defines a blacklist of publicID prefixes that are
+   not allowed for processing. Separate items by comma.
+
+
+
+Command-Line Options
+====================
 
 .. program:: ql2sc
+
+:program:`ql2sc [options]`
 
 
 Generic
@@ -496,18 +596,20 @@ Generic
 
 .. option:: -h, --help
 
-   show help message.
+   Show help message.
 
 .. option:: -V, --version
 
-   show version information
+   Show version information.
 
 .. option:: --config-file arg
 
-   Use alternative configuration file. When this option is used
-   the loading of all stages is disabled. Only the given configuration
-   file is parsed and used. To use another name for the configuration
-   create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+   Use alternative configuration file. When this option is
+   used the loading of all stages is disabled. Only the
+   given configuration file is parsed and used. To use
+   another name for the configuration create a symbolic
+   link of the application or copy it. Example:
+   scautopick \-> scautopick2.
 
 .. option:: --plugins arg
 
@@ -515,8 +617,8 @@ Generic
 
 .. option:: -D, --daemon
 
-   Run as daemon. This means the application will fork itself and
-   doesn't need to be started with \&.
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
 
 
 Verbosity
@@ -524,15 +626,16 @@ Verbosity
 
 .. option:: --verbosity arg
 
-   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
 
 .. option:: -v, --v
 
-   Increase verbosity level \(may be repeated, eg. \-vv\)
+   Increase verbosity level \(may be repeated, eg. \-vv\).
 
 .. option:: -q, --quiet
 
-   Quiet mode: no logging output
+   Quiet mode: no logging output.
 
 .. option:: --print-component arg
 
@@ -542,11 +645,13 @@ Verbosity
 
 .. option:: --component arg
 
-   Limits the logging to a certain component. This option can be given more than once.
+   Limit the logging to a certain component. This option can
+   be given more than once.
 
 .. option:: -s, --syslog
 
-   Use syslog logging back end. The output usually goes to \/var\/lib\/messages.
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
 
 .. option:: -l, --lockfile arg
 
@@ -558,11 +663,14 @@ Verbosity
 
 .. option:: --debug
 
-   Debug mode: \-\-verbosity\=4 \-\-console\=1
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
 
 .. option:: --trace
 
-   Trace mode: \-\-verbosity\=4 \-\-console\=1 \-\-print\-component\=1 \-\-print\-context\=1
+   Execute in trace mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 \-\-print\-component\=1
+   \-\-print\-context\=1 .
 
 .. option:: --log-file arg
 
@@ -590,7 +698,8 @@ Messaging
 
 .. option:: -S, --subscribe-group arg
 
-   A group to subscribe to. This option can be given more than once.
+   A group to subscribe to.
+   This option can be given more than once.
 
 .. option:: --content-type arg
 
@@ -598,7 +707,7 @@ Messaging
 
 .. option:: --start-stop-msg arg
 
-   Sets sending of a start\- and a stop message.
+   Set sending of a start and a stop message.
 
 
 Database
@@ -610,7 +719,8 @@ Database
 
 .. option:: -d, --database arg
 
-   The database connection string, format: service:\/\/user:pwd\@host\/database.
-   \"service\" is the name of the database driver which can be
-   queried with \"\-\-db\-driver\-list\".
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
 

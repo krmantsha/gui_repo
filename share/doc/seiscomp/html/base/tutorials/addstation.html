@@ -25,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -119,16 +119,19 @@ but you will have to create key file by hand for acquisition and archiving.</p><
 How to obtain this will vary.
 You can fetch inventory from:</p>
 <ul class="simple">
-<li><p>Other SeisComP systems. Use <strong class="program">scxmldump</strong> to fetch inventories.</p></li>
-<li><p><a class="reference external" href="http://orfeus-eu.org/stationbook/nodes/">EIDA nodes</a> <a class="footnote-reference brackets" href="#id1" id="id2">1</a>. Use web interfaces such as web browsers or <cite>wget</cite> to fetch an inventory.</p></li>
-<li><p>Data centers providing <a class="reference external" href="https://www.fdsn.org/webservices/datacenters/">FDSNWS</a> <a class="footnote-reference brackets" href="#id3" id="id4">2</a>. Use web interfaces such as web browsers or <cite>wget</cite> to fetch an inventory.</p></li>
+<li><p>Other SeisComP systems. Use <a class="reference internal" href="../../apps/scxmldump.html#scxmldump"><span class="std std-ref">scxmldump</span></a> to fetch inventories.</p></li>
+<li><p>EIDA nodes <span id="id1">[<a class="reference internal" href="../references.html#id99" title="EIDA. European Integrated Data Archive, Orfeus. URL: https://www.orfeus-eu.org/data/eida/.">4</a>]</span>. Use web interfaces such as web browsers or <cite>wget</cite>
+to fetch an inventory.</p></li>
+<li><p>Data centers providing <span id="id2"><em>FDSNWS</em> [<a class="reference internal" href="../references.html#id106" title="FDSNWS. International Federation of Digital Seismograph Networks. URL: http://www.fdsn.org/webservices/.">8</a>]</span>. Use web interfaces such as web browsers
+or <cite>wget</cite> to fetch an inventory.</p></li>
+<li><p>Your own or shared user repositories on <span id="id3"><em>SMP</em> [<a class="reference internal" href="../references.html#id262" title="SMP. Station Management Portal by gempa GmbH. URL: https://smp.gempa.de/.">21</a>]</span>.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Create and share inventories</p>
-<p>gempa’s <a class="reference external" href="https://smp.gempa.de">SMP</a> <a class="footnote-reference brackets" href="#id5" id="id6">3</a> is a tool for creating inventory from scratch and community sharing.
-Create inventories for new or old networks and stations from
-permanent or temporary deployments.
+<p>gempa’s <span id="id4"><em>SMP</em> [<a class="reference internal" href="../references.html#id262" title="SMP. Station Management Portal by gempa GmbH. URL: https://smp.gempa.de/.">21</a>]</span> is a tool for creating inventory from scratch and
+community sharing. Create inventories for new or old networks and stations
+from permanent or temporary deployments.
 SMP provides inventories in <a class="reference internal" href="../glossary.html#term-scml"><span class="xref std std-term">SCML</span></a> format in multiple versions
 which can be used without modification.</p>
 </div>
@@ -153,7 +156,7 @@ Writing inventory to /home/user/seiscomp/etc/inventory/inventory_CLL.xml
 </pre></div>
 </div>
 <p>When inventory is loaded, you will see your station in the results
-of <strong class="program">scinv</strong> with the <cite>ls</cite> option:</p>
+of <a class="reference internal" href="../../apps/scinv.html#scinv"><span class="std std-ref">scinv</span></a> with the <cite>ls</cite> option:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ ~/seiscomp/bin/seiscomp <span class="nb">exec</span> scinv ls
 WARNING: /home/user/seiscomp/etc/inventory/README ignored: wrong extension
 <span class="o">[</span>..<span class="o">]</span>
@@ -212,20 +215,6 @@ Follow the <a class="reference internal" href="processing.html#tutorials-process
 <p>If you want to archive waveforms, consider how long they should be retained.
 See <a class="reference internal" href="archiving.html#tutorials-archiving"><span class="std std-ref">Set up local waveform archiving</span></a> for how to do this.</p>
 </div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="id1"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
-<dd><p><a class="reference external" href="http://orfeus-eu.org/stationbook/nodes/">http://orfeus-eu.org/stationbook/nodes/</a></p>
-</dd>
-<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id4">2</a></span></dt>
-<dd><p><a class="reference external" href="https://www.fdsn.org/webservices/datacenters/">https://www.fdsn.org/webservices/datacenters/</a></p>
-</dd>
-<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id6">3</a></span></dt>
-<dd><p><a class="reference external" href="https://smp.gempa.de">https://smp.gempa.de</a></p>
-</dd>
-</dl>
-</div>
 </div>
 
 
@@ -254,7 +243,6 @@ See <a class="reference internal" href="archiving.html#tutorials-archiving"><spa
 <li><a class="reference internal" href="#configuring-for-acquisition">Configuring for acquisition</a></li>
 <li><a class="reference internal" href="#configuring-processing">Configuring processing</a></li>
 <li><a class="reference internal" href="#configuring-for-archiving">Configuring for archiving</a></li>
-<li><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
 </ul>
@@ -284,7 +272,7 @@ See <a class="reference internal" href="archiving.html#tutorials-archiving"><spa
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

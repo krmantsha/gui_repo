@@ -130,8 +130,8 @@ scimex_export.cfg
 
 .. _scimex_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 | :file:`etc/defaults/global.cfg`
 | :file:`etc/defaults/scimex.cfg`
@@ -192,7 +192,8 @@ scimex inherits :ref:`global options<global-configuration>`.
    Type: *list:string*
 
    A list of hosts profiles to be considered for importing.
-   These are used with hosts.\$name directives similarly to exportHosts.
+   These are used with hosts.\$name directives similarly to
+   exportHosts.
 
 
 .. note::
@@ -206,21 +207,24 @@ scimex inherits :ref:`global options<global-configuration>`.
 
    Type: *tuple:double*
 
-   Pair of doubles that defines the latitude range, e.g. \-90:90.
+   Pair of doubles that defines the latitude range.
+   Example: \-90:90.
 
 
 .. confval:: criteria.$name.longitude
 
    Type: *tuple:double*
 
-   Pair of doubles that defines the longitude range, e.g. \-180:180.
+   Pair of doubles that defines the longitude range.
+   Example: \-180:180.
 
 
 .. confval:: criteria.$name.magnitude
 
    Type: *tuple:double*
 
-   Pair of doubles that defines the magnitude range, e.g. 3:10.
+   Pair of doubles that defines the magnitude range.
+   Example: 3:10.
 
 
 .. confval:: criteria.$name.arrivalcount
@@ -258,18 +262,21 @@ scimex inherits :ref:`global options<global-configuration>`.
 
    Type: *string*
 
-   Defining filter criteria name for sink, e.g. criteria \= world\-xxl.
-   The criteria must be defined in the criteria.\* configuration lines.
+   Defining filter criteria name for sink, e.g. criteria \=
+   world\-xxl. The criteria must be defined in the criteria.
+   \* configuration lines.
 
 
 .. confval:: hosts.$name.filter
 
+   Default: ``true``
+
    Type: *boolean*
 
-   Enables\/disables filtering based on defined criteria.
+   Enable\/disable filtering based on defined criteria.
    If set to false, all events will pass, even if one
    or more criteria are defined.
-   Default is ``true``.
+
 
 .. confval:: hosts.$name.conversion
 
@@ -280,17 +287,20 @@ scimex inherits :ref:`global options<global-configuration>`.
 
 .. confval:: hosts.$name.useDefinedRoutingTable
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Enables\/disables defined routing tables.
-   Default is ``false``.
+   Enable\/disable defined routing tables.
+
 
 .. confval:: hosts.$name.routingTable
 
    Type: *list:string*
 
-   Defining routing tables in the meaning of mapping objects to message
-   groups. E.g. Pick:NULL, StationAmplitude:NULL, Origin:LOCATION,
+   Defining routing tables in the meaning of mapping
+   objects to message groups. Example: Pick:NULL,
+   StationAmplitude:NULL, Origin:LOCATION,
    StationMagnitude: MAGNITUDE, NetworkMagnitude:MAGNITUDE,
    MagnitudeReference:MAGNITUDE, OriginReference:EVENT,
    Event:EVENT. Specifying NULL for the message group causes
@@ -298,10 +308,12 @@ scimex inherits :ref:`global options<global-configuration>`.
 
 
 
-Command-line
-============
+Command-Line Options
+====================
 
 .. program:: scimex
+
+:program:`scimex [options]`
 
 
 Generic
@@ -309,18 +321,20 @@ Generic
 
 .. option:: -h, --help
 
-   show help message.
+   Show help message.
 
 .. option:: -V, --version
 
-   show version information
+   Show version information.
 
 .. option:: --config-file arg
 
-   Use alternative configuration file. When this option is used
-   the loading of all stages is disabled. Only the given configuration
-   file is parsed and used. To use another name for the configuration
-   create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+   Use alternative configuration file. When this option is
+   used the loading of all stages is disabled. Only the
+   given configuration file is parsed and used. To use
+   another name for the configuration create a symbolic
+   link of the application or copy it. Example:
+   scautopick \-> scautopick2.
 
 .. option:: --plugins arg
 
@@ -328,26 +342,28 @@ Generic
 
 .. option:: -D, --daemon
 
-   Run as daemon. This means the application will fork itself and
-   doesn't need to be started with \&.
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
 
 .. option:: --auto-shutdown arg
 
-   Enable\/disable self\-shutdown because a master module shutdown. This only
-   works when messaging is enabled and the master module sends a shutdown
-   message \(enabled with \-\-start\-stop\-msg for the master module\).
+   Enable\/disable self\-shutdown because a master module shutdown.
+   This only works when messaging is enabled and the master
+   module sends a shutdown message \(enabled with \-\-start\-stop\-msg
+   for the master module\).
 
 .. option:: --shutdown-master-module arg
 
-   Sets the name of the master\-module used for auto\-shutdown. This
-   is the application name of the module actually started. If symlinks
-   are used then it is the name of the symlinked application.
+   Set the name of the master\-module used for auto\-shutdown.
+   This is the application name of the module actually
+   started. If symlinks are used, then it is the name of
+   the symlinked application.
 
 .. option:: --shutdown-master-username arg
 
-   Sets the name of the master\-username of the messaging used for
-   auto\-shutdown. If \"shutdown\-master\-module\" is given as well this
-   parameter is ignored.
+   Set the name of the master\-username of the messaging
+   used for auto\-shutdown. If \"shutdown\-master\-module\" is
+   given as well, this parameter is ignored.
 
 
 Verbosity
@@ -355,23 +371,26 @@ Verbosity
 
 .. option:: --verbosity arg
 
-   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
 
 .. option:: -v, --v
 
-   Increase verbosity level \(may be repeated, eg. \-vv\)
+   Increase verbosity level \(may be repeated, eg. \-vv\).
 
 .. option:: -q, --quiet
 
-   Quiet mode: no logging output
+   Quiet mode: no logging output.
 
 .. option:: --component arg
 
-   Limits the logging to a certain component. This option can be given more than once.
+   Limit the logging to a certain component. This option can
+   be given more than once.
 
 .. option:: -s, --syslog
 
-   Use syslog logging back end. The output usually goes to \/var\/lib\/messages.
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
 
 .. option:: -l, --lockfile arg
 
@@ -383,7 +402,8 @@ Verbosity
 
 .. option:: --debug
 
-   Debug mode: \-\-verbosity\=4 \-\-console\=1
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
 
 .. option:: --log-file arg
 
@@ -411,7 +431,8 @@ Messaging
 
 .. option:: -S, --subscribe-group arg
 
-   A group to subscribe to. This option can be given more than once.
+   A group to subscribe to.
+   This option can be given more than once.
 
 .. option:: --content-type arg
 
@@ -419,7 +440,7 @@ Messaging
 
 .. option:: --start-stop-msg arg
 
-   Sets sending of a start\- and a stop message.
+   Set sending of a start and a stop message.
 
 
 SCIMEX

@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -111,7 +111,7 @@
 </li>
         <li><a href="apps/fdsnws.html#cmdoption-fdsnws-s">--syslog</a>
 </li>
-        <li><a href="apps/fdsnws.html#id18">--v</a>
+        <li><a href="apps/fdsnws.html#id17">--v</a>
 </li>
         <li><a href="apps/fdsnws.html#cmdoption-fdsnws-verbosity">--verbosity arg</a>
 </li>
@@ -133,7 +133,7 @@
 </li>
         <li><a href="apps/fdsnws.html#cmdoption-fdsnws-v">-V</a>
 </li>
-        <li><a href="apps/fdsnws.html#id18">-v</a>
+        <li><a href="apps/fdsnws.html#id17">-v</a>
 </li>
       </ul></li>
       <li>
@@ -183,6 +183,8 @@
 </li>
         <li><a href="apps/fdsnxml2inv.html#cmdoption-fdsnxml2inv-plugins">--plugins arg</a>
 </li>
+        <li><a href="apps/fdsnxml2inv.html#cmdoption-fdsnxml2inv-print-component">--print-component arg</a>
+</li>
         <li><a href="apps/fdsnxml2inv.html#cmdoption-fdsnxml2inv-q">--quiet</a>
 </li>
         <li><a href="apps/fdsnxml2inv.html#cmdoption-fdsnxml2inv-relaxed-ns-check">--relaxed-ns-check</a>
@@ -190,6 +192,8 @@
         <li><a href="apps/fdsnxml2inv.html#cmdoption-fdsnxml2inv-s">--syslog</a>
 </li>
         <li><a href="apps/fdsnxml2inv.html#cmdoption-fdsnxml2inv-to-staxml">--to-staxml</a>
+</li>
+        <li><a href="apps/fdsnxml2inv.html#cmdoption-fdsnxml2inv-trace">--trace</a>
 </li>
         <li><a href="apps/fdsnxml2inv.html#id2">--v</a>
 </li>
@@ -419,8 +423,6 @@
 </li>
       <li><a href="base/api-python.html#seiscomp.datamodel.Inventory.findNetwork">findNetwork() (seiscomp.datamodel.Inventory method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="base/api-python.html#seiscomp.datamodel.EventParameters.findOrigin">findOrigin() (seiscomp.datamodel.EventParameters method)</a>
 </li>
       <li><a href="base/api-python.html#seiscomp.datamodel.ParameterSet.findParameter">findParameter() (seiscomp.datamodel.ParameterSet method)</a>
@@ -431,6 +433,8 @@
 </li>
       <li><a href="base/api-python.html#seiscomp.datamodel.QualityControl.findQCLog">findQCLog() (seiscomp.datamodel.QualityControl method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="base/api-python.html#seiscomp.datamodel.EventParameters.findReading">findReading() (seiscomp.datamodel.EventParameters method)</a>
 </li>
       <li><a href="base/api-python.html#seiscomp.datamodel.Inventory.findResponseFAP">findResponseFAP() (seiscomp.datamodel.Inventory method)</a>
@@ -603,6 +607,69 @@
 </li>
       <li><a href="base/api-python.html#seiscomp.datamodel.ResponsePolynomial.frequencyUnit">frequencyUnit() (seiscomp.datamodel.ResponsePolynomial method)</a>
 </li>
+      <li>
+    fx
+
+      <ul>
+        <li><a href="apps/scautopick.html#confval-fx">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    fx.DFX.filter.hiFreq
+
+      <ul>
+        <li><a href="apps/global.html#confval-fx.DFX.filter.hiFreq">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    fx.DFX.filter.loFreq
+
+      <ul>
+        <li><a href="apps/global.html#confval-fx.DFX.filter.loFreq">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    fx.DFX.filter.order
+
+      <ul>
+        <li><a href="apps/global.html#confval-fx.DFX.filter.order">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    fx.DFX.polar.alpha
+
+      <ul>
+        <li><a href="apps/global.html#confval-fx.DFX.polar.alpha">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    fx.DFX.polar.dk
+
+      <ul>
+        <li><a href="apps/global.html#confval-fx.DFX.polar.dk">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    fx.DFX.polar.ds
+
+      <ul>
+        <li><a href="apps/global.html#confval-fx.DFX.polar.ds">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    fx.DFX.polar.overlap
+
+      <ul>
+        <li><a href="apps/global.html#confval-fx.DFX.polar.overlap">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    fx.DFX.polar.window
+
+      <ul>
+        <li><a href="apps/global.html#confval-fx.DFX.polar.window">configuration value</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -635,7 +702,7 @@
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

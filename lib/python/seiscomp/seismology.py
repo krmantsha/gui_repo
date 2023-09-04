@@ -130,6 +130,7 @@ import seiscomp.io
 import seiscomp.math
 import seiscomp.core
 import seiscomp.datamodel
+import seiscomp.geo
 import seiscomp.config
 class TravelTimeList_internal(object):
     r"""Proxy of C++ std::list< Seiscomp::TravelTime > class."""
@@ -306,11 +307,25 @@ class Regions(object):
     r"""Proxy of C++ Seiscomp::Regions class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
 
-    def __init__(self):
-        r"""__init__(Regions self) -> Regions"""
-        _seismology.Regions_swiginit(self, _seismology.new_Regions())
+    @staticmethod
+    def getFlinnEngdahlRegion(lat, lon):
+        r"""getFlinnEngdahlRegion(double lat, double lon) -> std::string"""
+        return _seismology.Regions_getFlinnEngdahlRegion(lat, lon)
+
+    @staticmethod
+    def getFlinnEngdahlRegionsCount():
+        r"""getFlinnEngdahlRegionsCount() -> int"""
+        return _seismology.Regions_getFlinnEngdahlRegionsCount()
+
+    @staticmethod
+    def getFlinnEngdahlRegionById(id):
+        r"""getFlinnEngdahlRegionById(int id) -> std::string"""
+        return _seismology.Regions_getFlinnEngdahlRegionById(id)
 
     @staticmethod
     def load():
@@ -330,6 +345,18 @@ class Regions(object):
 
 # Register Regions in _seismology:
 _seismology.Regions_swigregister(Regions)
+
+def Regions_getFlinnEngdahlRegion(lat, lon):
+    r"""Regions_getFlinnEngdahlRegion(double lat, double lon) -> std::string"""
+    return _seismology.Regions_getFlinnEngdahlRegion(lat, lon)
+
+def Regions_getFlinnEngdahlRegionsCount():
+    r"""Regions_getFlinnEngdahlRegionsCount() -> int"""
+    return _seismology.Regions_getFlinnEngdahlRegionsCount()
+
+def Regions_getFlinnEngdahlRegionById(id):
+    r"""Regions_getFlinnEngdahlRegionById(int id) -> std::string"""
+    return _seismology.Regions_getFlinnEngdahlRegionById(id)
 
 def Regions_load():
     r"""Regions_load()"""

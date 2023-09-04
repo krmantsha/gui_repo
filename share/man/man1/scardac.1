@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCARDAC" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCARDAC" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scardac \- SeisComP Documentation
 .
@@ -31,20 +31,20 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
 .sp
-\fBWaveform archive data availability collector\fP
+\fBWaveform archive data availability collector.\fP
 .SH DESCRIPTION
 .sp
 scardac scans an SDS waveform archive , e.g.,
 created by slarchive or scart for
-available \fI\%miniSEED\fP data. It will
+available miniSEED data. It will
 collect information about
 .INDENT 0.0
 .IP \(bu 2
-data extents \- the absolute earliest and latest times data is available of a
-particular channel
+Data extents \- the absolute earliest and latest times data is available of a
+particular channel,
 .IP \(bu 2
-data segments \- continuous data segments sharing the same quality and sampling
-rate attributes
+Data segments \- continuous data segments sharing the same quality and sampling
+rate attributes.
 .UNINDENT
 .sp
 scardac is intended to be executed periodically, e.g., as a cronjob.
@@ -59,6 +59,21 @@ availability is provided by the fdsnws module via the services:
 .IP \(bu 2
 /fdsnws/ext/availability (extent and segment information
 provided in different formats)
+.UNINDENT
+.SS Non\-SDS archives
+.sp
+scardac can be extended by plugins to scan non\-SDS archives. For example the
+\fIdaccaps\fP plugin provided by caps allows scanning archives generated
+by a CAPS server. Plugins are added to global module configuration, e.g.:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+plugin = xyz
+.ft P
+.fi
+.UNINDENT
 .UNINDENT
 .SS Workflow
 .INDENT 0.0
@@ -149,11 +164,12 @@ wget \-O availability.txt \(aqhttp://localhost:8080/fdsnws/ext/availability/1/qu
 \fBNOTE:\fP
 .INDENT 3.0
 .INDENT 3.5
-The SeisComP module fdsnws must be running for executing this example.
+The \fISeisComP\fP module fdsnws must be running for executing this
+example.
 .UNINDENT
 .UNINDENT
 .UNINDENT
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/scardac.cfg\fP
@@ -168,99 +184,101 @@ scardac inherits global options\&.
 .INDENT 0.0
 .TP
 .B archive
+Default: \fB@SEISCOMP_ROOT@/var/lib/archive\fP
+.sp
 Type: \fIstring\fP
 .sp
 Path to MiniSeed waveform archive where all data is stored. The SDS archive
 structure is defined as
 YEAR/NET/STA/CHA/NET.STA.LOC.CHA.YEAR.DATEOFYEAR, e.g.
 2018/GE/APE/BHZ.D/GE.APE..BHZ.D.2018.125
-Default is \fB@SEISCOMP_ROOT@/var/lib/archive\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B threads
+Default: \fB1\fP
+.sp
 Type: \fIint\fP
 .sp
-Number of threads scanning the archive in parallel
-Default is \fB1\fP\&.
+Number of threads scanning the archive in parallel.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B batchSize
+Default: \fB100\fP
+.sp
 Type: \fIint\fP
 .sp
 Batch size of database transactions used when updating data
-availability segments. Allowed range: [1,1000]
-Default is \fB100\fP\&.
+availability segments. Allowed range: [1,1000].
 .UNINDENT
 .INDENT 0.0
 .TP
 .B jitter
+Default: \fB0.5\fP
+.sp
 Type: \fIfloat\fP
 .sp
 Acceptable derivation of end time and start time of successive
 records in multiples of sample time.
-Default is \fB0.5\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B maxSegments
+Default: \fB1000000\fP
+.sp
 Type: \fIint\fP
 .sp
 Maximum number of segments per stream. If the limit is reached
 no more segments are added to the database and the corresponding
 extent is flagged as to fragmented. Use a negative value to
 disable any limit.
-Default is \fB1000000\fP\&.
 .UNINDENT
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
 .sp
 \fBscardac [OPTION]...\fP
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-plugins arg
 Load given plugins.
 .UNINDENT
-.INDENT 0.0
-.TP
-.B \-D, \-\-daemon
-Run as daemon. This means the application will fork itself and
-doesn\(aqt need to be started with &.
-.UNINDENT
 .SS Verbosity
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -272,12 +290,14 @@ for file output but disabled for console output.
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -292,12 +312,15 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-trace
-Trace mode: \-\-verbosity=4 \-\-console=1 \-\-print\-component=1 \-\-print\-context=1
+Execute in trace mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 \-\-print\-component=1
+\-\-print\-context=1 .
 .UNINDENT
 .INDENT 0.0
 .TP

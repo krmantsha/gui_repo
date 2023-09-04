@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "INVEXTR" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "INVEXTR" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 invextr \- SeisComP Documentation
 .
@@ -34,25 +34,46 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 \fBExtract channels from inventory.\fP
 .SH DESCRIPTION
 .sp
-invextr extracts or removes networks, stations and channels from an inventory
-XML file.
-It takes basically three important parameters:
+invextr reads and modifies inventory XML provided as file or on stdin:
 .INDENT 0.0
-.IP 1. 3
-channel ID list
-.IP 2. 3
-input file
-.IP 3. 3
-output file
+.IP \(bu 2
+Extract or remove networks, stations and channels based on
+.INDENT 2.0
+.IP \(bu 2
+channel IDs
+.IP \(bu 2
+geographic region
+.UNINDENT
+.IP \(bu 2
+Clean inventories from unused objects such as data loggers, sensors or
+instrument responses.
+.UNINDENT
+.sp
+The important parameters are:
+.INDENT 0.0
+.IP \(bu 2
+Channel ID list (required)
+.IP \(bu 2
+Input file or stdin
+.IP \(bu 2
+Output file or stdout
+.IP \(bu 2
+Region bounding box (optional)
 .UNINDENT
 .sp
 whereas the output file defaults to stdout and the input file to
 stdin if not given.
 .sp
+The optional region box will be used to filter the read inventory based on the
+coordinates of sensor locations. Only stations with sensor locations within the
+region will be considered. All others will be ignored.
+.sp
 A channel ID is a simple string that is matched against the final channel ID
 in the inventory. This final channel ID is constructed by joining the codes of
 all stages with a dot where the stages are network, station, location and
 channel.
+.sp
+The content of the resulting inventory may be listed using scinv\&.
 .SS Examples
 .sp
 Suppose an inventory with network GE, a station MORC and several channels:
@@ -74,9 +95,10 @@ network GE
 .fi
 .UNINDENT
 .UNINDENT
-.sp
-The IDs are matched against what is passed with \-\-chans.
 .INDENT 0.0
+.IP \(bu 2
+The IDs are matched against streams passed with \-\-chans.
+.INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
@@ -87,8 +109,26 @@ invextr \-\-chans "GE*" inv.xml
 .UNINDENT
 .UNINDENT
 .sp
-Nothing is filtered because GE* matches all available IDs.
-.INDENT 0.0
+All streams are passed and nothing is filtered because GE* matches all
+available IDs and region filter is not used. Since \fBinv.xml\fP only
+contains stations from the GE network the option \fB\-\-chans\fP is not
+useful here at all.
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+  invextr \-r 0,\-180,90,180 inv.xml
+
+All streams located in the northern hemisphere are passed as commanded by the
+region bounding box.
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Nothing is filtered again because \fIMORC\fP matches all available IDs.
+.INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
@@ -98,9 +138,10 @@ invextr \-\-chans "*MORC*" inv.xml
 .fi
 .UNINDENT
 .UNINDENT
-.sp
-Nothing is filtered again because \fIMORC\fP matches all available IDs.
-.INDENT 0.0
+.IP \(bu 2
+Everything is filtered because GE.MORC does not match with any ID. To make it
+work, an asterisk needs to be appended: GE.MORC* or GE.MORC.*.
+.INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
@@ -110,12 +151,9 @@ invextr \-\-chans "GE.MORC" inv.xml
 .fi
 .UNINDENT
 .UNINDENT
-.sp
-Everything is filtered because GE.MORC does not match with any ID. To make it
-work, an asterisk needs to be appended: GE.MORC* or GE.MORC.*.
-.sp
+.IP \(bu 2
 To extract all vertical components, use:
-.INDENT 0.0
+.INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
@@ -125,8 +163,9 @@ invextr \-\-chans "*Z" inv.xml
 .fi
 .UNINDENT
 .UNINDENT
-.sp
+.IP \(bu 2
 To extract BHN and LHZ, use:
+.UNINDENT
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -137,9 +176,10 @@ invextr \-\-chans "*BHN,*LHZ" inv.xml
 .fi
 .UNINDENT
 .UNINDENT
-.sp
-To remove all HH and SH channels, use:
 .INDENT 0.0
+.IP \(bu 2
+To remove all HH and SH channels, use:
+.INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
@@ -149,7 +189,8 @@ invextr \-\-rm \-\-chans "*HH?,*SH?" inv.xml
 .fi
 .UNINDENT
 .UNINDENT
-.SH CONFIGURATION
+.UNINDENT
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/invextr.cfg\fP
@@ -161,27 +202,29 @@ invextr \-\-rm \-\-chans "*HH?,*SH?" inv.xml
 .sp
 .sp
 invextr inherits global options\&.
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
 .sp
 \fBinvextr [OPTIONS] [input=stdin] [output=stdout]\fP
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -191,34 +234,37 @@ Load given plugins.
 .INDENT 0.0
 .TP
 .B \-D, \-\-daemon
-Run as daemon. This means the application will fork itself and
-doesn\(aqt need to be started with &.
+Run as daemon. This means the application will fork itself
+and doesn\(aqt need to be started with &.
 .UNINDENT
 .SS Verbosity
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -233,21 +279,43 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-log\-file arg
 Use alternative log file.
 .UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-print\-component arg
+For each log entry print the component right after the
+log level. By default the component output is enabled
+for file output but disabled for console output.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-trace
+Execute in trace mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 \-\-print\-component=1
+\-\-print\-context=1 .
+.UNINDENT
 .SS Extract
 .INDENT 0.0
 .TP
 .B \-\-chans arg
-A comma separated list of channel ids to extract
-which can contain wildcards.
+A comma separated list of channel IDs to extract
+which can contain wildcards. Default: *.*.*.* meaning
+all streams.
 .sp
 Example: invextr \-\-chans "GE.*.*.BHZ,GE.MORC.*.*" inv.xml
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-r, \-\-region arg
+Filter streams by geographic region given as
+"South, East, North, West". Region is unused by default.
 .UNINDENT
 .INDENT 0.0
 .TP

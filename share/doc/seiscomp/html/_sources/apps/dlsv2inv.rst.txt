@@ -6,7 +6,7 @@
 dlsv2inv
 ########
 
-**Converts dataless SEED to SeisComP inventory XML.**
+**Convert dataless SEED to SeisComP inventory XML.**
 
 
 Description
@@ -54,8 +54,8 @@ Examples
 
 .. _dlsv2inv_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 | :file:`etc/defaults/global.cfg`
 | :file:`etc/defaults/dlsv2inv.cfg`
@@ -69,8 +69,8 @@ dlsv2inv inherits :ref:`global options<global-configuration>`.
 
 
 
-Command-line
-============
+Command-Line Options
+====================
 
 .. program:: dlsv2inv
 
@@ -82,18 +82,20 @@ Generic
 
 .. option:: -h, --help
 
-   show help message.
+   Show help message.
 
 .. option:: -V, --version
 
-   show version information
+   Show version information.
 
 .. option:: --config-file arg
 
-   Use alternative configuration file. When this option is used
-   the loading of all stages is disabled. Only the given configuration
-   file is parsed and used. To use another name for the configuration
-   create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+   Use alternative configuration file. When this option is
+   used the loading of all stages is disabled. Only the
+   given configuration file is parsed and used. To use
+   another name for the configuration create a symbolic
+   link of the application or copy it. Example:
+   scautopick \-> scautopick2.
 
 .. option:: --plugins arg
 
@@ -101,8 +103,8 @@ Generic
 
 .. option:: -D, --daemon
 
-   Run as daemon. This means the application will fork itself and
-   doesn't need to be started with \&.
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
 
 
 Verbosity
@@ -110,23 +112,26 @@ Verbosity
 
 .. option:: --verbosity arg
 
-   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
 
 .. option:: -v, --v
 
-   Increase verbosity level \(may be repeated, eg. \-vv\)
+   Increase verbosity level \(may be repeated, eg. \-vv\).
 
 .. option:: -q, --quiet
 
-   Quiet mode: no logging output
+   Quiet mode: no logging output.
 
 .. option:: --component arg
 
-   Limits the logging to a certain component. This option can be given more than once.
+   Limit the logging to a certain component. This option can
+   be given more than once.
 
 .. option:: -s, --syslog
 
-   Use syslog logging back end. The output usually goes to \/var\/lib\/messages.
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
 
 .. option:: -l, --lockfile arg
 
@@ -138,11 +143,24 @@ Verbosity
 
 .. option:: --debug
 
-   Debug mode: \-\-verbosity\=4 \-\-console\=1
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
 
 .. option:: --log-file arg
 
    Use alternative log file.
+
+.. option:: --print-component arg
+
+   For each log entry print the component right after the
+   log level. By default the component output is enabled
+   for file output but disabled for console output.
+
+.. option:: --trace
+
+   Execute in trace mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 \-\-print\-component\=1
+   \-\-print\-context\=1 .
 
 
 ArcLink
@@ -150,14 +168,15 @@ ArcLink
 
 .. option:: --dcid arg
 
-   Overrides the datacenter ID which is read from the datacenterID
-   configuration parameter and written to the network and
-   station archive attribute.
+   Override the datacenter ID which is read from the
+   datacenterID configuration parameter and written to the
+   network and station archive attribute.
 
 .. option:: --net-description arg
 
-   Sets the network description. It supports the following
-   placeholders: \${code}, \${start}, \${end}, \${class} and \${archive}.
+   Set the network description. It supports the following
+   placeholders: \${code}, \${start}, \${end}, \${class} and
+   \${archive}.
 
 .. option:: --net-start arg
 
@@ -169,19 +188,19 @@ ArcLink
 
 .. option:: --net-type arg
 
-   Sets the network type \(VBB, SM, etc.\).
+   Set the network type \(VBB, SM, etc.\).
 
 .. option:: --temporary
 
-   Sets the network temporary flag to true.
+   Set the network temporary flag to true.
 
 .. option:: --restricted
 
-   Sets the network restricted flag to true.
+   Set the network restricted flag to true.
 
 .. option:: --private
 
-   Sets the network private flag to true.
+   Set the network private flag to true.
 
 
 Convert
@@ -189,5 +208,5 @@ Convert
 
 .. option:: -f, --formatted
 
-   Enables formatted XML output.
+   Enable formatted XML output.
 

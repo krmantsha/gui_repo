@@ -29,45 +29,74 @@ The procedure of scautoloc to identify and locate seismic events basically
 consists of the following steps:
 
 
-Pick preparation 
-----------------
+.. _sec-scautoloc-pick-filtering:
 
-In scautoloc each incoming pick needs to be accompanied by a specific set
-of amplitudes. Since in the |scname| data model amplitudes and picks are
-independent objects, the amplitudes are added as attributes to their
-corresponding picks upon reception by scautoloc.
-
-
-Pick filtering 
+Pick filtering
 --------------
 
-Each incoming pick is filtered, i.e. it is checked if a pick is outdated
-and if the complete set of associated amplitudes is present already. If
+:program:`scautoloc` receives and filters :term:`phase picks <picks>` to generate
+:term:`origins <origin>`. These phase picks are used by default if
+
+* The phase hint is "P",
+* **And** the evaluation mode is "automatic". The use of manual picks is controlled
+  by :confval:`autoloc.useManualPicks`.
+* **And** the evaluation status is not "rejected", can be overridden by
+  :option:`--allow-rejected-picks`,
+* **And** :confval:`autoloc.authors` is empty or the author of the pick is listed in
+  :confval:`autoloc.authors`
+* **And** the picks are :ref:`accompanied by amplitudes <sec-scautoloc-amplitudes>`
+  configured in :confval:`autoloc.amplTypeAbs`, :confval:`autoloc.amplTypeSNR`.
+
+All other picks are ignored.
+
+.. note::
+
+   * The evaluation status of a picks can be set to 'rejected', e.g., by
+     :ref:`scautopick` along with the configuration of :confval:`sendDetections`,
+   * The order of the author IDs in  :confval:`autoloc.authors` may determine
+     the pick priority. This feature may be implemented in the future.
+
+Each incoming pick is checked if it is outdated and if the complete set of
+:ref:`associated amplitudes <sec-scautoloc-amplitudes>` is present already. If
 a station produces picks extremely often, these are considered to be more
-likely glitches and result in an increased :term:`SNR` threshold.
+likely glitches resulting in an increased :term:`SNR` threshold.
+
+The filtered picks are passed on to :ref:`association <sec-scautoloc-association>`
+and :ref:`nucleation <sec-scautoloc-nucleation>`.
 
 
-Association 
------------
+.. _sec-scautoloc-association:
 
-It is first attempted to associate an incoming pick with the known origins.
+Pick association
+----------------
+
+It is first attempted to associate an incoming pick with a known origin.
+The association is limited to epicentral distances given by
+:ref:`autoloc.maxStationDistance`.
 Especially for large events with stable locations based on many picks already
 associated, this is the preferred way to handle the pick. If the association
 succeeds, the nucleation process can be bypassed. Under certain circumstances
 picks are both associated and fed into the nucleator.
 
 
-Nucleation 
-----------
+.. _sec-scautoloc-nucleation:
+
+Origin nucleation
+-----------------
 
 If direct association fails, scautoloc tries to make a new origin out of this
 and other unassociated, previously received picks. This process is called
 "nucleation". scautoloc performs a grid search over space and time, which is
 a rather expensive procedure as it requires lots of resources both in terms
-of CPU and RAM. Additional nucleation algorithms will become available in
-future. The grid is a discrete set of -in principle- arbitrary points that
-sample the area of interest sufficiently densely. In the grid search, each
-of the grid points is taken as a hypothetical hypocenter for all incoming
+of CPU and RAM. Additional nucleation algorithms may become available in
+future. The :ref:`spatial grid <sec-scautoloc-grid>` is a discrete set of
+generally arbitrary points that sample the area of interest sufficiently densely.
+The usability of a pick from a station for a grid point is controlled by the
+:ref:`grid itself <sec-scautoloc-grid>` and the
+:ref:`station configuration <sec-scautoloc-stations>`.
+
+In the grid search, each of the grid points is taken as a hypothetical
+hypocenter for all incoming
 picks. Each incoming pick is back projected in time for each of the grid
 points, on the assumption that it is a first-arrival "P" onset. If the pick
 indeed corresponds to a "P" arrival of a seismic event, and if this event was
@@ -80,22 +109,23 @@ is limited, this is not possible. Therefore, if a cluster is identified as a
 potential origin, it does not necessarily mean that all contributing picks
 actually correspond to "P" arrivals. It may as well be a coincidental match
 caused by the coarseness of the grid or possible contamination by picked noise.
-Therefore, a location program (LocSAT) is run in order to try a location and
-test if the set of picks indeed forms a consistent hypocenter. If the pick
-residual :term:`RMS` is too large, an improvement is attempted by excluding each of
+Therefore, the location program :ref:`LOCSAT<global_locsat>` is run in order to
+try a location and test if the set of picks indeed forms a consistent hypocenter.
+If the pick residual :term:`RMS` is too large, an improvement is attempted by
+excluding each of
 the contributing picks once to test if a reduction in RMS can be achieved.
 If the new origin meets all requirements, it is accepted as new seismic event
 location.
 
-The grid points are specified in a text file "grid.txt".
-The default file shipped with scautoloc defines a grid with globally even
+The grid points are specified in a text file configured in :confval:`autoloc.grid`.
+The default file shipped with scautoloc defines a grid with global evenly
 distributed points at the surface, and depth points confined to regions of
 known deep seismicity. It may be modified, but should not comprise too many
-grid points (>3000, depending on CPU speed and RAM). See below for more
-details about the grid file.
+grid points (>3000, depending on CPU speed and RAM).
+:ref:`See below <sec-scautoloc-grid>` for more details about the grid file.
 
 
-Origin refinement 
+Origin refinement
 -----------------
 
 An origin produced or updated through association and/or nucleation may still
@@ -121,8 +151,14 @@ In the course of nucleation and association, as well as in the origin
 refinement and filtering, certain heuristic criteria are applied to compare
 the "qualities" of concurring origins. These criteria are combined in an
 internal origin score, which is based on properties of the picks themselves
-in the context of the respective origin (residuals: :confval:`autoloc.maxResidual`,
-RMS: :confval:`autoloc.maxRMS`, azimuthal gaps: :confval:`autoloc.maxSGAP`).
+in the context of the respective origin. The configurable criteria which origins
+must meet to be reported are:
+
+* Minimum number of phases per origins: :confval:`autoloc.minPhaseCount`,
+* Station residual residual: :confval:`autoloc.maxResidual`,
+* Origin RMS: :confval:`autoloc.maxRMS`,
+* Maximum depth: :confval:`autoloc.maxDepth`),
+* Azimuthal gap: :confval:`autoloc.maxSGAP`).
 
 In addition, the amplitudes provide valuable means of comparing origin
 qualities. Obviously, a pick with a high :term:`SNR` will less likely be a transient
@@ -141,6 +177,8 @@ picker, these two amplitudes must nevertheless be provided to scautoloc.
 Otherwise, the picks are not used. At the moment this is a strict requirement,
 in the future it may be changed.
 
+
+.. _sec-scautoloc-grid:
 
 Grid file
 =========
@@ -168,7 +206,9 @@ with even spacing of ~5° with additional points at greater depths where
 deep-focus events are known to occur.
 
 
-Station configuration file
+.. _sec-scautoloc-stations:
+
+Station Configuration File
 ==========================
 
 The station configuration file contains lines consisting of network code,
@@ -184,9 +224,9 @@ station will then not pose a risk for locations generated outside the maximum
 nucleation distance. Network and station code may be wildcards (\*) for
 convenience ::
 
-    * * 1 90 
+    * * 1 90
     GE * 1 180
-    GE HLG 1 10 
+    GE HLG 1 10
     TE RGN 0 10
 
 The example above means that all stations from all networks by default can
@@ -197,7 +237,7 @@ to 10°. By setting the 3rd column to 0, TE RGN is ignored.
 
 .. _sec-scautoloc-prelim-origins:
 
-Preliminary origins
+Preliminary Origins
 ===================
 
 Usually, scautoloc will not report origins with less than a certain
@@ -250,7 +290,7 @@ This will extract all lines containing the above keywords, providing a very
 simple (and primitive) origin history.
 
 
-Publication interval
+Publication Interval
 ====================
 
 In principle, scautoloc produces a new solution (origin) after each processed
@@ -291,7 +331,7 @@ objects. The time interval between subsequent housekeepings is specified in
 :confval:`buffer.cleanupInterval` in seconds.
 
 
-Test mode
+Test Mode
 =========
 
 In the test mode, scautoloc connects to a messaging server as usual and
@@ -301,7 +341,7 @@ new parameter settings before implementation in the real-time system. It also
 provides a simple way to log picks from a real-time system to the pick log.
 
 
-Offline mode
+Offline Mode
 ============
 
 scautoloc normally runs as a daemon in the background, continuously reading
@@ -316,7 +356,7 @@ from the file either defined in :confval:`autoloc.stationLocations` or
 -\\-station-locations .
 
 Example for entries in a pick file::
-  
+
     2008-09-25 00:20:16.6 SK LIKS EH __ 4.6 196.953 1.1 A [id]
     2008-09-25 00:20:33.5 SJ BEO BH __ 3.0 479.042 0.9 A [id]
     2008-09-25 00:21:00.1 CX MNMCX BH __ 21.0 407.358 0.7 A [id]
@@ -340,7 +380,7 @@ example.
    database and thus have to be supplied via a file. The station coordinates file
    has a simple format with one line per entry, consisting of 5 columns: network
    code, station code, latitude, longitude, elevation (in meters), e.g., ::
-  
+
        GE APE 37.0689 25.5306 620.0
        GE BANI -4.5330 129.9000 0.0
        GE BKB -1.2558 116.9155 0.0
@@ -349,17 +389,20 @@ example.
        GE CART 37.5868 -1.0012 65.0
        GE CEU 35.8987 -5.3731 320.0
        GE CISI -7.5557 107.8153 0.0
-  
+
 The location of this file is specified in :confval:`autoloc.stationLocations` or on the
 command line using -\\-station-locations
 
 
-How to make scautopick and scautoloc work together
-==================================================
+scautopick and scautoloc Interaction
+====================================
 
 The two main programs in the automatic event detection and location processing
-chain, :ref:`scautopick` and :program:`scautoloc`, only work together if the information needed
-by scautoloc can be supplied by :ref:`scautopick`. This document explains current
+chain, :ref:`scautopick` and :program:`scautoloc`, only work together if the
+information needed by scautoloc can be supplied by :ref:`scautopick` and received
+by :program:`scautoloc` through the message group defined by
+:confval:`connection.subscription` or through :term:`SCML` (:option:`--ep`,
+:option:`-i`). This document explains current
 implicit dependencies between these two utilities and is meant as a guide
 especially for those who plan to modify or replace one or both of these
 utilities by own developments.
@@ -372,22 +415,24 @@ a standard.
 Picks
 -----
 
-The data scautoloc works with are primarily seismic phase picks. In addition,
-certain amplitudes are used as a kind of quality criterion for the pick, allowing
-picks with a higher absolute amplitude or signal-to-noise ratio to be given
-priority in the processing over weak low-quality picks.
+:program:`scautoloc` works with
+:ref:`seismic phase picks <sec-scautoloc-pick-filtering>`.
+In addition, certain amplitudes are used as a kind of quality criterion for the
+pick, allowing picks with a higher absolute amplitude or signal-to-noise ratio
+to be given priority in the processing over weak low-quality picks. Due to the
+filtering of picks by phaseHint it is highly recommended to always set the
+phaseHint attribute with the appropriate phase name in :ref:`scautopick`. There
+is no restriction regarding the choice of the publicID of the pick.
 
-Currently scautoloc only processes automatic, 1st-arrival P picks. Furthermore,
-in the current version of scautopick only P picks are produced anyway. It can
-therefore be safely assumed by scautoloc that any automatic pick is a P pick
-that either has a phaseHint attribute explicitly stating "P" ot the phaseHint
-attribute left empty. Automatic picks with a phaseHint other than "P" as well
-as any picks not tagged as automatic are currently ignored. It is thus highly
-recommended to always set the phaseHint attribute with the appropriate phase
-name. There is no restriction regarding the choice of the publicID of the pick.
 
-Optionally scautoloc performance may be improved by processing certain
-amplitudes accompanying the picks. Two kinds of amplitudes may be used together
+.. _sec-scautoloc-amplitudes:
+
+Amplitudes
+----------
+
+By configuration, the performance of :program:`scautoloc` is also controlled by
+considering certain amplitudes accompanying the picks. Two kinds of amplitudes
+may be used together
 
 * An absolute amplitude like the one used for calculation of the magnitude "mb".
 * Relative amplitude like the dimension-less signal-to-noise ratio amplitude "snr".
@@ -405,27 +450,22 @@ If for instance an alternate picker implementation doesn't produce "mb"-type
 absolute amplitude but e.g. "xy", then :confval:`autoloc.amplTypeAbs` needs to be set to
 "xy" to have them recognized by scautoloc.
 
-The use of manual picks is controlled by :confval:`autoloc.useManualPicks`.
-
-Pick processing may be enabled/disabled according to its author ID.
-This is controlled via :confval:`autoloc.authors`, which is a
-comma-separated list of author ID's. In addition to acting as a
-whitelist, the order of the author ID's determines the pick
-priority. An author early in the list is given higher priority.
-Note: The latter feature is not implemented yet.
-
-.. code-block:: sh
-
-   autoloc.authors = joeseismologist@screview, student@sctraining, repicker@scaux, scautopick@scmain
-
-Currently there **must** be an absolute and a relative amplitude for every pick.
-However, this requirement will be relaxed in a future version. But currently
-scautoloc will always wait until both amplitude have arrived, which results
-in an overall processing delay, corresponding to the usually delayed availability
+Currently there **must** be an absolute and a relative amplitude for every pick
+as configured by :confval:`autoloc.amplTypeAbs` and :confval:`autoloc.amplTypeSNR`.
+These amplitudes must be computed by :ref:`scautopick`.
+:program:`scautoloc` will always wait until both amplitudes have arrived, which
+results in an overall processing delay, corresponding to the usually delayed availability
 of amplitudes with respect to the corresponding pick. The default absolute
 amplitude "mb", for instance, takes a hard-coded 30-seconds time interval to
 be computed. This length of data thus has to be waited for, plus a little
-extra because of the size of the miniSEED records. An alternate picker
+extra because of the size of the miniSEED records.
+
+.. note::
+
+   Consider :ref:`scautopick` with :confval:`amplitudes.enableUpdate` in order
+   to provide mb amplitudes with shorter delays.
+
+An alternate picker
 implementation could produce a different absolute-amplitude type than "mb".
 That amplitude might be based on a different filter pass band and much shorter
 time window than the default "mb" amplitude, thus allowing a significantly
@@ -443,14 +483,14 @@ in a future version.
 Manual origins
 --------------
 
-Manual origins created e.g. in :ref:`scolv` may be considered for additional
+Manual origins created, e.g., in :ref:`scolv` may be considered for additional
 association of picks as controlled by :confval:`autoloc.useManualOrigins`.
 
 
 .. _scautoloc_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 | :file:`etc/defaults/global.cfg`
 | :file:`etc/defaults/scautoloc.cfg`
@@ -471,12 +511,16 @@ scautoloc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: locator.profile
 
+   Default: ``iasp91``
+
    Type: *string*
 
    The locator profile to use.
-   Default is ``iasp91``.
+
 
 .. confval:: locator.defaultDepth
+
+   Default: ``10``
 
    Type: *double*
 
@@ -488,9 +532,11 @@ scautoloc inherits :ref:`global options<global-configuration>`.
    the default depth, the latter is used. This is most often
    the case for shallow events with essentially no depth
    resolution.
-   Default is ``10``.
+
 
 .. confval:: locator.minimumDepth
+
+   Default: ``5``
 
    Type: *double*
 
@@ -504,7 +550,7 @@ scautoloc inherits :ref:`global options<global-configuration>`.
    
    Note that the minimum depth can also be configured in scolv,
    possibly to a different value.
-   Default is ``5``.
+
 
 .. note::
    **buffer.\***
@@ -514,30 +560,36 @@ scautoloc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: buffer.pickKeep
 
+   Default: ``21600``
+
    Type: *double*
 
    Unit: *s*
 
    Time to keep picks in the buffer with respect to pick time, not creation time.
-   Default is ``21600``.
+
 
 .. confval:: buffer.originKeep
+
+   Default: ``86400``
 
    Type: *integer*
 
    Unit: *s*
 
    Time to keep origins in buffer.
-   Default is ``86400``.
+
 
 .. confval:: buffer.cleanupInterval
+
+   Default: ``3600``
 
    Type: *integer*
 
    Unit: *s*
 
    Clean\-up interval for removing old\/unused objects.
-   Default is ``3600``.
+
 
 .. note::
    **autoloc.\***
@@ -547,39 +599,49 @@ scautoloc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: autoloc.maxRMS
 
+   Default: ``3.5``
+
    Type: *double*
 
    Unit: *s*
 
    Maximum travel\-time RMS for a location to be reported.
-   Default is ``3.5``.
+
 
 .. confval:: autoloc.maxResidual
+
+   Default: ``7.0``
 
    Type: *double*
 
    Unit: *s*
 
    Maximum travel\-time residual \(unweighted\) for a pick at a station to be used.
-   Default is ``7.0``.
+
 
 .. confval:: autoloc.minPhaseCount
+
+   Default: ``6``
 
    Type: *integer*
 
    Minimum number of phases for reporting origins.
-   Default is ``6``.
+
 
 .. confval:: autoloc.maxDepth
+
+   Default: ``1000``
 
    Type: *double*
 
    Unit: *km*
 
    Maximum permissible depth for reporting origins.
-   Default is ``1000``.
+
 
 .. confval:: autoloc.maxSGAP
+
+   Default: ``360``
 
    Type: *double*
 
@@ -589,27 +651,33 @@ scautoloc inherits :ref:`global options<global-configuration>`.
    The secondary gap is the maximum of the sum of 2 station gaps.
    
    Default: 360 degrees, i.e. no restriction based on this parameter.
-   Default is ``360``.
+
 
 .. confval:: autoloc.maxStationDistance
+
+   Default: ``180``
 
    Type: *double*
 
    Unit: *deg*
 
    Maximum epicntral distance to stations for accepting picks.
-   Default is ``180``.
+
 
 .. confval:: autoloc.minStaCountIgnorePKP
+
+   Default: ``30``
 
    Type: *integer*
 
    If the station count for stations at < 105 degrees distance
    exceeds this number, no picks at > 105 degrees will be
    used in location. They will be loosely associated, though.
-   Default is ``30``.
+
 
 .. confval:: autoloc.amplTypeAbs
+
+   Default: ``mb``
 
    Type: *string*
 
@@ -618,29 +686,35 @@ scautoloc inherits :ref:`global options<global-configuration>`.
    obtained from the amplitude object is also used; if it has some other
    value, then 1 [units?] is used. If this string is empty, then the amplitude
    is set to 0.5 \* thresholdXXL, and 1 [units?] is used for the period.
-   Default is ``mb``.
+
 
 .. confval:: autoloc.amplTypeSNR
+
+   Default: ``snr``
 
    Type: *string*
 
    If this string is non\-empty, it is used to obtain a pick SNR from an
    amplitude object. If it is empty, the pick SNR is 10.
-   Default is ``snr``.
+
 
 .. confval:: autoloc.grid
+
+   Default: ``@DATADIR@/scautoloc/grid.conf``
 
    Type: *path*
 
    Location of the grid file for nucleating origins.
-   Default is ``@DATADIR@/scautoloc/grid.conf``.
+
 
 .. confval:: autoloc.stationConfig
+
+   Default: ``@DATADIR@/scautoloc/station.conf``
 
    Type: *path*
 
    Location of the station configuration file for nucleating origins.
-   Default is ``@DATADIR@/scautoloc/station.conf``.
+
 
 .. confval:: autoloc.stationLocations
 
@@ -653,12 +727,16 @@ scautoloc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: autoloc.useManualPicks
 
+   Default: ``false``
+
    Type: *boolean*
 
    Receive and process manual phase picks.
-   Default is ``false``.
+
 
 .. confval:: autoloc.useManualOrigins
+
+   Default: ``false``
 
    Type: *boolean*
 
@@ -672,38 +750,40 @@ scautoloc inherits :ref:`global options<global-configuration>`.
    This is an experimental feature relevant only for large regional and global networks,
    where results by analysts can be expected before the end
    of automatic event processing.
-   Default is ``false``.
+
 
 .. confval:: autoloc.adoptManualDepth
+
+   Default: ``true``
 
    Type: *boolean*
 
    Adopt the depth from manual origins. Otherwise the default depth
    in locator.defaultDepth is considered.
-   Default is ``true``.
+
 
 .. confval:: autoloc.authors
 
    Type: *list:string*
 
-   Pick processing may be enabled\/disabled according to the
-   author ID of a pick. In addition, picks of certain authors
-   can be prioritized over other authors.
-   This is the author priority list that controls this behavior.
-   Its value is a comma\-separated list of author ID's.
-   The earlier an author ID appears in the list the higher the
-   priority it gets.
+   Restrict pick processing to the given author name\(s\). Apply
+   comma separation for a list of names. If any author name is
+   given, picks from other authors are ignored.
 
 
 .. confval:: autoloc.tryDefaultDepth
+
+   Default: ``true``
 
    Type: *boolean*
 
    Compare located origin with the origin at the depth given by
    locator.defaultDepth. The origin with lower RMS is reported.
-   Default is ``true``.
+
 
 .. confval:: autoloc.publicationIntervalTimeSlope
+
+   Default: ``0.5``
 
    Type: *double*
 
@@ -712,9 +792,11 @@ scautoloc inherits :ref:`global options<global-configuration>`.
    Parameter \"a\"  in the equation t \= aN + b.
    t is the time interval between sending updates of an origin.
    N is the arrival count of the origin.
-   Default is ``0.5``.
+
 
 .. confval:: autoloc.publicationIntervalTimeIntercept
+
+   Default: ``0.``
 
    Type: *double*
 
@@ -723,22 +805,26 @@ scautoloc inherits :ref:`global options<global-configuration>`.
    Parameter \"b\" in the equation t \= aN + b.
    t is the time interval between sending updates of an origin.
    N is the arrival count of the origin.
-   Default is ``0.``.
+
 
 .. confval:: autoloc.pickLogEnable
+
+   Default: ``false``
 
    Type: *boolean*
 
    Activate for writing pick log files to \"pickLog\".
-   Default is ``false``.
+
 
 .. confval:: autoloc.pickLog
+
+   Default: ``@LOGDIR@/autoloc-picklog``
 
    Type: *string*
 
    Location of pick log file containing information about received
    picks. Activate \"pickLogEnable\" for writing the files.
-   Default is ``@LOGDIR@/autoloc-picklog``.
+
 
 .. note::
    **autoloc.xxl.\***
@@ -749,15 +835,19 @@ scautoloc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: autoloc.xxl.enable
 
+   Default: ``false``
+
    Type: *boolean*
 
    Picks with exceptionally large amplitudes may be flagged as XXL,
    allowing \(in future\) faster, preliminary \"heads\-up\" alerts.
    
    This option enables the feature.
-   Default is ``false``.
+
 
 .. confval:: autoloc.xxl.minAmplitude
+
+   Default: ``10000``
 
    Type: *double*
 
@@ -765,45 +855,53 @@ scautoloc inherits :ref:`global options<global-configuration>`.
    value corresponds to the amplitude type configured in
    autoloc.amplTypeAbs. NOTE that
    BOTH minAmplitude and minSNR need to be exceeded\!
-   Default is ``10000``.
+
 
 .. confval:: autoloc.xxl.minSNR
+
+   Default: ``8``
 
    Type: *double*
 
    Minimum SNR for a pick to be flagged as XXL. NOTE that
    BOTH minAmplitude and minSNR need to be exceeded\!
-   Default is ``8``.
+
 
 .. confval:: autoloc.xxl.minPhaseCount
+
+   Default: ``4``
 
    Type: *integer*
 
    Minimum number of XXL picks for forming an origin.
    Must be >\= 4.
-   Default is ``4``.
+
 
 .. confval:: autoloc.xxl.maxStationDistance
+
+   Default: ``10``
 
    Type: *double*
 
    Unit: *deg*
 
    Maximum epicentral distance for accepting XXL picks.
-   Default is ``10``.
+
 
 .. confval:: autoloc.xxl.maxDepth
+
+   Default: ``100``
 
    Type: *double*
 
    Unit: *km*
 
    Maximum depth for creating origins based on XXL arrivals.
-   Default is ``100``.
 
 
-Command-line
-============
+
+Command-Line Options
+====================
 
 .. program:: scautoloc
 
@@ -815,18 +913,20 @@ Generic
 
 .. option:: -h, --help
 
-   show help message.
+   Show help message.
 
 .. option:: -V, --version
 
-   show version information
+   Show version information.
 
 .. option:: --config-file arg
 
-   Use alternative configuration file. When this option is used
-   the loading of all stages is disabled. Only the given configuration
-   file is parsed and used. To use another name for the configuration
-   create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+   Use alternative configuration file. When this option is
+   used the loading of all stages is disabled. Only the
+   given configuration file is parsed and used. To use
+   another name for the configuration create a symbolic
+   link of the application or copy it. Example:
+   scautopick \-> scautopick2.
 
 .. option:: --plugins arg
 
@@ -834,26 +934,28 @@ Generic
 
 .. option:: -D, --daemon
 
-   Run as daemon. This means the application will fork itself and
-   doesn't need to be started with \&.
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
 
 .. option:: --auto-shutdown arg
 
-   Enable\/disable self\-shutdown because a master module shutdown. This only
-   works when messaging is enabled and the master module sends a shutdown
-   message \(enabled with \-\-start\-stop\-msg for the master module\).
+   Enable\/disable self\-shutdown because a master module shutdown.
+   This only works when messaging is enabled and the master
+   module sends a shutdown message \(enabled with \-\-start\-stop\-msg
+   for the master module\).
 
 .. option:: --shutdown-master-module arg
 
-   Sets the name of the master\-module used for auto\-shutdown. This
-   is the application name of the module actually started. If symlinks
-   are used then it is the name of the symlinked application.
+   Set the name of the master\-module used for auto\-shutdown.
+   This is the application name of the module actually
+   started. If symlinks are used, then it is the name of
+   the symlinked application.
 
 .. option:: --shutdown-master-username arg
 
-   Sets the name of the master\-username of the messaging used for
-   auto\-shutdown. If \"shutdown\-master\-module\" is given as well this
-   parameter is ignored.
+   Set the name of the master\-username of the messaging
+   used for auto\-shutdown. If \"shutdown\-master\-module\" is
+   given as well, this parameter is ignored.
 
 
 Verbosity
@@ -861,23 +963,26 @@ Verbosity
 
 .. option:: --verbosity arg
 
-   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
 
 .. option:: -v, --v
 
-   Increase verbosity level \(may be repeated, eg. \-vv\)
+   Increase verbosity level \(may be repeated, eg. \-vv\).
 
 .. option:: -q, --quiet
 
-   Quiet mode: no logging output
+   Quiet mode: no logging output.
 
 .. option:: --component arg
 
-   Limits the logging to a certain component. This option can be given more than once.
+   Limit the logging to a certain component. This option can
+   be given more than once.
 
 .. option:: -s, --syslog
 
-   Use syslog logging back end. The output usually goes to \/var\/lib\/messages.
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
 
 .. option:: -l, --lockfile arg
 
@@ -889,7 +994,8 @@ Verbosity
 
 .. option:: --debug
 
-   Debug mode: \-\-verbosity\=4 \-\-console\=1
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
 
 .. option:: --log-file arg
 
@@ -917,7 +1023,8 @@ Messaging
 
 .. option:: -S, --subscribe-group arg
 
-   A group to subscribe to. This option can be given more than once.
+   A group to subscribe to.
+   This option can be given more than once.
 
 .. option:: --content-type arg
 
@@ -925,7 +1032,7 @@ Messaging
 
 .. option:: --start-stop-msg arg
 
-   Sets sending of a start\- and a stop message.
+   Set sending of a start and a stop message.
 
 
 Database
@@ -937,17 +1044,19 @@ Database
 
 .. option:: -d, --database arg
 
-   The database connection string, format: service:\/\/user:pwd\@host\/database.
-   \"service\" is the name of the database driver which can be
-   queried with \"\-\-db\-driver\-list\".
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
 
 .. option:: --config-module arg
 
-   The configmodule to use.
+   The config module to use.
 
 .. option:: --inventory-db arg
 
-   Load the inventory from the given database or file, format: [service:\/\/]location
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
 
 .. option:: --db-disable
 
@@ -959,7 +1068,7 @@ Mode
 
 .. option:: --test
 
-   Do not send any object
+   Do not send any object.
 
 .. option:: --offline
 
@@ -972,8 +1081,36 @@ Mode
    Flush origins immediately without delay.
 
 
+Mode
+----
+
+.. option:: --test
+
+   Do not send any object.
+
+.. option:: --offline
+
+   Flush origins immediately without delay.
+
+
+Input
+-----
+
+.. option:: --ep file
+
+   Name of input XML file \(SCML\) with all picks and origins for
+   offline processing. The database connection is not received
+   from messaging and must be provided. Results are sent in XML
+   to stdout.
+
+
 Settings
 --------
+
+.. option:: --allow-rejected-picks
+
+   Allow picks with evaluation status 'rejected' for nucleation
+   and association.
 
 .. option:: --station-locations arg
 
@@ -1000,7 +1137,7 @@ Settings
 
 .. option:: --max-sgap arg
 
-   Maximum secondary azimuthal gap for an origin to be reported by.
+   Maximum secondary azimuthal gap for an origin to be reported.
    The secondary gap is the maximum of the sum of 2 station gaps.
 
 .. option:: --max-rms arg
@@ -1009,11 +1146,12 @@ Settings
 
 .. option:: --max-residual arg
 
-   Maximum travel\-time residual \(unweighted\) for a pick at a station to be used.
+   Maximum travel\-time residual \(unweighted\) for a pick at a
+   station to be used.
 
 .. option:: --max-station-distance arg
 
-   Maximum distance of stations to be used
+   Maximum distance of stations to be used.
 
 .. option:: --max-nucleation-distance-default arg
 
@@ -1028,51 +1166,51 @@ Settings
 
 .. option:: --min-score arg
 
-   Minimum score for an origin to be reported
+   Minimum score for an origin to be reported.
 
 .. option:: --min-pick-snr arg
 
-   Minimum SNR for a pick to be processed
+   Minimum SNR for a pick to be processed.
 
 .. option:: --threshold-xxl arg
 
-   An amplitude exceeding this threshold will flag the pick as XXL
+   An amplitude exceeding this threshold will flag the pick as XXL.
 
 .. option:: --min-phase-count-xxl arg
 
-   Minimum number of picks for an XXL origin to be reported
+   Minimum number of picks for an XXL origin to be reported.
 
 .. option:: --max-distance-xxl arg
 
 
 .. option:: --min-sta-count-ignore-pkp arg
 
-   Minimum station count for which we ignore PKP phases
+   Minimum station count for which we ignore PKP phases.
 
 .. option:: --min-score-bypass-nucleator arg
 
-   Minimum score at which the nucleator is bypassed
+   Minimum score at which the nucleator is bypassed.
 
 .. option:: --keep-events-timespan arg
 
-   The timespan to keep historical events
+   The timespan to keep historical events.
 
 .. option:: --cleanup-interval arg
 
-   The object cleanup interval in seconds
+   The object cleanup interval in seconds.
 
 .. option:: --max-age arg
 
    During cleanup all pick objects older than maxAge \(in seconds\)
-   are removed \(maxAge \=\= 0 \=> disable cleanup\)
+   are removed \(maxAge \=\= 0 disables cleanup\).
 
 .. option:: --wakeup-interval arg
 
-   The interval in seconds to check pending operations
+   The interval in seconds to check pending operations.
 
 .. option:: --dynamic-pick-threshold-interval arg
 
    The interval in seconds in which to check for extraordinarily
    high pick activity, resulting in a dynamically increased
-   pick threshold
+   pick threshold.
 

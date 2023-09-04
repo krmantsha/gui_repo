@@ -25,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -77,12 +77,12 @@ different <a class="reference internal" href="modules.html#concepts-modules"><sp
 </div>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>A typical real-time <cite>SeisComP</cite> system consists of data processing and other modules (clients)
-and a messaging bus.
-The messaging bus connects all the clients letting them exchange information by messages
-through this bus.
-The messaging system is a fundamental concept of SeisComP following the publish-subscribe
-pattern <a class="footnote-reference brackets" href="#wppubsub" id="id1">1</a>. It is provided by the <cite>SeisComP</cite> module <a class="reference internal" href="../../apps/scmaster.html#scmaster"><span class="std std-ref">scmaster</span></a>.</p>
+<p>A typical real-time <cite>SeisComP</cite> system consists of data processing and other
+modules (clients) and a messaging bus. The messaging bus connects all the
+clients letting them exchange information by messages through this bus.
+The messaging system is a fundamental concept of SeisComP following the
+publish-subscribe pattern <span id="id1">[<a class="reference internal" href="../references.html#id180" title="Publish–subscribe pattern. Wikipedia. URL: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern.">20</a>]</span>. It is provided by the <cite>SeisComP</cite>
+module <a class="reference internal" href="../../apps/scmaster.html#scmaster"><span class="std std-ref">scmaster</span></a>.</p>
 <p>Clients can be producers (sending messages) and/or consumers (receiving
 messages). The basic concept is really simple: A producer sends a message
 (some event parameter, arbitrary content) and a consumer read that message and tries to
@@ -164,9 +164,9 @@ the scheme parameter of the connection:</p>
 <li><p><cite>scmp</cite> (default): unencrypted,</p></li>
 <li><p><cite>scmps</cite>: encrypted.</p></li>
 </ul>
-<p>Scheme, host, port and <a class="reference internal" href="#messaging-scheme"><span class="std std-ref">queue</span></a> together form the connection URL of the messaging
-system which is configurable in <a class="reference internal" href="../../apps/global.html#confval-connection.server"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.server</span></code></a> or set by the
-command-line option <code class="docutils literal notranslate"><span class="pre">-H</span></code>.</p>
+<p>Scheme, host, port and <a class="reference internal" href="#messaging-scheme"><span class="std std-ref">queue</span></a> together form the
+connection URL of the messaging system which is configurable in
+<a class="reference internal" href="../../apps/global.html#confval-connection.server"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.server</span></code></a> or set by the command-line option <code class="docutils literal notranslate"><span class="pre">-H</span></code>.</p>
 <p>Examples:</p>
 <ul>
 <li><p>Connect to the production queue of the messaging on localhost with default port.
@@ -228,17 +228,17 @@ database X. Modules running on computer A, use</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>connection.server <span class="o">=</span> computerA/production
 </pre></div>
 </div>
-<p>The database connection which is used by <a class="reference internal" href="../../apps/scmaster.html#scmaster"><span class="std std-ref">scmaster</span></a> will be reported to the clients
-when they connect so no explicit database configuration is necessary.</p>
-<p>The messaging connection can be explicitly provided on the command line using the
-option <code class="docutils literal notranslate"><span class="pre">-H</span></code> considering the comments on the <a class="reference internal" href="#messaging-scheme"><span class="std std-ref">scheme</span></a> and
-<a class="reference internal" href="#messaging-queue"><span class="std std-ref">queue</span></a>, e.g.</p>
+<p>The database connection which is used by <a class="reference internal" href="../../apps/scmaster.html#scmaster"><span class="std std-ref">scmaster</span></a> will be reported to the
+clients when they connect so no explicit database configuration is necessary.</p>
+<p>The messaging connection can be explicitly provided on the command line using
+the option <code class="docutils literal notranslate"><span class="pre">-H</span></code> considering the comments on the
+<a class="reference internal" href="#messaging-scheme"><span class="std std-ref">scheme</span></a> and <a class="reference internal" href="#messaging-queue"><span class="std std-ref">queue</span></a>, e.g.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scolv -H computerA/production
 </pre></div>
 </div>
 </div>
 <div class="section" id="web-frontend">
-<h2>Web frontend<a class="headerlink" href="#web-frontend" title="Permalink to this headline">¶</a></h2>
+<h2>Web Frontend<a class="headerlink" href="#web-frontend" title="Permalink to this headline">¶</a></h2>
 <p>When running <a class="reference internal" href="../../apps/scmaster.html#scmaster"><span class="std std-ref">scmaster</span></a> a web frontend is available which can be adjusted to
 provide system information. The default port to access the web frontend is 18180:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>firefox localhost:18180
@@ -250,20 +250,12 @@ provide system information. The default port to access the web frontend is 18180
 </div>
 </div>
 <div class="section" id="related-modules">
-<h2>Related modules<a class="headerlink" href="#related-modules" title="Permalink to this headline">¶</a></h2>
+<h2>Related Modules<a class="headerlink" href="#related-modules" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="../../apps/scmaster.html#scmaster"><span class="std std-ref">scmaster</span></a></p></li>
 <li><p><a class="reference internal" href="../../apps/scm.html#scm"><span class="std std-ref">scm</span></a></p></li>
 <li><p><a class="reference internal" href="../../apps/scmm.html#scmm"><span class="std std-ref">scmm</span></a></p></li>
 </ul>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="wppubsub"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Publish-subscribe_pattern">https://en.wikipedia.org/wiki/Publish-subscribe_pattern</a></p>
-</dd>
-</dl>
 </div>
 </div>
 
@@ -294,9 +286,8 @@ provide system information. The default port to access the web frontend is 18180
 <li><a class="reference internal" href="#scheme">Scheme</a></li>
 <li><a class="reference internal" href="#database">Database</a></li>
 <li><a class="reference internal" href="#module-distribution">Module distribution</a></li>
-<li><a class="reference internal" href="#web-frontend">Web frontend</a></li>
-<li><a class="reference internal" href="#related-modules">Related modules</a></li>
-<li><a class="reference internal" href="#references">References</a></li>
+<li><a class="reference internal" href="#web-frontend">Web Frontend</a></li>
+<li><a class="reference internal" href="#related-modules">Related Modules</a></li>
 </ul>
 </li>
 </ul>
@@ -326,7 +317,7 @@ provide system information. The default port to access the web frontend is 18180
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

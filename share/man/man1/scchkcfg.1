@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCCHKCFG" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCCHKCFG" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scchkcfg \- SeisComP Documentation
 .
@@ -34,9 +34,13 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 \fBChecks a module configuration.\fP
 .SH DESCRIPTION
 .sp
-scchkcfg checks for case\-sensitivity issues of parameter names of a module
-configuration. It reads all defined stages (see global_modules) and
-checks for each parameter read if it exists again with a different spelling.
+scchkcfg checks for case\-sensitivity issues of parameter names of the module
+configuration file for a module. It reads all defined configuration stages
+(see global_modules) and checks for each parameter read if it exists
+again with a different spelling.
+.sp
+If \fIstandalone\fP is not given, it checks all 6 configurations
+files (including \fBglobal.cfg\fP), 3 otherwise.
 .SH EXAMPLES
 .INDENT 0.0
 .INDENT 3.5
@@ -95,13 +99,9 @@ In this case the configuration is OK and this is an example why the case\-sensit
 has changed from previous versions: mb != mB. scchkcfg detects a possible
 conflicts but does not know that this case is well defined. But it helps the user to
 decide whether it needs a fix or not.
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
 .sp
 \fBscchkcfg {mod\-name} [standalone]\fP
-.sp
-Reads the configuration of {mod\-name} and checks for case\-sensitivity
-issues. If standalone is not given, it checks all 6 configurations
-files (including global.cfg), 3 otherwise.
 .SH AUTHOR
 gempa GmbH, GFZ Potsdam
 .SH COPYRIGHT

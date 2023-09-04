@@ -14,6 +14,6 @@
 # you can also set your environment variables according to the
 # output of 'seiscomp print env'.
 
-python_executable="/usr/bin/python"
+python_executable="/usr/bin/python3"
 
 exec $python_executable "$@"

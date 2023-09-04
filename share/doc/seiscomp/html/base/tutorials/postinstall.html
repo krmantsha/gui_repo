@@ -25,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -72,7 +72,7 @@
 <span id="tutorials-postinstall"></span><h1>Installation on Ubuntu<a class="headerlink" href="#installation-on-ubuntu" title="Permalink to this headline">¶</a></h1>
 <p>You will …</p>
 <ul class="simple">
-<li><p>Make a basic SeisComP installation</p></li>
+<li><p>Make a basic <cite>SeisComP</cite> installation</p></li>
 </ul>
 <p>Pre-requisites for this tutorial:</p>
 <ul class="simple">
@@ -80,8 +80,8 @@
 </ul>
 <p>Afterwards/Results/Outcomes:</p>
 <ul class="simple">
-<li><p>Run a SeisComP executable</p></li>
-<li><p>Run a SeisComP GUI program</p></li>
+<li><p>Run a <cite>SeisComP</cite> executable</p></li>
+<li><p>Run a <cite>SeisComP</cite> GUI program</p></li>
 </ul>
 <p>Time range estimate:</p>
 <ul class="simple">
@@ -94,7 +94,7 @@
 <li><p><a class="reference internal" href="geofon_waveforms.html#tutorials-geofon-waveforms"><span class="std std-ref">Add real-time stations from GEOFON</span></a></p></li>
 </ul>
 <hr class="docutils" />
-<p>You may install SeisComP by:</p>
+<p>You may install <cite>SeisComP</cite> by:</p>
 <ol class="arabic simple">
 <li><p><a class="reference internal" href="#tutorials-postinstall-compile"><span class="std std-ref">Compiling the source code</span></a>,</p></li>
 <li><p><a class="reference internal" href="#tutorials-postinstall-package"><span class="std std-ref">Installing pre-compiled release packages</span></a>
@@ -107,7 +107,7 @@ The following documentation refers to Ubuntu 20.04,
 but the steps for other Ubuntu versions are similar.</p>
 <ol class="arabic">
 <li><p>Add a new user. Throughout our documentation, this user is called <cite>sysop</cite>.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo adduser sysop
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ sudo adduser sysop
 $ sudo addgroup admin
 $ sudo usermod -a -G admin,adm,audio sysop
 </pre></div>
@@ -137,25 +137,32 @@ maps as described below in the <a class="reference internal" href="#tutorials-po
 <span id="tutorials-postinstall-package"></span><h2>Install pre-compiled release packages<a class="headerlink" href="#install-pre-compiled-release-packages" title="Permalink to this headline">¶</a></h2>
 <p>You may download and installed pre-compile SeisComP binary package, maps and documentation.</p>
 <ol class="arabic">
-<li><p>Download the appropriate SeisComP binary package taking into
+<li><p>Download the appropriate <cite>SeisComP</cite> binary package taking into
 account your Linux distribution and the architecture.
-Get the package from the <a class="reference external" href="https://www.seiscomp.de/downloader/">SeisComP package downloader</a> <a class="footnote-reference brackets" href="#id3" id="id4">1</a> or <a class="reference external" href="https://www.gempa.de/">gempa GmbH</a> <a class="footnote-reference brackets" href="#id7" id="id8">2</a>.
-Packages are available for Ubuntu and other Linux flavors such as CentOS and Debian.</p></li>
-<li><p>When getting packages from <a class="reference external" href="https://www.seiscomp.de/downloader/">SeisComP package downloader</a> <a class="footnote-reference brackets" href="#id3" id="id5">1</a> you should also download</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://www.seiscomp.de/downloader/seiscomp-maps.tar.gz">maps</a> <a class="footnote-reference brackets" href="#id9" id="id10">3</a></p></li>
-<li><p>the documentation package from the <a class="reference external" href="https://www.seiscomp.de/downloader/">SeisComP package downloader</a> <a class="footnote-reference brackets" href="#id3" id="id6">1</a>. Make sure,
-the documentation matches your SeisComP version.</p></li>
-</ul>
+Get the package from the download site of <cite>SeisComP</cite> <span id="id1">[<a class="reference internal" href="../references.html#id251" title="Helmholtz-Centre Potsdam - GFZ German Research Centre for Geosciences and gempa GmbH. The SeisComP seismological software package. GFZ Data Services. 2008. URL: https://www.seiscomp.de, doi:10.5880/GFZ.2.4.2020.003.">62</a>]</span> or from
+<span id="id2"><em>Public download site of gempa</em> [<a class="reference internal" href="../references.html#id120" title="Public download site of gempa. URL: https://data.gempa.de/packages/Public/seiscomp/.">19</a>]</span>. Packages are available for Ubuntu and other Linux
+flavors such as RHEL/CentOS and Debian.</p></li>
+<li><p>When downloading the <cite>SeisComP</cite> binary packages you should also download</p>
+<ul>
+<li><p>maps for <cite>SeisComP</cite></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>wget <span class="s2">&quot;https://www.seiscomp.de/downloader/seiscomp-maps.tar.gz&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>the documentation package. Make sure, the documentation matches your
+SeisComP version.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The SeisComP packages received from gempa GmbH contain the documentation
+<p>The <cite>SeisComP</cite> packages received from gempa GmbH contain the documentation
 for the respective version and no separate download is required.</p>
 </div>
 </li>
+</ul>
+</li>
 <li><p>Untar the <code class="file docutils literal notranslate"><span class="pre">seiscomp*</span></code> files (binary package, maps and documentation)
-you will find in your home or downloads directory. For SeisComP in version 4.0.0 this is:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd
+you will find in your home or downloads directory. For SeisComP in version
+4.0.0 this is:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span>
 $ tar xzf seiscomp-4.0.0-ubuntu20.04-x86_64.tar.gz
 $ tar xzf seiscomp-maps.tar.gz
 $ tar xzf seiscomp-4.0.0-doc.tar.gz
@@ -167,23 +174,23 @@ bin  etc  include  lib  man  sbin  share
 <li><p>Install all dependencies needed and prepare the environment.</p>
 <ul>
 <li><p>This should be automatic for most distributions.
-Simply run the install script:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ~/seiscomp/bin/seiscomp install-deps base
-Distribution: Ubuntu 20.04
+Simply run the install script</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ ~/seiscomp/bin/seiscomp install-deps base
+Distribution: Ubuntu <span class="m">20</span>.04
 </pre></div>
 </div>
 <p>This will generally prompt for your user’s password to allow <cite>sudo</cite> to
 install packages on your system.</p>
 </li>
 <li><p>On Ubuntu 18, Python 3 is installed, but not Python.
-Get it first:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get install python libqtgui4
+Get it first</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get install python libqtgui4
 </pre></div>
 </div>
 </li>
 <li><p>On Ubuntu 20 and newer, you may need libpython3-dev before you can use
-“install-deps”:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get install libpython3-dev
+“install-deps”</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get install libpython3-dev
 </pre></div>
 </div>
 </li>
@@ -240,7 +247,7 @@ In case of problems, search the Internet, or the
 <li><p>You may set some system environment variables.
 For bash users, print the environment variables and copy them to your
 <code class="file docutils literal notranslate"><span class="pre">.bashrc</span></code></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ~/seiscomp/bin/seiscomp print env
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ ~/seiscomp/bin/seiscomp print env
 <span class="nb">export</span> <span class="nv">SEISCOMP_ROOT</span><span class="o">=</span>/home/sysop/seiscomp
 <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/home/sysop/seiscomp/bin:<span class="nv">$PATH</span>
 <span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>/home/sysop/seiscomp/lib:<span class="nv">$LD_LIBRARY_PATH</span>
@@ -251,23 +258,26 @@ For bash users, print the environment variables and copy them to your
 </pre></div>
 </div>
 <p>The path to your home directory will likely differ from <cite>/home/sysop</cite> as shown above.
-Cut and paste your own output from the
-<cite>seiscomp print env</cite> command, not what is shown here.
-Edit your <code class="file docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file, inserting the command from the output.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ vi ~/.bashrc
+Therefore, do not copy and paste what you see here but use for your own
+system the output from the command</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>~/seiscomp/bin/seiscomp print env
 </pre></div>
 </div>
-<p>Then reload the contents of <code class="file docutils literal notranslate"><span class="pre">.bashrc</span></code> in your current environment</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ source ~/.bashrc
+<p>Add the output from the command to your file <code class="file docutils literal notranslate"><span class="pre">~/.bashrc</span></code></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ vi ~/.bashrc
+</pre></div>
+</div>
+<p>Then reload the content of <code class="file docutils literal notranslate"><span class="pre">~/.bashrc</span></code> in your current environment</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">source</span> ~/.bashrc
 </pre></div>
 </div>
 <p>After this, you won’t have to type <cite>~/seiscomp/bin/seiscomp</cite> as
-the <cite>seiscomp</cite> command will be added to your shell’s path.</p>
+the <span class="xref std std-ref">seiscomp</span> command will be added to your shell’s path.</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>If, when you attempt to run a SeisComP command such as <cite>scconfig</cite> or <cite>scolv</cite>,
-you receive an error message like</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scconfig</span><span class="p">:</span> <span class="n">command</span> <span class="ow">not</span> <span class="n">found</span>
+<p>If, when you attempt to run a SeisComP command such as <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> or
+<a class="reference internal" href="../../apps/scolv.html#scolv"><span class="std std-ref">scolv</span></a>, you receive an error message like</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scconfig: <span class="nb">command</span> not found
 </pre></div>
 </div>
 <p>then the most likely explanation is that you have not set your SeisComP
@@ -276,62 +286,63 @@ environment variables correctly.</p>
 where you installed.
 The seven lines of output are not actually run by the ‘seiscomp print env’
 command; you need to cut and paste them into your shell to run them.
-You can also add these to your <code class="file docutils literal notranslate"><span class="pre">.bashrc</span></code>, <code class="file docutils literal notranslate"><span class="pre">.profile</span></code>,
+You can also add these to your <code class="file docutils literal notranslate"><span class="pre">~/.bashrc</span></code>, <code class="file docutils literal notranslate"><span class="pre">~/.profile</span></code>,
 or equivalent file with commands to be run every time you log in.</p>
 </div>
 </li>
 <li><p>Run <cite>seiscomp setup</cite> and enter your preferred IDs and password. For the other
 fields, you can always accept the default values.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ seiscomp setup
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ seiscomp setup
 </pre></div>
 </div>
-<p>You should enter an appropriate short name (without spaces) for Agency ID and Datacenter ID.
-These are used for Arclink and Seedlink, and in the information describing data model objects such as origins and events.</p>
+<p>You should enter an appropriate short name (without spaces) for Agency ID and
+Datacenter ID. These are used for Arclink and Seedlink, and in the information
+describing data model objects such as origins and events.</p>
 </li>
 <li><p>The <cite>seiscomp</cite> command is a wrapper, which controls the SeisComP modules.
 See <a class="reference internal" href="../management.html#system-management"><span class="std std-ref">System management</span></a>.
-Run something by typing seiscomp followed by a command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ seiscomp help
-Available commands:
- install-deps
- setup
- shell
- enable
- disable
- print
- help
+Run something by typing seiscomp followed by a command</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span> $ seiscomp <span class="nb">help</span>
+ Available commands:
+  install-deps
+  setup
+  shell
+  <span class="nb">enable</span>
+  disable
+  print
+  <span class="nb">help</span>
 
-Use &#39;help [command]&#39; to get more help about a command
+Use <span class="s1">&#39;help [command]&#39;</span> to get more <span class="nb">help</span> about a <span class="nb">command</span>
 </pre></div>
 </div>
 </li>
-<li><p>Start <strong class="program">scmaster</strong>.
+<li><p>Start <a class="reference internal" href="../../apps/scmaster.html#scmaster"><span class="std std-ref">scmaster</span></a>.
 As described in the <a class="reference internal" href="../overview.html#overview"><span class="std std-ref">Overview</span></a>, these are needed for
 communication between the SeisComP database and the individual
 SeisComP modules.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ seiscomp start scmaster
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ seiscomp start scmaster
 starting scmaster
 </pre></div>
 </div>
 </li>
-<li><p>Install all dependencies needed for the GUI:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ seiscomp install-deps gui
+<li><p>Install all dependencies needed for the GUI</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ seiscomp install-deps gui
 </pre></div>
 </div>
 </li>
-<li><p>Start the <strong class="program">scconfig</strong> GUI</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ seiscomp exec scconfig
+<li><p>Start the <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> GUI</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ seiscomp <span class="nb">exec</span> scconfig
 </pre></div>
 </div>
 <p>Learn more about <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> in this documentation.
 You should see a screen/window like this.</p>
-<div class="figure align-center" id="id1">
+<div class="figure align-center" id="id3">
 <a class="reference internal image-reference" href="../../_images/postinstall_scconfig.png"><img alt="../../_images/postinstall_scconfig.png" src="../../_images/postinstall_scconfig.png" style="width: 16cm;" /></a>
-<p class="caption"><span class="caption-text">First view of <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> configurator.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">First view of <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> configurator.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 </li>
-<li><p>Run <strong class="program">scrttv</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ seiscomp exec scrttv
+<li><p>Run <a class="reference internal" href="../../apps/scrttv.html#scrttv"><span class="std std-ref">scrttv</span></a></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ seiscomp <span class="nb">exec</span> scrttv
 </pre></div>
 </div>
 <p>After seeing the SeisComP splash screen,
@@ -339,29 +350,16 @@ you’ll likely get an error message “Could not read inventory (NULL)”.
 After a new installation, that’s okay.
 Click that box away, and you’ll see a screen with
 “Enabled”, and “Disabled” tabs, and time along bottom axis as in the figure below.
-To see stations and data you will later need to <a class="reference internal" href="addstation.html#tutorials-addstation"><span class="std std-ref">add inventory</span></a>
-and <a class="reference internal" href="geofon_waveforms.html#tutorials-geofon-waveforms"><span class="std std-ref">waveforms</span></a> to your system.</p>
-<div class="figure align-center" id="id2">
+To see stations and data you will later need to
+<a class="reference internal" href="addstation.html#tutorials-addstation"><span class="std std-ref">add inventory</span></a> and
+<a class="reference internal" href="geofon_waveforms.html#tutorials-geofon-waveforms"><span class="std std-ref">waveforms</span></a> to your system.</p>
+<div class="figure align-center" id="id4">
 <a class="reference internal image-reference" href="../../_images/postinstall_scrttv.png"><img alt="../../_images/postinstall_scrttv.png" src="../../_images/postinstall_scrttv.png" style="width: 14.6cm;" /></a>
-<p class="caption"><span class="caption-text">First view of the <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> configuration tool.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">First view of the <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> configuration tool.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
 </li>
 </ol>
 <p>Congratulations, you’re done with this tutorial.</p>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="id3"><span class="brackets">1</span><span class="fn-backref">(<a href="#id4">1</a>,<a href="#id5">2</a>,<a href="#id6">3</a>)</span></dt>
-<dd><p><a class="reference external" href="https://www.seiscomp.de/downloader/">https://www.seiscomp.de/downloader/</a></p>
-</dd>
-<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id8">2</a></span></dt>
-<dd><p><a class="reference external" href="https://www.gempa.de/">https://www.gempa.de/</a></p>
-</dd>
-<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id10">3</a></span></dt>
-<dd><p><a class="reference external" href="https://www.seiscomp.de/downloader/seiscomp-maps.tar.gz">https://www.seiscomp.de/downloader/seiscomp-maps.tar.gz</a></p>
-</dd>
-</dl>
 </div>
 </div>
 
@@ -389,7 +387,6 @@ and <a class="reference internal" href="geofon_waveforms.html#tutorials-geofon-w
 <li><a class="reference internal" href="#install-from-source-code">Install from source code</a></li>
 <li><a class="reference internal" href="#install-pre-compiled-release-packages">Install pre-compiled release packages</a></li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
-<li><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
 </ul>
@@ -419,7 +416,7 @@ and <a class="reference internal" href="geofon_waveforms.html#tutorials-geofon-w
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "SCANLOC" "1" "Aug 31, 2023" "2023.217#192b88919" "scanloc: Phase Associator"
+.TH "SCANLOC" "1" "Sep 01, 2023" "2023.217#192b88919" "scanloc: Phase Associator"
 .SH NAME
 scanloc \- scanloc: Phase Associator Documentation
 .sp
@@ -1987,20 +1987,22 @@ load on scanloc but allows to send origins more rapidly.
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2010,24 +2012,25 @@ Load given plugins.
 .INDENT 0.0
 .TP
 .B \-D, \-\-daemon
-Run as daemon. This means the application will fork itself and
-doesn\(aqt need to be started with &.
+Run as daemon. This means the application will fork itself
+and doesn\(aqt need to be started with &.
 .UNINDENT
 .SS Verbosity
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2039,12 +2042,14 @@ for file output but disabled for console output.
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2059,12 +2064,15 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-trace
-Trace mode: \-\-verbosity=4 \-\-console=1 \-\-print\-component=1 \-\-print\-context=1
+Execute in trace mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 \-\-print\-component=1
+\-\-print\-context=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2095,12 +2103,13 @@ Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
 .INDENT 0.0
 .TP
 .B \-S, \-\-subscribe\-group arg
-A group to subscribe to. This option can be given more than once.
+A group to subscribe to.
+This option can be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-start\-stop\-msg arg
-Sets sending of a start\- and a stop message.
+Set sending of a start and a stop message.
 .UNINDENT
 .SS Database
 .INDENT 0.0
@@ -2111,19 +2120,21 @@ List all supported database drivers.
 .INDENT 0.0
 .TP
 .B \-d, \-\-database arg
-The database connection string, format: \fI\%service://user:pwd@host/database\fP\&.
-\(dqservice\(dq is the name of the database driver which can be
-queried with \(dq\-\-db\-driver\-list\(dq.
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-module arg
-The configmodule to use.
+The config module to use.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-inventory\-db arg
-Load the inventory from the given database or file, format: [\fI\%service://]location\fP
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
 .UNINDENT
 .INDENT 0.0
 .TP

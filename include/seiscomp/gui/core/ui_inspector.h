@@ -14,6 +14,7 @@
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
 #include <QtGui/QHeaderView>
+#include <QtGui/QLineEdit>
 #include <QtGui/QSplitter>
 #include <QtGui/QTableWidget>
 #include <QtGui/QToolButton>
@@ -28,6 +29,7 @@ class Ui_Inspector
 public:
     QVBoxLayout *vboxLayout;
     QToolButton *buttonBack;
+    QLineEdit *editFilter;
     QSplitter *splitter;
     QTreeWidget *treeWidget;
     QTableWidget *tableWidget;
@@ -50,6 +52,11 @@ public:
         buttonBack->setIcon(icon);
 
         vboxLayout->addWidget(buttonBack);
+
+        editFilter = new QLineEdit(Inspector);
+        editFilter->setObjectName(QString::fromUtf8("editFilter"));
+
+        vboxLayout->addWidget(editFilter);
 
         splitter = new QSplitter(Inspector);
         splitter->setObjectName(QString::fromUtf8("splitter"));
@@ -78,6 +85,9 @@ public:
 #endif // QT_NO_TOOLTIP
         buttonBack->setText(QApplication::translate("Inspector", "...", 0, QApplication::UnicodeUTF8));
         buttonBack->setShortcut(QApplication::translate("Inspector", "Backspace", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_TOOLTIP
+        editFilter->setToolTip(QApplication::translate("Inspector", "Define an object filter, e.g. 'Network.code=GE'. Wildcards are allowed to match a value.", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_TOOLTIP
     } // retranslateUi
 
 };

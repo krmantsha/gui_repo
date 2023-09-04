@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCQUERY" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCQUERY" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scquery \- SeisComP Documentation
 .
@@ -39,8 +39,8 @@ on custom queries and writes them to stdout.
 It extends scevtls and scorgls which are limited to searching event
 and origin IDs, respectively, by time.
 .sp
-scquery takes into account the \fI\%query profiles\fP
-defined in
+scquery takes into account and requires \fI\%query profiles\fP
+for querying the database. The profiles are defined in
 .INDENT 0.0
 .IP \(bu 2
 \fB@SYSTEMCONFIGDIR@/queries.cfg\fP or
@@ -91,7 +91,7 @@ List all available query profiles using the command\-line option \fBshowqueries\
 .sp
 .nf
 .ft C
-scquery \-d localhost/seiscomp \-\-showqueries
+scquery \-\-showqueries
 .ft P
 .fi
 .UNINDENT
@@ -247,7 +247,7 @@ query.eventFilter = "SELECT PEvent.m_publicID, Origin.m_time_value AS OT, Origin
 .fi
 .UNINDENT
 .UNINDENT
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/scquery.cfg\fP
@@ -259,27 +259,29 @@ query.eventFilter = "SELECT PEvent.m_publicID, Origin.m_time_value AS OT, Origin
 .sp
 .sp
 scquery inherits global options\&.
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
 .sp
 \fBscquery [OPTIONS] [query name] [query parameters]\fP
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -290,27 +292,30 @@ Load given plugins.
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -325,7 +330,8 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -341,9 +347,10 @@ List all supported database drivers.
 .INDENT 0.0
 .TP
 .B \-d, \-\-database arg
-The database connection string, format: \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which can be
-queried with "\-\-db\-driver\-list".
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+"service" is the name of the database driver which
+can be queried with "\-\-db\-driver\-list".
 .UNINDENT
 .SS Commands
 .INDENT 0.0

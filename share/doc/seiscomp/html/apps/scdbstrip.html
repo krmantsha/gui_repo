@@ -25,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -73,24 +73,37 @@
           
   <div class="section" id="scdbstrip">
 <span id="id1"></span><h1>scdbstrip<a class="headerlink" href="#scdbstrip" title="Permalink to this headline">¶</a></h1>
-<p><strong>Database clean-up of processing results.</strong></p>
+<p><strong>Clean up a database from event and waveform quality parameters.</strong></p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>SeisComP’s <a class="reference internal" href="scmaster.html#scmaster"><span class="std std-ref">scmaster</span></a> is continuously writing to the database. This causes
+<p><cite>SeisComP</cite>’s <a class="reference internal" href="scmaster.html#scmaster"><span class="std std-ref">scmaster</span></a> is continuously writing to the database. This causes
 the database to grow and to occupy much space on the harddisc. scdbstrip taggles
 this problem and removes processed objects from the database older than a
 configurable time span. The time comparison considers the object time, not the
 time of their creation.</p>
-<p>This clean-up procedure is based on events. scdbstrip will remove all events
-with an origin time older than specified. It will also remove all associated
+<p>This clean-up procedure is based on</p>
+<ul class="simple">
+<li><p>Events, event parameters,</p></li>
+<li><p>waveform quality control, QC, parameters.</p></li>
+</ul>
+<p>scdbstrip will remove all events with an origin time and QC parameters older or
+younger than specified. Default is ‘older’. It will also remove all associated
 objects such as picks, origins, arrivals, amplitudes and so on.</p>
 <p>scdbstrip does not run as a daemon. To remove old objects continuously scdbstrip
 should be added to the list of cronjobs running every e.g. 30 minutes. The more
 often it runs the less objects it has to remove and the faster it will unlock
-the database again.</p>
+the database again. The timing and the parameters to be removed is controlled
+by module configuration or command-line options.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>For removing specific parameters and not all in a time range, use
+<a class="reference internal" href="scdispatch.html#scdispatch"><span class="std std-ref">scdispatch</span></a> along with XML files created by <a class="reference internal" href="scxmldump.html#scxmldump"><span class="std std-ref">scxmldump</span></a> and
+<a class="reference internal" href="scqueryqc.html#scqueryqc"><span class="std std-ref">scqueryqc</span></a> for event parameters and waveform QC parameters,
+respectively.</p>
+</div>
 </div>
 <div class="section" id="known-issues">
-<h2>Known issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h2>
+<h2>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h2>
 <p>When running scdbstrip for the first time on a large database it can happen
 that it aborts in case of MYSQL with the following error message:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  <span class="m">3</span>%<span class="o">]</span> Delete origin references of old events...08:48:22 <span class="o">[</span>error<span class="o">]</span>
@@ -107,12 +120,14 @@ Exception: ERROR: <span class="nb">command</span> <span class="s1">&#39;delete O
 <p>That means your MYSQL server cannot hold enough data required for deletion.
 There are two solutions to this:</p>
 <ol class="arabic">
-<li><p>Increase the memory pool used by MYSQL by changing the configuration to:</p>
+<li><p>Increase the memory pool used by MYSQL by changing the configuration. The
+minimum is 64 MBytes but modern system typically have a larger default:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">innodb_buffer_pool_size</span> <span class="o">=</span> 64M
 </pre></div>
 </div>
 <p>The size of the new buffer depends on the size of the database that should
-be cleaned up.</p>
+be cleaned up. Read also the section <a class="reference internal" href="../base/installation.html#database-configuration"><span class="std std-ref">Database Server Configuration</span></a>. It
+provides more options for optimizing your database server.</p>
 </li>
 <li><p>Run scdbstrip on smaller batches for the first time:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ scdbstrip -d seis:mypass@localhost/seiscomp --days <span class="m">1000</span>
@@ -127,15 +142,20 @@ $ scdbstrip -d seis:mypass@localhost/seiscomp --days <span class="m">100</span>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p>Keep the events of the last 30 days</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdbstrip --days <span class="m">30</span> -d mysql://sysop:sysop@localhost/seiscomp
+<li><p>Remove event and waveform quality parameters older than 30 days</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdbstrip -d mysql://sysop:sysop@localhost/seiscomp --days <span class="m">30</span>
+</pre></div>
+</div>
+</li>
+<li><p>Only remove waveform QC parameters older than 30 days but no others</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdbstrip -d mysql://sysop:sysop@localhost/seiscomp --days <span class="m">30</span> --qc-only
 </pre></div>
 </div>
 </li>
 </ul>
 </div>
-<div class="section" id="configuration">
-<span id="scdbstrip-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-configuration">
+<span id="scdbstrip-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/global.cfg</span></code></div>
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/scdbstrip.cfg</span></code></div>
@@ -145,6 +165,32 @@ $ scdbstrip -d seis:mypass@localhost/seiscomp --days <span class="m">100</span>
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">~/.seiscomp/scdbstrip.cfg</span></code></div>
 </div>
 <p>scdbstrip inherits <a class="reference internal" href="global.html#global-configuration"><span class="std std-ref">global options</span></a>.</p>
+<dl class="confval">
+<dt id="confval-database.cleanup.invertMode">
+<code class="sig-name descname">database.cleanup.invertMode</code><a class="headerlink" href="#confval-database.cleanup.invertMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Delete all parameters after the specified time period,
+not before.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-database.cleanup.eventParameters">
+<code class="sig-name descname">database.cleanup.eventParameters</code><a class="headerlink" href="#confval-database.cleanup.eventParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Strip all event parameters including events, origins,
+magnitudes, amplitudes, arrivals, picks, focal mechanisms.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-database.cleanup.qualityControl">
+<code class="sig-name descname">database.cleanup.qualityControl</code><a class="headerlink" href="#confval-database.cleanup.qualityControl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Strip waveform quality control (QC) parameters.</p>
+</dd></dl>
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>database.cleanup.keep.*</strong>
@@ -155,70 +201,66 @@ $ scdbstrip -d seis:mypass@localhost/seiscomp --days <span class="m">100</span>
 <dl class="confval">
 <dt id="confval-database.cleanup.keep.days">
 <code class="sig-name descname">database.cleanup.keep.days</code><a class="headerlink" href="#confval-database.cleanup.keep.days" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">30</span></code></p>
+<p>Type: <em>int</em></p>
 <p>The number of days to preserve in the database. This
 value is added to the whole timespan. Hours
-and minutes are configured separately.
-Default is <code class="docutils literal notranslate"><span class="pre">30</span></code>.</p>
+and minutes are configured separately.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-database.cleanup.keep.hours">
 <code class="sig-name descname">database.cleanup.keep.hours</code><a class="headerlink" href="#confval-database.cleanup.keep.hours" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>int</em></p>
 <p>The number of hours to preserve in the database. This
 value is added to the whole timespan. Days
-and minutes are configured separately.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+and minutes are configured separately.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-database.cleanup.keep.minutes">
 <code class="sig-name descname">database.cleanup.keep.minutes</code><a class="headerlink" href="#confval-database.cleanup.keep.minutes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>int</em></p>
 <p>The number of minutes to preserve in the database. This
 value is added to the whole timespan. Days
-and hours are configured separately.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+and hours are configured separately.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="command-line">
-<h2>Command-line<a class="headerlink" href="#command-line" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="command-line-options">
+<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
+<p><strong class="program">scdbstrip [options]</strong></p>
 <div class="section" id="generic">
 <h3>Generic<a class="headerlink" href="#generic" title="Permalink to this headline">¶</a></h3>
 <dl class="option">
 <dt id="cmdoption-scdbstrip-h">
 <code class="sig-name descname">-h</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--help</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scdbstrip-h" title="Permalink to this definition">¶</a></dt>
-<dd><p>show help message.</p>
+<dd><p>Show help message.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdbstrip-v">
 <code class="sig-name descname">-V</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--version</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scdbstrip-v" title="Permalink to this definition">¶</a></dt>
-<dd><p>show version information</p>
+<dd><p>Show version information.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdbstrip-config-file">
 <code class="sig-name descname">--config-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdbstrip-config-file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick -&gt; scautopick2.</p>
+<dd><p>Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick -&gt; scautopick2.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdbstrip-plugins">
 <code class="sig-name descname">--plugins</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdbstrip-plugins" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load given plugins.</p>
-</dd></dl>
-
-<dl class="option">
-<dt id="cmdoption-scdbstrip-d">
-<code class="sig-name descname">-D</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--daemon</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scdbstrip-d" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run as daemon. This means the application will fork itself and
-doesn’t need to be started with &amp;.</p>
 </dd></dl>
 
 <dl class="option">
@@ -233,31 +275,34 @@ doesn’t need to be started with &amp;.</p>
 <dl class="option">
 <dt id="cmdoption-scdbstrip-verbosity">
 <code class="sig-name descname">--verbosity</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdbstrip-verbosity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug</p>
+<dd><p>Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="id2">
 <code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--v</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Increase verbosity level (may be repeated, eg. -vv)</p>
+<dd><p>Increase verbosity level (may be repeated, eg. -vv).</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdbstrip-q">
 <code class="sig-name descname">-q</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--quiet</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scdbstrip-q" title="Permalink to this definition">¶</a></dt>
-<dd><p>Quiet mode: no logging output</p>
+<dd><p>Quiet mode: no logging output.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdbstrip-component">
 <code class="sig-name descname">--component</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdbstrip-component" title="Permalink to this definition">¶</a></dt>
-<dd><p>Limits the logging to a certain component. This option can be given more than once.</p>
+<dd><p>Limit the logging to a certain component. This option can
+be given more than once.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdbstrip-s">
 <code class="sig-name descname">-s</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--syslog</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scdbstrip-s" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use syslog logging back end. The output usually goes to /var/lib/messages.</p>
+<dd><p>Use syslog logging backend. The output usually goes to
+/var/lib/messages.</p>
 </dd></dl>
 
 <dl class="option">
@@ -275,7 +320,8 @@ doesn’t need to be started with &amp;.</p>
 <dl class="option">
 <dt id="cmdoption-scdbstrip-debug">
 <code class="sig-name descname">--debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scdbstrip-debug" title="Permalink to this definition">¶</a></dt>
-<dd><p>Debug mode: –verbosity=4 –console=1</p>
+<dd><p>Execute in debug mode.
+Equivalent to –verbosity=4 –console=1 .</p>
 </dd></dl>
 
 <dl class="option">
@@ -294,23 +340,25 @@ doesn’t need to be started with &amp;.</p>
 </dd></dl>
 
 <dl class="option">
-<dt id="cmdoption-scdbstrip-database">
-<code class="sig-name descname">-d</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--database</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdbstrip-database" title="Permalink to this definition">¶</a></dt>
-<dd><p>The database connection string, format: <a class="reference external" href="service://user:pwd&#64;host/database">service://user:pwd&#64;host/database</a>.
-“service” is the name of the database driver which can be
-queried with “–db-driver-list”.</p>
+<dt id="cmdoption-scdbstrip-d">
+<code class="sig-name descname">-d</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--database</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdbstrip-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>The database connection string, format:
+<a class="reference external" href="service://user:pwd&#64;host/database">service://user:pwd&#64;host/database</a>.
+“service” is the name of the database driver which
+can be queried with “–db-driver-list”.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdbstrip-config-module">
 <code class="sig-name descname">--config-module</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdbstrip-config-module" title="Permalink to this definition">¶</a></dt>
-<dd><p>The configmodule to use.</p>
+<dd><p>The config module to use.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdbstrip-inventory-db">
 <code class="sig-name descname">--inventory-db</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdbstrip-inventory-db" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load the inventory from the given database or file, format: [<a class="reference external" href="service://]location">service://]location</a></p>
+<dd><p>Load the inventory from the given database or file, format:
+[<a class="reference external" href="service://]location">service://]location</a> .</p>
 </dd></dl>
 
 <dl class="option">
@@ -320,65 +368,79 @@ queried with “–db-driver-list”.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="settings">
-<h3>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="mode">
+<h3>Mode<a class="headerlink" href="#mode" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scdbstrip-check">
+<code class="sig-name descname">--check</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scdbstrip-check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if unreachable objects exist.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scdbstrip-clean-unused">
+<code class="sig-name descname">--clean-unused</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scdbstrip-clean-unused" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove all unreachable objects when in checkmode. Default:
+off.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="objects">
+<h3>Objects<a class="headerlink" href="#objects" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scdbstrip-e">
+<code class="sig-name descname">-E</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--ep-only</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scdbstrip-e" title="Permalink to this definition">¶</a></dt>
+<dd><p>Strip only event parameters. Other parameters, like QC, are
+are ignored.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scdbstrip-qc-only">
+<code class="sig-name descname">-Q</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--qc-only</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scdbstrip-qc-only" title="Permalink to this definition">¶</a></dt>
+<dd><p>Strip only waveform quality control (QC) parameters. Other
+parameters, like event parameters, are are ignored.
+Overrides ‘eq-only’.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="timespan">
+<h3>Timespan<a class="headerlink" href="#timespan" title="Permalink to this headline">¶</a></h3>
 <dl class="option">
 <dt id="cmdoption-scdbstrip-days">
 <code class="sig-name descname">--days</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdbstrip-days" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-database.cleanup.keep.days"><code class="xref std std-confval docutils literal notranslate"><span class="pre">database.cleanup.keep.days</span></code></a>.
-The number of days to keep. Hours and minutes are also
-used the compute the whole time span.</p>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-database.cleanup.keep.days"><code class="xref std std-confval docutils literal notranslate"><span class="pre">database.cleanup.keep.days</span></code></a>.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdbstrip-hours">
 <code class="sig-name descname">--hours</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdbstrip-hours" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-database.cleanup.keep.hours"><code class="xref std std-confval docutils literal notranslate"><span class="pre">database.cleanup.keep.hours</span></code></a>.
-The number of hours to keep. Days and minutes are also
-used the compute the whole time span.</p>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-database.cleanup.keep.hours"><code class="xref std std-confval docutils literal notranslate"><span class="pre">database.cleanup.keep.hours</span></code></a>.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdbstrip-minutes">
 <code class="sig-name descname">--minutes</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdbstrip-minutes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-database.cleanup.keep.minutes"><code class="xref std std-confval docutils literal notranslate"><span class="pre">database.cleanup.keep.minutes</span></code></a>.
-The number of minutes to keep. Days and hours are also
-used the compute the whole time span.</p>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-database.cleanup.keep.minutes"><code class="xref std std-confval docutils literal notranslate"><span class="pre">database.cleanup.keep.minutes</span></code></a>.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdbstrip-datetime">
 <code class="sig-name descname">--datetime</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdbstrip-datetime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replaces the days:hours:minutes timespan definition by an
-arbtrary absolute timestamp in UTC. The format is
+aribtrary absolute timestamp in UTC. The format is
 %Y-%m-%d %H:%M:%S.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdbstrip-i">
 <code class="sig-name descname">-i</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--invert</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scdbstrip-i" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete all events after the specified time period and not
-before.</p>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-database.cleanup.invertMode"><code class="xref std std-confval docutils literal notranslate"><span class="pre">database.cleanup.invertMode</span></code></a>.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdbstrip-keep-events">
 <code class="sig-name descname">--keep-events</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scdbstrip-keep-events" title="Permalink to this definition">¶</a></dt>
-<dd><p>Event-IDs to keep in the database separated with comma.</p>
+<dd><p>IDs of events to keep in the database separated with comma.</p>
 </dd></dl>
-
-</div>
-<div class="section" id="mode">
-<h3>Mode<a class="headerlink" href="#mode" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scdbstrip-check">
-<code class="sig-name descname">--check</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scdbstrip-check" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="option">
-<dt id="cmdoption-scdbstrip-clean-unused">
-<code class="sig-name descname">--clean-unused</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scdbstrip-clean-unused" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </div>
 </div>
@@ -405,15 +467,16 @@ before.</p>
   <ul>
 <li><a class="reference internal" href="#">scdbstrip</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
-<li><a class="reference internal" href="#known-issues">Known issues</a></li>
+<li><a class="reference internal" href="#known-issues">Known Issues</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
-<li><a class="reference internal" href="#configuration">Configuration</a></li>
-<li><a class="reference internal" href="#command-line">Command-line</a><ul>
+<li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
+<li><a class="reference internal" href="#command-line-options">Command-Line Options</a><ul>
 <li><a class="reference internal" href="#generic">Generic</a></li>
 <li><a class="reference internal" href="#verbosity">Verbosity</a></li>
 <li><a class="reference internal" href="#database">Database</a></li>
-<li><a class="reference internal" href="#settings">Settings</a></li>
 <li><a class="reference internal" href="#mode">Mode</a></li>
+<li><a class="reference internal" href="#objects">Objects</a></li>
+<li><a class="reference internal" href="#timespan">Timespan</a></li>
 </ul>
 </li>
 </ul>
@@ -445,7 +508,7 @@ before.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

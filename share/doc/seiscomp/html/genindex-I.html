@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -80,6 +80,13 @@
 
       <ul>
         <li><a href="apps/scesv.html#confval-ignoreOtherEvents">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    iLoc.auxDir
+
+      <ul>
+        <li><a href="apps/global.html#confval-iLoc.auxDir">configuration value</a>, <a href="apps/global_iloc.html#confval-iLoc.auxDir">[1]</a>
 </li>
       </ul></li>
       <li>
@@ -143,6 +150,13 @@
 
       <ul>
         <li><a href="apps/global.html#confval-iLoc.profile.$name.MaxLocalDistDeg">configuration value</a>, <a href="apps/global_iloc.html#confval-iLoc.profile.$name.MaxLocalDistDeg">[1]</a>
+</li>
+      </ul></li>
+      <li>
+    iLoc.profile.$name.MaxLocalTTDelta
+
+      <ul>
+        <li><a href="apps/global.html#confval-iLoc.profile.$name.MaxLocalTTDelta">configuration value</a>, <a href="apps/global_iloc.html#confval-iLoc.profile.$name.MaxLocalTTDelta">[1]</a>
 </li>
       </ul></li>
       <li>
@@ -265,6 +279,13 @@
 </li>
       </ul></li>
       <li>
+    iLoc.profile.$name.UseLocalTT
+
+      <ul>
+        <li><a href="apps/global.html#confval-iLoc.profile.$name.UseLocalTT">configuration value</a>, <a href="apps/global_iloc.html#confval-iLoc.profile.$name.UseLocalTT">[1]</a>
+</li>
+      </ul></li>
+      <li>
     iLoc.profile.$name.UseRSTT
 
       <ul>
@@ -292,6 +313,8 @@
         <li><a href="apps/global.html#confval-iLoc.profile.$name.Verbose">configuration value</a>, <a href="apps/global_iloc.html#confval-iLoc.profile.$name.Verbose">[1]</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     iLoc.profiles
 
@@ -299,8 +322,6 @@
         <li><a href="apps/global.html#confval-iLoc.profiles">configuration value</a>, <a href="apps/global_iloc.html#confval-iLoc.profiles">[1]</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     import_inv command line option
 
@@ -638,11 +659,17 @@
 </li>
         <li><a href="apps/invextr.html#cmdoption-invextr-plugins">--plugins arg</a>
 </li>
+        <li><a href="apps/invextr.html#cmdoption-invextr-print-component">--print-component arg</a>
+</li>
         <li><a href="apps/invextr.html#cmdoption-invextr-q">--quiet</a>
+</li>
+        <li><a href="apps/invextr.html#cmdoption-invextr-r">--region arg</a>
 </li>
         <li><a href="apps/invextr.html#cmdoption-invextr-rm">--rm arg</a>
 </li>
         <li><a href="apps/invextr.html#cmdoption-invextr-s">--syslog</a>
+</li>
+        <li><a href="apps/invextr.html#cmdoption-invextr-trace">--trace</a>
 </li>
         <li><a href="apps/invextr.html#id2">--v</a>
 </li>
@@ -659,6 +686,8 @@
         <li><a href="apps/invextr.html#cmdoption-invextr-l">-l</a>
 </li>
         <li><a href="apps/invextr.html#cmdoption-invextr-q">-q</a>
+</li>
+        <li><a href="apps/invextr.html#cmdoption-invextr-r">-r</a>
 </li>
         <li><a href="apps/invextr.html#cmdoption-invextr-s">-s</a>
 </li>
@@ -709,7 +738,7 @@
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

@@ -70,8 +70,8 @@ the region polygons in the global module configuration (magnitude section).
 
 .. _global_mn_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 
 .. note::
@@ -82,11 +82,13 @@ Configuration
 
 .. confval:: amplitudes.MN.velocityModel
 
+   Default: ``iasp91``
+
    Type: *string*
 
    The travel time table set compiled for LocSAT. The tables
    are located in \"share\/locsat\/tables\/[vmodel].\*\".
-   Default is ``iasp91``.
+
 
 .. note::
    **magnitudes.MN.\***
@@ -96,10 +98,21 @@ Configuration
 
 .. confval:: magnitudes.MN.region
 
+   Default: ``@DATADIR@/magnitudes/MN/MN.bna``
+
    Type: *path*
 
    The path to the BNA file which defines the valid region
    for the MN magnitude. Note that the entire path from
    source to receiver must lie entirely within the polygon\(s\).
-   Default is ``@DATADIR@/magnitudes/MN/MN.bna``.
+
+
+.. confval:: magnitudes.MN.offsetMw
+
+   Type: *double*
+
+   The offset applied to the MN network magnitude to
+   estimate Mw\(MN\). If not configured then no Mw estimation
+   will be applied.
+
 

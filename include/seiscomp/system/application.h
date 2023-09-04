@@ -50,6 +50,8 @@ namespace Detail {
 template <typename T>
 T getConfig(const Application *app, const std::string &symbol, bool asPath);
 
+std::string join(const std::string &prefix, const char *relativeName);
+
 
 }
 
@@ -461,8 +463,7 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 		std::string configGetString(const std::string& query) const;
 
 		/**
-		 * @brief Convenience method that calls configGetString and resolves
-		 *        variables such as \@DATADIR\@ and \@ROOTDIR\@ and produces a
+		 * @brief Method that resolves a string variable and produces a
 		 *        canonicalized absolute pathname.
 		 * @param query The query
 		 * @return The path
@@ -620,13 +621,13 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 							if ( !visitedItem.isKey() && !visitedItem.configFileRelativeSymbol )
 								return;
 							if ( !CfgLinkHelper<T, IsNativelySupported<T>::value>::process(*this, visitedItem, visitor.configPrefix) )
-								visitor.setError("Invalid configuration value for " + visitor.configPrefix + visitedItem.configFileRelativeSymbol);
+								visitor.setError("Invalid configuration value for " + Detail::join(visitor.configPrefix, visitedItem.configFileRelativeSymbol));
 							break;
 						case PutCfg:
 							break;
 						case Print:
 							if ( visitedItem.configFileRelativeSymbol )
-								*_external.os << visitor.configPrefix << visitedItem.configFileRelativeSymbol;
+								*_external.os << Detail::join(visitor.configPrefix, visitedItem.configFileRelativeSymbol);
 							else if ( visitedItem.cliAbsoluteSymbol )
 								*_external.os << "--" << visitedItem.cliAbsoluteSymbol;
 							else if ( visitedItem.isKey() )
@@ -663,13 +664,19 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 							if ( !visitedItem.configFileRelativeSymbol )
 								return;
 							if ( !CfgLinkHelper<std::vector<T>, IsNativelySupported<T>::value>::process(*this, visitedItem, visitor.configPrefix) )
-								visitor.setError("Invalid configuration value for " + visitor.configPrefix + visitedItem.configFileRelativeSymbol);
+								visitor.setError("Invalid configuration value for " + Detail::join(visitor.configPrefix, visitedItem.configFileRelativeSymbol));
 							break;
 						case PutCfg:
 							break;
 						case Print:
-							if ( visitedItem.configFileRelativeSymbol )
-								*_external.os << visitor.configPrefix << visitedItem.configFileRelativeSymbol;
+							if ( visitedItem.configFileRelativeSymbol ) {
+								if ( *visitedItem.configFileRelativeSymbol ) {
+									*_external.os << Detail::join(visitor.configPrefix, visitedItem.configFileRelativeSymbol);
+								}
+								else {
+									*_external.os << visitor.configPrefix;
+								}
+							}
 							else if ( visitedItem.cliAbsoluteSymbol )
 								*_external.os << "--" << visitedItem.cliAbsoluteSymbol;
 							else if ( visitedItem.isKey() )
@@ -699,7 +706,14 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 						case GetCfg:
 							try {
 								std::vector<std::string> items;
-								items = Detail::getConfig< std::vector<std::string> >(_external.constApp, visitor.configPrefix + visitedItem.configFileRelativeSymbol, false);
+								items = Detail::getConfig< std::vector<std::string> >(
+									_external.constApp,
+									Detail::join(
+										visitor.configPrefix,
+										visitedItem.configFileRelativeSymbol
+									),
+									false
+								);
 								std::string oldKey = _key;
 								visitor.push(visitedItem);
 								for ( size_t i = 0; i < items.size(); ++i ) {
@@ -727,7 +741,7 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 							break;
 						case Print:
 							if ( visitedItem.configFileRelativeSymbol ) {
-								*_external.os << visitor.configPrefix << visitedItem.configFileRelativeSymbol;
+								*_external.os << Detail::join(visitor.configPrefix, visitedItem.configFileRelativeSymbol);
 								*_external.os << ": ";
 								if ( visitedItem.value.empty() )
 									*_external.os << "[]" << std::endl;
@@ -906,7 +920,11 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 							if ( visitedItem.isKey() )
 								tmp = proc.template key<std::string>();
 							else
-								tmp = Detail::getConfig<std::string>(proc._external.constApp, prefix + visitedItem.configFileRelativeSymbol, visitedItem.flags & OptionBinding<T>::InterpretAsPath);
+								tmp = Detail::getConfig<std::string>(
+									proc._external.constApp,
+									Detail::join(prefix, visitedItem.configFileRelativeSymbol),
+									visitedItem.flags & OptionBinding<T>::InterpretAsPath
+								);
 							return fromString(visitedItem.value, tmp);
 						}
 						catch ( ... ) {}
@@ -926,7 +944,11 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 							if ( visitedItem.isKey() )
 								tmp = proc.template key<std::vector<std::string> >();
 							else
-								tmp = Detail::getConfig<std::vector<std::string> >(proc._external.constApp, prefix + visitedItem.configFileRelativeSymbol, visitedItem.flags & OptionBinding< std::vector<T> >::InterpretAsPath);
+								tmp = Detail::getConfig<std::vector<std::string> >(
+									proc._external.constApp,
+									Detail::join(prefix, visitedItem.configFileRelativeSymbol),
+									visitedItem.flags & OptionBinding< std::vector<T> >::InterpretAsPath
+								);
 							visitedItem.value.resize(tmp.size());
 							for ( size_t i = 0; i < tmp.size(); ++i ) {
 								if ( !fromString(visitedItem.value[i], tmp[i]) )
@@ -949,7 +971,11 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 							visitedItem.value = proc.template key<T>();
 						else {
 							try {
-								visitedItem.value = Detail::getConfig<T>(proc._external.constApp, prefix + visitedItem.configFileRelativeSymbol, visitedItem.flags & OptionBinding<T>::InterpretAsPath);
+								visitedItem.value = Detail::getConfig<T>(
+									proc._external.constApp,
+									Detail::join(prefix, visitedItem.configFileRelativeSymbol),
+									visitedItem.flags & OptionBinding<T>::InterpretAsPath
+								);
 							}
 							catch ( ... ) {}
 						}
@@ -1147,45 +1173,26 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 			std::string certificateStoreDirectory;
 
 			struct Logging {
-				Logging()
-				: verbosity(2)
-				, quiet(false)
-				, trace(false)
-				, debug(false)
-				, syslog(false)
-				, context(false)
-				, component(-1)
-				, toStdout(false)
-				, UTC(false)
-				{}
-
-				unsigned int  verbosity;
-				bool          quiet;
-				bool          trace;
-				bool          debug;
+				unsigned int  verbosity{2};
+				bool          quiet{false};
+				bool          trace{false};
+				bool          debug{false};
 #ifndef WIN32
-				bool          syslog;
+				bool          syslog{false};
 #endif
-				bool          context;
-				int           component;
-				bool          toStdout;
-				bool          UTC;
+				bool          context{false};
+				int           component{-1};
+				bool          toStdout{false};
+				bool          UTC{false};
 				std::string   alternativeLogFile;
 				ComponentList components;
 
 				struct File {
 					struct Rotator {
-						Rotator()
-						: enable(true)
-						, timeSpan(60*60*24) /* one day*/
-						, archiveSize(7) /* one week archive */
-						, maxFileSize(100*1024*1024) /* max 100MB per logfile */
-						{}
-
-						bool enable;
-						int timeSpan;
-						int archiveSize;
-						int maxFileSize;
+						bool enable{true};
+						int timeSpan{60 * 60 * 24}; /* one day*/
+						int archiveSize{7}; /* one week archive */
+						int maxFileSize{100 * 1024 * 1024}; /* max 100MB per logfile */
 
 						void accept(SettingsLinker &linker) {
 							linker
@@ -1218,16 +1225,19 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 						"Verbose", "quiet,q",
 						"Quiet mode: no logging output"
 					)
-					& cli(verbosity,
+					& cli(
+						verbosity,
 						"Verbose", "verbosity",
 						"Verbosity level [0..4]",
 						false)
-					& cli(context,
+					& cli(
+						context,
 						"Verbose", "print-context",
 						"Print source file and line number",
 						false
 					)
-					& cli(component,
+					& cli(
+						component,
 						"Verbose", "print-component",
 						"Print the log component (default: file:1, stdout:0)",
 						false

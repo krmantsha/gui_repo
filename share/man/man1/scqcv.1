@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCQCV" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCQCV" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scqcv \- SeisComP Documentation
 .
@@ -309,7 +309,7 @@ overlapLength
 T}
 _
 .TE
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/scqcv.cfg\fP
@@ -326,14 +326,17 @@ scqcv inherits global options\&.
 .B parameter
 Type: \fIlist:string\fP
 .sp
-List of QC parameters to be displayed in the details table. Read the scqc documentation
-for a list of available QC parameters and the default configuration
-of scqcv $SEISCOMP_ROOT/etc/defaults/scqcv.cfg for more examples.
+List of QC parameters to be displayed in the details table.
+Read the scqc documentation for a list of available QC parameters
+and the default configuration of scqcv
+$SEISCOMP_ROOT/etc/defaults/scqcv.cfg for more examples.
 .sp
 Format: "Parameter name : ConfigName"
 .sp
-Example: "delay : delay","spikes count : spike","spikes amplitude : spikeAmplitude"
-Refer to the parameters by their ConfigName to configure the attributes.
+Example: "delay : delay","spikes count : spike","spikes amplitude :
+spikeAmplitude".
+Refer to the parameters by their ConfigName to configure the
+attributes.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -342,23 +345,26 @@ Type: \fIlist:string\fP
 .sp
 The list of channel codes to be displayed. List items may
 contain wildcards and are separated by comma.
-The list is  intersected with all channels configured in inventory.
+The list is  intersected with all channels configured in
+inventory.
 .sp
 Examples:
 .sp
 default : display all streams configured by global bindings
 .sp
-default, PF.BON.00.HH? : display default and all HH streams of PF.BON.00
+default, PF.BON.00.HH? : display default and all HH streams
+of PF.BON.00
 .UNINDENT
 .INDENT 0.0
 .TP
 .B streams.cumulative
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
-Add new streams automatically to the streams
-configured in streams.codes when waveform QC parameters are
-provided for these streams.
-Default is \fBfalse\fP\&.
+Add new streams automatically to the streams configured in
+streams.codes when waveform QC parameters are provided for
+these streams.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -372,12 +378,13 @@ Default is \fBfalse\fP\&.
 .INDENT 0.0
 .TP
 .B streamWidget.length
+Default: \fB600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Length of data to be displayed.
-Default is \fB600\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -386,7 +393,7 @@ Default is \fB600\fP\&.
 \fBscore.*\fP
 \fIParameters controlling the overall QC score of a station.\fP
 \fIThe score is computed from the valid count parameter of the\fP
-\fIdefined ranges.\fP
+\fIdefined ranges. It is vizualized in the QcOverview.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -396,7 +403,8 @@ Type: \fIlist:string\fP
 .sp
 Ranges to be considered for forming the score. Set the
 count parameter om the respective range section for
-controlling the contribution of this range.
+controlling the contribution of this range. The
+range parameters control the coloring.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -404,9 +412,9 @@ controlling the contribution of this range.
 .INDENT 3.5
 \fBdefault.*\fP
 \fIDefault configuration for all QC parameters. The configuration\fP
-\fIcan be extended to each QC parameter by placing\fP
-\fI"default" with the parameter name in scqcv.cfg. Examples for\fP
-\fIsome QC parameters are given below.\fP
+\fIcan be extended to each QC parameter by placing "default" with\fP
+\fIthe parameter name in scqcv.cfg. Examples for some QC parameters\fP
+\fIare given below.\fP
 **
 \fIRead the scqc documentation for a list of available QC\fP
 \fIparameters and the default configuration of scqcv\fP
@@ -416,6 +424,8 @@ controlling the contribution of this range.
 .INDENT 0.0
 .TP
 .B default.ranges
+Default: \fBbad, sane\fP
+.sp
 Type: \fIlist:string\fP
 .sp
 Names of range profile to be considered.
@@ -423,7 +433,6 @@ The range profiles define the background color table
 fields depending on the field value. Add the default
 ranges for which different intervals and the color are
 configured.
-Default is \fBbad, sane\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -441,9 +450,9 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
-Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.
+Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -455,10 +464,11 @@ A color defined by the color definitions below.
 .INDENT 0.0
 .TP
 .B default.useAbsoluteValue
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activate to display absolute values (modulus).
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -525,11 +535,12 @@ default.range.c.value1 = ...
 .INDENT 0.0
 .TP
 .B default.range.$name.count
+Default: \fB0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Contribution of this range for computing the score.
 The range must be considered.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -550,7 +561,8 @@ Possible values: enableStream, disableStream
 .INDENT 0.0
 .INDENT 3.5
 \fBavailability.*\fP
-\fIParameters controlling the display of the QC parameter \(aqavailability\(aq\fP
+\fIParameters controlling the display of the QC parameter\fP
+\fI\(aqavailability\(aq\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -580,9 +592,9 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
-Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.
+Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -594,10 +606,11 @@ A color defined by the color definitions below.
 .INDENT 0.0
 .TP
 .B availability.useAbsoluteValue
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activate to display absolute values (modulus).
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -664,11 +677,12 @@ availability.range.c.value1 = ...
 .INDENT 0.0
 .TP
 .B availability.range.$name.count
+Default: \fB0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Contribution of this range for computing the score.
 The range must be considered.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -719,9 +733,9 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
-Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.
+Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -733,10 +747,11 @@ A color defined by the color definitions below.
 .INDENT 0.0
 .TP
 .B delay.useAbsoluteValue
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activate to display absolute values (modulus).
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -803,11 +818,12 @@ delay.range.c.value1 = ...
 .INDENT 0.0
 .TP
 .B delay.range.$name.count
+Default: \fB0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Contribution of this range for computing the score.
 The range must be considered.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -828,7 +844,8 @@ Possible values: enableStream, disableStream
 .INDENT 0.0
 .INDENT 3.5
 \fBgap.*\fP
-\fIParameters controlling the display of the QC parameter \(aqgaps count\(aq\fP
+\fIParameters controlling the display of the QC parameter\fP
+\fI\(aqgaps count\(aq.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -858,9 +875,9 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
-Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.
+Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -872,10 +889,11 @@ A color defined by the color definitions below.
 .INDENT 0.0
 .TP
 .B gap.useAbsoluteValue
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activate to display absolute values (modulus).
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -942,11 +960,12 @@ gap.range.c.value1 = ...
 .INDENT 0.0
 .TP
 .B gap.range.$name.count
+Default: \fB0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Contribution of this range for computing the score.
 The range must be considered.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -967,7 +986,8 @@ Possible values: enableStream, disableStream
 .INDENT 0.0
 .INDENT 3.5
 \fBgapLength.*\fP
-\fIParameters controlling the display of the QC parameter \(aqgaps length\(aq\fP
+\fIParameters controlling the display of the QC parameter\fP
+\fI\(aqgaps length\(aq\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -997,9 +1017,9 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
-Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.
+Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1011,17 +1031,18 @@ A color defined by the color definitions below.
 .INDENT 0.0
 .TP
 .B gapLength.useAbsoluteValue
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activate to display absolute values (modulus).
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B gapLength.action
 Type: \fIstring\fP
 .sp
-Possible values: enableStream, disableStream
+Possible values: enableStream, disableStream.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1039,21 +1060,21 @@ Possible values: enableStream, disableStream
 .B gapLength.range.sane
 Type: \fIlist:double\fP
 .sp
-Value interval for range sane
+Value interval for range sane.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B gapLength.range.inter
 Type: \fIlist:double\fP
 .sp
-Value interval for range inter
+Value interval for range inter.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B gapLength.range.bad
 Type: \fIlist:double\fP
 .sp
-Value interval for range bad
+Value interval for range bad.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1081,11 +1102,12 @@ gapLength.range.c.value1 = ...
 .INDENT 0.0
 .TP
 .B gapLength.range.$name.count
+Default: \fB0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Contribution of this range for computing the score.
 The range must be considered.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1150,10 +1172,11 @@ A color defined by the color definitions below.
 .INDENT 0.0
 .TP
 .B gapInterval.useAbsoluteValue
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activate to display absolute values (modulus).
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1220,11 +1243,12 @@ gapInterval.range.c.value1 = ...
 .INDENT 0.0
 .TP
 .B gapInterval.range.$name.count
+Default: \fB0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Contribution of this range for computing the score.
 The range must be considered.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1289,10 +1313,11 @@ A color defined by the color definitions below.
 .INDENT 0.0
 .TP
 .B latency.useAbsoluteValue
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activate to display absolute values (modulus).
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1359,11 +1384,12 @@ latency.range.c.value1 = ...
 .INDENT 0.0
 .TP
 .B latency.range.$name.count
+Default: \fB0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Contribution of this range for computing the score.
 The range must be considered.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1430,10 +1456,11 @@ A color defined by the color definitions below.
 .INDENT 0.0
 .TP
 .B offset.useAbsoluteValue
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activate to display absolute values (modulus).
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1500,11 +1527,12 @@ offset.range.c.value1 = ...
 .INDENT 0.0
 .TP
 .B offset.range.$name.count
+Default: \fB0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Contribution of this range for computing the score.
 The range must be considered.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1569,10 +1597,11 @@ A color defined by the color definitions below.
 .INDENT 0.0
 .TP
 .B overlap.useAbsoluteValue
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activate to display absolute values (modulus).
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1639,11 +1668,12 @@ overlap.range.c.value1 = ...
 .INDENT 0.0
 .TP
 .B overlap.range.$name.count
+Default: \fB0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Contribution of this range for computing the score.
 The range must be considered.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1694,9 +1724,9 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
-Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.
+Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1708,10 +1738,11 @@ A color defined by the color definitions below.
 .INDENT 0.0
 .TP
 .B overlapInterval.useAbsoluteValue
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activate to display absolute values (modulus).
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1778,11 +1809,12 @@ overlapInterval.range.c.value1 = ...
 .INDENT 0.0
 .TP
 .B overlapInterval.range.$name.count
+Default: \fB0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Contribution of this range for computing the score.
 The range must be considered.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1803,7 +1835,8 @@ Possible values: enableStream, disableStream
 .INDENT 0.0
 .INDENT 3.5
 \fBoverlapLength.*\fP
-\fIParameters controlling the display of the QC parameter \(aqoverlaps length\(aq\fP
+\fIParameters controlling the display of the QC parameter\fP
+\fI\(aqoverlaps length\(aq\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -1833,9 +1866,9 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
-Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.
+Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1847,10 +1880,11 @@ A color defined by the color definitions below.
 .INDENT 0.0
 .TP
 .B overlapLength.useAbsoluteValue
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activate to display absolute values (modulus).
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1917,11 +1951,12 @@ overlapLength.range.c.value1 = ...
 .INDENT 0.0
 .TP
 .B overlapLength.range.$name.count
+Default: \fB0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Contribution of this range for computing the score.
 The range must be considered.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1972,9 +2007,9 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
-Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.
+Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1986,10 +2021,11 @@ A color defined by the color definitions below.
 .INDENT 0.0
 .TP
 .B rms.useAbsoluteValue
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activate to display absolute values (modulus).
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2056,11 +2092,12 @@ rms.range.c.value1 = ...
 .INDENT 0.0
 .TP
 .B rms.range.$name.count
+Default: \fB0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Contribution of this range for computing the score.
 The range must be considered.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2081,7 +2118,8 @@ Possible values: enableStream, disableStream
 .INDENT 0.0
 .INDENT 3.5
 \fBspike.*\fP
-\fIParameters controlling the display of the QC parameter \(aqspikes count\(aq\fP
+\fIParameters controlling the display of the QC parameter\fP
+\fI\(aqspikes count\(aq\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -2089,7 +2127,7 @@ Possible values: enableStream, disableStream
 .B spike.ranges
 Type: \fIlist:string\fP
 .sp
-Names of range profile to be considered
+Names of range profile to be considered.
 The range profiles s define the background color table
 fields depending on the field value. Add the default
 ranges for which different intervals and the color are
@@ -2111,9 +2149,9 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
-Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.
+Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2125,10 +2163,11 @@ A color defined by the color definitions below.
 .INDENT 0.0
 .TP
 .B spike.useAbsoluteValue
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activate to display absolute values (modulus).
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2195,11 +2234,12 @@ spike.range.c.value1 = ...
 .INDENT 0.0
 .TP
 .B spike.range.$name.count
+Default: \fB0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Contribution of this range for computing the score.
 The range must be considered.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2220,7 +2260,8 @@ Possible values: enableStream, disableStream
 .INDENT 0.0
 .INDENT 3.5
 \fBspikeAmplitude.*\fP
-\fIParameters controlling the display of the QC parameter \(aqspikes amplitude\(aq\fP
+\fIParameters controlling the display of the QC parameter\fP
+\fI\(aqspikes amplitude\(aq.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -2250,9 +2291,9 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
-Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.
+Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2264,10 +2305,11 @@ A color defined by the color definitions below.
 .INDENT 0.0
 .TP
 .B spikeAmplitude.useAbsoluteValue
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activate to display absolute values (modulus).
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2334,11 +2376,12 @@ spikeAmplitude.range.c.value1 = ...
 .INDENT 0.0
 .TP
 .B spikeAmplitude.range.$name.count
+Default: \fB0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Contribution of this range for computing the score.
 The range must be considered.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2359,7 +2402,8 @@ Possible values: enableStream, disableStream
 .INDENT 0.0
 .INDENT 3.5
 \fBspikeInterval.*\fP
-\fIParameters controlling the display of the QC parameter \(aqspikes interval\(aq\fP
+\fIParameters controlling the display of the QC parameter\fP
+\fI\(aqspikes interval\(aq.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -2389,9 +2433,9 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
-Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.
+Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2403,10 +2447,11 @@ A color defined by the color definitions below.
 .INDENT 0.0
 .TP
 .B spikeInterval.useAbsoluteValue
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activate to display absolute values (modulus).
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2473,11 +2518,12 @@ spikeInterval.range.c.value1 = ...
 .INDENT 0.0
 .TP
 .B spikeInterval.range.$name.count
+Default: \fB0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Contribution of this range for computing the score.
 The range must be considered.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2498,7 +2544,8 @@ Possible values: enableStream, disableStream
 .INDENT 0.0
 .INDENT 3.5
 \fBtiming.*\fP
-\fIParameters controlling the display of the QC parameter \(aqtiming quality\(aq\fP
+\fIParameters controlling the display of the QC parameter\fP
+\fI\(aqtiming quality\(aq.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -2528,9 +2575,9 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
-Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.
+Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2542,10 +2589,11 @@ A color defined by the color definitions below.
 .INDENT 0.0
 .TP
 .B timing.useAbsoluteValue
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activate to display absolute values (modulus).
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2612,11 +2660,12 @@ timing.range.c.value1 = ...
 .INDENT 0.0
 .TP
 .B timing.range.$name.count
+Default: \fB0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Contribution of this range for computing the score.
 The range must be considered.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2648,21 +2697,133 @@ Possible values: enableStream, disableStream
 .B range.sane
 Type: \fIlist:double\fP
 .sp
-Value interval for range sane
+Value interval for range sane.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B range.inter
 Type: \fIlist:double\fP
 .sp
-Value interval for range inter
+Value interval for range inter.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B range.bad
 Type: \fIlist:double\fP
 .sp
-Value interval for range bad
+Value interval for range bad.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B range.above
+Type: \fIlist:double\fP
+.sp
+Value interval for range profile above.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B range.below
+Type: \fIlist:double\fP
+.sp
+Value interval for range profile below.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B range.delay
+Type: \fIlist:double\fP
+.sp
+Value interval for range profile delay.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B range.latency
+Type: \fIlist:double\fP
+.sp
+Value interval for range profile latency.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B range.timing
+Type: \fIlist:double\fP
+.sp
+Value interval for range profile timing.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B range.unset
+Type: \fIlist:double\fP
+.sp
+Value interval for range profile unset.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B range.r01
+Type: \fIlist:double\fP
+.sp
+Value interval for range profile r01.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B range.r02
+Type: \fIlist:double\fP
+.sp
+Value interval for range profile r02.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B range.r03
+Type: \fIlist:double\fP
+.sp
+Value interval for range profile r03.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B range.r04
+Type: \fIlist:double\fP
+.sp
+Value interval for range profile r04.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B range.r05
+Type: \fIlist:double\fP
+.sp
+Value interval for range profile r05.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B range.r06
+Type: \fIlist:double\fP
+.sp
+Value interval for range profile r06.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B range.r07
+Type: \fIlist:double\fP
+.sp
+Value interval for range profile r07.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B range.r08
+Type: \fIlist:double\fP
+.sp
+Value interval for range profile r08.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B range.r09
+Type: \fIlist:double\fP
+.sp
+Value interval for range profile r09.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B range.r10
+Type: \fIlist:double\fP
+.sp
+Value interval for range profile r10.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -2678,8 +2839,8 @@ $name is a placeholder for the name to be used.
 Type: \fIdouble\fP
 .sp
 Contribution of this range for computing the score.
-The range must be considered.
-Default is \fB0\fP\&.
+The range must be considered. The count is also set in
+[parameter].range.[range profile].count .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2843,10 +3004,240 @@ Color names or R, G, B, alpha values
 .INDENT 0.0
 .TP
 .B format.float
+Default: \fB2\fP
+.sp
 Type: \fIint\fP
 .sp
 Number of decimal values shown for parameters of format float.
-Default is \fB2\fP\&.
+.UNINDENT
+.SH COMMAND-LINE OPTIONS
+.sp
+\fBscqcv [options]\fP
+.SS Generic
+.INDENT 0.0
+.TP
+.B \-h, \-\-help
+Show help message.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-V, \-\-version
+Show version information.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-config\-file arg
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-plugins arg
+Load given plugins.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-auto\-shutdown arg
+Enable/disable self\-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with \-\-start\-stop\-msg
+for the master module).
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-shutdown\-master\-module arg
+Set the name of the master\-module used for auto\-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-shutdown\-master\-username arg
+Set the name of the master\-username of the messaging
+used for auto\-shutdown. If "shutdown\-master\-module" is
+given as well, this parameter is ignored.
+.UNINDENT
+.SS Verbosity
+.INDENT 0.0
+.TP
+.B \-\-verbosity arg
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-v, \-\-v
+Increase verbosity level (may be repeated, eg. \-vv).
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-q, \-\-quiet
+Quiet mode: no logging output.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-component arg
+Limit the logging to a certain component. This option can
+be given more than once.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-s, \-\-syslog
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-l, \-\-lockfile arg
+Path to lock file.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-console arg
+Send log output to stdout.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-debug
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-log\-file arg
+Use alternative log file.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-print\-component arg
+For each log entry print the component right after the
+log level. By default the component output is enabled
+for file output but disabled for console output.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-trace
+Execute in trace mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 \-\-print\-component=1
+\-\-print\-context=1 .
+.UNINDENT
+.SS Messaging
+.INDENT 0.0
+.TP
+.B \-u, \-\-user arg
+Overrides configuration parameter \fBconnection.username\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-H, \-\-host arg
+Overrides configuration parameter \fBconnection.server\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-t, \-\-timeout arg
+Overrides configuration parameter \fBconnection.timeout\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-g, \-\-primary\-group arg
+Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-S, \-\-subscribe\-group arg
+A group to subscribe to.
+This option can be given more than once.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-content\-type arg
+Overrides configuration parameter \fBconnection.contentType\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-start\-stop\-msg arg
+Set sending of a start and a stop message.
+.UNINDENT
+.SS Database
+.INDENT 0.0
+.TP
+.B \-\-db\-driver\-list
+List all supported database drivers.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-d, \-\-database arg
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+"service" is the name of the database driver which
+can be queried with "\-\-db\-driver\-list".
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-config\-module arg
+The config module to use.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-inventory\-db arg
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-db\-disable
+Do not use the database at all
+.UNINDENT
+.SS Records
+.INDENT 0.0
+.TP
+.B \-\-record\-driver\-list
+List all supported record stream drivers.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-I, \-\-record\-url arg
+The recordstream source URL, format:
+[\fI\%service://\fP]location[#type].
+"service" is the name of the recordstream driver
+which can be queried with "\-\-record\-driver\-list".
+If "service" is not given, "\fI\%file://\fP" is
+used.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-record\-file arg
+Specify a file as record source.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-record\-type arg
+Specify a type for the records being read.
+.UNINDENT
+.SS Cities
+.INDENT 0.0
+.TP
+.B \-\-city\-xml arg
+The path to the cities XML file. This overrides the default
+paths. Compare with the global parameter "citiesXML".
+.UNINDENT
+.SS User interface
+.INDENT 0.0
+.TP
+.B \-F, \-\-full\-screen
+Start the application filling the entire screen.
+This only works with GUI applications.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-N, \-\-non\-interactive
+Use non\-interactive presentation mode. This only works with
+GUI applications.
 .UNINDENT
 .SH AUTHOR
 gempa GmbH, GFZ Potsdam

@@ -30,23 +30,23 @@ namespace Processing {
 
 
 class SC_SYSTEM_CLIENT_API AbstractAmplitudeProcessor_ML : public AmplitudeProcessor {
-	DECLARE_SC_CLASS(AbstractAmplitudeProcessor_ML)
-
 	public:
 		AbstractAmplitudeProcessor_ML(const std::string &type);
 		AbstractAmplitudeProcessor_ML(const Core::Time &trigger, const std::string &type);
 
 	public:
-		virtual void initFilter(double fsamp) override;
+		void initFilter(double fsamp) override;
 
-		virtual int capabilities() const override;
-		virtual IDList capabilityParameters(Capability cap) const override;
-		virtual bool setParameter(Capability cap, const std::string &value) override;
+		int capabilities() const override;
+		IDList capabilityParameters(Capability cap) const override;
+		bool setParameter(Capability cap, const std::string &value) override;
 
-		virtual bool setup(const Settings &settings) override;
+		bool setup(const Settings &settings) override;
 
 
 	protected:
+		void setDefaultConfiguration();
+
 		bool deconvolveData(Response *resp, DoubleArray &data, int numberOfIntegrations) override;
 
 		/**
@@ -62,7 +62,7 @@ class SC_SYSTEM_CLIENT_API AbstractAmplitudeProcessor_ML : public AmplitudeProce
 
 		double timeWindowLength(double distance) const override;
 
-	private:
+	protected:
 		enum AmplitudeMeasureType {
 			AbsMax,
 			MinMax,
@@ -70,6 +70,8 @@ class SC_SYSTEM_CLIENT_API AbstractAmplitudeProcessor_ML : public AmplitudeProce
 		};
 
 		AmplitudeMeasureType _amplitudeMeasureType;
+		std::string          _preFilter;
+		bool                 _applyWA{true};
 };
 
 

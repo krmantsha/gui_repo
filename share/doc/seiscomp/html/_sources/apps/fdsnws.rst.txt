@@ -6,7 +6,7 @@
 fdsnws
 ######
 
-**Provides FDSN Web Services**
+**Provide FDSN Web Services.**
 
 
 Description
@@ -96,20 +96,28 @@ where *request.txt* contains the POST message body. For details read the
 FDSN specifications.
 
 
-Feature notes
+Feature Notes
 ~~~~~~~~~~~~~
 
 * ``quality`` parameter not implemented (information not available in SeisComP)
 * ``minimumlength`` parameter is not implemented
 * ``longestonly`` parameter is not implemented
-* Access to drestricted networks and stations is only granted through the
+* Access to restricted networks and stations is only granted through the
   ``queryauth`` method
+* The data channels exposed by this service may be restricted by defining an
+  inventory filter, see section :ref:`sec-inv-filter`.
+* **No** trimming of miniSEED records to requested time window -- This FDSNWS
+  implementation returns the records as available in its data source, e.g., SDS
+  archive. It is guaranteed that the requested time range is within the returned
+  data (if available in the archive) but not that it is exactly the requested
+  time range. FDSNWS does not trim and therefore re-encode miniSEED records. The
+  rationale for that is that miniSEED records are probably further distributed
+  and stored in other archives and we do not see the point in modifying them.
+  Furthermore we do not want to increase the load on the web server with that
+  extra processing step.
 
-The data channels exposed by this service may be restrict by defining an
-inventory filter, see section :ref:`sec-inv-filter`.
 
-
-Service configuration
+Service Configuration
 ~~~~~~~~~~~~~~~~~~~~~
 
 * Activate :confval:`serveDataSelect` in the module configuration
@@ -160,7 +168,7 @@ Example
   http://localhost:8080/fdsnws/station/1/query?net=GE&cha=BH%3F&level=response&nodata=404
 
 
-Feature notes
+Feature Notes
 ~~~~~~~~~~~~~
 
 * To enable FDSNXML or StationXML support load the plugin ``fdsnxml``. The
@@ -519,7 +527,7 @@ where GPG stores its files. Let's use the directory
      sysop@host:~$ echo "auth.enable = true" >> ~/seiscomp/etc/fdsnws.cfg
 
 
-Usage example
+Usage Example
 -------------
 
 A client like :ref:`fdsnws_fetch <sec-fdsnws-related>` is recommended, but also tools like wget and
@@ -675,8 +683,8 @@ supporting FDSN Web Services (:cite:t:`fdsn`).
 
 .. _fdsnws_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 | :file:`etc/defaults/global.cfg`
 | :file:`etc/defaults/fdsnws.cfg`
@@ -691,36 +699,44 @@ fdsnws inherits :ref:`global options<global-configuration>`.
 
 .. confval:: listenAddress
 
+   Default: ``0.0.0.0``
+
    Type: *IP*
 
-   Defines the bind address of the server. \"0.0.0.0\" allows
+   Define the bind address of the server. \"0.0.0.0\" allows
    any interface to connect to this server whereas \"127.0.0.0\"
    only allows connections from localhost.
-   Default is ``0.0.0.0``.
+
 
 .. confval:: port
+
+   Default: ``8080``
 
    Type: *int*
 
    Server port to listen for incoming requests. Note: The FDSN Web
    service specification defines the service port 80. Please refer
    to the documentation on how to serve on privileged ports.
-   Default is ``8080``.
+
 
 .. confval:: connections
+
+   Default: ``5``
 
    Type: *int*
 
    Number of maximum simultaneous requests.
-   Default is ``5``.
+
 
 .. confval:: queryObjects
+
+   Default: ``10000``
 
    Type: *int*
 
    Maximum number of objects per query, used in fdsnws\-station and
    fdsnws\-event to limit main memory consumption.
-   Default is ``10000``.
+
 
 .. confval:: realtimeGap
 
@@ -728,7 +744,7 @@ fdsnws inherits :ref:`global options<global-configuration>`.
 
    Unit: *s*
 
-   Restricts end time of requests to current time \- realtimeGap
+   Restrict end time of requests to current time \- realtimeGap
    seconds. Negative values allowed. Used in fdsnws\-dataselect.
    WARNING: If this value is unset and a realtime recordsource
    \(e.g. slink\) is used, requests may block if end time in future
@@ -746,6 +762,8 @@ fdsnws inherits :ref:`global options<global-configuration>`.
 
 .. confval:: recordBulkSize
 
+   Default: ``102400``
+
    Type: *int*
 
    Unit: *bytes*
@@ -754,9 +772,11 @@ fdsnws inherits :ref:`global options<global-configuration>`.
    served to the client. The lower the buffer the higher the overhead
    of Python Twisted. The higher the buffer the higher the memory
    usage per request. 100kB seems to be a good trade\-off.
-   Default is ``102400``.
+
 
 .. confval:: htpasswd
+
+   Default: ``@CONFIGDIR@/fdsnws.htpasswd``
 
    Type: *string*
 
@@ -764,7 +784,7 @@ fdsnws inherits :ref:`global options<global-configuration>`.
    format is 'username:password' separated by lines. Because of the
    HTTP digest authentication method required by the FDSN
    specification, the passwords have to be stored in plain text.
-   Default is ``@CONFIGDIR@/fdsnws.htpasswd``.
+
 
 .. confval:: accessLog
 
@@ -789,6 +809,8 @@ fdsnws inherits :ref:`global options<global-configuration>`.
 
 .. confval:: corsOrigins
 
+   Default: ``*``
+
    Type: *list:string:*
 
    List of domain names Cross\-Origin Resource Sharing \(CORS\)
@@ -796,89 +818,109 @@ fdsnws inherits :ref:`global options<global-configuration>`.
    to embed your service. An empty value will switch of CORS
    requests entirely. An example of multiple domains might be:
    'https:\/\/test.domain.de, https:\/\/production.domain.de'.
-   Default is ``*``.
+
 
 .. confval:: allowRestricted
 
+   Default: ``true``
+
    Type: *boolean*
 
-   Enables\/disables access to restricted inventory data.
-   Default is ``true``.
+   Enable\/disable access to restricted inventory data.
+
 
 .. confval:: handleConditionalRequests
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Enables\/disables handling of time\-based conditional requests \(RFC
+   Enable\/disable handling of time\-based conditional requests \(RFC
    7232\) by the fdsnws\-station resource.
-   Default is ``false``.
+
 
 .. confval:: useArclinkAccess
 
+   Default: ``false``
+
    Type: *boolean*
 
-   If enabled, then access to restricted waveform data is controlled
-   by arclink\-access bindings. By default authenticated users have
-   access to all data.
-   Default is ``false``.
+   If enabled, then access to restricted waveform data is
+   controlled by arclink\-access bindings. By default authenticated
+   users have access to all data.
+
 
 .. confval:: hideAuthor
 
+   Default: ``false``
+
    Type: *boolean*
 
-   If enabled author information is removed from any event creationInfo element.
-   Default is ``false``.
+   If enabled, author information is removed from any event
+   creationInfo element.
+
 
 .. confval:: hideComments
 
+   Default: ``false``
+
    Type: *boolean*
 
-   If enabled event comment elements are no longer accessible.
-   Default is ``false``.
+   If enabled, event comment elements are no longer accessible.
+
 
 .. confval:: evaluationMode
 
    Type: *string*
 
-   If set the event service will only return events having a preferred origin with a matching evaluationMode property.
+   If set, the event service will only return events having a
+   preferred origin with a matching evaluationMode property.
 
 
 .. confval:: eventFormats
 
    Type: *list:string*
 
-   List of enabled event formats. If unspecified all supported
+   List of enabled event formats. If unspecified, all supported
    formats are enabled.
 
 
 .. confval:: serveDataSelect
 
+   Default: ``true``
+
    Type: *boolean*
 
-   Enables\/disables the DataSelect service.
-   Default is ``true``.
+   Enable\/disable the DataSelect service.
+
 
 .. confval:: serveEvent
 
+   Default: ``true``
+
    Type: *boolean*
 
-   Enables\/disables the Event service.
-   Default is ``true``.
+   Enable\/disable the Event service.
+
 
 .. confval:: serveStation
 
+   Default: ``true``
+
    Type: *boolean*
 
-   Enables\/disables the Station service.
-   Default is ``true``.
+   Enable\/disable the Station service.
+
 
 .. confval:: serveAvailability
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Enables\/disables the Availability service. Note: This is a non
+   Enable\/disable the Availability service. Note: This is a non
    standard FDSNWS extension served under fdsnws\/ext\/availability.
-   Default is ``false``.
+
 
 .. confval:: stationFilter
 
@@ -896,19 +938,24 @@ fdsnws inherits :ref:`global options<global-configuration>`.
 
 .. confval:: debugFilter
 
+   Default: ``false``
+
    Type: *boolean*
 
-   If enabled a debug line is written for each stream ID explaining
+   If enabled, a debug line is written for each stream ID explaining
    why a stream was added\/removed by a inventory filter.
-   Default is ``false``.
+
 
 .. confval:: fileNamePrefix
 
+   Default: ``fdsnws``
+
    Type: *string*
 
-   Defines the prefix for the default filenames if downloading and saving data from within a browser.
+   Define the prefix for the default filenames if downloading and
+   saving data from within a browser.
    For data loaded using dataselect, it is thus fdsnws.mseed by default.
-   Default is ``fdsnws``.
+
 
 .. confval:: eventType.whitelist
 
@@ -927,7 +974,7 @@ fdsnws inherits :ref:`global options<global-configuration>`.
 .. note::
    **dataAvailability.\***
    *Provide access to waveform data availability information stored*
-   *in the SeisComP database. In case of a SDS archive this*
+   *in the SeisComP database. In case of a SDS archive, this*
    *information may be collected by scardac (SeisComP archive*
    *data availability collector).*
 
@@ -935,65 +982,83 @@ fdsnws inherits :ref:`global options<global-configuration>`.
 
 .. confval:: dataAvailability.enable
 
+   Default: ``false``
+
    Type: *boolean*
 
    Enable loading of data availabilty information from
    SeisComP database. Availability information is used by
    station and ext\/availability service.
-   Default is ``false``.
+
 
 .. confval:: dataAvailability.cacheDuration
+
+   Default: ``300``
 
    Type: *int*
 
    Unit: *s*
 
    Number of seconds data availabilty information is considered
-   valid. If the duration time is exeeded the information is
+   valid. If the duration time is exceeded, the information is
    fetched again from the database.
-   Default is ``300``.
+
 
 .. confval:: dataAvailability.dccName
 
+   Default: ``DCC``
+
    Type: *string*
 
-   Name of the archive use in sync format of dataavailability extent service
-   Default is ``DCC``.
+   Name of the archive use in sync format of dataavailability
+   extent service.
+
 
 .. confval:: dataAvailability.repositoryName
 
+   Default: ``primary``
+
    Type: *string*
 
-   Name of the archive use in some format of dataavailability extent service
-   Default is ``primary``.
+   Name of the archive use in some format of data availability
+   extent service.
+
 
 .. confval:: trackdb.enable
+
+   Default: ``false``
 
    Type: *boolean*
 
    Save request log to database.
-   Default is ``false``.
+
 
 .. confval:: trackdb.defaultUser
+
+   Default: ``fdsnws``
 
    Type: *string*
 
    Default user.
-   Default is ``fdsnws``.
+
 
 .. confval:: auth.enable
+
+   Default: ``false``
 
    Type: *boolean*
 
    Enable auth extension.
-   Default is ``false``.
+
 
 .. confval:: auth.gnupgHome
+
+   Default: ``@ROOTDIR@/var/lib/gpg``
 
    Type: *string*
 
    GnuPG home directory.
-   Default is ``@ROOTDIR@/var/lib/gpg``.
+
 
 .. confval:: auth.blacklist
 
@@ -1003,10 +1068,12 @@ fdsnws inherits :ref:`global options<global-configuration>`.
 
 
 
-Command-line
-============
+Command-Line Options
+====================
 
 .. program:: fdsnws
+
+:program:`fdsnws [options]`
 
 
 Generic
@@ -1014,18 +1081,20 @@ Generic
 
 .. option:: -h, --help
 
-   show help message.
+   Show help message.
 
 .. option:: -V, --version
 
-   show version information
+   Show version information.
 
 .. option:: --config-file arg
 
-   Use alternative configuration file. When this option is used
-   the loading of all stages is disabled. Only the given configuration
-   file is parsed and used. To use another name for the configuration
-   create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+   Use alternative configuration file. When this option is
+   used the loading of all stages is disabled. Only the
+   given configuration file is parsed and used. To use
+   another name for the configuration create a symbolic
+   link of the application or copy it. Example:
+   scautopick \-> scautopick2.
 
 .. option:: --plugins arg
 
@@ -1033,26 +1102,28 @@ Generic
 
 .. option:: -D, --daemon
 
-   Run as daemon. This means the application will fork itself and
-   doesn't need to be started with \&.
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
 
 .. option:: --auto-shutdown arg
 
-   Enable\/disable self\-shutdown because a master module shutdown. This only
-   works when messaging is enabled and the master module sends a shutdown
-   message \(enabled with \-\-start\-stop\-msg for the master module\).
+   Enable\/disable self\-shutdown because a master module shutdown.
+   This only works when messaging is enabled and the master
+   module sends a shutdown message \(enabled with \-\-start\-stop\-msg
+   for the master module\).
 
 .. option:: --shutdown-master-module arg
 
-   Sets the name of the master\-module used for auto\-shutdown. This
-   is the application name of the module actually started. If symlinks
-   are used then it is the name of the symlinked application.
+   Set the name of the master\-module used for auto\-shutdown.
+   This is the application name of the module actually
+   started. If symlinks are used, then it is the name of
+   the symlinked application.
 
 .. option:: --shutdown-master-username arg
 
-   Sets the name of the master\-username of the messaging used for
-   auto\-shutdown. If \"shutdown\-master\-module\" is given as well this
-   parameter is ignored.
+   Set the name of the master\-username of the messaging
+   used for auto\-shutdown. If \"shutdown\-master\-module\" is
+   given as well, this parameter is ignored.
 
 
 Verbosity
@@ -1060,23 +1131,26 @@ Verbosity
 
 .. option:: --verbosity arg
 
-   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
 
 .. option:: -v, --v
 
-   Increase verbosity level \(may be repeated, eg. \-vv\)
+   Increase verbosity level \(may be repeated, eg. \-vv\).
 
 .. option:: -q, --quiet
 
-   Quiet mode: no logging output
+   Quiet mode: no logging output.
 
 .. option:: --component arg
 
-   Limits the logging to a certain component. This option can be given more than once.
+   Limit the logging to a certain component. This option can
+   be given more than once.
 
 .. option:: -s, --syslog
 
-   Use syslog logging back end. The output usually goes to \/var\/lib\/messages.
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
 
 .. option:: -l, --lockfile arg
 
@@ -1088,7 +1162,8 @@ Verbosity
 
 .. option:: --debug
 
-   Debug mode: \-\-verbosity\=4 \-\-console\=1
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
 
 .. option:: --log-file arg
 
@@ -1104,17 +1179,19 @@ Database
 
 .. option:: -d, --database arg
 
-   The database connection string, format: service:\/\/user:pwd\@host\/database.
-   \"service\" is the name of the database driver which can be
-   queried with \"\-\-db\-driver\-list\".
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
 
 .. option:: --config-module arg
 
-   The configmodule to use.
+   The config module to use.
 
 .. option:: --inventory-db arg
 
-   Load the inventory from the given database or file, format: [service:\/\/]location
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
 
 .. option:: --db-disable
 
@@ -1126,14 +1203,16 @@ Records
 
 .. option:: --record-driver-list
 
-   List all supported record stream drivers
+   List all supported record stream drivers.
 
 .. option:: -I, --record-url arg
 
-   The recordstream source URL, format: [service:\/\/]location[#type].
-   \"service\" is the name of the recordstream driver which can be
-   queried with \"\-\-record\-driver\-list\". If \"service\"
-   is not given \"file:\/\/\" is used.
+   The recordstream source URL, format:
+   [service:\/\/]location[#type].
+   \"service\" is the name of the recordstream driver
+   which can be queried with \"\-\-record\-driver\-list\".
+   If \"service\" is not given, \"file:\/\/\" is
+   used.
 
 .. option:: --record-file arg
 

@@ -148,7 +148,9 @@ class SC_SYSTEM_CLIENT_API WaveformProcessor : public Processor {
 				//! regions
 				RayPathOutOfRegions,
 				//! Travel time table lookup failed
-				TravelTimeEstimateFailed
+				TravelTimeEstimateFailed,
+				//! Configuration error
+				ConfigurationError
 			),
 			ENAMES(
 				"waiting for data",
@@ -177,7 +179,8 @@ class SC_SYSTEM_CLIENT_API WaveformProcessor : public Processor {
 				"epicenter out of regions",
 				"receiver out of regions",
 				"ray path out of regions",
-				"travel time estimate failed"
+				"travel time estimate failed",
+				"configuration error"
 			)
 		);
 
@@ -275,8 +278,14 @@ class SC_SYSTEM_CLIENT_API WaveformProcessor : public Processor {
 		//! check is enabled.
 		double saturationThreshold() const { return _saturationThreshold; }
 
-		//! Resets the processor completely. The configured init time
-		//! is going to be processed again.
+		/**
+		 * @brief Resets the processing state
+		 *
+		 * This method resets the current processing states back to as if
+		 * wouldn't have received any data yet. It not *not* meant to reset
+		 * the processors configuration to its defaults. This method is going
+		 * to be called when e.g. gaps are detected.
+		 */
 		virtual void reset();
 
 		//! Returns the data's sampling frequency
@@ -347,6 +356,8 @@ class SC_SYSTEM_CLIENT_API WaveformProcessor : public Processor {
 
 		bool parseSaturationThreshold(const Settings &settings,
 		                              const std::string &optionName);
+
+		void setupStream(double fsamp);
 
 
 	// ----------------------------------------------------------------------

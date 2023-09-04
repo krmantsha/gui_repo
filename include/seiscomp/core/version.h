@@ -31,12 +31,12 @@ namespace Seiscomp {
 namespace Core {
 
 
-/* #if (SC_API_VERSION >= SC_API_VERSION_CHECK(14, 4, 0)) */
+/* #if (SC_API_VERSION >= SC_API_VERSION_CHECK(15, 6, 0)) */
 #define SC_API_VERSION_CHECK(major, minor, patch) ((major<<16)|(minor<<8)|(patch))
 
 
 /* SC_API_VERSION is (major << 16) + (minor << 8) + patch. */
-#define SC_API_VERSION 0x0E0400
+#define SC_API_VERSION 0x0F0600
 
 #define SC_API_VERSION_MAJOR(v) (v >> 16)
 #define SC_API_VERSION_MINOR(v) ((v >> 8) & 0xff)
@@ -46,6 +46,111 @@ namespace Core {
 /******************************************************************************
  API Changelog
  ******************************************************************************
+ "15.6.0"   0x0F0600
+   - Added Seiscomp::Gui::PickerView::setAuxiliaryChannels
+
+ "15.5.0"   0x0F0500
+   - Added Seiscomp::Utils::TabValues
+
+ "15.4.0"   0x0F0400
+   - Added Seiscomp::Gui::RecordView::hasSelectedItems()
+   - Added Seiscomp::Gui::RecordView::mapToTime()
+   - Added Seiscomp::Gui::RecordView::mapToUnit()
+   - Added Seiscomp::Gui::RecordView::setRubberBandSelectionEnabled()
+   - Added Seiscomp::Gui::RecordView::SelectionOperation
+   - Added Seiscomp::Gui::RecordView::SelectionOperationFlag
+   - Added Seiscomp::Gui::RecordView::visibleTimeRange
+   - Added signal Seiscomp::Gui::RecordView::selectedRubberBand()
+   - Added Seiscomp::Gui::FlowLayout
+   - Added Seiscomp::Gui::setBold
+   - Added Seiscomp::Gui::setItalic
+
+ "15.3.0"   0x0F0300
+   - Added Seiscomp::Client::ThreadedQueue::isClosed
+
+ "15.2.0"   0x0F0200
+   - Added Seiscomp::Wired::peerCertificate
+   - Added Seiscomp::Client::ThreadedQueue::reset
+   - Added Seiscomp::DataModel::PublicObject::typeInfo
+
+ "15.1.0"   0x0F0100
+   - Added Seiscomp::MetaObject::Find
+   - Added Seiscomp::DataModel::Diff4
+   - Added Seiscomp::DataModel::QML_NS
+   - Added Seiscomp::DataModel::QML_NS_RT
+   - Added Seiscomp::DataModel::QML_NS_BED
+   - Added Seiscomp::DataModel::QML_NS_BED_RT
+   - Added Seiscomp::DataModel::QML_SMIPrefixEnvVar
+   - Added Seiscomp::Gui::Map::TileStore::loadingComplete
+   - Added Seiscomp::Gui::Map::TileStore::loadingCancelled
+
+ "15.0.0"   0x0F0000
+   - Added OriginUncertainty::confidenceLevel
+   - Set DataModel version to 0.12
+   - Added WindowFunc::apply(..., left, right)
+   - Changed WindowFunc::process(int n, T *inout, double width)
+     to WindowFunc::process(int n, T *inout, double left, double right)
+   - Added locale to Seiscomp::Processing::MagnitudeProcessor::computeMagnitude
+   - Removed Seiscomp::Processing::MagnitudeProcessor::correctMagnitude
+   - Added signal Seiscomp::Gui::EventListView::visibleEventCountChanged()
+   - Added Seiscomp::Gui::StationSymbol::setOutlineColor(QColor)
+   - Removed Seiscomp::Core::Generic::Archive::read(int)
+   - Removed Seiscomp::Core::Generic::Archive::write(int)
+   - Removed Seiscomp::Core::Generic::Archive::read(time_t)
+   - Removed Seiscomp::Core::Generic::Archive::write(time_t)
+   - Removed Seiscomp::Core::Generic::Archive::read(std::vector<int>)
+   - Removed Seiscomp::Core::Generic::Archive::write(std::vector<int>)
+   - Added Seiscomp::Core::Generic::Archive::read(int8_t)
+   - Added Seiscomp::Core::Generic::Archive::write(int8_t)
+   - Added Seiscomp::Core::Generic::Archive::read(int16_t)
+   - Added Seiscomp::Core::Generic::Archive::write(int16_t)
+   - Added Seiscomp::Core::Generic::Archive::read(int32_t)
+   - Added Seiscomp::Core::Generic::Archive::write(int32_t)
+   - Added Seiscomp::Core::Generic::Archive::read(int64_t)
+   - Added Seiscomp::Core::Generic::Archive::write(int64_t)
+   - Added Seiscomp::Core::Generic::Archive::read(std::vector<int8_t>)
+   - Added Seiscomp::Core::Generic::Archive::write(std::vector<int8_t>)
+   - Added Seiscomp::Core::Generic::Archive::read(std::vector<int16_t>)
+   - Added Seiscomp::Core::Generic::Archive::write(std::vector<int16_t>)
+   - Added Seiscomp::Core::Generic::Archive::read(std::vector<int32_t>)
+   - Added Seiscomp::Core::Generic::Archive::write(std::vector<int32_t>)
+   - Added Seiscomp::Core::Generic::Archive::read(std::vector<int64_t>)
+   - Added Seiscomp::Core::Generic::Archive::write(std::vector<int64_t>)
+   - Added Seiscomp::Gui::Map::AnnotationItem
+   - Added Seiscomp::Gui::Map::AnnotationStyle
+   - Added Seiscomp::Gui::Map::Annotations
+   - Added Seiscomp::Gui::Map::AnnotationLayer
+   - Added Seiscomp::Core::Time::utc()
+   - Added Seiscomp::Core::Time::UTC()
+   - Added Seiscomp::Core::Time::toUTC()
+   - Changed signature from
+     Seiscomp::Core::trimBack(char *&data, size_t &len) to
+     Seiscomp::Core::trimBack(char *data, size_t &len)
+   - Set TileStore API to version 3 which is incompatible with previous versions
+   - Remove Seiscomp::Gui::Alg::MapTree and Seiscomp::Gui::Alg::MapTreeNode
+   - Added Seiscomp::DataModel::id(const Network*, ...)
+   - Added Seiscomp::DataModel::id(const Station*, ...)
+   - Added Seiscomp::DataModel::id(const SensorLocation*, ...)
+   - Added Seiscomp::DataModel::id(const Stream*, ...)
+   - Added virtual Seiscomp::Wired::Session::accepted()
+   - Added Seiscomp::Wired::Socket::isAccepted()
+   - Added Seiscomp::Util::catchBool
+   - Fixed Python API for ExportSink::write to always pass bytes and
+     remove size parameter
+   - Added Regions::getFlinnEngdahlRegion
+   - Removed public access of Regions constructor
+   - Changed RecordWidget::Filter from float to double
+   - Changed SLOT Gui::RecordWidget::setScale(double, float) to
+             SLOT Gui::RecordWidget::setScale(double, double)
+   - Changed SLOT Gui::RecordWidget::setAmplScale(float) to
+             SLOT Gui::RecordWidget::setAmplScale(double)
+   - Changed SIGNAL Gui::RecordView::scaleChanged(double, float) to
+                    Gui::RecordView::scaleChanged(double, double)
+   - Changed SIGNAL Gui::RecordView::amplScaleChanged(float) to
+                    Gui::RecordView::amplScaleChanged(double)
+   - Changed SLOT Gui::RecordView::setScale(double, float) to
+             SLOT Gui::RecordView::setScale(double, double)
+
  "14.4.0"   0x0E0400
    - Added class Seiscomp::Core::Number<T> (ostream output)
    - Added Seiscomp::Core::number<T>() (Number<T> generator)
@@ -508,6 +613,8 @@ class SC_SYSTEM_CORE_API Version {
 		MajorType majorTag() const { return packed >> 0x10; }
 		MinorType minorTag() const { return (packed >> 0x08) & 0xff; }
 		PatchType patchTag() const { return packed & 0xff; }
+
+		PackType majorMinor() const { return packed & ~0xff; }
 
 		std::string toString() const;
 		bool fromString(const std::string &str);

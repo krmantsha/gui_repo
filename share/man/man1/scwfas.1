@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCWFAS" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCWFAS" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scwfas \- SeisComP Documentation
 .
@@ -57,7 +57,7 @@ on each level.
 .sp
 All data are forwarded unrestricted. There are no options to add restriction
 checks or user authentication.
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/scwfas.cfg\fP
@@ -81,44 +81,50 @@ If not given, an internal implementation will be used.
 .INDENT 0.0
 .TP
 .B filebase
+Default: \fB@ROOTDIR@/var/lib/archive\fP
+.sp
 Type: \fIstring\fP
 .sp
 The filebase of the SDS archive. If an alternative archive
 handler is defined by "handlerSDS", this value serves
 as input to setSource().
-Default is \fB@ROOTDIR@/var/lib/archive\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B arclink.port
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 The server port for Arclink connections. \-1
 deactivates the Arclink server. The standard Arclink port is
 18001.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B fdsnws.port
+Default: \fB8080\fP
+.sp
 Type: \fIint\fP
 .sp
 The server port for FDSNWS connections. \-1
 deactivates the FDSN Web server.
-Default is \fB8080\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B fdsnws.baseURL
+Default: \fBhttp://localhost:8080/fdsnws\fP
+.sp
 Type: \fIstring\fP
 .sp
 The base URL of the FDSN Web service that is
 given in the WADL document.
-Default is \fBhttp://localhost:8080/fdsnws\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B fdsnws.maxTimeWindow
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
@@ -126,29 +132,30 @@ Unit: \fIs\fP
 The aggregated maximum time window (seconds)
 for all requested streams. A value of 0 will deactive
 any restriction.
-Default is \fB0\fP\&.
 .UNINDENT
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
 .sp
 \fBscwfas [options]\fP
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -158,24 +165,25 @@ Load given plugins.
 .INDENT 0.0
 .TP
 .B \-D, \-\-daemon
-Run as daemon. This means the application will fork itself and
-doesn\(aqt need to be started with &.
+Run as daemon. This means the application will fork itself
+and doesn\(aqt need to be started with &.
 .UNINDENT
 .SS Verbosity
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -187,12 +195,14 @@ for file output but disabled for console output.
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -207,12 +217,15 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-trace
-Trace mode: \-\-verbosity=4 \-\-console=1 \-\-print\-component=1 \-\-print\-context=1
+Execute in trace mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 \-\-print\-component=1
+\-\-print\-context=1 .
 .UNINDENT
 .INDENT 0.0
 .TP

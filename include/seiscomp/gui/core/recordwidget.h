@@ -232,29 +232,30 @@ class SC_GUI_API RecordWidget : public QWidget {
 			Box
 		};
 
-		typedef Math::Filtering::InPlaceFilter<float> Filter;
+		typedef Math::Filtering::InPlaceFilter<double> Filter;
 
 		struct Trace {
 			Trace() = default;
 
-			float                     dyMin{0};   // Data minimum value
-			float                     dyMax{0};   // Data maximum value
-			float                     dOffset{0}; // Data offset
-			float                     absMax{0};
+			double                    dyMin{0};   // Data minimum value
+			double                    dyMax{0};   // Data maximum value
+			double                    dOffset{0}; // Data offset
+			double                    absMax{0};
 			int                       pyMin{0};   //
 			int                       pyMax{0};
-			float                     fyMin{-1};
-			float                     fyMax{1};
+			double                    fyMin{-1};
+			double                    fyMax{1};
 
-			float                     yMin{0};
-			float                     yMax{0};
-			float                     yOffset{0}; // The used offset
+			double                    yMin{0};
+			double                    yMax{0};
+			double                    yOffset{0}; // The used offset
 
 			float                     timingQuality{-1};
 			int                       timingQualityCount{0};
 			bool                      dirty{false};
 			bool                      visible{false};
 			AbstractRecordPolylinePtr poly;
+			QString                   status;
 
 			void reset() {
 				dyMin = dyMax = dOffset  = absMax = 0;
@@ -264,7 +265,7 @@ class SC_GUI_API RecordWidget : public QWidget {
 				poly = nullptr;
 			}
 
-			bool validTrace() {
+			bool validTrace() const {
 				return poly && !poly->isEmpty();
 			}
 		};
@@ -298,6 +299,7 @@ class SC_GUI_API RecordWidget : public QWidget {
 		bool setRecordFilter(int slot, const Filter *f);
 		bool setRecordScale(int slot, double scale);
 		bool setRecordUserData(int slot, QVariant data);
+		bool setRecordStatus(int slot, bool filtered, QString status);
 
 		RecordSequence *records() const;
 		RecordSequence *records(int slot) const;
@@ -332,6 +334,9 @@ class SC_GUI_API RecordWidget : public QWidget {
 
 		void setDrawOffset(bool f);
 		bool drawOffset() const { return _drawOffset; }
+
+		void setDrawSPS(bool f);
+		bool drawSPS() const { return _drawSPS; }
 
 		void setDrawRecordID(bool f);
 		bool drawRecordID() const { return _drawRecordID; }
@@ -380,7 +385,7 @@ class SC_GUI_API RecordWidget : public QWidget {
 		float timingQuality(int slot) const;
 
 		double timeScale() const { return _pixelPerSecond; }
-		float amplScale() const { return _amplScale; }
+		double amplScale() const { return _amplScale; }
 		double tmin() const { return _tmin; }
 		double tmax() const { return _tmax; }
 		double amplMin() const { return _amplitudeRange[0]; }
@@ -400,11 +405,11 @@ class SC_GUI_API RecordWidget : public QWidget {
 
 		//! Returns the amplitude range of the available data in the normalization
 		//! window
-		QPair<float,float> amplitudeDataRange(int slot) const;
+		QPair<double,double> amplitudeDataRange(int slot) const;
 
 		//! Returns the amplitude range of the trace slot where first corresponds
 		//! to the lower pixel row and second to the upper pixel row
-		QPair<float,float> amplitudeRange(int slot) const;
+		QPair<double,double> amplitudeRange(int slot) const;
 
 		void ensureVisibility(const Seiscomp::Core::Time &time, int pixelMargin);
 	
@@ -519,9 +524,6 @@ class SC_GUI_API RecordWidget : public QWidget {
 		//! Maps a widget position to a time
 		Core::Time unmapTime(int x) const;
 
-		//bool setGain(float);
-		//float gain() const;
-
 		const DataModel::WaveformStreamID& streamID() const;
 
 		void setSlotCount(int);
@@ -547,7 +549,7 @@ class SC_GUI_API RecordWidget : public QWidget {
 		void setSelected(double t1, double t2);
 		void setSelected(Seiscomp::Core::Time t1, Seiscomp::Core::Time t2);
 
-		void setScale(double, float=0);
+		void setScale(double, double=0);
 		void setTimeScale(double);
 
 		void setTimeRange(double, double);
@@ -562,7 +564,7 @@ class SC_GUI_API RecordWidget : public QWidget {
 		void setAlignment(Seiscomp::Core::Time t);
 		void alignOnMarker(const QString& text);
 
-		void setAmplScale(float);
+		void setAmplScale(double);
 	
 		void enableFiltering(bool enable);
 		void setGridSpacing(double, double, double);
@@ -666,7 +668,7 @@ class SC_GUI_API RecordWidget : public QWidget {
 
 		virtual void createPolyline(int slot, AbstractRecordPolylinePtr &polyline,
 		                            RecordSequence const *, double pixelPerSecond,
-		                            float amplMin, float amplMax, float amplOffset,
+		                            double amplMin, double amplMax, double amplOffset,
 		                            int height, bool optimization, bool highPrecision);
 		virtual const double *value(int slot, const Seiscomp::Core::Time&) const;
 
@@ -729,11 +731,12 @@ class SC_GUI_API RecordWidget : public QWidget {
 
 		void prepareRecords(Stream *s);
 		void drawRecords(Stream *s, int slot);
-		void drawTrace(QPainter &painter, Trace *trace,
-		               RecordSequence *seq,
+		void drawTrace(QPainter &painter,
+		               const Trace *trace,
+		               const RecordSequence *seq,
 		               const QPen &pen,
-		               const QPoint &paintOffset);
-		void drawRecordBorders(QPainter &painter, RecordSequence *seq);
+		               const QPoint &paintOffset) const;
+		void drawRecordBorders(QPainter &painter, const RecordSequence *seq) const;
 
 		void drawAxis(QPainter &painter, const QPen &p);
 
@@ -748,13 +751,13 @@ class SC_GUI_API RecordWidget : public QWidget {
 		DrawMode             _drawMode;
 		RecordBorderDrawMode _recordBorderDrawMode;
 		Seiscomp::Core::Time _alignment;
-		bool                 _clipRows;
+		bool                 _clipRows{true};
 	
 		double               _tmin;            // time range min
 		double               _tmax;            // time range max
 		double               _smin, _smax;     // selection
 		double               _pixelPerSecond;
-		float                _amplScale;       // pixel per amplitude unit (0=normalize)
+		double               _amplScale;       // pixel per amplitude unit (0=normalize)
 		double               _gridHSpacing[2];
 		double               _gridHOffset;
 
@@ -763,22 +766,23 @@ class SC_GUI_API RecordWidget : public QWidget {
 		double               _gridVOffset;
 		double               _gridVScale;
 
-		float                _amplitudeRange[2];
-		bool                 _useFixedAmplitudeRange;
-		bool                 _useMinAmplitudeRange;
+		double               _amplitudeRange[2];
+		bool                 _useFixedAmplitudeRange{false};
+		bool                 _useMinAmplitudeRange{false};
 
-		bool                 _active;
-		bool                 _filtering;
-		bool                 _showScaledValues;
+		bool                 _active{false};
+		bool                 _filtering{false};
+		bool                 _showScaledValues{false};
 
-		bool                 _drawRecords;
-		bool                 _drawRecordID;
-		bool                 _drawOffset;
-		bool                 _showAllRecords;
-		bool                 _showRecordBorders;
-		bool                 _autoMaxScale;
+		bool                 _drawRecords{false};
+		bool                 _drawRecordID{true};
+		bool                 _drawOffset{true};
+		bool                 _drawSPS{false};
+		bool                 _showAllRecords{false};
+		bool                 _showRecordBorders{false};
+		bool                 _autoMaxScale{false};
 		bool                 _enabled;
-		bool                 _useGlobalOffset;
+		bool                 _useGlobalOffset{false};
 		bool                 _drawAxis;
 
 		int                  _tracePaintOffset;

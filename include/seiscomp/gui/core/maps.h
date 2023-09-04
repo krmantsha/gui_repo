@@ -31,14 +31,22 @@ namespace Gui {
 
 /**
  * ----------------------------------------------------------------------------
- * Tilestore version history
+ * TileStore version history
  * ----------------------------------------------------------------------------
  * 1
  *   - Initial version
  * 2
  *   - Allow TileStore::load to return null images
+ * 3
+ *   - Do not inherit from MapTree and remove MapTreeNode completely
+ *   - Add maxLevel query
+ *   - Replace TextureID with Tile
+ *   - All parameters with type MapTreeNode are replaced by parameters
+ *     with type Tile
+ * 4 - Add two new methods to notify about asynchronous tile loading
+ *     success and cancellation
  */
-#define TILESTORE_VERSION 2
+#define TILESTORE_VERSION 4
 
 
 struct SC_GUI_API MapsDesc {

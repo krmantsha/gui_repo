@@ -361,8 +361,8 @@ Examples
 
 .. _scwfparam_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 | :file:`etc/defaults/global.cfg`
 | :file:`etc/defaults/scwfparam.cfg`
@@ -377,12 +377,16 @@ scwfparam inherits :ref:`global options<global-configuration>`.
 
 .. confval:: wfparam.logfile
 
+   Default: ``@LOGDIR@/scwfparam-processing-info.log``
+
    Type: *path*
 
    The path to the processing info logfile.
-   Default is ``@LOGDIR@/scwfparam-processing-info.log``.
+
 
 .. confval:: wfparam.totalTimeWindowLength
+
+   Default: ``360``
 
    Type: *int*
 
@@ -391,7 +395,7 @@ scwfparam inherits :ref:`global options<global-configuration>`.
    Default value of total time window length in seconds if
    wfparam.magnitudeTimeWindowTable is not specified. This times window
    includes wfparam.preEventWindowLength.
-   Default is ``360``.
+
 
 .. confval:: wfparam.magnitudeTimeWindowTable
 
@@ -407,14 +411,18 @@ scwfparam inherits :ref:`global options<global-configuration>`.
 
 .. confval:: wfparam.preEventWindowLength
 
+   Default: ``60``
+
    Type: *int*
 
    Unit: *s*
 
    The pre event time window length in seconds.
-   Default is ``60``.
+
 
 .. confval:: wfparam.maximumEpicentralDistance
+
+   Default: ``400``
 
    Type: *int*
 
@@ -423,7 +431,7 @@ scwfparam inherits :ref:`global options<global-configuration>`.
    The maximum epicentral distance in km of a station being considered
    for processing. This value is used if wfparam.magnitudeDistanceTable
    is not specified.
-   Default is ``400``.
+
 
 .. confval:: wfparam.magnitudeDistanceTable
 
@@ -436,6 +444,8 @@ scwfparam inherits :ref:`global options<global-configuration>`.
 
 .. confval:: wfparam.saturationThreshold
 
+   Default: ``80``
+
    Type: *double*
 
    Unit: *%*
@@ -443,53 +453,65 @@ scwfparam inherits :ref:`global options<global-configuration>`.
    Relative saturation threshold in percent. If the absolute raw amplitude
    exceeds X% of 2\*\*23 counts the station will be excluded from
    processing. This assumes a 24bit datalogger.
-   Default is ``80``.
+
 
 .. confval:: wfparam.STAlength
+
+   Default: ``1``
 
    Type: *double*
 
    Unit: *s*
 
    Specifies the STA length in seconds of the applied STA\/LTA check.
-   Default is ``1``.
+
 
 .. confval:: wfparam.LTAlength
+
+   Default: ``60``
 
    Type: *double*
 
    Unit: *s*
 
    Specifies the LTA length in seconds of the applied STA\/LTA check.
-   Default is ``60``.
+
 
 .. confval:: wfparam.STALTAratio
+
+   Default: ``3``
 
    Type: *double*
 
    Specifies the minimum STALTA ratio to be reached to further process
    a station.
-   Default is ``3``.
+
 
 .. confval:: wfparam.STALTAmargin
+
+   Default: ``5``
 
    Type: *double*
 
    Unit: *s*
 
    Specifies the number of seconds around P to be used to check the STA\/LTA ratio.
-   Default is ``5``.
+
 
 .. confval:: wfparam.durationScale
+
+   Default: ``1.5``
 
    Type: *double*
 
    Defines the factor applied to the signigicant duration to define the
    processing spetra time window. If that value is <\= 0 the totalTimeWindowLength
    is used.
-   Default is ``1.5``.
+
 
 .. confval:: wfparam.dampings
+
+   Default: ``5``
 
    Type: *list:double*
 
@@ -498,18 +520,22 @@ scwfparam inherits :ref:`global options<global-configuration>`.
    Specifies a list of damping values \(in percent\) for computation of
    the relative displacement elastic response spectrum.
    Example: \"5,10,15\"
-   Default is ``5``.
+
 
 .. confval:: wfparam.naturalPeriods
+
+   Default: ``100``
 
    Type: *int*
 
    Specifies the number of natural periods for computation of the
    relative displacement elastic response spectrum between Tmin and Tmax.
    If fixed is given then a fixed list of periods is used.
-   Default is ``100``.
+
 
 .. confval:: wfparam.Tmin
+
+   Default: ``0``
 
    Type: *double*
 
@@ -517,9 +543,11 @@ scwfparam inherits :ref:`global options<global-configuration>`.
 
    Specifies the minimum period \(Tmin\) in seconds for computation of the
    relative displacement elastic response spectrum.
-   Default is ``0``.
+
 
 .. confval:: wfparam.Tmax
+
+   Default: ``5``
 
    Type: *double*
 
@@ -527,25 +555,31 @@ scwfparam inherits :ref:`global options<global-configuration>`.
 
    Specifies the maximum period \(Tmax\) in seconds for computation of the
    relative displacement elastic response spectrum.
-   Default is ``5``.
+
 
 .. confval:: wfparam.clipTmax
+
+   Default: ``true``
 
    Type: *boolean*
 
    Should the maximum period \(Tmax\) clipped against the
    configured filter lower corner frequency, the maximum of
    pd.loFreq or filter.loFreq.
-   Default is ``true``.
+
 
 .. confval:: wfparam.afterShockRemoval
+
+   Default: ``true``
 
    Type: *boolean*
 
    Enables\/disables aftershock removal \(Figini, 2006; Paolucci et al., 2008\)
-   Default is ``true``.
+
 
 .. confval:: wfparam.eventCutOff
+
+   Default: ``true``
 
    Type: *boolean*
 
@@ -554,29 +588,44 @@ scwfparam inherits :ref:`global options<global-configuration>`.
    window defined by \(expected_P_arrival_time \- 15 s\). The pre\-event
    window is hence defined as
    [t\(sta\/lta \=1.2\) \- 15.5s, t\(sta\/lta \=1.2\) \- 0.5s].
-   Default is ``true``.
+
 
 .. confval:: wfparam.magnitudeFilterTable
 
+   Default: ``0:0.2;0.8fNyquist,3:0.1;0.8fNyquist,5:0.05;0.8fNyquist,7:0.025;0.8fNyquist``
+
    Type: *list:string*
 
-   Default is ``0:0.2;0.8fNyquist,3:0.1;0.8fNyquist,5:0.05;0.8fNyquist,7:0.025;0.8fNyquist``.
+   Magnitude dependent filter table. The format is
+   \"mag1:fmin1;fmax1, mag2:fmin2;fmax2, mag3:fmin3;fmax3\".
+   If a magnitude falls between two configured magnitudes the filter of
+   the lower magnitude is then used. No interpolation takes place.
+   Magnitude outside the configured range are clipped to the
+   lowest\/highest value.
+   Frequency values are given as simple positive doubles \(Hz is assumed\)
+   or with suffix \"fNyquist\" which is then multiplied by the
+   Nyquist frequency of the data to get the final corner frequency.
+
 
 .. confval:: wfparam.deconvolution
+
+   Default: ``true``
 
    Type: *boolean*
 
    Enables\/disables deconvolution. If a channel does not provide full
    response information it is not used for processing.
-   Default is ``true``.
+
 
 .. confval:: wfparam.magnitudeTolerance
+
+   Default: ``0.5``
 
    Type: *double*
 
    Defines the magnitude tolerance to completely reprocess an event with
    respect to the last state.
-   Default is ``0.5``.
+
 
 .. note::
    **wfparam.streams.\***
@@ -612,12 +661,14 @@ scwfparam inherits :ref:`global options<global-configuration>`.
 
 .. confval:: wfparam.naturalPeriods.log
 
+   Default: ``false``
+
    Type: *boolean*
 
    Defines if a linear spacing or logarithmic spacing between Tmin and
    Tmax is used. The default is a linear spacing. The logarithmic
    spacing will fail if either Tmin or Tmax is 0.
-   Default is ``false``.
+
 
 .. note::
    **wfparam.filter.\***
@@ -627,12 +678,16 @@ scwfparam inherits :ref:`global options<global-configuration>`.
 
 .. confval:: wfparam.filter.order
 
+   Default: ``4``
+
    Type: *int*
 
    Specifies the order of the 1st stage filter.
-   Default is ``4``.
+
 
 .. confval:: wfparam.filter.loFreq
+
+   Default: ``0.025``
 
    Type: *double*
 
@@ -641,9 +696,11 @@ scwfparam inherits :ref:`global options<global-configuration>`.
    If suffix \"fNyquist\" is used then the value is multiplied
    by the Nyquist frequency of the data to get the final corner
    frequency of the filter.
-   Default is ``0.025``.
+
 
 .. confval:: wfparam.filter.hiFreq
+
+   Default: ``40``
 
    Type: *double*
 
@@ -652,7 +709,7 @@ scwfparam inherits :ref:`global options<global-configuration>`.
    If suffix \"fNyquist\" is used then the value is multiplied
    by the Nyquist frequency of the data to get the final corner
    frequency of the filter.
-   Default is ``40``.
+
 
 .. note::
    **wfparam.pd.\***
@@ -663,12 +720,16 @@ scwfparam inherits :ref:`global options<global-configuration>`.
 
 .. confval:: wfparam.pd.order
 
+   Default: ``4``
+
    Type: *int*
 
    Specifies the order of the 2nd stage filter.
-   Default is ``4``.
+
 
 .. confval:: wfparam.pd.loFreq
+
+   Default: ``0``
 
    Type: *double*
 
@@ -677,9 +738,11 @@ scwfparam inherits :ref:`global options<global-configuration>`.
    If suffix \"fNyquist\" is used then the value is multiplied
    by the Nyquist frequency of the data to get the final corner
    frequency of the filter.
-   Default is ``0``.
+
 
 .. confval:: wfparam.pd.hiFreq
+
+   Default: ``0``
 
    Type: *double*
 
@@ -688,16 +751,20 @@ scwfparam inherits :ref:`global options<global-configuration>`.
    If suffix \"fNyquist\" is used then the value is multiplied
    by the Nyquist frequency of the data to get the final corner
    frequency of the filter.
-   Default is ``0``.
+
 
 .. confval:: wfparam.filtering.noncausal
+
+   Default: ``false``
 
    Type: *boolean*
 
    Enables non\-causal filtering in the frequency domain.
-   Default is ``false``.
+
 
 .. confval:: wfparam.filtering.taperLength
+
+   Default: ``-1``
 
    Type: *double*
 
@@ -707,9 +774,11 @@ scwfparam inherits :ref:`global options<global-configuration>`.
    are activated applied on either side of the waveform. If a
    negative length is given 10 percent of the pre\-event window length
    is used on either side of the waveform.
-   Default is ``-1``.
+
 
 .. confval:: wfparam.filtering.padLength
+
+   Default: ``-1``
 
    Type: *double*
 
@@ -720,18 +789,22 @@ scwfparam inherits :ref:`global options<global-configuration>`.
    negative, it is computed following Boore \(2005\) as
    1.5\*order\/corner_freq and applied half at the beginning and half at
    the end of the waveform.
-   Default is ``-1``.
+
 
 .. confval:: wfparam.cron.wakeupInterval
+
+   Default: ``10``
 
    Type: *int*
 
    Unit: *s*
 
    Specifies the interval in seconds to check\/start scheduled operations.
-   Default is ``10``.
+
 
 .. confval:: wfparam.cron.eventMaxIdleTime
+
+   Default: ``3600``
 
    Type: *int*
 
@@ -740,9 +813,11 @@ scwfparam inherits :ref:`global options<global-configuration>`.
    Specifies the maximum allowed idle time of a process before removed.
    The idle time is calculated if no further processing is scheduled
    and computes as: [now]\-lastRun.
-   Default is ``3600``.
+
 
 .. confval:: wfparam.cron.logging
+
+   Default: ``true``
 
    Type: *boolean*
 
@@ -751,15 +826,17 @@ scwfparam inherits :ref:`global options<global-configuration>`.
    and contains information about the scheduled events and the
    processing queue. The file is updated each n seconds,
    where n \= wfparam.cron.wakeupInterval.
-   Default is ``true``.
+
 
 .. confval:: wfparam.cron.updateDelay
+
+   Default: ``60``
 
    Type: *int*
 
    Specifies the delay in seconds to delay processing if a new
    authoritative origin arrives for an event.
-   Default is ``60``.
+
 
 .. confval:: wfparam.cron.delayTimes
 
@@ -773,6 +850,8 @@ scwfparam inherits :ref:`global options<global-configuration>`.
 
 .. confval:: wfparam.acquisition.initialTimeout
 
+   Default: ``30``
+
    Type: *int*
 
    Unit: *s*
@@ -780,9 +859,11 @@ scwfparam inherits :ref:`global options<global-configuration>`.
    Specifies the initial acquisition timeout. If the acquisition
    source \(e.g. Arclink\) does not respond within this threshold with
    waveforms, the request is discarded.
-   Default is ``30``.
+
 
 .. confval:: wfparam.acquisition.runningTimeout
+
+   Default: ``2``
 
    Type: *int*
 
@@ -795,9 +876,11 @@ scwfparam inherits :ref:`global options<global-configuration>`.
    at least one requested channel has no data. Seedlink does not
    finished the request until all data has been sent. When data will
    arrive for a particular channel is not known.
-   Default is ``2``.
+
 
 .. confval:: wfparam.output.messaging
+
+   Default: ``false``
 
    Type: *boolean*
 
@@ -808,9 +891,11 @@ scwfparam inherits :ref:`global options<global-configuration>`.
    schema must be applied.
    The default message group is AMPLITUDE. To change this group redefine
    connection.primaryGroup.
-   Default is ``false``.
+
 
 .. confval:: wfparam.output.shortEventID
+
+   Default: ``false``
 
    Type: *boolean*
 
@@ -818,72 +903,100 @@ scwfparam inherits :ref:`global options<global-configuration>`.
    created. The default pattern is [eventtime]_[mag]_[lat]_[lon]_[updatetime].
    The short format just contains the first part, namely [eventtime] in
    the format YEARmmddHHMMSS.
-   Default is ``false``.
+
 
 .. confval:: wfparam.output.waveforms.enable
+
+   Default: ``false``
 
    Type: *boolean*
 
    Enables\/disables the output of processed waveforms.
-   Default is ``false``.
+
 
 .. confval:: wfparam.output.waveforms.path
+
+   Default: ``@LOGDIR@/shakemaps/waveforms``
 
    Type: *string*
 
    Specifies the waveform output path. This parameter is only used if
    wfparam.output.waveforms.enable is true.
-   Default is ``@LOGDIR@/shakemaps/waveforms``.
+
 
 .. confval:: wfparam.output.waveforms.withEventDirectory
+
+   Default: ``false``
 
    Type: *boolean*
 
    Enables\/disables the creation of an event directory \(named with
    eventID\) when storing the processed waveforms. This parameter is
    only used if wfparam.output.waveforms.enable is true.
-   Default is ``false``.
+
 
 .. confval:: wfparam.output.spectra.enable
+
+   Default: ``false``
 
    Type: *boolean*
 
    Enables\/disables the output of spectra \(psa, drs\). The output
    format is a simple ASCII file where the first column is the
    period and the second column the corresponding value.
-   Default is ``false``.
+
 
 .. confval:: wfparam.output.spectra.path
+
+   Default: ``@LOGDIR@/shakemaps/spectra``
 
    Type: *string*
 
    Specifies the spectra output path. This parameter is only used if
    wfparam.output.spectra.enable is true.
-   Default is ``@LOGDIR@/shakemaps/spectra``.
+
 
 .. confval:: wfparam.output.spectra.withEventDirectory
+
+   Default: ``false``
 
    Type: *boolean*
 
    Enables\/disables the creation of an event directory \(named with
    eventID\) when storing the spectra. This parameter is only used if
    wfparam.output.spectra.enable is true.
-   Default is ``false``.
+
 
 .. confval:: wfparam.output.shakeMap.enable
+
+   Default: ``true``
 
    Type: *boolean*
 
    Enables\/disables ShakeMap XML output.
-   Default is ``true``.
+
+
+.. confval:: wfparam.output.shakeMap.pgm
+
+   Default: ``pga, pgv, psa03, psa10, psa30``
+
+   Type: *list:string*
+
+   Define a list of pg values to be forwarded to
+   ShakeMap in version 4 or later.
+   The period xx in psa must be in the list of
+   naturalPeriods and must not exceed 9.9s.
+
 
 .. confval:: wfparam.output.shakeMap.path
+
+   Default: ``@LOGDIR@/shakemaps``
 
    Type: *string*
 
    Specifies the ShakeMap XML output path. This is only used if
    wfparam.output.shakeMap.enable is set to true.
-   Default is ``@LOGDIR@/shakemaps``.
+
 
 .. confval:: wfparam.output.shakeMap.script
 
@@ -899,59 +1012,80 @@ scwfparam inherits :ref:`global options<global-configuration>`.
 
 .. confval:: wfparam.output.shakeMap.synchronous
 
+   Default: ``true``
+
    Type: *boolean*
 
    Enables\/disables synchronous or asynchronous script calls. If
    enabled, be careful to not spend too much time in the script.
    The application is blocked while the script is running.
-   Default is ``true``.
+
 
 .. confval:: wfparam.output.shakeMap.maximumOfHorizontals
+
+   Default: ``false``
 
    Type: *boolean*
 
    If enabled the maximum PGV, PGA, PSA03, PSA10 and PSA30 of both
    horizontal components is used in the final output. Otherwise each
    component is saved.
-   Default is ``false``.
+
 
 .. confval:: wfparam.output.shakeMap.SC3EventID
+
+   Default: ``false``
 
    Type: *boolean*
 
    Uses the SeisComP event publicID as id attribute of the
    earthquake tag, a generated ShakeMapID otherwise.
-   Default is ``false``.
+
 
 .. confval:: wfparam.output.shakeMap.regionName
+
+   Default: ``false``
 
    Type: *boolean*
 
    Uses the event region name \(if available\) for the locstring
    attribute, the publicID, lat, lon otherwise.
-   Default is ``false``.
+
 
 .. confval:: wfparam.output.shakeMap.encoding
+
+   Default: ``UTF-8``
 
    Type: *string*
 
    The XML encoding string written to the Shakemap XML file.
-   Default is ``UTF-8``.
+
 
 .. confval:: wfparam.output.shakeMap.version
+
+   Default: ``3``
 
    Type: *int*
 
    The target version of the Shakemap input files.
-   Default is ``3``.
 
 
-Bindings
-========
+
+Bindings Parameters
+===================
 
 
-Configuration
--------------
+
+.. confval:: commtype
+
+   Default: ``DIG``
+
+   Type: *string*
+
+   Defines the communication type of the station which is forwarded
+   without modification to the Shakemap input file in version 4 or
+   greater. Reference:
+   https:\/\/usgs.github.io\/shakemap\/manual4_0\/sg_input_formats.html.
 
 
 .. confval:: amplitudes.PGAV.saturationThreshold
@@ -975,8 +1109,8 @@ Configuration
 
 
 
-Command-line
-============
+Command-Line Options
+====================
 
 .. program:: scwfparam
 
@@ -986,18 +1120,20 @@ Generic
 
 .. option:: -h, --help
 
-   show help message.
+   Show help message.
 
 .. option:: -V, --version
 
-   show version information
+   Show version information.
 
 .. option:: --config-file arg
 
-   Use alternative configuration file. When this option is used
-   the loading of all stages is disabled. Only the given configuration
-   file is parsed and used. To use another name for the configuration
-   create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+   Use alternative configuration file. When this option is
+   used the loading of all stages is disabled. Only the
+   given configuration file is parsed and used. To use
+   another name for the configuration create a symbolic
+   link of the application or copy it. Example:
+   scautopick \-> scautopick2.
 
 .. option:: --plugins arg
 
@@ -1005,26 +1141,28 @@ Generic
 
 .. option:: -D, --daemon
 
-   Run as daemon. This means the application will fork itself and
-   doesn't need to be started with \&.
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
 
 .. option:: --auto-shutdown arg
 
-   Enable\/disable self\-shutdown because a master module shutdown. This only
-   works when messaging is enabled and the master module sends a shutdown
-   message \(enabled with \-\-start\-stop\-msg for the master module\).
+   Enable\/disable self\-shutdown because a master module shutdown.
+   This only works when messaging is enabled and the master
+   module sends a shutdown message \(enabled with \-\-start\-stop\-msg
+   for the master module\).
 
 .. option:: --shutdown-master-module arg
 
-   Sets the name of the master\-module used for auto\-shutdown. This
-   is the application name of the module actually started. If symlinks
-   are used then it is the name of the symlinked application.
+   Set the name of the master\-module used for auto\-shutdown.
+   This is the application name of the module actually
+   started. If symlinks are used, then it is the name of
+   the symlinked application.
 
 .. option:: --shutdown-master-username arg
 
-   Sets the name of the master\-username of the messaging used for
-   auto\-shutdown. If \"shutdown\-master\-module\" is given as well this
-   parameter is ignored.
+   Set the name of the master\-username of the messaging
+   used for auto\-shutdown. If \"shutdown\-master\-module\" is
+   given as well, this parameter is ignored.
 
 .. option:: -x, --expiry hours
 
@@ -1044,23 +1182,26 @@ Verbosity
 
 .. option:: --verbosity arg
 
-   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
 
 .. option:: -v, --v
 
-   Increase verbosity level \(may be repeated, eg. \-vv\)
+   Increase verbosity level \(may be repeated, eg. \-vv\).
 
 .. option:: -q, --quiet
 
-   Quiet mode: no logging output
+   Quiet mode: no logging output.
 
 .. option:: --component arg
 
-   Limits the logging to a certain component. This option can be given more than once.
+   Limit the logging to a certain component. This option can
+   be given more than once.
 
 .. option:: -s, --syslog
 
-   Use syslog logging back end. The output usually goes to \/var\/lib\/messages.
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
 
 .. option:: -l, --lockfile arg
 
@@ -1072,7 +1213,8 @@ Verbosity
 
 .. option:: --debug
 
-   Debug mode: \-\-verbosity\=4 \-\-console\=1
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
 
 .. option:: --log-file arg
 
@@ -1100,7 +1242,8 @@ Messaging
 
 .. option:: -S, --subscribe-group arg
 
-   A group to subscribe to. This option can be given more than once.
+   A group to subscribe to.
+   This option can be given more than once.
 
 .. option:: --content-type arg
 
@@ -1108,7 +1251,7 @@ Messaging
 
 .. option:: --start-stop-msg arg
 
-   Sets sending of a start\- and a stop message.
+   Set sending of a start and a stop message.
 
 .. option:: --test
 
@@ -1124,17 +1267,19 @@ Database
 
 .. option:: -d, --database arg
 
-   The database connection string, format: service:\/\/user:pwd\@host\/database.
-   \"service\" is the name of the database driver which can be
-   queried with \"\-\-db\-driver\-list\".
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
 
 .. option:: --config-module arg
 
-   The configmodule to use.
+   The config module to use.
 
 .. option:: --inventory-db arg
 
-   Load the inventory from the given database or file, format: [service:\/\/]location
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
 
 .. option:: --db-disable
 
@@ -1146,14 +1291,16 @@ Records
 
 .. option:: --record-driver-list
 
-   List all supported record stream drivers
+   List all supported record stream drivers.
 
 .. option:: -I, --record-url arg
 
-   The recordstream source URL, format: [service:\/\/]location[#type].
-   \"service\" is the name of the recordstream driver which can be
-   queried with \"\-\-record\-driver\-list\". If \"service\"
-   is not given \"file:\/\/\" is used.
+   The recordstream source URL, format:
+   [service:\/\/]location[#type].
+   \"service\" is the name of the recordstream driver
+   which can be queried with \"\-\-record\-driver\-list\".
+   If \"service\" is not given, \"file:\/\/\" is
+   used.
 
 .. option:: --record-file arg
 

@@ -30,18 +30,29 @@
 namespace Seiscomp {
 
 class SC_SYSTEM_CORE_API Regions {
-
 	public:
-		Regions();
+		static std::string getFlinnEngdahlRegion(double lat, double lon, int *id = nullptr);
+
+		/**
+		 * @return The number of available Flinn-Engdahl regions.
+		 */
+		static int getFlinnEngdahlRegionsCount();
+
+		/**
+		 * @brief Returns the Flinn-Engdahl region by id.
+		 * Note that the id starts at 1.
+		 * @param id The Flinn-Engdahl region id
+		 * @return The Flinn-Engdahl region name. If the id is out of
+		 *         bounds then an empty string will be returned.
+		 */
+		static std::string getFlinnEngdahlRegionById(int id);
 
 		static void load();
 		static std::string getRegionName(double lat, double lon);
 		static Seiscomp::Geo::PolyRegions &polyRegions();
 
 	private:
-		static std::string getFeGeoRegionName(double lat, double lon);
-		static std::string getRegionalName(double lat, double lon);
-
+		Regions() = default;
 };
 
 

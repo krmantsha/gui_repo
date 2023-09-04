@@ -22,8 +22,6 @@
 #define SEISCOMP_GUI_ORIGINLOCATORVIEW_H
 
 
-#include <seiscomp/gui/datamodel/ui_originlocatorview.h>
-#include <seiscomp/gui/core/ui_diagramfilter.h>
 #include <seiscomp/gui/core/diagramwidget.h>
 #include <seiscomp/gui/datamodel/originlocatormap.h>
 #include <seiscomp/gui/datamodel/pickerview.h>
@@ -42,7 +40,15 @@
 
 #include <set>
 
+
+// Ui forward declarations
 class QTreeWidgetItem;
+
+namespace Ui {
+	class OriginLocatorView;
+	class FilterSettings;
+}
+
 
 
 namespace Seiscomp {
@@ -74,9 +80,12 @@ class SC_GUI_API ArrivalModel : public QAbstractTableModel {
 	public:
 		ArrivalModel(DataModel::Origin* origin = nullptr, QObject *parent = 0);
 
+	public:
 		void setDisabledForeground(QColor c) { _disabledForeground = c; }
 
 		void setOrigin(DataModel::Origin* origin);
+		DataModel::Origin *origin() const;
+
 		void setRowColor(int row, const QColor&);
 
 		int rowCount(const QModelIndex &parent = QModelIndex()) const;
@@ -108,16 +117,20 @@ class SC_GUI_API ArrivalModel : public QAbstractTableModel {
 		bool timeUsed(int row) const;
 		void setTimeUsed(int row, bool enabled);
 
+		int  usedFlags(int row) const;
+
 	private:
-		DataModel::Origin* _origin;
-		QVector<int> _used;
-		QVector<int>  _hoverState;
-		QVector<QVariant> _takeOffs;
-		QVector<bool> _enableState;
-		QVector<QVariant> _backgroundColors;
-		QColor _disabledForeground;
-		QStringList _header;
-		std::string _pickTimeFormat;
+		static const int F_DISABLED = 1 << 31;
+
+		DataModel::Origin *_origin;
+		QVector<int>       _used;
+		QVector<int>       _hoverState;
+		QVector<QVariant>  _takeOffs;
+		QVector<bool>      _enableState;
+		QVector<QVariant>  _backgroundColors;
+		QColor             _disabledForeground;
+		QStringList        _header;
+		std::string        _pickTimeFormat;
 };
 
 
@@ -144,12 +157,12 @@ class SC_GUI_API ArrivalDelegate : public QStyledItemDelegate {
 		               const QModelIndex &index);
 
 	private:
-		int                    _flags[3];
-		QString                _labels[3];
-		int                    _margin;
-		int                    _spacing;
-		int                    _statusRectWidth;
-		mutable int            _labelWidth;
+		int         _flags[3];
+		QString     _labels[3];
+		int         _margin;
+		int         _spacing;
+		int         _statusRectWidth;
+		mutable int _labelWidth;
 };
 
 
@@ -165,6 +178,7 @@ class SC_GUI_API DiagramFilterSettingsDialog : public QDialog {
 
 	public:
 		DiagramFilterSettingsDialog(QWidget *parent = 0);
+		~DiagramFilterSettingsDialog();
 
 		Filter *createFilter() const;
 
@@ -173,7 +187,7 @@ class SC_GUI_API DiagramFilterSettingsDialog : public QDialog {
 		void filterChanged(int);
 
 	private:
-		::Ui::FilterSettings _ui;
+		::Ui::FilterSettings *_ui;
 };
 
 
@@ -281,6 +295,7 @@ class SC_GUI_API OriginLocatorView : public QWidget {
 		void setLocalAmplitudes(Seiscomp::DataModel::Origin*, AmplitudeSet*, StringSet*);
 
 		void drawStations(bool);
+		void drawStationAnnotations(bool);
 
 		bool undo();
 		bool redo();
@@ -316,7 +331,7 @@ class SC_GUI_API OriginLocatorView : public QWidget {
 		void setDatabase(Seiscomp::DataModel::DatabaseQuery*);
 		void setPickerView(PickerView*);
 
-		MapWidget* map() const;
+		OriginLocatorMap* map() const;
 
 
 	protected:
@@ -346,7 +361,7 @@ class SC_GUI_API OriginLocatorView : public QWidget {
 		void importArrivals();
 		void showWaveforms();
 		void relocate();
-		void commit(bool associate = true);
+		void commit(bool associate = true, bool ignoreDefaultEventType = false);
 		void customCommit();
 		void commitFocalMechanism(bool withMT = false, QPoint pos = QPoint(0, 0));
 		void commitWithOptions();
@@ -469,7 +484,7 @@ class SC_GUI_API OriginLocatorView : public QWidget {
 
 		Seiscomp::DataModel::DatabaseQuery   *_reader;
 		Map::ImageTreePtr                     _maptree;
-		::Ui::OriginLocaterView               _ui;
+		::Ui::OriginLocatorView              *_ui;
 		QTabBar                              *_plotTab;
 		OriginLocatorMap                     *_map;
 		OriginLocatorMap                     *_toolMap;
@@ -524,6 +539,15 @@ class SC_GUI_API OriginLocatorView : public QWidget {
 		DiagramFilterSettingsDialog          *_plotFilterSettings;
 		DiagramFilterSettingsDialog::Filter  *_plotFilter;
 };
+
+
+inline DataModel::Origin *ArrivalModel::origin() const {
+	return _origin;
+}
+
+inline int ArrivalModel::usedFlags(int row) const {
+	return _used[row];
+}
 
 
 }

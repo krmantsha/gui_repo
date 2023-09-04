@@ -22,10 +22,10 @@
 #define SEISCOMP_DATAMODEL_ARCLINKREQUEST_H
 
 
+#include <string>
+#include <seiscomp/core/datetime.h>
 #include <seiscomp/datamodel/arclinkrequestsummary.h>
 #include <vector>
-#include <seiscomp/core/datetime.h>
-#include <string>
 #include <seiscomp/datamodel/arclinkstatusline.h>
 #include <seiscomp/datamodel/arclinkrequestline.h>
 #include <seiscomp/datamodel/notifier.h>

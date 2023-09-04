@@ -23,12 +23,14 @@
 			</parameter>
 			<parameter name="button0" type="string">
 				<description>
-				Label of the button that triggers the script defined in &quot;script0&quot;.
+				Label of the button that triggers the script defined in
+				&quot;scripts.script0&quot;.
 				</description>
 			</parameter>
 			<parameter name="button1" type="string">
 				<description>
-				Label of the button that triggers the script defined in &quot;script1&quot;.
+				Label of the button that triggers the script defined in
+				&quot;scripts.script1&quot;.
 				</description>
 			</parameter>
 			<group name="scripts">
@@ -107,14 +109,15 @@
 				</parameter>
 				<parameter name="enableMagnitudeSelection" type="boolean" default="true">
 					<description>
-						If enabled, a magnitude selection pop window will open in advance
-						to compute magnitudes. The default selection reflects the configuration
-						parameter &quot;magnitudes&quot;.
+						If enabled, a magnitude selection pop window will open
+						in advance to compute magnitudes. The default selection
+						reflects the configuration parameter &quot;magnitudes&quot;.
 					</description>
 				</parameter>
-				<parameter name="Pvel" type="double"  unit="km/s" default="6.0">
+				<parameter name="Pvel" type="double" unit="km/s" default="6.0">
 					<description>
-						The P reduction velocity used in the &quot;move out&quot; plot.
+						The velocity applied to reduce travel times in the
+						&quot;MoveOut&quot; plot of the Location tab.
 					</description>
 				</parameter>
 				<parameter name="drawMapLines" type="boolean" default="true">
@@ -135,7 +138,7 @@
 						in the arrivals or not.
 					</description>
 				</parameter>
-				<parameter name="defaultAddStationsDistance" type="double" unit="deg" default="15">
+				<parameter name="defaultAddStationsDistance" type="double" unit="deg" default="15.0">
 					<description>
 						The default value for adding unassociated stations in the picker.
 					</description>
@@ -151,7 +154,7 @@
 						If enabled, all traces of disabled stations without picks are hidden.
 					</description>
 				</parameter>
-				<parameter name="defaultDepth" type="double" unit="km" default="10">
+				<parameter name="defaultDepth" type="double" unit="km" default="10.0">
 					<description>
 						When creating an artificial origin this is the default depth used.
 					</description>
@@ -170,16 +173,16 @@
 				</parameter>
 				<group name="map">
 					<group name="stations">
-						<parameter name="unassociatedMaxDist" type="double" unit="deg" default="360">
+						<parameter name="unassociatedMaxDist" type="double" unit="deg" default="360.0">
 							<description>
 								Maximum distance in degrees up to which also unassociated stations are
-								shown in the map. The default value is 360 which will
+								shown in the map. 360.0 deg which will
 								show all unassociated stations.
 							</description>
 						</parameter>
 					</group>
 					<group name="event">
-						<parameter name="defaultRadius" type="double" unit="deg" default="-1">
+						<parameter name="defaultRadius" type="double" unit="deg" default="-1.0">
 							<description>
 								Default map radius in degrees if a new event is selected.
 								A negative value restores the default behavior.
@@ -194,6 +197,15 @@
 							Used, Status, Phase, Weight, Method, Polarity, Takeoff,
 							Net, Sta, Loc/Cha, Timeres, Dis, Az, Time, +/-,
 							Slo, Slores, Baz, Bazres, Created, Latency
+						</description>
+					</parameter>
+				</group>
+				<group name="arrivalPlot">
+					<parameter name="showUncertainties" type="boolean" default="true">
+						<description>
+							Whether the arrival plot should show uncertainties
+							or not by default. That flag can be toggled with 'e'
+							or via the context menu during runtime.
 						</description>
 					</parameter>
 				</group>
@@ -224,21 +236,21 @@
 					</parameter>
 				</group>
 				<group name="commit">
-					<parameter name="forceEventAssociation" type="boolean" default="true">
+					<parameter name="forceEventAssociation" type="boolean" default="false">
 						<description>
 						Activates the button &quot;Force association with event&quot; when
 						committing with additional options. This is just the default
 						setting and can be changed manually when the dialog pops up.
 						</description>
 					</parameter>
-					<parameter name="fixOrigin" type="boolean" default="true">
+					<parameter name="fixOrigin" type="boolean" default="false">
 						<description>
 						Activates the button &quot;Fix this origin as preferred solution&quot; when
 						committing with additional options. This is just the default
 						setting and can be changed manually when the dialog pops up.
 						</description>
 					</parameter>
-					<parameter name="returnToEventList" type="boolean" default="true">
+					<parameter name="returnToEventList" type="boolean" default="false">
 						<description>
 						Whether to return to the event list after committing with
 						additional options or not.
@@ -251,6 +263,41 @@
 						values which may be changed if required.
 						</description>
 					</parameter>
+				</group>
+				<parameter name="originComments" type="list:string">
+					<description>
+					A list of origin comment profiles. These profiles will be
+					used to populate origin comments when committing an origin.
+					</description>
+				</parameter>
+				<group name="originComments">
+					<description>
+					The container for all origin comment profiles.
+					</description>
+					<struct name="OriginCommentProfile" link="olv.originComments">
+						<parameter name="id" type="string">
+							<description>
+							The id of the comment to be added, updated or removed.
+							</description>
+						</parameter>
+						<parameter name="label" type="string">
+							<description>
+							The label shown in the commit dialog.
+							</description>
+						</parameter>
+						<parameter name="options" type="list:string">
+							<description>
+							A list of options to select from. Actually the values
+							to populate the dropdown list with.
+							</description>
+						</parameter>
+						<parameter name="allowFreeText" type="boolean" default="false">
+							<description>
+							If free text is allowed in addition to the predefined
+							values.
+							</description>
+						</parameter>
+					</struct>
 				</group>
 				<group name="customCommits">
 					<description>
@@ -354,6 +401,41 @@
 						<parameter name="tooltip" type="boolean" default="false">
 							<description>
 							Add a summary of the actions to the button's tooltip.
+							</description>
+						</parameter>
+					</struct>
+				</group>
+				<parameter name="magnitudeComments" type="list:string">
+					<description>
+					A list of magnitude comment profiles. These profiles will be
+					used to populate magnitude comments when committing a magnitude.
+					</description>
+				</parameter>
+				<group name="magnitudeComments">
+					<description>
+					The container for all magnitude comment profiles.
+					</description>
+					<struct name="MagnitudeCommentProfile" link="olv.magnitudeComments">
+						<parameter name="id" type="string">
+							<description>
+							The id of the comment to be added, updated or removed.
+							</description>
+						</parameter>
+						<parameter name="label" type="string">
+							<description>
+							The label shown in the magnitude view.
+							</description>
+						</parameter>
+						<parameter name="options" type="list:string">
+							<description>
+							A list of options to select from. Actually the values
+							to populate the dropdown list with.
+							</description>
+						</parameter>
+						<parameter name="allowFreeText" type="boolean" default="false">
+							<description>
+							If free text is allowed in addition to the predefined
+							values.
 							</description>
 						</parameter>
 					</struct>
@@ -504,14 +586,54 @@
 				</parameter>
 				<parameter name="uncertainties" type="list:string" unit="s">
 					<description>
-						List of pre-defined pick uncertainties.
-						The format of each list item is either a double value or a pair of
-						double values for asymmetric uncertainties, e.g.
-						&quot;val1&quot;,&quot;(val2,val3)&quot;.
-						This parameter is only used if &quot;picker.uncertainties.preferred&quot;
-						is undefined.
+					List of pre-defined pick uncertainties.
+					The format of each list item is either a double value or a pair of
+					double values for asymmetric uncertainties, e.g.
+					&quot;val1&quot;,&quot;(val2,val3)&quot;.
+					This parameter is only used if &quot;picker.uncertainties.preferred&quot;
+					is undefined.
 					</description>
 				</parameter>
+				<parameter name="componentFollowsMouse" type="boolean" default="false">
+					<description>
+					If enabled then the currently selected component for all traces
+					will be activated according to the mouse position in the
+					zoom trace (old behaviour). If disabled (default) then only
+					the component of the zoom trace will change but the overall
+					component will stay the same. It must be changed explicitely.
+					</description>
+				</parameter>
+				<group name="auxiliary">
+					<description>
+					Define the notion and behaviour of auxiliary channels.
+					They are identified through configurable patterns and if
+					identified as such they will be treated differently in
+					defined situations.
+					</description>
+					<parameter name="channels" type="list:string">
+						<description>
+						A list of wildcard patterns to identify auxiliary
+						channels. A pattern is simply checked against a stream
+						ID, the concatenation of NSLC separated by a period.
+						</description>
+					</parameter>
+					<parameter name="minimumDistance" type="double" unit="deg" default="0">
+						<description>
+						The minimum distance in degrees from origin to load an
+						unassociated auxiliary channel. Loading a
+						channel / station explicitely (F3) will not respect
+						this setting.
+						</description>
+					</parameter>
+					<parameter name="maximumDistance" type="double" unit="deg" default="1000">
+						<description>
+						The maximum distance in degrees from origin to load an
+						unassociated auxiliary channel. Loading a
+						channel / station explicitely (F3) will not respect
+						this setting.
+						</description>
+					</parameter>
+				</group>
 				<group name="phases">
 					<description>
 					Phases defined for picking. The phase phases can be selected
@@ -624,7 +746,10 @@
 					</description>
 					<parameter name="addons" type="list:string">
 						<description>
-							Name(s) of quality addon(s) to be considered.
+							Name(s) of quality addon profile(s) to be considered.
+							The profiles provide values through a script which are
+							shown in the location tab. The scolv documentation
+							provides an example script.
 						</description>
 					</parameter>
 					<group name="comment">
@@ -648,7 +773,7 @@
 						</parameter>
 					</group>
 					<group name="addon">
-						<struct type="Quality addon" link="display.origin.addons">
+						<struct type="Quality addon profile" link="display.origin.addons">
 							<parameter name="label" type="string">
 								<description>
 								Defines the label text of the information panel in the
@@ -736,6 +861,9 @@
 				</option>
 				<option flag="" long-flag="offline" argument="">
 					<description>Switch to offline mode</description>
+				</option>
+				<option flag="i" long-flag="input-file" argument="xml">
+					<description>Load events in given XML file during startup and switch to offline mode</description>
 				</option>
 				<option flag="" long-flag="load-event-db" argument="arg">
 					<description>Number of days to load from database</description>

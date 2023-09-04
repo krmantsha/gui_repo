@@ -4,6 +4,11 @@
 # Do not make changes to this file unless you know what you are doing--modify
 # the SWIG interface file instead.
 
+
+import datetime
+
+
+
 from sys import version_info as _swig_python_version_info
 if _swig_python_version_info < (2, 7, 0):
     raise RuntimeError("Python 2.7 or later required")
@@ -212,8 +217,15 @@ class MetaObject(object):
     def property(self, *args):
         return _core.MetaObject_property(self, *args)
 
+    @staticmethod
+    def Find(className):
+        return _core.MetaObject_Find(className)
+
 # Register MetaObject in _core:
 _core.MetaObject_swigregister(MetaObject)
+
+def MetaObject_Find(className):
+    return _core.MetaObject_Find(className)
 
 class TimeSpan(object):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
@@ -333,6 +345,10 @@ class Time(TimeSpan):
         return _core.Time_LocalTimeZone()
 
     @staticmethod
+    def UTC():
+        return _core.Time_UTC()
+
+    @staticmethod
     def GMT():
         return _core.Time_GMT()
 
@@ -346,11 +362,17 @@ class Time(TimeSpan):
     def localtime(self):
         return _core.Time_localtime(self)
 
+    def utc(self):
+        return _core.Time_utc(self)
+
     def gmt(self):
         return _core.Time_gmt(self)
 
     def toLocalTime(self):
         return _core.Time_toLocalTime(self)
+
+    def toUTC(self):
+        return _core.Time_toUTC(self)
 
     def toGMT(self):
         return _core.Time_toGMT(self)
@@ -374,6 +396,9 @@ class Time(TimeSpan):
     def __str__(self):
             return self.toString("%Y-%m-%d %H:%M:%S.%f000000")[:23]
 
+    def datetime(self):
+            return datetime.datetime(*self.get()[1:])
+
     __swig_destroy__ = _core.delete_Time
 
 # Register Time in _core:
@@ -385,6 +410,9 @@ def Time_LocalTime():
 
 def Time_LocalTimeZone():
     return _core.Time_LocalTimeZone()
+
+def Time_UTC():
+    return _core.Time_UTC()
 
 def Time_GMT():
     return _core.Time_GMT()
@@ -665,6 +693,9 @@ class Version(object):
 
     def patchTag(self):
         return _core.Version_patchTag(self)
+
+    def majorMinor(self):
+        return _core.Version_majorMinor(self)
 
     def toString(self):
         return _core.Version_toString(self)

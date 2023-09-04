@@ -209,8 +209,8 @@ The configuration can be adjusted in the module configuration (:file:`scqc.cfg`)
 
 .. _scqc_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 | :file:`etc/defaults/global.cfg`
 | :file:`etc/defaults/scqc.cfg`
@@ -225,29 +225,35 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: CreatorId
 
+   Default: ``smi://de.gfz-potsdam/QcTool_0.3.1``
+
    Type: *string*
 
    ID of QC message creator
-   Default is ``smi://de.gfz-potsdam/QcTool_0.3.1``.
+
 
 .. confval:: useConfiguredStreams
+
+   Default: ``true``
 
    Type: *boolean*
 
    Limit QC determination to processed data streams which are
    defined in global bindings with detecLocid and detecStream.
-   Default is ``true``.
+
 
 .. confval:: use3Components
 
+   Default: ``false``
+
    Type: *boolean*
 
-   If useConfiguredStreams is true then this parameter decides whether
+   If useConfiguredStreams is true, this parameter decides whether
    to use only the vertical component \(default\) or all three
    components. The 3 components are collected from the inventory
-   according to channel orientation. If that is not possible
-   then the fixed components N and E will be used.
-   Default is ``false``.
+   according to channel orientation. If that is not possible,
+   the fixed components N and E will be used.
+
 
 .. confval:: streamMask
 
@@ -265,13 +271,15 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: dbLookBack
 
+   Default: ``7``
+
    Type: *int*
 
    Unit: *days*
 
    Database look up for past entries not older than x days
    \(to determine the last QC parameter calculated\).
-   Default is ``7``.
+
 
 .. note::
    **plugins.\***
@@ -288,28 +296,33 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.default.realTimeOnly
 
+   Default: ``false``
+
    Type: *boolean*
 
    Enable to use this plugin only for realtime processing.
    
    Default [disable]: plugin is able to process archived data AND realtime data streams.
-   Default is ``false``.
+
 
 .. confval:: plugins.default.filter
 
    Type: *string*
 
-   Filter string used to filter waveforms before processing.
+   Filter string used to filter waveforms before
+   processing. Currently only used by QcRms.
 
 
 .. confval:: plugins.default.buffer
+
+   Default: ``4000``
 
    Type: *int*
 
    Unit: *s*
 
    Qc\-Buffer Length [s] \(aka LTA\-Buffer\). Must be >\= plugins.\*.bufferLength.
-   Default is ``4000``.
+
 
 .. note::
    **plugins.default.report.\***
@@ -319,24 +332,30 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.default.report.interval
 
+   Default: ``60``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for sending report messages which e.g.
    will be  may be displayed by scqcv.
-   Default is ``60``.
+
 
 .. confval:: plugins.default.report.buffer
+
+   Default: ``600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``600``.
+
 
 .. confval:: plugins.default.report.timeout
+
+   Default: ``0``
 
    Type: *int*
 
@@ -344,7 +363,7 @@ scqc inherits :ref:`global options<global-configuration>`.
 
    Report messages are generated in case no data
    is received since timeout. Only in real\-time processing.
-   Default is ``0``.
+
 
 .. note::
    **plugins.default.archive.\***
@@ -355,6 +374,8 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.default.archive.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
@@ -363,16 +384,18 @@ scqc inherits :ref:`global options<global-configuration>`.
    
    Default [\-1]: Do not send any QC report. This will prevent writing
    QC reports into the database.
-   Default is ``-1``.
+
 
 .. confval:: plugins.default.archive.buffer
+
+   Default: ``3600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``3600``.
+
 
 .. note::
    **plugins.default.alert.\***
@@ -382,29 +405,35 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.default.alert.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for checking and sending alert thresholds.
    \-1 disables threshold checking.
-   Default is ``-1``.
+
 
 .. confval:: plugins.default.alert.buffer
+
+   Default: ``1800``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``1800``.
+
 
 .. confval:: plugins.default.alert.thresholds
+
+   Default: ``150``
 
    Type: *int*
 
    List of thresholds for sending QC reports. Use comma to separate values.
-   Default is ``150``.
+
 
 .. note::
    **plugins.QcLatency.\***
@@ -414,28 +443,25 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcLatency.realTimeOnly
 
+   Default: ``true``
+
    Type: *boolean*
 
    Enable to use this plugin only for realtime processing.
    
    Default [disable]: plugin is able to process archived data AND realtime data streams.
-   Default is ``true``.
-
-.. confval:: plugins.QcLatency.filter
-
-   Type: *string*
-
-   Filter string used to filter waveforms before processing.
 
 
 .. confval:: plugins.QcLatency.buffer
+
+   Default: ``4000``
 
    Type: *int*
 
    Unit: *s*
 
    Qc\-Buffer Length [s] \(aka LTA\-Buffer\). Must be >\= plugins.\*.bufferLength.
-   Default is ``4000``.
+
 
 .. note::
    **plugins.QcLatency.report.\***
@@ -445,24 +471,30 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcLatency.report.interval
 
+   Default: ``60``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for sending report messages which, e.g.,
    can be displayed by scqcv.
-   Default is ``60``.
+
 
 .. confval:: plugins.QcLatency.report.buffer
+
+   Default: ``600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``600``.
+
 
 .. confval:: plugins.QcLatency.report.timeout
+
+   Default: ``0``
 
    Type: *int*
 
@@ -470,7 +502,7 @@ scqc inherits :ref:`global options<global-configuration>`.
 
    Report messages are generated in case no data
    is received since timeout. Only in real\-time processing.
-   Default is ``0``.
+
 
 .. note::
    **plugins.QcLatency.archive.\***
@@ -481,6 +513,8 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcLatency.archive.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
@@ -489,16 +523,18 @@ scqc inherits :ref:`global options<global-configuration>`.
    
    Default [\-1]: Do not send any QC report. This will prevent writing
    QC reports into the database.
-   Default is ``-1``.
+
 
 .. confval:: plugins.QcLatency.archive.buffer
+
+   Default: ``3600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``3600``.
+
 
 .. note::
    **plugins.QcLatency.alert.\***
@@ -508,29 +544,35 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcLatency.alert.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for checking and sending alert thresholds.
    \-1 disables threshold checking.
-   Default is ``-1``.
+
 
 .. confval:: plugins.QcLatency.alert.buffer
+
+   Default: ``1800``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``1800``.
+
 
 .. confval:: plugins.QcLatency.alert.thresholds
+
+   Default: ``150``
 
    Type: *int*
 
    List of thresholds for sending QC reports. Use comma to separate values.
-   Default is ``150``.
+
 
 .. note::
    **plugins.QcDelay.\***
@@ -540,28 +582,25 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcDelay.realTimeOnly
 
+   Default: ``true``
+
    Type: *boolean*
 
    Enable to use this plugin only for realtime processing.
    
    Default [disable]: plugin is able to processd data AND realtime data streams.
-   Default is ``true``.
-
-.. confval:: plugins.QcDelay.filter
-
-   Type: *string*
-
-   Filter string used to filter waveforms before processing.
 
 
 .. confval:: plugins.QcDelay.buffer
+
+   Default: ``4000``
 
    Type: *int*
 
    Unit: *s*
 
    Qc\-Buffer Length [s] \(aka LTA\-Buffer\). Must be >\= plugins.\*.bufferLength.
-   Default is ``4000``.
+
 
 .. note::
    **plugins.QcDelay.report.\***
@@ -571,24 +610,30 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcDelay.report.interval
 
+   Default: ``60``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for sending report messages which e.g.
    will be  may be displayed by scqcv.
-   Default is ``60``.
+
 
 .. confval:: plugins.QcDelay.report.buffer
+
+   Default: ``600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``600``.
+
 
 .. confval:: plugins.QcDelay.report.timeout
+
+   Default: ``0``
 
    Type: *int*
 
@@ -596,7 +641,7 @@ scqc inherits :ref:`global options<global-configuration>`.
 
    Report messages are generated in case no data
    is received since timeout. Only in real\-time processing.
-   Default is ``0``.
+
 
 .. note::
    **plugins.QcDelay.archive.\***
@@ -607,6 +652,8 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcDelay.archive.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
@@ -615,16 +662,18 @@ scqc inherits :ref:`global options<global-configuration>`.
    
    Default [\-1]: Do not send any QC report. This will prevent writing
    QC reports into the database.
-   Default is ``-1``.
+
 
 .. confval:: plugins.QcDelay.archive.buffer
+
+   Default: ``3600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``3600``.
+
 
 .. note::
    **plugins.QcDelay.alert.\***
@@ -634,29 +683,35 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcDelay.alert.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for checking and sending alert thresholds.
    \-1 disables threshold checking.
-   Default is ``-1``.
+
 
 .. confval:: plugins.QcDelay.alert.buffer
+
+   Default: ``1800``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``1800``.
+
 
 .. confval:: plugins.QcDelay.alert.thresholds
+
+   Default: ``150``
 
    Type: *int*
 
    List of thresholds for sending QC reports. Use comma to separate values.
-   Default is ``150``.
+
 
 .. note::
    **plugins.QcGap.\***
@@ -666,28 +721,25 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcGap.realTimeOnly
 
+   Default: ``false``
+
    Type: *boolean*
 
    Enable to use this plugin only for realtime processing.
    
    Default [disable]: plugin is able to process archived data AND realtime data streams.
-   Default is ``false``.
-
-.. confval:: plugins.QcGap.filter
-
-   Type: *string*
-
-   Filter string used to filter waveforms before processing.
 
 
 .. confval:: plugins.QcGap.buffer
+
+   Default: ``4000``
 
    Type: *int*
 
    Unit: *s*
 
    Qc\-Buffer Length [s] \(aka LTA\-Buffer\). Must be >\= plugins.\*.bufferLength.
-   Default is ``4000``.
+
 
 .. note::
    **plugins.QcGap.report.\***
@@ -697,24 +749,30 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcGap.report.interval
 
+   Default: ``60``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for sending report messages which e.g.
    will be  may be displayed by scqcv.
-   Default is ``60``.
+
 
 .. confval:: plugins.QcGap.report.buffer
+
+   Default: ``600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``600``.
+
 
 .. confval:: plugins.QcGap.report.timeout
+
+   Default: ``0``
 
    Type: *int*
 
@@ -722,7 +780,7 @@ scqc inherits :ref:`global options<global-configuration>`.
 
    Report messages are generated in case no data
    is received since timeout. Only in real\-time processing.
-   Default is ``0``.
+
 
 .. note::
    **plugins.QcGap.archive.\***
@@ -733,6 +791,8 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcGap.archive.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
@@ -741,16 +801,18 @@ scqc inherits :ref:`global options<global-configuration>`.
    
    Default [\-1]: Do not send any QC report. This will prevent writing
    QC reports into the database.
-   Default is ``-1``.
+
 
 .. confval:: plugins.QcGap.archive.buffer
+
+   Default: ``3600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``3600``.
+
 
 .. note::
    **plugins.QcGap.alert.\***
@@ -760,29 +822,35 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcGap.alert.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for checking and sending alert thresholds.
    \-1 disables threshold checking.
-   Default is ``-1``.
+
 
 .. confval:: plugins.QcGap.alert.buffer
+
+   Default: ``1800``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``1800``.
+
 
 .. confval:: plugins.QcGap.alert.thresholds
+
+   Default: ``150``
 
    Type: *int*
 
    List of thresholds for sending QC reports. Use comma to separate values.
-   Default is ``150``.
+
 
 .. note::
    **plugins.QcOffset.\***
@@ -792,28 +860,25 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcOffset.realTimeOnly
 
+   Default: ``false``
+
    Type: *boolean*
 
    Enable to use this plugin only for realtime processing.
    
    Default [disable]: plugin is able to process archived data AND realtime data streams.
-   Default is ``false``.
-
-.. confval:: plugins.QcOffset.filter
-
-   Type: *string*
-
-   Filter string used to filter waveforms before processing.
 
 
 .. confval:: plugins.QcOffset.buffer
+
+   Default: ``4000``
 
    Type: *int*
 
    Unit: *s*
 
    Qc\-Buffer Length [s] \(aka LTA\-Buffer\). Must be >\= plugins.\*.bufferLength.
-   Default is ``4000``.
+
 
 .. note::
    **plugins.QcOffset.report.\***
@@ -823,24 +888,30 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcOffset.report.interval
 
+   Default: ``60``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for sending report messages which e.g.
    will be  may be displayed by scqcv.
-   Default is ``60``.
+
 
 .. confval:: plugins.QcOffset.report.buffer
+
+   Default: ``600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``600``.
+
 
 .. confval:: plugins.QcOffset.report.timeout
+
+   Default: ``0``
 
    Type: *int*
 
@@ -848,7 +919,7 @@ scqc inherits :ref:`global options<global-configuration>`.
 
    Report messages are generated in case no data
    is received since timeout. Only in real\-time processing.
-   Default is ``0``.
+
 
 .. note::
    **plugins.QcOffset.archive.\***
@@ -859,6 +930,8 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcOffset.archive.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
@@ -867,16 +940,18 @@ scqc inherits :ref:`global options<global-configuration>`.
    
    Default [\-1]: Do not send any QC report. This will prevent writing
    QC reports into the database.
-   Default is ``-1``.
+
 
 .. confval:: plugins.QcOffset.archive.buffer
+
+   Default: ``3600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``3600``.
+
 
 .. note::
    **plugins.QcOffset.alert.\***
@@ -886,29 +961,35 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcOffset.alert.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for checking and sending alert thresholds.
    \-1 disables threshold checking.
-   Default is ``-1``.
+
 
 .. confval:: plugins.QcOffset.alert.buffer
+
+   Default: ``1800``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``1800``.
+
 
 .. confval:: plugins.QcOffset.alert.thresholds
+
+   Default: ``150``
 
    Type: *int*
 
    List of thresholds for sending QC reports. Use comma to separate values.
-   Default is ``150``.
+
 
 .. note::
    **plugins.QcOverlap.\***
@@ -918,28 +999,25 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcOverlap.realTimeOnly
 
+   Default: ``false``
+
    Type: *boolean*
 
    Enable to use this plugin only for realtime processing.
    
    Default [disable]: plugin is able to process archived data AND realtime data streams.
-   Default is ``false``.
-
-.. confval:: plugins.QcOverlap.filter
-
-   Type: *string*
-
-   Filter string used to filter waveforms before processing.
 
 
 .. confval:: plugins.QcOverlap.buffer
+
+   Default: ``4000``
 
    Type: *int*
 
    Unit: *s*
 
    Qc\-Buffer Length [s] \(aka LTA\-Buffer\). Must be >\= plugins.\*.bufferLength.
-   Default is ``4000``.
+
 
 .. note::
    **plugins.QcOverlap.report.\***
@@ -949,24 +1027,30 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcOverlap.report.interval
 
+   Default: ``60``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for sending report messages which e.g.
    will be  may be displayed by scqcv.
-   Default is ``60``.
+
 
 .. confval:: plugins.QcOverlap.report.buffer
+
+   Default: ``600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``600``.
+
 
 .. confval:: plugins.QcOverlap.report.timeout
+
+   Default: ``0``
 
    Type: *int*
 
@@ -974,7 +1058,7 @@ scqc inherits :ref:`global options<global-configuration>`.
 
    Report messages are generated in case no data
    is received since timeout. Only in real\-time processing.
-   Default is ``0``.
+
 
 .. note::
    **plugins.QcOverlap.archive.\***
@@ -985,6 +1069,8 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcOverlap.archive.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
@@ -993,16 +1079,18 @@ scqc inherits :ref:`global options<global-configuration>`.
    
    Default [\-1]: Do not send any QC report. This will prevent writing
    QC reports into the database.
-   Default is ``-1``.
+
 
 .. confval:: plugins.QcOverlap.archive.buffer
+
+   Default: ``3600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``3600``.
+
 
 .. note::
    **plugins.QcOverlap.alert.\***
@@ -1012,29 +1100,35 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcOverlap.alert.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for checking and sending alert thresholds.
    \-1 disables threshold checking.
-   Default is ``-1``.
+
 
 .. confval:: plugins.QcOverlap.alert.buffer
+
+   Default: ``1800``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``1800``.
+
 
 .. confval:: plugins.QcOverlap.alert.thresholds
+
+   Default: ``150``
 
    Type: *int*
 
    List of thresholds for sending QC reports. Use comma to separate values.
-   Default is ``150``.
+
 
 .. note::
    **plugins.QcRms.\***
@@ -1044,12 +1138,14 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcRms.realTimeOnly
 
+   Default: ``false``
+
    Type: *boolean*
 
    Enable to use this plugin only for realtime processing.
    
    Default [disable]: plugin is able to process archived data AND realtime data streams.
-   Default is ``false``.
+
 
 .. confval:: plugins.QcRms.filter
 
@@ -1060,12 +1156,14 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcRms.buffer
 
+   Default: ``4000``
+
    Type: *int*
 
    Unit: *s*
 
    Qc\-Buffer Length [s] \(aka LTA\-Buffer\). Must be >\= plugins.\*.bufferLength.
-   Default is ``4000``.
+
 
 .. note::
    **plugins.QcRms.report.\***
@@ -1075,24 +1173,30 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcRms.report.interval
 
+   Default: ``60``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for sending report messages which e.g.
    will be  may be displayed by scqcv.
-   Default is ``60``.
+
 
 .. confval:: plugins.QcRms.report.buffer
+
+   Default: ``600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``600``.
+
 
 .. confval:: plugins.QcRms.report.timeout
+
+   Default: ``0``
 
    Type: *int*
 
@@ -1100,7 +1204,7 @@ scqc inherits :ref:`global options<global-configuration>`.
 
    Report messages are generated in case no data
    is received since timeout. Only in real\-time processing.
-   Default is ``0``.
+
 
 .. note::
    **plugins.QcRms.archive.\***
@@ -1111,6 +1215,8 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcRms.archive.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
@@ -1119,16 +1225,18 @@ scqc inherits :ref:`global options<global-configuration>`.
    
    Default [\-1]: Do not send any QC report. This will prevent writing
    QC reports into the database.
-   Default is ``-1``.
+
 
 .. confval:: plugins.QcRms.archive.buffer
+
+   Default: ``3600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``3600``.
+
 
 .. note::
    **plugins.QcRms.alert.\***
@@ -1138,29 +1246,35 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcRms.alert.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for checking and sending alert thresholds.
    \-1 disables threshold checking.
-   Default is ``-1``.
+
 
 .. confval:: plugins.QcRms.alert.buffer
+
+   Default: ``1800``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``1800``.
+
 
 .. confval:: plugins.QcRms.alert.thresholds
+
+   Default: ``150``
 
    Type: *int*
 
    List of thresholds for sending QC reports. Use comma to separate values.
-   Default is ``150``.
+
 
 .. note::
    **plugins.QcSpike.\***
@@ -1170,28 +1284,25 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcSpike.realTimeOnly
 
+   Default: ``false``
+
    Type: *boolean*
 
    Enable to use this plugin only for realtime processing.
    
    Default [disable]: plugin is able to process archived data AND realtime data streams.
-   Default is ``false``.
-
-.. confval:: plugins.QcSpike.filter
-
-   Type: *string*
-
-   Filter string used to filter waveforms before processing.
 
 
 .. confval:: plugins.QcSpike.buffer
+
+   Default: ``4000``
 
    Type: *int*
 
    Unit: *s*
 
    Qc\-Buffer Length [s] \(aka LTA\-Buffer\). Must be >\= plugins.\*.bufferLength.
-   Default is ``4000``.
+
 
 .. note::
    **plugins.QcSpike.report.\***
@@ -1201,24 +1312,30 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcSpike.report.interval
 
+   Default: ``60``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for sending report messages which e.g.
    will be  may be displayed by scqcv.
-   Default is ``60``.
+
 
 .. confval:: plugins.QcSpike.report.buffer
+
+   Default: ``600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``600``.
+
 
 .. confval:: plugins.QcSpike.report.timeout
+
+   Default: ``0``
 
    Type: *int*
 
@@ -1226,7 +1343,7 @@ scqc inherits :ref:`global options<global-configuration>`.
 
    Report messages are generated in case no data
    is received since timeout. Only in real\-time processing.
-   Default is ``0``.
+
 
 .. note::
    **plugins.QcSpike.archive.\***
@@ -1237,6 +1354,8 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcSpike.archive.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
@@ -1245,16 +1364,18 @@ scqc inherits :ref:`global options<global-configuration>`.
    
    Default [\-1]: Do not send any QC report. This will prevent writing
    QC reports into the database.
-   Default is ``-1``.
+
 
 .. confval:: plugins.QcSpike.archive.buffer
+
+   Default: ``3600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``3600``.
+
 
 .. note::
    **plugins.QcSpike.alert.\***
@@ -1264,29 +1385,35 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcSpike.alert.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for checking and sending alert thresholds.
    \-1 disables threshold checking.
-   Default is ``-1``.
+
 
 .. confval:: plugins.QcSpike.alert.buffer
+
+   Default: ``1800``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``1800``.
+
 
 .. confval:: plugins.QcSpike.alert.thresholds
+
+   Default: ``150``
 
    Type: *int*
 
    List of thresholds for sending QC reports. Use comma to separate values.
-   Default is ``150``.
+
 
 .. note::
    **plugins.QcTiming.\***
@@ -1296,28 +1423,25 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcTiming.realTimeOnly
 
+   Default: ``false``
+
    Type: *boolean*
 
    Enable to use this plugin only for realtime processing.
    
    Default [disable]: plugin is able to process archived data AND realtime data streams.
-   Default is ``false``.
-
-.. confval:: plugins.QcTiming.filter
-
-   Type: *string*
-
-   Filter string used to filter waveforms before processing.
 
 
 .. confval:: plugins.QcTiming.buffer
+
+   Default: ``4000``
 
    Type: *int*
 
    Unit: *s*
 
    Qc\-Buffer Length [s] \(aka LTA\-Buffer\). Must be >\= plugins.\*.bufferLength.
-   Default is ``4000``.
+
 
 .. note::
    **plugins.QcTiming.report.\***
@@ -1327,24 +1451,30 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcTiming.report.interval
 
+   Default: ``60``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for sending report messages which e.g.
    will be  may be displayed by scqcv.
-   Default is ``60``.
+
 
 .. confval:: plugins.QcTiming.report.buffer
+
+   Default: ``600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``600``.
+
 
 .. confval:: plugins.QcTiming.report.timeout
+
+   Default: ``0``
 
    Type: *int*
 
@@ -1352,7 +1482,7 @@ scqc inherits :ref:`global options<global-configuration>`.
 
    Report messages are generated in case no data
    is received since timeout. Only in real\-time processing.
-   Default is ``0``.
+
 
 .. note::
    **plugins.QcTiming.archive.\***
@@ -1363,6 +1493,8 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcTiming.archive.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
@@ -1371,16 +1503,18 @@ scqc inherits :ref:`global options<global-configuration>`.
    
    Default [\-1]: Do not send any QC report. This will prevent writing
    QC reports into the database.
-   Default is ``-1``.
+
 
 .. confval:: plugins.QcTiming.archive.buffer
+
+   Default: ``3600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``3600``.
+
 
 .. note::
    **plugins.QcTiming.alert.\***
@@ -1390,29 +1524,35 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcTiming.alert.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for checking and sending alert thresholds.
    \-1 disables threshold checking.
-   Default is ``-1``.
+
 
 .. confval:: plugins.QcTiming.alert.buffer
+
+   Default: ``1800``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``1800``.
+
 
 .. confval:: plugins.QcTiming.alert.thresholds
+
+   Default: ``150``
 
    Type: *int*
 
    List of thresholds for sending QC reports. Use comma to separate values.
-   Default is ``150``.
+
 
 .. note::
    **plugins.QcAvailability.\***
@@ -1422,28 +1562,25 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcAvailability.realTimeOnly
 
+   Default: ``false``
+
    Type: *boolean*
 
    Enable to use this plugin only for realtime processing.
    
    Default [disable]: plugin is able to process archived data AND realtime data streams.
-   Default is ``false``.
-
-.. confval:: plugins.QcAvailability.filter
-
-   Type: *string*
-
-   Filter string used to filter waveforms before processing.
 
 
 .. confval:: plugins.QcAvailability.buffer
+
+   Default: ``4000``
 
    Type: *int*
 
    Unit: *s*
 
    Qc\-Buffer Length [s] \(aka LTA\-Buffer\). Must be >\= plugins.\*.bufferLength.
-   Default is ``4000``.
+
 
 .. note::
    **plugins.QcAvailability.report.\***
@@ -1453,24 +1590,30 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcAvailability.report.interval
 
+   Default: ``60``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for sending report messages which e.g.
    will be  may be displayed by scqcv.
-   Default is ``60``.
+
 
 .. confval:: plugins.QcAvailability.report.buffer
+
+   Default: ``600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``600``.
+
 
 .. confval:: plugins.QcAvailability.report.timeout
+
+   Default: ``0``
 
    Type: *int*
 
@@ -1478,7 +1621,7 @@ scqc inherits :ref:`global options<global-configuration>`.
 
    Report messages are generated in case no data
    is received since timeout. Only in real\-time processing.
-   Default is ``0``.
+
 
 .. note::
    **plugins.QcAvailability.archive.\***
@@ -1489,6 +1632,8 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcAvailability.archive.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
@@ -1497,16 +1642,18 @@ scqc inherits :ref:`global options<global-configuration>`.
    
    Default [\-1]: Do not send any QC report. This will prevent writing
    QC reports into the database.
-   Default is ``-1``.
+
 
 .. confval:: plugins.QcAvailability.archive.buffer
+
+   Default: ``3600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``3600``.
+
 
 .. note::
    **plugins.QcAvailability.alert.\***
@@ -1516,29 +1663,35 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcAvailability.alert.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for checking and sending alert thresholds.
    \-1 disables threshold checking.
-   Default is ``-1``.
+
 
 .. confval:: plugins.QcAvailability.alert.buffer
+
+   Default: ``1800``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``1800``.
+
 
 .. confval:: plugins.QcAvailability.alert.thresholds
+
+   Default: ``150``
 
    Type: *int*
 
    List of thresholds for sending QC reports. Use comma to separate values.
-   Default is ``150``.
+
 
 .. note::
    **plugins.QcOutage.\***
@@ -1548,37 +1701,36 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcOutage.realTimeOnly
 
+   Default: ``false``
+
    Type: *boolean*
 
    Enable to use this plugin only for realtime processing.
    
    Default [disable]: plugin is able to process archived data AND realtime data streams.
-   Default is ``false``.
-
-.. confval:: plugins.QcOutage.filter
-
-   Type: *string*
-
-   Filter string used to filter waveforms before processing.
 
 
 .. confval:: plugins.QcOutage.buffer
+
+   Default: ``4000``
 
    Type: *int*
 
    Unit: *s*
 
    Qc\-Buffer Length [s] \(aka LTA\-Buffer\). Must be >\= plugins.\*.bufferLength.
-   Default is ``4000``.
+
 
 .. confval:: plugins.QcOutage.notifyDB
+
+   Default: ``1800``
 
    Type: *int*
 
    Unit: *s*
 
    If there is a gap of more than notifyDB [s], write an OUTAGE entry into the database.
-   Default is ``1800``.
+
 
 .. note::
    **plugins.QcOutage.report.\***
@@ -1588,24 +1740,30 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcOutage.report.interval
 
+   Default: ``60``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for sending report messages which e.g.
    will be  may be displayed by scqcv.
-   Default is ``60``.
+
 
 .. confval:: plugins.QcOutage.report.buffer
+
+   Default: ``600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``600``.
+
 
 .. confval:: plugins.QcOutage.report.timeout
+
+   Default: ``0``
 
    Type: *int*
 
@@ -1613,7 +1771,7 @@ scqc inherits :ref:`global options<global-configuration>`.
 
    Report messages are generated in case no data
    is received since timeout. Only in real\-time processing.
-   Default is ``0``.
+
 
 .. note::
    **plugins.QcOutage.archive.\***
@@ -1624,6 +1782,8 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcOutage.archive.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
@@ -1632,16 +1792,18 @@ scqc inherits :ref:`global options<global-configuration>`.
    
    Default [\-1]: Do not send any QC report. This will prevent writing
    QC reports into the database.
-   Default is ``-1``.
+
 
 .. confval:: plugins.QcOutage.archive.buffer
+
+   Default: ``3600``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``3600``.
+
 
 .. note::
    **plugins.QcOutage.alert.\***
@@ -1651,33 +1813,39 @@ scqc inherits :ref:`global options<global-configuration>`.
 
 .. confval:: plugins.QcOutage.alert.interval
 
+   Default: ``-1``
+
    Type: *int*
 
    Unit: *s*
 
    Interval for checking and sending alert thresholds.
    \-1 disables threshold checking.
-   Default is ``-1``.
+
 
 .. confval:: plugins.QcOutage.alert.buffer
+
+   Default: ``1800``
 
    Type: *int*
 
    Unit: *s*
 
    Time window for calculating QC reports.
-   Default is ``1800``.
+
 
 .. confval:: plugins.QcOutage.alert.thresholds
+
+   Default: ``150``
 
    Type: *int*
 
    List of thresholds for sending QC reports. Use comma to separate values.
-   Default is ``150``.
 
 
-Command-line
-============
+
+Command-Line Options
+====================
 
 .. program:: scqc
 
@@ -1687,18 +1855,20 @@ Generic
 
 .. option:: -h, --help
 
-   show help message.
+   Show help message.
 
 .. option:: -V, --version
 
-   show version information
+   Show version information.
 
 .. option:: --config-file arg
 
-   Use alternative configuration file. When this option is used
-   the loading of all stages is disabled. Only the given configuration
-   file is parsed and used. To use another name for the configuration
-   create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+   Use alternative configuration file. When this option is
+   used the loading of all stages is disabled. Only the
+   given configuration file is parsed and used. To use
+   another name for the configuration create a symbolic
+   link of the application or copy it. Example:
+   scautopick \-> scautopick2.
 
 .. option:: --plugins arg
 
@@ -1706,26 +1876,28 @@ Generic
 
 .. option:: -D, --daemon
 
-   Run as daemon. This means the application will fork itself and
-   doesn't need to be started with \&.
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
 
 .. option:: --auto-shutdown arg
 
-   Enable\/disable self\-shutdown because a master module shutdown. This only
-   works when messaging is enabled and the master module sends a shutdown
-   message \(enabled with \-\-start\-stop\-msg for the master module\).
+   Enable\/disable self\-shutdown because a master module shutdown.
+   This only works when messaging is enabled and the master
+   module sends a shutdown message \(enabled with \-\-start\-stop\-msg
+   for the master module\).
 
 .. option:: --shutdown-master-module arg
 
-   Sets the name of the master\-module used for auto\-shutdown. This
-   is the application name of the module actually started. If symlinks
-   are used then it is the name of the symlinked application.
+   Set the name of the master\-module used for auto\-shutdown.
+   This is the application name of the module actually
+   started. If symlinks are used, then it is the name of
+   the symlinked application.
 
 .. option:: --shutdown-master-username arg
 
-   Sets the name of the master\-username of the messaging used for
-   auto\-shutdown. If \"shutdown\-master\-module\" is given as well this
-   parameter is ignored.
+   Set the name of the master\-username of the messaging
+   used for auto\-shutdown. If \"shutdown\-master\-module\" is
+   given as well, this parameter is ignored.
 
 
 Verbosity
@@ -1733,23 +1905,26 @@ Verbosity
 
 .. option:: --verbosity arg
 
-   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
 
 .. option:: -v, --v
 
-   Increase verbosity level \(may be repeated, eg. \-vv\)
+   Increase verbosity level \(may be repeated, eg. \-vv\).
 
 .. option:: -q, --quiet
 
-   Quiet mode: no logging output
+   Quiet mode: no logging output.
 
 .. option:: --component arg
 
-   Limits the logging to a certain component. This option can be given more than once.
+   Limit the logging to a certain component. This option can
+   be given more than once.
 
 .. option:: -s, --syslog
 
-   Use syslog logging back end. The output usually goes to \/var\/lib\/messages.
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
 
 .. option:: -l, --lockfile arg
 
@@ -1761,7 +1936,8 @@ Verbosity
 
 .. option:: --debug
 
-   Debug mode: \-\-verbosity\=4 \-\-console\=1
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
 
 .. option:: --log-file arg
 
@@ -1789,7 +1965,8 @@ Messaging
 
 .. option:: -S, --subscribe-group arg
 
-   A group to subscribe to. This option can be given more than once.
+   A group to subscribe to.
+   This option can be given more than once.
 
 .. option:: --content-type arg
 
@@ -1797,7 +1974,7 @@ Messaging
 
 .. option:: --start-stop-msg arg
 
-   Sets sending of a start\- and a stop message.
+   Set sending of a start and a stop message.
 
 
 Database
@@ -1809,17 +1986,19 @@ Database
 
 .. option:: -d, --database arg
 
-   The database connection string, format: service:\/\/user:pwd\@host\/database.
-   \"service\" is the name of the database driver which can be
-   queried with \"\-\-db\-driver\-list\".
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
 
 .. option:: --config-module arg
 
-   The configmodule to use.
+   The config module to use.
 
 .. option:: --inventory-db arg
 
-   Load the inventory from the given database or file, format: [service:\/\/]location
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
 
 .. option:: --db-disable
 
@@ -1831,14 +2010,16 @@ Records
 
 .. option:: --record-driver-list
 
-   List all supported record stream drivers
+   List all supported record stream drivers.
 
 .. option:: -I, --record-url arg
 
-   The recordstream source URL, format: [service:\/\/]location[#type].
-   \"service\" is the name of the recordstream driver which can be
-   queried with \"\-\-record\-driver\-list\". If \"service\"
-   is not given \"file:\/\/\" is used.
+   The recordstream source URL, format:
+   [service:\/\/]location[#type].
+   \"service\" is the name of the recordstream driver
+   which can be queried with \"\-\-record\-driver\-list\".
+   If \"service\" is not given, \"file:\/\/\" is
+   used.
 
 .. option:: --record-file arg
 

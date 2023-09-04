@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCAMP" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCAMP" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scamp \- SeisComP Documentation
 .
@@ -186,7 +186,7 @@ $ scamp \-u testuser \-H [host] \-\-commit \e
 .UNINDENT
 .UNINDENT
 .UNINDENT
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/scamp.cfg\fP
@@ -201,58 +201,64 @@ scamp inherits global options\&.
 .INDENT 0.0
 .TP
 .B amplitudes
+Default: \fBMLv, mb, mB, Mwp\fP
+.sp
 Type: \fIlist:string\fP
 .sp
 Definition of magnitude types for which amplitudes are to be calculated.
-Default is \fBMLv, mb, mB, Mwp\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B amptool.minimumPickWeight
+Default: \fB0.5\fP
+.sp
 Type: \fIdouble\fP
 .sp
 The minimum arrival weight within an origin to compute amplitudes for the associated pick.
-Default is \fB0.5\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B amptool.initialAcquisitionTimeout
+Default: \fB30\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
 Timeout in seconds of the first data packet of waveform data acquisition.
-Default is \fB30\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B amptool.runningAcquisitionTimeout
+Default: \fB2\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
 Timeout in seconds of any subsequent data packet of waveform data acquisition.
-Default is \fB2\fP\&.
 .UNINDENT
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -262,29 +268,31 @@ Load given plugins.
 .INDENT 0.0
 .TP
 .B \-D, \-\-daemon
-Run as daemon. This means the application will fork itself and
-doesn\(aqt need to be started with &.
+Run as daemon. This means the application will fork itself
+and doesn\(aqt need to be started with &.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-auto\-shutdown arg
-Enable/disable self\-shutdown because a master module shutdown. This only
-works when messaging is enabled and the master module sends a shutdown
-message (enabled with \-\-start\-stop\-msg for the master module).
+Enable/disable self\-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with \-\-start\-stop\-msg
+for the master module).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-module arg
-Sets the name of the master\-module used for auto\-shutdown. This
-is the application name of the module actually started. If symlinks
-are used then it is the name of the symlinked application.
+Set the name of the master\-module used for auto\-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-username arg
-Sets the name of the master\-username of the messaging used for
-auto\-shutdown. If "shutdown\-master\-module" is given as well this
-parameter is ignored.
+Set the name of the master\-username of the messaging
+used for auto\-shutdown. If "shutdown\-master\-module" is
+given as well, this parameter is ignored.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -305,27 +313,30 @@ Dumps the filtered traces to ASCII when using \-O.
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -340,7 +351,8 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -371,7 +383,8 @@ Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
 .INDENT 0.0
 .TP
 .B \-S, \-\-subscribe\-group arg
-A group to subscribe to. This option can be given more than once.
+A group to subscribe to.
+This option can be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -381,7 +394,7 @@ Overrides configuration parameter \fBconnection.contentType\fP\&.
 .INDENT 0.0
 .TP
 .B \-\-start\-stop\-msg arg
-Sets sending of a start\- and a stop message.
+Set sending of a start and a stop message.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -397,19 +410,21 @@ List all supported database drivers.
 .INDENT 0.0
 .TP
 .B \-d, \-\-database arg
-The database connection string, format: \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which can be
-queried with "\-\-db\-driver\-list".
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+"service" is the name of the database driver which
+can be queried with "\-\-db\-driver\-list".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-module arg
-The configmodule to use.
+The config module to use.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-inventory\-db arg
-Load the inventory from the given database or file, format: [\fI\%service://]location\fP
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -420,15 +435,17 @@ Do not use the database at all
 .INDENT 0.0
 .TP
 .B \-\-record\-driver\-list
-List all supported record stream drivers
+List all supported record stream drivers.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-I, \-\-record\-url arg
-The recordstream source URL, format: [\fI\%service://\fP]location[#type].
-"service" is the name of the recordstream driver which can be
-queried with "\-\-record\-driver\-list". If "service"
-is not given "\fI\%file://\fP" is used.
+The recordstream source URL, format:
+[\fI\%service://\fP]location[#type].
+"service" is the name of the recordstream driver
+which can be queried with "\-\-record\-driver\-list".
+If "service" is not given, "\fI\%file://\fP" is
+used.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -452,11 +469,18 @@ contains the amplitudes.
 .UNINDENT
 .INDENT 0.0
 .TP
+.B \-p, \-\-picks
+Force measuring amplitudes for picks only. Origins are
+ignored and time windows are independent of distance. Works
+only in combination with \-\-ep.
+.UNINDENT
+.INDENT 0.0
+.TP
 .B \-\-reprocess
-Reprocess and update existing amplitudes in combination with \-\-ep.
-Manual amplitudes will be skipped.
-This option can be used, e.g. for reprocessing amplitudes with
-new inventory information. Waveform access is required.
+Reprocess and update existing amplitudes. Manual amplitudes
+will be skipped. Works only in combination with \-\-ep.
+This option can be used, e.g., for reprocessing amplitudes
+with new inventory information. Waveform access is required.
 .UNINDENT
 .SS Reprocess
 .INDENT 0.0

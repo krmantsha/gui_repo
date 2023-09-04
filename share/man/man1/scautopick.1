@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCAUTOPICK" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCAUTOPICK" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scautopick \- SeisComP Documentation
 .
@@ -31,29 +31,49 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
 .sp
-\fBMakes picks on waveforms.\fP
+\fBPhase detection and picking on waveforms.\fP
 .SH DESCRIPTION
 .sp
 scautopick applies threshold monitoring by searching for waveform anomalies in
 form of changes in amplitudes. It is applied for detecting phase arrivals and
-and for measuring related amplitudes.
+and for measuring related features and amplitudes. The phase arrivals are
+typically associated by modules like scautoloc for locating the source.
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+Instead of detecting phase arrivals for source location, scautopick
+can also be applied for detecting simple amplitude exceedence applying filters
+like the \fBMAX()\fP filter. Exceedences are reported as picks and can be
+processed further, e.g. by scalert\&.
+.UNINDENT
+.UNINDENT
 .SH PHASE DETECTIONS
 .sp
-scautopick detects phase onsets for generating picks\&. Initally
-it searches for P picks on the waveform streams defined by global bindings.
+scautopick detects phase onsets for generating picks\&. Initally,
+it searches for detections on the waveform streams defined by global bindings.
+.SS P picks
 .sp
-By default scautopick applies a robust STA/LTA detector
-(STALTA filter) to waveforms for detecting P phases. Other
-detection filters can be choosen from the list of SeisComP filters\&.
-The waveforms are typically pre\-filtered\&.
-Without further configuration a running\-mean highpass, a cosine taper and a Butterworth
-bandpass filter of third order with corner frequencies of 0.7 and 2 Hz are applied before
-the STALTA filter. The entire filter sequence is configurable by \fBfilter\fP,
-module configuration, or \fI\%detecFilter\fP, binding configuration.
+A primary detector is applied first. When a detection is found, \(aqP\(aq is by default
+assigned to the guess of the phase type (phaseHint). The actual guess can be configured by
+\fI\%phaseHint\fP\&. By default the primary detector applies a robust STA/LTA
+detector (\fBSTALTA()\fP filter) to waveforms for making detections. Other
+detection filters and filter chains can be choosen from the
+list of SeisComP filters\&. A guess of the pick type may
+be defined by \fI\%phaseHint\fP\&.
+.sp
+Waveforms are typically pre\-filtered before the actual
+\fBSTALTA()\fP filter. Without further configuration a
+running\-mean highpass, a cosine taper and a Butterworth bandpass filter of
+third order with corner frequencies of 0.7 and 2 Hz are applied before the
+\fBSTALTA()\fP filter. The entire filter sequence is configurable by
+\fBfilter\fP, module configuration, or \fI\%detecFilter\fP, binding
+configuration.
+.sp
 Once the STA/LTA ratio has reached a configurable threshold (by default 3) for a
 particular stream, a pick is set to the time when this
-threshold is exceeded (pick time) and the picker is set inactive. The picker is reactivated
-for this stream once the STA/LTA ratio falls to the value of 1.5 (default).
+threshold is exceeded (pick time) and the picker is set inactive. The picker is
+reactivated for this stream once the STA/LTA ratio falls to the value of 1.5 (default).
 .sp
 The trigger thresholds are configurable:
 .INDENT 0.0
@@ -65,55 +85,13 @@ Trigger off: \fI\%thresholds.triggerOff\fP, module configuration or \fI\%trigOff
 binding configuration.
 .UNINDENT
 .sp
-Following inital P\-phase detections a second\-stage P\-phase picker (post picker) and
-a S\-phase picker (secondary picker) can be applied. Configure \fI\%picker\fP,
-\fI\%spicker\fP and global bindings parameters accordingly.
-.SH SECOND-STAGE PICKERS AVAILABLE BY CONFIGURATION OF PICKER OR SPICKER
-.TS
-center;
-|l|l|l|l|.
-_
-T{
-picker name
-T}	T{
-picker
-T}	T{
-spicker
-T}	T{
-parameters in global bindings
-T}
-_
-T{
-AIC
-T}	T{
-x
-T}	T{
-T}	T{
-picker.AIC
-T}
-_
-T{
-BK
-T}	T{
-x
-T}	T{
-T}	T{
-picker.BK
-T}
-_
-T{
-S\-L2
-T}	T{
-T}	T{
-x
-T}	T{
-spicker.L2
-T}
-_
-.TE
+Initial detections can be further adjusted by a second\-stage phase re\-picker
+(post picker) as defined by \fI\%picker\fP\&. The re\-picker should be tuned
+carefully and global bindings parameters \fBpicker.*\fP should be
+configured accordingly.
 .sp
-After having detected a P phase, scautopick will not accept any further P detection
-until
+After having detected a phase, the re\-picker will be inactive and accept no further
+detection until
 .INDENT 0.0
 .IP \(bu 2
 The amplitudes measured after filtering (\fBfilter\fP in module configuration
@@ -141,6 +119,70 @@ T_{minOffset} (\fI\%thresholds.minAmplOffset\fP) is typically similar to
 the trigger threshold, \fI\%thresholds.triggerOn\fP (module configuration) or
 \fI\%trigOn\fP (binding configuration).
 .UNINDENT
+.SS S picks
+.sp
+Based on the inital detection or pick a secondary picker may applied be applied,
+e.g., for picking S phases as defined by \fI\%spicker\fP\&. The secondary picker
+is halted as soon as new detections are made unless \fI\%killPendingSPickers\fP
+is inactive.
+.sp
+As for the re\-picker also the spicker should be tuned carefully and global
+bindings parameters \fBspicker.*\fP should be set.
+.SS Second\-stage pickers available by configuration of \fI\%picker\fP or \fI\%spicker\fP
+.TS
+center;
+|l|l|l|l|l|.
+_
+T{
+picker name
+T}	T{
+phase
+T}	T{
+picker
+T}	T{
+spicker
+T}	T{
+global bindings parameters
+T}
+_
+T{
+AIC
+T}	T{
+P, configurable: \fI\%phaseHint\fP
+T}	T{
+x
+T}	T{
+T}	T{
+picker.AIC.*
+T}
+_
+T{
+BK
+T}	T{
+P, configurable: \fI\%phaseHint\fP
+T}	T{
+x
+T}	T{
+T}	T{
+picker.BK.*
+T}
+_
+T{
+S\-L2
+T}	T{
+S
+T}	T{
+T}	T{
+x
+T}	T{
+spicker.L2.*
+T}
+_
+.TE
+.SS Feature extraction
+.sp
+For extracting features related to picks such as polarization parameters
+configure \fI\%fx\fP and the related global bindings parameters \fBfx.*\fP\&.
 .SH AMPLITUDE MEASUREMENTS
 .sp
 The second task of scautopick is to calculate amplitudes of a given type for the
@@ -187,7 +229,7 @@ The samples are checked for exceedance of \fI\%trigOn\fP and in the positive
 case either a post picker (\fI\%picker\fP) is launched or a Pick
 object will be sent.
 .IP \(bu 2
-If \fI\%sendDetections\fP is set to \fBtrue\fP trigger will be sent in any
+If \fI\%sendDetections\fP is set to \fBtrue\fP, a trigger will be sent in any
 case for e.g. debugging.
 .IP \(bu 2
 After the primary stage has finished (detector only or picker) secondary
@@ -265,7 +307,7 @@ $ scautopick \-\-playback \-I data.mseed \-\-ep \-d [type]://[host]/[database] >
 .fi
 .UNINDENT
 .UNINDENT
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/scautopick.cfg\fP
@@ -279,150 +321,32 @@ $ scautopick \-\-playback \-I data.mseed \-\-ep \-d [type]://[host]/[database] >
 scautopick inherits global options\&.
 .INDENT 0.0
 .TP
-.B filter
-Type: \fIstring\fP
-.sp
-Defines the default filter used for picking. Station specific configurations
-will override this value.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B timeCorrection
-Type: \fIdouble\fP
-.sp
-Unit: \fIs\fP
-.sp
-Time correction applied for each pick made. Station specific
-values override this value.
-Default is \fB\-0.8\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
 .B ringBufferSize
+Default: \fB300\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Defined the record ringbuffer size in seconds.
-Default is \fB300\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B leadTime
+Default: \fB60\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 The leadTime defines the time in seconds to start picking on
 waveforms before current time.
-Default is \fB60\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B initTime
-Type: \fIint\fP
-.sp
-Unit: \fIs\fP
-.sp
-The initTime defines a time span in seconds for that the picker
-is blind after initialization. This time is needed to initialize
-the filter and depends on it.
-Default is \fB60\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B gapInterpolation
-Type: \fIboolean\fP
-.sp
-Interpolate gaps linearly? This is valid for gaps shorter
-than thresholds.maxGapLength.
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B amplitudes
-Type: \fIlist:string\fP
-.sp
-Defines the amplitude types to be computed by the picker as well.
-Default is \fBMLv, mb, mB\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B picker
-Type: \fIstring\fP
-.sp
-Configures the picker to use. By default only a simple detections
-are emitted as picks. To enable real picking on a time window around
-the detection, an algorithm (plugin) can be defined with this parameter.
-Currently available is: "AIC", "BK" or
-"GFZ". More options may be available by plugins.
-Configure related parameters in global bindings.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B spicker
-Type: \fIstring\fP
-.sp
-Configures the secondary picker to use, e.g. for pick S\-phases.
-Currently available is: "S\-L2". More options may
-be available by plugins. Configure related parameters
-in global bindings.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B useAllStreams
-Type: \fIboolean\fP
-.sp
-If enabled the all streams are used for picking that are received by the picker.
-This option has only effect if a file is used as input which contains more data than
-the picker requests. If connected to a waveform server such as SeedLink the picker
-will only receive the data it subscribed to.
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B killPendingSPickers
-Type: \fIboolean\fP
-.sp
-If enabled the all secondary pickers that were triggered by
-a previous pick will be terminated when a new detection or
-pick has been found. This aims to avoid the case where an
-S phase is wrongly picked as P but would also be picked as
-S by the secondary picker. But suppressing the S pick can
-lead to undesired results. It might be better in some
-situations to have two picks (P and S) instead only a wrong
-P.
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B sendDetections
-Type: \fIboolean\fP
-.sp
-If enabled and "picker" is configured, then initial detections
-are sent as well. To distinguish between detections and picks
-the evaluation status of the pick is set to "rejected".
-This is meant to be a debug option which can be used to compare
-detections and picks by their evaluation status.
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B extraPickComments
-Type: \fIboolean\fP
-.sp
-If enabled and "picker" or "spicker" is
-configured, then extra comments
-will be added to the resulting pick.
-.sp
-Supported comments:
-.sp
-SNR: added if SNR >= 0, comment id is "SNR"
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B playback
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 If enabled, picks can be made on waveforms which are older than
@@ -431,53 +355,225 @@ when the module was started. This allows to pick
 historic data in real\-time playbacks which are preserving the
 record times. See e.g. the "msrtsimul" module.
 This option deactivates "leadTime". Activate only for playbacks.
-Default is \fBfalse\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B initTime
+Default: \fB60\fP
+.sp
+Type: \fIint\fP
+.sp
+Unit: \fIs\fP
+.sp
+The initTime defines a time span in seconds for that the picker
+is blind after initialization. This time is needed to initialize
+the filter and depends on it.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B gapInterpolation
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Interpolate gaps linearly? This is valid for gaps shorter
+than thresholds.maxGapLength.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B useAllStreams
+Default: \fBtrue\fP
+.sp
+Type: \fIboolean\fP
+.sp
+If enabled, all streams that are received by the picker are
+used for picking. This option has only effect if a
+file is used as input which contains more data than the
+picker requests. If connected to a waveform server such as
+SeedLink, the picker will only receive the data it is
+subscribed to.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B filter
+Default: \fB"RMHP(10)>>ITAPER(30)>>BW(4,0.7,2)>>STALTA(2,80)"\fP
+.sp
+Type: \fIstring\fP
+.sp
+The default filter used for making detections. Station\-specific
+configurations (bindings) override this value.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B timeCorrection
+Default: \fB\-0.8\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIs\fP
+.sp
+The time correction applied for a pick. Station\-specific
+values (bindings) override this value.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B picker
+Type: \fIstring\fP
+.sp
+The re\-picker to use. By default only simple detections
+are emitted as picks. To enable re\-picking on a time window around
+the detection, an algorithm (plugin) can be defined with this parameter.
+.sp
+Currently available: "AIC", "BK" or
+"GFZ".
+.sp
+More options may be available by plugins. Configure related
+parameters in global bindings.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B phaseHint
+Default: \fBP\fP
+.sp
+Type: \fIstring\fP
+.sp
+Phase hint to be assigned to the pick made by the primary picker.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B sendDetections
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+If enabled and "picker" is configured, then
+initial detections are sent as well. To distinguish between
+detections and picks the evaluation status of the pick is
+set to "rejected". This is meant to be a debug
+option which can be used to compare detections and picks by
+their evaluation status.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B spicker
+Type: \fIstring\fP
+.sp
+The secondary picker to use, e.g., for picking S\-phases.
+Currently available is: "S\-L2". More options may
+be available by plugins. Configure related parameters
+in global bindings.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B killPendingSPickers
+Default: \fBtrue\fP
+.sp
+Type: \fIboolean\fP
+.sp
+If enabled, all secondary pickers that were triggered by
+a previous pick will be terminated when a new detection or
+pick has been found. This aims to avoid the case where an
+S phase is wrongly picked as P but would also be picked as
+S by the secondary picker. But suppressing the S pick can
+lead to undesired results. It might be better in some
+situations to have two picks (P and S) instead only a wrong P.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B extraPickComments
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+If enabled and "picker" or "spicker" is
+configured, extra comments will be added to the resulting pick.
+.sp
+Supported comments:
+.sp
+SNR: added if SNR >= 0, comment id is "SNR"
+.UNINDENT
+.INDENT 0.0
+.TP
+.B fx
+Type: \fIstring\fP
+.sp
+Configures the feature extraction type to use. Currently
+available: "DFX". Configure related parameters
+in global bindings.
+.sp
+When configured, the usability of the features for locating
+depends on the used locator, e.g. LOCSAT. Read the
+locator\(aqs documentation and configuration parameters.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes
+Default: \fBMLv, mb, mB\fP
+.sp
+Type: \fIlist:string\fP
+.sp
+The amplitude types to be computed by the picker based on
+picks.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBthresholds.*\fP
+\fIThreshold parameters for the primary picker.\fP
+.UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
 .B thresholds.triggerOn
+Default: \fB3\fP
+.sp
 Type: \fIdouble\fP
 .sp
 For which value on the filtered waveforms is a pick
 detected. Station specific values override this value.
-Default is \fB3\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B thresholds.triggerOff
+Default: \fB1.5\fP
+.sp
 Type: \fIdouble\fP
 .sp
 The value the filtered waveforms must reach to enable
 detection again. Between triggerOn and triggerOff the
 picker is blind and does not produce picks. Station
 specific values override this value.
-Default is \fB1.5\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B thresholds.maxGapLength
+Default: \fB4.5\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
 The maximum gap length in seconds to handle.
 Gaps larger than this will cause the picker to be reset.
-Default is \fB4.5\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B thresholds.amplMaxTimeWindow
+Default: \fB10\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
 The time window used to compute a maximum (snr) amplitude
 on the filtered waveforms.
-Default is \fB10\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B thresholds.deadTime
+Default: \fB30\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
@@ -485,18 +581,18 @@ Unit: \fIs\fP
 The time used together with measured amplitude and
 \fIthresholds.minAmplOffset\fP for scaling the amplitude below which
 the picker is inactive after a P pick. Read the documentation!
-Default is \fB30\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B thresholds.minAmplOffset
+Default: \fB3\fP
+.sp
 Type: \fIdouble\fP
 .sp
 The amplitude used together with measured amplitude and
 \fIthresholds.deadTime\fP for scaling the amplitude below which
 the picker is inactive after a P pick. The value is typically
 similar to the trigger threshold. Read the documentation!
-Default is \fB3\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -514,84 +610,92 @@ WARNING: This option increases the load on the system!
 .INDENT 0.0
 .TP
 .B connection.amplitudeGroup
+Default: \fBAMPLITUDE\fP
+.sp
 Type: \fIstring\fP
 .sp
-Group used to send amplitudes to.
-Default is \fBAMPLITUDE\fP\&.
+Message group for sending amplitudes to.
 .UNINDENT
-.SH BINDINGS
-.SS Configuration
+.SH BINDINGS PARAMETERS
 .INDENT 0.0
 .TP
 .B detecEnable
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enables/disables picking on a station.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B detecFilter
+Default: \fB"RMHP(10)>>ITAPER(30)>>BW(4,0.7,2)>>STALTA(2,80)"\fP
+.sp
 Type: \fIstring\fP
 .sp
 Defines the filter to be used for picking.
-Default is \fB"RMHP(10)>>ITAPER(30)>>BW(4,0.7,2)>>STALTA(2,80)"\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B trigOn
+Default: \fB3\fP
+.sp
 Type: \fIdouble\fP
 .sp
 For which value on the filtered waveform is a pick detected.
-Default is \fB3\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B trigOff
+Default: \fB1.5\fP
+.sp
 Type: \fIdouble\fP
 .sp
 The value the filtered waveform must reach to
 enable a detection again.
-Default is \fB1.5\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B timeCorr
+Default: \fB\-0.8\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
-The time correction applied to a detected pick.
-Default is \fB\-0.8\fP\&.
+The time correction applied to a pick.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B sensitivityCorrection
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Defines whether the detector applies sensitivity correction
 (applying the gain) or not in advance to filter the data.
-Default is \fBfalse\fP\&.
 .UNINDENT
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -601,55 +705,60 @@ Load given plugins.
 .INDENT 0.0
 .TP
 .B \-D, \-\-daemon
-Run as daemon. This means the application will fork itself and
-doesn\(aqt need to be started with &.
+Run as daemon. This means the application will fork itself
+and doesn\(aqt need to be started with &.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-auto\-shutdown arg
-Enable/disable self\-shutdown because a master module shutdown. This only
-works when messaging is enabled and the master module sends a shutdown
-message (enabled with \-\-start\-stop\-msg for the master module).
+Enable/disable self\-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with \-\-start\-stop\-msg
+for the master module).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-module arg
-Sets the name of the master\-module used for auto\-shutdown. This
-is the application name of the module actually started. If symlinks
-are used then it is the name of the symlinked application.
+Set the name of the master\-module used for auto\-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-username arg
-Sets the name of the master\-username of the messaging used for
-auto\-shutdown. If "shutdown\-master\-module" is given as well this
-parameter is ignored.
+Set the name of the master\-username of the messaging
+used for auto\-shutdown. If "shutdown\-master\-module" is
+given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -664,7 +773,8 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -695,7 +805,8 @@ Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
 .INDENT 0.0
 .TP
 .B \-S, \-\-subscribe\-group arg
-A group to subscribe to. This option can be given more than once.
+A group to subscribe to.
+This option can be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -705,7 +816,7 @@ Overrides configuration parameter \fBconnection.contentType\fP\&.
 .INDENT 0.0
 .TP
 .B \-\-start\-stop\-msg arg
-Sets sending of a start\- and a stop message.
+Set sending of a start and a stop message.
 .UNINDENT
 .SS Database
 .INDENT 0.0
@@ -716,19 +827,21 @@ List all supported database drivers.
 .INDENT 0.0
 .TP
 .B \-d, \-\-database arg
-The database connection string, format: \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which can be
-queried with "\-\-db\-driver\-list".
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+"service" is the name of the database driver which
+can be queried with "\-\-db\-driver\-list".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-module arg
-The configmodule to use.
+The config module to use.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-inventory\-db arg
-Load the inventory from the given database or file, format: [\fI\%service://]location\fP
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -739,15 +852,17 @@ Do not use the database at all
 .INDENT 0.0
 .TP
 .B \-\-record\-driver\-list
-List all supported record stream drivers
+List all supported record stream drivers.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-I, \-\-record\-url arg
-The recordstream source URL, format: [\fI\%service://\fP]location[#type].
-"service" is the name of the recordstream driver which can be
-queried with "\-\-record\-driver\-list". If "service"
-is not given "\fI\%file://\fP" is used.
+The recordstream source URL, format:
+[\fI\%service://\fP]location[#type].
+"service" is the name of the recordstream driver
+which can be queried with "\-\-record\-driver\-list".
+If "service" is not given, "\fI\%file://\fP" is
+used.
 .UNINDENT
 .INDENT 0.0
 .TP

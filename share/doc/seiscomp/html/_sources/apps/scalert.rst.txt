@@ -31,8 +31,8 @@ There are four possible trigger mechanisms for calling scripts:
 
 .. _scalert_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 | :file:`etc/defaults/global.cfg`
 | :file:`etc/defaults/scalert.cfg`
@@ -47,17 +47,19 @@ scalert inherits :ref:`global options<global-configuration>`.
 
 .. confval:: firstNew
 
+   Default: ``false``
+
    Type: *boolean*
 
    Treat an event as new event when it is seen the first time.
-   Default is ``false``.
+
 
 .. confval:: agencyIDs
 
    Type: *list:string*
 
-   List of agencyIDs to consider picks and origins. The
-   agencyID is extracted from the pick or the preferred origin of the event
+   List of agency IDs to consider picks and origins. The agency ID
+   is extracted from the pick or the preferred origin of the event
    and compared with the configured IDs.
    
    unset \(\=\): use agencyID defined in global, default
@@ -71,31 +73,37 @@ scalert inherits :ref:`global options<global-configuration>`.
 
    The default message string for the event\-script is
    \"earthquake, [HOURS] hours [MINS] minutes ago, [DESC],
-   magnitude [MAG], depth [DEP] kilometers\" whereas [DESC] is the
-   string given in the event.description attribute. This string can be
-   overwritten using one of the following options.
-   There are three placeholders that can be used: \@region\@, \@dist\@ and
-   \@poi\@.
-   Example: \"\@region\@, \@dist\@ kilometers from \@poi\@ away\".
+   magnitude [MAG], depth [DEP] kilometers\" whereas [DESC]
+   is the string given in the event.description attribute. This
+   string can be overwritten using one of the following options.
+   There are three placeholders that can be used: \@region\@,
+   \@dist\@ and \@poi\@.
+   Example: \"\@region\@, \@dist\@ kilometers from \@poi\@
+   away\".
 
 
 .. confval:: poi.maxDist
+
+   Default: ``20``
 
    Type: *double*
 
    Unit: *deg*
 
-   When using the nearest point of interest \(city\) as part of the
-   message string, specify the maximum distance in degrees from the
-   event. Any point of interest farther away will be ignored.
-   Default is ``20``.
+   When using the nearest point of interest \(city\) as part of
+   the message string, specify the maximum distance in degrees
+   from the event. Any point of interest farther away will be
+   ignored.
+
 
 .. confval:: poi.minPopulation
+
+   Default: ``50000``
 
    Type: *double*
 
    Minimum population for a city to become a point of interest.
-   Default is ``50000``.
+
 
 .. confval:: scripts.pick
 
@@ -111,8 +119,8 @@ scalert inherits :ref:`global options<global-configuration>`.
    Type: *string*
 
    The script to be called when an amplitude
-   arrives. Network\-, station code, amplitude and amplitude publicID are passed
-   as parameters \$1, \$2, \$3, \$4.
+   arrives. Network\-, station code, amplitude and amplitude
+   public ID are passed as parameters \$1, \$2, \$3, \$4.
 
 
 .. confval:: scripts.alert
@@ -143,17 +151,56 @@ scalert inherits :ref:`global options<global-configuration>`.
 
 .. confval:: constraints.phaseHints
 
+   Default: ``P,S``
+
    Type: *list::string*
 
    Start the pick script only when the phaseHint of the
    received pick has one of the value\(s\).
-   Default is ``P,S``.
 
 
-Command-line
-============
+.. confval:: constraints.phaseStreams
+
+   Type: *list::string*
+
+   Start the pick script only when the stream \(NET.STA.LOC.CHA\)
+   of the received pick belongs to the list of stream IDs. If empty,
+   all picks are accepted, otherwise only the ones whose stream ID
+   matches one of the entry of this comma separated list. Each entry
+   must follow the NET.STA.LOC.CHA format, but the special
+   characters ? \* \| \( \) are also accepeted.
+   E.g. \"CH.\*,GR.STA??.\*,\*.\*.\*.HH?,\*.\*.\*.??\(Z\|1\)\"
+
+
+.. confval:: constraints.phaseNumber
+
+   Default: ``1``
+
+   Type: *int*
+
+   Start the pick script only when a minimum number of phases
+   'phaseNumber' is received within 'phaseInterval'.
+
+
+.. confval:: constraints.phaseInterval
+
+   Default: ``1``
+
+   Type: *int*
+
+   Unit: *s*
+
+   Start the pick script only when a minimum number of phases
+   'phaseNumber' is received within 'phaseInterval'.
+
+
+
+Command-Line Options
+====================
 
 .. program:: scalert
+
+:program:`scalert [options]`
 
 
 Generic
@@ -161,18 +208,20 @@ Generic
 
 .. option:: -h, --help
 
-   show help message.
+   Show help message.
 
 .. option:: -V, --version
 
-   show version information
+   Show version information.
 
 .. option:: --config-file arg
 
-   Use alternative configuration file. When this option is used
-   the loading of all stages is disabled. Only the given configuration
-   file is parsed and used. To use another name for the configuration
-   create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+   Use alternative configuration file. When this option is
+   used the loading of all stages is disabled. Only the
+   given configuration file is parsed and used. To use
+   another name for the configuration create a symbolic
+   link of the application or copy it. Example:
+   scautopick \-> scautopick2.
 
 .. option:: --plugins arg
 
@@ -180,26 +229,28 @@ Generic
 
 .. option:: -D, --daemon
 
-   Run as daemon. This means the application will fork itself and
-   doesn't need to be started with \&.
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
 
 .. option:: --auto-shutdown arg
 
-   Enable\/disable self\-shutdown because a master module shutdown. This only
-   works when messaging is enabled and the master module sends a shutdown
-   message \(enabled with \-\-start\-stop\-msg for the master module\).
+   Enable\/disable self\-shutdown because a master module shutdown.
+   This only works when messaging is enabled and the master
+   module sends a shutdown message \(enabled with \-\-start\-stop\-msg
+   for the master module\).
 
 .. option:: --shutdown-master-module arg
 
-   Sets the name of the master\-module used for auto\-shutdown. This
-   is the application name of the module actually started. If symlinks
-   are used then it is the name of the symlinked application.
+   Set the name of the master\-module used for auto\-shutdown.
+   This is the application name of the module actually
+   started. If symlinks are used, then it is the name of
+   the symlinked application.
 
 .. option:: --shutdown-master-username arg
 
-   Sets the name of the master\-username of the messaging used for
-   auto\-shutdown. If \"shutdown\-master\-module\" is given as well this
-   parameter is ignored.
+   Set the name of the master\-username of the messaging
+   used for auto\-shutdown. If \"shutdown\-master\-module\" is
+   given as well, this parameter is ignored.
 
 .. option:: --first-new
 
@@ -211,23 +262,26 @@ Verbosity
 
 .. option:: --verbosity arg
 
-   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
 
 .. option:: -v, --v
 
-   Increase verbosity level \(may be repeated, eg. \-vv\)
+   Increase verbosity level \(may be repeated, eg. \-vv\).
 
 .. option:: -q, --quiet
 
-   Quiet mode: no logging output
+   Quiet mode: no logging output.
 
 .. option:: --component arg
 
-   Limits the logging to a certain component. This option can be given more than once.
+   Limit the logging to a certain component. This option can
+   be given more than once.
 
 .. option:: -s, --syslog
 
-   Use syslog logging back end. The output usually goes to \/var\/lib\/messages.
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
 
 .. option:: -l, --lockfile arg
 
@@ -239,7 +293,8 @@ Verbosity
 
 .. option:: --debug
 
-   Debug mode: \-\-verbosity\=4 \-\-console\=1
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
 
 .. option:: --log-file arg
 
@@ -267,7 +322,8 @@ Messaging
 
 .. option:: -S, --subscribe-group arg
 
-   A group to subscribe to. This option can be given more than once.
+   A group to subscribe to.
+   This option can be given more than once.
 
 .. option:: --content-type arg
 
@@ -275,7 +331,7 @@ Messaging
 
 .. option:: --start-stop-msg arg
 
-   Sets sending of a start\- and a stop message.
+   Set sending of a start and a stop message.
 
 
 Database
@@ -287,17 +343,19 @@ Database
 
 .. option:: -d, --database arg
 
-   The database connection string, format: service:\/\/user:pwd\@host\/database.
-   \"service\" is the name of the database driver which can be
-   queried with \"\-\-db\-driver\-list\".
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
 
 .. option:: --config-module arg
 
-   The configmodule to use.
+   The config module to use.
 
 .. option:: --inventory-db arg
 
-   Load the inventory from the given database or file, format: [service:\/\/]location
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
 
 .. option:: --db-disable
 
@@ -341,6 +399,6 @@ Debug
 
 .. option:: -E, --eventid arg
 
-   Specify event ID that is used for testing. After running the alert
-   scripts scvoice will exit.
+   Specify event ID that is used for testing. After running the
+   alert scripts scvoice will exit.
 

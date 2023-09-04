@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCOLV" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCOLV" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scolv \- SeisComP Documentation
 .
@@ -208,13 +208,15 @@ corresponding tab.
 .sp
 In these diagrams, arrival can be activated or deactivating for \fI\%relocating\fP
 by clicking on a point or by selecting a range using mouse drag. Deselecting is
-available by mouse drag when pressing kbd:\fICtrl\fP\&.
+available by mouse drag when pressing \fBCtrl\fP\&.
 .INDENT 0.0
 .INDENT 2.5
 [image]
 Additional arrival plots in Location tab of the main window
-From upper left to lower right: \fB1\fP) azimuth vs distance, \fB2\fP) travel time vs distance,
-\fB3\fP) travel time \- predicted travel time vs distance, \fB4\fP) azimuth vs distance polar
+From upper left to lower right: \fB1\fP) travel\-time residual vs distance, \fB2\fP)
+travel\-time residual vs azimuth, \fB3\fP) azimuth vs distance in polar plot
+\fB4\fP) travel\-time vs distance, \fB5\fP) corrected travel\-time vs distance
+\fB6\fP) focal mechanism.
 .UNINDENT
 .UNINDENT
 .sp
@@ -388,25 +390,116 @@ Rename phases of selected arrivals.
 .sp
 If arrivals are deleted, they are removed physically from this solution in
 contrast to deactivate an arrival where only the used flags are set to zero.
-.SS Waveform review (Picker)
+.SS Phase picker: review waveforms
 .sp
 The \fIPicker\fP button opens the interactive waveform picker window. It allows
-to pick additional phases, to confirm picks, to add additional pick information
-such as polarity and uncertainty, to rotate traces and much more.
+to view and process waveforms for
+.INDENT 0.0
+.IP \(bu 2
+Picking additional phases,
+.IP \(bu 2
+Confirming picks,
+.IP \(bu 2
+Adding additional pick information such as polarity and uncertainty,
+.IP \(bu 2
+Data procssing, e.g. filtering, rotation, spectrogram and much more.
+.UNINDENT
 .sp
-It is divided into two parts, the zoom trace and the trace list. The zoom trace
-shows a sub area of the active trace in the list.
+The phase picker window is divided into two parts:
+.INDENT 0.0
+.IP \(bu 2
+The zoom trace and
+.IP \(bu 2
+The trace list.
+.UNINDENT
+.sp
+The zoom trace shows a sub area of the active trace in the list.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+.UNINDENT
+.UNINDENT
+.SS Request waveforms
+.sp
+When the picker window opens waveforms are initially requested for all streams
+which have associated phase picks (arrivals). More waveforms can be fetched
+interavtively:
+.INDENT 0.0
+.IP 1. 3
+Provide a maximum distance,
+.IP 2. 3
+Click on the purple \fIAdd\fP button to load the data.
+.UNINDENT
+.sp
+Toggle viewing data without arrivals by clicking the purple \fIHide\fP button.
+.sp
+During request the background of the traces is changed according to the current
+state:
+.INDENT 0.0
+.IP \(bu 2
+Yellow: waveforms requested but not yet received.
+.IP \(bu 2
+Red: acquisition finished and data is not available.
+.IP \(bu 2
+Green: waveforms received and acquisition still in progress.
+.IP \(bu 2
+Gray: meta data are missing.
+.UNINDENT
 .INDENT 0.0
 .INDENT 2.5
 [image]
 .UNINDENT
 .UNINDENT
 .sp
-Initially the picker shows only the vertical channels for each station that
-have been associated with the current location. It can be
-\fI\%configured\fP to show all three components.
+If a trace displays all three components and amplitudes are scaled up, they are
+not clipped to their window area. The clipping behavior can be toggled by
+either pressing \fBC\fP or in the menu
+View ‣ Zoomtrace ‣ Clip components to viewport\&.
 .sp
-Phase picks are color\-coded:
+The difference is shown in the following two images:
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Trace clipping enabled.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Trace clipping disabled.UNINDENT
+.UNINDENT
+.SS 1C / 3C data
+.sp
+Initially the picker window shows only the vertical channels for each station that
+have been associated with the current location. When opening, it can be configured to
+.INDENT 0.0
+.IP \(bu 2
+Load all components: \fI\%picker.loadAllComponents\fP,
+.IP \(bu 2
+Show all components: \fI\%picker.showAllComponents\fP\&.
+.UNINDENT
+.sp
+Hotkey \fBt\fP can be used to toggle beetween 1\- and 3\-component data. Use the
+yellow buttons or \fI\%hot keys\fP to load components not yet
+loaded.
+.SS Data filtering
+.sp
+When the picker window opens, the waveforms are filtered by the default filter
+configured in \fI\%picker.filters\fP\&. Selecting filters or unfitlered data
+interactively is available by choosing the filter from the filter menu or
+\fI\%hot keys\fP\&.
+.SS Waveform rotation
+.sp
+Waveforms can be rotated to better view details. For rotating the waveform
+components into ZNE or ZRT system a new drop down list was added in the toolbar.
+Selecting either ZNE or ZRT implies that all missing components are requested.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+.UNINDENT
+.UNINDENT
+.SS Phase picks
+.sp
+Phase picks shown on waveforms are color\-coded:
 .INDENT 0.0
 .IP \(bu 2
 Red: automatic
@@ -416,10 +509,11 @@ Green: manual
 Blue: predicted using the selected travel\-time table
 .UNINDENT
 .sp
-Mature colors and light color indicate arrivals and unassociated picks, respectively.
-Unassociated picks can be shown/hidden using \fBCtrl\(ga+:kbd:\(ga5\fP\&.
+Mature and light colors indicate arrivals and unassociated picks, respectively.
+Unassociated picks can be shown/hidden using \fBCtrl\fP + \fB5\fP\&.
+.SS Phase picking
 .sp
-Initially the picker allows to pick the following phases:
+Initially the picker window allows to pick the arrival times of the following phases:
 .INDENT 0.0
 .IP \(bu 2
 P
@@ -435,8 +529,9 @@ S
 Sg
 .UNINDENT
 .sp
-Up to 9 phase types can be selected by hot keys. This list of favourite phases
-can be customized by \fI\%picker.phases.favourites\fP, e.g. (\fBscolv.cfg\fP):
+Up to 9 phase types can be configured for selection by
+\fI\%hot keys\fP\&. This list of favourite phases can be customized
+by \fI\%picker.phases.favourites\fP, e.g. (\fBscolv.cfg\fP):
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -450,7 +545,7 @@ picker.phases.favourites = Pn, P, Pg, PmP, P1, Pg, Sg, S, Sn, SmS
 .UNINDENT
 .sp
 The list of favourites is used to assign shortcuts to. \fB1\fP is assigned
-to the first phase, \fB2\fP to the second and so on.
+to the first phase in the list, \fB2\fP to the second and so on.
 .sp
 \fBNOTE:\fP
 .INDENT 0.0
@@ -486,6 +581,49 @@ picker.phases.groups.teleseismic = pP, sP, sS, PKP, PKP
 Pick phase selection menu.UNINDENT
 .UNINDENT
 .sp
+For making a phase pick the picking mode must be activated by choosing a phase in the
+Picking menu. Short cuts are:
+.INDENT 0.0
+.IP \(bu 2
+Blue P and S buttons for picking P and phases, respectively (hot keys \fBF1\fP, \fBF2\fP),
+.IP \(bu 2
+Numbers shown in the picking menu used as hot keys.
+.UNINDENT
+.sp
+Additional information can be added interactively to the picks:
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Pick uncertainties\fP,
+.IP \(bu 2
+\fI\%Phase polarities\fP\&.
+.UNINDENT
+.sp
+Press \fBESC\fP to leave the picking menu. To send all picks to the main scolv
+window click on the red \fIApply\fP button or press \fBF5\fP\&. The picks will be used
+immediately for \fI\%relocating\fP\&.
+.sp
+\fBWARNING:\fP
+.INDENT 0.0
+.INDENT 3.5
+All manual work will be lost when closing the picker window without sending
+the picks.
+.UNINDENT
+.UNINDENT
+.SS Pick uncertainties
+.sp
+If the mouse hovers a pick, a dashed rectangle is drawn around this pick. Then
+the pick is active and the right mouse button can be pressed to open the context
+menu where the polarity and uncertainty can be defined. The following screen shot
+shows the available uncertainties.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Pick context menu.UNINDENT
+.UNINDENT
+.sp
+Additionally, pick uncertainties can be defined freely whereas choosing
+among a predefined set of uncertainties is a lot faster. The way, pick uncertainties
+are used depends on the applied locator routine and its configuration.
 To set the uncertainty of a pick more easily a list of predefined uncertainties can be
 defined using \fI\%picker.uncertainties\fP, e.g.:
 .INDENT 0.0
@@ -500,23 +638,10 @@ picker.uncertainties = 0.05, 0.1, 0.2, "(0.1,0.2)", "(0.05,0.02)"
 .UNINDENT
 .sp
 where single values define symmetric and pairs of values define asymmetric uncertainties.
-The pre\-defined uncertainties can be selected during picking using hot keys, e.g.
+The pre\-defined uncertainties can be selected during picking using
+\fI\%hot keys\fP, e.g.
 \fB1\fP or \fB2\fP for the 1st or the 2nd value defined in \fI\%picker.uncertainties\fP\&.
 Later, the uncertainties can be adjusted manually.
-.sp
-Additionally, uncertainties can be defined freely whereas choosing
-among a predefined set of uncertainties is a lot faster.
-.sp
-If the mouse hovers a pick a dashed rectangle is drawn around this pick. Then
-the pick is active and the right mouse button can be pressed to open the context
-menu where the polarity and uncertainty can be defined. The following screen shot
-shows the available uncertainties.
-.INDENT 0.0
-.INDENT 2.5
-[image]
-Pick context menu.UNINDENT
-.UNINDENT
-.sp
 As for phase types, uncertainty profiles can be additionally configured (\fBscolv.cfg\fP):
 .INDENT 0.0
 .INDENT 3.5
@@ -543,7 +668,7 @@ picker.uncertainties.preferred = local, teleseismic
 .UNINDENT
 .UNINDENT
 .sp
-If an uncertainty is selected the active pick is copied into a manual pick
+If an uncertainty is selected, the active pick is copied into a manual pick
 and the uncertainty is displayed as semi transparent bar to the left and
 to the right of the pick. The width of the bar corresponds to the uncertainty
 in seconds.
@@ -552,78 +677,81 @@ in seconds.
 [image]
 .UNINDENT
 .UNINDENT
+.SS Phase polarities
 .sp
-Furthermore the pick polarity can be defined.
+Furthermore the phase pick polarity can be defined. When this is the polarity
+of the first arrival P phase it can be used to manually set the focal mechanisms
+of the origin in the \fI\%FirstMotion\fP diagram.
 .INDENT 0.0
 .INDENT 2.5
 [image]
 .UNINDENT
 .UNINDENT
 .sp
-Either \fIpositive\fP, \fInegative\fP, \fIundecidable\fP or \fIunset\fP\&. If set it is displayed
-as an arrow. \fIUndecidable\fP is displayed as a cross (X).
+Right\-click on the pick to make a choice: Either \fIpositive\fP, \fInegative\fP,
+\fIundecidable\fP or \fIunset\fP is available. You may speed up your work by using
+\fI\%hot keys\fP\&. If set, the polarity is displayed as an
+arrow. \fIUndecidable\fP is displayed as a cross (X).
 .INDENT 0.0
 .INDENT 2.5
 [image]
 .UNINDENT
-.UNINDENT
-.sp
-To rotate the waveform components into ZNE or ZRT system a new drop down list
-was added in the toolbar. Selecting either ZNE or ZRT implies that all missing
-components are requested.
-.INDENT 0.0
-.INDENT 2.5
-[image]
-.UNINDENT
-.UNINDENT
-.sp
-When waveforms are requested the corresponding widget background is changed
-according to the current state:
-.INDENT 0.0
-.IP \(bu 2
-Yellow: waveforms requested but not yet received
-.IP \(bu 2
-Red: acquisition finished and data is not available
-.IP \(bu 2
-Green: waveforms received and acquisition still in progress
-.IP \(bu 2
-Gray: meta data are missing
-.UNINDENT
-.INDENT 0.0
-.INDENT 2.5
-[image]
-.UNINDENT
-.UNINDENT
-.sp
-If a trace displays all three components and amplitudes are scaled up, they are
-not clipped to their window area. The clipping behavior can be toggled by
-either pressing \fBC\fP or in the menu
-View ‣ Zoomtrace ‣ Clip components to viewport\&.
-.sp
-The difference is shown in the following two images:
-.INDENT 0.0
-.INDENT 2.5
-[image]
-Trace clipping enabled.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.INDENT 2.5
-[image]
-Trace clipping disabled.UNINDENT
 .UNINDENT
 .SS Relocate events
 .sp
-Before relocating choose the locator, the locator profile and additional parameters
-to the right or from the the tool box. Additional locator routines are available
-by concepts_plugins\&.
+The \fIRelocate\fP button allows relocating based on the selected pick set. Picks may
+be manually adjusted or created before in the
+\fI\%wave review window\fP or arrival properties may
+be directly adjusted in the \fI\%arrival table\fP\&.
+Prior to relocating choose the locator, the locator profile and additional parameters
+to the right or from the the tool box.
 .INDENT 0.0
 .INDENT 2.5
 [image]
 .UNINDENT
 .UNINDENT
 .sp
+Defaults may be configured, e.g.
+.INDENT 0.0
+.IP \(bu 2
+\fI\%olv.locator.interface\fP: Default locator
+.IP \(bu 2
+\fI\%olv.locator.defaultProfile\fP: Default profile of the default locator
+.IP \(bu 2
+\fI\%olv.locator.minimumDepth\fP: Minimum depth for the locator to consider.
+.UNINDENT
+.sp
+The locators available by default in \fISeisComP\fP are
+.INDENT 0.0
+.IP \(bu 2
+LOCSAT,
+.IP \(bu 2
+FixedHypocenter\&.
+.UNINDENT
+.sp
+Additional locator routines are available by concepts_plugins which
+provide their own specific global configuration, e.g.
+.INDENT 0.0
+.IP \(bu 2
+Hypo71,
+.IP \(bu 2
+NonLinLoc,
+.IP \(bu 2
+iLoc (currently only on when building SeisComP from source).
+.UNINDENT
+.sp
+Any other custom locator can be intergrated through configuration of
+global_locext\&.
+.sp
 Pressing \fIRelocate\fP creates a new origin and updates the arrival table and the
 parameters displayed in the Location tab.
+.sp
+\fBHINT:\fP
+.INDENT 0.0
+.INDENT 3.5
+You need to create a new origin for \fI\%computing magnitudes\fP\&.
+.UNINDENT
+.UNINDENT
 .SS Compute magnitudes
 .sp
 When an event was \fI\%relocated\fP a new origin is created
@@ -669,7 +797,7 @@ Change to events tab
 Goto 1.
 .UNINDENT
 .sp
-to
+This may be replaced by
 .INDENT 0.0
 .IP 1. 3
 Select an event
@@ -683,8 +811,8 @@ Change to events tab
 Goto 1.
 .UNINDENT
 .sp
-an additional commit mode was added which allows to set certain options along
-with the location and its magnitudes.
+An additional commit mode was added which allows to set certain parameters and
+options along with the location and its magnitudes.
 .INDENT 0.0
 .INDENT 2.5
 [image]
@@ -701,12 +829,12 @@ brings up another window where the different options can be set.
 .UNINDENT
 .sp
 It allows to fix the origin to be committed as preferred origin and to set the
-event type in one go. If \fIReturn to event list after commit\fP is ticked the
+event type in one go. If \fIReturn to event list after commit\fP is ticked, the
 event list is activated after pressing OK to select another event quickly.
 .INDENT 0.0
 .TP
 .B \fIEarthquake name\fP
-Contains the event description \fIearthquake name\fP\&. If this field is empty the
+Contains the event description \fIearthquake name\fP\&. If this field is empty, the
 description will be removed from the event otherwise it will be added.
 .TP
 .B \fIComment\fP
@@ -830,7 +958,7 @@ The initial view loads all traces of all arrivals within the defined distance
 for that magnitude type. The zoom trace shows all components required for this
 particular amplitude type and the lower part shows all stations and only the
 currently active component. All traces are aligned on trigger time (blue P marker).
-If a station has got an amplitude it shows up as a red (automatic
+If a station has got an amplitude, it shows up as a red (automatic
 determined amplitude) or green (manually determined amplitude) marker.
 This display is similar to the Picker.
 .sp
@@ -875,10 +1003,11 @@ Add unpicked/unassociated stations that are within a certain distance
 .IP \(bu 2
 Remove bad stations
 .UNINDENT
-.SS Show raw data
+.SS Filtered and raw data
 .sp
-By default the processed waveforms are displayed. To look at the raw waveforms
-change the filter drop down box to \fIRaw\fP\&.
+By default the processed waveforms are displayed. The processing is defined by
+the magnitude type. To view the raw waveforms change the filter drop down box
+to \fIRaw\fP\&.
 .SS Processing settings
 .sp
 A basic amplitude processor uses two basic settings: Minimum signal/noise
@@ -900,7 +1029,7 @@ two components is computed, e.g. ML on the horizontals. The combiner procedure
 defines how the amplitudes of each horizontal are combined to a single amplitude,
 e.g. by taking the maximum of both or the average.
 .sp
-If the amplitude processor allows any of these options the corresponding drop
+If the amplitude processor allows any of these options, the corresponding drop
 down boxes are enabled in the toolbar and can be used to change the defaults.
 .sp
 \fBNOTE:\fP
@@ -935,10 +1064,10 @@ The new filter selection is applied immediately to the waveforms while the ampli
 .sp
 To calculate the amplitudes of all traces with the current settings press the
 green check in the toolbar. It will process all traces and recalculate the
-amplitudes within the shown time windows. If an error occurs it will show up as
-a small message box in the station trace itself. If a new amplitude is available
+amplitudes within the shown time windows. If an error occurs, it will show up as
+a small message box in the station trace itself. If a new amplitude is available,
 its state is set to manual and the marker is updated to reflect the new position
-of the amplitude. If the mouse hovers an amplitude marker a tooltip pops up
+of the amplitude. If the mouse hovers an amplitude marker, a tooltip pops up
 after a certain amount of time and shows information about the amplitude.
 .INDENT 0.0
 .INDENT 2.5
@@ -1057,9 +1186,13 @@ Select a row or cell and
 press the right mouse button to copy the row or cell, respectively.
 .SH EVENTS TAB
 .sp
-The Events tab gives an overview of the events in a defined time span. Shown events
-are updated in real time as new events arrive in \fISeisComP\fP or are loaded from the database.
-When starting scolv with the option \fB\-\-ep\fP events can also be loaded from an XML
+The Events tab gives an overview of the events in the defined time span. Listed
+events are updated in real time as new events arrive in \fISeisComP\fP or are loaded
+from the database. The title of the tab also indicates the number of shown vs.
+the total number of loaded events. The numbers can be different because events
+can be \fI\%hidden from the list by filtering\fP\&.
+.sp
+When starting scolv with the option \fB\-\-offline\fP, events can also be loaded from an XML
 file using the File menu in the main window.
 .INDENT 0.0
 .INDENT 2.5
@@ -1101,7 +1234,9 @@ M : magnitude
 .IP \(bu 2
 \fBPhases\fP : number of used phases
 .IP \(bu 2
-\fBRMS\fP : root\-mean square
+\fBRMS\fP : root\-mean square travel\-time residual
+.IP \(bu 2
+AzGap: largest azimuthal gap between two neighboring stations of an origin
 .IP \(bu 2
 \fBLat\fP : latitude
 .IP \(bu 2
@@ -1154,21 +1289,38 @@ eventlist.visibleColumns = OT(GMT), Type, M, MType Phases, RMS, Lat, Lon,\e
 .UNINDENT
 .SS Event filtering
 .sp
-Database requests filters can be set and adjusted in
-the filter parameter window which opens when pressing the Filter button. Press \fIRead\fP
-to reload the events list based on the filter parameters. Filter parameters
-are global parameters which can be preset by adjusting the configuration parameters
-\fBeventlist.filter.database.*\fP\&. \fBThe request filter only concerns the
-database request for loading events. It does not update the current list.\fP
-.sp
-The event list also contains a checkbox \fIHide other/fake events\fP\&. If checked all
-events with type \fInot existing\fP or \fIother\fP are hidden. If unchecked they are
-shown. \fBPressing the Hide button affects the currently loaded list.\fP
-.sp
-It is possible to configure the event types used for this filter as well
-as the label text of the checkbox. Use the global configuration for setting
-the parameters (\fBscolv.cfg\fP or \fBglobal.cfg\fP):
+Database request filters can be applied interactively or automatically by
 .INDENT 0.0
+.IP \(bu 2
+\fBInteractive custom request filters\fP: You may set and adjust a custom request
+filter** in the filter parameter window which opens when pressing the Filter
+button. Press \fIRead\fP to reload the events list based on the filter parameters.
+\fBThe interactive custom request filter only concerns the
+database request for loading events. It does not update the current list.\fP
+Use the global for presetting the values (\fBscolv.cfg\fP or
+\fBglobal.cfg\fP), e.g.:
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+eventlist.filter.database.minlat = 51.0
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+\fBPreset filters\fP based on
+.INDENT 2.0
+.IP \(bu 2
+\fBEvent type:\fP Activate by check box \fIHide other/fake events\fP\&. If checked, all
+events with the configured types are hidden from the list. The default event types
+to hide are \fInot existing\fP and \fIother\fP are hidden. If unchecked, the filtering
+is inactive and the events are shown. \fBPressing the Hide button only affects
+the currently loaded list.\fP Configure the event types used for this filter as well
+as the label text for the checkbox.
+Use the global for presetting the values s (\fBscolv.cfg\fP or \fBglobal.cfg\fP):
+.INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
@@ -1186,12 +1338,13 @@ eventlist.filter.types.enabled = true
 .fi
 .UNINDENT
 .UNINDENT
-.sp
-Another option to filter events is by agencyID. The button \fIShow only own events\fP
+.IP \(bu 2
+\fBAgency\fP: Activate by check boxes \fIShow only own origin\fP and/or "Show only
+latest/preferred origin per agency". The button \fIShow only own events\fP
 will hide all events where the preferred origins agencyID is not the configured
 \fBagencyID\fP of scolv. This is the default behavior which can be customized
 (\fBscolv.cfg\fP or \fBglobal.cfg\fP):
-.INDENT 0.0
+.INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
@@ -1204,36 +1357,67 @@ eventlist.filter.agencies.whitelist = GFZ, EMSC
 # above. The default type is \(aqevents\(aq which checks only the events preferred
 # origin.
 eventlist.filter.agencies.type = origins
-eventlist.filter.agencies.label = "Show only my preferred events"
 
-# Enable this filter initially. If this option is not used the filter
+# Defines the text of the option "Show only own events".
+eventlist.filter.agencies.label = "Show only own events"
+
+# Enable this filter initially. If this option is not used, the filter
 # is disabled by default.
 eventlist.filter.agencies.enabled = true
 .ft P
 .fi
 .UNINDENT
 .UNINDENT
+.IP \(bu 2
+\fBSource region:\fP Select a source region, activate "Hide events" and choose to
+hide events inside or outside the region.
+\fBPressing the Hide button only affects the currently loaded list.\fP
+Pre\-defined regions can be configured in the global configuration
+(\fBscolv.cfg\fP, \fBglobal.cfg\fP):
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+# Configured a list of regions that can be used as filter of the result set.
+eventlist.filter.regions.profiles = chile
+
+# Defines the name of the region that shows up in the listbox.
+eventlist.filter.regions.region.chile.name = Chile
+
+# Defines a rectangular region with a list of 4 values: latmin, lonmin, latmax,
+# lonmax.
+eventlist.filter.regions.region.chile.rect = \-40, \-80, \-10, \-60
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.UNINDENT
 .SH CUSTOM ACTIONS
 .sp
-Since the internal data model is limited, scolv allows addition of custom quantities
-derived from the origin objects to the information panel, to the origin list of
-Event tab and to the Event list. This can help to evaluate origins in a better
-way.
+Since the internal data model is limited, scolv allows
+deriving custom quantities from the event or origin objects. These quantities can
+be displayed or processed further by external script.
+This procedure can help to evaluate origins in a better or more specific way.
 .sp
-Two sources are currently supported
+Two sources of information are currently supported
 .INDENT 0.0
 .IP \(bu 2
-\fI\%Origin comments\fP provided along with origins,
+\fI\%Origin comments\fP provided along with origins to be
+shown in scolv tabs,
 .IP \(bu 2
-\fI\%Custom scripts\fP provided by the \fISeisComP\fP operator.
+\fI\%External scripts\fP provided by the \fISeisComP\fP operator
+to extract specific information from events or origins which are shown in tabs
+or processed further.
 .UNINDENT
 .SS Origin comments
 .sp
 Currently only one comment of an origin can be added to the different panels.
 .SS Location tab
 .sp
-To add a comment value to the information panel of the Location tab, the
-following configuration can be used (\fBscolv.cfg\fP):
+To add an origin comment value to the information panel of the Location tab,
+configure display paramters in scolv. Example (\fBscolv.cfg\fP):
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -1253,30 +1437,31 @@ display.origin.comment.label = Quality
 .UNINDENT
 .SS Event tab
 .sp
-To add a custom column to the \fBorigin list of the Event tab\fP using a comment
-value, configure (\fBscolv.cfg\fP):
+To add a custom column to the \fBorigin list of the Event tab\fP showing an origin
+comment value, configure eventedit parameters in scolv or global. Example
+(\fBscolv.cfg\fP or \fBglobal.cfg\fP):
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .nf
 .ft C
 # Define the default value if no comment is present
-eventedit.customColumn.default = "\-"
+eventedit.origin.customColumn.default = "\-"
 
 # Define the comment id to be used
-eventedit.customColumn.originCommentID = SED.quality
+eventedit.origin.customColumn.originCommentID = SED.quality
 
 # Define the column header label
-eventedit.customColumn = "Qual"
+eventedit.origin.customColumn.name = "Qual"
 
 # Define the column position in the table
-eventedit.customColumn.pos = 4
+eventedit.origin.customColumn.pos = 4
 
 # Allows to map comment values (strings) to colors. In this case the
 # comment will have A,B,C or D which is mapped to green, yellow, orange and
 # red
-eventedit.customColumn.colors = "A:00FF00","B:rgb(64,192,0)",\e
-                                "C:rgb(192,64,0)","D:FF0000"
+eventedit.origin.customColumn.colors = "A:00FF00","B:rgb(64,192,0)",\e
+                                        "C:rgb(192,64,0)","D:FF0000"
 .ft P
 .fi
 .UNINDENT
@@ -1284,7 +1469,8 @@ eventedit.customColumn.colors = "A:00FF00","B:rgb(64,192,0)",\e
 .SS Events tab
 .sp
 To add a custom column to the \fBevent list of the Events tab\fP using a comment
-value, the following configuration can be used (\fBscolv.cfg\fP or \fBglobal.cfg\fP):
+value, configure eventlist parameters in scolv or global. Example
+(\fBscolv.cfg\fP or \fBglobal.cfg\fP):
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -1297,7 +1483,7 @@ eventlist.customColumn.default = "\-"
 eventlist.customColumn.originCommentID = "SED.quality"
 
 # Define the column header label
-eventlist.customColumn = "Qual"
+eventlist.customColumn.name = "Qual"
 
 # Define the column position in the table
 eventlist.customColumn.pos = 5
@@ -1315,25 +1501,54 @@ eventlist.customColumn.colors = "A:00FF00","B:rgb(64,192,0)",\e
 The last three examples are used to show the \fISED.quality\fP comment value which
 is set by the NonLinLoc locator plugin\&.
 .SS External scripts
+.sp
+User\-defined scripts may generated and executed
+.INDENT 0.0
+.IP \(bu 2
+By \fI\%custom buttons\fP
+.IP \(bu 2
+Automatically to show \fI\%custom information\fP in the
+Location, Event and the Events tabs.
+The information may include parameters derived from origins.
+.UNINDENT
 .SS Custom buttons
 .sp
-scolv allows to add custom buttons to the \fBsummary window\fP and the \fBLocation tab\fP\&.
+scolv allows to add one custom button to the \fBSummary window\fP and two custom
+buttons to the \fBLocation tab\fP\&.
 When pressing the custom buttons, user\-defined external scripts are executed.
 Configuration (\fBscolv.cfg\fP):
 .INDENT 0.0
 .IP \(bu 2
-Button in summary window: \fI\%scripts.export\fP
+Button in Summary window: \fI\%scripts.export\fP\&. Read \fI\%scripts.export\fP
+for the description of the parameters passed to the script.
 .IP \(bu 2
 Up to 2 buttons in Location tab: \fI\%button0\fP, \fI\%scripts.script0\fP,
-\fI\%button1\fP,  \fI\%scripts.script0\fP
+\fI\%button1\fP,  \fI\%scripts.script1\fP Read \fI\%scripts.script0\fP
+and \fI\%scripts.script1\fP for the description of the parameters passed to
+the scripts.
 .UNINDENT
+.SS Custom information in tabs
 .sp
-Another option to add derived origin parameters is to use external scripts.
-scolv will call those scripts and writes a binary serialized origin object
+Origin parameters can be derived by external scripts.
+When configured for the scolv tabs \fILocation\fP, \fIEvent\fP or \fIEvents\fP, scolv will call
+those scripts and writes a binary serialized origin object
 to its standard input. scolv reads the script output and displays this value
 only if the return code of the script is 0.
 .sp
-An example script which just returns the standard error looks like this:
+Below you find examples for
+.INDENT 0.0
+.IP \(bu 2
+Example custom script
+.IP \(bu 2
+\fI\%Custom information in the Location tab\fP
+.IP \(bu 2
+\fI\%Custom information in the Event tab\fP
+.IP \(bu 2
+\fI\%Custom information in the Events tab\fP
+.UNINDENT
+.sp
+Example script reading origin parameters from stdin just returning the standard
+error of the origin:
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -1407,10 +1622,11 @@ database to fetch additional information which it does not need normally.
 The slower the database access, the longer it takes to display the results.
 .UNINDENT
 .UNINDENT
-.SS Add information to Location tab
+.SS Location tab
 .sp
 To add the output of an external custom script to the information panel of the Location tab,
-configure (\fBscolv.cfg\fP):
+configure display parameters in scolv. An example script is given
+\fI\%above\fP\&. Configuration example (\fBscolv.cfg\fP):
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -1421,50 +1637,64 @@ display.origin.addons = qual, qual2
 
 # Configure each add\-on
 display.origin.addon.qual1.label = "Qual1"
-display.origin.addon.qual1.script = "@CONFIGDIR@/scripts/scolv/qual1"
+display.origin.addon.qual1.script = "@DATADIR@/scripts/scolv/script1"
 
 display.origin.addon.qual2.label = "Qual2"
-display.origin.addon.qual2.script = "@CONFIGDIR@/scripts/scolv/qual2"
+display.origin.addon.qual2.script = "@DATADIR@/scripts/scolv/script2"
 .ft P
 .fi
 .UNINDENT
 .UNINDENT
-.SS Add information to Event tab
+.SS Event tab
 .sp
-Provide an external script and add the output to the \fBorigin list of the Event tab\fP
-(\fBscolv.cfg\fP):
+Provide the external script and add the output to the \fBorigin list of the Event tab\fP,
+configure the eventedit parameters in \fBglobal.cfg\fP or \fBscolv.cfg\fP\&.
+An example script is given \fI\%above\fP\&.
+Configuration example:
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .nf
 .ft C
 eventedit.scripts.columns = qual1, qual2
+
 eventedit.scripts.column.qual1.label = "Qual1"
 eventedit.scripts.column.qual1.pos = 8
-eventedit.scripts.column.qual1.script = "@CONFIGDIR@/scripts/scolv/qual1"
+eventedit.scripts.column.qual1.script = "@DATADIR@/scripts/scolv/script1"
+
 eventedit.scripts.column.qual2.label = "Qual2"
 eventedit.scripts.column.qual2.pos = 9
-eventedit.scripts.column.qual2.script = "@CONFIGDIR@/scripts/scolv/qual2"
+eventedit.scripts.column.qual2.script = "@DATADIR@/scripts/scolv/script2"
 .ft P
 .fi
 .UNINDENT
 .UNINDENT
-.SS Add information to Events tab
+.SS Events tab
 .sp
-Provide an external script and add the output to \fBevent list of the Events tab\fP
-(\fBscolv.cfg\fP or \fBglobal.cfg\fP):
+From the event list external scripts can be excuted with origin or
+event objects or both as input from stdin to display the output of the
+script (stdout) in a custom column.
+.sp
+Provide an external script and add the output to \fBevent list of the Events tab\fP,
+configure the eventlist parameters in \fBglobal.cfg\fP or \fBscolv.cfg\fP\&.
+An example script is given \fI\%above\fP\&.
+Configuration example for passing origin or event objects:
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .nf
 .ft C
 eventlist.scripts.columns = qual1, qual2
+
 eventlist.scripts.column.qual1.label = "Qual1"
 eventlist.scripts.column.qual1.pos = 5
-eventlist.scripts.column.qual1.script = "@CONFIGDIR@/scripts/scolv/qual1"
+eventlist.scripts.column.qual1.script = "@DATADIR@/scripts/scolv/script1"
+eventlist.scripts.column.qual1.types = Origin
+
 eventlist.scripts.column.qual2.label = "Qual2"
 eventlist.scripts.column.qual2.pos = 6
-eventlist.scripts.column.qual2.script = "@CONFIGDIR@/scripts/scolv/qual2"
+eventlist.scripts.column.qual2.script = "@DATADIR@/scripts/scolv/script2"
+eventlist.scripts.column.qual2.types = Event
 .ft P
 .fi
 .UNINDENT
@@ -1741,12 +1971,6 @@ Activate configured phase picking
 T}
 _
 T{
-Space
-T}	T{
-If phase picking is enabled, set pick
-T}
-_
-T{
 Esc
 T}	T{
 Leaving picking mode
@@ -1777,9 +2001,21 @@ Toggle between current filter and unfiltered
 T}
 _
 T{
+Shift+F
+T}	T{
+Toggle limiting filters to the selected trace
+T}
+_
+T{
 G
 T}	T{
-Toggle all filters
+Toggle through all configured filters: descending
+T}
+_
+T{
+D
+T}	T{
+Toggle through all configured filters: ascending
 T}
 _
 T{
@@ -1797,19 +2033,13 @@ _
 T{
 X
 T}	T{
-Scroll down (through the traces)
+Deactivate a trace and scroll down (through the traces)
 T}
 _
 T{
 Z
 T}	T{
 Switch to Z\-component
-T}
-_
-T{
-Shift+F
-T}	T{
-Toggle filter but limits to the selected trace
 T}
 _
 T{
@@ -1923,9 +2153,33 @@ T}	T{
 T}
 _
 T{
+R
+T}	T{
+Active picker: Repick phase by the selection, e.g. AIC, BK
+T}
+_
+T{
 T
 T}	T{
 Temporarily toggle 3 component view
+T}
+_
+T{
+Space
+T}	T{
+Active picker: Set pick at curser position
+T}
+_
+T{
+Space
+T}	T{
+Inactive picker: Show Fourier spectrum from visible window
+T}
+_
+T{
+Enter
+T}	T{
+Active picker: Set pick at curser position, load next trace
 T}
 _
 T{
@@ -1953,9 +2207,27 @@ Move trace view to left (rough)
 T}
 _
 T{
-W
+Shift+Delete
 T}	T{
-Reset scale
+Remove polarity from new pick
+T}
+_
+T{
+Shift+Down
+T}	T{
+Set negative polarity on new pick
+T}
+_
+T{
+Shift+Up
+T}	T{
+Set positive polarity on new pick
+T}
+_
+T{
+Shift+X
+T}	T{
+Set positive polarity to undecidable on new pick
 T}
 _
 T{
@@ -1998,6 +2270,12 @@ T{
 Shift+WheelDown
 T}	T{
 Time zoom out
+T}
+_
+T{
+W
+T}	T{
+Reset zoom window to the length of the picking overview
 T}
 _
 T{
@@ -2203,7 +2481,7 @@ Align traces by trigger time
 T}
 _
 .TE
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/scolv.cfg\fP
@@ -2218,45 +2496,50 @@ scolv inherits global options\&.
 .INDENT 0.0
 .TP
 .B loadEventDB
+Default: \fB1\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIdays\fP
 .sp
 Number of days to preload events from the database when staring scolv.
-Default is \fB1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B magnitudes
+Default: \fBMLv,mb,mB,Mwp\fP
+.sp
 Type: \fIlist:string\fP
 .sp
 List of magnitude types to be calculated when
 computing magnitudes. This list can be altered interactively so
 this reflects only the default unless computeMagnitudesSilently
 is set to true.
-Default is \fBMLv,mb,mB,Mwp\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B visibleMagnitudes
+Default: \fBM,ML,MLv,mb,mB,Mwp,Mjma,Ms_20,Ms(BB)\fP
+.sp
 Type: \fIlist:string\fP
 .sp
 A list of magnitude types to be displayed in the summary widget (F8).
-Default is \fBM,ML,MLv,mb,mB,Mwp,Mjma,Ms_20,Ms(BB)\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B button0
 Type: \fIstring\fP
 .sp
-Label of the button that triggers the script defined in "script0".
+Label of the button that triggers the script defined in
+"scripts.script0".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B button1
 Type: \fIstring\fP
 .sp
-Label of the button that triggers the script defined in "script1".
+Label of the button that triggers the script defined in
+"scripts.script1".
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -2294,6 +2577,8 @@ OriginID and EventID are passed to the script as arguments.
 .INDENT 0.0
 .TP
 .B scripts.export.silentTerminate
+Default: \fBfalse\fP
+.sp
 Type: \fIstring\fP
 .sp
 If the publish button is clicked while another script is
@@ -2301,7 +2586,6 @@ still running, a message box pops up with a warning that
 a script is still running and to option to terminate it. If
 this flag is true, then it will be terminated automatically
 without user interaction and the warning message.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2337,146 +2621,178 @@ trimmed mean otherwise.
 .INDENT 0.0
 .TP
 .B olv.computeMagnitudesAfterRelocate
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Automatically starts computation of magnitudes after relocating an
 origin.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.computeMagnitudesSilently
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Starts magnitude computation without user interaction if everything
 runs without errors. In case of errors a window pops up with
 the current state of processing.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.enableMagnitudeSelection
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
-If enabled, a magnitude selection pop window will open in advance
-to compute magnitudes. The default selection reflects the configuration
-parameter "magnitudes".
-Default is \fBtrue\fP\&.
+If enabled, a magnitude selection pop window will open
+in advance to compute magnitudes. The default selection
+reflects the configuration parameter "magnitudes".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.Pvel
+Default: \fB6.0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIkm/s\fP
 .sp
-The P reduction velocity used in the "move out" plot.
-Default is \fB6.0\fP\&.
+The velocity applied to reduce travel times in the
+"MoveOut" plot of the Location tab.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.drawMapLines
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Sets the drawing of lines in the map connecting the station with the event.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.drawGridLines
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Sets the drawing of grid lines in the plot.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.computeMissingTakeOffAngles
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 If a locator does not populate the take off angle in its arrivals,
 the first motion plot will not show picked polarities. This option
 defines whether to compute take off angles that are not present
 in the arrivals or not.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.defaultAddStationsDistance
+Default: \fB15.0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
 .sp
 The default value for adding unassociated stations in the picker.
-Default is \fB15\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.hideStationsWithoutData
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 If enabled, all traces without data and arrivals are
 hidden in the picker.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.hideDisabledStations
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 If enabled, all traces of disabled stations without picks are hidden.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.defaultDepth
+Default: \fB10.0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIkm\fP
 .sp
 When creating an artificial origin this is the default depth used.
-Default is \fB10\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.artificialOriginAdvanced
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Adds advanced input parameters in artificial origin dialog.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.systemTray
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Adds an icon to the system tray and displays a message
 when a new event was received. Note that this feature
 requires libQt4 version 4.3 or higher.
-Default is \fBtrue\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B olv.originComments
+Type: \fIlist:string\fP
+.sp
+A list of origin comment profiles. These profiles will be
+used to populate origin comments when committing an origin.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B olv.magnitudeComments
+Type: \fIlist:string\fP
+.sp
+A list of magnitude comment profiles. These profiles will be
+used to populate magnitude comments when committing a magnitude.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.map.stations.unassociatedMaxDist
+Default: \fB360.0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
 .sp
 Maximum distance in degrees up to which also unassociated stations are
-shown in the map. The default value is 360 which will
+shown in the map. 360.0 deg which will
 show all unassociated stations.
-Default is \fB360\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.map.event.defaultRadius
+Default: \fB\-1.0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
 .sp
 Default map radius in degrees if a new event is selected.
 A negative value restores the default behavior.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2490,11 +2806,23 @@ Slo, Slores, Baz, Bazres, Created, Latency
 .UNINDENT
 .INDENT 0.0
 .TP
+.B olv.arrivalPlot.showUncertainties
+Default: \fBtrue\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Whether the arrival plot should show uncertainties
+or not by default. That flag can be toggled with \(aqe\(aq
+or via the context menu during runtime.
+.UNINDENT
+.INDENT 0.0
+.TP
 .B olv.locator.interface
+Default: \fBLOCSAT\fP
+.sp
 Type: \fIstring\fP
 .sp
 The default locator interface to use.
-Default is \fBLOCSAT\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2517,41 +2845,45 @@ fixed to this configured value and the origin is relocated again.
 .INDENT 0.0
 .TP
 .B olv.locator.presetFromOrigin
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Whether to preset the locator settings when an origin
 is being loaded. It tries to figure the locator type
 from Origin.methodID and the profile from Origin.earthModelID.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.commit.forceEventAssociation
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activates the button "Force association with event" when
 committing with additional options. This is just the default
 setting and can be changed manually when the dialog pops up.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.commit.fixOrigin
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activates the button "Fix this origin as preferred solution" when
 committing with additional options. This is just the default
 setting and can be changed manually when the dialog pops up.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.commit.returnToEventList
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Whether to return to the event list after committing with
 additional options or not.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2561,6 +2893,69 @@ Type: \fIlist:string\fP
 Turns the event comment input field into a drop down box
 allowing the user to select from a list a predefined comment
 values which may be changed if required.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBolv.originComments.*\fP
+\fIThe container for all origin comment profiles.\fP
+.UNINDENT
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBolv.originComments.$name.*\fP
+$name is a placeholder for the name to be used and needs to be added to \fI\%olv.originComments\fP to become active.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+olv.originComments = a,b
+olv.originComments.a.value1 = ...
+olv.originComments.b.value1 = ...
+# c is not active because it has not been added
+# to the list of olv.originComments
+olv.originComments.c.value1 = ...
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B olv.originComments.$name.id
+Type: \fIstring\fP
+.sp
+The id of the comment to be added, updated or removed.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B olv.originComments.$name.label
+Type: \fIstring\fP
+.sp
+The label shown in the commit dialog.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B olv.originComments.$name.options
+Type: \fIlist:string\fP
+.sp
+A list of options to select from. Actually the values
+to populate the dropdown list with.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B olv.originComments.$name.allowFreeText
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+If free text is allowed in addition to the predefined
+values.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -2585,37 +2980,41 @@ $name is a placeholder for the name to be used.
 .INDENT 0.0
 .TP
 .B olv.customCommits.$name.enable
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enable this commit button.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.customCommits.$name.askForConfirmation
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Ask for confirmation by presenting the "commit with options"
 dialog with the options pre\-populated from this configuration.
 Cancelling the dialog aborts the commit procedure.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.customCommits.$name.forceEventAssociation
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Associate a new origin to the currently active event or not.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.customCommits.$name.fixOrigin
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Fix the origin as preferred
 solution in the event it is associated to.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2676,19 +3075,21 @@ comments with spaces, e.g. "Blast on Monday morning".
 .INDENT 0.0
 .TP
 .B olv.customCommits.$name.returnToEventList
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Return to the event list after committing or not.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.customCommits.$name.label
+Default: \fBCommit+\fP
+.sp
 Type: \fIstring\fP
 .sp
 The commit button label. Use quotes for labels with
 spaces, e.g. "Earthquake reported".
-Default is \fBCommit+\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2709,10 +3110,74 @@ Use hexadecimal values.
 .INDENT 0.0
 .TP
 .B olv.customCommits.$name.tooltip
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Add a summary of the actions to the button\(aqs tooltip.
-Default is \fBfalse\fP\&.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBolv.magnitudeComments.*\fP
+\fIThe container for all magnitude comment profiles.\fP
+.UNINDENT
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBolv.magnitudeComments.$name.*\fP
+$name is a placeholder for the name to be used and needs to be added to \fI\%olv.magnitudeComments\fP to become active.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+olv.magnitudeComments = a,b
+olv.magnitudeComments.a.value1 = ...
+olv.magnitudeComments.b.value1 = ...
+# c is not active because it has not been added
+# to the list of olv.magnitudeComments
+olv.magnitudeComments.c.value1 = ...
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B olv.magnitudeComments.$name.id
+Type: \fIstring\fP
+.sp
+The id of the comment to be added, updated or removed.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B olv.magnitudeComments.$name.label
+Type: \fIstring\fP
+.sp
+The label shown in the magnitude view.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B olv.magnitudeComments.$name.options
+Type: \fIlist:string\fP
+.sp
+A list of options to select from. Actually the values
+to populate the dropdown list with.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B olv.magnitudeComments.$name.allowFreeText
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+If free text is allowed in addition to the predefined
+values.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -2725,148 +3190,165 @@ Default is \fBfalse\fP\&.
 .INDENT 0.0
 .TP
 .B picker.showCrossHairCursor
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activate a cross hair cursor showing the configured uncertainties
 when in picking mode.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.loadAllPicks
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Load all existing picks for the requested data time window.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.ignoreUnconfiguredStations
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 If enabled, the picker will not add stations that are not
 configured with a detecStream in global bindings.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.limitStationAcquisition
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Limit the data acquisition to the number of nearest
 stations given by "picker.limitStationAcquisitionCount".
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.limitStationAcquisitionCount
+Default: \fB10\fP
+.sp
 Type: \fIint\fP
 .sp
 Limit the data acquisituion to the given number of
 the nearest stations. Requires to activate
 "picker.limitStationAcquisition".
-Default is \fB10\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.loadStrongMotion
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 If enabled, acceleration data is loaded for co\-located
 stations where picked on velocity data.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.loadAllComponents
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Load all three components by default. If disabled, additional
 components are fetched upon request.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.showAllComponents
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 If enabled, all three components are shown in the picker
 zoom trace. The distance is limited to what is configured
 in "picker.allComponentsMaximumDistance".
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.allComponentsMaximumDistance
+Default: \fB10\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
 .sp
 The distance limit for the "picker.showAllComponents" flag.
-Default is \fB10\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.usePerStreamTimeWindows
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 If enabled, data is requested around the P pick for each stations.
 Otherwise origin time is used and the time window for all stations
 is the same.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.removeAutomaticPicksFromStationAfterManualReview
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 After picking and pushing the solution back to scolv all automatic arrivals
 are removed from a station if a manual pick exists.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.removeAllAutomaticPicksAfterManualReview
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 After picking and pushing the solution back to scolv all automatic arrivals
 are removed from all stations regardless if a manual pick exists or not.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.preOffset
+Default: \fB60\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 The data time span added to the left of either origin time or
 first arrival depending on the usePerStreamTimeWindows flag.
-Default is \fB60\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.postOffset
+Default: \fB120\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 The data time span added to the right of the requested time window.
-Default is \fB120\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.minimumTimeWindow
+Default: \fB1800\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Minimum data time window length.
-Default is \fB1800\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.alignmentPosition
+Default: \fB0.5\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
@@ -2875,27 +3357,28 @@ Defines the relative position of the alignment when traces are
 aligned at a phase. This value is bound
 to interval [0:1] where 0 is the left side and 1 is right
 side of the trace window.
-Default is \fB0.5\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.repickerStart
+Default: \fB\-10\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
 Start of the re\-picker time window relative the cursor position on the trace.
-Default is \fB\-10\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B picker.repickerEnd
+Default: \fB30\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
 End of the re\-picker time window relative the cursor position on the trace.
-Default is \fB30\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2926,10 +3409,11 @@ meta data. In case it is not, this list is used.
 .INDENT 0.0
 .TP
 .B picker.showPhases
+Default: \fBP,Pn,Pg,pP,sP,S,Sg\fP
+.sp
 Type: \fIlist:string\fP
 .sp
 Phases for which theoretical arrival times are shown.
-Default is \fBP,Pn,Pg,pP,sP,S,Sg\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2956,6 +3440,67 @@ double values for asymmetric uncertainties, e.g.
 This parameter is only used if "picker.uncertainties.preferred"
 is undefined.
 .UNINDENT
+.INDENT 0.0
+.TP
+.B picker.componentFollowsMouse
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+If enabled then the currently selected component for all traces
+will be activated according to the mouse position in the
+zoom trace (old behaviour). If disabled (default) then only
+the component of the zoom trace will change but the overall
+component will stay the same. It must be changed explicitely.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBpicker.auxiliary.*\fP
+\fIDefine the notion and behaviour of auxiliary channels.\fP
+\fIThey are identified through configurable patterns and if\fP
+\fIidentified as such they will be treated differently in\fP
+\fIdefined situations.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B picker.auxiliary.channels
+Type: \fIlist:string\fP
+.sp
+A list of wildcard patterns to identify auxiliary
+channels. A pattern is simply checked against a stream
+ID, the concatenation of NSLC separated by a period.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B picker.auxiliary.minimumDistance
+Default: \fB0\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIdeg\fP
+.sp
+The minimum distance in degrees from origin to load an
+unassociated auxiliary channel. Loading a
+channel / station explicitely (F3) will not respect
+this setting.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B picker.auxiliary.maximumDistance
+Default: \fB1000\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIdeg\fP
+.sp
+The maximum distance in degrees from origin to load an
+unassociated auxiliary channel. Loading a
+channel / station explicitely (F3) will not respect
+this setting.
+.UNINDENT
 .sp
 \fBNOTE:\fP
 .INDENT 0.0
@@ -2969,11 +3514,12 @@ is undefined.
 .INDENT 0.0
 .TP
 .B picker.phases.favourites
+Default: \fBP,Pn,Pg,pP,S,Sg,sP\fP
+.sp
 Type: \fIlist:string\fP
 .sp
 Phase types available for rapid picking by hot keys and
 in the Picking menu. Separate the types by comma.
-Default is \fBP,Pn,Pg,pP,S,Sg,sP\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3101,11 +3647,12 @@ data should be converted to displacement.
 .INDENT 0.0
 .TP
 .B picker.integration.applyOnce
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Whether to apply the pre\-filter only prior the first
 integration step or prior to each step.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -3118,24 +3665,26 @@ Default is \fBtrue\fP\&.
 .INDENT 0.0
 .TP
 .B amplitudePicker.preOffset
+Default: \fB300\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time span in seconds to be added to the left of the used
 amplitude time window.
-Default is \fB300\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B amplitudePicker.postOffset
+Default: \fB300\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time span in seconds to be added to the right of the used
 amplitude time window.
-Default is \fB300\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3166,7 +3715,10 @@ A list of filters used for the amplitude picker. Format:
 .B display.origin.addons
 Type: \fIlist:string\fP
 .sp
-Name(s) of quality addon(s) to be considered.
+Name(s) of quality addon profile(s) to be considered.
+The profiles provide values through a script which are
+shown in the location tab. The scolv documentation
+provides an example script.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -3235,27 +3787,29 @@ Type: \fIstring\fP
 .sp
 Path to script to execute.
 .UNINDENT
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
 .sp
 \fBscolv [options]\fP
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3265,49 +3819,54 @@ Load given plugins.
 .INDENT 0.0
 .TP
 .B \-\-auto\-shutdown arg
-Enable/disable self\-shutdown because a master module shutdown. This only
-works when messaging is enabled and the master module sends a shutdown
-message (enabled with \-\-start\-stop\-msg for the master module).
+Enable/disable self\-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with \-\-start\-stop\-msg
+for the master module).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-module arg
-Sets the name of the master\-module used for auto\-shutdown. This
-is the application name of the module actually started. If symlinks
-are used then it is the name of the symlinked application.
+Set the name of the master\-module used for auto\-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-username arg
-Sets the name of the master\-username of the messaging used for
-auto\-shutdown. If "shutdown\-master\-module" is given as well this
-parameter is ignored.
+Set the name of the master\-username of the messaging
+used for auto\-shutdown. If "shutdown\-master\-module" is
+given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3322,7 +3881,8 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3353,7 +3913,8 @@ Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
 .INDENT 0.0
 .TP
 .B \-S, \-\-subscribe\-group arg
-A group to subscribe to. This option can be given more than once.
+A group to subscribe to.
+This option can be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3363,7 +3924,7 @@ Overrides configuration parameter \fBconnection.contentType\fP\&.
 .INDENT 0.0
 .TP
 .B \-\-start\-stop\-msg arg
-Sets sending of a start\- and a stop message.
+Set sending of a start and a stop message.
 .UNINDENT
 .SS Database
 .INDENT 0.0
@@ -3374,19 +3935,21 @@ List all supported database drivers.
 .INDENT 0.0
 .TP
 .B \-d, \-\-database arg
-The database connection string, format: \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which can be
-queried with "\-\-db\-driver\-list".
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+"service" is the name of the database driver which
+can be queried with "\-\-db\-driver\-list".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-module arg
-The configmodule to use.
+The config module to use.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-inventory\-db arg
-Load the inventory from the given database or file, format: [\fI\%service://]location\fP
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3397,15 +3960,17 @@ Do not use the database at all
 .INDENT 0.0
 .TP
 .B \-\-record\-driver\-list
-List all supported record stream drivers
+List all supported record stream drivers.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-I, \-\-record\-url arg
-The recordstream source URL, format: [\fI\%service://\fP]location[#type].
-"service" is the name of the recordstream driver which can be
-queried with "\-\-record\-driver\-list". If "service"
-is not given "\fI\%file://\fP" is used.
+The recordstream source URL, format:
+[\fI\%service://\fP]location[#type].
+"service" is the name of the recordstream driver
+which can be queried with "\-\-record\-driver\-list".
+If "service" is not given, "\fI\%file://\fP" is
+used.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3422,19 +3987,20 @@ Specify a type for the records being read.
 .TP
 .B \-\-city\-xml arg
 The path to the cities XML file. This overrides the default
-paths. Compare with the global parameter "citiesXML"
+paths. Compare with the global parameter "citiesXML".
 .UNINDENT
 .SS User interface
 .INDENT 0.0
 .TP
 .B \-F, \-\-full\-screen
-Starts the application filling the entire screen. This only works
-with GUI applications.
+Start the application filling the entire screen.
+This only works with GUI applications.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-N, \-\-non\-interactive
-Use non\-interactive presentation mode. This only works with GUI applications.
+Use non\-interactive presentation mode. This only works with
+GUI applications.
 .UNINDENT
 .SS Options
 .INDENT 0.0
@@ -3451,6 +4017,11 @@ Preload event with given event ID
 .TP
 .B \-\-offline
 Switch to offline mode
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-i, \-\-input\-file xml
+Load events in given XML file during startup and switch to offline mode
 .UNINDENT
 .INDENT 0.0
 .TP

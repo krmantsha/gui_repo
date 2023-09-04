@@ -62,6 +62,7 @@ public:
     QFrame *frameRegionFilter;
     QHBoxLayout *hboxLayout3;
     QCheckBox *cbFilterRegions;
+    QComboBox *cbFilterRegionMode;
     QComboBox *lstFilterRegions;
     QToolButton *btnChangeRegion;
     QLabel *lbFilterRegions;
@@ -282,6 +283,11 @@ public:
 
         hboxLayout3->addWidget(cbFilterRegions);
 
+        cbFilterRegionMode = new QComboBox(frameRegionFilter);
+        cbFilterRegionMode->setObjectName(QString::fromUtf8("cbFilterRegionMode"));
+
+        hboxLayout3->addWidget(cbFilterRegionMode);
+
         lstFilterRegions = new QComboBox(frameRegionFilter);
         lstFilterRegions->setObjectName(QString::fromUtf8("lstFilterRegions"));
 
@@ -321,7 +327,7 @@ public:
 #ifndef QT_NO_TOOLTIP
         btnClear->setToolTip(QApplication::translate("EventListView", "Removes all events from the list", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
-        btnClear->setText(QApplication::translate("EventListView", "Clear", 0, QApplication::UnicodeUTF8));
+        btnClear->setText(QApplication::translate("EventListView", "Clear list", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         btnFilter->setToolTip(QApplication::translate("EventListView", "Configures the server-side event filter", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
@@ -351,7 +357,12 @@ public:
         cbShowLatestOnly->setToolTip(QApplication::translate("EventListView", "Enables/disables the display of only one origin per agency (the latest one) or all origins", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         cbShowLatestOnly->setText(QApplication::translate("EventListView", "Show only latest/preferred origin per agency", 0, QApplication::UnicodeUTF8));
-        cbFilterRegions->setText(QApplication::translate("EventListView", "Hide events outside", 0, QApplication::UnicodeUTF8));
+        cbFilterRegions->setText(QApplication::translate("EventListView", "Hide events", 0, QApplication::UnicodeUTF8));
+        cbFilterRegionMode->clear();
+        cbFilterRegionMode->insertItems(0, QStringList()
+         << QApplication::translate("EventListView", "outside", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("EventListView", "inside", 0, QApplication::UnicodeUTF8)
+        );
         btnChangeRegion->setText(QApplication::translate("EventListView", "...", 0, QApplication::UnicodeUTF8));
         lbFilterRegions->setText(QApplication::translate("EventListView", "region", 0, QApplication::UnicodeUTF8));
     } // retranslateUi

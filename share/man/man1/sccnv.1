@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCCNV" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCCNV" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 sccnv \- SeisComP Documentation
 .
@@ -122,6 +122,7 @@ qml1.2
 T}	T{
 QuakeML format
 T}	T{
+*
 T}	T{
 X
 T}
@@ -131,6 +132,7 @@ qml1.2rt
 T}	T{
 QuakeML real time (RT) format
 T}	T{
+*
 T}	T{
 X
 T}
@@ -155,11 +157,58 @@ X
 T}
 _
 .TE
+.sp
+\fB*\fP: The conversion from files in QuakeML format is not supported by sccnv
+but can be realized by system tools. Read section \fI\%QuakeML\fP for
+details and instructions.
+.SS QuakeML
+.sp
+QuakeML is used in a variety of flavors involving, e.g.,
+.INDENT 0.0
+.IP \(bu 2
+Using non\-standard objects,
+.IP \(bu 2
+PublicID references which are not globally unique,
+.IP \(bu 2
+Missing references to parent objects,
+.IP \(bu 2
+Missing creationInfo parameters.
+.UNINDENT
+.sp
+The ability to convert from QuakeML to SCML is thus limited and it
+depends on the parameters provided with the input QuakeML file.
+.sp
+However, XSLT stylesheets are provided for mapping the parameters. The files
+are located in \fB@DATADIR@/xml/[version]/\fP for different \fISeisComP\fP data schema
+versions. The stylesheet files provide information on the mapping and on
+limitations as well as examples on their application.
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+You may find out about the \fISeisComP\fP data schema version using modules along
+with the command\-line option \fI\-V\fP, e.g.,
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+$ sccnv \-V
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.sp
+The style sheets can be used along with other stylesheet converter tools provided
+by your system, e.g., \fBxalan\fP or \fBxsltproc\fP\&. Examples are given
+in section \fI\%Examples\fP\&.
 .SH EXAMPLES
 .INDENT 0.0
-.IP 1. 3
+.IP \(bu 2
 Print the list of supported formats:
-.INDENT 3.0
+.INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
@@ -169,10 +218,10 @@ $ sccnv \-\-format\-list
 .fi
 .UNINDENT
 .UNINDENT
-.IP 2. 3
+.IP \(bu 2
 Convert an  event parameter file in SCML format to QuakeML and
 store the content in a file:
-.INDENT 3.0
+.INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
@@ -182,10 +231,10 @@ $ sccnv \-i seiscomp.xml \-o qml1.2:quakeml.xml
 .fi
 .UNINDENT
 .UNINDENT
-.IP 3. 3
+.IP \(bu 2
 Convert an inventory file in Arclink XML format to SCML and store the
 content in a file:
-.INDENT 3.0
+.INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
@@ -195,10 +244,10 @@ $ sccnv \-i arclink:Package_inventory.xml \-o inventory.sc.xml
 .fi
 .UNINDENT
 .UNINDENT
-.IP 4. 3
+.IP \(bu 2
 Convert an event parameter file in SCML format to ims1.0 and store the
 content in a file:
-.INDENT 3.0
+.INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
@@ -208,8 +257,20 @@ $ sccnv \-i trunk:event.xml \-o ims10:event.ims
 .fi
 .UNINDENT
 .UNINDENT
+.IP \(bu 2
+Convert QuakeML in version 1.2 to SCML in data schema version 0.12:
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+$ xsltproc $SEISCOMP_ROOT/share/xml/0.12/quakeml_1.2__sc3ml_0.12.xsl file.quakeml > file_sc.xml
+.ft P
+.fi
 .UNINDENT
-.SH COMMAND-LINE
+.UNINDENT
+.UNINDENT
+.SH COMMAND-LINE OPTIONS
 .sp
 \fBsccnv \-i format:file \-o format:file\fP
 .sp
@@ -220,23 +281,24 @@ for a list of supported formats.
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .SS Verbosity
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .SS Formats
 .INDENT 0.0

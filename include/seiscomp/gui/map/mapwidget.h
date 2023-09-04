@@ -71,6 +71,8 @@ class SC_GUI_API MapWidget : public QWidget {
 		int heightForWidth(int w) const;
 
 		bool isGrayScale() const;
+		bool isMeasuring() const;
+		bool isDragging() const;
 
 		bool saveScreenshot();
 
@@ -135,7 +137,6 @@ class SC_GUI_API MapWidget : public QWidget {
 		bool     _firstDrag;
 		bool     _isDragging;
 		bool     _isMeasuring;
-		bool     _isMeasureDragging;
 		bool     _filterMap;
 		bool     _forceGrayScale;
 
@@ -151,6 +152,15 @@ class SC_GUI_API MapWidget : public QWidget {
 
 		QWidget *_zoomControls;
 };
+
+
+inline bool MapWidget::isMeasuring() const {
+	return _isMeasuring;
+}
+
+inline bool MapWidget::isDragging() const {
+	return _isDragging;
+}
 
 
 }

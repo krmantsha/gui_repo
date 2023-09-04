@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCCONFIG" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCCONFIG" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scconfig \- SeisComP Documentation
 .
@@ -382,10 +382,6 @@ which also reads global.cfg would end up in a tree like this:
 |  |    +\-\- username (global.cfg: connection.username)
 |  |
 |  +\-\- database (global.cfg: database)
-|       |
-|       +\-\- service (global.cfg: database.service [deprecated])
-|       |
-|       +\-\- parameters (global.cfg: database.parameters [deprecated])
 |
 + scautopick
    |
@@ -396,10 +392,6 @@ which also reads global.cfg would end up in a tree like this:
    |    +\-\- username (scautopick.cfg: connection.username)
    |
    +\-\- database (scautopick.cfg: database)
-        |
-        +\-\- service (scautopick.cfg: database.service [deprecated])
-        |
-        +\-\- parameters (scautopick.cfg: database.parameters [deprecated])
 .ft P
 .fi
 .UNINDENT

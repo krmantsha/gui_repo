@@ -25,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -76,9 +76,12 @@
 <p><strong>Checks a module configuration.</strong></p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>scchkcfg checks for case-sensitivity issues of parameter names of a module
-configuration. It reads all defined stages (see <a class="reference internal" href="global.html#global-modules"><span class="std std-ref">Modules</span></a>) and
-checks for each parameter read if it exists again with a different spelling.</p>
+<p>scchkcfg checks for case-sensitivity issues of parameter names of the module
+configuration file for a module. It reads all defined configuration stages
+(see <a class="reference internal" href="global.html#global-modules"><span class="std std-ref">Modules</span></a>) and checks for each parameter read if it exists
+again with a different spelling.</p>
+<p>If <em>standalone</em> is not given, it checks all 6 configurations
+files (including <code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code>), 3 otherwise.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
@@ -116,12 +119,9 @@ has changed from previous versions: mb != mB. scchkcfg detects a possible
 conflicts but does not know that this case is well defined. But it helps the user to
 decide whether it needs a fix or not.</p>
 </div>
-<div class="section" id="command-line">
-<h2>Command-line<a class="headerlink" href="#command-line" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="command-line-options">
+<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
 <p><strong class="program">scchkcfg {mod-name} [standalone]</strong></p>
-<p>Reads the configuration of {mod-name} and checks for case-sensitivity
-issues. If standalone is not given, it checks all 6 configurations
-files (including global.cfg), 3 otherwise.</p>
 </div>
 </div>
 
@@ -147,7 +147,7 @@ files (including global.cfg), 3 otherwise.</p>
 <li><a class="reference internal" href="#">scchkcfg</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
-<li><a class="reference internal" href="#command-line">Command-line</a></li>
+<li><a class="reference internal" href="#command-line-options">Command-Line Options</a></li>
 </ul>
 </li>
 </ul>
@@ -177,7 +177,7 @@ files (including global.cfg), 3 otherwise.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

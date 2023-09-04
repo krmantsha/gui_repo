@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCQC" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCQC" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scqc \- SeisComP Documentation
 .
@@ -259,7 +259,7 @@ Further RecordStream plugins for reading data may be considered.
 Configure the plugin parameters: Each plugin considers specific parameters
 which can be configured separately or the default section.
 .UNINDENT
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/scqc.cfg\fP
@@ -274,31 +274,34 @@ scqc inherits global options\&.
 .INDENT 0.0
 .TP
 .B CreatorId
+Default: \fBsmi://de.gfz\-potsdam/QcTool_0.3.1\fP
+.sp
 Type: \fIstring\fP
 .sp
 ID of QC message creator
-Default is \fBsmi://de.gfz\-potsdam/QcTool_0.3.1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B useConfiguredStreams
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Limit QC determination to processed data streams which are
 defined in global bindings with detecLocid and detecStream.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B use3Components
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
-If useConfiguredStreams is true then this parameter decides whether
+If useConfiguredStreams is true, this parameter decides whether
 to use only the vertical component (default) or all three
 components. The 3 components are collected from the inventory
-according to channel orientation. If that is not possible
-then the fixed components N and E will be used.
-Default is \fBfalse\fP\&.
+according to channel orientation. If that is not possible,
+the fixed components N and E will be used.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -317,13 +320,14 @@ streamMask = "^(.+)\e.(.+)\e.(.*)\e.(BHZ)$"
 .INDENT 0.0
 .TP
 .B dbLookBack
+Default: \fB7\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIdays\fP
 .sp
 Database look up for past entries not older than x days
 (to determine the last QC parameter calculated).
-Default is \fB7\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -345,29 +349,32 @@ Default is \fB7\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.default.realTimeOnly
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enable to use this plugin only for realtime processing.
 .sp
 Default [disable]: plugin is able to process archived data AND realtime data streams.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.default.filter
 Type: \fIstring\fP
 .sp
-Filter string used to filter waveforms before processing.
+Filter string used to filter waveforms before
+processing. Currently only used by QcRms.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.default.buffer
+Default: \fB4000\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Qc\-Buffer Length [s] (aka LTA\-Buffer). Must be >= plugins.*.bufferLength.
-Default is \fB4000\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -380,34 +387,37 @@ Default is \fB4000\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.default.report.interval
+Default: \fB60\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for sending report messages which e.g.
 will be  may be displayed by scqcv.
-Default is \fB60\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.default.report.buffer
+Default: \fB600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB600\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.default.report.timeout
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Report messages are generated in case no data
 is received since timeout. Only in real\-time processing.
-Default is \fB0\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -421,6 +431,8 @@ Default is \fB0\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.default.archive.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
@@ -429,17 +441,17 @@ Interval to send the QC reports.
 .sp
 Default [\-1]: Do not send any QC report. This will prevent writing
 QC reports into the database.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.default.archive.buffer
+Default: \fB3600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB3600\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -452,31 +464,34 @@ Default is \fB3600\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.default.alert.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for checking and sending alert thresholds.
 \-1 disables threshold checking.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.default.alert.buffer
+Default: \fB1800\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB1800\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.default.alert.thresholds
+Default: \fB150\fP
+.sp
 Type: \fIint\fP
 .sp
 List of thresholds for sending QC reports. Use comma to separate values.
-Default is \fB150\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -489,29 +504,24 @@ Default is \fB150\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcLatency.realTimeOnly
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enable to use this plugin only for realtime processing.
 .sp
 Default [disable]: plugin is able to process archived data AND realtime data streams.
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B plugins.QcLatency.filter
-Type: \fIstring\fP
-.sp
-Filter string used to filter waveforms before processing.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcLatency.buffer
+Default: \fB4000\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Qc\-Buffer Length [s] (aka LTA\-Buffer). Must be >= plugins.*.bufferLength.
-Default is \fB4000\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -524,34 +534,37 @@ Default is \fB4000\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcLatency.report.interval
+Default: \fB60\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for sending report messages which, e.g.,
 can be displayed by scqcv.
-Default is \fB60\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcLatency.report.buffer
+Default: \fB600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB600\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcLatency.report.timeout
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Report messages are generated in case no data
 is received since timeout. Only in real\-time processing.
-Default is \fB0\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -565,6 +578,8 @@ Default is \fB0\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcLatency.archive.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
@@ -573,17 +588,17 @@ Interval to send the QC reports.
 .sp
 Default [\-1]: Do not send any QC report. This will prevent writing
 QC reports into the database.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcLatency.archive.buffer
+Default: \fB3600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB3600\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -596,31 +611,34 @@ Default is \fB3600\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcLatency.alert.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for checking and sending alert thresholds.
 \-1 disables threshold checking.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcLatency.alert.buffer
+Default: \fB1800\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB1800\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcLatency.alert.thresholds
+Default: \fB150\fP
+.sp
 Type: \fIint\fP
 .sp
 List of thresholds for sending QC reports. Use comma to separate values.
-Default is \fB150\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -633,29 +651,24 @@ Default is \fB150\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcDelay.realTimeOnly
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enable to use this plugin only for realtime processing.
 .sp
 Default [disable]: plugin is able to processd data AND realtime data streams.
-Default is \fBtrue\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B plugins.QcDelay.filter
-Type: \fIstring\fP
-.sp
-Filter string used to filter waveforms before processing.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcDelay.buffer
+Default: \fB4000\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Qc\-Buffer Length [s] (aka LTA\-Buffer). Must be >= plugins.*.bufferLength.
-Default is \fB4000\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -668,34 +681,37 @@ Default is \fB4000\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcDelay.report.interval
+Default: \fB60\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for sending report messages which e.g.
 will be  may be displayed by scqcv.
-Default is \fB60\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcDelay.report.buffer
+Default: \fB600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB600\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcDelay.report.timeout
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Report messages are generated in case no data
 is received since timeout. Only in real\-time processing.
-Default is \fB0\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -709,6 +725,8 @@ Default is \fB0\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcDelay.archive.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
@@ -717,17 +735,17 @@ Interval to send the QC reports.
 .sp
 Default [\-1]: Do not send any QC report. This will prevent writing
 QC reports into the database.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcDelay.archive.buffer
+Default: \fB3600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB3600\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -740,31 +758,34 @@ Default is \fB3600\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcDelay.alert.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for checking and sending alert thresholds.
 \-1 disables threshold checking.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcDelay.alert.buffer
+Default: \fB1800\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB1800\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcDelay.alert.thresholds
+Default: \fB150\fP
+.sp
 Type: \fIint\fP
 .sp
 List of thresholds for sending QC reports. Use comma to separate values.
-Default is \fB150\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -777,29 +798,24 @@ Default is \fB150\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcGap.realTimeOnly
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enable to use this plugin only for realtime processing.
 .sp
 Default [disable]: plugin is able to process archived data AND realtime data streams.
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B plugins.QcGap.filter
-Type: \fIstring\fP
-.sp
-Filter string used to filter waveforms before processing.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcGap.buffer
+Default: \fB4000\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Qc\-Buffer Length [s] (aka LTA\-Buffer). Must be >= plugins.*.bufferLength.
-Default is \fB4000\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -812,34 +828,37 @@ Default is \fB4000\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcGap.report.interval
+Default: \fB60\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for sending report messages which e.g.
 will be  may be displayed by scqcv.
-Default is \fB60\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcGap.report.buffer
+Default: \fB600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB600\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcGap.report.timeout
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Report messages are generated in case no data
 is received since timeout. Only in real\-time processing.
-Default is \fB0\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -853,6 +872,8 @@ Default is \fB0\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcGap.archive.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
@@ -861,17 +882,17 @@ Interval to send the QC reports.
 .sp
 Default [\-1]: Do not send any QC report. This will prevent writing
 QC reports into the database.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcGap.archive.buffer
+Default: \fB3600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB3600\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -884,31 +905,34 @@ Default is \fB3600\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcGap.alert.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for checking and sending alert thresholds.
 \-1 disables threshold checking.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcGap.alert.buffer
+Default: \fB1800\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB1800\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcGap.alert.thresholds
+Default: \fB150\fP
+.sp
 Type: \fIint\fP
 .sp
 List of thresholds for sending QC reports. Use comma to separate values.
-Default is \fB150\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -921,29 +945,24 @@ Default is \fB150\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcOffset.realTimeOnly
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enable to use this plugin only for realtime processing.
 .sp
 Default [disable]: plugin is able to process archived data AND realtime data streams.
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B plugins.QcOffset.filter
-Type: \fIstring\fP
-.sp
-Filter string used to filter waveforms before processing.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcOffset.buffer
+Default: \fB4000\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Qc\-Buffer Length [s] (aka LTA\-Buffer). Must be >= plugins.*.bufferLength.
-Default is \fB4000\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -956,34 +975,37 @@ Default is \fB4000\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcOffset.report.interval
+Default: \fB60\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for sending report messages which e.g.
 will be  may be displayed by scqcv.
-Default is \fB60\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcOffset.report.buffer
+Default: \fB600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB600\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcOffset.report.timeout
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Report messages are generated in case no data
 is received since timeout. Only in real\-time processing.
-Default is \fB0\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -997,6 +1019,8 @@ Default is \fB0\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcOffset.archive.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
@@ -1005,17 +1029,17 @@ Interval to send the QC reports.
 .sp
 Default [\-1]: Do not send any QC report. This will prevent writing
 QC reports into the database.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcOffset.archive.buffer
+Default: \fB3600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB3600\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1028,31 +1052,34 @@ Default is \fB3600\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcOffset.alert.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for checking and sending alert thresholds.
 \-1 disables threshold checking.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcOffset.alert.buffer
+Default: \fB1800\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB1800\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcOffset.alert.thresholds
+Default: \fB150\fP
+.sp
 Type: \fIint\fP
 .sp
 List of thresholds for sending QC reports. Use comma to separate values.
-Default is \fB150\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1065,29 +1092,24 @@ Default is \fB150\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcOverlap.realTimeOnly
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enable to use this plugin only for realtime processing.
 .sp
 Default [disable]: plugin is able to process archived data AND realtime data streams.
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B plugins.QcOverlap.filter
-Type: \fIstring\fP
-.sp
-Filter string used to filter waveforms before processing.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcOverlap.buffer
+Default: \fB4000\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Qc\-Buffer Length [s] (aka LTA\-Buffer). Must be >= plugins.*.bufferLength.
-Default is \fB4000\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1100,34 +1122,37 @@ Default is \fB4000\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcOverlap.report.interval
+Default: \fB60\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for sending report messages which e.g.
 will be  may be displayed by scqcv.
-Default is \fB60\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcOverlap.report.buffer
+Default: \fB600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB600\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcOverlap.report.timeout
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Report messages are generated in case no data
 is received since timeout. Only in real\-time processing.
-Default is \fB0\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1141,6 +1166,8 @@ Default is \fB0\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcOverlap.archive.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
@@ -1149,17 +1176,17 @@ Interval to send the QC reports.
 .sp
 Default [\-1]: Do not send any QC report. This will prevent writing
 QC reports into the database.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcOverlap.archive.buffer
+Default: \fB3600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB3600\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1172,31 +1199,34 @@ Default is \fB3600\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcOverlap.alert.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for checking and sending alert thresholds.
 \-1 disables threshold checking.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcOverlap.alert.buffer
+Default: \fB1800\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB1800\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcOverlap.alert.thresholds
+Default: \fB150\fP
+.sp
 Type: \fIint\fP
 .sp
 List of thresholds for sending QC reports. Use comma to separate values.
-Default is \fB150\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1209,12 +1239,13 @@ Default is \fB150\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcRms.realTimeOnly
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enable to use this plugin only for realtime processing.
 .sp
 Default [disable]: plugin is able to process archived data AND realtime data streams.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1226,12 +1257,13 @@ Filter string used to filter waveforms before processing.
 .INDENT 0.0
 .TP
 .B plugins.QcRms.buffer
+Default: \fB4000\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Qc\-Buffer Length [s] (aka LTA\-Buffer). Must be >= plugins.*.bufferLength.
-Default is \fB4000\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1244,34 +1276,37 @@ Default is \fB4000\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcRms.report.interval
+Default: \fB60\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for sending report messages which e.g.
 will be  may be displayed by scqcv.
-Default is \fB60\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcRms.report.buffer
+Default: \fB600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB600\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcRms.report.timeout
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Report messages are generated in case no data
 is received since timeout. Only in real\-time processing.
-Default is \fB0\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1285,6 +1320,8 @@ Default is \fB0\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcRms.archive.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
@@ -1293,17 +1330,17 @@ Interval to send the QC reports.
 .sp
 Default [\-1]: Do not send any QC report. This will prevent writing
 QC reports into the database.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcRms.archive.buffer
+Default: \fB3600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB3600\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1316,31 +1353,34 @@ Default is \fB3600\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcRms.alert.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for checking and sending alert thresholds.
 \-1 disables threshold checking.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcRms.alert.buffer
+Default: \fB1800\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB1800\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcRms.alert.thresholds
+Default: \fB150\fP
+.sp
 Type: \fIint\fP
 .sp
 List of thresholds for sending QC reports. Use comma to separate values.
-Default is \fB150\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1353,29 +1393,24 @@ Default is \fB150\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcSpike.realTimeOnly
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enable to use this plugin only for realtime processing.
 .sp
 Default [disable]: plugin is able to process archived data AND realtime data streams.
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B plugins.QcSpike.filter
-Type: \fIstring\fP
-.sp
-Filter string used to filter waveforms before processing.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcSpike.buffer
+Default: \fB4000\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Qc\-Buffer Length [s] (aka LTA\-Buffer). Must be >= plugins.*.bufferLength.
-Default is \fB4000\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1388,34 +1423,37 @@ Default is \fB4000\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcSpike.report.interval
+Default: \fB60\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for sending report messages which e.g.
 will be  may be displayed by scqcv.
-Default is \fB60\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcSpike.report.buffer
+Default: \fB600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB600\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcSpike.report.timeout
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Report messages are generated in case no data
 is received since timeout. Only in real\-time processing.
-Default is \fB0\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1429,6 +1467,8 @@ Default is \fB0\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcSpike.archive.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
@@ -1437,17 +1477,17 @@ Interval to send the QC reports.
 .sp
 Default [\-1]: Do not send any QC report. This will prevent writing
 QC reports into the database.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcSpike.archive.buffer
+Default: \fB3600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB3600\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1460,31 +1500,34 @@ Default is \fB3600\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcSpike.alert.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for checking and sending alert thresholds.
 \-1 disables threshold checking.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcSpike.alert.buffer
+Default: \fB1800\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB1800\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcSpike.alert.thresholds
+Default: \fB150\fP
+.sp
 Type: \fIint\fP
 .sp
 List of thresholds for sending QC reports. Use comma to separate values.
-Default is \fB150\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1497,29 +1540,24 @@ Default is \fB150\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcTiming.realTimeOnly
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enable to use this plugin only for realtime processing.
 .sp
 Default [disable]: plugin is able to process archived data AND realtime data streams.
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B plugins.QcTiming.filter
-Type: \fIstring\fP
-.sp
-Filter string used to filter waveforms before processing.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcTiming.buffer
+Default: \fB4000\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Qc\-Buffer Length [s] (aka LTA\-Buffer). Must be >= plugins.*.bufferLength.
-Default is \fB4000\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1532,34 +1570,37 @@ Default is \fB4000\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcTiming.report.interval
+Default: \fB60\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for sending report messages which e.g.
 will be  may be displayed by scqcv.
-Default is \fB60\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcTiming.report.buffer
+Default: \fB600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB600\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcTiming.report.timeout
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Report messages are generated in case no data
 is received since timeout. Only in real\-time processing.
-Default is \fB0\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1573,6 +1614,8 @@ Default is \fB0\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcTiming.archive.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
@@ -1581,17 +1624,17 @@ Interval to send the QC reports.
 .sp
 Default [\-1]: Do not send any QC report. This will prevent writing
 QC reports into the database.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcTiming.archive.buffer
+Default: \fB3600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB3600\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1604,31 +1647,34 @@ Default is \fB3600\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcTiming.alert.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for checking and sending alert thresholds.
 \-1 disables threshold checking.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcTiming.alert.buffer
+Default: \fB1800\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB1800\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcTiming.alert.thresholds
+Default: \fB150\fP
+.sp
 Type: \fIint\fP
 .sp
 List of thresholds for sending QC reports. Use comma to separate values.
-Default is \fB150\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1641,29 +1687,24 @@ Default is \fB150\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcAvailability.realTimeOnly
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enable to use this plugin only for realtime processing.
 .sp
 Default [disable]: plugin is able to process archived data AND realtime data streams.
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B plugins.QcAvailability.filter
-Type: \fIstring\fP
-.sp
-Filter string used to filter waveforms before processing.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcAvailability.buffer
+Default: \fB4000\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Qc\-Buffer Length [s] (aka LTA\-Buffer). Must be >= plugins.*.bufferLength.
-Default is \fB4000\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1676,34 +1717,37 @@ Default is \fB4000\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcAvailability.report.interval
+Default: \fB60\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for sending report messages which e.g.
 will be  may be displayed by scqcv.
-Default is \fB60\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcAvailability.report.buffer
+Default: \fB600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB600\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcAvailability.report.timeout
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Report messages are generated in case no data
 is received since timeout. Only in real\-time processing.
-Default is \fB0\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1717,6 +1761,8 @@ Default is \fB0\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcAvailability.archive.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
@@ -1725,17 +1771,17 @@ Interval to send the QC reports.
 .sp
 Default [\-1]: Do not send any QC report. This will prevent writing
 QC reports into the database.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcAvailability.archive.buffer
+Default: \fB3600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB3600\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1748,31 +1794,34 @@ Default is \fB3600\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcAvailability.alert.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for checking and sending alert thresholds.
 \-1 disables threshold checking.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcAvailability.alert.buffer
+Default: \fB1800\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB1800\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcAvailability.alert.thresholds
+Default: \fB150\fP
+.sp
 Type: \fIint\fP
 .sp
 List of thresholds for sending QC reports. Use comma to separate values.
-Default is \fB150\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1785,39 +1834,35 @@ Default is \fB150\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcOutage.realTimeOnly
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enable to use this plugin only for realtime processing.
 .sp
 Default [disable]: plugin is able to process archived data AND realtime data streams.
-Default is \fBfalse\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B plugins.QcOutage.filter
-Type: \fIstring\fP
-.sp
-Filter string used to filter waveforms before processing.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcOutage.buffer
+Default: \fB4000\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Qc\-Buffer Length [s] (aka LTA\-Buffer). Must be >= plugins.*.bufferLength.
-Default is \fB4000\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcOutage.notifyDB
+Default: \fB1800\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 If there is a gap of more than notifyDB [s], write an OUTAGE entry into the database.
-Default is \fB1800\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1830,34 +1875,37 @@ Default is \fB1800\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcOutage.report.interval
+Default: \fB60\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for sending report messages which e.g.
 will be  may be displayed by scqcv.
-Default is \fB60\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcOutage.report.buffer
+Default: \fB600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB600\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcOutage.report.timeout
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Report messages are generated in case no data
 is received since timeout. Only in real\-time processing.
-Default is \fB0\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1871,6 +1919,8 @@ Default is \fB0\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcOutage.archive.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
@@ -1879,17 +1929,17 @@ Interval to send the QC reports.
 .sp
 Default [\-1]: Do not send any QC report. This will prevent writing
 QC reports into the database.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcOutage.archive.buffer
+Default: \fB3600\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB3600\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1902,51 +1952,56 @@ Default is \fB3600\fP\&.
 .INDENT 0.0
 .TP
 .B plugins.QcOutage.alert.interval
+Default: \fB\-1\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Interval for checking and sending alert thresholds.
 \-1 disables threshold checking.
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcOutage.alert.buffer
+Default: \fB1800\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time window for calculating QC reports.
-Default is \fB1800\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B plugins.QcOutage.alert.thresholds
+Default: \fB150\fP
+.sp
 Type: \fIint\fP
 .sp
 List of thresholds for sending QC reports. Use comma to separate values.
-Default is \fB150\fP\&.
 .UNINDENT
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1956,55 +2011,60 @@ Load given plugins.
 .INDENT 0.0
 .TP
 .B \-D, \-\-daemon
-Run as daemon. This means the application will fork itself and
-doesn\(aqt need to be started with &.
+Run as daemon. This means the application will fork itself
+and doesn\(aqt need to be started with &.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-auto\-shutdown arg
-Enable/disable self\-shutdown because a master module shutdown. This only
-works when messaging is enabled and the master module sends a shutdown
-message (enabled with \-\-start\-stop\-msg for the master module).
+Enable/disable self\-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with \-\-start\-stop\-msg
+for the master module).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-module arg
-Sets the name of the master\-module used for auto\-shutdown. This
-is the application name of the module actually started. If symlinks
-are used then it is the name of the symlinked application.
+Set the name of the master\-module used for auto\-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-username arg
-Sets the name of the master\-username of the messaging used for
-auto\-shutdown. If "shutdown\-master\-module" is given as well this
-parameter is ignored.
+Set the name of the master\-username of the messaging
+used for auto\-shutdown. If "shutdown\-master\-module" is
+given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2019,7 +2079,8 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2050,7 +2111,8 @@ Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
 .INDENT 0.0
 .TP
 .B \-S, \-\-subscribe\-group arg
-A group to subscribe to. This option can be given more than once.
+A group to subscribe to.
+This option can be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2060,7 +2122,7 @@ Overrides configuration parameter \fBconnection.contentType\fP\&.
 .INDENT 0.0
 .TP
 .B \-\-start\-stop\-msg arg
-Sets sending of a start\- and a stop message.
+Set sending of a start and a stop message.
 .UNINDENT
 .SS Database
 .INDENT 0.0
@@ -2071,19 +2133,21 @@ List all supported database drivers.
 .INDENT 0.0
 .TP
 .B \-d, \-\-database arg
-The database connection string, format: \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which can be
-queried with "\-\-db\-driver\-list".
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+"service" is the name of the database driver which
+can be queried with "\-\-db\-driver\-list".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-module arg
-The configmodule to use.
+The config module to use.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-inventory\-db arg
-Load the inventory from the given database or file, format: [\fI\%service://]location\fP
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2094,15 +2158,17 @@ Do not use the database at all
 .INDENT 0.0
 .TP
 .B \-\-record\-driver\-list
-List all supported record stream drivers
+List all supported record stream drivers.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-I, \-\-record\-url arg
-The recordstream source URL, format: [\fI\%service://\fP]location[#type].
-"service" is the name of the recordstream driver which can be
-queried with "\-\-record\-driver\-list". If "service"
-is not given "\fI\%file://\fP" is used.
+The recordstream source URL, format:
+[\fI\%service://\fP]location[#type].
+"service" is the name of the recordstream driver
+which can be queried with "\-\-record\-driver\-list".
+If "service" is not given, "\fI\%file://\fP" is
+used.
 .UNINDENT
 .INDENT 0.0
 .TP

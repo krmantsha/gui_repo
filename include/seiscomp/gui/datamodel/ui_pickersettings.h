@@ -1052,9 +1052,9 @@ public:
 
         vboxLayout->addLayout(hboxLayout17);
 
-        QWidget::setTabOrder(spinPVel, cbComputeMagnitudesAfterRelocate);
-        QWidget::setTabOrder(cbComputeMagnitudesAfterRelocate, cbComputeMagnitudesSilently);
-        QWidget::setTabOrder(cbComputeMagnitudesSilently, cbAskForMagnitudeTypes);
+        QWidget::setTabOrder(okButton, saveButton);
+        QWidget::setTabOrder(saveButton, cancelButton);
+        QWidget::setTabOrder(cancelButton, cbAskForMagnitudeTypes);
         QWidget::setTabOrder(cbAskForMagnitudeTypes, cbComputeMissingTakeOffAngles);
         QWidget::setTabOrder(cbComputeMissingTakeOffAngles, cbMaplines);
         QWidget::setTabOrder(cbMaplines, cbPlotGridlines);
@@ -1101,9 +1101,12 @@ public:
         QWidget::setTabOrder(btnAddAmplitudeFilter, btnRemoveAmplitudeFilter);
         QWidget::setTabOrder(btnRemoveAmplitudeFilter, btnMoveAmplitudeFilterUp);
         QWidget::setTabOrder(btnMoveAmplitudeFilterUp, btnMoveAmplitudeFilterDown);
-        QWidget::setTabOrder(btnMoveAmplitudeFilterDown, saveButton);
-        QWidget::setTabOrder(saveButton, okButton);
-        QWidget::setTabOrder(okButton, cancelButton);
+        QWidget::setTabOrder(btnMoveAmplitudeFilterDown, cbComputeMagnitudesAfterRelocate);
+        QWidget::setTabOrder(cbComputeMagnitudesAfterRelocate, spinPVel);
+        QWidget::setTabOrder(spinPVel, cbComputeMagnitudesSilently);
+        QWidget::setTabOrder(cbComputeMagnitudesSilently, cbIgnoreDisabledStations);
+        QWidget::setTabOrder(cbIgnoreDisabledStations, checkIntegrationPreFilterOnce);
+        QWidget::setTabOrder(checkIntegrationPreFilterOnce, editIntegrationPreFilter);
 
         retranslateUi(PickerSettings);
         QObject::connect(okButton, SIGNAL(clicked()), PickerSettings, SLOT(accept()));

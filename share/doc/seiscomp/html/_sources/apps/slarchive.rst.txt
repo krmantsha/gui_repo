@@ -125,8 +125,8 @@ File example: :file:`<SDSdir>/Year/NET/STA/CHAN.TYPE/NET.STA.LOC.CHAN.TYPE.YEAR.
 
 .. _slarchive_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 
 .. note::
@@ -142,39 +142,49 @@ Configuration
 
 .. confval:: address
 
+   Default: ``127.0.0.1``
+
    Type: *string*
 
    Host of the Seedlink server to connect to. If the acquisition
    is running on one system nothing needs to be changed.
-   Default is ``127.0.0.1``.
+
 
 .. confval:: port
+
+   Default: ``18000``
 
    Type: *int*
 
    The port of the Seedlink server to connect to. If the acquisition
    is running on one system this port must match the configured
    local Seedlink port.
-   Default is ``18000``.
+
 
 .. confval:: archive
+
+   Default: ``var/lib/archive``
 
    Type: *string*
 
    Path to waveform archive where all data is stored. Relative paths
    \(as the default\) are treated relative to the installation
    directory \(\$SEISCOMP_ROOT\).
-   Default is ``var/lib/archive``.
+
 
 .. confval:: buffer
+
+   Default: ``1000``
 
    Type: *int*
 
    Number of records \(512 byte units\) to buffer before flushing to
    disk.
-   Default is ``1000``.
+
 
 .. confval:: delay
+
+   Default: ``30``
 
    Type: *int*
 
@@ -184,9 +194,11 @@ Configuration
    to the SeedLink server. If the connection breaks for any
    reason this will govern how soon a reconnection should be
    attempted. The default value is 30 seconds.
-   Default is ``30``.
+
 
 .. confval:: networkTimeout
+
+   Default: ``900``
 
    Type: *int*
 
@@ -197,9 +209,11 @@ Configuration
    in this time range the connection is closed and re\-established
    \(after the reconnect delay has expired\). The default value is
    600 seconds. A value of 0 disables the timeout.
-   Default is ``900``.
+
 
 .. confval:: idleTimeout
+
+   Default: ``300``
 
    Type: *int*
 
@@ -211,9 +225,11 @@ Configuration
    closed. There is no reason to change this parameter except for
    the unusual cases where the process is running against an open
    file number limit. Default is 300 seconds.
-   Default is ``300``.
+
 
 .. confval:: keepalive
+
+   Default: ``0``
 
    Type: *int*
 
@@ -223,9 +239,11 @@ Configuration
    are sent to the server. Keepalive packets are only sent if
    nothing is received within the interval. This requires a
    Seedlink version >\= 3.
-   Default is ``0``.
+
 
 .. confval:: validation.certs
+
+   Default: ``var/lib/certs``
 
    Type: *string*
 
@@ -247,9 +265,11 @@ Configuration
    The hash value can be obtained as follows:
    
    openssl x509 \-hash \-noout \-in <file>
-   Default is ``var/lib/certs``.
+
 
 .. confval:: validation.mode
+
+   Default: ``ignore``
 
    Type: *string*
 
@@ -263,15 +283,12 @@ Configuration
    at all will be logged with at warning level.
    skip   : All received records without a valid signature
    will be ignored and will not be processed.
-   Default is ``ignore``.
 
 
-Bindings
-========
 
+Bindings Parameters
+===================
 
-Configuration
--------------
 
 
 .. confval:: selectors
@@ -285,18 +302,20 @@ Configuration
 
 .. confval:: keep
 
+   Default: ``30``
+
    Type: *int*
 
    Unit: *day*
 
    Number of days the data is kept in the archive. This
    requires purge_datafile to be run as cronjob.
-   Default is ``30``.
 
 
 
-Command-line
-============
+
+Command-Line Options
+====================
 
 .. program:: slarchive
 

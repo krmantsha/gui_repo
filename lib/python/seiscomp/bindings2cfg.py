@@ -57,7 +57,8 @@ def sync(paramSet, params):
             if p.name() in seenParams:
                 # Multiple parameter definitions with same name
                 sys.stderr.write(
-                    "- %s:%s / duplicate parameter name\n" % (p.publicID(), p.name()))
+                    f"- {p.publicID()}:{p.name()} / duplicate parameter name\n"
+                )
                 p.detach()
                 continue
             seenParams[p.name()] = 1
@@ -93,27 +94,45 @@ class ConfigDBUpdater(seiscomp.client.Application):
         self.setLoadConfigModuleEnabled(True)
         # Load all configuration modules
         self.setConfigModuleName("")
-        self.setPrimaryMessagingGroup(
-            seiscomp.client.Protocol.LISTENER_GROUP)
+        self.setPrimaryMessagingGroup(seiscomp.client.Protocol.LISTENER_GROUP)
 
-        self._outputFile = ""
+        self._outputFile = None
+        self._createNotifier = False
         self._keyDir = None
 
     def createCommandLineDescription(self):
         self.commandline().addGroup("Input")
-        self.commandline().addStringOption("Input", "key-dir",
-                                           "Overrides the location of the default key directory ($SEISCOMP_ROOT/etc/key)")
+        self.commandline().addStringOption(
+            "Input",
+            "key-dir",
+            "Overrides the location of the default key directory ($SEISCOMP_ROOT/etc/key)",
+        )
         self.commandline().addGroup("Output")
-        self.commandline().addStringOption("Output", "output,o",
-                                           "If given, an output XML file is generated")
+        self.commandline().addStringOption(
+            "Output", "output,o", "If given, an output XML file is generated"
+        )
+        self.commandline().addOption(
+            "Output", "create-notifier", "If given then a notifier message containing all notifiers "
+            "will be written to the output XML. This option only applies "
+            "if an output file is given. Notifier creation either requires "
+            "and input database and an input config XML as reference."
+        )
 
     def validateParameters(self):
+        if not seiscomp.client.Application.validateParameters(self):
+            return False
+
         try:
             self._outputFile = self.commandline().optionString("output")
+            self._createNotifier = self.commandline().hasOption("create-notifier")
             # Switch to offline mode
             self.setMessagingEnabled(False)
             self.setDatabaseEnabled(False, False)
-            self.setLoadConfigModuleEnabled(False)
+            if self._createNotifier:
+                if self.isConfigDatabaseEnabled() == True:
+                    self.setDatabaseEnabled(True, False);
+            else:
+                self.setLoadConfigModuleEnabled(False)
         except:
             pass
 
@@ -135,11 +154,11 @@ class ConfigDBUpdater(seiscomp.client.Application):
         # Load definitions of the configuration schema
         defs = seiscomp.system.SchemaDefinitions()
         if not defs.load(descdir):
-            sys.stderr.write("Error: could not read descriptions\n")
+            print("Error: could not read descriptions", file=sys.stderr)
             return False
 
         if defs.moduleCount() == 0:
-            sys.stderr.write("Warning: no modules defined, nothing to do\n")
+            print("Warning: no modules defined, nothing to do", file=sys.stderr)
             return False
 
         # Create a model from the schema and read its configuration including
@@ -161,11 +180,11 @@ class ConfigDBUpdater(seiscomp.client.Application):
             # configurations
             if mod.isStandalone():
                 continue
+
             self.bindingMods.append(mod.name)
 
         if len(self.bindingMods) == 0:
-            sys.stderr.write(
-                "Warning: no usable modules found, nothing to do\n")
+            print("Warning: no usable modules found, nothing to do", file=sys.stderr)
             return False
 
         self.stationSetups = {}
@@ -174,17 +193,25 @@ class ConfigDBUpdater(seiscomp.client.Application):
         for m in self.bindingMods:
             mod = model.module(m)
             if not mod:
-                sys.stderr.write("Warning: module %s not assigned\n" % m)
+                print(f"Warning: module {m} not assigned", file=sys.stderr)
                 continue
             if len(mod.bindings) == 0:
                 continue
+
+            if len(m) > 20:
+                print(
+                    f"Error: rejecting module {m} - name is longer than 20 characters",
+                    file=sys.stderr,
+                )
+                return False
 
             # Rename global to default for being compatible with older
             # releases
             if m == "global":
                 m = "default"
 
-            sys.stderr.write("+ %s\n" % m)
+            print(f"+ {m}", file=sys.stderr)
+
             for staid in list(mod.bindings.keys()):
                 binding = mod.getBinding(staid)
                 if not binding:
@@ -197,47 +224,51 @@ class ConfigDBUpdater(seiscomp.client.Application):
                 if not key in self.stationSetups:
                     self.stationSetups[key] = {}
                 self.stationSetups[key][m] = params
-            sys.stderr.write("  + read %d stations\n" %
-                             len(list(mod.bindings.keys())))
+            print(
+                f"  + read {len(list(mod.bindings.keys()))} stations", file=sys.stderr
+            )
 
         return True
-    
-    def printUsage(self):
 
-        print('''Usage:
+    def printUsage(self):
+        print(
+            """Usage:
   bindings2cfg [options]
 
-Dump global and module bindings configurations''')
+Dump global and module bindings configurations"""
+        )
 
         seiscomp.client.Application.printUsage(self)
 
-        print('''Examples:
+        print(
+            """Examples:
 Write bindings configuration from key directory to a configuration XML file:
   bindings2cfg --key-dir ./etc/key -o config.xml
 
-Write bindings configuration from key directory to the seiscomp local database
-  bindings2cfg --key-dir ./etc/key -d mysql://sysop:sysop@localhost/seiscomp
-''')
-        
+Synchronize bindings configuration from key directory to a processing system
+  bindings2cfg --key-dir ./etc/key -H proc
+"""
+        )
+
         return True
 
     def send(self, *args):
-        '''
+        """
         A simple wrapper that sends a message and tries to resend it in case of
         an error.
-        '''
+        """
         while not self.connection().send(*args):
-            sys.stderr.write("Warning: sending failed, retrying\n")
+            print("Warning: sending failed, retrying", file=sys.stderr)
             time.sleep(1)
 
     def run(self):
-        '''
+        """
         Reimplements the main loop of the application. This methods collects
         all bindings and updates the database. It searches for already existing
         objects and updates them or creates new objects. Objects that is didn't
         touched are removed. This tool is the only one that should writes the
         configuration into the database and thus manages the content.
-        '''
+        """
         config = seiscomp.client.ConfigDB.Instance().config()
         if config is None:
             config = seiscomp.datamodel.Config()
@@ -245,13 +276,13 @@ Write bindings configuration from key directory to the seiscomp local database
         configMod = None
         obsoleteConfigMods = []
 
-        if not self._outputFile:
+        if self._outputFile is None or self._createNotifier == True:
             moduleName = self.name()
             seiscomp.datamodel.Notifier.Enable()
         else:
             moduleName = "trunk"
 
-        configID = "Config/%s" % moduleName
+        configID = f"Config/{moduleName}"
 
         for i in range(config.configModuleCount()):
             if config.configModule(i).publicID() != configID:
@@ -261,8 +292,7 @@ Write bindings configuration from key directory to the seiscomp local database
 
         # Remove obsolete config modules
         for cm in obsoleteConfigMods:
-            sys.stderr.write(
-                "- %s / obsolete module configuration\n" % cm.name())
+            print(f"- {cm.name()} / obsolete module configuration", file=sys.stderr)
             ps = seiscomp.datamodel.ParameterSet.Find(cm.parameterSetID())
             if not ps is None:
                 ps.detach()
@@ -286,8 +316,7 @@ Write bindings configuration from key directory to the seiscomp local database
             if configMod.name() != moduleName:
                 configMod.setName(moduleName)
                 configMod.update()
-            paramSet = seiscomp.datamodel.ParameterSet.Find(
-                configMod.parameterSetID())
+            paramSet = seiscomp.datamodel.ParameterSet.Find(configMod.parameterSetID())
             if configMod.parameterSetID():
                 configMod.setParameterSetID("")
                 configMod.update()
@@ -306,8 +335,11 @@ Write bindings configuration from key directory to the seiscomp local database
                 obsoleteStationConfigs.append(cs)
 
         for cs in obsoleteStationConfigs:
-            sys.stderr.write("- %s/%s/%s / obsolete station configuration\n" %
-                             (configMod.name(), cs.networkCode(), cs.stationCode()))
+            print(
+                f"- {configMod.name()}/{cs.networkCode()}/{cs.stationCode()} / obsolete "
+                "station configuration",
+                file=sys.stderr,
+            )
             cs.detach()
         del obsoleteStationConfigs
 
@@ -316,10 +348,12 @@ Write bindings configuration from key directory to the seiscomp local database
                 cs = stationConfigs[staid]
             except:
                 cs = seiscomp.datamodel.ConfigStation.Find(
-                    "Config/%s/%s/%s" % (configMod.name(), staid[0], staid[1]))
+                    f"Config/{configMod.name()}/{staid[0]}/{staid[1]}"
+                )
                 if not cs:
                     cs = seiscomp.datamodel.ConfigStation.Create(
-                        "Config/%s/%s/%s" % (configMod.name(), staid[0], staid[1]))
+                        f"Config/{configMod.name()}/{staid[0]}/{staid[1]}"
+                    )
                     configMod.add(cs)
                 cs.setNetworkCode(staid[0])
                 cs.setStationCode(staid[1])
@@ -341,8 +375,11 @@ Write bindings configuration from key directory to the seiscomp local database
                     obsoleteSetups.append(setup)
 
             for s in obsoleteSetups:
-                sys.stderr.write("- %s/%s/%s/%s / obsolete station setup\n" %
-                                 (configMod.name(), cs.networkCode(), cs.stationCode(), setup.name()))
+                print(
+                    f"- {configMod.name()}/{cs.networkCode()}/{cs.stationCode()}/{setup.name()} "
+                    "/ obsolete station setup",
+                    file=sys.stderr,
+                )
                 ps = seiscomp.datamodel.ParameterSet.Find(s.parameterSetID())
                 if ps:
                     ps.detach()
@@ -360,14 +397,27 @@ Write bindings configuration from key directory to the seiscomp local database
                     setup.setEnabled(True)
                     cs.add(setup)
 
-                paramSet = seiscomp.datamodel.ParameterSet.Find(
-                    setup.parameterSetID())
+                paramSet = seiscomp.datamodel.ParameterSet.Find(setup.parameterSetID())
                 if not paramSet:
-                    paramSet = seiscomp.datamodel.ParameterSet.Find("ParameterSet/%s/Station/%s/%s/%s" % (
-                        configMod.name(), cs.networkCode(), cs.stationCode(), setup.name()))
+                    paramSet = seiscomp.datamodel.ParameterSet.Find(
+                        "ParameterSet/%s/Station/%s/%s/%s"
+                        % (
+                            configMod.name(),
+                            cs.networkCode(),
+                            cs.stationCode(),
+                            setup.name(),
+                        )
+                    )
                     if not paramSet:
                         paramSet = seiscomp.datamodel.ParameterSet.Create(
-                            "ParameterSet/%s/Station/%s/%s/%s" % (configMod.name(), cs.networkCode(), cs.stationCode(), setup.name()))
+                            "ParameterSet/%s/Station/%s/%s/%s"
+                            % (
+                                configMod.name(),
+                                cs.networkCode(),
+                                cs.stationCode(),
+                                setup.name(),
+                            )
+                        )
                         config.add(paramSet)
                     paramSet.setModuleID(configMod.publicID())
                     paramSet.setCreated(seiscomp.core.Time.GMT())
@@ -387,8 +437,7 @@ Write bindings configuration from key directory to the seiscomp local database
 
             for i in range(cs.setupCount()):
                 setup = cs.setup(i)
-                paramSet = seiscomp.datamodel.ParameterSet.Find(
-                    setup.parameterSetID())
+                paramSet = seiscomp.datamodel.ParameterSet.Find(setup.parameterSetID())
                 if not paramSet:
                     continue
 
@@ -412,33 +461,37 @@ Write bindings configuration from key directory to the seiscomp local database
         while i < config.parameterSetCount():
             paramSet = config.parameterSet(i)
             if not paramSet.publicID() in usedSets:
-                sys.stderr.write("- %s / obsolete parameter set\n" %
-                                 paramSet.publicID())
+                print(
+                    f"- {paramSet.publicID()} / obsolete parameter set", file=sys.stderr
+                )
                 paramSet.detach()
             else:
                 i = i + 1
 
         # Generate output file and exit if configured
-        if self._outputFile:
+        if self._outputFile is not None:
             ar = seiscomp.io.XMLArchive()
             if not ar.create(self._outputFile):
-                sys.stderr.write(
-                    "Failed to created output file: %s" % self._outputFile)
+                print(
+                    f"Failed to created output file: {self._outputFile}",
+                    file=sys.stderr,
+                )
                 return False
 
             ar.setFormattedOutput(True)
-            ar.writeObject(config)
+            if self._createNotifier:
+                nmsg = seiscomp.datamodel.Notifier.GetMessage(True)
+                ar.writeObject(nmsg)
+            else:
+                ar.writeObject(config)
             ar.close()
             return True
 
         ncount = seiscomp.datamodel.Notifier.Size()
         if ncount > 0:
-            sys.stderr.write("+ synchronize %d change" % ncount)
-            if ncount > 1:
-                sys.stderr.write("s")
-            sys.stderr.write("\n")
+            print(f"+ synchronize {ncount} change(s)", file=sys.stderr)
         else:
-            sys.stderr.write("- database is already up-to-date\n")
+            print("- database is already up-to-date", file=sys.stderr)
             return True
 
         cfgmsg = seiscomp.datamodel.ConfigSyncMessage(False)
@@ -453,8 +506,7 @@ Write bindings configuration from key directory to the seiscomp local database
         msg = seiscomp.datamodel.NotifierMessage()
         nmsg = seiscomp.datamodel.Notifier.GetMessage(False)
         count = 0
-        sys.stderr.write("\r  + sending notifiers: %d%%" %
-                         (count * 100 / ncount))
+        sys.stderr.write("\r  + sending notifiers: %d%%" % (count * 100 / ncount))
         sys.stderr.flush()
         while nmsg:
             for o in nmsg:
@@ -466,8 +518,9 @@ Write bindings configuration from key directory to the seiscomp local database
                 count += msg.size()
                 self.send("CONFIG", msg)
                 msg.clear()
-                sys.stderr.write("\r  + sending notifiers: %d%%" %
-                                 (count * 100 / ncount))
+                sys.stderr.write(
+                    "\r  + sending notifiers: %d%%" % (count * 100 / ncount)
+                )
                 sys.stderr.flush()
 
             nmsg = seiscomp.datamodel.Notifier.GetMessage(False)
@@ -476,8 +529,7 @@ Write bindings configuration from key directory to the seiscomp local database
             count += msg.size()
             self.send("CONFIG", msg)
             msg.clear()
-            sys.stderr.write("\r  + sending notifiers: %d%%" %
-                             (count * 100 / ncount))
+            sys.stderr.write("\r  + sending notifiers: %d%%" % (count * 100 / ncount))
             sys.stderr.flush()
 
         sys.stderr.write("\n")

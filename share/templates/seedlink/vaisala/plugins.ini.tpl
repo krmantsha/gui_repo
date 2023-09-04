@@ -37,12 +37,24 @@ default_tq = -1
 * match the input names of the stream processing scheme in streams.xml,
 * which is referenced from seedlink.ini
 
-* Indoor Temperature (C * 100)
-channel KI source_id=Ta scale=100
+* Outdoor Temperature (C * 100)
+channel KO source_id=Ta scale=100
 
-* Indoor Humidity (%RH)
-channel II source_id=Ua scale=1
+* Outdoor Humidity (%RH)
+channel IO source_id=Ua scale=1
 
 * Air Pressure (hPa * 10)
-channel DI source_id=Pa scale=10
+channel DO source_id=Pa scale=10
+
+* Wind Direction (deg)
+channel WD source_id=Dm scale=1
+
+* Wind Speed (m/s * 10)
+channel WS source_id=Sm scale=10
+
+* Rain accumulation (mm * 100)
+channel RA source_id=Rc scale=100
+
+* Hail accumulation (hits/cm^2 * 10)
+channel HA source_id=Hc scale=10
 

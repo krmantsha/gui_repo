@@ -21,42 +21,16 @@
 #ifndef SEISCOMP_PROCESSING_PICKER_S_L2_H
 #define SEISCOMP_PROCESSING_PICKER_S_L2_H
 
-
-#include <seiscomp/processing/secondarypicker.h>
-
+#include "S_aic.h"
 
 namespace Seiscomp {
 namespace Processing {
 
 
-class SC_SYSTEM_CLIENT_API SL2Picker : public SecondaryPicker {
-	// ----------------------------------------------------------------------
-	//  Public types
-	// ----------------------------------------------------------------------
+class SC_SYSTEM_CLIENT_API SL2Picker : public SAICPicker {
 	public:
-		struct L2Config {
-			double      threshold;
-			double      minSNR;
-			double      margin;
-			double      timeCorr;
-			std::string filter;
-			std::string detecFilter;
-		};
+		using L2Config = SAICPicker::AICConfig;
 
-		struct State {
-			State();
-			bool        aicValid;
-			double      aicStart;
-			double      aicEnd;
-			Core::Time  detection;
-			Core::Time  pick;
-			double      snr;
-		};
-
-
-	// ----------------------------------------------------------------------
-	//  X'truction
-	// ----------------------------------------------------------------------
 	public:
 		//! C'tor
 		SL2Picker();
@@ -64,43 +38,26 @@ class SC_SYSTEM_CLIENT_API SL2Picker : public SecondaryPicker {
 		//! D'tor
 		~SL2Picker();
 
-
-	// ----------------------------------------------------------------------
-	//  Public Interface
-	// ----------------------------------------------------------------------
 	public:
 		bool setup(const Settings &settings) override;
-		void setSaveIntermediate(bool);
 
-		const std::string &methodID() const override;
-		const std::string &filterID() const override;
-
-		bool setL2Config(const L2Config &l2config);
+		bool setL2Config(const AICConfig &config);
 
 		//! Returns the current configuration
-		const L2Config &l2Config() const { return _l2Config; }
-
-		const State &state() const { return _state; }
-		const Result &result() const { return _result; }
-
-		//! Returns detection data from noiseBegin if setSaveIntermediate
-		//! has been enabled before processing started.
-		const DoubleArray &processedData() const { return _detectionTrace; }
+		const L2Config &l2Config() const;
 
 	protected:
-		bool applyConfig();
-		void fill(size_t n, double *samples) override;
-		void process(const Record *rec, const DoubleArray &filteredData) override;
-
-	private:
-		bool        _initialized;
-		L2Config    _l2Config;
-		State       _state;
-		Result      _result;
-		Filter     *_compFilter;
-		bool        _saveIntermediate;
-		DoubleArray _detectionTrace;
+		WaveformOperator* createFilterOperator(Filter* compFilter) override;
 };
+
+
+inline bool SL2Picker::setL2Config(const AICConfig &config) {
+	return setAicConfig(config);
+}
+
+inline const SL2Picker::L2Config &SL2Picker::l2Config() const {
+	return aicConfig();
+}
 
 
 }

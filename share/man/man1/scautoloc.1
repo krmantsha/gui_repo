@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCAUTOLOC" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCAUTOLOC" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scautoloc \- SeisComP Documentation
 .
@@ -46,35 +46,74 @@ programs that take the origins as input.
 .sp
 The procedure of scautoloc to identify and locate seismic events basically
 consists of the following steps:
-.SS Pick preparation
-.sp
-In scautoloc each incoming pick needs to be accompanied by a specific set
-of amplitudes. Since in the \fISeisComP\fP data model amplitudes and picks are
-independent objects, the amplitudes are added as attributes to their
-corresponding picks upon reception by scautoloc.
 .SS Pick filtering
 .sp
-Each incoming pick is filtered, i.e. it is checked if a pick is outdated
-and if the complete set of associated amplitudes is present already. If
-a station produces picks extremely often, these are considered to be more
-likely glitches and result in an increased SNR threshold.
-.SS Association
+\fBscautoloc\fP receives and filters phase picks to generate
+origins\&. These phase picks are used by default if
+.INDENT 0.0
+.IP \(bu 2
+The phase hint is "P",
+.IP \(bu 2
+\fBAnd\fP the evaluation mode is "automatic". The use of manual picks is controlled
+by \fI\%autoloc.useManualPicks\fP\&.
+.IP \(bu 2
+\fBAnd\fP the evaluation status is not "rejected", can be overridden by
+\fB\-\-allow\-rejected\-picks\fP,
+.IP \(bu 2
+\fBAnd\fP \fI\%autoloc.authors\fP is empty or the author of the pick is listed in
+\fI\%autoloc.authors\fP
+.IP \(bu 2
+\fBAnd\fP the picks are \fI\%accompanied by amplitudes\fP
+configured in \fI\%autoloc.amplTypeAbs\fP, \fI\%autoloc.amplTypeSNR\fP\&.
+.UNINDENT
 .sp
-It is first attempted to associate an incoming pick with the known origins.
+All other picks are ignored.
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+.INDENT 0.0
+.IP \(bu 2
+The evaluation status of a picks can be set to \(aqrejected\(aq, e.g., by
+scautopick along with the configuration of \fBsendDetections\fP,
+.IP \(bu 2
+The order of the author IDs in  \fI\%autoloc.authors\fP may determine
+the pick priority. This feature may be implemented in the future.
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.sp
+Each incoming pick is checked if it is outdated and if the complete set of
+\fI\%associated amplitudes\fP is present already. If
+a station produces picks extremely often, these are considered to be more
+likely glitches resulting in an increased SNR threshold.
+.sp
+The filtered picks are passed on to \fI\%association\fP
+and \fI\%nucleation\fP\&.
+.SS Pick association
+.sp
+It is first attempted to associate an incoming pick with a known origin.
+The association is limited to epicentral distances given by
+autoloc.maxStationDistance\&.
 Especially for large events with stable locations based on many picks already
 associated, this is the preferred way to handle the pick. If the association
 succeeds, the nucleation process can be bypassed. Under certain circumstances
 picks are both associated and fed into the nucleator.
-.SS Nucleation
+.SS Origin nucleation
 .sp
 If direct association fails, scautoloc tries to make a new origin out of this
 and other unassociated, previously received picks. This process is called
 "nucleation". scautoloc performs a grid search over space and time, which is
 a rather expensive procedure as it requires lots of resources both in terms
-of CPU and RAM. Additional nucleation algorithms will become available in
-future. The grid is a discrete set of \-in principle\- arbitrary points that
-sample the area of interest sufficiently densely. In the grid search, each
-of the grid points is taken as a hypothetical hypocenter for all incoming
+of CPU and RAM. Additional nucleation algorithms may become available in
+future. The \fI\%spatial grid\fP is a discrete set of
+generally arbitrary points that sample the area of interest sufficiently densely.
+The usability of a pick from a station for a grid point is controlled by the
+\fI\%grid itself\fP and the
+\fI\%station configuration\fP\&.
+.sp
+In the grid search, each of the grid points is taken as a hypothetical
+hypocenter for all incoming
 picks. Each incoming pick is back projected in time for each of the grid
 points, on the assumption that it is a first\-arrival "P" onset. If the pick
 indeed corresponds to a "P" arrival of a seismic event, and if this event was
@@ -87,19 +126,20 @@ is limited, this is not possible. Therefore, if a cluster is identified as a
 potential origin, it does not necessarily mean that all contributing picks
 actually correspond to "P" arrivals. It may as well be a coincidental match
 caused by the coarseness of the grid or possible contamination by picked noise.
-Therefore, a location program (LocSAT) is run in order to try a location and
-test if the set of picks indeed forms a consistent hypocenter. If the pick
-residual RMS is too large, an improvement is attempted by excluding each of
+Therefore, the location program LOCSAT is run in order to
+try a location and test if the set of picks indeed forms a consistent hypocenter.
+If the pick residual RMS is too large, an improvement is attempted by
+excluding each of
 the contributing picks once to test if a reduction in RMS can be achieved.
 If the new origin meets all requirements, it is accepted as new seismic event
 location.
 .sp
-The grid points are specified in a text file "grid.txt".
-The default file shipped with scautoloc defines a grid with globally even
+The grid points are specified in a text file configured in \fI\%autoloc.grid\fP\&.
+The default file shipped with scautoloc defines a grid with global evenly
 distributed points at the surface, and depth points confined to regions of
 known deep seismicity. It may be modified, but should not comprise too many
-grid points (>3000, depending on CPU speed and RAM). See below for more
-details about the grid file.
+grid points (>3000, depending on CPU speed and RAM).
+\fI\%See below\fP for more details about the grid file.
 .SS Origin refinement
 .sp
 An origin produced or updated through association and/or nucleation may still
@@ -122,8 +162,20 @@ In the course of nucleation and association, as well as in the origin
 refinement and filtering, certain heuristic criteria are applied to compare
 the "qualities" of concurring origins. These criteria are combined in an
 internal origin score, which is based on properties of the picks themselves
-in the context of the respective origin (residuals: \fI\%autoloc.maxResidual\fP,
-RMS: \fI\%autoloc.maxRMS\fP, azimuthal gaps: \fI\%autoloc.maxSGAP\fP).
+in the context of the respective origin. The configurable criteria which origins
+must meet to be reported are:
+.INDENT 0.0
+.IP \(bu 2
+Minimum number of phases per origins: \fI\%autoloc.minPhaseCount\fP,
+.IP \(bu 2
+Station residual residual: \fI\%autoloc.maxResidual\fP,
+.IP \(bu 2
+Origin RMS: \fI\%autoloc.maxRMS\fP,
+.IP \(bu 2
+Maximum depth: \fI\%autoloc.maxDepth\fP),
+.IP \(bu 2
+Azimuthal gap: \fI\%autoloc.maxSGAP\fP).
+.UNINDENT
 .sp
 In addition, the amplitudes provide valuable means of comparing origin
 qualities. Obviously, a pick with a high SNR will less likely be a transient
@@ -383,11 +435,14 @@ GE CISI \-7.5557 107.8153 0.0
 .sp
 The location of this file is specified in \fI\%autoloc.stationLocations\fP or on the
 command line using \-\e\-station\-locations
-.SH HOW TO MAKE SCAUTOPICK AND SCAUTOLOC WORK TOGETHER
+.SH SCAUTOPICK AND SCAUTOLOC INTERACTION
 .sp
 The two main programs in the automatic event detection and location processing
-chain, scautopick and \fBscautoloc\fP, only work together if the information needed
-by scautoloc can be supplied by scautopick\&. This document explains current
+chain, scautopick and \fBscautoloc\fP, only work together if the
+information needed by scautoloc can be supplied by scautopick and received
+by \fBscautoloc\fP through the message group defined by
+\fBconnection.subscription\fP or through SCML (\fB\-\-ep\fP,
+\fB\-i\fP). This document explains current
 implicit dependencies between these two utilities and is meant as a guide
 especially for those who plan to modify or replace one or both of these
 utilities by own developments.
@@ -397,22 +452,19 @@ The explanation given below can therefore only be considered a hint, but not
 a standard.
 .SS Picks
 .sp
-The data scautoloc works with are primarily seismic phase picks. In addition,
-certain amplitudes are used as a kind of quality criterion for the pick, allowing
-picks with a higher absolute amplitude or signal\-to\-noise ratio to be given
-priority in the processing over weak low\-quality picks.
+\fBscautoloc\fP works with
+\fI\%seismic phase picks\fP\&.
+In addition, certain amplitudes are used as a kind of quality criterion for the
+pick, allowing picks with a higher absolute amplitude or signal\-to\-noise ratio
+to be given priority in the processing over weak low\-quality picks. Due to the
+filtering of picks by phaseHint it is highly recommended to always set the
+phaseHint attribute with the appropriate phase name in scautopick\&. There
+is no restriction regarding the choice of the publicID of the pick.
+.SS Amplitudes
 .sp
-Currently scautoloc only processes automatic, 1st\-arrival P picks. Furthermore,
-in the current version of scautopick only P picks are produced anyway. It can
-therefore be safely assumed by scautoloc that any automatic pick is a P pick
-that either has a phaseHint attribute explicitly stating "P" ot the phaseHint
-attribute left empty. Automatic picks with a phaseHint other than "P" as well
-as any picks not tagged as automatic are currently ignored. It is thus highly
-recommended to always set the phaseHint attribute with the appropriate phase
-name. There is no restriction regarding the choice of the publicID of the pick.
-.sp
-Optionally scautoloc performance may be improved by processing certain
-amplitudes accompanying the picks. Two kinds of amplitudes may be used together
+By configuration, the performance of \fBscautoloc\fP is also controlled by
+considering certain amplitudes accompanying the picks. Two kinds of amplitudes
+may be used together
 .INDENT 0.0
 .IP \(bu 2
 An absolute amplitude like the one used for calculation of the magnitude "mb".
@@ -439,33 +491,25 @@ If for instance an alternate picker implementation doesn\(aqt produce "mb"\-type
 absolute amplitude but e.g. "xy", then \fI\%autoloc.amplTypeAbs\fP needs to be set to
 "xy" to have them recognized by scautoloc.
 .sp
-The use of manual picks is controlled by \fI\%autoloc.useManualPicks\fP\&.
-.sp
-Pick processing may be enabled/disabled according to its author ID.
-This is controlled via \fI\%autoloc.authors\fP, which is a
-comma\-separated list of author ID\(aqs. In addition to acting as a
-whitelist, the order of the author ID\(aqs determines the pick
-priority. An author early in the list is given higher priority.
-Note: The latter feature is not implemented yet.
-.INDENT 0.0
-.INDENT 3.5
-.sp
-.nf
-.ft C
-autoloc.authors = joeseismologist@screview, student@sctraining, repicker@scaux, scautopick@scmain
-.ft P
-.fi
-.UNINDENT
-.UNINDENT
-.sp
-Currently there \fBmust\fP be an absolute and a relative amplitude for every pick.
-However, this requirement will be relaxed in a future version. But currently
-scautoloc will always wait until both amplitude have arrived, which results
-in an overall processing delay, corresponding to the usually delayed availability
+Currently there \fBmust\fP be an absolute and a relative amplitude for every pick
+as configured by \fI\%autoloc.amplTypeAbs\fP and \fI\%autoloc.amplTypeSNR\fP\&.
+These amplitudes must be computed by scautopick\&.
+\fBscautoloc\fP will always wait until both amplitudes have arrived, which
+results in an overall processing delay, corresponding to the usually delayed availability
 of amplitudes with respect to the corresponding pick. The default absolute
 amplitude "mb", for instance, takes a hard\-coded 30\-seconds time interval to
 be computed. This length of data thus has to be waited for, plus a little
-extra because of the size of the miniSEED records. An alternate picker
+extra because of the size of the miniSEED records.
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+Consider scautopick with \fBamplitudes.enableUpdate\fP in order
+to provide mb amplitudes with shorter delays.
+.UNINDENT
+.UNINDENT
+.sp
+An alternate picker
 implementation could produce a different absolute\-amplitude type than "mb".
 That amplitude might be based on a different filter pass band and much shorter
 time window than the default "mb" amplitude, thus allowing a significantly
@@ -480,9 +524,9 @@ Currently this isn\(aqt possible with scautopick but this issue will be addresse
 in a future version.
 .SS Manual origins
 .sp
-Manual origins created e.g. in scolv may be considered for additional
+Manual origins created, e.g., in scolv may be considered for additional
 association of picks as controlled by \fI\%autoloc.useManualOrigins\fP\&.
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/scautoloc.cfg\fP
@@ -505,14 +549,17 @@ scautoloc inherits global options\&.
 .INDENT 0.0
 .TP
 .B locator.profile
+Default: \fBiasp91\fP
+.sp
 Type: \fIstring\fP
 .sp
 The locator profile to use.
-Default is \fBiasp91\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B locator.defaultDepth
+Default: \fB10\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIkm\fP
@@ -523,11 +570,12 @@ depth estimate is reliable. If the same location quality
 the default depth, the latter is used. This is most often
 the case for shallow events with essentially no depth
 resolution.
-Default is \fB10\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B locator.minimumDepth
+Default: \fB5\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIkm\fP
@@ -540,7 +588,6 @@ minimum depth will be used.
 .sp
 Note that the minimum depth can also be configured in scolv,
 possibly to a different value.
-Default is \fB5\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -553,32 +600,35 @@ Default is \fB5\fP\&.
 .INDENT 0.0
 .TP
 .B buffer.pickKeep
+Default: \fB21600\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time to keep picks in the buffer with respect to pick time, not creation time.
-Default is \fB21600\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B buffer.originKeep
+Default: \fB86400\fP
+.sp
 Type: \fIinteger\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time to keep origins in buffer.
-Default is \fB86400\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B buffer.cleanupInterval
+Default: \fB3600\fP
+.sp
 Type: \fIinteger\fP
 .sp
 Unit: \fIs\fP
 .sp
 Clean\-up interval for removing old/unused objects.
-Default is \fB3600\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -591,44 +641,50 @@ Default is \fB3600\fP\&.
 .INDENT 0.0
 .TP
 .B autoloc.maxRMS
+Default: \fB3.5\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
 Maximum travel\-time RMS for a location to be reported.
-Default is \fB3.5\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.maxResidual
+Default: \fB7.0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
 Maximum travel\-time residual (unweighted) for a pick at a station to be used.
-Default is \fB7.0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.minPhaseCount
+Default: \fB6\fP
+.sp
 Type: \fIinteger\fP
 .sp
 Minimum number of phases for reporting origins.
-Default is \fB6\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.maxDepth
+Default: \fB1000\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIkm\fP
 .sp
 Maximum permissible depth for reporting origins.
-Default is \fB1000\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.maxSGAP
+Default: \fB360\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
@@ -637,31 +693,34 @@ Maximum secondary azimuthal gap for an origin to be reported by.
 The secondary gap is the maximum of the sum of 2 station gaps.
 .sp
 Default: 360 degrees, i.e. no restriction based on this parameter.
-Default is \fB360\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.maxStationDistance
+Default: \fB180\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
 .sp
 Maximum epicntral distance to stations for accepting picks.
-Default is \fB180\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.minStaCountIgnorePKP
+Default: \fB30\fP
+.sp
 Type: \fIinteger\fP
 .sp
 If the station count for stations at < 105 degrees distance
 exceeds this number, no picks at > 105 degrees will be
 used in location. They will be loosely associated, though.
-Default is \fB30\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.amplTypeAbs
+Default: \fBmb\fP
+.sp
 Type: \fIstring\fP
 .sp
 If this string is non\-empty, an amplitude obtained from an amplitude
@@ -669,32 +728,34 @@ object is used by ... . If this string is "mb", a period
 obtained from the amplitude object is also used; if it has some other
 value, then 1 [units?] is used. If this string is empty, then the amplitude
 is set to 0.5 * thresholdXXL, and 1 [units?] is used for the period.
-Default is \fBmb\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.amplTypeSNR
+Default: \fBsnr\fP
+.sp
 Type: \fIstring\fP
 .sp
 If this string is non\-empty, it is used to obtain a pick SNR from an
 amplitude object. If it is empty, the pick SNR is 10.
-Default is \fBsnr\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.grid
+Default: \fB@DATADIR@/scautoloc/grid.conf\fP
+.sp
 Type: \fIpath\fP
 .sp
 Location of the grid file for nucleating origins.
-Default is \fB@DATADIR@/scautoloc/grid.conf\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.stationConfig
+Default: \fB@DATADIR@/scautoloc/station.conf\fP
+.sp
 Type: \fIpath\fP
 .sp
 Location of the station configuration file for nucleating origins.
-Default is \fB@DATADIR@/scautoloc/station.conf\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -708,14 +769,17 @@ in "@DATADIR@/scautoloc/station\-locations.conf".
 .INDENT 0.0
 .TP
 .B autoloc.useManualPicks
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Receive and process manual phase picks.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.useManualOrigins
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Receive and process manual origins. Manual picks and arrival
@@ -728,42 +792,41 @@ Add the LOCATION group to connection.subscriptions for receiving manual origins!
 This is an experimental feature relevant only for large regional and global networks,
 where results by analysts can be expected before the end
 of automatic event processing.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.adoptManualDepth
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Adopt the depth from manual origins. Otherwise the default depth
 in locator.defaultDepth is considered.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.authors
 Type: \fIlist:string\fP
 .sp
-Pick processing may be enabled/disabled according to the
-author ID of a pick. In addition, picks of certain authors
-can be prioritized over other authors.
-This is the author priority list that controls this behavior.
-Its value is a comma\-separated list of author ID\(aqs.
-The earlier an author ID appears in the list the higher the
-priority it gets.
+Restrict pick processing to the given author name(s). Apply
+comma separation for a list of names. If any author name is
+given, picks from other authors are ignored.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.tryDefaultDepth
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Compare located origin with the origin at the depth given by
 locator.defaultDepth. The origin with lower RMS is reported.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.publicationIntervalTimeSlope
+Default: \fB0.5\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs/count\fP
@@ -771,11 +834,12 @@ Unit: \fIs/count\fP
 Parameter "a"  in the equation t = aN + b.
 t is the time interval between sending updates of an origin.
 N is the arrival count of the origin.
-Default is \fB0.5\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.publicationIntervalTimeIntercept
+Default: \fB0.\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
@@ -783,24 +847,25 @@ Unit: \fIs\fP
 Parameter "b" in the equation t = aN + b.
 t is the time interval between sending updates of an origin.
 N is the arrival count of the origin.
-Default is \fB0.\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.pickLogEnable
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Activate for writing pick log files to "pickLog".
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.pickLog
+Default: \fB@LOGDIR@/autoloc\-picklog\fP
+.sp
 Type: \fIstring\fP
 .sp
 Location of pick log file containing information about received
 picks. Activate "pickLogEnable" for writing the files.
-Default is \fB@LOGDIR@/autoloc\-picklog\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -814,84 +879,92 @@ Default is \fB@LOGDIR@/autoloc\-picklog\fP\&.
 .INDENT 0.0
 .TP
 .B autoloc.xxl.enable
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Picks with exceptionally large amplitudes may be flagged as XXL,
 allowing (in future) faster, preliminary "heads\-up" alerts.
 .sp
 This option enables the feature.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.xxl.minAmplitude
+Default: \fB10000\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Minimum amplitude for a pick to be flagged as XXL. The
 value corresponds to the amplitude type configured in
 autoloc.amplTypeAbs. NOTE that
 BOTH minAmplitude and minSNR need to be exceeded!
-Default is \fB10000\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.xxl.minSNR
+Default: \fB8\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Minimum SNR for a pick to be flagged as XXL. NOTE that
 BOTH minAmplitude and minSNR need to be exceeded!
-Default is \fB8\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.xxl.minPhaseCount
+Default: \fB4\fP
+.sp
 Type: \fIinteger\fP
 .sp
 Minimum number of XXL picks for forming an origin.
 Must be >= 4.
-Default is \fB4\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.xxl.maxStationDistance
+Default: \fB10\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
 .sp
 Maximum epicentral distance for accepting XXL picks.
-Default is \fB10\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoloc.xxl.maxDepth
+Default: \fB100\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIkm\fP
 .sp
 Maximum depth for creating origins based on XXL arrivals.
-Default is \fB100\fP\&.
 .UNINDENT
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
 .sp
 \fBscautoloc [options]\fP
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -901,55 +974,60 @@ Load given plugins.
 .INDENT 0.0
 .TP
 .B \-D, \-\-daemon
-Run as daemon. This means the application will fork itself and
-doesn\(aqt need to be started with &.
+Run as daemon. This means the application will fork itself
+and doesn\(aqt need to be started with &.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-auto\-shutdown arg
-Enable/disable self\-shutdown because a master module shutdown. This only
-works when messaging is enabled and the master module sends a shutdown
-message (enabled with \-\-start\-stop\-msg for the master module).
+Enable/disable self\-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with \-\-start\-stop\-msg
+for the master module).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-module arg
-Sets the name of the master\-module used for auto\-shutdown. This
-is the application name of the module actually started. If symlinks
-are used then it is the name of the symlinked application.
+Set the name of the master\-module used for auto\-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-username arg
-Sets the name of the master\-username of the messaging used for
-auto\-shutdown. If "shutdown\-master\-module" is given as well this
-parameter is ignored.
+Set the name of the master\-username of the messaging
+used for auto\-shutdown. If "shutdown\-master\-module" is
+given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -964,7 +1042,8 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -995,7 +1074,8 @@ Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
 .INDENT 0.0
 .TP
 .B \-S, \-\-subscribe\-group arg
-A group to subscribe to. This option can be given more than once.
+A group to subscribe to.
+This option can be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1005,7 +1085,7 @@ Overrides configuration parameter \fBconnection.contentType\fP\&.
 .INDENT 0.0
 .TP
 .B \-\-start\-stop\-msg arg
-Sets sending of a start\- and a stop message.
+Set sending of a start and a stop message.
 .UNINDENT
 .SS Database
 .INDENT 0.0
@@ -1016,19 +1096,21 @@ List all supported database drivers.
 .INDENT 0.0
 .TP
 .B \-d, \-\-database arg
-The database connection string, format: \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which can be
-queried with "\-\-db\-driver\-list".
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+"service" is the name of the database driver which
+can be queried with "\-\-db\-driver\-list".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-module arg
-The configmodule to use.
+The config module to use.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-inventory\-db arg
-Load the inventory from the given database or file, format: [\fI\%service://]location\fP
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1039,7 +1121,7 @@ Do not use the database at all
 .INDENT 0.0
 .TP
 .B \-\-test
-Do not send any object
+Do not send any object.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1053,7 +1135,33 @@ station\-locations.conf file can be provided. This implies
 .B \-\-playback
 Flush origins immediately without delay.
 .UNINDENT
+.SS Mode
+.INDENT 0.0
+.TP
+.B \-\-test
+Do not send any object.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-offline
+Flush origins immediately without delay.
+.UNINDENT
+.SS Input
+.INDENT 0.0
+.TP
+.B \-\-ep file
+Name of input XML file (SCML) with all picks and origins for
+offline processing. The database connection is not received
+from messaging and must be provided. Results are sent in XML
+to stdout.
+.UNINDENT
 .SS Settings
+.INDENT 0.0
+.TP
+.B \-\-allow\-rejected\-picks
+Allow picks with evaluation status \(aqrejected\(aq for nucleation
+and association.
+.UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-station\-locations arg
@@ -1085,7 +1193,7 @@ Default depth for comparison with the depth after locating.
 .INDENT 0.0
 .TP
 .B \-\-max\-sgap arg
-Maximum secondary azimuthal gap for an origin to be reported by.
+Maximum secondary azimuthal gap for an origin to be reported.
 The secondary gap is the maximum of the sum of 2 station gaps.
 .UNINDENT
 .INDENT 0.0
@@ -1096,12 +1204,13 @@ Maximum travel\-time RMS for a location to be reported.
 .INDENT 0.0
 .TP
 .B \-\-max\-residual arg
-Maximum travel\-time residual (unweighted) for a pick at a station to be used.
+Maximum travel\-time residual (unweighted) for a pick at a
+station to be used.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-max\-station\-distance arg
-Maximum distance of stations to be used
+Maximum distance of stations to be used.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1120,22 +1229,22 @@ Minimum number of picks for an origin to be reported.
 .INDENT 0.0
 .TP
 .B \-\-min\-score arg
-Minimum score for an origin to be reported
+Minimum score for an origin to be reported.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-min\-pick\-snr arg
-Minimum SNR for a pick to be processed
+Minimum SNR for a pick to be processed.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-threshold\-xxl arg
-An amplitude exceeding this threshold will flag the pick as XXL
+An amplitude exceeding this threshold will flag the pick as XXL.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-min\-phase\-count\-xxl arg
-Minimum number of picks for an XXL origin to be reported
+Minimum number of picks for an XXL origin to be reported.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1144,40 +1253,40 @@ Minimum number of picks for an XXL origin to be reported
 .INDENT 0.0
 .TP
 .B \-\-min\-sta\-count\-ignore\-pkp arg
-Minimum station count for which we ignore PKP phases
+Minimum station count for which we ignore PKP phases.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-min\-score\-bypass\-nucleator arg
-Minimum score at which the nucleator is bypassed
+Minimum score at which the nucleator is bypassed.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-keep\-events\-timespan arg
-The timespan to keep historical events
+The timespan to keep historical events.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-cleanup\-interval arg
-The object cleanup interval in seconds
+The object cleanup interval in seconds.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-max\-age arg
 During cleanup all pick objects older than maxAge (in seconds)
-are removed (maxAge == 0 => disable cleanup)
+are removed (maxAge == 0 disables cleanup).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-wakeup\-interval arg
-The interval in seconds to check pending operations
+The interval in seconds to check pending operations.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-dynamic\-pick\-threshold\-interval arg
 The interval in seconds in which to check for extraordinarily
 high pick activity, resulting in a dynamically increased
-pick threshold
+pick threshold.
 .UNINDENT
 .SH AUTHOR
 gempa GmbH, GFZ Potsdam

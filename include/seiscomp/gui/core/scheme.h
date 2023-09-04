@@ -63,11 +63,13 @@ class SC_GUI_API Scheme {
 
 			struct Arrivals {
 				Arrivals();
-				QColor manual;
-				QColor automatic;
-				QColor theoretical;
-				QColor undefined;
-				QColor disabled;
+				QColor   manual;
+				QColor   automatic;
+				QColor   theoretical;
+				QColor   undefined;
+				QColor   disabled;
+				QPen     uncertainties;
+				QPen     defaultUncertainties;
 				Gradient residuals;
 			};
 
@@ -192,6 +194,18 @@ class SC_GUI_API Scheme {
 				QColor cityOutlines;
 				QColor cityCapital;
 				QColor cityNormal;
+
+				struct {
+					QPen   normalText;
+					QPen   normalBorder;
+					QBrush normalBackground;
+
+					QPen   highlightedText;
+					QPen   highlightedBorder;
+					QBrush highlightedBackground;
+
+					int    textSize;
+				}      annotations;
 			};
 
 			struct Legend {
@@ -203,20 +217,21 @@ class SC_GUI_API Scheme {
 			};
 
 			public:
-				QColor        background;
-				Splash        splash;
-				Records       records;
-				Picks         picks;
-				Arrivals      arrivals;
-				Magnitudes    magnitudes;
-				Stations      stations;
-				QC            qc;
-				OriginSymbol  originSymbol;
-				OriginStatus  originStatus;
-				GroundMotion  gm;
-				RecordView    recordView;
-				Map           map;
-				Legend        legend;
+				QColor                    background;
+				Splash                    splash;
+				Records                   records;
+				Picks                     picks;
+				Arrivals                  arrivals;
+				Magnitudes                magnitudes;
+				Stations                  stations;
+				QC                        qc;
+				OriginSymbol              originSymbol;
+				OriginStatus              originStatus;
+				GroundMotion              gm;
+				RecordView                recordView;
+				Map                       map;
+				Legend                    legend;
+				QMap<std::string, QColor> agencies;
 		};
 
 		struct Fonts {
@@ -294,6 +309,7 @@ class SC_GUI_API Scheme {
 			int distance;
 			int location;
 			int magnitude;
+			int originTime;
 			int pickTime;
 			int traceValues;
 			int rms;

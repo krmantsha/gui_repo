@@ -17,7 +17,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="License" href="license.html" />
-    <link rel="prev" title="Configuration" href="concepts/configuration.html" /> 
+    <link rel="prev" title="Locators" href="concepts/locators.html" /> 
   </head>
   <body>
     <div class="header">
@@ -25,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -48,7 +48,7 @@
           </a>
         </li>
         <li class="right">
-          <a href="concepts/configuration.html" title="Configuration"
+          <a href="concepts/locators.html" title="Locators"
              accesskey="P">
             previous
           </a>
@@ -98,13 +98,13 @@ a profile can be given:</p>
 scautopick:teleseismic
 </pre></div>
 </div>
-<p>which refers to <code class="docutils literal notranslate"><span class="pre">etc/key/seedlink/profile_geofon</span></code> and <code class="docutils literal notranslate"><span class="pre">etc/key/scautopick/profile_teleseismic</span></code>.
+<p>which refers to <code class="file docutils literal notranslate"><span class="pre">etc/key/seedlink/profile_geofon</span></code> and
+<code class="file docutils literal notranslate"><span class="pre">etc/key/scautopick/profile_teleseismic</span></code>.
 Changing the profile changes the bindings of all stations that use this profile.</p>
 </dd>
 <dt id="term-recordstream">RecordStream</dt><dd><p>Interface to access data records from data processing modules.
 <a class="reference internal" href="#term-seiscomp"><span class="xref std std-term">SeisComP</span></a> applications access waveform data through the
-<a class="reference external" href="https://docs.gempa.de/seiscomp/current/apps/global_recordstream.html">RecordStream</a>
-interface.</p>
+<a class="reference internal" href="concepts/recordstream.html#concepts-recordstream"><span class="std std-ref">RecordStream interface</span></a>.</p>
 </dd>
 <dt id="term-standalone-module">standalone module</dt><dd><p>A module that needs to convert the configuration or do not use the default
 configuration options (see below) is called a standalone modules.
@@ -205,8 +205,7 @@ sensitivity of an instrument or its derived component.</p>
 </dd>
 <dt id="term-channel-code">channel code</dt><dd><p>Description of characteristics of data related to the recording sensor and
 data logger as well as instrument responses, sampling frequencies, etc.
-The standard codes are defined in the
-<a class="reference external" href="https://www.fdsn.org/seed_manual/SEEDManual_V2.4.pdf">SEED manual</a>.</p>
+The standard codes are defined in the <span id="id2"><em>SEED Reference Manual</em> [<a class="reference internal" href="references.html#id246" title="SEED Reference Manual. USGS, 2012. URL: http://www.fdsn.org/pdf/SEEDManual_V2.4.pdf.">29</a>]</span>.</p>
 </dd>
 <dt id="term-circum-pacific-belt">Circum-Pacific belt</dt><dd><p>The zone surrounding the Pacific Ocean that is characterized by frequent and strong
 earthquakes and many volcanoes as well as high tsunami hazard. Also called the Ring of Fire.</p>
@@ -402,7 +401,7 @@ At some locations the lithosphere below the crust is brittle enough to produce e
 faulting, such as within a subducted oceanic plate.</p>
 </dd>
 <dt id="term-location-code">location code</dt><dd><p>Description of particular sensor location associated to a station. The standard
-location codes are defined in the <a class="reference external" href="https://www.fdsn.org/seed_manual/SEEDManual_V2.4.pdf">SEED manual</a>.</p>
+location codes are defined in the <span id="id3"><em>SEED Reference Manual</em> [<a class="reference internal" href="references.html#id246" title="SEED Reference Manual. USGS, 2012. URL: http://www.fdsn.org/pdf/SEEDManual_V2.4.pdf.">29</a>]</span>.</p>
 </dd>
 <dt id="term-love-wave">Love wave</dt><dd><p>A major type of surface waves having a horizontal motion that is transverse (or perpendicular)
 to the direction of propagation. It is named after A. E. H. Love, the English mathematician
@@ -427,39 +426,76 @@ corrected for the attenuation with distance. Several scales have been defined, b
 <li><p>body-wave magnitude (mb)</p></li>
 <li><p>moment magnitude (Mw).</p></li>
 </ol>
-<p>The magnitude scales 1-3 have limited range and applicability and do not satisfactorily measure the
-size of the largest earthquakes. The moment magnitude (Mw) scale, based on the concept of seismic moment,
-is uniformly applicable to all earthquake sizes but is more difficult to compute than the other types. In
-principal, all magnitude scales could be cross calibrated to yield the same value for any given earthquake, but
-this expectation has proven to be only approximately true, thus the magnitude type as well as its value
-is needed to be specified.</p>
+<p>The magnitude scales 1-3 have limited range and applicability and do not
+satisfactorily measure the
+size of the largest earthquakes. The moment magnitude (Mw) scale, based on
+the concept of seismic moment,
+is uniformly applicable to all earthquake sizes but is more difficult to
+compute than the other types. In
+principal, all magnitude scales could be cross calibrated to yield the same
+value for any given earthquake, but
+this expectation has proven to be only approximately true, thus the
+magnitude type as well as its value is needed to be specified.</p>
 <p>Additional or modified magnitudes can be computed by providing plugins.</p>
 <p>In <cite>SeisComP</cite> magnitudes are computed automatically by <a class="reference internal" href="../apps/scmag.html#scmag"><span class="std std-ref">scmag</span></a> or interactively
 by <a class="reference internal" href="../apps/scolv.html#scolv"><span class="std std-ref">scolv</span></a>.</p>
 </dd>
-<dt id="term-magnitude-local-ml">magnitude, local (ML)</dt><dd><p>Magnitude scale introduced by Richter in the early 1930s (Richter, 1935) to have a common scale for the
-strength of earthquakes. The basic observation is the systematic decay of the logarithm of the maximum
+<dt id="term-magnitude-local-ml">magnitude, local (ML)</dt><dd><p>Magnitude scale introduced by Richter in the early 1930s (<span id="id4">Richter [<a class="reference internal" href="references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">53</a>]</span>)
+to have a common scale for the strength of earthquakes. The basic observation
+is the systematic decay of the logarithm of the maximum
 amplitudes with increasing distance for different earthquakes described by:</p>
 <div class="math">
 <p><img src="../_images/math/b0ebe6e979dee4886949b4cda7beda6170c120d0.png" alt="ML = \log A_{max} - \log A_0"/></p>
-</div><p>with A<sub>0</sub> as amplitude of a reference event. For the reference event ML = 0 the formula can be rewritten to</p>
+</div><p>with A<sub>0</sub> as amplitude of a reference event. For the reference event
+ML = 0 the formula can be rewritten to</p>
 <div class="math">
 <p><img src="../_images/math/c2480e17e843eda90dd925a3cfb2923484409583.png" alt="ML = \log A_{max} - 2.48 + 2.76 \log \Delta"/></p>
-</div><p>with Δ being the distance of the station to the earthquake location. ML is a magnitude scale for
-recordings of earthquakes smaller than ML 7 at regional stations. It is usually a measure of the
+</div><p>with Δ being the distance of the station to the earthquake location. ML is a
+magnitude scale for
+recordings of earthquakes smaller than ML 7 at regional stations. It is
+usually a measure of the
 regional-distance S-wave on horizontal component records.
-The original formula is only valid for records from a Wood-Anderson torsion seismometer with a natural period of
-0.8 s and shallow earthquakes in California. Therefore calibration functions for other regions and wider
-depth ranges are necessary. A Wood-Anderson seismometer has to be simulated. For amplitudes measurements
-on the vertical component records additional correction factors has to be applied. ML saturates at
-magnitudes around 7 because the maximum amplitudes of larger earthquakes occur at longer periods than
+The original formula is only valid for records from a Wood-Anderson torsion
+seismometer with a natural period of
+0.8 s and shallow earthquakes in California. Therefore calibration functions
+for other regions and wider depth ranges are necessary.
+A Wood-Anderson seismometer is simulated.</p>
+<p>For amplitudes measured on the vertical component records, additional
+correction factors have to be applied. ML saturates at
+magnitudes around 7 because the maximum amplitudes of larger earthquakes
+occur at longer periods than
 the bandpass of 0.1 s and 3 s for the magnitude calculation.</p>
-<p>In <cite>SeisComP</cite> a modified local magnitude <a class="reference internal" href="#term-magnitude-local-vertical-mlv"><span class="xref std std-term">MLv</span></a> is determined by simulation of a Wood-Anderson instrument and then measuring
-the amplitude in a 150 s time window on the vertical component of station with distances smaller than 8°.</p>
+<p>In <cite>SeisComP</cite> a modified local magnitude
+<a class="reference internal" href="#term-magnitude-local-vertical-mlv"><span class="xref std std-term">MLv</span></a> is determined by simulation
+of a Wood-Anderson instrument and then measuring the amplitude in a 150 s
+time window on the vertical component of station with distances smaller than 8°.</p>
 <ul class="simple">
 <li><p>Amplitude unit in <cite>SeisComP</cite>: <strong>millimeter</strong> (mm)</p></li>
 </ul>
-<p>Read the <a class="reference internal" href="../apps/global_ml.html#global-ml"><span class="std std-ref">technical documentation</span></a> for more details and the configuration.</p>
+<p>Read the <a class="reference internal" href="../apps/global_ml.html#global-ml"><span class="std std-ref">technical documentation</span></a> for more details and
+the configuration.</p>
+</dd>
+<dt id="term-magnitude-local-custom-mlc">magnitude, local custom (MLc)</dt><dd><p>The local magnitude measured on the horizontal components with
+custom parametric calibration function, configurable amplitude filtering,
+Wood-Anderson simulation and distance measure.</p>
+<ul class="simple">
+<li><p>Amplitude unit in <cite>SeisComP</cite>: <strong>millimeter</strong> (mm)</p></li>
+</ul>
+<p>Read the <a class="reference internal" href="../apps/global_mlc.html#global-mlc"><span class="std std-ref">technical documentation</span></a> for more details and
+the configuration.</p>
+</dd>
+<dt id="term-magnitude-local-horizontal-mlh">magnitude, local horizontal (MLh)</dt><dd><p>The local magnitude computed from amplitudes measured on the horizontal
+components with a modified parametric calibration function as compared to
+<a class="reference internal" href="#term-magnitude-local-ml"><span class="xref std std-term">ML</span></a>.</p>
+<ul class="simple">
+<li><p>Amplitude unit in <cite>SeisComP</cite>: <strong>millimeter</strong> (mm)</p></li>
+</ul>
+<p>Read the <a class="reference internal" href="../apps/global_mlh.html#global-mlh"><span class="std std-ref">technical documentation</span></a> for more details and
+the configuration.</p>
+</dd>
+<dt id="term-magnitude-local-gns-geonet-mlr">magnitude, local GNS/GEONET (MLr)</dt><dd><p>Local magnitude calculated from <a class="reference internal" href="#term-magnitude-local-vertical-mlv"><span class="xref std std-term">MLv</span></a>
+amplitudes based on GNS/GEONET specifications for New Zealand.</p>
+<p>Read the <a class="reference internal" href="../apps/global_mlr.html#global-mlr"><span class="std std-ref">technical documentation</span></a> for more details and the configuration.</p>
 </dd>
 <dt id="term-magnitude-local-vertical-mlv">magnitude, local vertical (MLv)</dt><dd><p>The <a class="reference internal" href="#term-magnitude-local-ml"><span class="xref std std-term">ML</span></a> magnitude with amplitudes measured on
 the vertical component instead of the horizontals.</p>
@@ -467,17 +503,6 @@ the vertical component instead of the horizontals.</p>
 <li><p>Amplitude unit in <cite>SeisComP</cite>: <strong>millimeter</strong> (mm)</p></li>
 </ul>
 <p>Read the <a class="reference internal" href="../apps/global_mlv.html#global-mlv"><span class="std std-ref">technical documentation</span></a> for more details and the configuration.</p>
-</dd>
-<dt id="term-magnitude-local-horizontal-mlh">magnitude, local horizontal (MLh)</dt><dd><p>The local magnitude measured on the horizontal components with
-a modified calibration functions as compared to <a class="reference internal" href="#term-magnitude-local-ml"><span class="xref std std-term">ML</span></a>.</p>
-<ul class="simple">
-<li><p>Amplitude unit in <cite>SeisComP</cite>: <strong>millimeter</strong> (mm)</p></li>
-</ul>
-<p>Read the <a class="reference internal" href="../apps/global_mlh.html#global-mlh"><span class="std std-ref">technical documentation</span></a> for more details and the configuration.</p>
-</dd>
-<dt id="term-magnitude-local-gns-geonet-mlr">magnitude, local GNS/GEONET (MLr)</dt><dd><p>Local magnitude calculated from <a class="reference internal" href="#term-magnitude-local-vertical-mlv"><span class="xref std std-term">MLv</span></a>
-amplitudes based on GNS/GEONET specifications for New Zealand.</p>
-<p>Read the <a class="reference internal" href="../apps/global_mlr.html#global-mlr"><span class="std std-ref">technical documentation</span></a> for more details and the configuration.</p>
 </dd>
 <dt id="term-magnitude-nuttli-mn">magnitude, Nuttli (MN)</dt><dd><p>Nuttli magnitude for Canada and other Cratonic regions.</p>
 <ul class="simple">
@@ -503,8 +528,8 @@ mB is used as a synonym for <a class="reference internal" href="#term-magnitude-
 </ul>
 <p>Read the <a class="reference internal" href="../apps/global_mb_bb.html#global-mb-bb"><span class="std std-ref">technical documentation</span></a> for more details and the configuration.</p>
 </dd>
-<dt id="term-magnitude-cumulative-body-wave-mbc">magnitude, cumulative body-wave (mBc)</dt><dd><p>mBc is the cumulative body-wave magnitude. See Bormann and Wylegalla (2005)
-and  Bormann and Saul (2009) for details.</p>
+<dt id="term-magnitude-cumulative-body-wave-mbc">magnitude, cumulative body-wave (mBc)</dt><dd><p>mBc is the cumulative body-wave magnitude. See <span id="id5">Bormann and Wylegalla [<a class="reference internal" href="references.html#id17" title="P. Bormann and K. Wylegalla. Quick estimator of the size of great earthquakes. EOS, 86(46):464, 2005.">37</a>]</span>
+and <span id="id6">Bormann and Saul [<a class="reference internal" href="references.html#id19" title="P. Bormann and J. Saul. A Fast, Non-saturating Magnitude Estimator for Great Earthquakes. Seismol. Res. Lett., 80(5):808 - 816, 2009. doi:10.1785/gssrl.80.5.808.">36</a>]</span> for details.</p>
 </dd>
 <dt id="term-magnitude-surface-wave-ms">magnitude, surface wave (Ms)</dt><dd><p>Ms is a magnitude scale based on teleseismic surface waves. Historically, Ms
 is based on measurements of
@@ -559,8 +584,9 @@ with 5 s period at local distances. The data set for the calibration was gained 
 Japan Meteorological Agency (JMA).</p>
 <div class="math">
 <p><img src="../_images/math/f73ef943923c3e1057e14204950603563902e3bf.png" alt="M(JMA) = \log \sqrt{{A_N}^2 + {A_E}^2} + 1.73 \log\Delta - 0.83"/></p>
-</div><p>This equation is valid for local (&lt; 2000 km) and shallow (&lt; 80 km) earthquakes. For
-deeper earthquakes additional correction functions have to be applied (Katsumata, 1996).</p>
+</div><p>This equation is valid for local (&lt; 2000 km) and shallow (&lt; 80 km)
+earthquakes. For deeper earthquakes additional correction functions have
+to be applied (<span id="id7">Katsumata [<a class="reference internal" href="references.html#id44" title="A. Katsumata. Comparison of Magnitudes Estimated by the Japan Meteorological Agency with Moment Magnitudes for Intermediate and Deep Earthquakes. Bull. Seism. Soc., 86(3):832 - 842, 1996.">46</a>]</span>).</p>
 <ul class="simple">
 <li><p>Amplitude unit in <cite>SeisComP</cite>: <strong>micrometer</strong> (um)</p></li>
 <li><p>Time window: 150 s</p></li>
@@ -579,12 +605,13 @@ and the moment magnitude (M<sub>0</sub> in cgs units of dyn*cm):</p>
 </dd>
 <dt id="term-magnitude-averaged-moment-mw-avg">magnitude, averaged moment (Mw(avg))</dt><dd><p>Moment magnitude derived as a weighted average of other magnitudes.</p>
 </dd>
-<dt id="term-magnitude-broadband-p-wave-moment-mwp">magnitude, broadband P-wave moment (Mwp)</dt><dd><p>The Mwp is a rapid estimate of the moment magnitude based on the first-arrival P waves
-on broadband seismograph records. The displacement seismograms of the P wave
-portion are considered as source time function approximation. The seismic moment
-is estimated for each station by integrating the displacement records. The combination
-of multiple records results in an estimation of the moment magnitude without correction
-for the source mechanism (Tsuboi et al., 1995).</p>
+<dt id="term-magnitude-broadband-p-wave-moment-mwp">magnitude, broadband P-wave moment (Mwp)</dt><dd><p>The Mwp is a rapid estimate of the moment magnitude based on the
+first-arrival P waves on broadband seismograph records. The displacement
+seismograms of the P wave portion are considered as source time function
+approximation. The seismic moment is estimated for each station by
+integrating the displacement records. The combination of multiple records
+results in an estimation of the moment magnitude without correction
+for the source mechanism (<span id="id8">Tsuboi <em>et al.</em> [<a class="reference internal" href="references.html#id76" title="S. Tsuboi, K. Abe, K. Takano, and Y. Yamanaka. Rapid determination of Mw from broadband P waveforms. Bull. Seismol. Soc. Am., 1995. doi:10.1785/BSSA0850020606.">58</a>]</span>).</p>
 <ul class="simple">
 <li><p>Amplitude unit in <cite>SeisComP</cite>: <strong>nanometer times second</strong> (nm*s)</p></li>
 <li><p>Time window: 95 s</p></li>
@@ -596,7 +623,7 @@ magnitudes using linear conversion:</p>
 <p>Mw(mB) = 1.30 mB - 2.18</p>
 </dd>
 <dt id="term-magnitude-derived-mwp-mw-mwp">magnitude, derived Mwp (Mw(Mwp))</dt><dd><p>Moment magnitude derived from <a class="reference internal" href="#term-magnitude-broadband-p-wave-moment-mwp"><span class="xref std std-term">Mwp</span></a>
-magnitudes using linear conversion after Whitmore et al. (2002):</p>
+magnitudes using linear conversion after <span id="id9">Whitmore <em>et al.</em> [<a class="reference internal" href="references.html#id81" title="P.M. Whitmore, S. Tsuboi, B. Hirshorn, and T.J. Sokolowski. Magnitude dependent correction for Mwp. Science of Tsunami Hazards, 20(4):, 2002.">60</a>]</span>:</p>
 <p>Mw(Mwp) = 1.31 Mwp - 1.91</p>
 </dd>
 <dt id="term-magnitude-summary-m">magnitude, summary (M)</dt><dd><p>Summary magnitude derived from multiple other magnitudes by <a class="reference internal" href="../apps/scmag.html#scmag"><span class="std std-ref">scmag</span></a>.</p>
@@ -619,9 +646,9 @@ about 2 to 9 s (the stronger secondary microseisms), and 11 to 18 s (the weaker
 primary microseisms).</p></li>
 </ol>
 </dd>
-<dt id="term-miniseed">miniSeed</dt><dd><p><a class="reference external" href="http://www.iris.edu/data/miniseed.htm">miniSeed</a> is the standard for
-the exchange of seismic time series. It uses a fixed record length and
-applies data compression.</p>
+<dt id="term-miniseed">miniSeed</dt><dd><p>miniSEED is the
+standard for the exchange of seismic time series. It uses a fixed record
+length and applies data compression as defined in <span id="id10"><em>SEED Reference Manual</em> [<a class="reference internal" href="references.html#id246" title="SEED Reference Manual. USGS, 2012. URL: http://www.fdsn.org/pdf/SEEDManual_V2.4.pdf.">29</a>]</span>.</p>
 </dd>
 <dt id="term-mmi">MMI</dt><dd><p>Modified Mercalli Intensity</p>
 </dd>
@@ -732,8 +759,7 @@ data and metadata (<a class="reference internal" href="#term-inventory"><span cl
 It is controlled as a standard by the International Federation
 of Digital Seismograph Networks (FDSN).
 The current version is 2.4, updated August 2012.
-See the <a class="reference external" href="http://www.fdsn.org/pdf/SEEDManual_V2.4.pdf">SEED Reference Manual</a>
-for details.</p>
+Read <span id="id11"><em>SEED Reference Manual</em> [<a class="reference internal" href="references.html#id246" title="SEED Reference Manual. USGS, 2012. URL: http://www.fdsn.org/pdf/SEEDManual_V2.4.pdf.">29</a>]</span> for details.</p>
 </dd>
 <dt id="term-s-phase">S phase</dt><dd><p>The S phase is the arrival of the direct <a class="reference internal" href="#term-s-wave"><span class="xref std std-term">S wave</span></a> that traveled through the Earth’s
 crust and mantle observed in epicentral distances up to 100°.</p>
@@ -780,7 +806,8 @@ is automatically selected by <a class="reference internal" href="../apps/scevent
 <li><p>Attribute of the QuakeML object Event, see <a class="reference internal" href="#term-event"><span class="xref std std-term">event</span></a>.</p></li>
 </ol>
 </dd>
-<dt id="term-quakeml">QuakeML</dt><dd><p>A XML scheme developed as an open standard for seismological meta data exchange (<a class="reference external" href="http://www.quakeml.org">http://www.quakeml.org</a>).</p>
+<dt id="term-quakeml">QuakeML</dt><dd><p>A XML scheme developed as an open standard for seismological meta data
+exchange (<a class="reference external" href="http://www.quakeml.org">http://www.quakeml.org</a>).</p>
 </dd>
 <dt id="term-radiation-pattern">radiation pattern</dt><dd><p>Dependence of the amplitudes of seismic <a class="reference internal" href="#term-p-wave"><span class="xref std std-term">P</span></a> and <a class="reference internal" href="#term-s-wave"><span class="xref std std-term">S waves</span></a> on the direction and take-off
 angle under which their seismic rays have left the seismic source. It is controlled
@@ -858,7 +885,7 @@ base directory of the archive the SDS has the structure:</p>
 </dd>
 <dt id="term-sed">SED</dt><dd><p>Specific Energy Density</p>
 </dd>
-<dt id="term-seedlink">SeedLink</dt><dd><p><a class="reference external" href="https://docs.gempa.de/seiscomp/current/apps/seedlink.html">SeedLink</a> is a
+<dt id="term-seedlink">SeedLink</dt><dd><p>SeedLink <span id="id12">[<a class="reference internal" href="references.html#id247" title="seedlink. Real-time waveform server. URL: https://docs.gempa.de/seiscomp/current/apps/seedlink.html.">28</a>]</span> is a
 real-time data acquisition protocol and a client-server software that
 implements this protocol</p>
 </dd>
@@ -910,7 +937,7 @@ A common technique for determination of the seismic moment M<sub>0</sub> is the
 moment tensor inversion. Assuming reasonable values for the rigidity of the
 rock (3-6 x 104 MPa in crust and upper mantle) and the stress drop (2-6 MPa)
 the seismic moment can be related to the surface wave magnitude Ms by the
-empirical relationship found by Gutenberg and Richter (1956) (units in cgs):</p>
+empirical relationship found by <span id="id14">Gutenberg and Richter [<a class="reference internal" href="references.html#id36" title="B. Gutenberg and C.F. Richter. Magnitude and Energy of Earthquakes. Annals of Geophysics, 9(1):1 - 15, 1956. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140130-105324849, doi:10.4401/ag-5590.">40</a>]</span> (units in cgs):</p>
 <div class="math">
 <p><img src="../_images/math/d7e59ce0e8d9250bee9b829d4a243edee8473113.png" alt="\log E_S = 11.8 + 1.5 Ms
 
@@ -1171,8 +1198,8 @@ Standard Seismograph Network (WWSSN).</p>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="concepts/configuration.html"
-                        title="previous chapter">Configuration</a></p>
+  <p class="topless"><a href="concepts/locators.html"
+                        title="previous chapter">Locators</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="license.html"
                         title="next chapter">License</a></p>
@@ -1195,7 +1222,7 @@ Standard Seismograph Network (WWSSN).</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

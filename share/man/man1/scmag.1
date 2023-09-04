@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCMAG" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCMAG" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scmag \- SeisComP Documentation
 .
@@ -220,7 +220,7 @@ magnitude of an event is made by scevent\&.
 The preferred magnitude of an event is set automatically by scevent
 or interactively in scolv\&. It can be any network magnitude or the summary
 magnitude.
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/scmag.cfg\fP
@@ -235,136 +235,180 @@ scmag inherits global options\&.
 .INDENT 0.0
 .TP
 .B magnitudes
+Default: \fBMLv, mb, mB, Mwp\fP
+.sp
 Type: \fIlist:string\fP
 .sp
-Definition of magnitude types to be calculated from amplitudes.
-Default is \fBMLv, mb, mB, Mwp\fP\&.
+The magnitude types to be calculated. Station magnitudes are
+computed from their amplitudes, network magnitudes from their
+station magnitudes.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B minimumArrivalWeight
+Default: \fB0.5\fP
+.sp
+Type: \fIdouble\fP
+.sp
+The minimum weight of an arrival for an associated amplitude
+to be used for calculating a magnitude.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBmagnitudes.*\fP
+\fIGeneral parameters for computing magnitudes. Others are configured\fP
+\fIby global binding parameters for specific magnitude types.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B magnitudes.average
+Default: \fBdefault\fP
+.sp
+Type: \fIlist:string\fP
+.sp
+The methods for computing the network magnitude
+from station magnitudes. Exactly one method per
+magnitude can be configured.
+To define the averaging method per magnitude type append
+the type after colon, e.g.:
+"magnitudes.average = default, MLv:median"
+.sp
+default: Compute the mean if less than 4 contributed
+station magnitudes exist. Otherwise apply a trimmed mean
+of 25%.
+.sp
+Options are "default", "mean",
+"median", "trimmedMean" and
+"medianTrimmedMean".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B connection.sendInterval
+Default: \fB1\fP
+.sp
 Type: \fIint\fP
 .sp
-Interval between 2 sending processes. The interval has influence how often information is updated.
-Default is \fB1\fP\&.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B connection.minimumArrivalWeight
-Type: \fIdouble\fP
+Unit: \fIs\fP
 .sp
-The minimum weight of an arrival to be used for magnitude calculations.
-Default is \fB0.5\fP\&.
+Interval between 2 sending processes. The interval controls
+how often information is updated.
 .UNINDENT
 .sp
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
 \fBsummaryMagnitude.*\fP
-\fIThe summary magnitude is building a weighted summary above all defined magnitude types. The single magnitude value is multiplied with the magnitude type specific weight. This is summed up for all magnitude types and the resulting sum is divided through the sum of all weights.\fP
+\fIThe summary magnitude is the weighted average from all\fP
+\fIdefined network magnitude types: Single network magnitude values\fP
+\fIare multiplied with their magnitude\-type specific weight and\fP
+\fIsummed up. The resulting sum is divided by the sum of all weights.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
 .B summaryMagnitude.enabled
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enables summary magnitude calculation.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B summaryMagnitude.type
+Default: \fBM\fP
+.sp
 Type: \fIstring\fP
 .sp
 Define the type/name of the summary magnitude.
-Default is \fBM\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B summaryMagnitude.minStationCount
+Default: \fB4\fP
+.sp
 Type: \fIint\fP
 .sp
-This is the minimum station magnitude required for any magnitude to contribute to
-the summary magnitude at all. If this is set to 4 then no magnitude with less than
-4 station magnitudes is taken into consideration even if this results in no summary
-magnitude at all. For this reason, the default here is 1 but in a purely automatic
-system it should be higher, at least 4 is recommended.
-Default is \fB4\fP\&.
+This is the minimum station magnitude required for any
+magnitude to contribute to the summary magnitude at all. If
+this is set to 4, then no magnitude with less than 4 station
+magnitudes is taken into consideration even if this results
+in no summary magnitude at all. For this reason, the default
+here is 1 but in a purely automatic  system it should be
+higher, at least 4 is recommended.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B summaryMagnitude.blacklist
 Type: \fIlist:string\fP
 .sp
-Define the magnitude types to be excluded from the summary magnitude calculation.
+Define the magnitude types to be excluded from the summary
+magnitude calculation.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B summaryMagnitude.whitelist
 Type: \fIlist:string\fP
 .sp
-Define the magnitude types to be included in the summary magnitude calculation.
+Define the magnitude types to be included in the summary
+magnitude calculation.
 .UNINDENT
 .sp
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
 \fBsummaryMagnitude.coefficients.*\fP
-\fIDefine the coefficients to calculate the weight of a magnitude. weight = a*magStationCount+b\fP
+\fIThe coefficients defining the weight of network magnitudes\fP
+\fIfor calculating the summary magnitude.\fP
+\fIWeight = a * magnitudeStationCount + b.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
 .B summaryMagnitude.coefficients.a
+Default: \fB0, Mw(mB):0.4, Mw(Mwp):0.4\fP
+.sp
 Type: \fIlist:string\fP
 .sp
-Define the coefficients a. Unnamed values define the default value.
-Default is \fB0, Mw(mB):0.4, Mw(Mwp):0.4\fP\&.
+Define the coefficients a. To define the value per magnitude
+type append the type after colon. A value without a
+type defines the default value.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B summaryMagnitude.coefficients.b
+Default: \fB1, MLv:2, Mw(mB):\-1, Mw(Mwp):\-1\fP
+.sp
 Type: \fIlist:string\fP
 .sp
-Define the coefficients b. Unnamed values define the default value.
-Default is \fB1, MLv:2, Mw(mB):\-1, Mw(Mwp):\-1\fP\&.
+Define the coefficients b. To define the value per magnitude
+type append the type after colon. A value without a
+type defines the default value.
 .UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.average
-Type: \fIlist:string\fP
-.sp
-Defines the average method to use when computing the network magnitude.
-To define the average method per magnitude type append the type, eg:
-"magnitudes.average = default, MLv:median"
-.sp
-The default behaviour is to compute the mean if less than 4 contributed
-station magnitudes exist otherwise a trimmed mean of 25 percent is used.
-.sp
-Options are "default", "mean",
-"trimmedMean" and "medianTrimmedMean".
-Default is \fBdefault\fP\&.
-.UNINDENT
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -374,29 +418,31 @@ Load given plugins.
 .INDENT 0.0
 .TP
 .B \-D, \-\-daemon
-Run as daemon. This means the application will fork itself and
-doesn\(aqt need to be started with &.
+Run as daemon. This means the application will fork itself
+and doesn\(aqt need to be started with &.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-auto\-shutdown arg
-Enable/disable self\-shutdown because a master module shutdown. This only
-works when messaging is enabled and the master module sends a shutdown
-message (enabled with \-\-start\-stop\-msg for the master module).
+Enable/disable self\-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with \-\-start\-stop\-msg
+for the master module).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-module arg
-Sets the name of the master\-module used for auto\-shutdown. This
-is the application name of the module actually started. If symlinks
-are used then it is the name of the symlinked application.
+Set the name of the master\-module used for auto\-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-username arg
-Sets the name of the master\-username of the messaging used for
-auto\-shutdown. If "shutdown\-master\-module" is given as well this
-parameter is ignored.
+Set the name of the master\-username of the messaging
+used for auto\-shutdown. If "shutdown\-master\-module" is
+given as well, this parameter is ignored.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -407,27 +453,30 @@ Time span in hours after which objects expire.
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -442,7 +491,8 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -473,7 +523,8 @@ Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
 .INDENT 0.0
 .TP
 .B \-S, \-\-subscribe\-group arg
-A group to subscribe to. This option can be given more than once.
+A group to subscribe to.
+This option can be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -483,7 +534,7 @@ Overrides configuration parameter \fBconnection.contentType\fP\&.
 .INDENT 0.0
 .TP
 .B \-\-start\-stop\-msg arg
-Sets sending of a start\- and a stop message.
+Set sending of a start and a stop message.
 .UNINDENT
 .SS Database
 .INDENT 0.0
@@ -494,19 +545,21 @@ List all supported database drivers.
 .INDENT 0.0
 .TP
 .B \-d, \-\-database arg
-The database connection string, format: \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which can be
-queried with "\-\-db\-driver\-list".
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+"service" is the name of the database driver which
+can be queried with "\-\-db\-driver\-list".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-module arg
-The configmodule to use.
+The config module to use.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-inventory\-db arg
-Load the inventory from the given database or file, format: [\fI\%service://]location\fP
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -530,8 +583,8 @@ and network magnitudes to the input XML file.
 .TP
 .B \-\-reprocess
 Reprocess also station and network magnitudes with an evaluation
-status set but do not change weights and just add new
-contributions with weight 0.
+status set but do not change original weights. New
+contributions are added with weight 0.
 .UNINDENT
 .SS Reprocess
 .INDENT 0.0
@@ -553,7 +606,7 @@ network magnitude.
 .INDENT 0.0
 .TP
 .B \-\-keep\-weights
-Reuses the original weights in combination with \-\-static.
+Keep the original weights in combination with \-\-static.
 .UNINDENT
 .SH AUTHOR
 gempa GmbH, GFZ Potsdam

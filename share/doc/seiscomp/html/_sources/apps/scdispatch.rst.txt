@@ -6,7 +6,7 @@
 scdispatch
 ##########
 
-**Reads objects (event, origin, etc) from a SC3ML file and sends the objects
+**Read objects (event, origin, etc) from a SCML file and sends the objects
 to the messaging system.**
 
 
@@ -100,23 +100,25 @@ Examples
    :ref:`scxmldump`. It is also useful to clean the database and logs to remove
    objects from persistent storage to allow repeated reloading of a file.
 
-   .. note:: The following will clear all events from the database and any other
+   .. note::
+
+      The following will clear all events from the database and any other
       other object persistence. Modify the mysql command to suit your db setup.
 
-   .. code-block:: sh
+      .. code-block:: sh
 
-      mysql -u root --password='my$q1' -e "DROP DATABASE IF EXISTS seiscomp; \
-        CREATE DATABASE seiscomp CHARACTER SET utf8 COLLATE utf8_bin; \
-        GRANT ALL ON seiscomp.* TO 'sysop'@'localhost' IDENTIFIED BY 'sysop'; \
-        USE seiscomp;source seiscomp/trunk/share/db/mysql.sql;"
+         mysql -u root --password='my$q1' -e "DROP DATABASE IF EXISTS seiscomp; \
+           CREATE DATABASE seiscomp CHARACTER SET utf8 COLLATE utf8_bin; \
+           GRANT ALL ON seiscomp.* TO 'sysop'@'localhost' IDENTIFIED BY 'sysop'; \
+           USE seiscomp;source seiscomp/trunk/share/db/mysql.sql;"
 
-      seiscomp start
+         seiscomp start
 
 
 .. _scdispatch_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 | :file:`etc/defaults/global.cfg`
 | :file:`etc/defaults/scdispatch.cfg`
@@ -130,10 +132,12 @@ scdispatch inherits :ref:`global options<global-configuration>`.
 
 
 
-Command-line
-============
+Command-Line Options
+====================
 
 .. program:: scdispatch
+
+:program:`scdispatch [options]`
 
 
 Generic
@@ -141,18 +145,20 @@ Generic
 
 .. option:: -h, --help
 
-   show help message.
+   Show help message.
 
 .. option:: -V, --version
 
-   show version information
+   Show version information.
 
 .. option:: --config-file arg
 
-   Use alternative configuration file. When this option is used
-   the loading of all stages is disabled. Only the given configuration
-   file is parsed and used. To use another name for the configuration
-   create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+   Use alternative configuration file. When this option is
+   used the loading of all stages is disabled. Only the
+   given configuration file is parsed and used. To use
+   another name for the configuration create a symbolic
+   link of the application or copy it. Example:
+   scautopick \-> scautopick2.
 
 .. option:: --plugins arg
 
@@ -160,26 +166,28 @@ Generic
 
 .. option:: -D, --daemon
 
-   Run as daemon. This means the application will fork itself and
-   doesn't need to be started with \&.
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
 
 .. option:: --auto-shutdown arg
 
-   Enable\/disable self\-shutdown because a master module shutdown. This only
-   works when messaging is enabled and the master module sends a shutdown
-   message \(enabled with \-\-start\-stop\-msg for the master module\).
+   Enable\/disable self\-shutdown because a master module shutdown.
+   This only works when messaging is enabled and the master
+   module sends a shutdown message \(enabled with \-\-start\-stop\-msg
+   for the master module\).
 
 .. option:: --shutdown-master-module arg
 
-   Sets the name of the master\-module used for auto\-shutdown. This
-   is the application name of the module actually started. If symlinks
-   are used then it is the name of the symlinked application.
+   Set the name of the master\-module used for auto\-shutdown.
+   This is the application name of the module actually
+   started. If symlinks are used, then it is the name of
+   the symlinked application.
 
 .. option:: --shutdown-master-username arg
 
-   Sets the name of the master\-username of the messaging used for
-   auto\-shutdown. If \"shutdown\-master\-module\" is given as well this
-   parameter is ignored.
+   Set the name of the master\-username of the messaging
+   used for auto\-shutdown. If \"shutdown\-master\-module\" is
+   given as well, this parameter is ignored.
 
 
 Verbosity
@@ -187,23 +195,26 @@ Verbosity
 
 .. option:: --verbosity arg
 
-   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
 
 .. option:: -v, --v
 
-   Increase verbosity level \(may be repeated, eg. \-vv\)
+   Increase verbosity level \(may be repeated, eg. \-vv\).
 
 .. option:: -q, --quiet
 
-   Quiet mode: no logging output
+   Quiet mode: no logging output.
 
 .. option:: --component arg
 
-   Limits the logging to a certain component. This option can be given more than once.
+   Limit the logging to a certain component. This option can
+   be given more than once.
 
 .. option:: -s, --syslog
 
-   Use syslog logging back end. The output usually goes to \/var\/lib\/messages.
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
 
 .. option:: -l, --lockfile arg
 
@@ -215,7 +226,8 @@ Verbosity
 
 .. option:: --debug
 
-   Debug mode: \-\-verbosity\=4 \-\-console\=1
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
 
 .. option:: --log-file arg
 
@@ -243,7 +255,8 @@ Messaging
 
 .. option:: -S, --subscribe-group arg
 
-   A group to subscribe to. This option can be given more than once.
+   A group to subscribe to.
+   This option can be given more than once.
 
 .. option:: --content-type arg
 
@@ -251,7 +264,7 @@ Messaging
 
 .. option:: --start-stop-msg arg
 
-   Sets sending of a start\- and a stop message.
+   Set sending of a start and a stop message.
 
 
 Database
@@ -263,17 +276,19 @@ Database
 
 .. option:: -d, --database arg
 
-   The database connection string, format: service:\/\/user:pwd\@host\/database.
-   \"service\" is the name of the database driver which can be
-   queried with \"\-\-db\-driver\-list\".
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
 
 .. option:: --config-module arg
 
-   The configmodule to use.
+   The config module to use.
 
 .. option:: --inventory-db arg
 
-   Load the inventory from the given database or file, format: [service:\/\/]location
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
 
 .. option:: --db-disable
 
@@ -289,13 +304,14 @@ Dispatch
 
 .. option:: -O, --operation flag
 
-   Operation to use: add, update, remove, merge or merge\-without\-remove.
-   Merge and merge\-without\-remove are special operations and require
-   a database connection. Both will read a corresponding object
-   from the database and calculate the differences which will be
-   sent to the messaging. Merge\-no\-remove behaves like merge
-   with the exception that remove operations will be filtered
-   out that no objects in the database will be removed.
+   Operation to use: add, update, remove, merge or
+   merge\-without\-remove.
+   Merge and merge\-without\-remove are special operations and
+   require a database connection. Both will read a corresponding
+   object from the database and calculate the differences which
+   will be sent to the messaging. Merge\-no\-remove behaves like
+   merge with the exception that remove operations will be
+   filtered out that no objects in the database will be removed.
    
    If add, update or remove is specified then all objects in
    XML are sent with the given operation regardless of their
@@ -303,15 +319,16 @@ Dispatch
 
 .. option:: --routingtable flag
 
-   Specify routing table as comma separated list of object:group pairs,
-   e.g. \"Origin:LOCATION,Event:EVENT\". When an objects
-   should be routed to a group and no table entry for that perticular
-   class type is available, all parent objects are checked for
-   valid routing entries and the first found is used. E.g. if only
-   \"Origin:LOCATION\" is specified but the input file
-   contains also Arrivals which are child objects of Origin then
-   the routing entry of Origin is used because of the parent\-child
-   relationship between Origin and Arrival.
+   Specify routing table as comma separated list of object:group
+   pairs, e.g. \"Origin:LOCATION,Event:EVENT\". When an
+   object should be routed to a group and no table entry for
+   that perticular class type is available, all parent objects
+   are checked for valid routing entries and the first found is
+   used. E.g. if only \"Origin:LOCATION\" is specified
+   but the input file contains also Arrivals which are child
+   objects of Origin then the routing entry of Origin is used
+   because of the parent\-child relationship between Origin and
+   Arrival.
 
 .. option:: --print-objects
 

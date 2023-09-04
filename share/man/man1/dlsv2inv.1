@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "DLSV2INV" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "DLSV2INV" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 dlsv2inv \- SeisComP Documentation
 .
@@ -31,7 +31,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
 .sp
-\fBConverts dataless SEED to SeisComP inventory XML.\fP
+\fBConvert dataless SEED to SeisComP inventory XML.\fP
 .SH DESCRIPTION
 .sp
 dlsv2inv converts dataless \fI\%SEED\fP to
@@ -89,7 +89,7 @@ dlsv2inv \-\-dcid "" GE.dataless GE.xml
 .UNINDENT
 .UNINDENT
 .UNINDENT
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/dlsv2inv.cfg\fP
@@ -101,27 +101,29 @@ dlsv2inv \-\-dcid "" GE.dataless GE.xml
 .sp
 .sp
 dlsv2inv inherits global options\&.
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
 .sp
 \fBdlsv2inv [OPTIONS] input [output=stdout]\fP
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -131,34 +133,37 @@ Load given plugins.
 .INDENT 0.0
 .TP
 .B \-D, \-\-daemon
-Run as daemon. This means the application will fork itself and
-doesn\(aqt need to be started with &.
+Run as daemon. This means the application will fork itself
+and doesn\(aqt need to be started with &.
 .UNINDENT
 .SS Verbosity
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -173,26 +178,42 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-log\-file arg
 Use alternative log file.
 .UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-print\-component arg
+For each log entry print the component right after the
+log level. By default the component output is enabled
+for file output but disabled for console output.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-trace
+Execute in trace mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 \-\-print\-component=1
+\-\-print\-context=1 .
+.UNINDENT
 .SS ArcLink
 .INDENT 0.0
 .TP
 .B \-\-dcid arg
-Overrides the datacenter ID which is read from the datacenterID
-configuration parameter and written to the network and
-station archive attribute.
+Override the datacenter ID which is read from the
+datacenterID configuration parameter and written to the
+network and station archive attribute.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-net\-description arg
-Sets the network description. It supports the following
-placeholders: ${code}, ${start}, ${end}, ${class} and ${archive}.
+Set the network description. It supports the following
+placeholders: ${code}, ${start}, ${end}, ${class} and
+${archive}.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -207,28 +228,28 @@ Set network end time. Format is %Y\-%m\-%d.
 .INDENT 0.0
 .TP
 .B \-\-net\-type arg
-Sets the network type (VBB, SM, etc.).
+Set the network type (VBB, SM, etc.).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-temporary
-Sets the network temporary flag to true.
+Set the network temporary flag to true.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-restricted
-Sets the network restricted flag to true.
+Set the network restricted flag to true.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-private
-Sets the network private flag to true.
+Set the network private flag to true.
 .UNINDENT
 .SS Convert
 .INDENT 0.0
 .TP
 .B \-f, \-\-formatted
-Enables formatted XML output.
+Enable formatted XML output.
 .UNINDENT
 .SH AUTHOR
 gempa GmbH, GFZ Potsdam

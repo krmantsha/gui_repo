@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCRTTV" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCRTTV" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scrttv \- SeisComP Documentation
 .
@@ -34,46 +34,47 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 \fBReal\-time trace view.\fP
 .SH DESCRIPTION
 .sp
-scrttv visualizes real\-time waveform data (see \fI\%scrttv overview\fP) of
-a defined window length (default=30 minutes) and of defined streams/stations
-(default is primary station channels). scrttv switches between two modi.
-In the normal mode the trace order is given by the configuration file.
-In the event mode the traces are sorted by epicentral distance to the
-latest origin received from the messaging. Additional to the waveform
-traces information about gaps, picks and the time of incoming origins
-are displayed.
+scrttv visualizes waveform data in miniSEED format
+(see \fI\%Figure below\fP) in real\-time or from archives
+with a defined window length (default: 30 minutes) of defined streams/stations
+(default: streams defined by global bindings). Additionally, phase picks are
+visualized.
+.sp
+scrttv can be used for view waveforms,
+\fI\%visual waveform quality control\fP or
+\fI\%interactive signal detection\fP\&.
+.sp
+When in \fI\%message mode\fP scrttv dynamically resorts waveforms:
+Normally, the trace order is given by configuration, e.g., ordering by epicentral
+distance from a location given by \fI\%streams.sort.latitude\fP and
+\fI\%streams.sort.longitude\fP\&.
+In the event that a new SeisComP event arrives from the messaging, the
+traces are sorted  automatically by epicentral distance to the latest origin
+received. In addition to waveforms, information about gaps or overlaps, picks
+and the time of incoming origins are displayed.
 .INDENT 0.0
 .INDENT 2.5
 [image]
 scrttv overview
-An example of scrttv and the dialog window to set preliminary origin.
-Tab 1\-2 = enable/disable tab; Counts = maximum counts of a stream;
-Info = stream information (station, network and channel code);
-Filter = filter status of the traces; Status = connection status.
+An example of scrttv and the dialog window to associate picks to new origins.
+Tabs: Enable/Disable; Amplitude: mean and maximum;
+Stream: station, network, sensor location and channel code;
+Filter: filter applied traces; Status = connection status to messaging.
 .UNINDENT
 .UNINDENT
 .sp
-scrttv shows two tabs: the enabled and the disabled tab (see \fI\%scrttv overview\fP: Tab 1\-2).
-Stations listed in the disabled tab are excluded from processing (e.g. picking). To move a station
+scrttv shows two tabs: the Enabled and the disabled tab
+(see \fI\%scrttv overview\fP). Stations listed in the disabled tab
+are excluded from automatic processing (e.g. phase picking). To move a station
 from one tab to another just drag and drop the trace to the new tab. An alternative solution is
-to double click on the trace label to disable a trace.
+to double click on the trace label to disable a trace. Read the section
+\fI\%Waveform Quality Control\fP for the details.
 .sp
 Normally, the raw data are displayed. Pressing \fBf\fP the predefined bandpass filter
 of third order from 0.5 Hz to 8 Hz, BW(3,0.5,8) is applied
 to the traces. Also zoom functions for the time and amplitude axis are provided.
-.INDENT 0.0
-.INDENT 2.5
-[image]
-Artifical origin..UNINDENT
-.UNINDENT
-.sp
-In case the operator recognizes several seismic signals, an artificial/preliminary origin can be set
-by either pressing the middle mouse button on a trace or by opening the context menu (right mouse button)
-on a trace and selecting "Create artificial origin". The following pop\-up window shows the coordinates of the
-station and the time the click was made on the trace. Both are used to generate
-the new artificial origin without any arrivals. Pressing "Create" sends this origin to the
-LOCATION group. This artificial origin is received e.g. by scolv and enables an immediate
-manual analysis of the closest traces.
+Read the sections <scrttv\-filtering> and  \fI\%Waveform Visualization\fP for
+more details.
 .sp
 Among the configurable parameters are:
 .INDENT 0.0
@@ -87,11 +88,12 @@ default definition of traces to show (\fBdetecStream\fP and \fBdetecLocid\fP).
 Module configuration:
 .INDENT 2.0
 .IP \(bu 2
-network, stations, locations and streams to show extending or overriding the default definition (\fI\%streams.codes\fP),
+network, stations, locations and streams to show extending or overriding the
+default definition (\fI\%streams.codes\fP),
 .IP \(bu 2
 \fI\%data filters\fP,
 .IP \(bu 2
-buffer size controlling the lenght of loaded data (\fI\%bufferSize\fP),
+buffer size controlling the length of loaded data (\fI\%bufferSize\fP),
 .IP \(bu 2
 sorting of traces upon arrival of new origins (\fI\%resortAutomatically\fP),
 .IP \(bu 2
@@ -124,25 +126,102 @@ scrttv \-h
 .fi
 .UNINDENT
 .UNINDENT
-.SH ENABLE / DISABLE STATIONS
+.SH MODES OF OPERATION
 .sp
-To enable or disable a station for automatic data processing in \fISeisComP\fP select
-a station code with the mouse and drag the
-stations to the disable / enable tab or simply double\-click on the station code.
-.SH STREAM FILTERING
+scrttv can be started in message mode or in offline mode.
+.INDENT 0.0
+.IP \(bu 2
+Message mode: scrttv is started normally and connects to the messaging,
+picks, origins and inventory are read from
+the database and received in real time from the messaging. Data are received
+from recordstream\&.
+.IP \(bu 2
+Offline mode: scrttv is started without connection to the messaging,
+picks and origins are not received in real
+time from the messaging. However, they can be loaded from XML files using the
+\fIFile\fP menu. Data are received from recordstream or from file. The
+offline mode is invoked when using the option \fB\-\-offline\fP or when
+passing a file name to scrttv at startup. Example:
+.INDENT 2.0
+.INDENT 3.5
 .sp
-scrttv allows filtering of waveforms.
-The hotkey \fBf\fP can be used to
-toggle the list of filters pre\-defined in \fI\%filter\fP or in \fI\%filters\fP\&.
-Note that the list of filters defined in \fI\%filters\fP overwrites \fI\%filter\fP\&.
-Activate \fI\%autoApplyFilter\fP to filter all traces at start\-up of scrttv
-with the first filter defined in \fI\%filters\fP\&.
-The applied filter is shown in the lower left corner (see \fI\%Figure below\fP).
-To show filtered and raw data together use the hotkey \fBr\fP\&.
-.SH STREAM GROUPING
+.nf
+.ft C
+scrttv file.mseed
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.SH WAVEFORM VISUALIZATION
+.SS Stream selection
 .sp
-scrttv allows grouping of stations and even streams with different properties, e.g. colors or color
-gradients.
+Without further configuration scrttv displays waveforms for streams defined
+in global bindings. The selection can be refined by configuring
+\fI\%streams.codes\fP\&. Streams with
+data latency < \fI\%maxDelay\fP are hidden but
+shown again when applicable. By default this parameter is inactive. For listing
+streams hidden from one tab press \fBh\fP\&.
+.SS Time windows
+.sp
+The reading waveforms from RecordStream, the data is displayed for a time
+window which by default ends at current time or as given by the command\-line
+option \fB\-\-end\-time\fP\&. Initially, the time window takes the length defined
+in \fI\%bufferSize\fP or by the option \fB\-\-buffer\-size\fP\&. When reading data
+directly from file in offline mode, the time window is set
+from the time limits of the waveforms.
+.INDENT 0.0
+.IP \(bu 2
+The \fBlength of visible time windows\fP can be adjusted by
+\fI\%zooming\fP\&.
+.IP \(bu 2
+The \fBend time of the data\fP progresses in continuously in real time (UTC)
+with the time of the computer clock unless fixed (\fBF8\fP). The end time is
+fixed during startup when applying \fB\-\-end\-time\fP\&.
+.IP \(bu 2
+For \fBprogressing or rewinding by 30 minutes\fP press \fBAlt right\fP or
+\fBAlt left\fP, respectively. Data will be loaded immediately.
+.IP \(bu 2
+You may also \fBfreely zoom\fP into any time window. Data and picks will be loaded
+when pressing \fBCtrl + r\fP
+.IP \(bu 2
+\fBReturn to default real\-time processing\fP by pressing \fBCtrl + Shift + r\fP
+or \fBN\fP\&.
+.UNINDENT
+.sp
+\fBHINT:\fP
+.INDENT 0.0
+.INDENT 3.5
+Gaps and overlaps in waveforms are indicated by yellow and purple areas,
+respectively. The colors are configurable.
+.UNINDENT
+.UNINDENT
+.SS Zooming
+.sp
+Waveforms can be zoomed in and out interactively in amplitude and time. Use the
+\fIView\fP menu or refer to the section \fI\%Hotkeys\fP for options. In
+addition to the actions available from the View menu, zooming is supported by
+mouse actions:
+.INDENT 0.0
+.IP \(bu 2
+Zooming in in time: Right\-click on time axis, drag to the right. A green bar appears
+which is the new time window. Dragging up or down (gray bar) disables zooming.
+.IP \(bu 2
+Zooming out in time: Right\-click on time axis, drag to the left. A red bar appears. The
+longer the bar, the more you zoom out.  Dragging up or down (gray bar)
+disables zooming.
+.IP \(bu 2
+Zooming in time and amplitude: Mouse over a trace of interest, use
+\fBCtrl + mouse wheel\fP for zooming in or out.
+.IP \(bu 2
+Zooming around a selected area: Press \fBz\fP and drag an area with while
+pressing the left mouse button. Press \fBz\fP again for leaving the zoom
+mode.
+.UNINDENT
+.SS Stream grouping
+.sp
+scrttv allows grouping of stations and even streams with different properties,
+e.g. colors or color gradients.
 .INDENT 0.0
 .INDENT 2.5
 [image]
@@ -163,8 +242,8 @@ Define the groups:
 add a new group profile to \fBstreams.group\fP\&.
 .IP \(bu 2
 set the properties for this group profile. Colors and color
-gradients are
-defined by hexadecimal values or by color keyword names\&.
+gradients are defined by hexadecimal values or by
+color keyword name\&.
 When choosing gradients the colors of the traces within one group will be
 varied in alphabetic order of the streams.
 .IP \(bu 2
@@ -197,7 +276,53 @@ resortAutomatically = false
 .UNINDENT
 .UNINDENT
 .UNINDENT
-.SH RECORD BORDERS
+.SS Phase picks and arrivals
+.sp
+Previous versions of scrttv (< 5.4) only displayed picks with the
+colors indicating the pick evaluation mode along with the phase hint of the
+pick:
+.INDENT 0.0
+.IP \(bu 2
+red: automatic,
+.IP \(bu 2
+green: manual.
+.UNINDENT
+.sp
+This hasn\(aqt really changed in later versions but additionally scrttv determines
+an additional state of a pick called arrival\&. In scrttv a pick is
+considered an arrival if it is associated to an valid origin. An origin is
+called valid if its evaluation status is not REJECTED. When scrttv loads all
+picks from the database for the currently visible time span it also checks if
+each pick is associated with a valid origin and declares the arrival state if
+the check yields true. The visibility of picks and arrivals can be toggled by
+pressing \fBCtrl + p\fP and \fBCtrl + a\fP, respectively. \fBc\fP removes all
+markers. The configuration parameter \fI\%showPicks\fP controls the default
+visibility.
+.sp
+Picks and arrivals can be differentiated visually by their colours. When
+configured in global module configuration, the same colours are being used
+consistently as in any other GUI displaying both types, namely
+.INDENT 0.0
+.IP \(bu 2
+\fBscheme.colors.picks.automatic\fP
+.IP \(bu 2
+\fBscheme.colors.picks.manual\fP
+.IP \(bu 2
+\fBscheme.colors.picks.undefined\fP
+.IP \(bu 2
+\fBscheme.colors.arrivals.automatic\fP
+.IP \(bu 2
+\fBscheme.colors.arrivals.manual\fP
+.IP \(bu 2
+\fBscheme.colors.arrivals.undefined\fP
+.UNINDENT
+.sp
+That visual difference should support the operator in finding clusters of picks
+and creating new location missed by the automatic system.
+.sp
+The next sections will only use the pick which can be used
+interchangeable for pick or arrival.
+.SS Record borders
 .sp
 The borders of records are toggled by using the hotkey \fBb\fP\&.
 .INDENT 0.0
@@ -214,23 +339,153 @@ configured in the scheme parameters in \fBglobal.cfg\fP or \fBscrttv.cfg\fP:
 .IP \(bu 2
 \fBscheme.colors.records.borders.*\fP: Define pen and brush properties.
 .UNINDENT
-.SH OFFLINE MODE
+.SH WAVEFORM QUALITY CONTROL
 .sp
-To start scrttv without connection to the messaging use the option \fB\-\-offline\fP
-or simply provide the miniSEED data file, e.g.:
+Use scrttv for regular visual waveform inspection and for enabling or disabling
+of stations. Disabled stations will not be used for automatic phase detections
+and can be excluded from manual processing in scolv\&. They will also be
+highlighted in scmv and scqc\&.
+.sp
+To enable or disable a station for automatic data processing in \fISeisComP\fP select
+a station code with the mouse and drag the stations to the disable / enable tab
+or simply double\-click on the station code in the respective tab.
+.SH STREAM PROCESSING
+.SS Filtering
+.sp
+scrttv allows filtering of waveforms.
+The Filter selection dropdown menu  (see \fI\%Figure above\fP)
+and the hotkey \fBf\fP can be used to toggle the list of filters pre\-defined in
+\fI\%filter\fP or in \fI\%filters\fP\&.  The applied filter is named in the
+lower left corner. To show filtered and raw data together use the hotkey \fBr\fP\&.
+.sp
+\fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
+The list of filters defined in \fI\%filters\fP overwrites \fI\%filter\fP\&.
+Activate \fI\%autoApplyFilter\fP to filter all traces at start\-up of scrttv
+with the first filter defined in \fI\%filters\fP\&.
+.UNINDENT
+.UNINDENT
+.SS Gain correction
 .sp
-.nf
-.ft C
-scrttv [your miniSEED file]
-.ft P
-.fi
+The stream gain is applied to waveforms and amplitude values are given in the
+physical units of the stream by default. For showing amplitudes in counts,
+deactivate the option \fIApply gain\fP in the Interaction menu.
+.SH INTERACTIVE SIGNAL DETECTION
+.sp
+Beside visual inspection of waveforms for quality control, scrttv can also be
+used for interactive signal detection in real time or for selected time windows
+in the past.
+.SS Artificial origins
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Artifical origin..UNINDENT
+.UNINDENT
+.sp
+In case the operator recognizes several seismic signals which shall be processed
+further, e.g. in scolv, an artificial/preliminary origin can be set by
+either pressing the middle mouse
+button on a trace or by opening the context menu (right mouse button) on a trace
+and selecting "Create artificial origin". The following pop\-up window shows the
+coordinates of the selected station and the time the click was made on the
+trace. Both are used to generate the new artificial origin without any arrivals.
+Pressing "Create" sends this origin to the LOCATION group. This artificial
+origin is received e.g., by scolv and enables an immediate manual analysis
+of the closest traces.
+.sp
+In order to send receive articifial origins and receive them in other GUIs
+\fBcommands.target\fP of the global module configuration must be set and
+must be in line with \fBconnection.username\fP of the receiving GUI module.
+.sp
+Alternatively, picks can be selected and origins can be located as preliminary
+solutions which are sent to the system as regular origin objects, see section
+\fI\%Origin association\fP\&.
+.SS Origin association
+.sp
+scrttv comes with a minimal version of a phase associator and manual locator
+(Fig. \fI\%scrttv overview\fP). Picks can be selected, relocated and
+committed to the messaging system as manual preliminary location.
+In contrast to the artificial origin operation which requires an immediate
+intervention with, e.g. scolv, this operation allows to store all those
+detected origins and work on them later because they will be stored in the
+database.
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+More detailed waveform and event analysis can be made in scolv\&.
+.UNINDENT
+.UNINDENT
+.SS Pick selection
+.sp
+In order to select picks, the pick selection mode must be entered. Then dragging
+a box (rubber band) around the picks in question will add them to the "cart".
+The "cart" refers to the list of picks of the manual associated widget used to
+attempt to locate an origin. Simply dragging a box will remove all previously
+selected picks. Further options are:
+.INDENT 0.0
+.IP \(bu 2
+\fBShift + drag\fP: Add selected picks while keeping the previous selection.
+.IP \(bu 2
+\fBCtrl + drag\fP: Remove selected picks while keeping the previous selection.
+.UNINDENT
+.sp
+If at least one pick has been added to the cart, the manual associator will
+open as a dock widget.
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+A dock widget is a special kind of window which can be docked to any border
+of the application or even displayed floated as kind of overlay window. The
+position of the dock widget will be persistent across application restarts.
 .UNINDENT
 .UNINDENT
 .sp
-In offline mode event parameters given in SCML files, e.g. from offline processing,
-can be loaded using the \fIFile\fP menu.
+At any change of the pick cart, the associator attempts a relocation and will
+display the result in the details or an error message at the top.
+.sp
+To add more picks to the cart, shift has to be pressed while dragging the
+selection box. To remove picks from the cart, \fBCtrl\fP has to be pressed while
+dragging the selection box. Picks can also be removed individually from the
+cart by clicking the close icon of each pick item.
+.sp
+Picks being part of the cart are also highlighted in the traces.
+.SS Locating from picks
+.sp
+The associator adds all available locators in the system and presents them
+in a dropdown list at the bottom. The locator which should be selected as default
+can be controlled with \fI\%associator.defaultLocator\fP\&. The profile which
+is selected as default can be controlled with
+\fI\%associator.defaultLocatorProfile\fP\&.
+.sp
+Whenever the operator changes any of the values, a new location attempt is being
+made which can succeed or fail. A successful attempt will update the details,
+a failed attempt will reset the details and print an error message at the top
+of the window.
+.sp
+Each locator can be configured locally by clicking the wrench icon. This
+configuration is not persistent across application restarts. It can be used
+to tune and test various settings. Global locator configurations in the
+configuration files are of course being considered by scrttv.
+.sp
+In addition to the locator and its profile a fixed depth can be set. By default
+the depth is free and it is up to the locator implementation to assign a depth
+to the origin. The depth dropdown list allows to set a predefined depth. The
+list of depth values can be controlled with \fI\%associator.fixedDepths\fP\&.
+.SS Committing a solution
+.sp
+Once a solution is accepted by the operator it can be committed to the system
+as regular origin as emitted by, e.g. \fIscautoloc\fP\&. Those origins will be sent to
+the message group defined by \fBmessaging.location\fP and grabbed by
+connected modules, e.g., scevent and possibly associated to an
+event\&.
+.sp
+Alternatively, the button "Show Details" can be used to just send the origin to
+the GUI group and let scolv or other GUIs pick it up and show it. This
+will not store the origin in the database and works the same way as creating an
+artificial origin.
 .SH HOTKEYS
 .TS
 center;
@@ -267,6 +522,12 @@ Toggle fullscreen
 T}
 _
 T{
+\fBESC\fP
+T}	T{
+Set standard selection mode and deselect all traces
+T}
+_
+T{
 \fBc\fP
 T}	T{
 Clear picker  markers
@@ -285,6 +546,18 @@ List hidden streams
 T}
 _
 T{
+\fBCtrl+a\fP
+T}	T{
+Toggle showing arrivals
+T}
+_
+T{
+\fBCtrl+p\fP
+T}	T{
+Toggle showing picks
+T}
+_
+T{
 \fBn\fP
 T}	T{
 Restore default display
@@ -297,9 +570,21 @@ Align by origin time
 T}
 _
 T{
-\fBAlt+q\fP
+\fBp\fP
 T}	T{
-Quit
+Enable pick selection mode
+T}
+_
+T{
+\fBAlt+left\fP
+T}	T{
+Reverse the data time window by buffer size
+T}
+_
+T{
+\fBAlt+right\fP
+T}	T{
+Advance the data time window by buffer size
 T}
 _
 T{
@@ -310,13 +595,25 @@ _
 T{
 \fBf\fP
 T}	T{
-Toggle filter
+Toggle filtering
+T}
+_
+T{
+\fBd\fP
+T}	T{
+Switch to previous filter in list if filtering is enabled.
+T}
+_
+T{
+\fBg\fP
+T}	T{
+Switch to next filter in list if filtering is enabled.
 T}
 _
 T{
 \fBr\fP
 T}	T{
-Toggle all records
+Toggle showing all records
 T}
 _
 T{
@@ -391,6 +688,35 @@ Align right
 T}
 _
 T{
+\fBNavigation and data\fP
+T}	T{
+T}
+_
+T{
+\fBAlt+left\fP
+T}	T{
+Rewind time window by 30\(aq and load data
+T}
+_
+T{
+\fBAlt+right\fP
+T}	T{
+Progress time window by 30\(aq and load data
+T}
+_
+T{
+\fBCtrl+r\fP
+T}	T{
+(Re)load data in current visible time range
+T}
+_
+T{
+\fBCtrl+Shift+r\fP
+T}	T{
+Switch to real\-time with configured buffer size
+T}
+_
+T{
 \fBSorting\fP
 T}	T{
 T}
@@ -455,6 +781,12 @@ Vertical zoom\-in
 T}
 _
 T{
+\fBs\fP
+T}	T{
+Toggle amplitude normalization
+T}
+_
+T{
 \fBCtrl+mouse wheel\fP
 T}	T{
 Vertical and horizontal zooming
@@ -463,11 +795,11 @@ _
 T{
 \fBz\fP
 T}	T{
-Toggle zoom
+Enable/disable zooming: Drag window with left mouse button
 T}
 _
 .TE
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/scrttv.cfg\fP
@@ -482,47 +814,63 @@ scrttv inherits global options\&.
 .INDENT 0.0
 .TP
 .B maxDelay
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
-If greater than 0 then all traces for which the data latency is higher
-than this value are hidden.
-Default is \fB0\fP\&.
+If greater than 0, then all traces for which the data latency is
+higher than this value are hidden.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B resortAutomatically
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
-If enabled then all traces are sorted by distance when a new
+If enabled, then all traces are sorted by distance when a new
 origin arrives.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B showPicks
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 If enabled, picks are shown.
-Default is \fBtrue\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B mapPicks
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Map picks to best matching rows. This is important
+if picks created on BHN should be shown but only the BHZ trace
+is part of the list. Network code, station code and location code
+must match anyway.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B filter
 Type: \fIstring\fP
 .sp
-Defines the filter to be used when filtering is activated. This
+Define the filter to be used when filtering is activated. This
 is only being used if filters is not set otherwise it is
 overridden. This option is mainly for backward compatibility.
-Default is \fBBW(3, 0.5, 8.0)\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B filters
+Default: \fB"RMHP(2)>>ITAPER(5)>>BW(3,0.5,8.0)","RMHP(2)>>ITAPER(5)>>BW_HP(3, 3)"\fP
+.sp
 Type: \fIlist:string\fP
 .sp
-Defines a list of filters that is cycles through when pressing \(aqf\(aq.
+Define a list of filters that is cycles through when pressing \(aqf\(aq.
 This options supersedes the filter option. If not defined then
 filter is used instead. If defined then this filter list is
 used exclusively and the filter option is ignored.
@@ -530,57 +878,90 @@ used exclusively and the filter option is ignored.
 .INDENT 0.0
 .TP
 .B autoApplyFilter
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
-Activates the first filter of the configured filter list
+Activate the first filter of the configured filter list
 after startup. This is equivalent to pressing \(aqf\(aq.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B bufferSize
+Default: \fB1800\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
-Defines the buffer size in seconds of the ring bu of each trace.
-Default is \fB1800\fP\&.
+Define the buffer size in seconds of the ring bu of each trace.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B allTracesInitiallyVisible
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
-If set to true all traces will be visible on application startup
+If set to true, all traces will be visible on application startup
 independent of data availability.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B autoResetDelay
+Default: \fB900\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time span in seconds to switch back to the last view after an origin
-caused resorting. The default is 15min.
-Default is \fB900\fP\&.
+caused resorting. The default is 15 min.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B messaging.groups.config
+Default: \fBCONFIG\fP
+.sp
+Type: \fIstring\fP
+.sp
+The messaging group to which config messages (such
+as station enable/disable messages) are being sent.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B messaging.groups.location
+Default: \fBLOCATION\fP
+.sp
+Type: \fIstring\fP
+.sp
+The messaging group to which location messages
+are being sent.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B streams.codes
 Type: \fIlist:string\fP
 .sp
-The list of channel codes
-to be displayed. List items may contain wildcards at any position
-and are separated by comma.
-The list is  intersected with all channels configured in inventory.
+The list of channel codes to be displayed. List items
+may contain wildcards at any position and are separated
+by comma. Wildcard support depends on RecordStream,
+e.g.:
+.sp
+caps/sdsarchive: *.*.*.*
+.sp
+slink: NET.STA.*.*
+.sp
+The channel list is intersected with all channels
+configured in inventory unless \-\-no\-inventory is used.
 .sp
 Examples:
 .sp
-default : display all streams configured by global bindings
+default : display all streams configured by global
+bindings
 .sp
-default, PF.BON.00.HH? : display default and all HH streams of PF.BON.00
+default, PF.BON.00.HH? : display default and all HH
+streams of PF.BON.00
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -609,95 +990,110 @@ than rows are loaded, the are accessible by a scroll bar.
 .B streams.groups
 Type: \fIstring\fP
 .sp
-Stream group profiles to be considered. Use comma separation for
-a list of groups.
+Stream group profiles to be considered which must be defined in
+group section. Use comma separation for a list of groups.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streams.profiles
+Type: \fIstring\fP
+.sp
+Stream profiles to be considered which must be defined in
+profile section. Use comma separation for a list of profiles.
 .UNINDENT
 .sp
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
 \fBstreams.sort.*\fP
-\fIConfigures the initial stream sorting.\fP
+\fIConfigure the initial stream sorting.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
 .B streams.sort.mode
+Default: \fBdistance\fP
+.sp
 Type: \fIstring\fP
 .sp
 The sort mode applied initially. Allowed values
 are: config, distance, station, network, group.
-Default is \fBdistance\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B streams.sort.latitude
+Default: \fB0.0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
 .sp
 Latitude of the initial location for sorting traces.
 Only valid if mode == distance.
-Default is \fB0.0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B streams.sort.longitude
+Default: \fB0.0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
 .sp
 Longitude of the initial location for sorting traces.
 Only valid if mode == distance.
-Default is \fB0.0\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
 \fBstreams.region.*\fP
-\fIDefines a region used for clipping requested stations.\fP
+\fIDefine a region used for clipping requested stations.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
 .B streams.region.lonmin
+Default: \fB\-180.0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
 .sp
 Minimum longitude.
-Default is \fB\-180.0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B streams.region.lonmax
+Default: \fB180.0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
 .sp
 Maximum longitude.
-Default is \fB180.0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B streams.region.latmin
+Default: \fB\-90.0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
 .sp
 Minimum latitude.
-Default is \fB\-90.0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B streams.region.latmax
+Default: \fB90.0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
 .sp
 Maximum latitude.
-Default is \fB90.0\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -758,7 +1154,7 @@ Title of the group visible as a tooltip of the traces.
 .INDENT 0.0
 .INDENT 3.5
 \fBstreams.group.$name.pen.*\fP
-\fIDefines the trace pen of the group.\fP
+\fIDefine the trace pen of the group.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -775,7 +1171,7 @@ by "streams.group.$profile.gradient" .
 .B streams.group.$name.pen.gradient
 Type: \fIgradient\fP
 .sp
-Defines the color gradient used to generate the
+Define the color gradient used to generate the
 trace color for each group member. When given, the
 value in "streams.group.$profile.pen.color"
 is ignored. The colors are distributed equally and
@@ -797,39 +1193,306 @@ Examples:
 .INDENT 0.0
 .TP
 .B streams.group.$name.pen.style
+Default: \fBSolidLine\fP
+.sp
 Type: \fIstring\fP
 .sp
 The style of the pen. Supported values are: NoPen,
-SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
-Default is \fBSolidLine\fP\&.
+SolidLine, DashLine, DotLine, DashDotLine,
+DashDotDotLine.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B streams.group.$name.pen.width
+Default: \fB1.0\fP
+.sp
 Type: \fIdouble\fP
 .sp
+Unit: \fIpx\fP
+.sp
 The width of the pen.
-Default is \fB1.0\fP\&.
 .UNINDENT
-.SH COMMAND-LINE
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBstreams.profile.*\fP
+\fIDefiniton of profiles for streams shown with unique decorations.\fP
+\fIRegister the profiles in "profiles" to apply them.\fP
+.UNINDENT
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBstreams.profile.$name.*\fP
+$name is a placeholder for the name to be used and needs to be added to \fI\%streams.profiles\fP to become active.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+streams.profiles = a,b
+streams.profile.a.value1 = ...
+streams.profile.b.value1 = ...
+# c is not active because it has not been added
+# to the list of streams.profiles
+streams.profile.c.value1 = ...
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streams.profile.$name.match
+Type: \fIstring\fP
+.sp
+Stream applying this profile to. Use regular expressions
+for defining multiple streams. Examples:
+.sp
+GR.BFO.00.BHZ: One stream on vertical component
+.sp
+GR.*.00.BHZ: All stations from GR network and their
+vertical components.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streams.profile.$name.description
+Type: \fIstring\fP
+.sp
+Text added to streams.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streams.profile.$name.minMaxMargin
+Default: \fB0.0\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Fraction of trace amplitude added to trace widgets.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streams.profile.$name.unit
+Type: \fIstring\fP
+.sp
+The physical unit shown along with stream maximum and
+minimum values.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streams.profile.$name.gain
+Default: \fB0.0\fP
+.sp
+Type: \fIdouble\fP
+.sp
+The gain applied to scale trace amplitudes. 0 disables
+showing trace amplitude value
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streams.profile.$name.fixedScale
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBstreams.profile.$name.minimum.*\fP
+\fIProperties defining the minimum line on each trace.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streams.profile.$name.minimum.value
+Default: \fB0.0\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Value at which to draw a line.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBstreams.profile.$name.minimum.pen.*\fP
+\fILine properties.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streams.profile.$name.minimum.pen.width
+Default: \fB1\fP
+.sp
+Type: \fIstring\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streams.profile.$name.minimum.pen.style
+Default: \fBsolidline\fP
+.sp
+Type: \fIstring\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streams.profile.$name.minimum.pen.color
+Default: \fB000000ff\fP
+.sp
+Type: \fIstring\fP
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBstreams.profile.$name.minimum.brush.*\fP
+\fIProperties of the area below the minimum.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streams.profile.$name.minimum.brush.style
+Default: \fBnobrush\fP
+.sp
+Type: \fIstring\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streams.profile.$name.minimum.brush.color
+Default: \fB000000ff\fP
+.sp
+Type: \fIstring\fP
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBstreams.profile.$name.maximum.*\fP
+\fIProperties defining the maximum line on each trace.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streams.profile.$name.maximum.value
+Default: \fB0.0\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Value at which to draw a line.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBstreams.profile.$name.maximum.pen.*\fP
+\fILine properties.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streams.profile.$name.maximum.pen.width
+Default: \fB1\fP
+.sp
+Type: \fIstring\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streams.profile.$name.maximum.pen.style
+Default: \fBsolidline\fP
+.sp
+Type: \fIstring\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streams.profile.$name.maximum.pen.color
+Default: \fB000000ff\fP
+.sp
+Type: \fIstring\fP
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBstreams.profile.$name.maximum.brush.*\fP
+\fIProperties of the area above the maximum.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streams.profile.$name.maximum.brush.style
+Default: \fBnobrush\fP
+.sp
+Type: \fIstring\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B streams.profile.$name.maximum.brush.color
+Default: \fB000000ff\fP
+.sp
+Type: \fIstring\fP
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBassociator.*\fP
+\fIDefine parameters for manually associating phases to origin and\fP
+\fIfor locating the origins.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B associator.defaultLocator
+Type: \fIstring\fP
+.sp
+The locator which is activated as default locator.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B associator.defaultLocatorProfile
+Type: \fIstring\fP
+.sp
+The locator profile which is activated as default profile for
+the default locator.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B associator.fixedDepths
+Default: \fB0, 10, 18\fP
+.sp
+Type: \fIlist:double\fP
+.sp
+Unit: \fIkm\fP
+.sp
+A list of depths used to populate the locator depth selection
+dropdown list.
+.UNINDENT
+.SH COMMAND-LINE OPTIONS
+.sp
+\fBscrttv [options] [miniSEED file]\fP
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -838,56 +1501,55 @@ Load given plugins.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-D, \-\-daemon
-Run as daemon. This means the application will fork itself and
-doesn\(aqt need to be started with &.
-.UNINDENT
-.INDENT 0.0
-.TP
 .B \-\-auto\-shutdown arg
-Enable/disable self\-shutdown because a master module shutdown. This only
-works when messaging is enabled and the master module sends a shutdown
-message (enabled with \-\-start\-stop\-msg for the master module).
+Enable/disable self\-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with \-\-start\-stop\-msg
+for the master module).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-module arg
-Sets the name of the master\-module used for auto\-shutdown. This
-is the application name of the module actually started. If symlinks
-are used then it is the name of the symlinked application.
+Set the name of the master\-module used for auto\-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-username arg
-Sets the name of the master\-username of the messaging used for
-auto\-shutdown. If "shutdown\-master\-module" is given as well this
-parameter is ignored.
+Set the name of the master\-username of the messaging
+used for auto\-shutdown. If "shutdown\-master\-module" is
+given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -902,12 +1564,27 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-log\-file arg
 Use alternative log file.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-print\-component arg
+For each log entry print the component right after the
+log level. By default the component output is enabled
+for file output but disabled for console output.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-trace
+Execute in trace mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 \-\-print\-component=1
+\-\-print\-context=1 .
 .UNINDENT
 .SS Messaging
 .INDENT 0.0
@@ -933,7 +1610,8 @@ Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
 .INDENT 0.0
 .TP
 .B \-S, \-\-subscribe\-group arg
-A group to subscribe to. This option can be given more than once.
+A group to subscribe to.
+This option can be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -943,7 +1621,7 @@ Overrides configuration parameter \fBconnection.contentType\fP\&.
 .INDENT 0.0
 .TP
 .B \-\-start\-stop\-msg arg
-Sets sending of a start\- and a stop message.
+Set sending of a start and a stop message.
 .UNINDENT
 .SS Database
 .INDENT 0.0
@@ -954,19 +1632,21 @@ List all supported database drivers.
 .INDENT 0.0
 .TP
 .B \-d, \-\-database arg
-The database connection string, format: \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which can be
-queried with "\-\-db\-driver\-list".
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+"service" is the name of the database driver which
+can be queried with "\-\-db\-driver\-list".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-module arg
-The configmodule to use.
+The config module to use.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-inventory\-db arg
-Load the inventory from the given database or file, format: [\fI\%service://]location\fP
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -977,15 +1657,17 @@ Do not use the database at all
 .INDENT 0.0
 .TP
 .B \-\-record\-driver\-list
-List all supported record stream drivers
+List all supported record stream drivers.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-I, \-\-record\-url arg
-The recordstream source URL, format: [\fI\%service://\fP]location[#type].
-"service" is the name of the recordstream driver which can be
-queried with "\-\-record\-driver\-list". If "service"
-is not given "\fI\%file://\fP" is used.
+The recordstream source URL, format:
+[\fI\%service://\fP]location[#type].
+"service" is the name of the recordstream driver
+which can be queried with "\-\-record\-driver\-list".
+If "service" is not given, "\fI\%file://\fP" is
+used.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -997,6 +1679,12 @@ Specify a file as record source.
 .B \-\-record\-type arg
 Specify a type for the records being read.
 .UNINDENT
+.SS Options
+.INDENT 0.0
+.TP
+.B \-i, \-\-input\-file xml
+Load picks in given XML file during startup
+.UNINDENT
 .SS Mode
 .INDENT 0.0
 .TP
@@ -1006,40 +1694,85 @@ Overrides configuration parameter \fI\%filter\fP\&.
 .INDENT 0.0
 .TP
 .B \-\-offline
-Do not connect to a messaging server and do not use the database.
+Do not connect to a messaging server and do not use the
+database.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-no\-inventory
-Do not read streams from inventory but display all streams available from
-the specified record source. This option may be combined with the streams.codes
-parameter to filter the available streams.
+Do not read streams from inventory but display all streams
+available from the specified record source. This option may
+be combined with the streams.codes parameter to filter the
+available streams.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-end\-time arg
-Set the acquisition end time, e.g. \(aq2017\-09\-08 13:30:00\(aq, default: \(aqgmt\(aq
+Set the acquisition end time, e.g. \(aq2017\-09\-08 13:30:00\(aq,
+default: \(aqgmt\(aq.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-buffer\-size arg
-Sets the size of the waveform buffer in seconds, default: 1800
+Set the size of the waveform buffer in seconds, default: 1800
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-max\-delay arg
-The maximum delay in seconds to keep a trace visible (0 to disable)
+The maximum delay in seconds to keep a trace visible
+(0 to disable).
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-initially\-visible\-all
-Overrides configuration parameter \fI\%allTracesInitiallyVisible\fP\&.
+.B \-\-start\-at\-now
+Subscribe to data starting at now rather than now \- bufferSize
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-rt
-Don\(aqt ask for time window at data server. This might be important if
-e.g. Seedlink does not allow time window extraction.
+Do not ask for time window at data server. This might be
+important if e.g. Seedlink does not allow time window
+extraction.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-map\-picks
+Map picks to best matching rows. This is important
+if picks created on BHN should be shown but only the BHZ trace
+is part of the list. Network code, station code and location code
+must match anyway.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-channels
+Channel(s) to display. The channel code may contain wildcards
+at any position but the support of wildcards depends on
+RecordStream. Repeat the option for multiple
+channel groups. Examples:
+.sp
+default : all streams configured by global bindings.
+.sp
+GE.*.*.HH? : all HH streams of all stations from GE network.
+.UNINDENT
+.SS Cities
+.INDENT 0.0
+.TP
+.B \-\-city\-xml arg
+The path to the cities XML file. This overrides the default
+paths. Compare with the global parameter "citiesXML".
+.UNINDENT
+.SS User interface
+.INDENT 0.0
+.TP
+.B \-F, \-\-full\-screen
+Start the application filling the entire screen.
+This only works with GUI applications.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-N, \-\-non\-interactive
+Use non\-interactive presentation mode. This only works with
+GUI applications.
 .UNINDENT
 .SH AUTHOR
 gempa GmbH, GFZ Potsdam

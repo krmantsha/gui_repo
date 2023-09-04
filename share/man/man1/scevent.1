@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCEVENT" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCEVENT" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scevent \- SeisComP Documentation
 .
@@ -423,7 +423,7 @@ RegionCheck
 .sp
 evrc plugin for scevent
 .UNINDENT
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/scevent.cfg\fP
@@ -445,6 +445,8 @@ Prefix for all Event IDs
 .INDENT 0.0
 .TP
 .B eventIDPattern
+Default: \fB%p%Y%04c\fP
+.sp
 Type: \fIstring\fP
 .sp
 Defines the pattern to generate an event ID.
@@ -464,7 +466,34 @@ Defines the pattern to generate an event ID.
 %[w]X: upper case hexadecimal
 .sp
 [w] is an optional width parameter.
-Default is \fB%p%Y%04c\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventIDLookupMargin
+Default: \fB\-1\fP
+.sp
+Type: \fIinteger\fP
+.sp
+Configures the number of event ID slots to look back and
+forth when an event ID is already taken. The default in
+previous versions was 5. Now \-1 means that the margin is
+determined automatically based on "eventAssociation.eventTimeBefore"
+and "eventAssociation.eventTimeAfter". According to the
+configured "eventIDPattern" a fixed time range per slot
+can be computed and with that width the number of look
+ahead slots and look back slots can be computed based on
+the given time ranges for event association.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B populateFERegion
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+If enabled then the EventDescription with type
+\(aqFlinn\-Engdahl region\(aq will be populated with the
+Flinn\-Engdahl region name.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -490,11 +519,12 @@ is used ABCD has to be blacklisted.
 .INDENT 0.0
 .TP
 .B eventAssociation.minimumDefiningPhases
+Default: \fB10\fP
+.sp
 Type: \fIint\fP
 .sp
 Minimum number of Picks for an Origin that is automatic and cannot be
 associated with an Event to be allowed to form an new Event.
-Default is \fB10\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -513,46 +543,52 @@ processor to evaluate a proper score for all input Origins.
 .INDENT 0.0
 .TP
 .B eventAssociation.ignoreFMDerivedOrigins
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Ignore and do not associate Origins derived
 from CMT/MT inversions.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventAssociation.eventTimeBefore
+Default: \fB1800\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time range before the Origin time of an incoming Origin to search for
 matching events.
-Default is \fB1800\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventAssociation.eventTimeAfter
+Default: \fB1800\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
 Time range after the Origin time of an incoming Origin to search for
 matching events.
-Default is \fB1800\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventAssociation.minimumMatchingArrivals
+Default: \fB3\fP
+.sp
 Type: \fIint\fP
 .sp
 Minimum number of matching picks between two Origins to be associated
 to the same event.
-Default is \fB3\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventAssociation.maximumMatchingArrivalTimeDiff
+Default: \fB\-1\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
@@ -561,11 +597,12 @@ Negative time window: compare only pickIDs to find
 matching arrivals. A non negative
 value (including 0) compares pick times regardless
 of the pickID. Pass: |pick1.time \- pick2.time| <= threshold
-Default is \fB\-1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventAssociation.compareAllArrivalTimes
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 This parameter is only used in conjunction with
@@ -575,19 +612,21 @@ particular event, this flag defines if the time distance
 of a new pick to all arrivals must be within
 eventAssociation.maximumMatchingArrivalTimeDiff
 or if one matching arrival is enough.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventAssociation.allowLooseAssociatedArrivals
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Allows to match picks that are associated with weight 0.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventAssociation.maximumTimeSpan
+Default: \fB60\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
@@ -595,22 +634,24 @@ Unit: \fIs\fP
 Associates an Origin with an existing event  if the Origin
 time differs not more than 60 seconds unless the
 minimumMatchingArrivals criteria matches.
-Default is \fB60\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventAssociation.maximumDistance
+Default: \fB5\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIdegrees\fP
 .sp
 Allowed location difference between an incoming Origin compared with
 preferred Origins to get associated.
-Default is \fB5\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventAssociation.magTypes
+Default: \fBM\fP
+.sp
 Type: \fIlist:string\fP
 .sp
 Magnitude type priority list for becoming a preferred magnitude for an
@@ -619,56 +660,62 @@ event.
 Example:
 .sp
 M, mBc, Mw(mB), Mwp, ML, MLh, MLv, mb
-Default is \fBM\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventAssociation.enableFallbackMagnitude
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 If true, one magnitude will be preferred even if magnitude criteria are
 not fullfilled.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventAssociation.minimumMagnitudes
+Default: \fB4\fP
+.sp
 Type: \fIint\fP
 .sp
 Minimum number of station magnitudes referenced to a network magnitude
 to become a preferred magnitude.
-Default is \fB4\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventAssociation.minMwCount
+Default: \fB8\fP
+.sp
 Type: \fIint\fP
 .sp
 Minimum number of station magnitudes required for Mw(mB) to be considered as
 preferred magnitude.
-Default is \fB8\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventAssociation.mbOverMwCount
+Default: \fB30\fP
+.sp
 Type: \fIint\fP
 .sp
 Minimum number of station magnitudes which ensures that Mw(mB) will be
 preferred and not mb.
-Default is \fB30\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventAssociation.mbOverMwValue
+Default: \fB6\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Average between mb and Mw(mB) which must be exceeded to become Mw(mB)
 preferred.
-Default is \fB6\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventAssociation.magPriorityOverStationCount
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 If false then the station count rules out the magnitude priority
@@ -678,11 +725,12 @@ same station count.
 If true then the priority rules out the station count
 which is only taken into account if two magnitudes have the
 same priority.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventAssociation.priorities
+Default: \fBAGENCY, STATUS, PHASES_AUTOMATIC, TIME_AUTOMATIC\fP
+.sp
 Type: \fIlist:string\fP
 .sp
 The general priority list to decide if an Origin becomes preferred.
@@ -731,7 +779,6 @@ TIME_AUTOMATIC: only check creationTime priority on incoming automatic Origins
 .sp
 SCORE: evaluates the score according to a configured ScoreProcessor and
 prefers the Origin/Focalmechanism with the highest score.
-Default is \fBAGENCY, STATUS, PHASES_AUTOMATIC, TIME_AUTOMATIC\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -784,13 +831,14 @@ The parameter is only considered when defined in "priorities".
 .INDENT 0.0
 .TP
 .B eventAssociation.declareFakeEventForRejectedOrigin
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 If the preferred Origin has evaluation status \(aqrejected\(aq, the
 Event type will be set to \(aqnot existing\(aq unless the Event
 type has been fixed by an operator or the preferred Origin
 has been fixed.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -803,12 +851,24 @@ Configures a timespan to delay Event creation. If a new Origin arrives
 which cannot be associated to an existing Event, delay the Event creation for a certain
 timespan.
 .UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBeventAssociation.region.*\fP
+\fIRegion filter for creating events. Use with care! Origins\fP
+\fIoutside may be ignored even if they would\fP
+\fIbecome preferred otherwise.\fP
+.UNINDENT
+.UNINDENT
 .INDENT 0.0
 .TP
 .B eventAssociation.region.rect
 Type: \fIstring\fP
 .sp
-Region in which scevent is allowed to create Events.
+Region by geographic coordinates.
+.sp
+Format: "South, East, North, West"
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -817,7 +877,7 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIkm\fP
 .sp
-Minimum depth for which scevent is allowed to create Events.
+Minimum depth.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -826,7 +886,7 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIkm\fP
 .sp
-Maximum depth for which scevent is allowed to create Events.
+Maximum depth.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -869,14 +929,49 @@ evrc plugin for scevent
 \fBrc.*\fP
 \fITest if events lie within or outside a region.\fP
 \fIEvents within a region are flagged as positive, outside as negative.\fP
-\fIThe event type is set accordingly.\fP
-\fIAdd the plugin "evrc" to the  plugins\fP
-\fIparameter to make this feature available.\fP
+\fIThe event type is set accordingly. Add the\fP
+\fIplugin "evrc" to the plugins parameter in the\fP
+\fIorder of priority to make this feature available. Read the\fP
+\fIdocumentation of the RegionCheck for more details.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
+.B rc.setEventType
+Default: \fBtrue\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Allow setting the event type.
+The type of events which have manual origins will
+not be changed unless configured explicitely by
+"overwriteManual".
+.UNINDENT
+.INDENT 0.0
+.TP
+.B rc.overwriteEventType
+Default: \fBtrue\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Allow overwriting existing event types. Disabling does not
+allow accounting for changes in source region.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B rc.overwriteManual
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Allow setting the event type if the mode of the preferred
+origin is manual or if the event type was set manually.
+.UNINDENT
+.INDENT 0.0
+.TP
 .B rc.regions
+Default: \fB!reject\fP
+.sp
 Type: \fIlist:string\fP
 .sp
 The list of closed BNA polygon names defining regions for
@@ -909,11 +1004,12 @@ All events are flagged positive but events within the polygon "germany"
 are negative and all events within the polygon "saxony" are positive:
 .sp
 accept,!germany,saxony
-Default is \fB!reject\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B rc.readEventTypeFromBNA
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Read the event type, minDepth and maxDepth from the BNA polygon header. The header may contain
@@ -923,7 +1019,6 @@ the values, e.g. header of a polygon with name "quarry":
 .sp
 When eventType is set, it supersedes eventTypePositive and eventTypeNegative.
 When not set, eventTypePositive and eventTypeNegative are considered.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -938,33 +1033,36 @@ Empty: Do not set type
 .INDENT 0.0
 .TP
 .B rc.eventTypeNegative
+Default: \fB"outside of network interest"\fP
+.sp
 Type: \fIstring\fP
 .sp
 New type of an event which is flagged negative. Ignored
 if readEventTypeFromBNA is active.
 .sp
 Empty means default: "outside of network interest"
-Default is \fB"outside of network interest"\fP\&.
 .UNINDENT
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -974,29 +1072,31 @@ Load given plugins.
 .INDENT 0.0
 .TP
 .B \-D, \-\-daemon
-Run as daemon. This means the application will fork itself and
-doesn\(aqt need to be started with &.
+Run as daemon. This means the application will fork itself
+and doesn\(aqt need to be started with &.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-auto\-shutdown arg
-Enable/disable self\-shutdown because a master module shutdown. This only
-works when messaging is enabled and the master module sends a shutdown
-message (enabled with \-\-start\-stop\-msg for the master module).
+Enable/disable self\-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with \-\-start\-stop\-msg
+for the master module).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-module arg
-Sets the name of the master\-module used for auto\-shutdown. This
-is the application name of the module actually started. If symlinks
-are used then it is the name of the symlinked application.
+Set the name of the master\-module used for auto\-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-username arg
-Sets the name of the master\-username of the messaging used for
-auto\-shutdown. If "shutdown\-master\-module" is given as well this
-parameter is ignored.
+Set the name of the master\-username of the messaging
+used for auto\-shutdown. If "shutdown\-master\-module" is
+given as well, this parameter is ignored.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1013,27 +1113,30 @@ Only the status of the association is written to stdout.
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1048,7 +1151,8 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1079,12 +1183,13 @@ Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
 .INDENT 0.0
 .TP
 .B \-S, \-\-subscribe\-group arg
-A group to subscribe to. This option can be given more than once.
+A group to subscribe to.
+This option can be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-start\-stop\-msg arg
-Sets sending of a start\- and a stop message.
+Set sending of a start and a stop message.
 .UNINDENT
 .SS Database
 .INDENT 0.0
@@ -1095,19 +1200,21 @@ List all supported database drivers.
 .INDENT 0.0
 .TP
 .B \-d, \-\-database arg
-The database connection string, format: \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which can be
-queried with "\-\-db\-driver\-list".
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+"service" is the name of the database driver which
+can be queried with "\-\-db\-driver\-list".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-module arg
-The configmodule to use.
+The config module to use.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-inventory\-db arg
-Load the inventory from the given database or file, format: [\fI\%service://]location\fP
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
 .UNINDENT
 .INDENT 0.0
 .TP

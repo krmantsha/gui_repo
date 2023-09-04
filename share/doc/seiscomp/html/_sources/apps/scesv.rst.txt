@@ -6,7 +6,7 @@
 scesv
 #####
 
-**Event summary view**
+**Event summary view.**
 
 
 Description
@@ -17,7 +17,17 @@ about the current event including location, time, strength, type and processing 
 Additional to the current event older events can also be chosen from the eventlist in the
 events tab.
 
-The two tabs of scesv are shown in :ref:`fig-events` and :ref:`fig-summary`.
+The two tabs of scesv are
+
+* Events tab showing the list of loaded events, compare Fig. :ref:`fig-events`
+* Summary tab with the details of the selected event, see Fig. :ref:`fig-summary`.
+
+
+.. _scesv-events-tab:
+
+Events Tab
+==========
+
 The Events tab shows the eventlist of the time span defined on the bottom side of
 the window. A the Events tab is also available for other GUIs, such as :ref:`scolv`
 it can be configured in the global module configuration.
@@ -26,7 +36,7 @@ details.
 
 .. _fig-events:
 
-.. figure:: media/scesv/Eventlist_tab_of_scesv.jpg
+.. figure:: media/scesv/scesv-events.png
    :width: 16cm
    :align: center
 
@@ -36,22 +46,35 @@ details.
    List options: Show fake events, Reading 1: spinbox to limit timespan of displayed events (in days),
    Reading 2: spinboxes to limit timespan of displayed events (specified dates), Status: connection status
 
+.. note::
 
-The actual (default) or selected event (from eventlist) is shown in the (:ref:`fig-summary`).
+   As for :ref:`scolv` filtering of the event list and custom information can be
+   added to the event list by configuration. Read the scolv documentation on
+   :ref:`event filtering <scolv-events-filtering>` and :ref:`custom action <scolv-custom-actions>`
+   for the details.
+
+
+.. _scesv-summary-tab:
+
+Summary Tab
+===========
+
+The most recent (default) or the event selected from the event list is shown in
+the Summary tab, see Fig. :ref:`fig-summary`.
 Here the information are highlighted in four sections:
 
 ====================  =====================================================
 section               description
 ====================  =====================================================
-Time                  orign time in UTC and relative to now
-Region                a map of the region and location with the event and stations
-Magnitude             different magnitude types, the values and counts
-Hypocenter            origin information with location, depth, azimuthal gap etc.
+Time                  Orign time in UTC and relative to now
+Region                A map of the region and location with the event and stations
+Magnitude             Different magnitude types, the values and counts
+Hypocenter            Origin information with location, depth, azimuthal gap etc.
 ====================  =====================================================
 
 .. _fig-summary:
 
-.. figure:: media/scesv/Summary_tab_of_scesv.jpg
+.. figure:: media/scesv/scesv-summary.png
    :width: 16cm
    :align: center
 
@@ -67,24 +90,28 @@ Hypocenter            origin information with location, depth, azimuthal gap etc
 Hotkeys
 =======
 
-=============  =======================================
-Hotkey         Description
-=============  =======================================
-:kbd:`F2`      Setup connection dialog
-:kbd:`F6`      Show propagation of P and S wave
-:kbd:`F8`      Toggle auto update
-:kbd:`F9`      Show raypaths and associated stations
-:kbd:`F10`     Toggle tabs
-:kbd:`F11`     Toggle fullscreen
-Mouse wheel    Zoom map in/out
-Double click   Center map
-=============  =======================================
+=================  =======================================
+Hotkey             Description
+=================  =======================================
+:kbd:`F1`          Open |scname| documentation
+Shift + :kbd:`F1`  Open scesv documentation
+:kbd:`F2`          Setup connection dialog
+:kbd:`F6`          Show propagation of P and S wave
+:kbd:`F7`          Show focal mechanism by beach ball
+Shift + :kbd:`F7`  Show focal mechanism by beach ball
+:kbd:`F8`          Toggle auto update
+:kbd:`F9`          Show raypaths and associated stations
+:kbd:`F10`         Toggle tabs
+:kbd:`F11`         Toggle fullscreen
+Mouse wheel        Zoom map in/out
+Double click       Center map
+=================  =======================================
 
 
 .. _scesv_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 | :file:`etc/defaults/global.cfg`
 | :file:`etc/defaults/scesv.cfg`
@@ -99,14 +126,18 @@ scesv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: loadEventDB
 
+   Default: ``1``
+
    Type: *double*
 
    Unit: *days*
 
    Number of days to preload if scesv is started.
-   Default is ``1``.
+
 
 .. confval:: showLastAutomaticSolution
+
+   Default: ``false``
 
    Type: *boolean*
 
@@ -114,39 +145,47 @@ scesv inherits :ref:`global options<global-configuration>`.
    current solution in the summary panel. If the last automatic
    solution differs from the current solution it is displayed
    in red. If both solutions match it is displayed in gray.
-   Default is ``false``.
+
 
 .. confval:: showOnlyMostRecentEvent
 
+   Default: ``true``
+
    Type: *boolean*
 
-   If enabled only the most recent event is shown even if an update of
+   If enabled, only the most recent event is shown even if an update of
    an older event is being received.
-   Default is ``true``.
+
 
 .. confval:: recenterMap
+
+   Default: ``true``
 
    Type: *boolean*
 
    If enabled, the map is centered around the most recent event event.
-   Default is ``true``.
+
 
 .. confval:: enableFixAutomaticSolutions
 
+   Default: ``false``
+
    Type: *boolean*
 
-   If enabled, an additional button is displayed which allows to switch back
-   the latest automatic solution. This button triggers an command for
-   scevent to prioritize automatic solutions until the next manual
-   solution is available.
-   Default is ``false``.
+   If enabled, an additional button is displayed which allows to
+   switch back the latest automatic solution. This button triggers
+   an command for scevent to prioritize automatic solutions until
+   the next manual solution is available.
+
 
 .. confval:: visibleMagnitudes
+
+   Default: ``M,MLv,mb,mB,Mw(mB)``
 
    Type: *list:string*
 
    A list of magnitude types to be displayed.
-   Default is ``M,MLv,mb,mB,Mw(mB)``.
+
 
 .. confval:: button0
 
@@ -164,11 +203,14 @@ scesv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: ignoreOtherEvents
 
+   Default: ``true``
+
    Type: *boolean*
 
-   If the event type is either \"other\" or \"not existing\"
-   and this flag is true then the event will not be shown.
-   Default is ``true``.
+   If the event type is either \"other\" or
+   \"not existing\" and this flag is true then the
+   event will not be shown.
+
 
 .. confval:: scripts.script0
 
@@ -186,46 +228,62 @@ scesv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: scripts.script0.exportMap
 
+   Default: ``false``
+
    Type: *boolean*
 
-   If enabled, the current map is exported to file. The filename is appened to the parameter list of script0. The script has to take ownership of the file.
-   Default is ``false``.
+   If enabled, the current map is exported to file.
+   The filename is appened to the parameter list of script0.
+   The script has to take ownership of the file.
+
 
 .. confval:: scripts.script0.oldStyle
 
+   Default: ``true``
+
    Type: *boolean*
 
-   If enabled, the parameter list of script0 is eventID, arrivalCount,
-   magnitude, description.
+   If enabled, the parameter list of script0 is event ID,
+   arrival count, magnitude, description.
    
-   If disabled, the parameter list of script0 is eventID, preferredOriginID,
-   preferredMagnitudeID, preferredFocalMechanismID.
-   Default is ``true``.
+   If disabled, the parameter list of script0 is event ID,
+   preferredOriginID, preferredMagnitudeID,
+   preferredFocalMechanismID.
+
 
 .. confval:: scripts.script1.exportMap
 
+   Default: ``false``
+
    Type: *boolean*
 
-   If enabled, the current map is exported to file. The filename is appened to the parameter list of script1. The script has to take ownership of the file.
-   Default is ``false``.
+   If enabled, the current map is exported to file.
+   The filename is appened to the parameter list of script1.
+   The script has to take ownership of the file.
+
 
 .. confval:: scripts.script1.oldStyle
 
+   Default: ``true``
+
    Type: *boolean*
 
-   If enabled, the parameter list of script1 is eventID, arrivalCount,
-   magnitude, description.
+   If enabled, the parameter list of script1 is event ID,
+   arrivalCount, magnitude, description.
    
-   If disabled, the parameter list of script1 is eventID, preferredOriginID,
-   preferredMagnitudeID, preferredFocalMechanismID.
-   Default is ``true``.
+   If disabled, the parameter list of script1 is event ID,
+   preferredOriginID, preferredMagnitudeID,
+   preferredFocalMechanismID.
+
 
 .. confval:: summary.borders
+
+   Default: ``false``
 
    Type: *boolean*
 
    Draw borders in the summary panel.
-   Default is ``false``.
+
 
 .. note::
    **display.\***
@@ -235,39 +293,47 @@ scesv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: display.lonmin
 
+   Default: ``-180``
+
    Type: *double*
 
    Unit: *deg*
 
    Minimum longitude of initially displayed map region.
-   Default is ``-180``.
+
 
 .. confval:: display.lonmax
+
+   Default: ``180``
 
    Type: *double*
 
    Unit: *deg*
 
    Maximum longitude of initially displayed map region.
-   Default is ``180``.
+
 
 .. confval:: display.latmin
+
+   Default: ``-90``
 
    Type: *double*
 
    Unit: *deg*
 
    Minimum latitude of initially displayed map region.
-   Default is ``-90``.
+
 
 .. confval:: display.latmax
+
+   Default: ``90``
 
    Type: *double*
 
    Unit: *deg*
 
    Maximum latitude of initially displayed map region.
-   Default is ``90``.
+
 
 .. note::
    **display.event.\***
@@ -286,7 +352,8 @@ scesv inherits :ref:`global options<global-configuration>`.
 
    Type: *string*
 
-   Value to be shown in case no valid event comment is found.
+   Value to be shown in case no valid event comment is
+   found.
 
 
 .. confval:: display.event.comment.label
@@ -319,7 +386,8 @@ scesv inherits :ref:`global options<global-configuration>`.
 
    Type: *string*
 
-   Value to be shown in case no valid origin comment is found.
+   Value to be shown in case no valid origin comment is
+   found.
 
 
 .. confval:: display.origin.comment.label
@@ -338,12 +406,14 @@ scesv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: poi.maxDist
 
+   Default: ``20``
+
    Type: *double*
 
    Unit: *deg*
 
    Maximum distance in degrees of a POI to be taken into account.
-   Default is ``20``.
+
 
 .. confval:: poi.minPopulation
 
@@ -357,13 +427,13 @@ scesv inherits :ref:`global options<global-configuration>`.
    Type: *string*
 
    Message conversion string that converts a POI into the text
-   displayed under the region label. There are different placeholders
-   that can be used: \@dist\@, \@dir\@, \@poi\@ and \@region\@.
+   displayed under the region label. There are different
+   placeholders that can be used: \@dist\@, \@dir\@, \@poi\@ and \@region\@.
 
 
 
-Command-line
-============
+Command-Line Options
+====================
 
 .. program:: scesv
 
@@ -375,18 +445,20 @@ Generic
 
 .. option:: -h, --help
 
-   show help message.
+   Show help message.
 
 .. option:: -V, --version
 
-   show version information
+   Show version information.
 
 .. option:: --config-file arg
 
-   Use alternative configuration file. When this option is used
-   the loading of all stages is disabled. Only the given configuration
-   file is parsed and used. To use another name for the configuration
-   create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+   Use alternative configuration file. When this option is
+   used the loading of all stages is disabled. Only the
+   given configuration file is parsed and used. To use
+   another name for the configuration create a symbolic
+   link of the application or copy it. Example:
+   scautopick \-> scautopick2.
 
 .. option:: --plugins arg
 
@@ -394,21 +466,23 @@ Generic
 
 .. option:: --auto-shutdown arg
 
-   Enable\/disable self\-shutdown because a master module shutdown. This only
-   works when messaging is enabled and the master module sends a shutdown
-   message \(enabled with \-\-start\-stop\-msg for the master module\).
+   Enable\/disable self\-shutdown because a master module shutdown.
+   This only works when messaging is enabled and the master
+   module sends a shutdown message \(enabled with \-\-start\-stop\-msg
+   for the master module\).
 
 .. option:: --shutdown-master-module arg
 
-   Sets the name of the master\-module used for auto\-shutdown. This
-   is the application name of the module actually started. If symlinks
-   are used then it is the name of the symlinked application.
+   Set the name of the master\-module used for auto\-shutdown.
+   This is the application name of the module actually
+   started. If symlinks are used, then it is the name of
+   the symlinked application.
 
 .. option:: --shutdown-master-username arg
 
-   Sets the name of the master\-username of the messaging used for
-   auto\-shutdown. If \"shutdown\-master\-module\" is given as well this
-   parameter is ignored.
+   Set the name of the master\-username of the messaging
+   used for auto\-shutdown. If \"shutdown\-master\-module\" is
+   given as well, this parameter is ignored.
 
 
 Verbosity
@@ -416,23 +490,26 @@ Verbosity
 
 .. option:: --verbosity arg
 
-   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
 
 .. option:: -v, --v
 
-   Increase verbosity level \(may be repeated, eg. \-vv\)
+   Increase verbosity level \(may be repeated, eg. \-vv\).
 
 .. option:: -q, --quiet
 
-   Quiet mode: no logging output
+   Quiet mode: no logging output.
 
 .. option:: --component arg
 
-   Limits the logging to a certain component. This option can be given more than once.
+   Limit the logging to a certain component. This option can
+   be given more than once.
 
 .. option:: -s, --syslog
 
-   Use syslog logging back end. The output usually goes to \/var\/lib\/messages.
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
 
 .. option:: -l, --lockfile arg
 
@@ -444,11 +521,24 @@ Verbosity
 
 .. option:: --debug
 
-   Debug mode: \-\-verbosity\=4 \-\-console\=1
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
 
 .. option:: --log-file arg
 
    Use alternative log file.
+
+.. option:: --print-component arg
+
+   For each log entry print the component right after the
+   log level. By default the component output is enabled
+   for file output but disabled for console output.
+
+.. option:: --trace
+
+   Execute in trace mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 \-\-print\-component\=1
+   \-\-print\-context\=1 .
 
 
 Messaging
@@ -472,7 +562,8 @@ Messaging
 
 .. option:: -S, --subscribe-group arg
 
-   A group to subscribe to. This option can be given more than once.
+   A group to subscribe to.
+   This option can be given more than once.
 
 .. option:: --content-type arg
 
@@ -480,7 +571,7 @@ Messaging
 
 .. option:: --start-stop-msg arg
 
-   Sets sending of a start\- and a stop message.
+   Set sending of a start and a stop message.
 
 
 Database
@@ -492,17 +583,48 @@ Database
 
 .. option:: -d, --database arg
 
-   The database connection string, format: service:\/\/user:pwd\@host\/database.
-   \"service\" is the name of the database driver which can be
-   queried with \"\-\-db\-driver\-list\".
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
 
 .. option:: --config-module arg
 
-   The configmodule to use.
+   The config module to use.
 
 .. option:: --inventory-db arg
 
-   Load the inventory from the given database or file, format: [service:\/\/]location
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
+
+.. option:: --db-disable
+
+   Do not use the database at all
+
+
+Records
+-------
+
+.. option:: --record-driver-list
+
+   List all supported record stream drivers.
+
+.. option:: -I, --record-url arg
+
+   The recordstream source URL, format:
+   [service:\/\/]location[#type].
+   \"service\" is the name of the recordstream driver
+   which can be queried with \"\-\-record\-driver\-list\".
+   If \"service\" is not given, \"file:\/\/\" is
+   used.
+
+.. option:: --record-file arg
+
+   Specify a file as record source.
+
+.. option:: --record-type arg
+
+   Specify a type for the records being read.
 
 
 Cities
@@ -511,7 +633,7 @@ Cities
 .. option:: --city-xml arg
 
    The path to the cities XML file. This overrides the default
-   paths. Compare with the global parameter \"citiesXML\"
+   paths. Compare with the global parameter \"citiesXML\".
 
 
 User interface
@@ -519,10 +641,33 @@ User interface
 
 .. option:: -F, --full-screen
 
-   Starts the application filling the entire screen. This only works
-   with GUI applications.
+   Start the application filling the entire screen.
+   This only works with GUI applications.
 
 .. option:: -N, --non-interactive
 
-   Use non\-interactive presentation mode. This only works with GUI applications.
+   Use non\-interactive presentation mode. This only works with
+   GUI applications.
+
+
+Options
+-------
+
+.. option:: --script0 arg
+
+   Path to the script called when configurable
+   button0 is pressed; EventID, arrival count, magnitude and
+   the additional location information string are passed as
+   parameters \$1, \$2, \$3 and \$4, respectively.
+
+.. option:: --script1 arg
+
+   Path to the script called when configurable
+   button1 is pressed; EventID, arrival count, magnitude and
+   the additional location information string are passed as
+   parameters \$1, \$2, \$3 and \$4, respectively.
+
+.. option:: --load-event-db arg
+
+   Number of days to load from database.
 

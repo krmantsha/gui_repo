@@ -25,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -73,7 +73,7 @@
           
   <div class="section" id="scdb">
 <span id="id1"></span><h1>scdb<a class="headerlink" href="#scdb" title="Permalink to this headline">¶</a></h1>
-<p><strong>Populates a SQL database from XML files or messages.</strong></p>
+<p><strong>Populate a SQL database from XML files or messages.</strong></p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>A major component of the SeisComP system is the database. Almost all
@@ -156,8 +156,8 @@ and the output database connection using the user <cite>writer</cite>:</p>
 </ol>
 </div>
 </div>
-<div class="section" id="configuration">
-<span id="scdb-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-configuration">
+<span id="scdb-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/global.cfg</span></code></div>
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/scdb.cfg</span></code></div>
@@ -171,54 +171,59 @@ and the output database connection using the user <cite>writer</cite>:</p>
 <dt id="confval-connection.requestGroup">
 <code class="sig-name descname">connection.requestGroup</code><a class="headerlink" href="#confval-connection.requestGroup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
-<p>Defines the group on scmaster to subscribe for database requests.</p>
+<p>Define the group on scmaster to subscribe for database
+requests.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-connection.provideGroup">
 <code class="sig-name descname">connection.provideGroup</code><a class="headerlink" href="#confval-connection.provideGroup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
-<p>Defines the group on scmaster to send database response messages to.</p>
+<p>Define the group on scmaster to send database response
+messages to.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-output.type">
 <code class="sig-name descname">output.type</code><a class="headerlink" href="#confval-output.type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
-<p>Defines the output database connection type.</p>
+<p>Define the output database connection type.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-output.parameters">
 <code class="sig-name descname">output.parameters</code><a class="headerlink" href="#confval-output.parameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
-<p>Defines the output database connection parameters.</p>
+<p>Define the output database connection parameters.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="command-line">
-<h2>Command-line<a class="headerlink" href="#command-line" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="command-line-options">
+<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
+<p><strong class="program">scdb [options]</strong></p>
 <div class="section" id="generic">
 <h3>Generic<a class="headerlink" href="#generic" title="Permalink to this headline">¶</a></h3>
 <dl class="option">
 <dt id="cmdoption-scdb-h">
 <code class="sig-name descname">-h</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--help</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scdb-h" title="Permalink to this definition">¶</a></dt>
-<dd><p>show help message.</p>
+<dd><p>Show help message.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdb-v">
 <code class="sig-name descname">-V</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--version</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scdb-v" title="Permalink to this definition">¶</a></dt>
-<dd><p>show version information</p>
+<dd><p>Show version information.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdb-config-file">
 <code class="sig-name descname">--config-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdb-config-file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick -&gt; scautopick2.</p>
+<dd><p>Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick -&gt; scautopick2.</p>
 </dd></dl>
 
 <dl class="option">
@@ -230,32 +235,34 @@ create a symbolic link of the application or copy it, eg scautopick -&gt; scauto
 <dl class="option">
 <dt id="cmdoption-scdb-d">
 <code class="sig-name descname">-D</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--daemon</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scdb-d" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run as daemon. This means the application will fork itself and
-doesn’t need to be started with &amp;.</p>
+<dd><p>Run as daemon. This means the application will fork itself
+and doesn’t need to be started with &amp;.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdb-auto-shutdown">
 <code class="sig-name descname">--auto-shutdown</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdb-auto-shutdown" title="Permalink to this definition">¶</a></dt>
-<dd><p>Enable/disable self-shutdown because a master module shutdown. This only
-works when messaging is enabled and the master module sends a shutdown
-message (enabled with –start-stop-msg for the master module).</p>
+<dd><p>Enable/disable self-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with –start-stop-msg
+for the master module).</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdb-shutdown-master-module">
 <code class="sig-name descname">--shutdown-master-module</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdb-shutdown-master-module" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the name of the master-module used for auto-shutdown. This
-is the application name of the module actually started. If symlinks
-are used then it is the name of the symlinked application.</p>
+<dd><p>Set the name of the master-module used for auto-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdb-shutdown-master-username">
 <code class="sig-name descname">--shutdown-master-username</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdb-shutdown-master-username" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the name of the master-username of the messaging used for
-auto-shutdown. If “shutdown-master-module” is given as well this
-parameter is ignored.</p>
+<dd><p>Set the name of the master-username of the messaging
+used for auto-shutdown. If “shutdown-master-module” is
+given as well, this parameter is ignored.</p>
 </dd></dl>
 
 </div>
@@ -264,31 +271,34 @@ parameter is ignored.</p>
 <dl class="option">
 <dt id="cmdoption-scdb-verbosity">
 <code class="sig-name descname">--verbosity</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdb-verbosity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug</p>
+<dd><p>Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="id2">
 <code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--v</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Increase verbosity level (may be repeated, eg. -vv)</p>
+<dd><p>Increase verbosity level (may be repeated, eg. -vv).</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdb-q">
 <code class="sig-name descname">-q</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--quiet</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scdb-q" title="Permalink to this definition">¶</a></dt>
-<dd><p>Quiet mode: no logging output</p>
+<dd><p>Quiet mode: no logging output.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdb-component">
 <code class="sig-name descname">--component</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdb-component" title="Permalink to this definition">¶</a></dt>
-<dd><p>Limits the logging to a certain component. This option can be given more than once.</p>
+<dd><p>Limit the logging to a certain component. This option can
+be given more than once.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdb-s">
 <code class="sig-name descname">-s</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--syslog</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scdb-s" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use syslog logging back end. The output usually goes to /var/lib/messages.</p>
+<dd><p>Use syslog logging backend. The output usually goes to
+/var/lib/messages.</p>
 </dd></dl>
 
 <dl class="option">
@@ -306,7 +316,8 @@ parameter is ignored.</p>
 <dl class="option">
 <dt id="cmdoption-scdb-debug">
 <code class="sig-name descname">--debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scdb-debug" title="Permalink to this definition">¶</a></dt>
-<dd><p>Debug mode: –verbosity=4 –console=1</p>
+<dd><p>Execute in debug mode.
+Equivalent to –verbosity=4 –console=1 .</p>
 </dd></dl>
 
 <dl class="option">
@@ -345,7 +356,8 @@ parameter is ignored.</p>
 <dl class="option">
 <dt id="cmdoption-scdb-subscribe-group">
 <code class="sig-name descname">-S</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--subscribe-group</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdb-subscribe-group" title="Permalink to this definition">¶</a></dt>
-<dd><p>A group to subscribe to. This option can be given more than once.</p>
+<dd><p>A group to subscribe to.
+This option can be given more than once.</p>
 </dd></dl>
 
 <dl class="option">
@@ -357,17 +369,18 @@ parameter is ignored.</p>
 <dl class="option">
 <dt id="cmdoption-scdb-start-stop-msg">
 <code class="sig-name descname">--start-stop-msg</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdb-start-stop-msg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets sending of a start- and a stop message.</p>
+<dd><p>Set sending of a start and a stop message.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdb-m">
 <code class="sig-name descname">--m</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--mode</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdb-m" title="Permalink to this definition">¶</a></dt>
-<dd><p>scdb can either process a XML file and write it to the database
-or collecting messages from scmaster. If connected to scmaster
-the mode defines what objects are handled: none (no objects at all),
-notifier (notifier only) or all (all objects whereas non-notifier
-objects are INSERTED into the database).</p>
+<dd><p>scdb can either process a XML file and write it to the
+database or collect messages from scmaster.
+If connected to scmaster, the mode defines what objects
+are handled: none (no objects at all), notifier (notifier
+only) or all (all objects whereas non-notifier objects
+are INSERTED into the database).</p>
 </dd></dl>
 
 </div>
@@ -382,33 +395,36 @@ objects are INSERTED into the database).</p>
 <dl class="option">
 <dt id="cmdoption-scdb-database">
 <code class="sig-name descname">-d</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--database</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdb-database" title="Permalink to this definition">¶</a></dt>
-<dd><p>The database connection string, format: <a class="reference external" href="service://user:pwd&#64;host/database">service://user:pwd&#64;host/database</a>.
-“service” is the name of the database driver which can be
-queried with “–db-driver-list”.</p>
+<dd><p>The database connection string, format:
+<a class="reference external" href="service://user:pwd&#64;host/database">service://user:pwd&#64;host/database</a>.
+“service” is the name of the database driver which
+can be queried with “–db-driver-list”.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdb-config-module">
 <code class="sig-name descname">--config-module</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdb-config-module" title="Permalink to this definition">¶</a></dt>
-<dd><p>The configmodule to use.</p>
+<dd><p>The config module to use.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdb-inventory-db">
 <code class="sig-name descname">--inventory-db</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdb-inventory-db" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load the inventory from the given database or file, format: [<a class="reference external" href="service://]location">service://]location</a></p>
+<dd><p>Load the inventory from the given database or file, format:
+[<a class="reference external" href="service://]location">service://]location</a> .</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdb-config-db">
 <code class="sig-name descname">--config-db</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdb-config-db" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load the configuration from the given database or file, format: [<a class="reference external" href="service://]location">service://]location</a></p>
+<dd><p>Load the configuration from the given database or file,
+format: [<a class="reference external" href="service://]location">service://]location</a> .</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scdb-o">
 <code class="sig-name descname">--o</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--output</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdb-o" title="Permalink to this definition">¶</a></dt>
-<dd><p>If connected to scmaster this flag defines the database
+<dd><p>If connected to scmaster, this flag defines the database
 connection to use for writing. The configured application
 database connection (as received from scmaster) is reported
 to clients as part of a database response messages.</p>
@@ -420,7 +436,7 @@ to clients as part of a database response messages.</p>
 <dl class="option">
 <dt id="cmdoption-scdb-i">
 <code class="sig-name descname">-i</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--input</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scdb-i" title="Permalink to this definition">¶</a></dt>
-<dd><p>Defines the import XML file to be written to database.
+<dd><p>Define the import XML file to be written to database.
 Can be provided multiple times to import multiple files.</p>
 </dd></dl>
 
@@ -462,8 +478,8 @@ executed in one single transaction.</p>
 <li><a class="reference internal" href="#examples">Examples</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#configuration">Configuration</a></li>
-<li><a class="reference internal" href="#command-line">Command-line</a><ul>
+<li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
+<li><a class="reference internal" href="#command-line-options">Command-Line Options</a><ul>
 <li><a class="reference internal" href="#generic">Generic</a></li>
 <li><a class="reference internal" href="#verbosity">Verbosity</a></li>
 <li><a class="reference internal" href="#messaging">Messaging</a></li>
@@ -500,7 +516,7 @@ executed in one single transaction.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

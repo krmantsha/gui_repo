@@ -25,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -70,7 +70,7 @@
           
   <div class="section" id="add-real-time-stations-from-geofon">
 <span id="tutorials-geofon-waveforms"></span><h1>Add real-time stations from GEOFON<a class="headerlink" href="#add-real-time-stations-from-geofon" title="Permalink to this headline">¶</a></h1>
-<p>You will use <strong class="program">scconfig</strong> to:</p>
+<p>You will use <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> to:</p>
 <ul class="simple">
 <li><p>Add stations of the GEOFON seismic network, obtained from GEOFON,
 as a source of data.</p></li>
@@ -83,7 +83,7 @@ as a source of data.</p></li>
 <p>Afterwards/Results/Outcomes:</p>
 <ul class="simple">
 <li><p><strong class="program">slinktool -Q</strong> locally shows GE streams are available</p></li>
-<li><p><strong class="program">scrttv</strong> locally shows the GE station traces</p></li>
+<li><p><a class="reference internal" href="../../apps/scrttv.html#scrttv"><span class="std std-ref">scrttv</span></a> locally shows the GE station traces</p></li>
 </ul>
 <p>Time range estimate:</p>
 <ul class="simple">
@@ -114,13 +114,13 @@ This tutorial demonstrates how to use this data in your own SeisComP system.</p>
 <h2>Check data are available<a class="headerlink" href="#check-data-are-available" title="Permalink to this headline">¶</a></h2>
 <p>First, we’ll query the upstream Seedlink server, which runs on
 host <cite>geofon.gfz-potsdam.de</cite> at port 18000.
-We do this with SeisComP’s <strong class="program">slinktool</strong> command, giving the ‘-L’ option
-to <strong class="program">slinktool</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ slinktool -L geofon.gfz-potsdam.de
+We do this with SeisComP’s <a class="reference internal" href="../../apps/slinktool.html#slinktool"><span class="std std-ref">slinktool</span></a> command, giving the <code class="docutils literal notranslate"><span class="pre">-L</span></code> option
+to <a class="reference internal" href="../../apps/slinktool.html#slinktool"><span class="std std-ref">slinktool</span></a></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ slinktool -L geofon.gfz-potsdam.de
 6C GF01  GF01
 6C GF02  GF02
 6C GF03  GF03
-[..]
+<span class="o">[</span>..<span class="o">]</span>
 ZB URD20 URD20
 ZB VAL41 VAL41
 ZB VOS   VOS
@@ -130,17 +130,18 @@ ZB VOS   VOS
 It shows the network code and station code of each
 of the stations for which data is available from this Seedlink server.
 We’ll just be interested in a few stations, namely those corresponding
-to broadband 20 sps vertical channels - with channel code BHZ, and with network code GE</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ slinktool -Q geofon.gfz-potsdam.de | grep ^GE.*BHZ
-GE ACRG     BHZ D 2019/11/28 06:51:48.7500  -  2019/11/28 09:18:32.1000
-GE APE      BHZ D 2019/11/28 07:40:52.0400  -  2019/11/28 12:22:00.3950
-GE ARPR     BHZ D 2019/11/27 23:23:27.4400  -  2019/11/28 09:41:22.1500
-GE ARPR     BHZ E 2019/11/27 23:23:27.4400  -  2019/11/28 09:16:25.0400
-[..]
-GE KBS   00 BHZ D 2019/11/24 13:22:12.9695  -  2019/11/24 22:46:17.4195
-GE KBS   10 BHZ D 2019/11/24 13:22:12.9695  -  2019/11/24 22:46:19.5945
-GE KBU      BHZ D 2019/11/28 06:53:21.8450  -  2019/11/28 12:22:18.2450
-[..]
+to broadband 20 sps vertical channels - with channel code BHZ, and with network
+code GE</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ slinktool -Q geofon.gfz-potsdam.de <span class="p">|</span> grep ^GE.*BHZ
+GE ACRG     BHZ D <span class="m">2019</span>/11/28 <span class="m">06</span>:51:48.7500  -  <span class="m">2019</span>/11/28 <span class="m">09</span>:18:32.1000
+GE APE      BHZ D <span class="m">2019</span>/11/28 <span class="m">07</span>:40:52.0400  -  <span class="m">2019</span>/11/28 <span class="m">12</span>:22:00.3950
+GE ARPR     BHZ D <span class="m">2019</span>/11/27 <span class="m">23</span>:23:27.4400  -  <span class="m">2019</span>/11/28 <span class="m">09</span>:41:22.1500
+GE ARPR     BHZ E <span class="m">2019</span>/11/27 <span class="m">23</span>:23:27.4400  -  <span class="m">2019</span>/11/28 <span class="m">09</span>:16:25.0400
+<span class="o">[</span>..<span class="o">]</span>
+GE KBS   <span class="m">00</span> BHZ D <span class="m">2019</span>/11/24 <span class="m">13</span>:22:12.9695  -  <span class="m">2019</span>/11/24 <span class="m">22</span>:46:17.4195
+GE KBS   <span class="m">10</span> BHZ D <span class="m">2019</span>/11/24 <span class="m">13</span>:22:12.9695  -  <span class="m">2019</span>/11/24 <span class="m">22</span>:46:19.5945
+GE KBU      BHZ D <span class="m">2019</span>/11/28 <span class="m">06</span>:53:21.8450  -  <span class="m">2019</span>/11/28 <span class="m">12</span>:22:18.2450
+<span class="o">[</span>..<span class="o">]</span>
 </pre></div>
 </div>
 <p>The ‘-Q’ option provides a formatted stream list,
@@ -157,26 +158,25 @@ then it will be a longer time ago.</p>
 <h2>Download station metadata<a class="headerlink" href="#download-station-metadata" title="Permalink to this headline">¶</a></h2>
 <p>There are several possible ways to obtain inventory.</p>
 <ul class="simple">
-<li><p>Use WebDC3 <a class="footnote-reference brackets" href="#webdc" id="id1">1</a> or network pages <a class="footnote-reference brackets" href="#netpages" id="id2">3</a>
+<li><p>Use WebDC3 <a class="footnote-reference brackets" href="#webdc" id="id1">1</a> or network pages <a class="footnote-reference brackets" href="#netpages" id="id2">2</a>
 to obtain metadata for existing seismic networks.</p></li>
 <li><p>Other sources of inventory, like a dataless SEED file, can also be used.</p></li>
-<li><p>The Gempa Station Management Portal <a class="reference external" href="https://smp.gempa.de/">SMP</a> <a class="footnote-reference brackets" href="#id7" id="id8">4</a>
+<li><p>The Gempa Station Management Portal, <span id="id3"><em>SMP</em> [<a class="reference internal" href="../references.html#id262" title="SMP. Station Management Portal by gempa GmbH. URL: https://smp.gempa.de/.">21</a>]</span>,
 is another important source of station metadata.
 If you would like to create your own inventory you may use this online tool.
-Before doing so, you will need to create
-an <a class="reference external" href="https://smp.gempa.de/user/signup">SMP account</a> <a class="footnote-reference brackets" href="#id9" id="id10">5</a>.</p></li>
+Before doing so, you will need to create an account on SMP.</p></li>
 </ul>
 <div class="section" id="option-1-using-fdsn-web-services">
 <h3>Option 1: Using FDSN web services<a class="headerlink" href="#option-1-using-fdsn-web-services" title="Permalink to this headline">¶</a></h3>
-<p>The FDSN web services are the standard adopted by the FDSN and have been
-deployed at almost every data centre <a class="footnote-reference brackets" href="#fdsn-svcs" id="id3">2</a>.
+<p>The FDSN web services <span id="id4">[<a class="reference internal" href="../references.html#id106" title="FDSNWS. International Federation of Digital Seismograph Networks. URL: http://www.fdsn.org/webservices/.">8</a>]</span> are the standard adopted by the FDSN and have been
+deployed at almost every data centre.
 One of them is called  <em>fdsnws-station</em> and
 is the service to contact to get all information related to stations, sensors,
 responses, etc.</p>
 <p>To get data from the <em>fdsnws-station</em> web service you can use any web client (browser or command
 line). For instance, the <em>wget</em> command. The file you will receive will be in
 StationXML format.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ wget &quot;http://geofon.gfz-potsdam.de/fdsnws/station/1/query?net=GE&amp;level=response&quot; -O ge.xml
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ wget <span class="s2">&quot;http://geofon.gfz-potsdam.de/fdsnws/station/1/query?net=GE&amp;level=response&quot;</span> -O ge.xml
 </pre></div>
 </div>
 </div>
@@ -187,16 +187,16 @@ FDSN webservice servers, but also to explore available stations
 and query event catalogs
 from different data centres among other possibilities.</p>
 <p>You can find detailed information about WebDC3 in the on-line documentation at
-<a class="reference external" href="http://webdc3.readthedocs.io">Read The Docs</a> <a class="footnote-reference brackets" href="#id11" id="id12">6</a>.</p>
+<span id="id5"><em>WebDC3</em> [<a class="reference internal" href="../references.html#id278" title="WebDC3. Documentation. URL: https://webdc3.readthedocs.io/.">24</a>]</span>.</p>
 <ul>
 <li><p>Go to <a class="reference external" href="http://eida.gfz-potsdam.de/webdc3">http://eida.gfz-potsdam.de/webdc3</a> with a browser.</p></li>
 <li><p>Click on “Explore stations” and move the slider to select only the current year
 and only “Public permanent nets” on the Network type list.
 Select the GE network, “All Stations”, BH channels, and click “Search”.</p></li>
 <li><p>About 80 stations should appear on the map, and on the list below it.</p>
-<div class="figure align-center" id="id4">
+<div class="figure align-center" id="id6">
 <a class="reference internal image-reference" href="../../_images/geofon_webdc_stations.png"><img alt="../../_images/geofon_webdc_stations.png" src="../../_images/geofon_webdc_stations.png" style="width: 16cm;" /></a>
-<p class="caption"><span class="caption-text">Stations of the GE network shown in WebDC, ready for a metadata request.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Stations of the GE network shown in WebDC, ready for a metadata request.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
 </li>
 <li><p>Go to the third tab, named “Submit request”.</p></li>
@@ -218,16 +218,16 @@ to the GEOFON fdsnws-station web service.</p></li>
 </div>
 <div class="section" id="import-the-inventory">
 <h2>Import the inventory<a class="headerlink" href="#import-the-inventory" title="Permalink to this headline">¶</a></h2>
-<p>It is easiest to use the import function of the <strong class="program">scconfig</strong> GUI.
+<p>It is easiest to use the import function of the <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> GUI.
 Alternatively, you can import from the command line:</p>
 <ul>
 <li><p>From FDSN StationXML:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fdsnxml2inv</span> <span class="o">-</span><span class="n">f</span> <span class="n">station</span><span class="o">.</span><span class="n">xml</span> <span class="o">&gt;</span> <span class="n">etc</span><span class="o">/</span><span class="n">inventory</span><span class="o">/</span><span class="n">mynetwork</span><span class="o">.</span><span class="n">xml</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ fdsnxml2inv -f station.xml &gt; etc/inventory/mynetwork.xml
 </pre></div>
 </div>
 </li>
 <li><p>From SeisComP XML with filtering:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">invextr</span> <span class="o">-</span><span class="n">f</span> <span class="o">--</span><span class="n">chans</span> <span class="s1">&#39;NE.STA.*&#39;</span> <span class="n">mynetwork</span><span class="o">.</span><span class="n">xml</span> <span class="o">&gt;</span> <span class="n">etc</span><span class="o">/</span><span class="n">inventory</span><span class="o">/</span><span class="n">mynetwork</span><span class="o">.</span><span class="n">xml</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ invextr -f --chans <span class="s1">&#39;NE.STA.*&#39;</span> mynetwork.xml &gt; etc/inventory/mynetwork.xml
 </pre></div>
 </div>
 </li>
@@ -237,15 +237,15 @@ It now needs to be loaded in to the SeisComP database.</p>
 <div class="section" id="import-the-metadata-for-your-stations">
 <h3>Import the metadata for your stations<a class="headerlink" href="#import-the-metadata-for-your-stations" title="Permalink to this headline">¶</a></h3>
 <ul>
-<li><p>Open <strong class="program">scconfig</strong> from the terminal.
+<li><p>Open <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> from the terminal.
 Click on the “Inventory” tab on the left side bar.</p></li>
 <li><p>Select “Import” and at “Source:”, browse to the file with the inventory
 (e.g. ~/Downloads/inventory.xml).
 For “format”, select “fdsnxml”.</p>
-<div class="figure align-center" id="id5">
+<div class="figure align-center" id="id7">
 <a class="reference internal image-reference" href="../../_images/geofon_waveforms_old_fig5.png"><img alt="../../_images/geofon_waveforms_old_fig5.png" src="../../_images/geofon_waveforms_old_fig5.png" style="width: 16cm;" /></a>
 <p class="caption"><span class="caption-text">The Inventory tab of <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a>, during import of FDSN Station XML.
-<em>TODO</em> Update this figure.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<em>TODO</em> Update this figure.</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
 </div>
 </li>
 <li><p>Click on OK, wait a couple of seconds, check that the process was successful -
@@ -273,10 +273,10 @@ we will need to create bindings for every GE station to the
 <li><p>Create a global profile named “BH” by clicking with the right button on “global”
 in the top right panel. Double click on it and set BH as <em>detectStream</em> and
 empty location code as <em>detecLocID</em> information.</p>
-<div class="figure align-center" id="id6">
+<div class="figure align-center" id="id8">
 <a class="reference internal image-reference" href="../../_images/geofon_waveforms_old_fig6.png"><img alt="../../_images/geofon_waveforms_old_fig6.png" src="../../_images/geofon_waveforms_old_fig6.png" style="width: 16cm;" /></a>
 <p class="caption"><span class="caption-text">The “Bindings” tab in <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a>.
-A profile for global, called “BH” is being created.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+A profile for global, called “BH” is being created.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 <div class="legend">
 <p><em>TODO</em> CX stations are visible too.</p>
 </div>
@@ -298,7 +298,7 @@ This writes configuration files in <code class="file docutils literal notranslat
 with a non-blank location code, typically either “00” or “10”.
 Configuring these requires additional work.
 You can create a profile setting <code class="xref std std-confval docutils literal notranslate"><span class="pre">detecLocID</span></code> to “10”,
-called “BH10”, and apply this to the appropriate stations.
+called “10BHZ”, and apply this to the appropriate stations.
 Repeat this for stations where location code “00” is desired (e.g. SFJD).</p>
 </div>
 </div>
@@ -310,13 +310,13 @@ SeisComP’s modules then require restarting to load the updated information.</p
 <li><p>Go to the System tab and press ESC (the Escape key, to de-select all modules).</p>
 <ol class="arabic simple">
 <li><p>Click on “Update configuration”, at the right of the window.
-(<strong>Not</strong> “Update”, - that just refreshes <strong class="program">scconfig</strong>’s
+(<strong>Not</strong> “Update”, - that just refreshes <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a>’s
 display of what is running!)</p></li>
 <li><p>Press <em>Start</em> to start acquiring data from the already configured stations.</p></li>
 </ol>
 </li>
-<li><p>Alternatively, at the command line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ seiscomp update-config
+<li><p>Alternatively, on the command line</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ seiscomp update-config
 $ seiscomp restart
 </pre></div>
 </div>
@@ -325,11 +325,15 @@ $ seiscomp restart
 </div>
 <div class="section" id="check-it-works">
 <h2>Check it works<a class="headerlink" href="#check-it-works" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
+<ul>
 <li><p>To confirm that you have waveform data for the station locally,
-run <strong class="program">slinktool -Q</strong>.</p></li>
-<li><p>Open <strong class="program">scmv</strong> to see a map view of the configured stations.</p></li>
-<li><p>Open <strong class="program">scrttv</strong> to see the incoming real-time streams.</p></li>
+run <a class="reference internal" href="../../apps/slinktool.html#slinktool"><span class="std std-ref">slinktool</span></a>.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ slinktool -Q
+</pre></div>
+</div>
+</li>
+<li><p>Open <a class="reference internal" href="../../apps/scmv.html#scmv"><span class="std std-ref">scmv</span></a> to see a map view of the configured stations.</p></li>
+<li><p>Open <a class="reference internal" href="../../apps/scrttv.html#scrttv"><span class="std std-ref">scrttv</span></a> to see the incoming real-time streams.</p></li>
 </ul>
 <p>If you see colored triangles and traces incoming it means that
 you have configured your system properly.
@@ -347,26 +351,13 @@ you can follow the same procedure for other networks/stations, provided you</p>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <dl class="footnote brackets">
-<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id8">4</a></span></dt>
-<dd><p><a class="reference external" href="https://smp.gempa.de/">https://smp.gempa.de/</a></p>
-</dd>
-<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id10">5</a></span></dt>
-<dd><p><a class="reference external" href="https://smp.gempa.de/user/signup">https://smp.gempa.de/user/signup</a></p>
-</dd>
-<dt class="label" id="id11"><span class="brackets"><a class="fn-backref" href="#id12">6</a></span></dt>
-<dd><p><a class="reference external" href="http://webdc3.readthedocs.io">http://webdc3.readthedocs.io</a></p>
-</dd>
 <dt class="label" id="webdc"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>The WebDC3 service is available at <a class="reference external" href="http://eida.gfz-potsdam.de">http://eida.gfz-potsdam.de</a>.
 See also
 M. Bianchi, <em>et al.</em> (2015): WebDC3 Web Interface. GFZ Data Services.
 doi:<a class="reference external" href="http://dx.doi.org/10.5880/GFZ.2.4/2016.001">10.5880/GFZ.2.4/2016.001</a></p>
 </dd>
-<dt class="label" id="fdsn-svcs"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
-<dd><p>International Federation of Digital Seismograph Networks (2020).
-“FDSN Web Services”, <a class="reference external" href="http://www.fdsn.org/webservices">http://www.fdsn.org/webservices</a>.</p>
-</dd>
-<dt class="label" id="netpages"><span class="brackets"><a class="fn-backref" href="#id2">3</a></span></dt>
+<dt class="label" id="netpages"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
 <dd><p>For instance that of the GEOFON Program, at
 <a class="reference external" href="https://geofon.gfz-potsdam.de/waveform/archive/network.php?ncode=GE">https://geofon.gfz-potsdam.de/waveform/archive/network.php?ncode=GE</a>.</p>
 </dd>
@@ -438,7 +429,7 @@ doi:<a class="reference external" href="http://dx.doi.org/10.5880/GFZ.2.4/2016.0
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

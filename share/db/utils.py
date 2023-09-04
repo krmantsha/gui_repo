@@ -57,6 +57,6 @@ def execute(cmd):
 
     return res
 
-def write(str):
-    print(str)
-    sys.stdout.flush();
+def write(msg):
+    print(msg)
+    sys.stdout.flush()

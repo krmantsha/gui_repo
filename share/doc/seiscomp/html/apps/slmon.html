@@ -16,7 +16,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Extensions" href="../toc/extensions.html" />
+    <link rel="next" title="Addon Modules" href="../base/addons.html" />
     <link rel="prev" title="sh2proc" href="sh2proc.html" /> 
   </head>
   <body>
@@ -25,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -42,7 +42,7 @@
           </a>
         </li>
         <li class="right">
-          <a href="../toc/extensions.html" title="Extensions"
+          <a href="../base/addons.html" title="Addon Modules"
              accesskey="N">
             next
           </a>
@@ -116,17 +116,17 @@ using the seiscomp script:</p>
 is provided by <a class="reference external" href="http://geofon.gfz-potsdam.de/waveform/status/">GEOFON</a> at
 <a class="reference external" href="http://www.gfz-potsdam.de">GFZ Potsdam</a>, Germany. A simple example of a website
 create by <em>slmon</em> is given in the <a class="reference internal" href="#fig-slmon"><span class="std std-ref">figures below</span></a>.</p>
-<div class="figure align-center" id="id3">
+<div class="figure align-center" id="id2">
 <span id="fig-slmon"></span><a class="reference internal image-reference" href="../_images/slmon.png"><img alt="../_images/slmon.png" src="../_images/slmon.png" style="width: 16cm;" /></a>
-<p class="caption"><span class="caption-text">Example of a website with the station summary created by <em>slmon</em>.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Example of a website with the station summary created by <em>slmon</em>.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
-<div class="figure align-center" id="id4">
+<div class="figure align-center" id="id3">
 <span id="fig-slmon-stat"></span><a class="reference internal image-reference" href="../_images/slmon-stat.png"><img alt="../_images/slmon-stat.png" src="../_images/slmon-stat.png" style="width: 16cm;" /></a>
-<p class="caption"><span class="caption-text">Example of a website with a per-station channel view created by <em>slmon</em>.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Example of a website with a per-station channel view created by <em>slmon</em>.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 </div>
-<div class="section" id="configuration">
-<span id="slmon-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-configuration">
+<span id="slmon-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>slmon is a <a class="reference internal" href="../base/glossary.html#term-standalone-module"><span class="xref std std-term">standalone module</span></a> and does not inherit <a class="reference internal" href="global.html#global-configuration"><span class="std std-ref">global options</span></a>.</p>
@@ -139,40 +139,40 @@ create by <em>slmon</em> is given in the <a class="reference internal" href="#fi
 <dl class="confval">
 <dt id="confval-title">
 <code class="sig-name descname">title</code><a class="headerlink" href="#confval-title" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
-<p>Title of the web page used as heading.
-Default is <code class="docutils literal notranslate"><span class="pre">&quot;SeedLink</span> <span class="pre">Monitor&quot;</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">&quot;SeedLink</span> <span class="pre">Monitor&quot;</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Title of the web page used as heading.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-refresh">
 <code class="sig-name descname">refresh</code><a class="headerlink" href="#confval-refresh" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">180</span></code></p>
+<p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
 <p>Refresh interval of the generated web page used by the browser.
 The interval should be similar to the interval for starting slmon.
 If empty, the web page must be manually refreshed from within
-the browser.
-Default is <code class="docutils literal notranslate"><span class="pre">180</span></code>.</p>
+the browser.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-address">
 <code class="sig-name descname">address</code><a class="headerlink" href="#confval-address" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code></p>
+<p>Type: <em>string</em></p>
 <p>Host of the Seedlink server to connect to. If the acquisition
-is running on one system nothing needs to be changed.
-Default is <code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code>.</p>
+is running on one system nothing needs to be changed.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-port">
 <code class="sig-name descname">port</code><a class="headerlink" href="#confval-port" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">18000</span></code></p>
+<p>Type: <em>int</em></p>
 <p>The port of the Seedlink server to connect to. If the acquisition
 is running on one system this port must match the configured
-local Seedlink port.
-Default is <code class="docutils literal notranslate"><span class="pre">18000</span></code>.</p>
+local Seedlink port.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -185,58 +185,55 @@ Default is <code class="docutils literal notranslate"><span class="pre">18000</s
 <dl class="confval">
 <dt id="confval-wwwdir">
 <code class="sig-name descname">wwwdir</code><a class="headerlink" href="#confval-wwwdir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
-<p>Output directory of the web pages.
-Default is <code class="docutils literal notranslate"><span class="pre">&#64;ROOTDIR&#64;/var/run/&#64;NAME&#64;</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">&#64;ROOTDIR&#64;/var/run/&#64;NAME&#64;</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Output directory of the web pages.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-icon">
 <code class="sig-name descname">icon</code><a class="headerlink" href="#confval-icon" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
-<p>Favicon URL of the web pages. Not mandatory.
-Default is <code class="docutils literal notranslate"><span class="pre">http://www.gfz-potsdam.de/favicon.ico</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">http://www.gfz-potsdam.de/favicon.ico</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Favicon URL of the web pages. Not mandatory.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-linkname">
 <code class="sig-name descname">linkname</code><a class="headerlink" href="#confval-linkname" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
-<p>Name of Link shown in footer of web pages.
-Default is <code class="docutils literal notranslate"><span class="pre">GEOFON</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">GEOFON</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Name of Link shown in footer of web pages.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-linkurl">
 <code class="sig-name descname">linkurl</code><a class="headerlink" href="#confval-linkurl" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
-<p>URL referred to by linkname in footer of web pages.
-Default is <code class="docutils literal notranslate"><span class="pre">http://www.gfz-potsdam.de/geofon/</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">http://www.gfz-potsdam.de/geofon/</span></code></p>
+<p>Type: <em>string</em></p>
+<p>URL referred to by linkname in footer of web pages.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-liveurl">
 <code class="sig-name descname">liveurl</code><a class="headerlink" href="#confval-liveurl" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">http://geofon.gfz-potsdam.de/waveform/liveseis.php?station=%s</span></code></p>
+<p>Type: <em>string</em></p>
 <p>URL to live seismograms. %s will be replaced by station name.
-Not mandatory.
-Default is <code class="docutils literal notranslate"><span class="pre">http://geofon.gfz-potsdam.de/waveform/liveseis.php?station=%s</span></code>.</p>
+Not mandatory.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="bindings">
-<h2>Bindings<a class="headerlink" href="#bindings" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id2">
-<h3>Configuration<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="bindings-parameters">
+<h2>Bindings Parameters<a class="headerlink" href="#bindings-parameters" title="Permalink to this headline">¶</a></h2>
 <dl class="confval">
 <dt id="confval-group">
 <code class="sig-name descname">group</code><a class="headerlink" href="#confval-group" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
-<p>Defines the group of the station that is monitored.
-Default is <code class="docutils literal notranslate"><span class="pre">local</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">local</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Defines the group of the station that is monitored.</p>
 </dd></dl>
 
-</div>
 </div>
 </div>
 
@@ -262,11 +259,8 @@ Default is <code class="docutils literal notranslate"><span class="pre">local</s
 <li><a class="reference internal" href="#">slmon</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
 <li><a class="reference internal" href="#setup">Setup</a></li>
-<li><a class="reference internal" href="#configuration">Configuration</a></li>
-<li><a class="reference internal" href="#bindings">Bindings</a><ul>
-<li><a class="reference internal" href="#id2">Configuration</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
+<li><a class="reference internal" href="#bindings-parameters">Bindings Parameters</a></li>
 </ul>
 </li>
 </ul>
@@ -275,8 +269,8 @@ Default is <code class="docutils literal notranslate"><span class="pre">local</s
   <p class="topless"><a href="sh2proc.html"
                         title="previous chapter">sh2proc</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="../toc/extensions.html"
-                        title="next chapter">Extensions</a></p>
+  <p class="topless"><a href="../base/addons.html"
+                        title="next chapter">Addon Modules</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -296,7 +290,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">local</s
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

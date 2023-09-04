@@ -25,6 +25,7 @@
 
 #include <stdint.h>
 #include <openssl/ssl.h>
+#include <openssl/pkcs12.h>
 #include <ostream>
 
 
@@ -162,7 +163,7 @@ class SC_SYSTEM_CORE_API Socket : public Device {
 		static const char *toString(Status);
 
 		void shutdown();
-		virtual void close() override;
+		void close() override;
 
 		const std::string &hostname() const;
 		port_t port() const;
@@ -170,15 +171,17 @@ class SC_SYSTEM_CORE_API Socket : public Device {
 
 		ssize_t send(const char *data);
 
-		virtual ssize_t write(const char *data, size_t len) override;
-		virtual ssize_t read(char *data, size_t len) override;
+		ssize_t write(const char *data, size_t len) override;
+		ssize_t read(char *data, size_t len) override;
 
 		//! Sets the socket timeout. This utilizes setsockopt which does not
 		//! work in non blocking sockets.
 		Status setSocketTimeout(int secs, int usecs);
 
-		virtual Device::Status setNonBlocking(bool nb) override;
+		Device::Status setNonBlocking(bool nb) override;
 		bool isNonBlocking() const { return _flags & NonBlocking; }
+
+		bool isAccepted() const { return !(_flags & InAccept); }
 
 		Status setReuseAddr(bool ra);
 		Status setNoDelay(bool nd);
@@ -238,6 +241,8 @@ class SC_SYSTEM_CORE_API Socket : public Device {
 
 		int         _timeOutSecs;
 		int         _timeOutUsecs;
+
+	friend class SSLSocket;
 };
 
 
@@ -273,9 +278,44 @@ class SSLSocket : public Socket {
 		Status connect(const std::string &hostname, port_t port) override;
 		Status connectV6(const std::string &hostname, port_t port) override;
 
+		/**
+		 * @brief Takes the connection from a socket and renders the source
+		 *        socket invalid.
+		 * @param socket The socket the connection parameters will be taken from.
+		 * @return Status flag
+		 */
+		Status take(Socket *socket);
+
 		SSL_CTX *sslContext() const;
 		SSL *ssl() const;
 
+		/**
+		 * @brief Returns the peer certificate presented by the other end.
+		 * @return An X509 pointer which is managed by this instance. It must
+		 *         not be deleted.
+		 */
+		X509 *peerCertificate() const;
+
+		/**
+		 * @brief Creates SSL client context from PKCS12 file
+		 * @param pkcs12File Absolute path to pkcs12File
+		 * @return The client SSL context
+		 */
+		static SSL_CTX *createClientContextFromFile(const std::string &pkcs12File);
+
+		/**
+		 * @brief Creates SSL client context from Base64 encoded PKCS12 certificate
+		 * @param cert The Base64 encoded PKCS12 certificate
+		 * @return The client SSL context
+		 */
+		static SSL_CTX *createClientContext(const std::string &cert);
+
+		/**
+		 * @brief Creates SSL client context from OpenSSL PKCS12 structure
+		 * @param p12 Pointer to PKCS12 structure
+		 * @return The client SSL context
+		 */
+		static SSL_CTX *createClientContext(PKCS12 *p12);
 		static SSL_CTX *createClientContext(const char *pemCert, const char *pemKey);
 		static SSL_CTX *createServerContext(const char *pemCert, const char *pemKey);
 
@@ -294,6 +334,10 @@ inline SSL_CTX *SSLSocket::sslContext() const {
 
 inline SSL *SSLSocket::ssl() const {
 	return _ssl;
+}
+
+inline X509 *SSLSocket::peerCertificate() const {
+	return SSL_get_peer_certificate(_ssl);
 }
 
 

@@ -226,8 +226,8 @@ The mapping of parameter names to ConfigName is configurable by
 
 .. _scqcv_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 | :file:`etc/defaults/global.cfg`
 | :file:`etc/defaults/scqcv.cfg`
@@ -244,14 +244,17 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
    Type: *list:string*
 
-   List of QC parameters to be displayed in the details table. Read the scqc documentation
-   for a list of available QC parameters and the default configuration
-   of scqcv \$SEISCOMP_ROOT\/etc\/defaults\/scqcv.cfg for more examples.
+   List of QC parameters to be displayed in the details table.
+   Read the scqc documentation for a list of available QC parameters
+   and the default configuration of scqcv
+   \$SEISCOMP_ROOT\/etc\/defaults\/scqcv.cfg for more examples.
    
    Format: \"Parameter name : ConfigName\"
    
-   Example: \"delay : delay\",\"spikes count : spike\",\"spikes amplitude : spikeAmplitude\"
-   Refer to the parameters by their ConfigName to configure the attributes.
+   Example: \"delay : delay\",\"spikes count : spike\",\"spikes amplitude :
+   spikeAmplitude\".
+   Refer to the parameters by their ConfigName to configure the
+   attributes.
 
 
 .. confval:: streams.codes
@@ -260,23 +263,27 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
    The list of channel codes to be displayed. List items may
    contain wildcards and are separated by comma.
-   The list is	intersected with all channels configured in inventory.
+   The list is	intersected with all channels configured in
+   inventory.
    
    Examples:
    
    default : display all streams configured by global bindings
    
-   default, PF.BON.00.HH? : display default and all HH streams of PF.BON.00
+   default, PF.BON.00.HH? : display default and all HH streams
+   of PF.BON.00
 
 
 .. confval:: streams.cumulative
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Add new streams automatically to the streams
-   configured in streams.codes when waveform QC parameters are
-   provided for these streams.
-   Default is ``false``.
+   Add new streams automatically to the streams configured in
+   streams.codes when waveform QC parameters are provided for
+   these streams.
+
 
 .. note::
    **streamWidget.\***
@@ -287,18 +294,20 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: streamWidget.length
 
+   Default: ``600``
+
    Type: *int*
 
    Unit: *s*
 
    Length of data to be displayed.
-   Default is ``600``.
+
 
 .. note::
    **score.\***
    *Parameters controlling the overall QC score of a station.*
    *The score is computed from the valid count parameter of the*
-   *defined ranges.*
+   *defined ranges. It is vizualized in the QcOverview.*
 
 
 
@@ -308,15 +317,16 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
    Ranges to be considered for forming the score. Set the
    count parameter om the respective range section for
-   controlling the contribution of this range.
+   controlling the contribution of this range. The
+   range parameters control the coloring.
 
 
 .. note::
    **default.\***
    *Default configuration for all QC parameters. The configuration*
-   *can be extended to each QC parameter by placing*
-   *"default" with the parameter name in scqcv.cfg. Examples for*
-   *some QC parameters are given below.*
+   *can be extended to each QC parameter by placing "default" with*
+   *the parameter name in scqcv.cfg. Examples for some QC parameters*
+   *are given below.*
    **
    *Read the scqc documentation for a list of available QC*
    *parameters and the default configuration of scqcv*
@@ -326,6 +336,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: default.ranges
 
+   Default: ``bad, sane``
+
    Type: *list:string*
 
    Names of range profile to be considered.
@@ -333,7 +345,7 @@ scqcv inherits :ref:`global options<global-configuration>`.
    fields depending on the field value. Add the default
    ranges for which different intervals and the color are
    configured.
-   Default is ``bad, sane``.
+
 
 .. confval:: default.format
 
@@ -350,9 +362,9 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
    Unit: *s*
 
-   Default time in seconds, how long a value is displayed in scqcv
-   if no update is received. Setting to 0 means, show value until
-   updated.
+   Default time in seconds, how long a value is displayed in
+   scqcv if no update is received. Setting to 0 means, show
+   value until updated.
 
 
 .. confval:: default.color
@@ -364,10 +376,12 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: default.useAbsoluteValue
 
+   Default: ``false``
+
    Type: *boolean*
 
    Activate to display absolute values \(modulus\).
-   Default is ``false``.
+
 
 .. confval:: default.action
 
@@ -423,11 +437,13 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: default.range.$name.count
 
+   Default: ``0``
+
    Type: *double*
 
    Contribution of this range for computing the score.
    The range must be considered.
-   Default is ``0``.
+
 
 .. confval:: default.range.$name.color
 
@@ -445,7 +461,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
    **availability.\***
-   *Parameters controlling the display of the QC parameter 'availability'*
+   *Parameters controlling the display of the QC parameter*
+   *'availability'*
 
 
 
@@ -475,9 +492,9 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
    Unit: *s*
 
-   Default time in seconds, how long a value is displayed in scqcv
-   if no update is received. Setting to 0 means, show value until
-   updated.
+   Default time in seconds, how long a value is displayed in
+   scqcv if no update is received. Setting to 0 means, show
+   value until updated.
 
 
 .. confval:: availability.color
@@ -489,10 +506,12 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: availability.useAbsoluteValue
 
+   Default: ``false``
+
    Type: *boolean*
 
    Activate to display absolute values \(modulus\).
-   Default is ``false``.
+
 
 .. confval:: availability.action
 
@@ -548,11 +567,13 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: availability.range.$name.count
 
+   Default: ``0``
+
    Type: *double*
 
    Contribution of this range for computing the score.
    The range must be considered.
-   Default is ``0``.
+
 
 .. confval:: availability.range.$name.color
 
@@ -600,9 +621,9 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
    Unit: *s*
 
-   Default time in seconds, how long a value is displayed in scqcv
-   if no update is received. Setting to 0 means, show value until
-   updated.
+   Default time in seconds, how long a value is displayed in
+   scqcv if no update is received. Setting to 0 means, show
+   value until updated.
 
 
 .. confval:: delay.color
@@ -614,10 +635,12 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: delay.useAbsoluteValue
 
+   Default: ``false``
+
    Type: *boolean*
 
    Activate to display absolute values \(modulus\).
-   Default is ``false``.
+
 
 .. confval:: delay.action
 
@@ -673,11 +696,13 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: delay.range.$name.count
 
+   Default: ``0``
+
    Type: *double*
 
    Contribution of this range for computing the score.
    The range must be considered.
-   Default is ``0``.
+
 
 .. confval:: delay.range.$name.color
 
@@ -695,7 +720,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
    **gap.\***
-   *Parameters controlling the display of the QC parameter 'gaps count'*
+   *Parameters controlling the display of the QC parameter*
+   *'gaps count'.*
 
 
 
@@ -725,9 +751,9 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
    Unit: *s*
 
-   Default time in seconds, how long a value is displayed in scqcv
-   if no update is received. Setting to 0 means, show value until
-   updated.
+   Default time in seconds, how long a value is displayed in
+   scqcv if no update is received. Setting to 0 means, show
+   value until updated.
 
 
 .. confval:: gap.color
@@ -739,10 +765,12 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: gap.useAbsoluteValue
 
+   Default: ``false``
+
    Type: *boolean*
 
    Activate to display absolute values \(modulus\).
-   Default is ``false``.
+
 
 .. confval:: gap.action
 
@@ -798,11 +826,13 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: gap.range.$name.count
 
+   Default: ``0``
+
    Type: *double*
 
    Contribution of this range for computing the score.
    The range must be considered.
-   Default is ``0``.
+
 
 .. confval:: gap.range.$name.color
 
@@ -820,7 +850,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
    **gapLength.\***
-   *Parameters controlling the display of the QC parameter 'gaps length'*
+   *Parameters controlling the display of the QC parameter*
+   *'gaps length'*
 
 
 
@@ -850,9 +881,9 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
    Unit: *s*
 
-   Default time in seconds, how long a value is displayed in scqcv
-   if no update is received. Setting to 0 means, show value until
-   updated.
+   Default time in seconds, how long a value is displayed in
+   scqcv if no update is received. Setting to 0 means, show
+   value until updated.
 
 
 .. confval:: gapLength.color
@@ -864,16 +895,18 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: gapLength.useAbsoluteValue
 
+   Default: ``false``
+
    Type: *boolean*
 
    Activate to display absolute values \(modulus\).
-   Default is ``false``.
+
 
 .. confval:: gapLength.action
 
    Type: *string*
 
-   Possible values: enableStream, disableStream
+   Possible values: enableStream, disableStream.
 
 
 .. note::
@@ -889,21 +922,21 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
    Type: *list:double*
 
-   Value interval for range sane
+   Value interval for range sane.
 
 
 .. confval:: gapLength.range.inter
 
    Type: *list:double*
 
-   Value interval for range inter
+   Value interval for range inter.
 
 
 .. confval:: gapLength.range.bad
 
    Type: *list:double*
 
-   Value interval for range bad
+   Value interval for range bad.
 
 
 .. note::
@@ -923,11 +956,13 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: gapLength.range.$name.count
 
+   Default: ``0``
+
    Type: *double*
 
    Contribution of this range for computing the score.
    The range must be considered.
-   Default is ``0``.
+
 
 .. confval:: gapLength.range.$name.color
 
@@ -989,10 +1024,12 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: gapInterval.useAbsoluteValue
 
+   Default: ``false``
+
    Type: *boolean*
 
    Activate to display absolute values \(modulus\).
-   Default is ``false``.
+
 
 .. confval:: gapInterval.action
 
@@ -1048,11 +1085,13 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: gapInterval.range.$name.count
 
+   Default: ``0``
+
    Type: *double*
 
    Contribution of this range for computing the score.
    The range must be considered.
-   Default is ``0``.
+
 
 .. confval:: gapInterval.range.$name.color
 
@@ -1114,10 +1153,12 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: latency.useAbsoluteValue
 
+   Default: ``false``
+
    Type: *boolean*
 
    Activate to display absolute values \(modulus\).
-   Default is ``false``.
+
 
 .. confval:: latency.action
 
@@ -1173,11 +1214,13 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: latency.range.$name.count
 
+   Default: ``0``
+
    Type: *double*
 
    Contribution of this range for computing the score.
    The range must be considered.
-   Default is ``0``.
+
 
 .. confval:: latency.range.$name.color
 
@@ -1241,10 +1284,12 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: offset.useAbsoluteValue
 
+   Default: ``false``
+
    Type: *boolean*
 
    Activate to display absolute values \(modulus\).
-   Default is ``false``.
+
 
 .. confval:: offset.action
 
@@ -1300,11 +1345,13 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: offset.range.$name.count
 
+   Default: ``0``
+
    Type: *double*
 
    Contribution of this range for computing the score.
    The range must be considered.
-   Default is ``0``.
+
 
 .. confval:: offset.range.$name.color
 
@@ -1366,10 +1413,12 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: overlap.useAbsoluteValue
 
+   Default: ``false``
+
    Type: *boolean*
 
    Activate to display absolute values \(modulus\).
-   Default is ``false``.
+
 
 .. confval:: overlap.action
 
@@ -1425,11 +1474,13 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: overlap.range.$name.count
 
+   Default: ``0``
+
    Type: *double*
 
    Contribution of this range for computing the score.
    The range must be considered.
-   Default is ``0``.
+
 
 .. confval:: overlap.range.$name.color
 
@@ -1477,9 +1528,9 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
    Unit: *s*
 
-   Default time in seconds, how long a value is displayed in scqcv
-   if no update is received. Setting to 0 means, show value until
-   updated.
+   Default time in seconds, how long a value is displayed in
+   scqcv if no update is received. Setting to 0 means, show
+   value until updated.
 
 
 .. confval:: overlapInterval.color
@@ -1491,10 +1542,12 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: overlapInterval.useAbsoluteValue
 
+   Default: ``false``
+
    Type: *boolean*
 
    Activate to display absolute values \(modulus\).
-   Default is ``false``.
+
 
 .. confval:: overlapInterval.action
 
@@ -1550,11 +1603,13 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: overlapInterval.range.$name.count
 
+   Default: ``0``
+
    Type: *double*
 
    Contribution of this range for computing the score.
    The range must be considered.
-   Default is ``0``.
+
 
 .. confval:: overlapInterval.range.$name.color
 
@@ -1572,7 +1627,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
    **overlapLength.\***
-   *Parameters controlling the display of the QC parameter 'overlaps length'*
+   *Parameters controlling the display of the QC parameter*
+   *'overlaps length'*
 
 
 
@@ -1602,9 +1658,9 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
    Unit: *s*
 
-   Default time in seconds, how long a value is displayed in scqcv
-   if no update is received. Setting to 0 means, show value until
-   updated.
+   Default time in seconds, how long a value is displayed in
+   scqcv if no update is received. Setting to 0 means, show
+   value until updated.
 
 
 .. confval:: overlapLength.color
@@ -1616,10 +1672,12 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: overlapLength.useAbsoluteValue
 
+   Default: ``false``
+
    Type: *boolean*
 
    Activate to display absolute values \(modulus\).
-   Default is ``false``.
+
 
 .. confval:: overlapLength.action
 
@@ -1675,11 +1733,13 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: overlapLength.range.$name.count
 
+   Default: ``0``
+
    Type: *double*
 
    Contribution of this range for computing the score.
    The range must be considered.
-   Default is ``0``.
+
 
 .. confval:: overlapLength.range.$name.color
 
@@ -1727,9 +1787,9 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
    Unit: *s*
 
-   Default time in seconds, how long a value is displayed in scqcv
-   if no update is received. Setting to 0 means, show value until
-   updated.
+   Default time in seconds, how long a value is displayed in
+   scqcv if no update is received. Setting to 0 means, show
+   value until updated.
 
 
 .. confval:: rms.color
@@ -1741,10 +1801,12 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: rms.useAbsoluteValue
 
+   Default: ``false``
+
    Type: *boolean*
 
    Activate to display absolute values \(modulus\).
-   Default is ``false``.
+
 
 .. confval:: rms.action
 
@@ -1800,11 +1862,13 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: rms.range.$name.count
 
+   Default: ``0``
+
    Type: *double*
 
    Contribution of this range for computing the score.
    The range must be considered.
-   Default is ``0``.
+
 
 .. confval:: rms.range.$name.color
 
@@ -1822,7 +1886,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
    **spike.\***
-   *Parameters controlling the display of the QC parameter 'spikes count'*
+   *Parameters controlling the display of the QC parameter*
+   *'spikes count'*
 
 
 
@@ -1830,7 +1895,7 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
    Type: *list:string*
 
-   Names of range profile to be considered
+   Names of range profile to be considered.
    The range profiles s define the background color table
    fields depending on the field value. Add the default
    ranges for which different intervals and the color are
@@ -1852,9 +1917,9 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
    Unit: *s*
 
-   Default time in seconds, how long a value is displayed in scqcv
-   if no update is received. Setting to 0 means, show value until
-   updated.
+   Default time in seconds, how long a value is displayed in
+   scqcv if no update is received. Setting to 0 means, show
+   value until updated.
 
 
 .. confval:: spike.color
@@ -1866,10 +1931,12 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: spike.useAbsoluteValue
 
+   Default: ``false``
+
    Type: *boolean*
 
    Activate to display absolute values \(modulus\).
-   Default is ``false``.
+
 
 .. confval:: spike.action
 
@@ -1925,11 +1992,13 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: spike.range.$name.count
 
+   Default: ``0``
+
    Type: *double*
 
    Contribution of this range for computing the score.
    The range must be considered.
-   Default is ``0``.
+
 
 .. confval:: spike.range.$name.color
 
@@ -1947,7 +2016,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
    **spikeAmplitude.\***
-   *Parameters controlling the display of the QC parameter 'spikes amplitude'*
+   *Parameters controlling the display of the QC parameter*
+   *'spikes amplitude'.*
 
 
 
@@ -1977,9 +2047,9 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
    Unit: *s*
 
-   Default time in seconds, how long a value is displayed in scqcv
-   if no update is received. Setting to 0 means, show value until
-   updated.
+   Default time in seconds, how long a value is displayed in
+   scqcv if no update is received. Setting to 0 means, show
+   value until updated.
 
 
 .. confval:: spikeAmplitude.color
@@ -1991,10 +2061,12 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: spikeAmplitude.useAbsoluteValue
 
+   Default: ``false``
+
    Type: *boolean*
 
    Activate to display absolute values \(modulus\).
-   Default is ``false``.
+
 
 .. confval:: spikeAmplitude.action
 
@@ -2050,11 +2122,13 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: spikeAmplitude.range.$name.count
 
+   Default: ``0``
+
    Type: *double*
 
    Contribution of this range for computing the score.
    The range must be considered.
-   Default is ``0``.
+
 
 .. confval:: spikeAmplitude.range.$name.color
 
@@ -2072,7 +2146,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
    **spikeInterval.\***
-   *Parameters controlling the display of the QC parameter 'spikes interval'*
+   *Parameters controlling the display of the QC parameter*
+   *'spikes interval'.*
 
 
 
@@ -2102,9 +2177,9 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
    Unit: *s*
 
-   Default time in seconds, how long a value is displayed in scqcv
-   if no update is received. Setting to 0 means, show value until
-   updated.
+   Default time in seconds, how long a value is displayed in
+   scqcv if no update is received. Setting to 0 means, show
+   value until updated.
 
 
 .. confval:: spikeInterval.color
@@ -2116,10 +2191,12 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: spikeInterval.useAbsoluteValue
 
+   Default: ``false``
+
    Type: *boolean*
 
    Activate to display absolute values \(modulus\).
-   Default is ``false``.
+
 
 .. confval:: spikeInterval.action
 
@@ -2175,11 +2252,13 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: spikeInterval.range.$name.count
 
+   Default: ``0``
+
    Type: *double*
 
    Contribution of this range for computing the score.
    The range must be considered.
-   Default is ``0``.
+
 
 .. confval:: spikeInterval.range.$name.color
 
@@ -2197,7 +2276,8 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. note::
    **timing.\***
-   *Parameters controlling the display of the QC parameter 'timing quality'*
+   *Parameters controlling the display of the QC parameter*
+   *'timing quality'.*
 
 
 
@@ -2227,9 +2307,9 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
    Unit: *s*
 
-   Default time in seconds, how long a value is displayed in scqcv
-   if no update is received. Setting to 0 means, show value until
-   updated.
+   Default time in seconds, how long a value is displayed in
+   scqcv if no update is received. Setting to 0 means, show
+   value until updated.
 
 
 .. confval:: timing.color
@@ -2241,10 +2321,12 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: timing.useAbsoluteValue
 
+   Default: ``false``
+
    Type: *boolean*
 
    Activate to display absolute values \(modulus\).
-   Default is ``false``.
+
 
 .. confval:: timing.action
 
@@ -2300,11 +2382,13 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: timing.range.$name.count
 
+   Default: ``0``
+
    Type: *double*
 
    Contribution of this range for computing the score.
    The range must be considered.
-   Default is ``0``.
+
 
 .. confval:: timing.range.$name.color
 
@@ -2333,21 +2417,133 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
    Type: *list:double*
 
-   Value interval for range sane
+   Value interval for range sane.
 
 
 .. confval:: range.inter
 
    Type: *list:double*
 
-   Value interval for range inter
+   Value interval for range inter.
 
 
 .. confval:: range.bad
 
    Type: *list:double*
 
-   Value interval for range bad
+   Value interval for range bad.
+
+
+.. confval:: range.above
+
+   Type: *list:double*
+
+   Value interval for range profile above.
+
+
+.. confval:: range.below
+
+   Type: *list:double*
+
+   Value interval for range profile below.
+
+
+.. confval:: range.delay
+
+   Type: *list:double*
+
+   Value interval for range profile delay.
+
+
+.. confval:: range.latency
+
+   Type: *list:double*
+
+   Value interval for range profile latency.
+
+
+.. confval:: range.timing
+
+   Type: *list:double*
+
+   Value interval for range profile timing.
+
+
+.. confval:: range.unset
+
+   Type: *list:double*
+
+   Value interval for range profile unset.
+
+
+.. confval:: range.r01
+
+   Type: *list:double*
+
+   Value interval for range profile r01.
+
+
+.. confval:: range.r02
+
+   Type: *list:double*
+
+   Value interval for range profile r02.
+
+
+.. confval:: range.r03
+
+   Type: *list:double*
+
+   Value interval for range profile r03.
+
+
+.. confval:: range.r04
+
+   Type: *list:double*
+
+   Value interval for range profile r04.
+
+
+.. confval:: range.r05
+
+   Type: *list:double*
+
+   Value interval for range profile r05.
+
+
+.. confval:: range.r06
+
+   Type: *list:double*
+
+   Value interval for range profile r06.
+
+
+.. confval:: range.r07
+
+   Type: *list:double*
+
+   Value interval for range profile r07.
+
+
+.. confval:: range.r08
+
+   Type: *list:double*
+
+   Value interval for range profile r08.
+
+
+.. confval:: range.r09
+
+   Type: *list:double*
+
+   Value interval for range profile r09.
+
+
+.. confval:: range.r10
+
+   Type: *list:double*
+
+   Value interval for range profile r10.
 
 
 .. note::
@@ -2361,8 +2557,9 @@ scqcv inherits :ref:`global options<global-configuration>`.
    Type: *double*
 
    Contribution of this range for computing the score.
-   The range must be considered.
-   Default is ``0``.
+   The range must be considered. The count is also set in
+   [parameter].range.[range profile].count .
+
 
 .. confval:: range.$name.color
 
@@ -2521,7 +2718,228 @@ scqcv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: format.float
 
+   Default: ``2``
+
    Type: *int*
 
    Number of decimal values shown for parameters of format float.
-   Default is ``2``.
+
+
+
+Command-Line Options
+====================
+
+.. program:: scqcv
+
+:program:`scqcv [options]`
+
+
+Generic
+-------
+
+.. option:: -h, --help
+
+   Show help message.
+
+.. option:: -V, --version
+
+   Show version information.
+
+.. option:: --config-file arg
+
+   Use alternative configuration file. When this option is
+   used the loading of all stages is disabled. Only the
+   given configuration file is parsed and used. To use
+   another name for the configuration create a symbolic
+   link of the application or copy it. Example:
+   scautopick \-> scautopick2.
+
+.. option:: --plugins arg
+
+   Load given plugins.
+
+.. option:: --auto-shutdown arg
+
+   Enable\/disable self\-shutdown because a master module shutdown.
+   This only works when messaging is enabled and the master
+   module sends a shutdown message \(enabled with \-\-start\-stop\-msg
+   for the master module\).
+
+.. option:: --shutdown-master-module arg
+
+   Set the name of the master\-module used for auto\-shutdown.
+   This is the application name of the module actually
+   started. If symlinks are used, then it is the name of
+   the symlinked application.
+
+.. option:: --shutdown-master-username arg
+
+   Set the name of the master\-username of the messaging
+   used for auto\-shutdown. If \"shutdown\-master\-module\" is
+   given as well, this parameter is ignored.
+
+
+Verbosity
+---------
+
+.. option:: --verbosity arg
+
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
+
+.. option:: -v, --v
+
+   Increase verbosity level \(may be repeated, eg. \-vv\).
+
+.. option:: -q, --quiet
+
+   Quiet mode: no logging output.
+
+.. option:: --component arg
+
+   Limit the logging to a certain component. This option can
+   be given more than once.
+
+.. option:: -s, --syslog
+
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
+
+.. option:: -l, --lockfile arg
+
+   Path to lock file.
+
+.. option:: --console arg
+
+   Send log output to stdout.
+
+.. option:: --debug
+
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
+
+.. option:: --log-file arg
+
+   Use alternative log file.
+
+.. option:: --print-component arg
+
+   For each log entry print the component right after the
+   log level. By default the component output is enabled
+   for file output but disabled for console output.
+
+.. option:: --trace
+
+   Execute in trace mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 \-\-print\-component\=1
+   \-\-print\-context\=1 .
+
+
+Messaging
+---------
+
+.. option:: -u, --user arg
+
+   Overrides configuration parameter :confval:`connection.username`.
+
+.. option:: -H, --host arg
+
+   Overrides configuration parameter :confval:`connection.server`.
+
+.. option:: -t, --timeout arg
+
+   Overrides configuration parameter :confval:`connection.timeout`.
+
+.. option:: -g, --primary-group arg
+
+   Overrides configuration parameter :confval:`connection.primaryGroup`.
+
+.. option:: -S, --subscribe-group arg
+
+   A group to subscribe to.
+   This option can be given more than once.
+
+.. option:: --content-type arg
+
+   Overrides configuration parameter :confval:`connection.contentType`.
+
+.. option:: --start-stop-msg arg
+
+   Set sending of a start and a stop message.
+
+
+Database
+--------
+
+.. option:: --db-driver-list
+
+   List all supported database drivers.
+
+.. option:: -d, --database arg
+
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
+
+.. option:: --config-module arg
+
+   The config module to use.
+
+.. option:: --inventory-db arg
+
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
+
+.. option:: --db-disable
+
+   Do not use the database at all
+
+
+Records
+-------
+
+.. option:: --record-driver-list
+
+   List all supported record stream drivers.
+
+.. option:: -I, --record-url arg
+
+   The recordstream source URL, format:
+   [service:\/\/]location[#type].
+   \"service\" is the name of the recordstream driver
+   which can be queried with \"\-\-record\-driver\-list\".
+   If \"service\" is not given, \"file:\/\/\" is
+   used.
+
+.. option:: --record-file arg
+
+   Specify a file as record source.
+
+.. option:: --record-type arg
+
+   Specify a type for the records being read.
+
+
+Cities
+------
+
+.. option:: --city-xml arg
+
+   The path to the cities XML file. This overrides the default
+   paths. Compare with the global parameter \"citiesXML\".
+
+
+User interface
+--------------
+
+.. option:: -F, --full-screen
+
+   Start the application filling the entire screen.
+   This only works with GUI applications.
+
+.. option:: -N, --non-interactive
+
+   Use non\-interactive presentation mode. This only works with
+   GUI applications.
+

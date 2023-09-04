@@ -25,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -99,9 +99,9 @@ By clicking on a streamID, the past waveforms are displayed at length configured
 by <a class="reference internal" href="#confval-streamWidget.length"><code class="xref std std-confval docutils literal notranslate"><span class="pre">streamWidget.length</span></code></a>.</p>
 <p>To <strong>disable / enable</strong> a station click on the respective station field in the
 <em>enabled</em> column.</p>
-<div class="figure align-center" id="id2">
+<div class="figure align-center" id="id3">
 <span id="fig-tab-view"></span><a class="reference internal image-reference" href="../_images/Tabulator_view_of_scqcv.png"><img alt="../_images/Tabulator_view_of_scqcv.png" src="../_images/Tabulator_view_of_scqcv.png" style="width: 16cm;" /></a>
-<p class="caption"><span class="caption-text">Tabulator view of scqcv</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Tabulator view of scqcv</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="station-overview">
@@ -122,18 +122,18 @@ the stream code.</p>
 results in a stream code filter, only displaying the matching stream codes.
 Disabled stations are crossed out. Click on a stream field to view the detailed
 QC parameters where stations can also be enabled / disabled.</p>
-<div class="figure align-center" id="id3">
+<div class="figure align-center" id="id4">
 <span id="fig-status-overview"></span><a class="reference internal image-reference" href="../_images/Status_overview_of_scqcv.png"><img alt="../_images/Status_overview_of_scqcv.png" src="../_images/Status_overview_of_scqcv.png" style="width: 16cm;" /></a>
-<p class="caption"><span class="caption-text">Status overview of scqcv with a stream widget</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Status overview of scqcv with a stream widget</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
 <p>The compact status overview allows a quick impression of the present status of
 all received streams (<a class="reference internal" href="#fig-compact-status"><span class="std std-ref">Compact status overview of scqcv</span></a>). Functionality is equal to the
 status overview grouped by network.</p>
 <p>Switch between compact view and
 network seperated view by clicking the checkbox in the bottom line.</p>
-<div class="figure align-center" id="id4">
+<div class="figure align-center" id="id5">
 <span id="fig-compact-status"></span><a class="reference internal image-reference" href="../_images/Compact_status_overview_of_scqcv.png"><img alt="../_images/Compact_status_overview_of_scqcv.png" src="../_images/Compact_status_overview_of_scqcv.png" style="width: 16cm;" /></a>
-<p class="caption"><span class="caption-text">Compact status overview of scqcv</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Compact status overview of scqcv</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </div>
 <div class="section" id="scoring">
 <span id="scqcv-sec-scoring"></span><h3>Scoring<a class="headerlink" href="#scoring" title="Permalink to this headline">¶</a></h3>
@@ -218,8 +218,8 @@ timing.range.sane.color <span class="o">=</span> green
 <p>The mapping of parameter names to ConfigName is configurable by
 <a class="reference internal" href="#confval-parameter"><code class="xref std std-confval docutils literal notranslate"><span class="pre">parameter</span></code></a> but the default mapping is available in
 <code class="file docutils literal notranslate"><span class="pre">&#64;DEFAULTCONFIGDIR&#64;/scqcv.cfg</span></code>.</p>
-<table class="docutils align-default" id="id5">
-<caption><span class="caption-text">Default mapping of parameter names.</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<table class="docutils align-default" id="id6">
+<caption><span class="caption-text">Default mapping of parameter names.</span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 50%" />
 <col style="width: 50%" />
@@ -277,8 +277,8 @@ timing.range.sane.color <span class="o">=</span> green
 </table>
 </div>
 </div>
-<div class="section" id="configuration">
-<span id="scqcv-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-configuration">
+<span id="scqcv-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/global.cfg</span></code></div>
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/scqcv.cfg</span></code></div>
@@ -292,12 +292,15 @@ timing.range.sane.color <span class="o">=</span> green
 <dt id="confval-parameter">
 <code class="sig-name descname">parameter</code><a class="headerlink" href="#confval-parameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
-<p>List of QC parameters to be displayed in the details table. Read the scqc documentation
-for a list of available QC parameters and the default configuration
-of scqcv $SEISCOMP_ROOT/etc/defaults/scqcv.cfg for more examples.</p>
+<p>List of QC parameters to be displayed in the details table.
+Read the scqc documentation for a list of available QC parameters
+and the default configuration of scqcv
+$SEISCOMP_ROOT/etc/defaults/scqcv.cfg for more examples.</p>
 <p>Format: “Parameter name : ConfigName”</p>
-<p>Example: “delay : delay”,”spikes count : spike”,”spikes amplitude : spikeAmplitude”
-Refer to the parameters by their ConfigName to configure the attributes.</p>
+<p>Example: “delay : delay”,”spikes count : spike”,”spikes amplitude :
+spikeAmplitude”.
+Refer to the parameters by their ConfigName to configure the
+attributes.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -306,20 +309,22 @@ Refer to the parameters by their ConfigName to configure the attributes.</p>
 <dd><p>Type: <em>list:string</em></p>
 <p>The list of channel codes to be displayed. List items may
 contain wildcards and are separated by comma.
-The list is  intersected with all channels configured in inventory.</p>
+The list is  intersected with all channels configured in
+inventory.</p>
 <p>Examples:</p>
 <p>default : display all streams configured by global bindings</p>
-<p>default, PF.BON.00.HH? : display default and all HH streams of PF.BON.00</p>
+<p>default, PF.BON.00.HH? : display default and all HH streams
+of PF.BON.00</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-streams.cumulative">
 <code class="sig-name descname">streams.cumulative</code><a class="headerlink" href="#confval-streams.cumulative" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Add new streams automatically to the streams
-configured in streams.codes when waveform QC parameters are
-provided for these streams.
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Add new streams automatically to the streams configured in
+streams.codes when waveform QC parameters are provided for
+these streams.</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -331,10 +336,10 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
 <dl class="confval">
 <dt id="confval-streamWidget.length">
 <code class="sig-name descname">streamWidget.length</code><a class="headerlink" href="#confval-streamWidget.length" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">600</span></code></p>
+<p>Type: <em>int</em></p>
 <p>Unit: <em>s</em></p>
-<p>Length of data to be displayed.
-Default is <code class="docutils literal notranslate"><span class="pre">600</span></code>.</p>
+<p>Length of data to be displayed.</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -342,7 +347,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">600</spa
 <p><strong>score.*</strong>
 <em>Parameters controlling the overall QC score of a station.</em>
 <em>The score is computed from the valid count parameter of the</em>
-<em>defined ranges.</em></p>
+<em>defined ranges. It is vizualized in the QcOverview.</em></p>
 </div>
 <dl class="confval">
 <dt id="confval-score.default.ranges">
@@ -350,16 +355,17 @@ Default is <code class="docutils literal notranslate"><span class="pre">600</spa
 <dd><p>Type: <em>list:string</em></p>
 <p>Ranges to be considered for forming the score. Set the
 count parameter om the respective range section for
-controlling the contribution of this range.</p>
+controlling the contribution of this range. The
+range parameters control the coloring.</p>
 </dd></dl>
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>default.*</strong>
 <em>Default configuration for all QC parameters. The configuration</em>
-<em>can be extended to each QC parameter by placing</em>
-<em>“default” with the parameter name in scqcv.cfg. Examples for</em>
-<em>some QC parameters are given below.</em>
+<em>can be extended to each QC parameter by placing “default” with</em>
+<em>the parameter name in scqcv.cfg. Examples for some QC parameters</em>
+<em>are given below.</em>
 **
 <em>Read the scqc documentation for a list of available QC</em>
 <em>parameters and the default configuration of scqcv</em>
@@ -368,13 +374,13 @@ controlling the contribution of this range.</p>
 <dl class="confval">
 <dt id="confval-default.ranges">
 <code class="sig-name descname">default.ranges</code><a class="headerlink" href="#confval-default.ranges" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>list:string</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">bad,</span> <span class="pre">sane</span></code></p>
+<p>Type: <em>list:string</em></p>
 <p>Names of range profile to be considered.
 The range profiles define the background color table
 fields depending on the field value. Add the default
 ranges for which different intervals and the color are
-configured.
-Default is <code class="docutils literal notranslate"><span class="pre">bad,</span> <span class="pre">sane</span></code>.</p>
+configured.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -390,9 +396,9 @@ Default is <code class="docutils literal notranslate"><span class="pre">bad,</sp
 <code class="sig-name descname">default.expire</code><a class="headerlink" href="#confval-default.expire" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
-<p>Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.</p>
+<p>Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -405,9 +411,9 @@ updated.</p>
 <dl class="confval">
 <dt id="confval-default.useAbsoluteValue">
 <code class="sig-name descname">default.useAbsoluteValue</code><a class="headerlink" href="#confval-default.useAbsoluteValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Activate to display absolute values (modulus).
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Activate to display absolute values (modulus).</p>
 </dd></dl>
 
 <dl class="confval">
@@ -462,10 +468,10 @@ default.range.c.value1 <span class="o">=</span> ...
 <dl class="confval">
 <dt id="confval-default.range.$name.count">
 <code class="sig-name descname">default.range.$name.count</code><a class="headerlink" href="#confval-default.range.$name.count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>double</em></p>
 <p>Contribution of this range for computing the score.
-The range must be considered.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+The range must be considered.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -485,7 +491,8 @@ Default is <code class="docutils literal notranslate"><span class="pre">0</span>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>availability.*</strong>
-<em>Parameters controlling the display of the QC parameter ‘availability’</em></p>
+<em>Parameters controlling the display of the QC parameter</em>
+<em>‘availability’</em></p>
 </div>
 <dl class="confval">
 <dt id="confval-availability.ranges">
@@ -511,9 +518,9 @@ configured.</p>
 <code class="sig-name descname">availability.expire</code><a class="headerlink" href="#confval-availability.expire" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
-<p>Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.</p>
+<p>Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -526,9 +533,9 @@ updated.</p>
 <dl class="confval">
 <dt id="confval-availability.useAbsoluteValue">
 <code class="sig-name descname">availability.useAbsoluteValue</code><a class="headerlink" href="#confval-availability.useAbsoluteValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Activate to display absolute values (modulus).
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Activate to display absolute values (modulus).</p>
 </dd></dl>
 
 <dl class="confval">
@@ -583,10 +590,10 @@ availability.range.c.value1 <span class="o">=</span> ...
 <dl class="confval">
 <dt id="confval-availability.range.$name.count">
 <code class="sig-name descname">availability.range.$name.count</code><a class="headerlink" href="#confval-availability.range.$name.count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>double</em></p>
 <p>Contribution of this range for computing the score.
-The range must be considered.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+The range must be considered.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -632,9 +639,9 @@ configured.</p>
 <code class="sig-name descname">delay.expire</code><a class="headerlink" href="#confval-delay.expire" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
-<p>Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.</p>
+<p>Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -647,9 +654,9 @@ updated.</p>
 <dl class="confval">
 <dt id="confval-delay.useAbsoluteValue">
 <code class="sig-name descname">delay.useAbsoluteValue</code><a class="headerlink" href="#confval-delay.useAbsoluteValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Activate to display absolute values (modulus).
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Activate to display absolute values (modulus).</p>
 </dd></dl>
 
 <dl class="confval">
@@ -704,10 +711,10 @@ delay.range.c.value1 <span class="o">=</span> ...
 <dl class="confval">
 <dt id="confval-delay.range.$name.count">
 <code class="sig-name descname">delay.range.$name.count</code><a class="headerlink" href="#confval-delay.range.$name.count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>double</em></p>
 <p>Contribution of this range for computing the score.
-The range must be considered.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+The range must be considered.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -727,7 +734,8 @@ Default is <code class="docutils literal notranslate"><span class="pre">0</span>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>gap.*</strong>
-<em>Parameters controlling the display of the QC parameter ‘gaps count’</em></p>
+<em>Parameters controlling the display of the QC parameter</em>
+<em>‘gaps count’.</em></p>
 </div>
 <dl class="confval">
 <dt id="confval-gap.ranges">
@@ -753,9 +761,9 @@ configured.</p>
 <code class="sig-name descname">gap.expire</code><a class="headerlink" href="#confval-gap.expire" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
-<p>Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.</p>
+<p>Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -768,9 +776,9 @@ updated.</p>
 <dl class="confval">
 <dt id="confval-gap.useAbsoluteValue">
 <code class="sig-name descname">gap.useAbsoluteValue</code><a class="headerlink" href="#confval-gap.useAbsoluteValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Activate to display absolute values (modulus).
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Activate to display absolute values (modulus).</p>
 </dd></dl>
 
 <dl class="confval">
@@ -825,10 +833,10 @@ gap.range.c.value1 <span class="o">=</span> ...
 <dl class="confval">
 <dt id="confval-gap.range.$name.count">
 <code class="sig-name descname">gap.range.$name.count</code><a class="headerlink" href="#confval-gap.range.$name.count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>double</em></p>
 <p>Contribution of this range for computing the score.
-The range must be considered.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+The range must be considered.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -848,7 +856,8 @@ Default is <code class="docutils literal notranslate"><span class="pre">0</span>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>gapLength.*</strong>
-<em>Parameters controlling the display of the QC parameter ‘gaps length’</em></p>
+<em>Parameters controlling the display of the QC parameter</em>
+<em>‘gaps length’</em></p>
 </div>
 <dl class="confval">
 <dt id="confval-gapLength.ranges">
@@ -874,9 +883,9 @@ configured.</p>
 <code class="sig-name descname">gapLength.expire</code><a class="headerlink" href="#confval-gapLength.expire" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
-<p>Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.</p>
+<p>Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -889,16 +898,16 @@ updated.</p>
 <dl class="confval">
 <dt id="confval-gapLength.useAbsoluteValue">
 <code class="sig-name descname">gapLength.useAbsoluteValue</code><a class="headerlink" href="#confval-gapLength.useAbsoluteValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Activate to display absolute values (modulus).
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Activate to display absolute values (modulus).</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-gapLength.action">
 <code class="sig-name descname">gapLength.action</code><a class="headerlink" href="#confval-gapLength.action" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
-<p>Possible values: enableStream, disableStream</p>
+<p>Possible values: enableStream, disableStream.</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -913,21 +922,21 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
 <dt id="confval-gapLength.range.sane">
 <code class="sig-name descname">gapLength.range.sane</code><a class="headerlink" href="#confval-gapLength.range.sane" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:double</em></p>
-<p>Value interval for range sane</p>
+<p>Value interval for range sane.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-gapLength.range.inter">
 <code class="sig-name descname">gapLength.range.inter</code><a class="headerlink" href="#confval-gapLength.range.inter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:double</em></p>
-<p>Value interval for range inter</p>
+<p>Value interval for range inter.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-gapLength.range.bad">
 <code class="sig-name descname">gapLength.range.bad</code><a class="headerlink" href="#confval-gapLength.range.bad" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:double</em></p>
-<p>Value interval for range bad</p>
+<p>Value interval for range bad.</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -946,10 +955,10 @@ gapLength.range.c.value1 <span class="o">=</span> ...
 <dl class="confval">
 <dt id="confval-gapLength.range.$name.count">
 <code class="sig-name descname">gapLength.range.$name.count</code><a class="headerlink" href="#confval-gapLength.range.$name.count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>double</em></p>
 <p>Contribution of this range for computing the score.
-The range must be considered.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+The range must be considered.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1010,9 +1019,9 @@ updated.</p>
 <dl class="confval">
 <dt id="confval-gapInterval.useAbsoluteValue">
 <code class="sig-name descname">gapInterval.useAbsoluteValue</code><a class="headerlink" href="#confval-gapInterval.useAbsoluteValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Activate to display absolute values (modulus).
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Activate to display absolute values (modulus).</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1067,10 +1076,10 @@ gapInterval.range.c.value1 <span class="o">=</span> ...
 <dl class="confval">
 <dt id="confval-gapInterval.range.$name.count">
 <code class="sig-name descname">gapInterval.range.$name.count</code><a class="headerlink" href="#confval-gapInterval.range.$name.count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>double</em></p>
 <p>Contribution of this range for computing the score.
-The range must be considered.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+The range must be considered.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1131,9 +1140,9 @@ updated.</p>
 <dl class="confval">
 <dt id="confval-latency.useAbsoluteValue">
 <code class="sig-name descname">latency.useAbsoluteValue</code><a class="headerlink" href="#confval-latency.useAbsoluteValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Activate to display absolute values (modulus).
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Activate to display absolute values (modulus).</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1188,10 +1197,10 @@ latency.range.c.value1 <span class="o">=</span> ...
 <dl class="confval">
 <dt id="confval-latency.range.$name.count">
 <code class="sig-name descname">latency.range.$name.count</code><a class="headerlink" href="#confval-latency.range.$name.count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>double</em></p>
 <p>Contribution of this range for computing the score.
-The range must be considered.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+The range must be considered.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1253,9 +1262,9 @@ updated.</p>
 <dl class="confval">
 <dt id="confval-offset.useAbsoluteValue">
 <code class="sig-name descname">offset.useAbsoluteValue</code><a class="headerlink" href="#confval-offset.useAbsoluteValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Activate to display absolute values (modulus).
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Activate to display absolute values (modulus).</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1310,10 +1319,10 @@ offset.range.c.value1 <span class="o">=</span> ...
 <dl class="confval">
 <dt id="confval-offset.range.$name.count">
 <code class="sig-name descname">offset.range.$name.count</code><a class="headerlink" href="#confval-offset.range.$name.count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>double</em></p>
 <p>Contribution of this range for computing the score.
-The range must be considered.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+The range must be considered.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1374,9 +1383,9 @@ updated.</p>
 <dl class="confval">
 <dt id="confval-overlap.useAbsoluteValue">
 <code class="sig-name descname">overlap.useAbsoluteValue</code><a class="headerlink" href="#confval-overlap.useAbsoluteValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Activate to display absolute values (modulus).
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Activate to display absolute values (modulus).</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1431,10 +1440,10 @@ overlap.range.c.value1 <span class="o">=</span> ...
 <dl class="confval">
 <dt id="confval-overlap.range.$name.count">
 <code class="sig-name descname">overlap.range.$name.count</code><a class="headerlink" href="#confval-overlap.range.$name.count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>double</em></p>
 <p>Contribution of this range for computing the score.
-The range must be considered.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+The range must be considered.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1480,9 +1489,9 @@ configured.</p>
 <code class="sig-name descname">overlapInterval.expire</code><a class="headerlink" href="#confval-overlapInterval.expire" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
-<p>Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.</p>
+<p>Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1495,9 +1504,9 @@ updated.</p>
 <dl class="confval">
 <dt id="confval-overlapInterval.useAbsoluteValue">
 <code class="sig-name descname">overlapInterval.useAbsoluteValue</code><a class="headerlink" href="#confval-overlapInterval.useAbsoluteValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Activate to display absolute values (modulus).
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Activate to display absolute values (modulus).</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1552,10 +1561,10 @@ overlapInterval.range.c.value1 <span class="o">=</span> ...
 <dl class="confval">
 <dt id="confval-overlapInterval.range.$name.count">
 <code class="sig-name descname">overlapInterval.range.$name.count</code><a class="headerlink" href="#confval-overlapInterval.range.$name.count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>double</em></p>
 <p>Contribution of this range for computing the score.
-The range must be considered.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+The range must be considered.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1575,7 +1584,8 @@ Default is <code class="docutils literal notranslate"><span class="pre">0</span>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>overlapLength.*</strong>
-<em>Parameters controlling the display of the QC parameter ‘overlaps length’</em></p>
+<em>Parameters controlling the display of the QC parameter</em>
+<em>‘overlaps length’</em></p>
 </div>
 <dl class="confval">
 <dt id="confval-overlapLength.ranges">
@@ -1601,9 +1611,9 @@ configured.</p>
 <code class="sig-name descname">overlapLength.expire</code><a class="headerlink" href="#confval-overlapLength.expire" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
-<p>Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.</p>
+<p>Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1616,9 +1626,9 @@ updated.</p>
 <dl class="confval">
 <dt id="confval-overlapLength.useAbsoluteValue">
 <code class="sig-name descname">overlapLength.useAbsoluteValue</code><a class="headerlink" href="#confval-overlapLength.useAbsoluteValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Activate to display absolute values (modulus).
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Activate to display absolute values (modulus).</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1673,10 +1683,10 @@ overlapLength.range.c.value1 <span class="o">=</span> ...
 <dl class="confval">
 <dt id="confval-overlapLength.range.$name.count">
 <code class="sig-name descname">overlapLength.range.$name.count</code><a class="headerlink" href="#confval-overlapLength.range.$name.count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>double</em></p>
 <p>Contribution of this range for computing the score.
-The range must be considered.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+The range must be considered.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1722,9 +1732,9 @@ configured.</p>
 <code class="sig-name descname">rms.expire</code><a class="headerlink" href="#confval-rms.expire" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
-<p>Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.</p>
+<p>Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1737,9 +1747,9 @@ updated.</p>
 <dl class="confval">
 <dt id="confval-rms.useAbsoluteValue">
 <code class="sig-name descname">rms.useAbsoluteValue</code><a class="headerlink" href="#confval-rms.useAbsoluteValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Activate to display absolute values (modulus).
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Activate to display absolute values (modulus).</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1794,10 +1804,10 @@ rms.range.c.value1 <span class="o">=</span> ...
 <dl class="confval">
 <dt id="confval-rms.range.$name.count">
 <code class="sig-name descname">rms.range.$name.count</code><a class="headerlink" href="#confval-rms.range.$name.count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>double</em></p>
 <p>Contribution of this range for computing the score.
-The range must be considered.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+The range must be considered.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1817,13 +1827,14 @@ Default is <code class="docutils literal notranslate"><span class="pre">0</span>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>spike.*</strong>
-<em>Parameters controlling the display of the QC parameter ‘spikes count’</em></p>
+<em>Parameters controlling the display of the QC parameter</em>
+<em>‘spikes count’</em></p>
 </div>
 <dl class="confval">
 <dt id="confval-spike.ranges">
 <code class="sig-name descname">spike.ranges</code><a class="headerlink" href="#confval-spike.ranges" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
-<p>Names of range profile to be considered
+<p>Names of range profile to be considered.
 The range profiles s define the background color table
 fields depending on the field value. Add the default
 ranges for which different intervals and the color are
@@ -1843,9 +1854,9 @@ configured.</p>
 <code class="sig-name descname">spike.expire</code><a class="headerlink" href="#confval-spike.expire" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
-<p>Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.</p>
+<p>Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1858,9 +1869,9 @@ updated.</p>
 <dl class="confval">
 <dt id="confval-spike.useAbsoluteValue">
 <code class="sig-name descname">spike.useAbsoluteValue</code><a class="headerlink" href="#confval-spike.useAbsoluteValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Activate to display absolute values (modulus).
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Activate to display absolute values (modulus).</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1915,10 +1926,10 @@ spike.range.c.value1 <span class="o">=</span> ...
 <dl class="confval">
 <dt id="confval-spike.range.$name.count">
 <code class="sig-name descname">spike.range.$name.count</code><a class="headerlink" href="#confval-spike.range.$name.count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>double</em></p>
 <p>Contribution of this range for computing the score.
-The range must be considered.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+The range must be considered.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1938,7 +1949,8 @@ Default is <code class="docutils literal notranslate"><span class="pre">0</span>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>spikeAmplitude.*</strong>
-<em>Parameters controlling the display of the QC parameter ‘spikes amplitude’</em></p>
+<em>Parameters controlling the display of the QC parameter</em>
+<em>‘spikes amplitude’.</em></p>
 </div>
 <dl class="confval">
 <dt id="confval-spikeAmplitude.ranges">
@@ -1964,9 +1976,9 @@ configured.</p>
 <code class="sig-name descname">spikeAmplitude.expire</code><a class="headerlink" href="#confval-spikeAmplitude.expire" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
-<p>Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.</p>
+<p>Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -1979,9 +1991,9 @@ updated.</p>
 <dl class="confval">
 <dt id="confval-spikeAmplitude.useAbsoluteValue">
 <code class="sig-name descname">spikeAmplitude.useAbsoluteValue</code><a class="headerlink" href="#confval-spikeAmplitude.useAbsoluteValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Activate to display absolute values (modulus).
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Activate to display absolute values (modulus).</p>
 </dd></dl>
 
 <dl class="confval">
@@ -2036,10 +2048,10 @@ spikeAmplitude.range.c.value1 <span class="o">=</span> ...
 <dl class="confval">
 <dt id="confval-spikeAmplitude.range.$name.count">
 <code class="sig-name descname">spikeAmplitude.range.$name.count</code><a class="headerlink" href="#confval-spikeAmplitude.range.$name.count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>double</em></p>
 <p>Contribution of this range for computing the score.
-The range must be considered.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+The range must be considered.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -2059,7 +2071,8 @@ Default is <code class="docutils literal notranslate"><span class="pre">0</span>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>spikeInterval.*</strong>
-<em>Parameters controlling the display of the QC parameter ‘spikes interval’</em></p>
+<em>Parameters controlling the display of the QC parameter</em>
+<em>‘spikes interval’.</em></p>
 </div>
 <dl class="confval">
 <dt id="confval-spikeInterval.ranges">
@@ -2085,9 +2098,9 @@ configured.</p>
 <code class="sig-name descname">spikeInterval.expire</code><a class="headerlink" href="#confval-spikeInterval.expire" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
-<p>Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.</p>
+<p>Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -2100,9 +2113,9 @@ updated.</p>
 <dl class="confval">
 <dt id="confval-spikeInterval.useAbsoluteValue">
 <code class="sig-name descname">spikeInterval.useAbsoluteValue</code><a class="headerlink" href="#confval-spikeInterval.useAbsoluteValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Activate to display absolute values (modulus).
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Activate to display absolute values (modulus).</p>
 </dd></dl>
 
 <dl class="confval">
@@ -2157,10 +2170,10 @@ spikeInterval.range.c.value1 <span class="o">=</span> ...
 <dl class="confval">
 <dt id="confval-spikeInterval.range.$name.count">
 <code class="sig-name descname">spikeInterval.range.$name.count</code><a class="headerlink" href="#confval-spikeInterval.range.$name.count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>double</em></p>
 <p>Contribution of this range for computing the score.
-The range must be considered.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+The range must be considered.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -2180,7 +2193,8 @@ Default is <code class="docutils literal notranslate"><span class="pre">0</span>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>timing.*</strong>
-<em>Parameters controlling the display of the QC parameter ‘timing quality’</em></p>
+<em>Parameters controlling the display of the QC parameter</em>
+<em>‘timing quality’.</em></p>
 </div>
 <dl class="confval">
 <dt id="confval-timing.ranges">
@@ -2206,9 +2220,9 @@ configured.</p>
 <code class="sig-name descname">timing.expire</code><a class="headerlink" href="#confval-timing.expire" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
-<p>Default time in seconds, how long a value is displayed in scqcv
-if no update is received. Setting to 0 means, show value until
-updated.</p>
+<p>Default time in seconds, how long a value is displayed in
+scqcv if no update is received. Setting to 0 means, show
+value until updated.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -2221,9 +2235,9 @@ updated.</p>
 <dl class="confval">
 <dt id="confval-timing.useAbsoluteValue">
 <code class="sig-name descname">timing.useAbsoluteValue</code><a class="headerlink" href="#confval-timing.useAbsoluteValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>Activate to display absolute values (modulus).
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Activate to display absolute values (modulus).</p>
 </dd></dl>
 
 <dl class="confval">
@@ -2278,10 +2292,10 @@ timing.range.c.value1 <span class="o">=</span> ...
 <dl class="confval">
 <dt id="confval-timing.range.$name.count">
 <code class="sig-name descname">timing.range.$name.count</code><a class="headerlink" href="#confval-timing.range.$name.count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>double</em></p>
 <p>Contribution of this range for computing the score.
-The range must be considered.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+The range must be considered.</p>
 </dd></dl>
 
 <dl class="confval">
@@ -2310,21 +2324,133 @@ Default is <code class="docutils literal notranslate"><span class="pre">0</span>
 <dt id="confval-range.sane">
 <code class="sig-name descname">range.sane</code><a class="headerlink" href="#confval-range.sane" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:double</em></p>
-<p>Value interval for range sane</p>
+<p>Value interval for range sane.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-range.inter">
 <code class="sig-name descname">range.inter</code><a class="headerlink" href="#confval-range.inter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:double</em></p>
-<p>Value interval for range inter</p>
+<p>Value interval for range inter.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-range.bad">
 <code class="sig-name descname">range.bad</code><a class="headerlink" href="#confval-range.bad" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:double</em></p>
-<p>Value interval for range bad</p>
+<p>Value interval for range bad.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-range.above">
+<code class="sig-name descname">range.above</code><a class="headerlink" href="#confval-range.above" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:double</em></p>
+<p>Value interval for range profile above.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-range.below">
+<code class="sig-name descname">range.below</code><a class="headerlink" href="#confval-range.below" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:double</em></p>
+<p>Value interval for range profile below.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-range.delay">
+<code class="sig-name descname">range.delay</code><a class="headerlink" href="#confval-range.delay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:double</em></p>
+<p>Value interval for range profile delay.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-range.latency">
+<code class="sig-name descname">range.latency</code><a class="headerlink" href="#confval-range.latency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:double</em></p>
+<p>Value interval for range profile latency.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-range.timing">
+<code class="sig-name descname">range.timing</code><a class="headerlink" href="#confval-range.timing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:double</em></p>
+<p>Value interval for range profile timing.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-range.unset">
+<code class="sig-name descname">range.unset</code><a class="headerlink" href="#confval-range.unset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:double</em></p>
+<p>Value interval for range profile unset.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-range.r01">
+<code class="sig-name descname">range.r01</code><a class="headerlink" href="#confval-range.r01" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:double</em></p>
+<p>Value interval for range profile r01.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-range.r02">
+<code class="sig-name descname">range.r02</code><a class="headerlink" href="#confval-range.r02" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:double</em></p>
+<p>Value interval for range profile r02.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-range.r03">
+<code class="sig-name descname">range.r03</code><a class="headerlink" href="#confval-range.r03" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:double</em></p>
+<p>Value interval for range profile r03.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-range.r04">
+<code class="sig-name descname">range.r04</code><a class="headerlink" href="#confval-range.r04" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:double</em></p>
+<p>Value interval for range profile r04.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-range.r05">
+<code class="sig-name descname">range.r05</code><a class="headerlink" href="#confval-range.r05" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:double</em></p>
+<p>Value interval for range profile r05.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-range.r06">
+<code class="sig-name descname">range.r06</code><a class="headerlink" href="#confval-range.r06" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:double</em></p>
+<p>Value interval for range profile r06.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-range.r07">
+<code class="sig-name descname">range.r07</code><a class="headerlink" href="#confval-range.r07" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:double</em></p>
+<p>Value interval for range profile r07.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-range.r08">
+<code class="sig-name descname">range.r08</code><a class="headerlink" href="#confval-range.r08" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:double</em></p>
+<p>Value interval for range profile r08.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-range.r09">
+<code class="sig-name descname">range.r09</code><a class="headerlink" href="#confval-range.r09" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:double</em></p>
+<p>Value interval for range profile r09.</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-range.r10">
+<code class="sig-name descname">range.r10</code><a class="headerlink" href="#confval-range.r10" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:double</em></p>
+<p>Value interval for range profile r10.</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -2337,8 +2463,8 @@ $name is a placeholder for the name to be used.</p>
 <code class="sig-name descname">range.$name.count</code><a class="headerlink" href="#confval-range.$name.count" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
 <p>Contribution of this range for computing the score.
-The range must be considered.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+The range must be considered. The count is also set in
+[parameter].range.[range profile].count .</p>
 </dd></dl>
 
 <dl class="confval">
@@ -2497,11 +2623,292 @@ Default is <code class="docutils literal notranslate"><span class="pre">0</span>
 <dl class="confval">
 <dt id="confval-format.float">
 <code class="sig-name descname">format.float</code><a class="headerlink" href="#confval-format.float" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
-<p>Number of decimal values shown for parameters of format float.
-Default is <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">2</span></code></p>
+<p>Type: <em>int</em></p>
+<p>Number of decimal values shown for parameters of format float.</p>
 </dd></dl>
 
+</div>
+<div class="section" id="command-line-options">
+<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
+<p><strong class="program">scqcv [options]</strong></p>
+<div class="section" id="generic">
+<h3>Generic<a class="headerlink" href="#generic" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scqcv-h">
+<code class="sig-name descname">-h</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--help</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scqcv-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show help message.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-v">
+<code class="sig-name descname">-V</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--version</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scqcv-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show version information.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-config-file">
+<code class="sig-name descname">--config-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-config-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick -&gt; scautopick2.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-plugins">
+<code class="sig-name descname">--plugins</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-plugins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load given plugins.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-auto-shutdown">
+<code class="sig-name descname">--auto-shutdown</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-auto-shutdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable/disable self-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with –start-stop-msg
+for the master module).</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-shutdown-master-module">
+<code class="sig-name descname">--shutdown-master-module</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-shutdown-master-module" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the name of the master-module used for auto-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-shutdown-master-username">
+<code class="sig-name descname">--shutdown-master-username</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-shutdown-master-username" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the name of the master-username of the messaging
+used for auto-shutdown. If “shutdown-master-module” is
+given as well, this parameter is ignored.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="verbosity">
+<h3>Verbosity<a class="headerlink" href="#verbosity" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scqcv-verbosity">
+<code class="sig-name descname">--verbosity</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-verbosity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="id2">
+<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--v</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Increase verbosity level (may be repeated, eg. -vv).</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-q">
+<code class="sig-name descname">-q</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--quiet</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scqcv-q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Quiet mode: no logging output.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-component">
+<code class="sig-name descname">--component</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-component" title="Permalink to this definition">¶</a></dt>
+<dd><p>Limit the logging to a certain component. This option can
+be given more than once.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-s">
+<code class="sig-name descname">-s</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--syslog</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scqcv-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use syslog logging backend. The output usually goes to
+/var/lib/messages.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-l">
+<code class="sig-name descname">-l</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--lockfile</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-l" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to lock file.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-console">
+<code class="sig-name descname">--console</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-console" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send log output to stdout.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-debug">
+<code class="sig-name descname">--debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scqcv-debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute in debug mode.
+Equivalent to –verbosity=4 –console=1 .</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-log-file">
+<code class="sig-name descname">--log-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-log-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use alternative log file.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-print-component">
+<code class="sig-name descname">--print-component</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-print-component" title="Permalink to this definition">¶</a></dt>
+<dd><p>For each log entry print the component right after the
+log level. By default the component output is enabled
+for file output but disabled for console output.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-trace">
+<code class="sig-name descname">--trace</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scqcv-trace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute in trace mode.
+Equivalent to –verbosity=4 –console=1 –print-component=1
+–print-context=1 .</p>
+</dd></dl>
+
+</div>
+<div class="section" id="messaging">
+<h3>Messaging<a class="headerlink" href="#messaging" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scqcv-u">
+<code class="sig-name descname">-u</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--user</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-u" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.username"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.username</span></code></a>.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-host">
+<code class="sig-name descname">-H</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--host</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-host" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.server"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.server</span></code></a>.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-t">
+<code class="sig-name descname">-t</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--timeout</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.timeout"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.timeout</span></code></a>.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-g">
+<code class="sig-name descname">-g</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--primary-group</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-g" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.primaryGroup"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.primaryGroup</span></code></a>.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-subscribe-group">
+<code class="sig-name descname">-S</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--subscribe-group</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-subscribe-group" title="Permalink to this definition">¶</a></dt>
+<dd><p>A group to subscribe to.
+This option can be given more than once.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-content-type">
+<code class="sig-name descname">--content-type</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-content-type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.contentType"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.contentType</span></code></a>.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-start-stop-msg">
+<code class="sig-name descname">--start-stop-msg</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-start-stop-msg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set sending of a start and a stop message.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="database">
+<h3>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scqcv-db-driver-list">
+<code class="sig-name descname">--db-driver-list</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scqcv-db-driver-list" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all supported database drivers.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-d">
+<code class="sig-name descname">-d</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--database</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>The database connection string, format:
+<a class="reference external" href="service://user:pwd&#64;host/database">service://user:pwd&#64;host/database</a>.
+“service” is the name of the database driver which
+can be queried with “–db-driver-list”.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-config-module">
+<code class="sig-name descname">--config-module</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-config-module" title="Permalink to this definition">¶</a></dt>
+<dd><p>The config module to use.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-inventory-db">
+<code class="sig-name descname">--inventory-db</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-inventory-db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the inventory from the given database or file, format:
+[<a class="reference external" href="service://]location">service://]location</a> .</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-db-disable">
+<code class="sig-name descname">--db-disable</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scqcv-db-disable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not use the database at all</p>
+</dd></dl>
+
+</div>
+<div class="section" id="records">
+<h3>Records<a class="headerlink" href="#records" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scqcv-record-driver-list">
+<code class="sig-name descname">--record-driver-list</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scqcv-record-driver-list" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all supported record stream drivers.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-i">
+<code class="sig-name descname">-I</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--record-url</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>The recordstream source URL, format:
+[<a class="reference external" href="service://">service://</a>]location[#type].
+“service” is the name of the recordstream driver
+which can be queried with “–record-driver-list”.
+If “service” is not given, “<a class="reference external" href="file://">file://</a>” is
+used.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-record-file">
+<code class="sig-name descname">--record-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-record-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify a file as record source.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-record-type">
+<code class="sig-name descname">--record-type</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-record-type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify a type for the records being read.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="cities">
+<h3>Cities<a class="headerlink" href="#cities" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scqcv-city-xml">
+<code class="sig-name descname">--city-xml</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scqcv-city-xml" title="Permalink to this definition">¶</a></dt>
+<dd><p>The path to the cities XML file. This overrides the default
+paths. Compare with the global parameter “citiesXML”.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="user-interface">
+<h3>User interface<a class="headerlink" href="#user-interface" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-scqcv-f">
+<code class="sig-name descname">-F</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--full-screen</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scqcv-f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the application filling the entire screen.
+This only works with GUI applications.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-scqcv-n">
+<code class="sig-name descname">-N</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--non-interactive</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scqcv-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use non-interactive presentation mode. This only works with
+GUI applications.</p>
+</dd></dl>
+
+</div>
 </div>
 </div>
 
@@ -2537,7 +2944,17 @@ Default is <code class="docutils literal notranslate"><span class="pre">2</span>
 <li><a class="reference internal" href="#properties-of-qc-parameters">Properties of QC parameters</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
+<li><a class="reference internal" href="#command-line-options">Command-Line Options</a><ul>
+<li><a class="reference internal" href="#generic">Generic</a></li>
+<li><a class="reference internal" href="#verbosity">Verbosity</a></li>
+<li><a class="reference internal" href="#messaging">Messaging</a></li>
+<li><a class="reference internal" href="#database">Database</a></li>
+<li><a class="reference internal" href="#records">Records</a></li>
+<li><a class="reference internal" href="#cities">Cities</a></li>
+<li><a class="reference internal" href="#user-interface">User interface</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -2567,7 +2984,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">2</span>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

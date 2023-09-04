@@ -189,7 +189,7 @@ be used in the location.
 
 
 Integration into |scname|
-------------------------
+-------------------------
 
 * Integration of iLoc into |scname| is provided by an external library of
   routines (:cite:t:`iloc-iris`).
@@ -244,7 +244,9 @@ Local velocity models
 
 Custom local velocity models can be provided by a file in
 :file:`@DATADIR@/iloc/localmodels`. Example file
-:file:`@DATADIR@/iloc/localmodels/test.localmodel.dat`: ::
+:file:`@DATADIR@/iloc/localmodels/test.localmodel.dat`:
+
+.. code-block:: params
 
    #
    # test
@@ -301,25 +303,30 @@ Setup in |scname|
 =================
 
 #. Add the plugin *lociloc* to the global configuration, e.g. in
-   :file:`@SYSTEMCONFIGDIR@/global.cfg`: ::
+   :file:`@SYSTEMCONFIGDIR@/global.cfg`:
+
+   .. code-block:: params
 
       plugins = ${plugins}, lociloc
 
-#. Download iLoc from the iLoc website, extract the travel-time tables and model
-   files. Then, install the required files and directories in
-   :file:`@DATADIR@/iloc`, e.g.: ::
+#. Download iLoc data files from the :cite:t:`iloc-iris` website. Extract and
+   install them in :file:`@DATADIR@/iloc`. Ensure to download a valid file.
+   Example:
+
+   .. code-block:: sh
 
       mkdir $SEISCOMP_ROOT/share/iloc
-      wget -O /tmp/iLocAuxDir.tgz "http://iloc.geochem.hu/data/iLocAuxDir.tgz"
-      tar xvf /tmp/iLocAuxDir.tgz -C /tmp/
-      cp -r /tmp/iLocAuxDir $SEISCOMP_ROOT/share/iloc/auxdata
+      wget -O /tmp/iLocAuxDir.tgz "http://iloc.geochem.hu/data/iLocAuxDir4.1.tgz"
+      tar xvf /tmp/iLocAuxDir.tgz -C $SEISCOMP_ROOT/share/iloc
 
    .. note ::
 
-      * Check the :cite:t:`iloc-iris` website for updates before downloading.
-      * Instead of copying the :file:`auxdata` directory, you can also create a
-        symbolic link and maintain always the same iLoc version in |scname| and
-        externally.
+      * Check the :cite:t:`iloc-iris` website for updates before downloading
+        the file since the version number, hence the name of the download file
+        may change.
+      * Instead of generating the :file:`SEISCOMP_ROOT/share/iloc/iLocAuxDir`
+        directory, you can also create a symbolic link and maintain always the
+        same iLoc version in |scname| and externally.
 
 #. Add and configure iLoc profiles for the velocity models. The global models
    *iasp91* and *ak135* are considered by default with default configuration
@@ -332,8 +339,10 @@ Setup in |scname|
    * :confval:`iLoc.profile.$name.globalModel`: The name of the
      :ref:`global model <iloc-velocity_global>`, e.g. *iasp91* or *ak135*.
    * Consider the :ref:`RSTT parameters <iloc-velocity_rstt>`.
-   * :confval:`iLoc.profile.$name.LocalVmodel`: The name of the file containing
-     the :ref:`local velocity model <iloc-velocity_local>`.
+   * :confval:`iLoc.profile.$name.LocalVmodel`, :confval:`iLoc.profile.$name.UseLocalTT`
+     and :confval:`iLoc.profile.$name.MaxLocalTTDelta`: The definition of a
+     :ref:`local velocity model <iloc-velocity_local>`: model file, default
+     usability, distance range.
    * :confval:`iLoc.profile.$name.DoNotRenamePhases`: Renaming seismic phases
      automatically
      impacts the usability of the origins with other locators and locator profiles.
@@ -413,8 +422,8 @@ After relocating, the iLoc locator and the selected profile are shown in the
 
 .. _global_iloc_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 
 .. note::
@@ -423,14 +432,27 @@ Configuration
 
 
 
+.. confval:: iLoc.auxDir
+
+   Default: ``@DATADIR@/iloc/iLocAuxDir``
+
+   Type: *string*
+
+   iLoc directory for auxialiary files and directories. Some
+   of them must be provided from the iLoc website. Read the
+   documentation for their installation.
+
+
 .. confval:: iLoc.profiles
+
+   Default: ``iasp91,ak135``
 
    Type: *list:string*
 
    iLoc profile name.
    Multiples names may be set separated by comma.
    Each profile can have different velocity or parameters.
-   Default is ``iasp91,ak135``.
+
 
 .. note::
    **iLoc.profile.\***
@@ -459,10 +481,12 @@ Configuration
 
 .. confval:: iLoc.profile.$name.Verbose
 
+   Default: ``true``
+
    Type: *boolean*
 
    
-   Default is ``true``.
+
 
 .. confval:: iLoc.profile.$name.globalModel
 
@@ -475,46 +499,78 @@ Configuration
 
 .. confval:: iLoc.profile.$name.UseRSTT
 
+   Default: ``false``
+
    Type: *boolean*
 
    Use regional seismic travel\-time tables
-   Default is ``false``.
+
 
 .. confval:: iLoc.profile.$name.UseRSTTPnSn
+
+   Default: ``true``
 
    Type: *boolean*
 
    Use regional seismic travel\-time tables for Pn and Sn
-   Default is ``true``.
+
 
 .. confval:: iLoc.profile.$name.UseRSTTPgLg
+
+   Default: ``true``
 
    Type: *boolean*
 
    Use regional seismic travel\-time tables for Pg and Lg
-   Default is ``true``.
+
+
+.. confval:: iLoc.profile.$name.UseLocalTT
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Use local velocity model if defined in LocalVmodel.
+
 
 .. confval:: iLoc.profile.$name.LocalVmodel
 
    Type: *string*
 
    Full path to a file containing the local velocity model.
-   Requires: UseLocalTT \= true. Empty string or unset
-   disables using a local model in this profile.
+   Requires: UseLocalTT \= true. Empty string or unset or
+   UseLocalTT \= false disables using a local model in
+   this profile.
    
    Example:
    
-   \@DATADIR\@\/iloc\/localmodels\/model.localmodel.dat.
+   \@DATADIR\@\/iloc\/iLocAuxDir\/localmodels\/model.localmodel.dat.
+
+
+.. confval:: iLoc.profile.$name.MaxLocalTTDelta
+
+   Default: ``3``
+
+   Type: *float*
+
+   Unit: *deg*
+
+   Maximum epicentral distance for applying the local
+   velocity model.
 
 
 .. confval:: iLoc.profile.$name.DoGridSearch
 
+   Default: ``true``
+
    Type: *boolean*
 
    Perform neighbourhood algorithm
-   Default is ``true``.
+
 
 .. confval:: iLoc.profile.$name.NAsearchRadius
+
+   Default: ``5``
 
    Type: *float*
 
@@ -522,9 +578,11 @@ Configuration
 
    Neighbourhood Algorithm: Search radius around initial
    epicentre
-   Default is ``5``.
+
 
 .. confval:: iLoc.profile.$name.NAsearchDepth
+
+   Default: ``300``
 
    Type: *float*
 
@@ -532,9 +590,11 @@ Configuration
 
    Neighbourhood Algorithm: Search radius around initial
    depth
-   Default is ``300``.
+
 
 .. confval:: iLoc.profile.$name.NAsearchOT
+
+   Default: ``30``
 
    Type: *float*
 
@@ -542,159 +602,199 @@ Configuration
 
    Neighbourhood Algorithm: Search radius around initial
    origin time
-   Default is ``30``.
+
 
 .. confval:: iLoc.profile.$name.NAlpNorm
+
+   Default: ``1``
 
    Type: *float*
 
    Neighbourhood Algorithm: p\-value for norm to compute
    misfit [1,2]
-   Default is ``1``.
+
 
 .. confval:: iLoc.profile.$name.NAiterMax
+
+   Default: ``5``
 
    Type: *integer*
 
    Neighbourhood Algorithm: Maximum number of iterations
-   Default is ``5``.
+
 
 .. confval:: iLoc.profile.$name.NAcells
+
+   Default: ``25``
 
    Type: *integer*
 
    Neighbourhood Algorithm: Number of cells to be resampled
    at each iteration
-   Default is ``25``.
+
 
 .. confval:: iLoc.profile.$name.NAinitialSample
+
+   Default: ``1000``
 
    Type: *integer*
 
    Neighbourhood Algorithm: Size of initial sample
-   Default is ``1000``.
+
 
 .. confval:: iLoc.profile.$name.NAnextSample
+
+   Default: ``100``
 
    Type: *integer*
 
    Neighbourhood Algorithm: Size of subsequent samples
-   Default is ``100``.
+
 
 .. confval:: iLoc.profile.$name.MinDepthPhases
+
+   Default: ``3``
 
    Type: *integer*
 
    Depth resolution: Minimum number of depth phases for depdp
-   Default is ``3``.
+
 
 .. confval:: iLoc.profile.$name.MaxLocalDistDeg
+
+   Default: ``0.2``
 
    Type: *float*
 
    Unit: *deg*
 
    Depth resolution: Maximum local distance
-   Default is ``0.2``.
+
 
 .. confval:: iLoc.profile.$name.MinLocalStations
+
+   Default: ``1``
 
    Type: *integer*
 
    Depth resolution: Minimum number of local defining stations
-   Default is ``1``.
+
 
 .. confval:: iLoc.profile.$name.MaxSPDistDeg
+
+   Default: ``2.0``
 
    Type: *float*
 
    Unit: *deg*
 
    Depth resolution: Maximum distance for using S\-P travel\-time differences.
-   Default is ``2.0``.
+
 
 .. confval:: iLoc.profile.$name.MinSPpairs
+
+   Default: ``3``
 
    Type: *integer*
 
    Depth resolution: Minimum number of defining S\-P phase pairs
-   Default is ``3``.
+
 
 .. confval:: iLoc.profile.$name.MinCorePhases
+
+   Default: ``3``
 
    Type: *integer*
 
    Depth resolution: Minimum number of defining core reflection phases
-   Default is ``3``.
+
 
 .. confval:: iLoc.profile.$name.MaxShallowDepthError
+
+   Default: ``30.0``
 
    Type: *float*
 
    Unit: *km*
 
    Depth resolution: Maximum depth error for crustal free\-depth
-   Default is ``30.0``.
+
 
 .. confval:: iLoc.profile.$name.MaxDeepDepthError
+
+   Default: ``60.0``
 
    Type: *float*
 
    Unit: *km*
 
    Depth resolution: Maximum depth error for deep free\-depth
-   Default is ``60.0``.
+
 
 .. confval:: iLoc.profile.$name.DoCorrelatedErrors
+
+   Default: ``true``
 
    Type: *boolean*
 
    Linearized inversion: Account for correlated errors
-   Default is ``true``.
+
 
 .. confval:: iLoc.profile.$name.SigmaThreshold
+
+   Default: ``6.0``
 
    Type: *float*
 
    Unit: *s*
 
    Linearized inversion: Used to exclude big residuals from solution
-   Default is ``6.0``.
+
 
 .. confval:: iLoc.profile.$name.AllowDamping
+
+   Default: ``true``
 
    Type: *boolean*
 
    Linearized inversion: Allow damping of model vector
-   Default is ``true``.
+
 
 .. confval:: iLoc.profile.$name.MinIterations
+
+   Default: ``4``
 
    Type: *integer*
 
    Linearized inversion: Minimum number of iterations
-   Default is ``4``.
+
 
 .. confval:: iLoc.profile.$name.MaxIterations
+
+   Default: ``20``
 
    Type: *integer*
 
    Linearized inversion: Maximum number of iterations
-   Default is ``20``.
+
 
 .. confval:: iLoc.profile.$name.MinNdefPhases
+
+   Default: ``4``
 
    Type: *integer*
 
    Linearized inversion: Minimum number of defining phases
-   Default is ``4``.
+
 
 .. confval:: iLoc.profile.$name.DoNotRenamePhases
+
+   Default: ``false``
 
    Type: *boolean*
 
    Linearized inversion: Do not rename phases. Deactivating
    allows to rename the phases automatically for this
    profile.
-   Default is ``false``.
+
 

@@ -76,8 +76,8 @@ public:
     {
         if (ConnectionDialog->objectName().isEmpty())
             ConnectionDialog->setObjectName(QString::fromUtf8("ConnectionDialog"));
-        ConnectionDialog->resize(508, 527);
-        QSizePolicy sizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5));
+        ConnectionDialog->resize(847, 638);
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(ConnectionDialog->sizePolicy().hasHeightForWidth());
@@ -108,7 +108,7 @@ public:
 
         groupDatabase = new QGroupBox(ConnectionDialog);
         groupDatabase->setObjectName(QString::fromUtf8("groupDatabase"));
-        QSizePolicy sizePolicy1(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(4));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Maximum);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(groupDatabase->sizePolicy().hasHeightForWidth());
@@ -149,7 +149,7 @@ public:
 
         comboDbType = new QComboBox(groupDatabase);
         comboDbType->setObjectName(QString::fromUtf8("comboDbType"));
-        comboDbType->setModelColumn(false);
+        comboDbType->setModelColumn(0);
 
         gridLayout1->addWidget(comboDbType, 0, 1, 1, 1);
 
@@ -187,7 +187,7 @@ public:
         splitter->setOrientation(Qt::Horizontal);
         groupMessaging = new QGroupBox(splitter);
         groupMessaging->setObjectName(QString::fromUtf8("groupMessaging"));
-        QSizePolicy sizePolicy2(static_cast<QSizePolicy::Policy>(7), static_cast<QSizePolicy::Policy>(1));
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Minimum);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(groupMessaging->sizePolicy().hasHeightForWidth());
@@ -283,7 +283,7 @@ public:
         vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
         listSubscriptions = new QListWidget(groupSubscriptions);
         listSubscriptions->setObjectName(QString::fromUtf8("listSubscriptions"));
-        QSizePolicy sizePolicy3(static_cast<QSizePolicy::Policy>(7), static_cast<QSizePolicy::Policy>(3));
+        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding);
         sizePolicy3.setHorizontalStretch(0);
         sizePolicy3.setVerticalStretch(0);
         sizePolicy3.setHeightForWidth(listSubscriptions->sizePolicy().hasHeightForWidth());

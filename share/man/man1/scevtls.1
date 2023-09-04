@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCEVTLS" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCEVTLS" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scevtls \- SeisComP Documentation
 .
@@ -36,13 +36,14 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .sp
 \fIscevtls\fP lists all available event IDs within a given time range to stdout.
 .sp
-Use scorgls for listing all origin IDs. In extension to scevtls and
+Use scorgls for listing all origin IDs. In extension to \fIscevtls\fP and
 scorgls scquery can search for parameters based on complex
 custom queries.
-.SH EXAMPLE
-.sp
-Print all event IDs for the complete year 2012.
+.SH EXAMPLES
 .INDENT 0.0
+.IP \(bu 2
+Print all event IDs for the complete year 2012:
+.INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
@@ -54,7 +55,20 @@ scevtls \-d mysql://sysop:sysop@localhost/seiscomp \e
 .fi
 .UNINDENT
 .UNINDENT
-.SH CONFIGURATION
+.IP \(bu 2
+Print all event IDs along with the ID of the preferred origin:
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scevtls \-d localhost \-p
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/scevtls.cfg\fP
@@ -66,51 +80,58 @@ scevtls \-d mysql://sysop:sysop@localhost/seiscomp \e
 .sp
 .sp
 scevtls inherits global options\&.
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
+.sp
+\fBscevtls [options]\fP
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .SS Verbosity
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -125,7 +146,8 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -141,19 +163,21 @@ List all supported database drivers.
 .INDENT 0.0
 .TP
 .B \-d, \-\-database arg
-The database connection string, format: \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which can be
-queried with "\-\-db\-driver\-list".
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+"service" is the name of the database driver which
+can be queried with "\-\-db\-driver\-list".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-module arg
-The configmodule to use.
+The config module to use.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-inventory\-db arg
-Load the inventory from the given database or file, format: [\fI\%service://]location\fP
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -175,8 +199,26 @@ Specify the upper bound of the time interval. Format is
 .UNINDENT
 .INDENT 0.0
 .TP
+.B \-\-hours arg
+Start searching given hours before now. If set, \-\-begin and
+\-\-end are ignored.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-modified\-after time
+Print IDs or events modified after the specified time.
+.UNINDENT
+.SS Output
+.INDENT 0.0
+.TP
 .B \-D, \-\-delimiter string
-Specify the delimiter of the resulting event ids.
+Specify the delimiter of the resulting event IDs.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-p, \-\-preferred\-origin
+Print the ID of the preferred origin along with the event
+ID.
 .UNINDENT
 .SH AUTHOR
 gempa GmbH, GFZ Potsdam

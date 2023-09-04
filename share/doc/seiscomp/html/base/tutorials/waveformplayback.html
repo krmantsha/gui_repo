@@ -25,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -118,28 +118,46 @@ other sources. The miniSEED data records in the data files must be sorted by end
 </ul>
 <div class="section" id="data-preparation">
 <h2>Data preparation<a class="headerlink" href="#data-preparation" title="Permalink to this headline">¶</a></h2>
-<p>First extract the data. Make sure the miniSEED records are sorted by end-time.
+<p>First extract the data. Make sure the miniSEED records are sorted by end time.
 The data extraction depends on the data source.</p>
+<p>Examples:</p>
 <ul>
-<li><p>Extract the data from your own SDS archive using <a class="reference internal" href="../../apps/scart.html#scart"><span class="std std-ref">scart</span></a> and save in new
-miniSEED file, sorted by end-time. The resulting
-file <code class="file docutils literal notranslate"><span class="pre">[your</span> <span class="pre">miniSEED</span> <span class="pre">file]</span></code> can be used for the playback.</p>
-<p>Example:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scart -dsEv -t <span class="s1">&#39;[start-time]~[end-time]&#39;</span> <span class="nv">$SEISCOMP_ROOT</span>/var/lib/archive &gt; <span class="o">[</span>your miniSEED file<span class="o">]</span>
+<li><p><strong>SDS archive:</strong> Extract the data from your own SDS archive using <a class="reference internal" href="../../apps/scart.html#scart"><span class="std std-ref">scart</span></a>
+and save it in a new miniSEED file <code class="file docutils literal notranslate"><span class="pre">[your</span> <span class="pre">miniSEED</span> <span class="pre">file]</span></code>, sorted by
+end time of the records.</p>
+<p>Examples:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scart -dsE -l <span class="o">[</span>list file<span class="o">]</span> <span class="nv">$SEISCOMP_ROOT</span>/var/lib/archive &gt; <span class="o">[</span>your miniSEED file<span class="o">]</span>
 </pre></div>
 </div>
 </li>
-<li><p>Get the miniSEED data from an external FDSNWS server. The obtained data are
-initially sorted by station and must therefore be sorted by end time. The resulting
-file <code class="file docutils literal notranslate"><span class="pre">[your</span> <span class="pre">miniSEED</span> <span class="pre">file]</span></code> can be used for the playback.</p>
-<p>Example for 1 hour of data from the GE network from <a class="reference external" href="https://geofon.gfz-potsdam.de/waveform/webservices.php">FDSNWS at GEOFON</a> <a class="footnote-reference brackets" href="#id1" id="id2">1</a>:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>wget -O data.mseed <span class="s2">&quot;https://geofon.gfz-potsdam.de/fdsnws/dataselect/1/query?net=GE&amp;cha=BH*&amp;starttime=2020-04-01T06:00:00Z&amp;endtime=2012-06-04T07:00:00Z&quot;</span>
+<li><p><strong>FDSNWS:</strong> Get the miniSEED data from an external FDSNWS server. The obtained
+data are initially sorted by station and must therefore be sorted by end time
+using <a class="reference internal" href="../../apps/scmssort.html#scmssort"><span class="std std-ref">scmssort</span></a>. Use the resulting file <code class="file docutils literal notranslate"><span class="pre">[your</span> <span class="pre">miniSEED</span> <span class="pre">file]</span></code>
+for your playback.</p>
+<p>Example for one hour of data from the GE network from
+<a class="reference external" href="https://geofon.gfz-potsdam.de/waveform/webservices/fdsnws.php">FDSNWS at GEOFON</a>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>wget -O data.mseed <span class="s2">&quot;http://geofon.gfz-potsdam.de/fdsnws/dataselect/1/query?net=GE&amp;cha=BH*&amp;starttime=2021-04-01T06:00:00Z&amp;endtime=2021-04-01T07:00:00Z&quot;</span>
 scmssort -u -E data.mseed &gt; <span class="o">[</span>your miniSEED file<span class="o">]</span>
 </pre></div>
 </div>
 </li>
-<li><p>To extract the data from gempa’s <a class="reference external" href="https://www.gempa.de/products/caps/">CAPS server</a> <a class="footnote-reference brackets" href="#id3" id="id4">2</a> use <a class="reference external" href="https://docs.gempa.de/caps/current/apps/capstool.html">capstool</a> <a class="footnote-reference brackets" href="#id5" id="id6">3</a> together with <a class="reference internal" href="../../apps/scmssort.html#scmssort"><span class="std std-ref">scmssort</span></a>.</p></li>
+<li><p><strong>CAPS server:</strong> Extract the data from gempa’s CAPS server <span id="id1">[<a class="reference internal" href="../references.html#id87" title="CAPS. gempa module. URL: https://docs.gempa.de/caps/current/index.html.">3</a>]</span>
+using <span id="id2"><em>capstool</em> [<a class="reference internal" href="../references.html#id90" title="capstool. gempa plugin. URL: https://docs.gempa.de/caps/current/apps/capstool.html.">25</a>]</span>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>capstool -H <span class="o">[</span>host<span class="o">]</span>:<span class="o">[</span>port<span class="o">]</span> <span class="o">[</span>request file<span class="o">]</span> &gt; data.mseed
+</pre></div>
+</div>
+<p>or <a class="reference internal" href="../../apps/scart.html#scart"><span class="std std-ref">scart</span></a> with the <em>caps</em> <a class="reference internal" href="../glossary.html#term-recordstream"><span class="xref std std-term">recordstream</span></a>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scart -I caps://<span class="o">[</span>host<span class="o">]</span>:<span class="o">[</span>port<span class="o">]</span> -l <span class="o">[</span>list file<span class="o">]</span> --stdout &gt; data.mseed
+</pre></div>
+</div>
+<p>Eventually, sort the downloaded data by end time with <a class="reference internal" href="../../apps/scmssort.html#scmssort"><span class="std std-ref">scmssort</span></a> creating
+a new file, <code class="file docutils literal notranslate"><span class="pre">[your</span> <span class="pre">miniSEED</span> <span class="pre">file]</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scmssort -u -E data.mseed &gt; <span class="o">[</span>your miniSEED file<span class="o">]</span>
+</pre></div>
+</div>
+</li>
 </ul>
+<p>Use the resulting file <code class="file docutils literal notranslate"><span class="pre">[your</span> <span class="pre">miniSEED</span> <span class="pre">file]</span></code> for your playback.</p>
 </div>
 <div class="section" id="playbacks">
 <h2>Playbacks<a class="headerlink" href="#playbacks" title="Permalink to this headline">¶</a></h2>
@@ -261,20 +279,6 @@ XML files, the files can be merged beforehand using <a class="reference internal
 brackets, e.g. [your file]</p>
 </div>
 </div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="id1"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
-<dd><p><a class="reference external" href="https://geofon.gfz-potsdam.de/waveform/webservices.php">https://geofon.gfz-potsdam.de/waveform/webservices.php</a></p>
-</dd>
-<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id4">2</a></span></dt>
-<dd><p><a class="reference external" href="https://www.gempa.de/products/caps/">https://www.gempa.de/products/caps/</a></p>
-</dd>
-<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id6">3</a></span></dt>
-<dd><p><a class="reference external" href="https://docs.gempa.de/caps/current/apps/capstool.html">https://docs.gempa.de/caps/current/apps/capstool.html</a></p>
-</dd>
-</dl>
-</div>
 </div>
 
 
@@ -304,7 +308,6 @@ brackets, e.g. [your file]</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#reviewing-results">Reviewing results</a></li>
-<li><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
 </ul>
@@ -334,7 +337,7 @@ brackets, e.g. [your file]</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCXMLMERGE" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCXMLMERGE" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scxmlmerge \- SeisComP Documentation
 .
@@ -31,40 +31,40 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
 .sp
-\fBMerge the content of multiple XML files in SC3ML format.\fP
+\fBMerge the content of multiple XML files in SCML format.\fP
 .SH DESCRIPTION
 .sp
-scxmlmerge reads all SeisComP elements from one or more XML files in SC3ML format.
-It merges the content and prints the result to standard output. The input can contain
-and SeisComP element and the content can
-be filtered to print only some elements such as EventParameters.
+scxmlmerge reads all \fISeisComP\fP elements from one or more XML files in SCML
+format. It merges the content and prints the result to standard output. The
+input can contain and SeisComP element and the
+content can be filtered to print only some elements such as EventParameters.
 The output can be redirected into one single file and used by other applications.
 .sp
 The supported SeisComP elements are:
 .INDENT 0.0
 .IP \(bu 2
+Config
+.IP \(bu 2
+DataAvailability
+.IP \(bu 2
 EventParameters
 .IP \(bu 2
 Inventory
 .IP \(bu 2
-Config
-.IP \(bu 2
-Routing
-.IP \(bu 2
 QualityControl
 .IP \(bu 2
-DataAvailability
+Routing
 .UNINDENT
 .sp
 By default all supported elements will be parsed and merged. Duplicates are removed.
 Use options to restrict the element types.
 .sp
-\fBNOTE:\fP
+There are alternative modules for processing inventory XML files:
 .INDENT 0.0
-.INDENT 3.5
-Use also scinv for merging inventory XML files and for extracting
-inventory information.
-.UNINDENT
+.IP \(bu 2
+scinv: Merge inventory XML files, extract inventory information.
+.IP \(bu 2
+invextr: Extract and filter inventory information.
 .UNINDENT
 .SH EXAMPLES
 .INDENT 0.0
@@ -94,7 +94,7 @@ scxmlmerge \-E \-C file1.xml file2.xml > file.xml
 .UNINDENT
 .UNINDENT
 .UNINDENT
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/scxmlmerge.cfg\fP
@@ -106,35 +106,36 @@ scxmlmerge \-E \-C file1.xml file2.xml > file.xml
 .sp
 .sp
 scxmlmerge inherits global options\&.
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
 .sp
 \fBscxmlmerge [options] inputFiles\fP
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .SS Verbosity
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -146,12 +147,14 @@ for file output but disabled for console output.
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -166,12 +169,15 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-trace
-Trace mode: \-\-verbosity=4 \-\-console=1 \-\-print\-component=1 \-\-print\-context=1
+Execute in trace mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 \-\-print\-component=1
+\-\-print\-context=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -181,33 +187,33 @@ Use alternative log file.
 .SS Options
 .INDENT 0.0
 .TP
-.B \-\-event E
-Include Event Parameters
+.B \-\-event
+Include Event Parameters.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-inventory I
-Include Inventory
+.B \-\-inventory
+Include Inventory.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-config C
-Include Config
+.B \-\-config
+Include Config.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-routing R
-Include Routing
+.B \-\-routing
+Include Routing.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-quality Q
-Include QualityControl
+.B \-\-quality
+Include QualityControl.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-availability Y
-Include DataAvailability
+.B \-\-availability
+Include DataAvailability.
 .UNINDENT
 .SH AUTHOR
 gempa GmbH, GFZ Potsdam

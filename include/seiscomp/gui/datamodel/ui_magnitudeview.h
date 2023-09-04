@@ -79,7 +79,7 @@ public:
     QRadioButton *btnTrimmedMedian;
     QDoubleSpinBox *spinTrimmedMedianValue;
     QSpacerItem *spacerItem1;
-    QHBoxLayout *hboxLayout3;
+    QHBoxLayout *layoutActions;
     QToolButton *btnRecalculate;
     QToolButton *btnSelect;
     QToolButton *btnActivate;
@@ -94,8 +94,8 @@ public:
     {
         if (MagnitudeView->objectName().isEmpty())
             MagnitudeView->setObjectName(QString::fromUtf8("MagnitudeView"));
-        MagnitudeView->resize(853, 864);
-        QSizePolicy sizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5));
+        MagnitudeView->resize(894, 864);
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(MagnitudeView->sizePolicy().hasHeightForWidth());
@@ -116,7 +116,7 @@ public:
         hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
         groupSummary = new QFrame(MagnitudeView);
         groupSummary->setObjectName(QString::fromUtf8("groupSummary"));
-        QSizePolicy sizePolicy1(static_cast<QSizePolicy::Policy>(7), static_cast<QSizePolicy::Policy>(5));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
         sizePolicy1.setHorizontalStretch(2);
         sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(groupSummary->sizePolicy().hasHeightForWidth());
@@ -127,7 +127,7 @@ public:
         vboxLayout1->setObjectName(QString::fromUtf8("vboxLayout1"));
         labelRegion = new QLabel(groupSummary);
         labelRegion->setObjectName(QString::fromUtf8("labelRegion"));
-        QSizePolicy sizePolicy2(static_cast<QSizePolicy::Policy>(13), static_cast<QSizePolicy::Policy>(4));
+        QSizePolicy sizePolicy2(QSizePolicy::Ignored, QSizePolicy::Maximum);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(labelRegion->sizePolicy().hasHeightForWidth());
@@ -139,7 +139,7 @@ public:
 
         frameMap = new QFrame(groupSummary);
         frameMap->setObjectName(QString::fromUtf8("frameMap"));
-        QSizePolicy sizePolicy3(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(7));
+        QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Expanding);
         sizePolicy3.setHorizontalStretch(1);
         sizePolicy3.setVerticalStretch(0);
         sizePolicy3.setHeightForWidth(frameMap->sizePolicy().hasHeightForWidth());
@@ -159,7 +159,7 @@ public:
         vboxLayout2->setObjectName(QString::fromUtf8("vboxLayout2"));
         groupMagnitude = new QFrame(MagnitudeView);
         groupMagnitude->setObjectName(QString::fromUtf8("groupMagnitude"));
-        QSizePolicy sizePolicy4(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5));
+        QSizePolicy sizePolicy4(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy4.setHorizontalStretch(0);
         sizePolicy4.setVerticalStretch(1);
         sizePolicy4.setHeightForWidth(groupMagnitude->sizePolicy().hasHeightForWidth());
@@ -186,7 +186,7 @@ public:
 
         labelAuthor = new QLabel(groupMagnitude);
         labelAuthor->setObjectName(QString::fromUtf8("labelAuthor"));
-        QSizePolicy sizePolicy5(static_cast<QSizePolicy::Policy>(13), static_cast<QSizePolicy::Policy>(5));
+        QSizePolicy sizePolicy5(QSizePolicy::Ignored, QSizePolicy::Preferred);
         sizePolicy5.setHorizontalStretch(0);
         sizePolicy5.setVerticalStretch(0);
         sizePolicy5.setHeightForWidth(labelAuthor->sizePolicy().hasHeightForWidth());
@@ -235,7 +235,7 @@ public:
 
         labelMagnitude = new QLabel(groupMagnitude);
         labelMagnitude->setObjectName(QString::fromUtf8("labelMagnitude"));
-        QSizePolicy sizePolicy6(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(5));
+        QSizePolicy sizePolicy6(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
         sizePolicy6.setHorizontalStretch(0);
         sizePolicy6.setVerticalStretch(0);
         sizePolicy6.setHeightForWidth(labelMagnitude->sizePolicy().hasHeightForWidth());
@@ -301,7 +301,7 @@ public:
 
         frame = new QFrame(groupMagnitude);
         frame->setObjectName(QString::fromUtf8("frame"));
-        QSizePolicy sizePolicy7(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(0));
+        QSizePolicy sizePolicy7(QSizePolicy::Preferred, QSizePolicy::Fixed);
         sizePolicy7.setHorizontalStretch(0);
         sizePolicy7.setVerticalStretch(0);
         sizePolicy7.setHeightForWidth(frame->sizePolicy().hasHeightForWidth());
@@ -367,7 +367,7 @@ public:
         hboxLayout1->setObjectName(QString::fromUtf8("hboxLayout1"));
         groupSettings = new QFrame(groupReview);
         groupSettings->setObjectName(QString::fromUtf8("groupSettings"));
-        QSizePolicy sizePolicy8(static_cast<QSizePolicy::Policy>(4), static_cast<QSizePolicy::Policy>(4));
+        QSizePolicy sizePolicy8(QSizePolicy::Maximum, QSizePolicy::Maximum);
         sizePolicy8.setHorizontalStretch(1);
         sizePolicy8.setVerticalStretch(0);
         sizePolicy8.setHeightForWidth(groupSettings->sizePolicy().hasHeightForWidth());
@@ -378,7 +378,7 @@ public:
         hboxLayout2->setObjectName(QString::fromUtf8("hboxLayout2"));
         btnDefault = new QRadioButton(groupSettings);
         btnDefault->setObjectName(QString::fromUtf8("btnDefault"));
-        QSizePolicy sizePolicy9(static_cast<QSizePolicy::Policy>(4), static_cast<QSizePolicy::Policy>(0));
+        QSizePolicy sizePolicy9(QSizePolicy::Maximum, QSizePolicy::Fixed);
         sizePolicy9.setHorizontalStretch(0);
         sizePolicy9.setVerticalStretch(0);
         sizePolicy9.setHeightForWidth(btnDefault->sizePolicy().hasHeightForWidth());
@@ -442,57 +442,57 @@ public:
 
         vboxLayout4->addLayout(hboxLayout1);
 
-        hboxLayout3 = new QHBoxLayout();
-        hboxLayout3->setSpacing(6);
-        hboxLayout3->setContentsMargins(0, 0, 0, 0);
-        hboxLayout3->setObjectName(QString::fromUtf8("hboxLayout3"));
+        layoutActions = new QHBoxLayout();
+        layoutActions->setSpacing(6);
+        layoutActions->setContentsMargins(0, 0, 0, 0);
+        layoutActions->setObjectName(QString::fromUtf8("layoutActions"));
         btnRecalculate = new QToolButton(groupReview);
         btnRecalculate->setObjectName(QString::fromUtf8("btnRecalculate"));
 
-        hboxLayout3->addWidget(btnRecalculate);
+        layoutActions->addWidget(btnRecalculate);
 
         btnSelect = new QToolButton(groupReview);
         btnSelect->setObjectName(QString::fromUtf8("btnSelect"));
 
-        hboxLayout3->addWidget(btnSelect);
+        layoutActions->addWidget(btnSelect);
 
         btnActivate = new QToolButton(groupReview);
         btnActivate->setObjectName(QString::fromUtf8("btnActivate"));
 
-        hboxLayout3->addWidget(btnActivate);
+        layoutActions->addWidget(btnActivate);
 
         btnDeactivate = new QToolButton(groupReview);
         btnDeactivate->setObjectName(QString::fromUtf8("btnDeactivate"));
 
-        hboxLayout3->addWidget(btnDeactivate);
+        layoutActions->addWidget(btnDeactivate);
 
         label_4 = new QLabel(groupReview);
         label_4->setObjectName(QString::fromUtf8("label_4"));
 
-        hboxLayout3->addWidget(label_4);
+        layoutActions->addWidget(label_4);
 
         cbEvalStatus = new QComboBox(groupReview);
         cbEvalStatus->setObjectName(QString::fromUtf8("cbEvalStatus"));
 
-        hboxLayout3->addWidget(cbEvalStatus);
+        layoutActions->addWidget(cbEvalStatus);
 
         spacerItem2 = new QSpacerItem(474, 29, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        hboxLayout3->addItem(spacerItem2);
+        layoutActions->addItem(spacerItem2);
 
         btnWaveforms = new QToolButton(groupReview);
         btnWaveforms->setObjectName(QString::fromUtf8("btnWaveforms"));
 
-        hboxLayout3->addWidget(btnWaveforms);
+        layoutActions->addWidget(btnWaveforms);
 
         btnCommit = new QToolButton(groupReview);
         btnCommit->setObjectName(QString::fromUtf8("btnCommit"));
         btnCommit->setEnabled(false);
 
-        hboxLayout3->addWidget(btnCommit);
+        layoutActions->addWidget(btnCommit);
 
 
-        vboxLayout4->addLayout(hboxLayout3);
+        vboxLayout4->addLayout(layoutActions);
 
 
         vboxLayout->addWidget(groupReview);

@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCXMLDUMP" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCXMLDUMP" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scxmldump \- SeisComP Documentation
 .
@@ -31,19 +31,54 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
 .sp
-\fBDumps database objects to XML files.\fP
+\fBDump database objects to XML files.\fP
 .SH DESCRIPTION
 .sp
-To get event information from the database without using SQL is an important
-task for the user. \fI\%scxmldump\fP queries the database and transforms that
-information into XML. The result can be converted into a bulletin with
-scbulletin or imported into another database with scdb\&.
+scxmldump reads various parameters from a SeisComP database:
+.INDENT 0.0
+.IP \(bu 2
+Availability,
+.IP \(bu 2
+Config (bindings parameters),
+.IP \(bu 2
+Event parameters,
+.IP \(bu 2
+Inventory,
+.IP \(bu 2
+Journal,
+.IP \(bu 2
+Routing.
+.UNINDENT
 .sp
+The parameters are sent to stdout or written into an XML (SCML) file.
+.SS Event parameters
+.sp
+To get event or origin information from the database without using SQL is an
+important task for the user. \fI\%scxmldump\fP queries the database and
+transforms that information into XML. The event parameters can be treated
+further by scbulletin for generating bulletins or conversion into KML.
+.sp
+Many processing modules, e.g., scevent support the on\-demand processing
+of dumped event parameters by the command\-line option \fB\-\-ep\fP\&.
+Importing event parameters into another database is possible with scdb
+and sending to a SeisComP messaging is provided by scdispatch\&.
+.sp
+\fBHINT:\fP
+.INDENT 0.0
+.INDENT 3.5
+Events and origins are referred to by their public IDs. These can be provided
+by scevtls and scorgls, respectively, from graphical tools like
+scolv or by database queries supported by scquery\&.
+.UNINDENT
+.UNINDENT
+.SS Format conversion
+.sp
+Conversion of SCML into other formats is supported by sccnv\&.
 An XSD schema of the XML output can be found under
 \fB$SEISCOMP_ROOT/share/xml/\fP\&.
 .SS Examples
 .sp
-Export inventory
+Dump inventory
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -55,7 +90,7 @@ scxmldump \-fI \-o inventory.xml \-d mysql://sysop:sysop@localhost/seiscomp
 .UNINDENT
 .UNINDENT
 .sp
-Export configuration
+Dump config (bindings parameters)
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -67,7 +102,7 @@ scxmldump \-fC \-o config.xml \-d mysql://sysop:sysop@localhost/seiscomp
 .UNINDENT
 .UNINDENT
 .sp
-Export full event data incl. the relevant journal entries
+Dump full event data incl. the relevant journal entries
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -80,7 +115,7 @@ scxmldump \-fPAMFJ \-E test2012abcd \-o test2012abcd.xml \e
 .UNINDENT
 .UNINDENT
 .sp
-Export summary event data
+Dump summary event data
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -93,7 +128,7 @@ scxmldump \-fap \-E test2012abcd \-o test2012abcd.xml \e
 .UNINDENT
 .UNINDENT
 .sp
-Create bulletin
+Create bulletin from an event
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -107,7 +142,7 @@ scbulletin
 .UNINDENT
 .UNINDENT
 .sp
-Copy event
+Copy event parameters to another database
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -133,7 +168,7 @@ scxmldump \-fJ \-o journal.xml \e
 .fi
 .UNINDENT
 .UNINDENT
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/scxmldump.cfg\fP
@@ -145,25 +180,29 @@ scxmldump \-fJ \-o journal.xml \e
 .sp
 .sp
 scxmldump inherits global options\&.
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
+.sp
+\fBscxmldump [options]\fP
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -173,55 +212,60 @@ Load given plugins.
 .INDENT 0.0
 .TP
 .B \-D, \-\-daemon
-Run as daemon. This means the application will fork itself and
-doesn\(aqt need to be started with &.
+Run as daemon. This means the application will fork itself
+and doesn\(aqt need to be started with &.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-auto\-shutdown arg
-Enable/disable self\-shutdown because a master module shutdown. This only
-works when messaging is enabled and the master module sends a shutdown
-message (enabled with \-\-start\-stop\-msg for the master module).
+Enable/disable self\-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with \-\-start\-stop\-msg
+for the master module).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-module arg
-Sets the name of the master\-module used for auto\-shutdown. This
-is the application name of the module actually started. If symlinks
-are used then it is the name of the symlinked application.
+Set the name of the master\-module used for auto\-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-username arg
-Sets the name of the master\-username of the messaging used for
-auto\-shutdown. If "shutdown\-master\-module" is given as well this
-parameter is ignored.
+Set the name of the master\-username of the messaging
+used for auto\-shutdown. If "shutdown\-master\-module" is
+given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -236,7 +280,8 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -267,7 +312,8 @@ Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
 .INDENT 0.0
 .TP
 .B \-S, \-\-subscribe\-group arg
-A group to subscribe to. This option can be given more than once.
+A group to subscribe to.
+This option can be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -277,7 +323,7 @@ Overrides configuration parameter \fBconnection.contentType\fP\&.
 .INDENT 0.0
 .TP
 .B \-\-start\-stop\-msg arg
-Sets sending of a start\- and a stop message.
+Set sending of a start and a stop message.
 .UNINDENT
 .SS Database
 .INDENT 0.0
@@ -288,30 +334,33 @@ List all supported database drivers.
 .INDENT 0.0
 .TP
 .B \-d, \-\-database arg
-The database connection string, format: \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which can be
-queried with "\-\-db\-driver\-list".
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+"service" is the name of the database driver which
+can be queried with "\-\-db\-driver\-list".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-module arg
-The configmodule to use.
+The config module to use.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-inventory\-db arg
-Load the inventory from the given database or file, format: [\fI\%service://]location\fP
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-db arg
-Load the configuration from the given database or file, format: [\fI\%service://]location\fP
+Load the configuration from the given database or file,
+format: [\fI\%service://]location\fP .
 .UNINDENT
 .SS Dump
 .INDENT 0.0
 .TP
 .B \-\-listen
-Enables server mode which listens to the message server for
+Enable server mode which listens to the message server for
 incoming events and dumps each received add/update.
 .UNINDENT
 .INDENT 0.0
@@ -322,13 +371,13 @@ Dump the inventory.
 .INDENT 0.0
 .TP
 .B \-\-without\-station\-groups
-Removes all station groups from inventory.
+Remove all station groups from inventory.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-stations sta\-list
-If inventory is exported filter the stations to export where each
-item is in format net[.{sta|*}].
+If inventory is exported filter the stations to export where
+each item is in format net[.{sta|*}].
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -338,7 +387,8 @@ Dump the configuration database.
 .INDENT 0.0
 .TP
 .B \-J, \-\-journal
-Dump the journal. In combination with \-E only corresponding journal entries are included.
+Dump the journal. In combination with \-E only corresponding
+journal entries are included.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -357,14 +407,14 @@ Dump individual data segments.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-O, \-\-origin id
-Origin publicID(s) to dump. Multiple origins may be specified
+.B \-O, \-\-origin ID
+Origin public ID(s) to dump. Multiple origins may be specified
 as a comma\-separated list.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-E, \-\-event id
-Event publicID(s) to dump. Multiple events may be specified
+.B \-E, \-\-event ID
+Event public ID(s) to dump. Multiple events may be specified
 as a comma\-separated list.
 .UNINDENT
 .INDENT 0.0
@@ -395,7 +445,7 @@ Do not dump arrivals part of origins.
 .INDENT 0.0
 .TP
 .B \-\-ignore\-magnitudes
-Does not export (network) magnitudes of origins. This
+Do not export (network) magnitudes of origins. This
 option is most useful in combination with \-O to only
 export the location information.
 .UNINDENT
@@ -408,23 +458,25 @@ magnitude and the preferred focal mechanism will be dumped.
 .INDENT 0.0
 .TP
 .B \-m, \-\-all\-magnitudes
-If only the preferred origin is exported, all magnitudes for this
-origin will be dumped.
+If only the preferred origin is exported, all magnitudes for
+this origin will be dumped.
 .UNINDENT
+.SS Output
 .INDENT 0.0
 .TP
 .B \-f, \-\-formatted
-Use formatted XML output.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B \-\-prepend\-datasize
-Prepend a line with the length of the XML data.
+Use formatted XML output. Otherwise all XML is printed
+on one line.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-o, \-\-output
 The output file. Default is stdout.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-prepend\-datasize
+Prepend a line with the length of the XML data.
 .UNINDENT
 .SH AUTHOR
 gempa GmbH, GFZ Potsdam

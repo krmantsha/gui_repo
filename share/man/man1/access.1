@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "ACCESS" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "ACCESS" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 access \- SeisComP Documentation
 .
@@ -32,8 +32,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 ..
 .sp
 \fBAccess module for FDSNWS.\fP
-.SH BINDINGS
-.SS Configuration
+.SH BINDINGS PARAMETERS
 .sp
 \fBNOTE:\fP
 .INDENT 0.0
@@ -52,10 +51,11 @@ List of users (e\-mail addresses) allowed to access the restricted data.
 .INDENT 0.0
 .TP
 .B access.disableStationCode
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 When disableStationCode option is set to true the access entries will be generated only for the network level (and optionally stream level), no station code will be filled (this can potentially reduce the number of entries on the access table, and save memory on the request handler when used).
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP

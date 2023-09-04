@@ -12,51 +12,50 @@ scrttv
 Description
 ===========
 
-scrttv visualizes real-time waveform data (see :ref:`fig-scrttv-overview`) of
-a defined window length (default=30 minutes) and of defined streams/stations
-(default is primary station channels). scrttv switches between two modi.
-In the normal mode the trace order is given by the configuration file.
-In the event mode the traces are sorted by epicentral distance to the
-latest origin received from the messaging. Additional to the waveform
-traces information about gaps, picks and the time of incoming origins
-are displayed.
+scrttv visualizes waveform data in miniSEED format
+(see :ref:`Figure below <fig-scrttv-overview>`) in real-time or from archives
+with a defined window length (default: 30 minutes) of defined streams/stations
+(default: streams defined by global bindings). Additionally, phase picks are
+visualized.
+
+scrttv can be used for view waveforms,
+:ref:`visual waveform quality control <scrttv-waveform-qc>` or
+:ref:`interactive signal detection <scrttv-signal-detection>`.
+
+When in :ref:`message mode <scrttv-modes>` scrttv dynamically resorts waveforms:
+Normally, the trace order is given by configuration, e.g., ordering by epicentral
+distance from a location given by :confval:`streams.sort.latitude` and
+:confval:`streams.sort.longitude`.
+In the event that a new SeisComP :term:`event` arrives from the messaging, the
+traces are sorted  automatically by epicentral distance to the latest origin
+received. In addition to waveforms, information about gaps or overlaps, picks
+and the time of incoming origins are displayed.
 
 .. _fig-scrttv-overview:
 
-.. figure:: media/scrttv/overview.png
+.. figure:: media/scrttv/scrttv.png
    :width: 16cm
    :align: center
 
    scrttv overview
 
-   An example of scrttv and the dialog window to set preliminary origin.
-   Tab 1-2 = enable/disable tab; Counts = maximum counts of a stream;
-   Info = stream information (station, network and channel code);
-   Filter = filter status of the traces; Status = connection status.
+   An example of scrttv and the dialog window to associate picks to new origins.
+   Tabs: Enable/Disable; Amplitude: mean and maximum;
+   Stream: station, network, sensor location and channel code;
+   Filter: filter applied traces; Status = connection status to messaging.
 
-scrttv shows two tabs: the enabled and the disabled tab (see :ref:`fig-scrttv-overview`: Tab 1-2).
-Stations listed in the disabled tab are excluded from processing (e.g. picking). To move a station
+scrttv shows two tabs: the Enabled and the disabled tab
+(see :ref:`fig-scrttv-overview`). Stations listed in the disabled tab
+are excluded from automatic processing (e.g. phase picking). To move a station
 from one tab to another just drag and drop the trace to the new tab. An alternative solution is
-to double click on the trace label to disable a trace.
+to double click on the trace label to disable a trace. Read the section
+:ref:`scrttv-waveform-qc` for the details.
 
 Normally, the raw data are displayed. Pressing :kbd:`f` the predefined bandpass filter
 of third order from 0.5 Hz to 8 Hz, :ref:`BW(3,0.5,8) <filter-bw>` is applied
 to the traces. Also zoom functions for the time and amplitude axis are provided.
-
-.. figure:: media/scrttv/artificial-origin.png
-   :width: 16cm
-   :align: center
-
-   Artifical origin.
-
-
-In case the operator recognizes several seismic signals, an artificial/preliminary origin can be set
-by either pressing the middle mouse button on a trace or by opening the context menu (right mouse button)
-on a trace and selecting "Create artificial origin". The following pop-up window shows the coordinates of the
-station and the time the click was made on the trace. Both are used to generate
-the new artificial origin without any arrivals. Pressing "Create" sends this origin to the
-LOCATION group. This artificial origin is received e.g. by :ref:`scolv` and enables an immediate
-manual analysis of the closest traces.
+Read the sections :ref:`<scrttv-filtering>` and  :ref:`scrttv-visualization` for
+more details.
 
 Among the configurable parameters are:
 
@@ -66,9 +65,10 @@ Among the configurable parameters are:
 
 * :term:`Module <module>` configuration:
 
-  * network, stations, locations and streams to show extending or overriding the default definition (:confval:`streams.codes`),
+  * network, stations, locations and streams to show extending or overriding the
+    default definition (:confval:`streams.codes`),
   * :ref:`data filters <scrttv-filtering>`,
-  * buffer size controlling the lenght of loaded data (:confval:`bufferSize`),
+  * buffer size controlling the length of loaded data (:confval:`bufferSize`),
   * sorting of traces upon arrival of new origins (:confval:`resortAutomatically`),
   * reference coordinate for sorting traces by default (:confval:`streams.sort.*`),
   * region filters (:confval:`streams.region.*`),
@@ -80,41 +80,112 @@ Among the configurable parameters are:
   * trace properties and trace background colors,
   * font and general GUI parameters.
 
-More parameters are available on the command-line: ::
+More parameters are available on the command-line:
+
+.. code-block:: sh
 
    scrttv -h
 
 
-Enable / Disable Stations
-=========================
+.. _scrttv-modes:
 
-To enable or disable a station for automatic data processing in |scname| select
-a station code with the mouse and drag the
-stations to the disable / enable tab or simply double-click on the station code.
+Modes of Operation
+==================
+
+scrttv can be started in message mode or in offline mode.
+
+* Message mode: scrttv is started normally and connects to the messaging,
+  :term:`picks <picks>`, :term:`origins <origin>` and inventory are read from
+  the database and received in real time from the messaging. Data are received
+  from :term:`recordstream`.
+* Offline mode: scrttv is started without connection to the messaging,
+  :term:`picks <picks>` and :term:`origins <origin>` are not received in real
+  time from the messaging. However, they can be loaded from XML files using the
+  *File* menu. Data are received from :term:`recordstream` or from file. The
+  offline mode is invoked when using the option :option:`--offline` or when
+  passing a file name to scrttv at startup. Example:
+
+  .. code-block:: sh
+
+     scrttv file.mseed
 
 
-.. _scrttv-filtering:
+.. _scrttv-visualization:
 
-Stream Filtering
-================
+Waveform Visualization
+======================
 
-scrttv allows filtering of waveforms.
-The hotkey :kbd:`f` can be used to
-toggle the list of filters pre-defined in :confval:`filter` or in :confval:`filters`.
-Note that the list of filters defined in :confval:`filters` overwrites :confval:`filter`.
-Activate :confval:`autoApplyFilter` to filter all traces at start-up of scrttv
-with the first filter defined in :confval:`filters`.
-The applied filter is shown in the lower left corner (see :ref:`Figure below <scrttv-fig-group-filter>`).
-To show filtered and raw data together use the hotkey :kbd:`r`.
+
+Stream selection
+----------------
+
+Without further configuration scrttv displays waveforms for streams defined
+in global bindings. The selection can be refined by configuring
+:confval:`streams.codes`. Streams with
+:ref:`data latency <scqc>` < :confval:`maxDelay` are hidden but
+shown again when applicable. By default this parameter is inactive. For listing
+streams hidden from one tab press :kbd:`h`.
+
+
+.. _scrttv-time-windows:
+
+Time windows
+------------
+
+The reading waveforms from RecordStream, the data is displayed for a time
+window which by default ends at current time or as given by the command-line
+option :option:`--end-time`. Initially, the time window takes the length defined
+in :confval:`bufferSize` or by the option :option:`--buffer-size`. When reading data
+directly from file in offline mode, the time window is set
+from the time limits of the waveforms.
+
+* The **length of visible time windows** can be adjusted by
+  :ref:`zooming <scrttv-zooming>`.
+* The **end time of the data** progresses in continuously in real time (UTC)
+  with the time of the computer clock unless fixed (:kbd:`F8`). The end time is
+  fixed during startup when applying :option:`--end-time`.
+* For **progressing or rewinding by 30 minutes** press :kbd:`Alt right` or
+  :kbd:`Alt left`, respectively. Data will be loaded immediately.
+* You may also **freely zoom** into any time window. Data and picks will be loaded
+  when pressing :kbd:`Ctrl + r`
+* **Return to default real-time processing** by pressing :kbd:`Ctrl + Shift + r`
+  or :kbd:`N`.
+
+.. hint::
+
+   Gaps and overlaps in waveforms are indicated by yellow and purple areas,
+   respectively. The colors are configurable.
+
+
+.. _scrttv-zooming:
+
+Zooming
+-------
+
+Waveforms can be zoomed in and out interactively in amplitude and time. Use the
+*View* menu or refer to the section :ref:`scrttv-hot-keys` for options. In
+addition to the actions available from the View menu, zooming is supported by
+mouse actions:
+
+* Zooming in in time: Right-click on time axis, drag to the right. A green bar appears
+  which is the new time window. Dragging up or down (gray bar) disables zooming.
+* Zooming out in time: Right-click on time axis, drag to the left. A red bar appears. The
+  longer the bar, the more you zoom out.  Dragging up or down (gray bar)
+  disables zooming.
+* Zooming in time and amplitude: Mouse over a trace of interest, use
+  :kbd:`Ctrl + mouse wheel` for zooming in or out.
+* Zooming around a selected area: Press :kbd:`z` and drag an area with while
+  pressing the left mouse button. Press :kbd:`z` again for leaving the zoom
+  mode.
 
 
 .. _scrttv-grouping:
 
-Stream Grouping
-===============
+Stream grouping
+---------------
 
-scrttv allows grouping of stations and even streams with different properties, e.g. colors or color
-gradients.
+scrttv allows grouping of stations and even streams with different properties,
+e.g. colors or color gradients.
 
 .. _scrttv-fig-group-filter:
 
@@ -136,8 +207,8 @@ Adjust the scrttv module configuration (:file:`scrttv.cfg`).
 
    * add a new group profile to :confval:`streams.group`.
    * set the properties for this group profile. :term:`Colors <color>` and color
-     gradients are
-     defined by hexadecimal values or by :term:`color keyword names <color keyword name>`.
+     gradients are defined by hexadecimal values or by
+     :term:`color keyword name`.
      When choosing gradients the colors of the traces within one group will be
      varied in alphabetic order of the streams.
    * set a group title in :confval:`streams.group.$name.title`.
@@ -157,8 +228,51 @@ Adjust the scrttv module configuration (:file:`scrttv.cfg`).
       resortAutomatically = false
 
 
-Record Borders
-==============
+.. _scrttv-picks:
+
+Phase picks and arrivals
+------------------------
+
+Previous versions of scrttv (< 5.4) only displayed :term:`picks <pick>` with the
+colors indicating the pick evaluation mode along with the phase hint of the
+pick:
+
+* red: automatic,
+* green: manual.
+
+This hasn't really changed in later versions but additionally scrttv determines
+an additional state of a pick called :term:`arrival`. In scrttv a pick is
+considered an arrival if it is associated to an valid origin. An origin is
+called valid if its evaluation status is not REJECTED. When scrttv loads all
+picks from the database for the currently visible time span it also checks if
+each pick is associated with a valid origin and declares the arrival state if
+the check yields true. The visibility of picks and arrivals can be toggled by
+pressing :kbd:`Ctrl + p` and :kbd:`Ctrl + a`, respectively. :kbd:`c` removes all
+markers. The configuration parameter :confval:`showPicks` controls the default
+visibility.
+
+Picks and arrivals can be differentiated visually by their colours. When
+configured in global module configuration, the same colours are being used
+consistently as in any other GUI displaying both types, namely
+
+* :confval:`scheme.colors.picks.automatic`
+* :confval:`scheme.colors.picks.manual`
+* :confval:`scheme.colors.picks.undefined`
+* :confval:`scheme.colors.arrivals.automatic`
+* :confval:`scheme.colors.arrivals.manual`
+* :confval:`scheme.colors.arrivals.undefined`
+
+That visual difference should support the operator in finding clusters of picks
+and creating new location missed by the automatic system.
+
+The next sections will only use the :term:`pick` which can be used
+interchangeable for pick or arrival.
+
+
+.. _scrttv-record-borders:
+
+Record borders
+--------------
 
 The borders of records are toggled by using the hotkey :kbd:`b`.
 
@@ -175,17 +289,183 @@ configured in the scheme parameters in :file:`global.cfg` or :file:`scrttv.cfg`:
 * :confval:`scheme.colors.records.borders.*`: Define pen and brush properties.
 
 
-Offline Mode
-============
+.. _scrttv-waveform-qc:
 
-To start scrttv without connection to the messaging use the option ``--offline``
-or simply provide the :term:`miniSEED` data file, e.g.: ::
+Waveform Quality Control
+========================
 
-   scrttv [your miniSEED file]
+Use scrttv for regular visual waveform inspection and for enabling or disabling
+of stations. Disabled stations will not be used for automatic phase detections
+and can be excluded from manual processing in :ref:`scolv`. They will also be
+highlighted in :ref:`scmv` and :ref:`scqc`.
 
-In offline mode event parameters given in :term:`SCML` files, e.g. from offline processing,
-can be loaded using the *File* menu.
+To enable or disable a station for automatic data processing in |scname| select
+a station code with the mouse and drag the stations to the disable / enable tab
+or simply double-click on the station code in the respective tab.
 
+
+Stream Processing
+=================
+
+
+.. _scrttv-filtering:
+
+Filtering
+---------
+
+scrttv allows filtering of waveforms.
+The Filter selection dropdown menu  (see :ref:`Figure above <fig-scrttv-overview>`)
+and the hotkey :kbd:`f` can be used to toggle the list of filters pre-defined in
+:confval:`filter` or in :confval:`filters`.  The applied filter is named in the
+lower left corner. To show filtered and raw data together use the hotkey :kbd:`r`.
+
+.. note::
+
+   The list of filters defined in :confval:`filters` overwrites :confval:`filter`.
+   Activate :confval:`autoApplyFilter` to filter all traces at start-up of scrttv
+   with the first filter defined in :confval:`filters`.
+
+
+
+Gain correction
+---------------
+
+The stream gain is applied to waveforms and amplitude values are given in the
+physical units of the stream by default. For showing amplitudes in counts,
+deactivate the option *Apply gain* in the Interaction menu.
+
+
+.. _scrttv-signal-detection:
+
+Interactive Signal Detection
+============================
+
+Beside visual inspection of waveforms for quality control, scrttv can also be
+used for interactive signal detection in real time or for selected time windows
+in the past.
+
+
+.. _scrttv-artificial-origins:
+
+Artificial origins
+------------------
+
+.. figure:: media/scrttv/artificial-origin.png
+   :width: 16cm
+   :align: center
+
+   Artifical origin.
+
+In case the operator recognizes several seismic signals which shall be processed
+further, e.g. in :ref:`scolv`, an artificial/preliminary origin can be set by
+either pressing the middle mouse
+button on a trace or by opening the context menu (right mouse button) on a trace
+and selecting "Create artificial origin". The following pop-up window shows the
+coordinates of the selected station and the time the click was made on the
+trace. Both are used to generate the new artificial origin without any arrivals.
+Pressing "Create" sends this origin to the LOCATION group. This artificial
+origin is received e.g., by :ref:`scolv` and enables an immediate manual analysis
+of the closest traces.
+
+In order to send receive articifial origins and receive them in other GUIs
+:confval:`commands.target` of the global module configuration must be set and
+must be in line with :confval:`connection.username` of the receiving GUI module.
+
+Alternatively, picks can be selected and origins can be located as preliminary
+solutions which are sent to the system as regular origin objects, see section
+:ref:`scrttv-origin-association`.
+
+
+.. _scrttv-origin-association:
+
+Origin association
+------------------
+
+scrttv comes with a minimal version of a phase associator and manual locator
+(Fig. :ref:`fig-scrttv-overview`). Picks can be selected, relocated and
+committed to the messaging system as manual preliminary location.
+In contrast to the artificial origin operation which requires an immediate
+intervention with, e.g. :ref:`scolv`, this operation allows to store all those
+detected origins and work on them later because they will be stored in the
+database.
+
+.. note::
+
+   More detailed waveform and event analysis can be made in :ref:`scolv`.
+
+
+Pick selection
+~~~~~~~~~~~~~~
+
+In order to select picks, the pick selection mode must be entered. Then dragging
+a box (rubber band) around the picks in question will add them to the "cart".
+The "cart" refers to the list of picks of the manual associated widget used to
+attempt to locate an origin. Simply dragging a box will remove all previously
+selected picks. Further options are:
+
+* :kbd:`Shift + drag`: Add selected picks while keeping the previous selection.
+* :kbd:`Ctrl + drag`: Remove selected picks while keeping the previous selection.
+
+If at least one pick has been added to the cart, the manual associator will
+open as a dock widget.
+
+.. note::
+
+   A dock widget is a special kind of window which can be docked to any border
+   of the application or even displayed floated as kind of overlay window. The
+   position of the dock widget will be persistent across application restarts.
+
+At any change of the pick cart, the associator attempts a relocation and will
+display the result in the details or an error message at the top.
+
+To add more picks to the cart, shift has to be pressed while dragging the
+selection box. To remove picks from the cart, :kbd:`Ctrl` has to be pressed while
+dragging the selection box. Picks can also be removed individually from the
+cart by clicking the close icon of each pick item.
+
+Picks being part of the cart are also highlighted in the traces.
+
+
+Locating from picks
+~~~~~~~~~~~~~~~~~~~
+
+The associator adds all available locators in the system and presents them
+in a dropdown list at the bottom. The locator which should be selected as default
+can be controlled with :confval:`associator.defaultLocator`. The profile which
+is selected as default can be controlled with
+:confval:`associator.defaultLocatorProfile`.
+
+Whenever the operator changes any of the values, a new location attempt is being
+made which can succeed or fail. A successful attempt will update the details,
+a failed attempt will reset the details and print an error message at the top
+of the window.
+
+Each locator can be configured locally by clicking the wrench icon. This
+configuration is not persistent across application restarts. It can be used
+to tune and test various settings. Global locator configurations in the
+configuration files are of course being considered by scrttv.
+
+In addition to the locator and its profile a fixed depth can be set. By default
+the depth is free and it is up to the locator implementation to assign a depth
+to the origin. The depth dropdown list allows to set a predefined depth. The
+list of depth values can be controlled with :confval:`associator.fixedDepths`.
+
+
+Committing a solution
+~~~~~~~~~~~~~~~~~~~~~
+
+Once a solution is accepted by the operator it can be committed to the system
+as regular origin as emitted by, e.g. `scautoloc`. Those origins will be sent to
+the message group defined by :confval:`messaging.location` and grabbed by
+connected modules, e.g., :ref:`scevent` and possibly associated to an
+:term:`event`.
+
+Alternatively, the button "Show Details" can be used to just send the origin to
+the GUI group and let :ref:`scolv` or other GUIs pick it up and show it. This
+will not store the origin in the database and works the same way as creating an
+artificial origin.
+
+.. _scrttv-hot-keys:
 
 Hotkeys
 =======
@@ -197,17 +477,24 @@ Hotkey                   Description
 :kbd:`Shift+F1`          Open scrttv documentation
 :kbd:`F2`                Setup connection dialog
 :kbd:`F11`               Toggle fullscreen
+:kbd:`ESC`               Set standard selection mode and deselect all traces
 :kbd:`c`                 Clear picker  markers
 :kbd:`b`                 Toggle record borders
 :kbd:`h`                 List hidden streams
+:kbd:`Ctrl+a`            Toggle showing arrivals
+:kbd:`Ctrl+p`            Toggle showing picks
 :kbd:`n`                 Restore default display
 :kbd:`o`                 Align by origin time
-:kbd:`Alt+q`             Quit
+:kbd:`p`                 Enable pick selection mode
+:kbd:`Alt+left`          Reverse the data time window by buffer size
+:kbd:`Alt+right`         Advance the data time window by buffer size
 -----------------------  ---------------------------------------
 **Filtering**
 -----------------------  ---------------------------------------
-:kbd:`f`                 Toggle filter
-:kbd:`r`                 Toggle all records
+:kbd:`f`                 Toggle filtering
+:kbd:`d`                 Switch to previous filter in list if filtering is enabled.
+:kbd:`g`                 Switch to next filter in list if filtering is enabled.
+:kbd:`r`                 Toggle showing all records
 -----------------------  ---------------------------------------
 **Navigation**
 -----------------------  ---------------------------------------
@@ -223,6 +510,13 @@ Hotkey                   Description
 :kbd:`Ctrl+left`         Align left
 :kbd:`Ctrl+right`        Align right
 -----------------------  ---------------------------------------
+**Navigation and data**
+-----------------------  ---------------------------------------
+:kbd:`Alt+left`          Rewind time window by 30' and load data
+:kbd:`Alt+right`         Progress time window by 30' and load data
+:kbd:`Ctrl+r`            (Re)load data in current visible time range
+:kbd:`Ctrl+Shift+r`      Switch to real-time with configured buffer size
+-----------------------  ---------------------------------------
 **Sorting**
 -----------------------  ---------------------------------------
 :kbd:`1`                 Restore configuration order of traces
@@ -237,15 +531,16 @@ Hotkey                   Description
 :kbd:`>`                 Horizontal zoom-out
 :kbd:`y`                 Vertical zoom-out
 :kbd:`Shift+y`           Vertical zoom-in
+:kbd:`s`                 Toggle amplitude normalization
 :kbd:`Ctrl+mouse wheel`  Vertical and horizontal zooming
-:kbd:`z`                 Toggle zoom
+:kbd:`z`                 Enable/disable zooming: Drag window with left mouse button
 =======================  =======================================
 
 
 .. _scrttv_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 | :file:`etc/defaults/global.cfg`
 | :file:`etc/defaults/scrttv.cfg`
@@ -260,43 +555,63 @@ scrttv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: maxDelay
 
+   Default: ``0``
+
    Type: *int*
 
    Unit: *s*
 
-   If greater than 0 then all traces for which the data latency is higher
-   than this value are hidden.
-   Default is ``0``.
+   If greater than 0, then all traces for which the data latency is
+   higher than this value are hidden.
+
 
 .. confval:: resortAutomatically
 
+   Default: ``true``
+
    Type: *boolean*
 
-   If enabled then all traces are sorted by distance when a new
+   If enabled, then all traces are sorted by distance when a new
    origin arrives.
-   Default is ``true``.
+
 
 .. confval:: showPicks
+
+   Default: ``true``
 
    Type: *boolean*
 
    If enabled, picks are shown.
-   Default is ``true``.
+
+
+.. confval:: mapPicks
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Map picks to best matching rows. This is important
+   if picks created on BHN should be shown but only the BHZ trace
+   is part of the list. Network code, station code and location code
+   must match anyway.
+
 
 .. confval:: filter
 
    Type: *string*
 
-   Defines the filter to be used when filtering is activated. This
+   Define the filter to be used when filtering is activated. This
    is only being used if filters is not set otherwise it is
    overridden. This option is mainly for backward compatibility.
-   Default is ``BW(3, 0.5, 8.0)``.
+
 
 .. confval:: filters
 
+   Default: ``"RMHP(2)>>ITAPER(5)>>BW(3,0.5,8.0)","RMHP(2)>>ITAPER(5)>>BW_HP(3, 3)"``
+
    Type: *list:string*
 
-   Defines a list of filters that is cycles through when pressing 'f'.
+   Define a list of filters that is cycles through when pressing 'f'.
    This options supersedes the filter option. If not defined then
    filter is used instead. If defined then this filter list is
    used exclusively and the filter option is ignored.
@@ -304,53 +619,90 @@ scrttv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: autoApplyFilter
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Activates the first filter of the configured filter list
+   Activate the first filter of the configured filter list
    after startup. This is equivalent to pressing 'f'.
-   Default is ``false``.
+
 
 .. confval:: bufferSize
+
+   Default: ``1800``
 
    Type: *int*
 
    Unit: *s*
 
-   Defines the buffer size in seconds of the ring bu of each trace.
-   Default is ``1800``.
+   Define the buffer size in seconds of the ring bu of each trace.
+
 
 .. confval:: allTracesInitiallyVisible
 
+   Default: ``false``
+
    Type: *boolean*
 
-   If set to true all traces will be visible on application startup
+   If set to true, all traces will be visible on application startup
    independent of data availability.
-   Default is ``false``.
+
 
 .. confval:: autoResetDelay
+
+   Default: ``900``
 
    Type: *int*
 
    Unit: *s*
 
    Time span in seconds to switch back to the last view after an origin
-   caused resorting. The default is 15min.
-   Default is ``900``.
+   caused resorting. The default is 15 min.
+
+
+.. confval:: messaging.groups.config
+
+   Default: ``CONFIG``
+
+   Type: *string*
+
+   The messaging group to which config messages \(such
+   as station enable\/disable messages\) are being sent.
+
+
+.. confval:: messaging.groups.location
+
+   Default: ``LOCATION``
+
+   Type: *string*
+
+   The messaging group to which location messages
+   are being sent.
+
 
 .. confval:: streams.codes
 
    Type: *list:string*
 
-   The list of channel codes
-   to be displayed. List items may contain wildcards at any position
-   and are separated by comma.
-   The list is	intersected with all channels configured in inventory.
+   The list of channel codes to be displayed. List items
+   may contain wildcards at any position and are separated
+   by comma. Wildcard support depends on RecordStream,
+   e.g.:
+   
+   caps\/sdsarchive: \*.\*.\*.\*
+   
+   slink: NET.STA.\*.\*
+   
+   The channel list is intersected with all channels
+   configured in inventory unless \-\-no\-inventory is used.
    
    Examples:
    
-   default : display all streams configured by global bindings
+   default : display all streams configured by global
+   bindings
    
-   default, PF.BON.00.HH? : display default and all HH streams of PF.BON.00
+   default, PF.BON.00.HH? : display default and all HH
+   streams of PF.BON.00
 
 
 .. confval:: streams.blacklist
@@ -379,25 +731,37 @@ scrttv inherits :ref:`global options<global-configuration>`.
 
    Type: *string*
 
-   Stream group profiles to be considered. Use comma separation for
-   a list of groups.
+   Stream group profiles to be considered which must be defined in
+   group section. Use comma separation for a list of groups.
+
+
+.. confval:: streams.profiles
+
+   Type: *string*
+
+   Stream profiles to be considered which must be defined in
+   profile section. Use comma separation for a list of profiles.
 
 
 .. note::
    **streams.sort.\***
-   *Configures the initial stream sorting.*
+   *Configure the initial stream sorting.*
 
 
 
 .. confval:: streams.sort.mode
 
+   Default: ``distance``
+
    Type: *string*
 
    The sort mode applied initially. Allowed values
    are: config, distance, station, network, group.
-   Default is ``distance``.
+
 
 .. confval:: streams.sort.latitude
+
+   Default: ``0.0``
 
    Type: *double*
 
@@ -405,9 +769,11 @@ scrttv inherits :ref:`global options<global-configuration>`.
 
    Latitude of the initial location for sorting traces.
    Only valid if mode \=\= distance.
-   Default is ``0.0``.
+
 
 .. confval:: streams.sort.longitude
+
+   Default: ``0.0``
 
    Type: *double*
 
@@ -415,49 +781,57 @@ scrttv inherits :ref:`global options<global-configuration>`.
 
    Longitude of the initial location for sorting traces.
    Only valid if mode \=\= distance.
-   Default is ``0.0``.
+
 
 .. note::
    **streams.region.\***
-   *Defines a region used for clipping requested stations.*
+   *Define a region used for clipping requested stations.*
 
 
 
 .. confval:: streams.region.lonmin
+
+   Default: ``-180.0``
 
    Type: *double*
 
    Unit: *deg*
 
    Minimum longitude.
-   Default is ``-180.0``.
+
 
 .. confval:: streams.region.lonmax
+
+   Default: ``180.0``
 
    Type: *double*
 
    Unit: *deg*
 
    Maximum longitude.
-   Default is ``180.0``.
+
 
 .. confval:: streams.region.latmin
+
+   Default: ``-90.0``
 
    Type: *double*
 
    Unit: *deg*
 
    Minimum latitude.
-   Default is ``-90.0``.
+
 
 .. confval:: streams.region.latmax
+
+   Default: ``90.0``
 
    Type: *double*
 
    Unit: *deg*
 
    Maximum latitude.
-   Default is ``90.0``.
+
 
 .. note::
    **streams.group.\***
@@ -505,7 +879,7 @@ scrttv inherits :ref:`global options<global-configuration>`.
 
 .. note::
    **streams.group.$name.pen.\***
-   *Defines the trace pen of the group.*
+   *Define the trace pen of the group.*
 
 
 
@@ -522,7 +896,7 @@ scrttv inherits :ref:`global options<global-configuration>`.
 
    Type: *gradient*
 
-   Defines the color gradient used to generate the
+   Define the color gradient used to generate the
    trace color for each group member. When given, the
    value in \"streams.group.\$profile.pen.color\"
    is ignored. The colors are distributed equally and
@@ -544,24 +918,290 @@ scrttv inherits :ref:`global options<global-configuration>`.
 
 .. confval:: streams.group.$name.pen.style
 
+   Default: ``SolidLine``
+
    Type: *string*
 
    The style of the pen. Supported values are: NoPen,
-   SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
-   Default is ``SolidLine``.
+   SolidLine, DashLine, DotLine, DashDotLine,
+   DashDotDotLine.
+
 
 .. confval:: streams.group.$name.pen.width
 
+   Default: ``1.0``
+
    Type: *double*
 
+   Unit: *px*
+
    The width of the pen.
-   Default is ``1.0``.
 
 
-Command-line
-============
+.. note::
+   **streams.profile.\***
+   *Definiton of profiles for streams shown with unique decorations.*
+   *Register the profiles in "profiles" to apply them.*
+
+
+
+.. note::
+
+   **streams.profile.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`streams.profiles` to become active.
+
+   .. code-block:: sh
+
+      streams.profiles = a,b
+      streams.profile.a.value1 = ...
+      streams.profile.b.value1 = ...
+      # c is not active because it has not been added
+      # to the list of streams.profiles
+      streams.profile.c.value1 = ...
+
+
+.. confval:: streams.profile.$name.match
+
+   Type: *string*
+
+   Stream applying this profile to. Use regular expressions
+   for defining multiple streams. Examples:
+   
+   GR.BFO.00.BHZ: One stream on vertical component
+   
+   
+   GR.\*.00.BHZ: All stations from GR network and their
+   vertical components.
+
+
+.. confval:: streams.profile.$name.description
+
+   Type: *string*
+
+   Text added to streams.
+
+
+.. confval:: streams.profile.$name.minMaxMargin
+
+   Default: ``0.0``
+
+   Type: *double*
+
+   Fraction of trace amplitude added to trace widgets.
+
+
+.. confval:: streams.profile.$name.unit
+
+   Type: *string*
+
+   The physical unit shown along with stream maximum and
+   minimum values.
+
+
+.. confval:: streams.profile.$name.gain
+
+   Default: ``0.0``
+
+   Type: *double*
+
+   The gain applied to scale trace amplitudes. 0 disables
+   showing trace amplitude value
+
+
+.. confval:: streams.profile.$name.fixedScale
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   
+
+
+.. note::
+   **streams.profile.$name.minimum.\***
+   *Properties defining the minimum line on each trace.*
+
+
+
+.. confval:: streams.profile.$name.minimum.value
+
+   Default: ``0.0``
+
+   Type: *double*
+
+   Value at which to draw a line.
+
+
+.. note::
+   **streams.profile.$name.minimum.pen.\***
+   *Line properties.*
+
+
+
+.. confval:: streams.profile.$name.minimum.pen.width
+
+   Default: ``1``
+
+   Type: *string*
+
+   
+
+
+.. confval:: streams.profile.$name.minimum.pen.style
+
+   Default: ``solidline``
+
+   Type: *string*
+
+   
+
+
+.. confval:: streams.profile.$name.minimum.pen.color
+
+   Default: ``000000ff``
+
+   Type: *string*
+
+   
+
+
+.. note::
+   **streams.profile.$name.minimum.brush.\***
+   *Properties of the area below the minimum.*
+
+
+
+.. confval:: streams.profile.$name.minimum.brush.style
+
+   Default: ``nobrush``
+
+   Type: *string*
+
+   
+
+
+.. confval:: streams.profile.$name.minimum.brush.color
+
+   Default: ``000000ff``
+
+   Type: *string*
+
+   
+
+
+.. note::
+   **streams.profile.$name.maximum.\***
+   *Properties defining the maximum line on each trace.*
+
+
+
+.. confval:: streams.profile.$name.maximum.value
+
+   Default: ``0.0``
+
+   Type: *double*
+
+   Value at which to draw a line.
+
+
+.. note::
+   **streams.profile.$name.maximum.pen.\***
+   *Line properties.*
+
+
+
+.. confval:: streams.profile.$name.maximum.pen.width
+
+   Default: ``1``
+
+   Type: *string*
+
+   
+
+
+.. confval:: streams.profile.$name.maximum.pen.style
+
+   Default: ``solidline``
+
+   Type: *string*
+
+   
+
+
+.. confval:: streams.profile.$name.maximum.pen.color
+
+   Default: ``000000ff``
+
+   Type: *string*
+
+   
+
+
+.. note::
+   **streams.profile.$name.maximum.brush.\***
+   *Properties of the area above the maximum.*
+
+
+
+.. confval:: streams.profile.$name.maximum.brush.style
+
+   Default: ``nobrush``
+
+   Type: *string*
+
+   
+
+
+.. confval:: streams.profile.$name.maximum.brush.color
+
+   Default: ``000000ff``
+
+   Type: *string*
+
+   
+
+
+.. note::
+   **associator.\***
+   *Define parameters for manually associating phases to origin and*
+   *for locating the origins.*
+
+
+
+.. confval:: associator.defaultLocator
+
+   Type: *string*
+
+   The locator which is activated as default locator.
+
+
+.. confval:: associator.defaultLocatorProfile
+
+   Type: *string*
+
+   The locator profile which is activated as default profile for
+   the default locator.
+
+
+.. confval:: associator.fixedDepths
+
+   Default: ``0, 10, 18``
+
+   Type: *list:double*
+
+   Unit: *km*
+
+   A list of depths used to populate the locator depth selection
+   dropdown list.
+
+
+
+Command-Line Options
+====================
 
 .. program:: scrttv
+
+:program:`scrttv [options] [miniSEED file]`
 
 
 Generic
@@ -569,45 +1209,44 @@ Generic
 
 .. option:: -h, --help
 
-   show help message.
+   Show help message.
 
 .. option:: -V, --version
 
-   show version information
+   Show version information.
 
 .. option:: --config-file arg
 
-   Use alternative configuration file. When this option is used
-   the loading of all stages is disabled. Only the given configuration
-   file is parsed and used. To use another name for the configuration
-   create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+   Use alternative configuration file. When this option is
+   used the loading of all stages is disabled. Only the
+   given configuration file is parsed and used. To use
+   another name for the configuration create a symbolic
+   link of the application or copy it. Example:
+   scautopick \-> scautopick2.
 
 .. option:: --plugins arg
 
    Load given plugins.
 
-.. option:: -D, --daemon
-
-   Run as daemon. This means the application will fork itself and
-   doesn't need to be started with \&.
-
 .. option:: --auto-shutdown arg
 
-   Enable\/disable self\-shutdown because a master module shutdown. This only
-   works when messaging is enabled and the master module sends a shutdown
-   message \(enabled with \-\-start\-stop\-msg for the master module\).
+   Enable\/disable self\-shutdown because a master module shutdown.
+   This only works when messaging is enabled and the master
+   module sends a shutdown message \(enabled with \-\-start\-stop\-msg
+   for the master module\).
 
 .. option:: --shutdown-master-module arg
 
-   Sets the name of the master\-module used for auto\-shutdown. This
-   is the application name of the module actually started. If symlinks
-   are used then it is the name of the symlinked application.
+   Set the name of the master\-module used for auto\-shutdown.
+   This is the application name of the module actually
+   started. If symlinks are used, then it is the name of
+   the symlinked application.
 
 .. option:: --shutdown-master-username arg
 
-   Sets the name of the master\-username of the messaging used for
-   auto\-shutdown. If \"shutdown\-master\-module\" is given as well this
-   parameter is ignored.
+   Set the name of the master\-username of the messaging
+   used for auto\-shutdown. If \"shutdown\-master\-module\" is
+   given as well, this parameter is ignored.
 
 
 Verbosity
@@ -615,23 +1254,26 @@ Verbosity
 
 .. option:: --verbosity arg
 
-   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
 
 .. option:: -v, --v
 
-   Increase verbosity level \(may be repeated, eg. \-vv\)
+   Increase verbosity level \(may be repeated, eg. \-vv\).
 
 .. option:: -q, --quiet
 
-   Quiet mode: no logging output
+   Quiet mode: no logging output.
 
 .. option:: --component arg
 
-   Limits the logging to a certain component. This option can be given more than once.
+   Limit the logging to a certain component. This option can
+   be given more than once.
 
 .. option:: -s, --syslog
 
-   Use syslog logging back end. The output usually goes to \/var\/lib\/messages.
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
 
 .. option:: -l, --lockfile arg
 
@@ -643,11 +1285,24 @@ Verbosity
 
 .. option:: --debug
 
-   Debug mode: \-\-verbosity\=4 \-\-console\=1
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
 
 .. option:: --log-file arg
 
    Use alternative log file.
+
+.. option:: --print-component arg
+
+   For each log entry print the component right after the
+   log level. By default the component output is enabled
+   for file output but disabled for console output.
+
+.. option:: --trace
+
+   Execute in trace mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 \-\-print\-component\=1
+   \-\-print\-context\=1 .
 
 
 Messaging
@@ -671,7 +1326,8 @@ Messaging
 
 .. option:: -S, --subscribe-group arg
 
-   A group to subscribe to. This option can be given more than once.
+   A group to subscribe to.
+   This option can be given more than once.
 
 .. option:: --content-type arg
 
@@ -679,7 +1335,7 @@ Messaging
 
 .. option:: --start-stop-msg arg
 
-   Sets sending of a start\- and a stop message.
+   Set sending of a start and a stop message.
 
 
 Database
@@ -691,17 +1347,19 @@ Database
 
 .. option:: -d, --database arg
 
-   The database connection string, format: service:\/\/user:pwd\@host\/database.
-   \"service\" is the name of the database driver which can be
-   queried with \"\-\-db\-driver\-list\".
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
 
 .. option:: --config-module arg
 
-   The configmodule to use.
+   The config module to use.
 
 .. option:: --inventory-db arg
 
-   Load the inventory from the given database or file, format: [service:\/\/]location
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
 
 .. option:: --db-disable
 
@@ -713,14 +1371,16 @@ Records
 
 .. option:: --record-driver-list
 
-   List all supported record stream drivers
+   List all supported record stream drivers.
 
 .. option:: -I, --record-url arg
 
-   The recordstream source URL, format: [service:\/\/]location[#type].
-   \"service\" is the name of the recordstream driver which can be
-   queried with \"\-\-record\-driver\-list\". If \"service\"
-   is not given \"file:\/\/\" is used.
+   The recordstream source URL, format:
+   [service:\/\/]location[#type].
+   \"service\" is the name of the recordstream driver
+   which can be queried with \"\-\-record\-driver\-list\".
+   If \"service\" is not given, \"file:\/\/\" is
+   used.
 
 .. option:: --record-file arg
 
@@ -729,6 +1389,14 @@ Records
 .. option:: --record-type arg
 
    Specify a type for the records being read.
+
+
+Options
+-------
+
+.. option:: -i, --input-file xml
+
+   Load picks in given XML file during startup
 
 
 Mode
@@ -740,32 +1408,78 @@ Mode
 
 .. option:: --offline
 
-   Do not connect to a messaging server and do not use the database.
+   Do not connect to a messaging server and do not use the
+   database.
 
 .. option:: --no-inventory
 
-   Do not read streams from inventory but display all streams available from
-   the specified record source. This option may be combined with the streams.codes
-   parameter to filter the available streams.
+   Do not read streams from inventory but display all streams
+   available from the specified record source. This option may
+   be combined with the streams.codes parameter to filter the
+   available streams.
 
 .. option:: --end-time arg
 
-   Set the acquisition end time, e.g. '2017\-09\-08 13:30:00', default: 'gmt'
+   Set the acquisition end time, e.g. '2017\-09\-08 13:30:00',
+   default: 'gmt'.
 
 .. option:: --buffer-size arg
 
-   Sets the size of the waveform buffer in seconds, default: 1800
+   Set the size of the waveform buffer in seconds, default: 1800
 
 .. option:: --max-delay arg
 
-   The maximum delay in seconds to keep a trace visible \(0 to disable\)
+   The maximum delay in seconds to keep a trace visible
+   \(0 to disable\).
 
-.. option:: --initially-visible-all
+.. option:: --start-at-now
 
-   Overrides configuration parameter :confval:`allTracesInitiallyVisible`.
+   Subscribe to data starting at now rather than now \- bufferSize
 
 .. option:: --rt
 
-   Don't ask for time window at data server. This might be important if
-   e.g. Seedlink does not allow time window extraction.
+   Do not ask for time window at data server. This might be
+   important if e.g. Seedlink does not allow time window
+   extraction.
+
+.. option:: --map-picks
+
+   Map picks to best matching rows. This is important
+   if picks created on BHN should be shown but only the BHZ trace
+   is part of the list. Network code, station code and location code
+   must match anyway.
+
+.. option:: --channels
+
+   Channel\(s\) to display. The channel code may contain wildcards
+   at any position but the support of wildcards depends on
+   RecordStream. Repeat the option for multiple
+   channel groups. Examples:
+   
+   default : all streams configured by global bindings.
+   
+   GE.\*.\*.HH? : all HH streams of all stations from GE network.
+
+
+Cities
+------
+
+.. option:: --city-xml arg
+
+   The path to the cities XML file. This overrides the default
+   paths. Compare with the global parameter \"citiesXML\".
+
+
+User interface
+--------------
+
+.. option:: -F, --full-screen
+
+   Start the application filling the entire screen.
+   This only works with GUI applications.
+
+.. option:: -N, --non-interactive
+
+   Use non\-interactive presentation mode. This only works with
+   GUI applications.
 

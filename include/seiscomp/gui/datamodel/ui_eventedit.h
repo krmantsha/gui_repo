@@ -167,6 +167,7 @@ public:
     QLabel *mtMag;
     QLabel *mtMagType;
     QPushButton *buttonFixMw;
+    QPushButton *buttonFixFmMw;
 
     void setupUi(QWidget *EventEdit)
     {
@@ -1030,6 +1031,11 @@ public:
 
         gridLayout5->addWidget(buttonFixMw, 5, 0, 1, 1);
 
+        buttonFixFmMw = new QPushButton(mtMagInfo);
+        buttonFixFmMw->setObjectName(QString::fromUtf8("buttonFixFmMw"));
+
+        gridLayout5->addWidget(buttonFixFmMw, 6, 0, 1, 1);
+
 
         hboxLayout3->addWidget(mtMagInfo);
 
@@ -1191,6 +1197,10 @@ public:
         buttonFixMw->setToolTip(QApplication::translate("EventEdit", "Fixes the moment magnitude of the current preferred focal mechanism as preferred magnitude if available.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         buttonFixMw->setText(QApplication::translate("EventEdit", "Fix Mw type", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_TOOLTIP
+        buttonFixFmMw->setToolTip(QApplication::translate("EventEdit", "Fixes currently selected focal mechanism and the associated moment magnitude as preferred magnitude if available.", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_TOOLTIP
+        buttonFixFmMw->setText(QApplication::translate("EventEdit", "Fix FM + Mw type", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(fmWidget), QApplication::translate("EventEdit", "Focal Mechanisms", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 

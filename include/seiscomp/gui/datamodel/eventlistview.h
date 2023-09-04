@@ -28,18 +28,26 @@
 #ifndef Q_MOC_RUN
 #include <seiscomp/core/baseobject.h>
 #include <seiscomp/core/timewindow.h>
+#include <seiscomp/geo/boundingbox.h>
 #endif
-#include <seiscomp/gui/datamodel/ui_eventlistview.h>
-#include <seiscomp/gui/datamodel/ui_eventlistviewregionfilterdialog.h>
 
 #include <QWidget>
 
+
+// Ui forward declarations
 class QTreeWidget;
 class QTreeWidgetItem;
+
+namespace Ui {
+	class EventListView;
+	class EventListViewRegionFilterDialog;
+}
+
 
 namespace Seiscomp {
 
 namespace DataModel {
+
 
 DEFINE_SMARTPOINTER(Event);
 DEFINE_SMARTPOINTER(Origin);
@@ -56,6 +64,12 @@ class Notifier;
 namespace Client {
 
 DEFINE_SMARTPOINTER(Connection);
+
+}
+
+namespace Geo {
+
+DEFINE_SMARTPOINTER(GeoFeature);
 
 }
 
@@ -83,6 +97,7 @@ class SC_GUI_API EventListView : public QWidget {
 	// ------------------------------------------------------------------
 	public:
 		typedef QMap<QString, DataModel::StationPtr> StationMap;
+
 		struct Filter {
 			Filter(const Seiscomp::Core::TimeWindow& tw = Seiscomp::Core::TimeWindow())
 			   : startTime(tw.startTime()), endTime(tw.endTime()) {}
@@ -92,6 +107,7 @@ class SC_GUI_API EventListView : public QWidget {
 			OPT(float)               minLongitude, maxLongitude;
 			OPT(float)               minDepth, maxDepth;
 			OPT(float)               minMagnitude, maxMagnitude;
+			std::string              eventID;
 
 			bool isNull() const;
 		};
@@ -131,6 +147,9 @@ class SC_GUI_API EventListView : public QWidget {
 
 		int eventCount() const;
 
+		//! \since 15.0.0
+		int visibleEventCount() const;
+
 
 	signals:
 		void originAdded();
@@ -153,6 +172,10 @@ class SC_GUI_API EventListView : public QWidget {
 		void eventAddedToList(Seiscomp::DataModel::Event*, bool fromNotification);
 		void eventUpdatedInList(Seiscomp::DataModel::Event*);
 		void eventRemovedFromList(Seiscomp::DataModel::Event*);
+
+		//! \since 15.0.0
+		void visibleEventCountChanged();
+
 		//! Emitted when a bigger update process has finished, such as show/hide
 		//! of a subset of events.
 		void eventsUpdated();
@@ -181,12 +204,24 @@ class SC_GUI_API EventListView : public QWidget {
 		void selectEvent(int index);
 		void selectEventID(const std::string& publicID);
 
+		/**
+		 * @brief Activates the previous visible event.
+		 * This is similar to selecting the event before (visually below) the
+		 * current event in the list.
+		 */
 		void setPreviousEvent();
+
+		/**
+		 * @brief Activates the next visible event.
+		 * This is similar to selecting the event after (visually above) the
+		 * current event in the list.
+		 */
 		void setNextEvent();
 
 		void readFromDatabase();
 		void readFromDatabase(const Seiscomp::Gui::EventListView::Filter&);
 		void clear();
+		void clearDatabaseFilter();
 
 		void selectEventFM(const QString &);
 
@@ -201,6 +236,7 @@ class SC_GUI_API EventListView : public QWidget {
 		void onShowOtherEvents(int checked);
 		void onShowForeignEvents(int checked);
 		void onHideOutsideRegion(int checked);
+		void onFilterRegionModeChanged(int mode);
 
 		void updateAgencyState();
 
@@ -285,17 +321,15 @@ class SC_GUI_API EventListView : public QWidget {
 		};
 
 		struct Region {
-			QString name;
-			float   minLat;
-			float   minLong;
-			float   maxLat;
-			float   maxLong;
+			QString                name;
+			Geo::GeoBoundingBox    bbox;
+			const Geo::GeoFeature *poly{nullptr};
 		};
 
 		typedef QList<Region> FilterRegions;
 
 	private:
-		::Ui::EventListView                 _ui;
+		::Ui::EventListView                *_ui;
 		Private::EventFilterWidget         *_filterWidget;
 		ItemConfig                          _itemConfig;
 		FilterRegions                       _filterRegions;
@@ -315,12 +349,14 @@ class SC_GUI_API EventListView : public QWidget {
 		//bool                              _withComments;
 		bool                                _blockSelection;
 		bool                                _blockRemovingOfExpiredEvents;
+		bool                                _blockCountSignal;
 		bool                                _hideOtherEvents;
 		bool                                _hideForeignEvents;
 		bool                                _hideOutsideRegion;
 		bool                                _checkEventAgency;
 		bool                                _showOnlyLatestPerAgency;
 		int                                 _regionIndex;
+		mutable int                         _visibleEventCount;
 };
 
 
@@ -333,6 +369,7 @@ class SC_GUI_API EventListViewRegionFilterDialog : public QDialog {
 	public:
 		EventListViewRegionFilterDialog(QWidget *parent, EventListView::Region *target,
 		                                EventListView::FilterRegions *regionList);
+		~EventListViewRegionFilterDialog();
 
 
 	// ------------------------------------------------------------------
@@ -354,7 +391,7 @@ class SC_GUI_API EventListViewRegionFilterDialog : public QDialog {
 	//  Private members
 	// ------------------------------------------------------------------
 	private:
-		::Ui::EventListViewRegionFilterDialog  _ui;
+		::Ui::EventListViewRegionFilterDialog *_ui;
 		EventListView::Region                 *_target;
 		EventListView::FilterRegions          *_regionList;
 };
@@ -362,5 +399,6 @@ class SC_GUI_API EventListViewRegionFilterDialog : public QDialog {
 
 }
 }
+
 
 #endif

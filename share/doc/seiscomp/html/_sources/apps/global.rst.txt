@@ -37,6 +37,7 @@ functionality to check the state of all registered modules and to start and stop
 The configuration is divided into three parts: :ref:`stations <global-stations>`,
 :ref:`modules <global_modules>` and :ref:`bindings <global_bindings>`.
 
+
 .. _global-stations:
 
 Station meta data
@@ -46,22 +47,26 @@ Station meta-data is a fundamental requirement for a seismic processing system a
 for SeisComP. Read the :ref:`inventory section<concepts_inventory>` in concepts for
 more details.
 
+
 .. _global_modules:
 
 Modules
 =======
 
-The concepts of :ref:`modules <concepts_modules>` and :ref:`their configuration <global_modules_config>`
-is described in the :ref:`concepts section <concepts>`.
+The concepts of :ref:`modules <concepts_modules>` and
+:ref:`their configuration <global_modules_config>` is described in the
+:ref:`concepts section <concepts>`.
+
 
 .. _global_bindings:
 
 Bindings
 ========
 
-Bindings provide specific configurations per :ref:`module <global_module_config>` and
-station and even stream. Read the :ref:`bindings section <global_bindings_config>`
-in concepts for more details on bindings.
+Bindings provide specific configurations per
+:ref:`module <global_modules_config>` and station and even stream. Read the
+:ref:`bindings section <global_bindings_config>` in concepts for more details on
+bindings.
 
 
 Extensions
@@ -69,7 +74,8 @@ Extensions
 
 Extensions add new configuration options to :term:`modules<module>`. It does
 not matter how those extensions are used. Commonly a module loads a plugin,
-which requires additional configuration parameters - these are provided by an extension.
+which requires additional configuration parameters - these are provided by an
+extension.
 
 There are currently extensions for the following modules, corresponding to the
 plugins shown:
@@ -108,6 +114,9 @@ Plugins
 * :ref:`MN <global_mn>`
 
   Nuttli magnitude for Canada and other Cratonic regions
+* :ref:`StdLoc <global_stdloc>`
+
+  Generic locator plugin for SeisComP.
 * :ref:`LocExt <global_locext>`
 
   Locator which forwards the processing to external scripts
@@ -117,21 +126,36 @@ Plugins
 * :ref:`RecordStream <global_recordstream>`
 
   RecordStream interface for SeisComP.
+* :ref:`FX-DFX <global_fx-dfx>`
+
+  Implementation of the CTBTO/IDC polarization analysis for three-component stations.
 * :ref:`mB_BB <global_mb_bb>`
 
   Body wave magnitude  at teleseismic distances similar to mb
 * :ref:`mb <global_mb>`
 
   Body wave magnitude at teleseismic distances
+* :ref:`mb_IDC <global_mb_idc>`
+
+  Body wave magnitude computed at CTBTO/IDC (mb) is calculated for seismic events from the time-defining primary body waves recorded at seismic stations at an epicentral distance between 20 and 105 degrees from the event.
 * :ref:`Ms_20 <global_ms_20>`
 
   Surface wave magnitude measured at around 20 s
+* :ref:`MLc <global_mlc>`
+
+  Custom magnitude for local events measured on horizontal components
 * :ref:`MLv <global_mlv>`
 
   Local (Richter) magnitude measured on the vertical component
 * :ref:`ML <global_ml>`
 
   Standard local (Richter) magnitude
+* :ref:`ML_IDC <global_ml_idc>`
+
+  CTBTO/IDC local magnitude.
+* :ref:`homogeneous <global_homogeneous>`
+
+  Travel-times for a homogeneous velocity model
 * :ref:`LOCSAT <global_locsat>`
 
   Locator in SeisComP for computing source time and hypocenter coordinates from phase picks.
@@ -141,55 +165,65 @@ Plugins
 
 .. _global_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
+
+
+.. confval:: agencyID
+
+   Default: ``GFZ``
+
+   Type: *string*
+
+   Agency ID used to set creationInfo.agencyID in
+   data model objects. Should not contain spaces.
 
 
 .. confval:: datacenterID
 
    Type: *string*
 
-   Sets the datacenter ID which is primarily used by Arclink and
+   Datacenter ID which is primarily used by Arclink and
    its tools. Should not contain spaces.
 
 
-.. confval:: agencyID
-
-   Type: *string*
-
-   Defines the agency ID used to set creationInfo.agencyID in
-   data model objects. Should not contain spaces.
-   Default is ``GFZ``.
-
 .. confval:: organization
+
+   Default: ``Unset``
 
    Type: *string*
 
    Organization name used mainly by ArcLink and SeedLink.
-   Default is ``Unset``.
+
 
 .. confval:: author
 
+   Default: ``@appname@@@@hostname@``
+
    Type: *string*
 
-   Defines the author name used to set creationInfo.author in
-   data model objects.
-   Default is ``@appname@@@@hostname@``.
+   Author name used to set creationInfo.author in data model
+   objects. \@appname\@ is replace by the name of the
+   respective executable, \@hostname\@ by the name of the computer
+   on which it runs.
+
 
 .. confval:: plugins
 
    Type: *list:string*
 
-   Defines a list of modules loaded at startup.
+   List of plugins loaded at startup. Separate multiple names by
+   comma. Add \${plugins} to consider all previously read values.
 
 
 .. confval:: cityXML
 
    Type: *string*
 
-   Path to the cities.xml file. If undefined, the data is read from
-   \"\@CONFIGDIR\@\/cities.xml\" or \"\@DATADIR\@\/cities.xml\".
+   Path to the cities XML file. If undefined, the data is read
+   from \"\@CONFIGDIR\@\/cities.xml\" or
+   \"\@DATADIR\@\/cities.xml\".
    SeisComP ships with \"\@DATADIR\@\/cities.xml\".
 
 
@@ -199,7 +233,8 @@ Configuration
 
    Load cities from file configured by the \"cityXML\"
    parameter. GUI and map applications enable loading of cities
-   by default considering the parameter \"scheme.map.showCities\".
+   by default considering the parameter
+   \"scheme.map.showCities\".
 
 
 .. confval:: loadRegions
@@ -217,37 +252,40 @@ Configuration
 
    Type: *string*
 
-   Defines a custom pattern for generation of public object ids. The following
-   variables are resolved:
+   Define a custom pattern for generation of public object IDs.
+   The following variables are resolved:
    \@classname\@ \(class name of object\),
    \@id\@ \(public object count\),
    \@globalid\@ \(general object count\),
-   \@time\@ \(current time, use '\/' to supply custom format, e.g. \@time\/%FT%T.%fZ\@
+   \@time\@ \(current time, use '\/' to supply custom format e.g.
+   \@time\/%FT%T.%fZ\@
 
 
 .. confval:: configModule
 
+   Default: ``trunk``
+
    Type: *string*
 
    Name of the configuration module.
-   Default is ``trunk``.
+
 
 .. confval:: database
 
    Type: *string*
 
-   Defines the database connection. If no database is configured
-   \(which is the default\) and a messaging connection is available
+   Define the database connection. If no database is configured
+   \(which is the default\) and a messaging connection is available,
    the application will receive the parameters after the connection
    is established. Override these values only if you know what you
    are doing.
    
    The format is: service:\/\/user:pwd\@host\/database.
-   \"service\" is the name of the database driver which can be
-   queried with \"\-\-db\-driver\-list\".
-   
-   Note that this parameter overrides 'database.type' and
-   'database.parameters' if present.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
+   IMPORTANT: This parameter replaces former
+   \"database.type\" and \"database.parameters\"
+   which have been removed.
 
 
 .. confval:: recordstream
@@ -255,43 +293,46 @@ Configuration
    Type: *string*
 
    SeisComP applications access waveform data through the RecordStream
-   interface. Please consult the SeisComP documentation for a list of
+   interface. Read the SeisComP documentation for a list of
    supported services and their configuration.
    
-   This parameter configures recordstream source URL, format: [service:\/\/]location[#type].
-   \"service\" is the name of the recordstream implementation.
-   If \"service\" is not given \"file:\/\/\" is implied.
+   This parameter configures RecordStream source URL.
    
-   This parameter overrides the deprecated recordstream.service and
-   recordstream.source and should be used instead.
+   Format: [service:\/\/]location[#type]
+   
+   \"service\": The name of the RecordStream implementation.
+   If not given, \"file:\/\/\" is implied.
+   
+   IMPORTANT: This parameter replaces former RecordStream
+   configurations in \"recordstream.service\" and
+   \"recordstream.source\" which have been removed.
 
 
 .. confval:: logging.level
 
+   Default: ``2``
+
    Type: *int*
 
-   Sets the logging level between 1 and 4 where 1\=ERROR, 2\=WARNING, 3\=INFO and 4\=DEBUG.
-   Default is ``2``.
+   Set the logging level between 1 and 4 where 1\=ERROR,
+   2\=WARNING, 3\=INFO and 4\=DEBUG.
 
-.. confval:: logging.file
-
-   Type: *boolean*
-
-   Enables logging into a log file.
-   Default is ``true``.
 
 .. confval:: logging.syslog
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Enables logging to syslog if supported by the host system.
-   Default is ``false``.
+   Enable logging to syslog if supported by the host system.
+
 
 .. confval:: logging.components
 
    Type: *list:string*
 
-   Limit the logging to the specified list of components, e.g. 'Application, Server'
+   Limit the logging to the specified list of components.
+   Example: 'Application, Server'.
 
 
 .. confval:: logging.component
@@ -299,108 +340,137 @@ Configuration
    Type: *boolean*
 
    For each log entry print the component right after the
-   log level. By default the component output is enabled
+   log level. By default, the component output is enabled
    for file output but disabled for console output.
 
 
 .. confval:: logging.context
 
+   Default: ``false``
+
    Type: *boolean*
 
    For each log entry print the source file name and line
    number.
-   Default is ``false``.
+
 
 .. confval:: logging.utc
 
    Type: *boolean*
 
-   Use UTC instead of localtime in logging timestamps.
+   Use UTC instead of local time in logging timestamps.
 
 
 .. confval:: logging.file.rotator
 
+   Default: ``true``
+
    Type: *boolean*
 
-   Enables rotation of log files.
-   Default is ``true``.
+   Enable rotation of log files.
+
 
 .. confval:: logging.file.rotator.timeSpan
+
+   Default: ``86400``
 
    Type: *int*
 
    Unit: *s*
 
    Time span after which a log file is rotated.
-   Default is ``86400``.
+
 
 .. confval:: logging.file.rotator.archiveSize
+
+   Default: ``7``
 
    Type: *int*
 
    How many historic log files to keep.
-   Default is ``7``.
+
 
 .. confval:: logging.file.rotator.maxFileSize
+
+   Default: ``104857600``
 
    Type: *int*
 
    Unit: *byte*
 
-   The maximum size of a logfile in byte. The default value
-   is 100 megabyte. If a logfile exceeds that size then it
-   is rotated. To disable the size limit give 0 or a negative
-   value.
-   Default is ``104857600``.
+   The maximum size of a logfile in byte. The default
+   value is 100 megabyte. If a logfile exceeds that
+   size, then it is rotated. To disable the size limit
+   give 0 or a negative value.
+
 
 .. confval:: logging.objects.timeSpan
+
+   Default: ``60``
 
    Type: *int*
 
    Unit: *s*
 
-   Timespan for counting input\/output of objects.
-   Default is ``60``.
+   Time span for counting input\/output of objects.
+
 
 .. confval:: logging.syslog.facility
 
+   Default: ``local0``
+
    Type: *string*
 
-   Defines the syslog facility to be used according to the
+   Define the syslog facility to be used according to the
    defined facility names in syslog.h. The default is local0.
-   If the given name is invalid or not available, initializing
-   logging will fail and the application quits.
-   Default is ``local0``.
+   If the given name is invalid or not available,
+   initializing logging will fail and the application quits.
+
 
 .. confval:: connection.server
 
+   Default: ``localhost``
+
    Type: *host-with-port*
 
-   Defines the URL of the messaging server to connect to.
-   URL format is [scheme:\/\/]host[:port][\/queue]. Default scheme:
-   scmp, default port: 18180, default queue: production.
+   Define the URL of the messaging server to connect to.
+   URL format is [scheme:\/\/]host[:port][\/queue].
+   Default scheme: scmp, default port: 18180,
+   default queue: production.
    Examples:
    
    All default: localhost
    
-   Specfic host: scmp:\/\/10.0.1.4:18180\/production
+   Specific host: scmp:\/\/10.0.1.4:18180\/production
    
-   Specfic host and SSL encryption: scmps:\/\/10.0.1.4:18180\/production
-   Default is ``localhost``.
+   Specific host and SSL encryption:
+   scmps:\/\/10.0.1.4:18180\/production
+
 
 .. confval:: connection.username
 
    Type: *string*
 
-   Defines the username to be used. The length is maybe limited
-   by the messaging system used. By default the module name
+   Define the username to be used. The length is maybe limited
+   by the messaging system used. By default, the module name
    \(name of the executable\) is used but sometimes it exceeds
    the 10 character limit and access is denied. To prevent
    errors set a different username. An empty username will
    let the system to generate one.
 
 
+.. confval:: connection.certificate
+
+   Type: *string*
+
+   Define the OpenSSL client certificate to be used. Path to
+   OpenSSL certificate in PKCS 12 format or the prefix \"data:\"
+   followed by the Base64 encoded certificate data.
+
+
 .. confval:: connection.timeout
+
+   Default: ``3``
 
    Type: *int*
 
@@ -408,192 +478,166 @@ Configuration
 
    The connection timeout in seconds. 3 seconds are normally
    more than enough. If a client needs to connect to a
-   remote system with a slow connection a larger timeout might
-   be needed.
-   Default is ``3``.
+   remote system with a slow connection, a larger timeout
+   might be needed.
+
 
 .. confval:: connection.primaryGroup
 
    Type: *string*
 
-   Defines the primary group of a module. This is the name
+   Define the primary group of a module. This is the name
    of the group where a module sends its messages to if the
-   target group is not explicitely given in the send call.
+   target group is not explicitly given in the send call.
 
 
 .. confval:: connection.contentType
 
+   Default: ``binary``
+
    Type: *string*
 
-   Defines the message encoding for sending. Allowed values
+   Define the message encoding for sending. Allowed values
    are \"binary\", \"json\" or \"xml\".
    XML has more overhead in processing but is more robust when
    schema versions between client and server are different.
-   Default is ``binary``.
+
 
 .. confval:: connection.subscriptions
 
    Type: *list:string*
 
-   Defines a list of message groups to subscribe to. The
+   Define a list of message groups to subscribe to. The
    default is usually given by the application and does not
    need to be changed.
 
 
 .. note::
    **database.\***
-   *Defines the database connection. If no database is configured*
-   *(which is the default) and a messaging connection is available*
+   *Define the database connection. If no database is configured*
+   *(which is the default) and a messaging connection is available,*
    *the application will receive the parameters after the connection*
    *is established. Override these values only if you know what you*
    *are doing.*
 
 
 
-.. confval:: database.type
-
-   Type: *string*
-
-   Defines the database backend to be used. The name corresponds to
-   the defined name in the database plugin. Examples are: mysql, postgresql or
-   sqlite3. Note that this parameter is deprecated. Please use
-   the URL form 'database \= mysql:\/\/sysop:sysop\@localhost\/seiscomp' instead.
-
-
-.. confval:: database.parameters
-
-   Type: *string*
-
-   The database connection parameters. This value depends on the used
-   database backend. E.g. sqlite3 expects the path to the database
-   file whereas MYSQL or PostgreSQL expect an URI in the format
-   user:pwd\@host\/database?param1\=val1\&param2\=val2.
-   Note that this parameter is deprecated. Please use the URL form
-   'database \= mysql:\/\/sysop:sysop\@localhost\/seiscomp' instead.
-
-
 .. confval:: database.inventory
 
    Type: *string*
 
-   Load the inventory database from a given XML file if set. This
-   overrides the inventory definitions loaded from the database backend.
+   Load the inventory database from a given XML file if set.
+   This overrides the inventory definitions loaded from the
+   database backend.
 
 
 .. confval:: database.config
 
    Type: *string*
 
-   Load the configuration database from a given XML file if set. This
-   overrides the configuration definitions loaded from the database backend.
+   Load the configuration database from a given XML file if set.
+   This overrides the configuration definitions loaded from the
+   database backend.
 
 
 .. confval:: processing.whitelist.agencies
 
    Type: *list:string*
 
-   Defines a whitelist of agencies that are allowed for processing separated by comma.
+   Define a whitelist of agencies that are allowed for
+   processing. Separate items by comma.
 
 
 .. confval:: processing.blacklist.agencies
 
    Type: *list:string*
 
-   Defines a blacklist of agencies that are not allowed for processing separated by comma.
+   Define a blacklist of agencies that are not allowed for
+   processing. Separate items by comma.
 
 
 .. confval:: inventory.whitelist.nettype
 
    Type: *list:string*
 
-   List of network types to include when loading the inventory.
+   List of network types to include when loading the
+   inventory.
 
 
 .. confval:: inventory.whitelist.statype
 
    Type: *list:string*
 
-   List of station types to include when loading the inventory.
+   List of station types to include when loading the
+   inventory.
 
 
 .. confval:: inventory.blacklist.nettype
 
    Type: *list:string*
 
-   List of network types to exclude when loading the inventory.
+   List of network types to exclude when loading the
+   inventory.
 
 
 .. confval:: inventory.blacklist.statype
 
    Type: *list:string*
 
-   List of station types to exclude when loading the inventory.
+   List of station types to exclude when loading the
+   inventory.
 
-
-.. note::
-   **recordstream.\***
-   *SeisComP applications access waveform data through the RecordStream*
-   *interface. Please consult the SeisComP documentation for a list of*
-   *supported services and their configuration. Note that this set of*
-   *parameters is deprecated and will be removed in future versions.*
-   *Please use the URL form (recordstream = slink://localhost) in future.*
-
-
-
-.. confval:: recordstream.service
-
-   Type: *string*
-
-   Name of the recordstream service implementation.
-   Default is ``slink``.
-
-.. confval:: recordstream.source
-
-   Type: *string*
-
-   Service specific parameters like a IP address or a file name to use.
-   Default is ``localhost:18000``.
 
 .. confval:: scripts.crashHandler
 
    Type: *path*
 
-   Path to crash handler script
+   Path to crash handler script.
 
 
 .. confval:: core.plugins
 
+   Default: ``dbmysql``
+
    Type: *list:string*
 
-   Defines a list of core modules loaded at startup.
-   Default is ``dbmysql``.
+   Define a list of core modules loaded at startup.
+
 
 .. confval:: client.startStopMessage
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Enables sending of an application start\- and stop message to the STATUS_GROUP.
-   Default is ``false``.
+   Enable sending of an application start\- and stop message to
+   the STATUS_GROUP.
+
 
 .. confval:: client.autoShutdown
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Enablgs automatic application shutdown triggered by a status message.
-   Default is ``false``.
+   Enable automatic application shutdown triggered by a status
+   message.
+
 
 .. confval:: client.shutdownMasterModule
 
    Type: *string*
 
-   Triggers shutdown if the module name of the received messages match
+   Trigger shutdown if the module name of the received messages
+   match.
 
 
 .. confval:: client.shutdownMasterUsername
 
    Type: *string*
 
-   Triggers shutdown if the user name of the received messages match
+   Trigger shutdown if the user name of the received messages
+   match.
 
 
 .. confval:: commands.target
@@ -611,10 +655,10 @@ Configuration
 .. note::
    **ttt.\***
    *Travel time table related configuration. Travel time tables can*
-   *be added via plugins. Built-in interfaces are libtau and LOCSAT.*
+   *be added via plugins. Built-in interfaces are LOCSAT, libtau and*
+   *homogeneous.*
    *For each loaded interface a list of supported models must be*
-   *provided. The default list of tables for libtau is ak135 and*
-   *iasp91. LOCSAT's default tables are iasp91 and tab.*
+   *provided.*
 
 
 
@@ -631,6 +675,198 @@ Configuration
    The list of supported model names per interface.
 
 
+.. note::
+   **amplitudes.\***
+   *Parameters of amplitude measurements.*
+
+
+
+.. note::
+   **amplitudes.WoodAnderson.\***
+   *Parameters of the Wood-Anderson seismometer response used*
+   *for instrument simulation. The WA parameters can be overridden*
+   *per stream by global bindings.*
+
+
+
+.. confval:: amplitudes.WoodAnderson.gain
+
+   Default: ``2800``
+
+   Type: *double*
+
+   The gain of the Wood\-Anderson response.
+
+
+.. confval:: amplitudes.WoodAnderson.T0
+
+   Default: ``0.8``
+
+   Type: *double*
+
+   Unit: *s*
+
+   The eigenperiod of the Wood\-Anderson seismometer.
+
+
+.. confval:: amplitudes.WoodAnderson.h
+
+   Default: ``0.8``
+
+   Type: *double*
+
+   The damping constant of the Wood\-Anderson seismometer.
+
+
+.. note::
+   **magnitudes.\***
+   *Magnitude configurations overriding global bindings.*
+   *Add regionalization by magnitude-type profiles. Profile*
+   *names correspond to magnitude types.*
+
+
+
+.. note::
+
+   **magnitudes.$name.\***
+   $name is a placeholder for the name to be used.
+
+
+.. confval:: magnitudes.$name.regionFile
+
+   Type: *path*
+
+   Path to a geofeature file, e.g. in BNA or GeoJSON format,
+   with one or more polygons defining geographic regions.
+   Each region allows further magnitude parametrization.
+   The order of polygons\/regions matters. The list is
+   tested from front to back and the first hit wins.
+   Magnitude\-region profiles refer to the polygons by the
+   name of the profile. The special name \"world\"
+   must not be present in the geofeature file.
+
+
+.. note::
+   **magnitudes.$name.region.\***
+   *Add parameter profiles for regions defined in the*
+   *geofeature file. Profile names must match one polygon*
+   *name. Otherwise, the profile is not considered.*
+   *The special name "world" corresponds to the*
+   *region of the entire planet as a fallback.*
+   **
+   *Magnitude-specific parameters, e.g. calibration functions,*
+   *are adjusted in a separate section of  magnitudes with*
+   *the same name.*
+
+
+
+.. note::
+
+   **magnitudes.$name.region.$name.\***
+   $name is a placeholder for the name to be used.
+
+
+.. confval:: magnitudes.$name.region.$name.enable
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Enable the region or not.
+
+
+.. confval:: magnitudes.$name.region.$name.minDist
+
+   Type: *double*
+
+   Unit: *deg*
+
+   The minimum distance required to compute a
+   magnitude. This settings has no effect with e.g.
+   scautopick as there is no information about the
+   source of the event to compute the distance.
+   The default value is implementation specific.
+
+
+.. confval:: magnitudes.$name.region.$name.maxDist
+
+   Type: *double*
+
+   Unit: *deg*
+
+   The maximum distance allowed to compute a magnitude.
+   This settings has no effect with e.g. scautopick
+   as there is no information about the source of
+   the event to compute the distance. The default
+   value is implementation specific.
+
+
+.. confval:: magnitudes.$name.region.$name.minDepth
+
+   Type: *double*
+
+   Unit: *km*
+
+   The minimum depth required to compute a magnitude.
+   This settings has no effect with e.g. scautopick
+   as there is no information about the source of
+   the event to retrieve the depth. The default
+   value is implementation specific.
+
+
+.. confval:: magnitudes.$name.region.$name.maxDepth
+
+   Type: *double*
+
+   Unit: *km*
+
+   The maximum depth allowed to compute a magnitude.
+   This settings has no effect with e.g. scautopick
+   as there is no information about the source of
+   the event to retrieve the depth. The default
+   value is implementation specific.
+
+
+.. confval:: magnitudes.$name.region.$name.check
+
+   Default: ``source``
+
+   Type: *string*
+
+   Define how the region check is performed to accept
+   a source receiver pair for further processing.
+   Allowed values are:
+   
+   source: Only the source\/origin must be within
+   the region.
+   
+   source\-receiver: Both source\/origin and
+   receiver\/station must be within the region.
+   
+   raypath: The entire path between source\/origin
+   and receiver\/station must be withing the region.
+
+
+.. confval:: magnitudes.$name.region.$name.multiplier
+
+   Default: ``1``
+
+   Type: *double*
+
+   Linear part of the default station correction
+   for this region.
+
+
+.. confval:: magnitudes.$name.region.$name.offset
+
+   Default: ``0``
+
+   Type: *double*
+
+   Constant part of the default station correction
+   for this region.
+
+
 .. _global/NonLinLoc:
 
 
@@ -643,34 +879,42 @@ NonLinLoc was written by Anthony Lomax (http://alomax.free.fr/nlloc).
 
 .. confval:: NonLinLoc.publicID
 
+   Default: ``NLL.@time/%Y%m%d%H%M%S.%f@.@id@``
+
    Type: *string*
 
    PublicID creation pattern for an origin created by NonLinLoc.
-   Default is ``NLL.@time/%Y%m%d%H%M%S.%f@.@id@``.
+
 
 .. confval:: NonLinLoc.outputPath
+
+   Default: ``/tmp/sc3.nll``
 
    Type: *path*
 
    Defines the output path for all native NonLinLoc input and output files.
-   Default is ``/tmp/sc3.nll``.
+
 
 .. confval:: NonLinLoc.saveInput
+
+   Default: ``true``
 
    Type: *boolean*
 
    Save input files \*.obs in outputPath for later processing.
    Setting to false reduces file i\/o and saves disk space.
-   Default is ``true``.
+
 
 .. confval:: NonLinLoc.saveIntermediateOutput
+
+   Default: ``true``
 
    Type: *boolean*
 
    Save output files in outputPath for later processing or
    for viewing by the Seismicity Viewer.
    Setting to false reduces file i\/o and saves disk space.
-   Default is ``true``.
+
 
 .. confval:: NonLinLoc.controlFile
 
@@ -681,15 +925,19 @@ NonLinLoc was written by Anthony Lomax (http://alomax.free.fr/nlloc).
 
 .. confval:: NonLinLoc.defaultPickError
 
+   Default: ``0.5``
+
    Type: *double*
 
    Unit: *s*
 
    The default pick error in seconds passed to NonLinLoc if a SeisComP pick
    object does not provide pick time uncertainties.
-   Default is ``0.5``.
+
 
 .. confval:: NonLinLoc.fixedDepthGridSpacing
+
+   Default: ``0.1``
 
    Type: *double*
 
@@ -698,9 +946,11 @@ NonLinLoc was written by Anthony Lomax (http://alomax.free.fr/nlloc).
    Since NLL does not support fixing the depth natively so this
    feature is emulated by settings the Z grid very tight around
    the depth to be fixed. This value sets the Z grid spacing.
-   Default is ``0.1``.
+
 
 .. confval:: NonLinLoc.allowMissingStations
+
+   Default: ``true``
 
    Type: *boolean*
 
@@ -710,7 +960,7 @@ NonLinLoc was written by Anthony Lomax (http://alomax.free.fr/nlloc).
    
    If set to false, the plug\-in throws
    an excepection without locating.
-   Default is ``true``.
+
 
 .. confval:: NonLinLoc.profiles
 
@@ -745,16 +995,35 @@ NonLinLoc was written by Anthony Lomax (http://alomax.free.fr/nlloc).
 
 .. confval:: NonLinLoc.profile.$name.methodID
 
+   Default: ``NonLinLoc``
+
    Type: *string*
 
    methodID that is stored in the created origin.
-   Default is ``NonLinLoc``.
+
 
 .. confval:: NonLinLoc.profile.$name.tablePath
 
    Type: *path*
 
    Path to travel time tables \(grids\).
+
+
+.. confval:: NonLinLoc.profile.$name.stationNameFormat
+
+   Default: ``@STA@``
+
+   Type: *string*
+
+   Format of the station name used to select the right travel time table \(grid\) file
+   for a station.
+   By default only the station code is used \(e.g. tablePath.P.\@STA\@.time.\*\), but
+   that doesn't allow to distinguish between multiple network codes or location codes
+   that use the same station code.
+   To overcome this limitation this parameter could be set in a more general way, for
+   example \@NET\@_\@STA\@_\@LOC\@. In this way NonLinLoc will look for
+   travel time table \(grid\) files of the form: tablePath.P.\@NET\@_\@STA\@_\@LOC\@.time.\*
+   Where \@NET\@ \@STA\@ \@LOC\@ are just placeholder for the actual codes
 
 
 .. confval:: NonLinLoc.profile.$name.controlFile
@@ -767,13 +1036,15 @@ NonLinLoc was written by Anthony Lomax (http://alomax.free.fr/nlloc).
 
 .. confval:: NonLinLoc.profile.$name.transform
 
+   Default: ``GLOBAL``
+
    Type: *string*
 
    Transformation type of the configured region. Supported are
    SIMPLE and GLOBAL.
    
    Default: GLOBAL is assumed.
-   Default is ``GLOBAL``.
+
 
 .. confval:: NonLinLoc.profile.$name.region
 
@@ -828,39 +1099,49 @@ The traditional Hypo71PC locator with SeisComP.
 
 .. confval:: hypo71.logFile
 
+   Default: ``@LOGDIR@/HYPO71.LOG``
+
    Type: *string*
 
    Temporary file used by Hypo71 to store calculation logs.
-   Default is ``@LOGDIR@/HYPO71.LOG``.
+
 
 .. confval:: hypo71.inputFile
+
+   Default: ``@DATADIR@/hypo71/HYPO71.INP``
 
    Type: *string*
 
    Temporary file to write Hypo71 input data to.
-   Default is ``@DATADIR@/hypo71/HYPO71.INP``.
+
 
 .. confval:: hypo71.outputFile
+
+   Default: ``@DATADIR@/hypo71/HYPO71.PRT``
 
    Type: *string*
 
    Temporary output file to read Hypo71 location data from.
-   Default is ``@DATADIR@/hypo71/HYPO71.PRT``.
+
 
 .. confval:: hypo71.defaultControlFile
+
+   Default: ``@DATADIR@/hypo71/profiles/default.hypo71.conf``
 
    Type: *string*
 
    Hypo71 default profile.
    If no custom profile is specified, this profile will be used by the plugin when proceeding to a localization.
-   Default is ``@DATADIR@/hypo71/profiles/default.hypo71.conf``.
+
 
 .. confval:: hypo71.hypo71ScriptFile
+
+   Default: ``@DATADIR@/hypo71/run.sh``
 
    Type: *string*
 
    Bash script executed when calling the Hypo71 locator plugin for locating the earthquake.
-   Default is ``@DATADIR@/hypo71/run.sh``.
+
 
 .. confval:: hypo71.profiles
 
@@ -915,11 +1196,13 @@ The traditional Hypo71PC locator with SeisComP.
 
 .. confval:: hypo71.profile.$name.methodID
 
+   Default: ``Hypo71``
+
    Type: *string*
 
    Profile's method.
    It is generally the locator's name \(Hypo71\).
-   Default is ``Hypo71``.
+
 
 .. confval:: hypo71.profile.$name.controlFile
 
@@ -930,6 +1213,8 @@ The traditional Hypo71PC locator with SeisComP.
 
 .. confval:: hypo71.profile.$name.fixStartDepthOnly
 
+   Default: ``false``
+
    Type: *boolean*
 
    If the depth is requested to be fixed \(e.g. by ticking the option
@@ -937,7 +1222,7 @@ The traditional Hypo71PC locator with SeisComP.
    specified depth but with free depth evaluation. This option
    defines whether it should really fix the depth \(false\) or
    use this fixed depth only as starting point \(true\).
-   Default is ``false``.
+
 
 .. _global/iLoc:
 
@@ -954,14 +1239,27 @@ Locator in SeisComP implemented by the plugin lociloc.
 
 
 
+.. confval:: iLoc.auxDir
+
+   Default: ``@DATADIR@/iloc/iLocAuxDir``
+
+   Type: *string*
+
+   iLoc directory for auxialiary files and directories. Some
+   of them must be provided from the iLoc website. Read the
+   documentation for their installation.
+
+
 .. confval:: iLoc.profiles
+
+   Default: ``iasp91,ak135``
 
    Type: *list:string*
 
    iLoc profile name.
    Multiples names may be set separated by comma.
    Each profile can have different velocity or parameters.
-   Default is ``iasp91,ak135``.
+
 
 .. note::
    **iLoc.profile.\***
@@ -990,10 +1288,12 @@ Locator in SeisComP implemented by the plugin lociloc.
 
 .. confval:: iLoc.profile.$name.Verbose
 
+   Default: ``true``
+
    Type: *boolean*
 
    
-   Default is ``true``.
+
 
 .. confval:: iLoc.profile.$name.globalModel
 
@@ -1006,46 +1306,78 @@ Locator in SeisComP implemented by the plugin lociloc.
 
 .. confval:: iLoc.profile.$name.UseRSTT
 
+   Default: ``false``
+
    Type: *boolean*
 
    Use regional seismic travel\-time tables
-   Default is ``false``.
+
 
 .. confval:: iLoc.profile.$name.UseRSTTPnSn
+
+   Default: ``true``
 
    Type: *boolean*
 
    Use regional seismic travel\-time tables for Pn and Sn
-   Default is ``true``.
+
 
 .. confval:: iLoc.profile.$name.UseRSTTPgLg
+
+   Default: ``true``
 
    Type: *boolean*
 
    Use regional seismic travel\-time tables for Pg and Lg
-   Default is ``true``.
+
+
+.. confval:: iLoc.profile.$name.UseLocalTT
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Use local velocity model if defined in LocalVmodel.
+
 
 .. confval:: iLoc.profile.$name.LocalVmodel
 
    Type: *string*
 
    Full path to a file containing the local velocity model.
-   Requires: UseLocalTT \= true. Empty string or unset
-   disables using a local model in this profile.
+   Requires: UseLocalTT \= true. Empty string or unset or
+   UseLocalTT \= false disables using a local model in
+   this profile.
    
    Example:
    
-   \@DATADIR\@\/iloc\/localmodels\/model.localmodel.dat.
+   \@DATADIR\@\/iloc\/iLocAuxDir\/localmodels\/model.localmodel.dat.
+
+
+.. confval:: iLoc.profile.$name.MaxLocalTTDelta
+
+   Default: ``3``
+
+   Type: *float*
+
+   Unit: *deg*
+
+   Maximum epicentral distance for applying the local
+   velocity model.
 
 
 .. confval:: iLoc.profile.$name.DoGridSearch
 
+   Default: ``true``
+
    Type: *boolean*
 
    Perform neighbourhood algorithm
-   Default is ``true``.
+
 
 .. confval:: iLoc.profile.$name.NAsearchRadius
+
+   Default: ``5``
 
    Type: *float*
 
@@ -1053,9 +1385,11 @@ Locator in SeisComP implemented by the plugin lociloc.
 
    Neighbourhood Algorithm: Search radius around initial
    epicentre
-   Default is ``5``.
+
 
 .. confval:: iLoc.profile.$name.NAsearchDepth
+
+   Default: ``300``
 
    Type: *float*
 
@@ -1063,9 +1397,11 @@ Locator in SeisComP implemented by the plugin lociloc.
 
    Neighbourhood Algorithm: Search radius around initial
    depth
-   Default is ``300``.
+
 
 .. confval:: iLoc.profile.$name.NAsearchOT
+
+   Default: ``30``
 
    Type: *float*
 
@@ -1073,161 +1409,201 @@ Locator in SeisComP implemented by the plugin lociloc.
 
    Neighbourhood Algorithm: Search radius around initial
    origin time
-   Default is ``30``.
+
 
 .. confval:: iLoc.profile.$name.NAlpNorm
+
+   Default: ``1``
 
    Type: *float*
 
    Neighbourhood Algorithm: p\-value for norm to compute
    misfit [1,2]
-   Default is ``1``.
+
 
 .. confval:: iLoc.profile.$name.NAiterMax
+
+   Default: ``5``
 
    Type: *integer*
 
    Neighbourhood Algorithm: Maximum number of iterations
-   Default is ``5``.
+
 
 .. confval:: iLoc.profile.$name.NAcells
+
+   Default: ``25``
 
    Type: *integer*
 
    Neighbourhood Algorithm: Number of cells to be resampled
    at each iteration
-   Default is ``25``.
+
 
 .. confval:: iLoc.profile.$name.NAinitialSample
+
+   Default: ``1000``
 
    Type: *integer*
 
    Neighbourhood Algorithm: Size of initial sample
-   Default is ``1000``.
+
 
 .. confval:: iLoc.profile.$name.NAnextSample
+
+   Default: ``100``
 
    Type: *integer*
 
    Neighbourhood Algorithm: Size of subsequent samples
-   Default is ``100``.
+
 
 .. confval:: iLoc.profile.$name.MinDepthPhases
+
+   Default: ``3``
 
    Type: *integer*
 
    Depth resolution: Minimum number of depth phases for depdp
-   Default is ``3``.
+
 
 .. confval:: iLoc.profile.$name.MaxLocalDistDeg
+
+   Default: ``0.2``
 
    Type: *float*
 
    Unit: *deg*
 
    Depth resolution: Maximum local distance
-   Default is ``0.2``.
+
 
 .. confval:: iLoc.profile.$name.MinLocalStations
+
+   Default: ``1``
 
    Type: *integer*
 
    Depth resolution: Minimum number of local defining stations
-   Default is ``1``.
+
 
 .. confval:: iLoc.profile.$name.MaxSPDistDeg
+
+   Default: ``2.0``
 
    Type: *float*
 
    Unit: *deg*
 
    Depth resolution: Maximum distance for using S\-P travel\-time differences.
-   Default is ``2.0``.
+
 
 .. confval:: iLoc.profile.$name.MinSPpairs
+
+   Default: ``3``
 
    Type: *integer*
 
    Depth resolution: Minimum number of defining S\-P phase pairs
-   Default is ``3``.
+
 
 .. confval:: iLoc.profile.$name.MinCorePhases
+
+   Default: ``3``
 
    Type: *integer*
 
    Depth resolution: Minimum number of defining core reflection phases
-   Default is ``3``.
+
 
 .. confval:: iLoc.profile.$name.MaxShallowDepthError
+
+   Default: ``30.0``
 
    Type: *float*
 
    Unit: *km*
 
    Depth resolution: Maximum depth error for crustal free\-depth
-   Default is ``30.0``.
+
 
 .. confval:: iLoc.profile.$name.MaxDeepDepthError
+
+   Default: ``60.0``
 
    Type: *float*
 
    Unit: *km*
 
    Depth resolution: Maximum depth error for deep free\-depth
-   Default is ``60.0``.
+
 
 .. confval:: iLoc.profile.$name.DoCorrelatedErrors
+
+   Default: ``true``
 
    Type: *boolean*
 
    Linearized inversion: Account for correlated errors
-   Default is ``true``.
+
 
 .. confval:: iLoc.profile.$name.SigmaThreshold
+
+   Default: ``6.0``
 
    Type: *float*
 
    Unit: *s*
 
    Linearized inversion: Used to exclude big residuals from solution
-   Default is ``6.0``.
+
 
 .. confval:: iLoc.profile.$name.AllowDamping
+
+   Default: ``true``
 
    Type: *boolean*
 
    Linearized inversion: Allow damping of model vector
-   Default is ``true``.
+
 
 .. confval:: iLoc.profile.$name.MinIterations
+
+   Default: ``4``
 
    Type: *integer*
 
    Linearized inversion: Minimum number of iterations
-   Default is ``4``.
+
 
 .. confval:: iLoc.profile.$name.MaxIterations
+
+   Default: ``20``
 
    Type: *integer*
 
    Linearized inversion: Maximum number of iterations
-   Default is ``20``.
+
 
 .. confval:: iLoc.profile.$name.MinNdefPhases
+
+   Default: ``4``
 
    Type: *integer*
 
    Linearized inversion: Minimum number of defining phases
-   Default is ``4``.
+
 
 .. confval:: iLoc.profile.$name.DoNotRenamePhases
+
+   Default: ``false``
 
    Type: *boolean*
 
    Linearized inversion: Do not rename phases. Deactivating
    allows to rename the phases automatically for this
    profile.
-   Default is ``false``.
+
 
 .. _global/MN:
 
@@ -1246,11 +1622,13 @@ Nuttli magnitude for Canada and other Cratonic regions
 
 .. confval:: amplitudes.MN.velocityModel
 
+   Default: ``iasp91``
+
    Type: *string*
 
    The travel time table set compiled for LocSAT. The tables
    are located in \"share\/locsat\/tables\/[vmodel].\*\".
-   Default is ``iasp91``.
+
 
 .. note::
    **magnitudes.MN.\***
@@ -1260,12 +1638,291 @@ Nuttli magnitude for Canada and other Cratonic regions
 
 .. confval:: magnitudes.MN.region
 
+   Default: ``@DATADIR@/magnitudes/MN/MN.bna``
+
    Type: *path*
 
    The path to the BNA file which defines the valid region
    for the MN magnitude. Note that the entire path from
    source to receiver must lie entirely within the polygon\(s\).
-   Default is ``@DATADIR@/magnitudes/MN/MN.bna``.
+
+
+.. confval:: magnitudes.MN.offsetMw
+
+   Type: *double*
+
+   The offset applied to the MN network magnitude to
+   estimate Mw\(MN\). If not configured then no Mw estimation
+   will be applied.
+
+
+.. _global/StdLoc:
+
+
+StdLoc extension
+----------------
+
+Generic locator plugin for SeisComP.
+
+
+.. confval:: StdLoc.profiles
+
+   Type: *list:string*
+
+   Defines a list of profiles to make available to the plugin.
+
+
+.. note::
+
+   **StdLoc.profile.$name.\***
+   $name is a placeholder for the name to be used and needs to be added to :confval:`StdLoc.profiles` to become active.
+
+   .. code-block:: sh
+
+      StdLoc.profiles = a,b
+      StdLoc.profile.a.value1 = ...
+      StdLoc.profile.b.value1 = ...
+      # c is not active because it has not been added
+      # to the list of StdLoc.profiles
+      StdLoc.profile.c.value1 = ...
+
+
+.. confval:: StdLoc.profile.$name.method
+
+   Default: ``GridSearch+LeastSquares``
+
+   Type: *string*
+
+   The location method to use: LeastSquares, GridSearch, OctTree,
+   GridSearch+LeastSquares or OctTree+LeastSquares.
+
+
+.. confval:: StdLoc.profile.$name.tableType
+
+   Default: ``LOCSAT``
+
+   Type: *string*
+
+   Travel time table format type.
+
+
+.. confval:: StdLoc.profile.$name.tableModel
+
+   Default: ``iasp91``
+
+   Type: *string*
+
+   The model to be used. The format depends on tableType.
+
+
+.. confval:: StdLoc.profile.$name.PSTableOnly
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   If enabled the arrival travel time information are fetched
+   using 'P' and 'S' tables only and the user selected phase type is not
+   considered \(e.g Pg, Sg, PmP, SmS, P1, S1, etc\).
+
+
+.. confval:: StdLoc.profile.$name.usePickUncertainties
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Whether to use pick time uncertainties rather than a fixed
+   time error. If true, then the uncertainties are retrieved from
+   each individual picks and a weight associated accordingly to
+   'pickUncertaintyClasses' parameter.
+
+
+.. confval:: StdLoc.profile.$name.pickUncertaintyClasses
+
+   Default: ``0.000,0.025,0.050,0.100,0.200,0.400``
+
+   Type: *list:string*
+
+   Unit: *s*
+
+   Define the pick time uncertainty classes from which the pick weight is computed.
+   This parameter defines a list of uncertainty time intervals: the interval
+   in which a pick time uncertainty falls defines the pick class e.g. a pick
+   wich uncertainty of 0.150 falls in the 4th interval and the pick class
+   is then 4. if pick uncertainties are absent, the lowest class will be used.
+   The pick weight then is computed as: 1 \/ 2\^\(class\-1\)
+
+
+.. confval:: StdLoc.profile.$name.confLevel
+
+   Default: ``0.9``
+
+   Type: *double*
+
+   Confidence level, between 0.5 and 1.0, used in computing the confidence ellipsoid.
+
+
+.. confval:: StdLoc.profile.$name.enableConfidenceEllipsoid
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   Compute the confidence ellipsoid for the location. This is optional since
+   if it is not required it can be disabled to save some computation.
+
+
+.. note::
+   **StdLoc.profile.$name.GridSearch.\***
+   *Find the source location by evaluating the hypocenter probability*
+   *of each grid cell and returning the maximum likelihood hypocenter.*
+   *The source time is derived from the weighted average of arrival*
+   *travel times.*
+   *The solution can be further improved combining it with the Least Squares*
+   *algorithm, which will then be run for each grid cell, using the cell*
+   *centroid as initial location estimate. In this case only few big cells*
+   *are required.*
+
+
+
+.. confval:: StdLoc.profile.$name.GridSearch.center
+
+   Default: ``auto,auto,5``
+
+   Type: *list:string*
+
+   Latitude,longitude,depth[km].
+
+
+.. confval:: StdLoc.profile.$name.GridSearch.autoLatLon
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   If enabled, the grid center latitude and longitude
+   are automatically computed as the average of the arrival station
+   locations. The center depth should still be provided.
+
+
+.. confval:: StdLoc.profile.$name.GridSearch.size
+
+   Default: ``20,20,5``
+
+   Type: *list:string*
+
+   Unit: *km*
+
+   Grid X, Y, Z size in km
+
+
+.. confval:: StdLoc.profile.$name.GridSearch.cellSize
+
+   Default: ``2.5,2.5,5``
+
+   Type: *list:string*
+
+   Unit: *km*
+
+   Cell X, Y, Z size in km
+
+
+.. confval:: StdLoc.profile.$name.GridSearch.misfitType
+
+   Default: ``L1``
+
+   Type: *string*
+
+   The type of misfit to use, from which the likelyhood function is
+   derived: L1 or L2 norm. L1 is less sensitive to outliers and so more
+   suitable with automatic picks, L2 is the preferred choice for manual picks.
+
+
+.. confval:: StdLoc.profile.$name.GridSearch.travelTimeError
+
+   Default: ``0.25``
+
+   Type: *double*
+
+   Unit: *s*
+
+   Typical error in seconds for travel\-time to one station. This
+   value affects the uncertainty of the location. In OctTree it also
+   influences the probability density computation: a too conservative value
+   increases the number of iterations required by OctTree to converge to a
+   high resolution solution.
+
+
+.. note::
+   **StdLoc.profile.$name.OctTree.\***
+   *Find the source location and time via OctTree search. This method uses the*
+   *parameters defined in GridSearch, but applies the OctTree search algorithm.*
+   *The solution can be further improved combining OctTree with the Least Squares*
+   *algorithm, which can use the OctTree solution as initial location estimate.*
+
+
+
+.. confval:: StdLoc.profile.$name.OctTree.maxIterations
+
+   Default: ``50000``
+
+   Type: *int*
+
+   Number of iterations after which the search stops. A zero or negative
+   value disable this stopping mechanism.
+
+
+.. confval:: StdLoc.profile.$name.OctTree.minCellSize
+
+   Default: ``0.1``
+
+   Type: *double*
+
+   Unit: *km*
+
+   Minimum cell size to be generate by the OctTree search to stop. A zero
+   or negative value disable this stopping mechanism.
+
+
+.. note::
+   **StdLoc.profile.$name.LeastSquares.\***
+   *Find the source location and time via iterative Least Square.*
+   *However an initial location estatimate is required. if that is not*
+   *available then this method should be combined with GridSearch or*
+   *OctTree.*
+
+
+
+.. confval:: StdLoc.profile.$name.LeastSquares.iterations
+
+   Default: ``20``
+
+   Type: *int*
+
+   Number of iterations. Each iteration will use the
+   location and time from the previous Least
+   Square solution.
+
+
+.. confval:: StdLoc.profile.$name.LeastSquares.dampingFactor
+
+   Default: ``0``
+
+   Type: *double*
+
+   Damping factor value to be used when solving the equation system.
+   0 menas no damping factor.
+
+
+.. confval:: StdLoc.profile.$name.LeastSquares.solverType
+
+   Default: ``LSMR``
+
+   Type: *string*
+
+   Algorithm to use: either LSMR or LSQR
+
 
 .. _global/LocExt:
 
@@ -1311,54 +1968,68 @@ and feel.
 
 .. confval:: groups.pick
 
+   Default: ``PICK``
+
    Type: *string*
 
    Defines the target messaging group for manual picks, e.g.
    made in scolv.
-   Default is ``PICK``.
+
 
 .. confval:: groups.amplitude
+
+   Default: ``AMPLITUDE``
 
    Type: *string*
 
    Defines the target messaging group for amplitudes, e.g.
    computed in scolv.
-   Default is ``AMPLITUDE``.
+
 
 .. confval:: groups.magnitude
+
+   Default: ``MAGNITUDE``
 
    Type: *string*
 
    Defines the target messaging group for magnitudes. scolv does
    not use this group but sends magnitudes together with the
    origin to the origin group.
-   Default is ``MAGNITUDE``.
+
 
 .. confval:: groups.location
+
+   Default: ``LOCATION``
 
    Type: *string*
 
    Defines the target messaging group for origins created in
    e.g. scolv.
-   Default is ``LOCATION``.
+
 
 .. confval:: groups.focalMechanism
+
+   Default: ``FOCMECH``
 
    Type: *string*
 
    Defines the target messaging group for focal mechanisms created in
    e.g. scolv.
-   Default is ``FOCMECH``.
+
 
 .. confval:: groups.event
+
+   Default: ``EVENT``
 
    Type: *string*
 
    Defines the target messaging group for events and event
    journal entries.
-   Default is ``EVENT``.
+
 
 .. confval:: map.location
+
+   Default: ``@DATADIR@/maps/world%s.png``
 
    Type: *string*
 
@@ -1368,16 +2039,20 @@ and feel.
    followed by a conversion specifier.  Valid specifiers are s \(replaced by
    tile ID\), l \(tile level\), c \(tile column\) and r \(tile row\). An example for
    using the OpenStreetMap file structure is \/path\/to\/maps\/%l\/%c\/%r.png.
-   Default is ``@DATADIR@/maps/world%s.png``.
+
 
 .. confval:: map.format
+
+   Default: ``rectangular``
 
    Type: *string*
 
    Projection of the map tiles. Supported formats are: rectangular and mercator.
-   Default is ``rectangular``.
+
 
 .. confval:: map.cacheSize
+
+   Default: ``0``
 
    Type: *int*
 
@@ -1388,7 +2063,7 @@ and feel.
    the better the performance in higher resolutions. A
    higher cache size causes less image loader calls but
    requires more client memory.
-   Default is ``0``.
+
 
 .. confval:: map.type
 
@@ -1430,11 +2105,13 @@ and feel.
 
 .. confval:: map.layers.events.visible
 
+   Default: ``false``
+
    Type: *boolean*
 
    Show the events layer on maps. Currently only supported
    by scolv.
-   Default is ``false``.
+
 
 .. note::
    **map.layers.fep.\***
@@ -1446,12 +2123,16 @@ and feel.
 
 .. confval:: map.layers.fep.visible
 
+   Default: ``true``
+
    Type: *boolean*
 
    Show the fep layer on maps.
-   Default is ``true``.
+
 
 .. confval:: map.layers.cities.topPopulatedPlaces
+
+   Default: ``-1``
 
    Type: *int*
 
@@ -1463,14 +2144,16 @@ and feel.
    map region, set
    \"scheme.map.cityPopulationWeight\" to 0
    and set this parameter to N.
-   Default is ``-1``.
+
 
 .. confval:: map.zoom.sensitivity
+
+   Default: ``0.5``
 
    Type: *double*
 
    Zoom sensitivity of the map
-   Default is ``0.5``.
+
 
 .. note::
    **scheme.\***
@@ -1494,17 +2177,21 @@ and feel.
 
 .. confval:: scheme.showMenu
 
+   Default: ``true``
+
    Type: *boolean*
 
    Show menu bar.
-   Default is ``true``.
+
 
 .. confval:: scheme.showStatusBar
+
+   Default: ``true``
 
    Type: *boolean*
 
    Show status bar.
-   Default is ``true``.
+
 
 .. confval:: scheme.tabPosition
 
@@ -1518,14 +2205,18 @@ and feel.
 
 .. confval:: scheme.map.stationSize
 
+   Default: ``8``
+
    Type: *int*
 
    Unit: *px*
 
    The station symbol size \(e.g. in scmv\).
-   Default is ``8``.
+
 
 .. confval:: scheme.map.originSymbolMinSize
+
+   Default: ``9``
 
    Type: *int*
 
@@ -1533,17 +2224,21 @@ and feel.
 
    The origin symbol minimum size. The formula to compute the
    size of the origin symbol is: 4.9\*\(M\-1.2\).
-   Default is ``9``.
+
 
 .. confval:: scheme.map.vectorLayerAntiAlias
+
+   Default: ``false``
 
    Type: *boolean*
 
    Apply antialiasing to map layers.
    This improves the visual quality but decreases performance.
-   Default is ``false``.
+
 
 .. confval:: scheme.map.bilinearFilter
+
+   Default: ``true``
 
    Type: *boolean*
 
@@ -1551,70 +2246,86 @@ and feel.
    The bilinear filter improves the visual quality but decreases
    performance slightly. It is only used for static map images.
    Not while dragging.
-   Default is ``true``.
+
 
 .. confval:: scheme.map.showGrid
+
+   Default: ``true``
 
    Type: *boolean*
 
    Display the latitude\/longitude grid on maps
-   Default is ``true``.
+
 
 .. confval:: scheme.map.showCities
+
+   Default: ``true``
 
    Type: *boolean*
 
    Show cities defined in \"citiesXML\" on maps
-   Default is ``true``.
+
 
 .. confval:: scheme.map.cityPopulationWeight
+
+   Default: ``150``
 
    Type: *int*
 
    Controls at which zoom level a city will be visible. The
    following formula is used:
    screen_width \(km\) \* weight >\= population
-   Default is ``150``.
+
 
 .. confval:: scheme.map.showLayers
+
+   Default: ``true``
 
    Type: *boolean*
 
    Show custom layers on maps
-   Default is ``true``.
+
 
 .. confval:: scheme.map.showLegends
+
+   Default: ``false``
 
    Type: *boolean*
 
    Show map legends initially. Some applications provide
    controls to toggle the visibility in addition to this
    option.
-   Default is ``false``.
+
 
 .. confval:: scheme.map.projection
+
+   Default: ``Rectangular``
 
    Type: *string*
 
    SeisComP ships with the rectangular projection built\-in.
    Other projections may be provided through plugins.
-   Default is ``Rectangular``.
+
 
 .. confval:: scheme.map.toBGR
+
+   Default: ``false``
 
    Type: *boolean*
 
    Converts map colors from RGB color scheme to BGR.
-   Default is ``false``.
+
 
 .. confval:: scheme.map.polygonRoughness
+
+   Default: ``3``
 
    Type: *int*
 
    Unit: *px*
 
    Minimum screen distance to plot a polygon or polyline line segment.
-   Default is ``3``.
+
 
 .. confval:: scheme.colors.background
 
@@ -1623,6 +2334,17 @@ and feel.
    A general application background color. Can be used to give
    each application a different background color. An unset value
    lets Qt decide.
+
+
+.. confval:: scheme.colors.agencies
+
+   Type: *list:string-tuples*
+
+   Sets desired colors for particular agencyIDs. It depends on the
+   applications if they honor this setting or not. The event list
+   will render the agencyID string with the defined colors.
+   This is a list of tuples \(AGENCY:COLOR\),
+   e.g. \"GEOFON:black, USGS:blue\".
 
 
 .. confval:: scheme.colors.map.lines
@@ -1683,40 +2405,265 @@ and feel.
 
 .. confval:: scheme.colors.map.grid.color
 
+   Default: ``FFFFFF``
+
    Type: *color*
 
    The color of the pen.
-   Default is ``FFFFFF``.
+
 
 .. confval:: scheme.colors.map.grid.style
+
+   Default: ``DotLine``
 
    Type: *string*
 
    The style of the pen. Supported values are: NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
-   Default is ``DotLine``.
+
 
 .. confval:: scheme.colors.map.grid.width
+
+   Default: ``1``
 
    Type: *double*
 
    Unit: *px*
 
    The width of the pen.
-   Default is ``1``.
+
+
+.. note::
+   **scheme.colors.map.annotations.\***
+   *Appearance of map annotations including a text*
+   *color (pen), a border color (pen) and a background*
+   *color (brush).*
+
+
+
+.. confval:: scheme.colors.map.annotations.textSize
+
+   Default: ``9``
+
+   Type: *int*
+
+   Unit: *pt*
+
+   Font point size of the label text.
+
+
+.. note::
+   **scheme.colors.map.annotations.normalText.\***
+   *Text pen for non highlighted annotations.*
+
+
+
+.. confval:: scheme.colors.map.annotations.normalText.color
+
+   Default: ``c0c0c0``
+
+   Type: *color*
+
+   The color of the pen.
+
+
+.. confval:: scheme.colors.map.annotations.normalText.style
+
+   Default: ``SolidLine``
+
+   Type: *string*
+
+   The style of the pen. Supported values are:
+   NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
+
+
+.. confval:: scheme.colors.map.annotations.normalText.width
+
+   Default: ``1``
+
+   Type: *double*
+
+   Unit: *px*
+
+   The width of the pen.
+
+
+.. note::
+   **scheme.colors.map.annotations.normalBorder.\***
+   *Border pen for non highlighted annotations.*
+
+
+
+.. confval:: scheme.colors.map.annotations.normalBorder.color
+
+   Default: ``a0a0a4``
+
+   Type: *color*
+
+   The color of the pen.
+
+
+.. confval:: scheme.colors.map.annotations.normalBorder.style
+
+   Default: ``SolidLine``
+
+   Type: *string*
+
+   The style of the pen. Supported values are:
+   NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
+
+
+.. confval:: scheme.colors.map.annotations.normalBorder.width
+
+   Default: ``1``
+
+   Type: *double*
+
+   Unit: *px*
+
+   The width of the pen.
+
+
+.. note::
+   **scheme.colors.map.annotations.normalBackground.\***
+   *Background brush for non highlighted annotations.*
+
+
+
+.. confval:: scheme.colors.map.annotations.normalBackground.color
+
+   Default: ``202020c0``
+
+   Type: *color*
+
+   The color of the brush.
+
+
+.. confval:: scheme.colors.map.annotations.normalBackground.style
+
+   Default: ``solid``
+
+   Type: *string*
+
+   The style of the brush. Supported values are, e.g.:
+   solid, dense1, dense7, horizontal, vertical,
+   cross, bdiag, fdiag, diagcross.
+
+
+.. note::
+   **scheme.colors.map.annotations.highlightedText.\***
+   *Text pen for highlighted annotations.*
+
+
+
+.. confval:: scheme.colors.map.annotations.highlightedText.color
+
+   Default: ``000000``
+
+   Type: *color*
+
+   The color of the pen.
+
+
+.. confval:: scheme.colors.map.annotations.highlightedText.style
+
+   Default: ``SolidLine``
+
+   Type: *string*
+
+   The style of the pen. Supported values are:
+   NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
+
+
+.. confval:: scheme.colors.map.annotations.highlightedText.width
+
+   Default: ``1``
+
+   Type: *double*
+
+   Unit: *px*
+
+   The width of the pen.
+
+
+.. note::
+   **scheme.colors.map.annotations.highlightedBorder.\***
+   *Border pen for highlighted annotations.*
+
+
+
+.. confval:: scheme.colors.map.annotations.highlightedBorder.color
+
+   Default: ``a0a0a4``
+
+   Type: *color*
+
+   The color of the pen.
+
+
+.. confval:: scheme.colors.map.annotations.highlightedBorder.style
+
+   Default: ``SolidLine``
+
+   Type: *string*
+
+   The style of the pen. Supported values are:
+   NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
+
+
+.. confval:: scheme.colors.map.annotations.highlightedBorder.width
+
+   Default: ``1``
+
+   Type: *double*
+
+   Unit: *px*
+
+   The width of the pen.
+
+
+.. note::
+   **scheme.colors.map.annotations.highlightedBackground.\***
+   *Background brush for highlighted annotations.*
+
+
+
+.. confval:: scheme.colors.map.annotations.highlightedBackground.color
+
+   Default: ``ffffffa0``
+
+   Type: *color*
+
+   The color of the brush.
+
+
+.. confval:: scheme.colors.map.annotations.highlightedBackground.style
+
+   Default: ``solid``
+
+   Type: *string*
+
+   The style of the brush. Supported values are, e.g.:
+   solid, dense1, dense7, horizontal, vertical,
+   cross, bdiag, fdiag, diagcross.
+
 
 .. confval:: scheme.colors.records.foreground
+
+   Default: ``808080``
 
    Type: *color*
 
    The general color of records\/traces.
-   Default is ``808080``.
+
 
 .. confval:: scheme.colors.records.alternateForeground
+
+   Default: ``808080``
 
    Type: *color*
 
    A general trace color of the alternate trace \(eg scheli\).
-   Default is ``808080``.
+
 
 .. confval:: scheme.colors.records.background
 
@@ -1734,31 +2681,39 @@ and feel.
 
 .. confval:: scheme.colors.records.spectrogram
 
+   Default: ``000000``
+
    Type: *color*
 
    The trace color used on top of a spectrogram.
-   Default is ``000000``.
+
 
 .. confval:: scheme.colors.records.gaps
+
+   Default: ``FFFF0040``
 
    Type: *color*
 
    The color of data gaps in trace views.
-   Default is ``FFFF0040``.
+
 
 .. confval:: scheme.colors.records.overlaps
+
+   Default: ``FF00FF40``
 
    Type: *color*
 
    The color of data overlaps in trace views.
-   Default is ``FF00FF40``.
+
 
 .. confval:: scheme.colors.records.alignment
+
+   Default: ``FF0000``
 
    Type: *color*
 
    The color of the alignment marker in trace views.
-   Default is ``FF0000``.
+
 
 .. note::
    **scheme.colors.records.borders.\***
@@ -1819,7 +2774,7 @@ and feel.
 
    Type: *string*
 
-   The style of the pen. Supported values are, e.g.:
+   The style of the brush. Supported values are, e.g.:
    solid, dense1, dense7, horizontal, vertical,
    cross, bdiag, fdiag, diagcross.
 
@@ -1948,26 +2903,32 @@ and feel.
 
 .. confval:: scheme.colors.records.offset.color
 
+   Default: ``C0C0FF``
+
    Type: *color*
 
    The color of the pen.
-   Default is ``C0C0FF``.
+
 
 .. confval:: scheme.colors.records.offset.style
+
+   Default: ``SolidLine``
 
    Type: *string*
 
    The style of the pen. Supported values are: NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
-   Default is ``SolidLine``.
+
 
 .. confval:: scheme.colors.records.offset.width
+
+   Default: ``0.0``
 
    Type: *double*
 
    Unit: *px*
 
    The width of the pen.
-   Default is ``0.0``.
+
 
 .. note::
    **scheme.colors.records.gridPen.\***
@@ -1977,26 +2938,32 @@ and feel.
 
 .. confval:: scheme.colors.records.gridPen.color
 
+   Default: ``00000020``
+
    Type: *color*
 
    The color of the pen.
-   Default is ``00000020``.
+
 
 .. confval:: scheme.colors.records.gridPen.style
+
+   Default: ``DashLine``
 
    Type: *string*
 
    The style of the pen. Supported values are: NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
-   Default is ``DashLine``.
+
 
 .. confval:: scheme.colors.records.gridPen.width
+
+   Default: ``1.0``
 
    Type: *double*
 
    Unit: *px*
 
    The width of the pen.
-   Default is ``1.0``.
+
 
 .. note::
    **scheme.colors.records.subGridPen.\***
@@ -2006,26 +2973,32 @@ and feel.
 
 .. confval:: scheme.colors.records.subGridPen.color
 
+   Default: ``00000000``
+
    Type: *color*
 
    The color of the pen.
-   Default is ``00000000``.
+
 
 .. confval:: scheme.colors.records.subGridPen.style
+
+   Default: ``DotLine``
 
    Type: *string*
 
    The style of the pen. Supported values are: NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
-   Default is ``DotLine``.
+
 
 .. confval:: scheme.colors.records.subGridPen.width
+
+   Default: ``1.0``
 
    Type: *double*
 
    Unit: *px*
 
    The width of the pen.
-   Default is ``1.0``.
+
 
 .. note::
    **scheme.colors.records.states.\***
@@ -2035,95 +3008,121 @@ and feel.
 
 .. confval:: scheme.colors.records.states.unrequested
 
+   Default: ``00000080``
+
    Type: *color*
 
    Additional data which was not requested.
-   Default is ``00000080``.
+
 
 .. confval:: scheme.colors.records.states.requested
+
+   Default: ``ffff0080``
 
    Type: *color*
 
    Requested data Background color of requested data.
-   Default is ``ffff0080``.
+
 
 .. confval:: scheme.colors.records.states.inProgress
+
+   Default: ``00ff0010``
 
    Type: *color*
 
    Data currently loading.
-   Default is ``00ff0010``.
+
 
 .. confval:: scheme.colors.records.states.notAvailable
+
+   Default: ``ff000080``
 
    Type: *color*
 
    Data which was requested but is not available.
-   Default is ``ff000080``.
+
 
 .. confval:: scheme.colors.picks.manual
+
+   Default: ``00FF00``
 
    Type: *color*
 
    The color of manual picks.
-   Default is ``00FF00``.
+
 
 .. confval:: scheme.colors.picks.automatic
+
+   Default: ``FF0000``
 
    Type: *color*
 
    The color of automatic picks.
-   Default is ``FF0000``.
+
 
 .. confval:: scheme.colors.picks.undefined
+
+   Default: ``A0A0A4``
 
    Type: *color*
 
    The color of picks with undefined state.
-   Default is ``A0A0A4``.
+
 
 .. confval:: scheme.colors.picks.disabled
+
+   Default: ``A0A0A4``
 
    Type: *color*
 
    The color of disabled picks.
-   Default is ``A0A0A4``.
+
 
 .. confval:: scheme.colors.arrivals.manual
+
+   Default: ``00A000``
 
    Type: *color*
 
    The color of manual arrivals \(arrivals that bind manual picks,
    e.g. residual plot of scolv, manual picker, ...\)
-   Default is ``00A000``.
+
 
 .. confval:: scheme.colors.arrivals.automatic
+
+   Default: ``A00000``
 
    Type: *color*
 
    The color of automatic arrivals,
-   Default is ``A00000``.
+
 
 .. confval:: scheme.colors.arrivals.theoretical
+
+   Default: ``0000A0``
 
    Type: *color*
 
    The color of theoretical arrivals.
-   Default is ``0000A0``.
+
 
 .. confval:: scheme.colors.arrivals.undefined
+
+   Default: ``A00000``
 
    Type: *color*
 
    The color of arrivals binding picks with undefined state.
-   Default is ``A00000``.
+
 
 .. confval:: scheme.colors.arrivals.disabled
+
+   Default: ``A0A0A4``
 
    Type: *color*
 
    The color of disabled arrivals.
-   Default is ``A0A0A4``.
+
 
 .. confval:: scheme.colors.arrivals.residuals
 
@@ -2139,24 +3138,30 @@ and feel.
 
 .. confval:: scheme.colors.magnitudes.set
 
+   Default: ``00A000``
+
    Type: *color*
 
    The color of active magnitudes.
-   Default is ``00A000``.
+
 
 .. confval:: scheme.colors.magnitudes.unset
+
+   Default: ``000000``
 
    Type: *color*
 
    The color of inactive magnitudes.
-   Default is ``000000``.
+
 
 .. confval:: scheme.colors.magnitudes.disabled
+
+   Default: ``A0A0A4``
 
    Type: *color*
 
    The color of disabled magnitudes.
-   Default is ``A0A0A4``.
+
 
 .. confval:: scheme.colors.magnitudes.residuals
 
@@ -2167,17 +3172,21 @@ and feel.
 
 .. confval:: scheme.colors.stations.text
 
+   Default: ``ffffff``
+
    Type: *color*
 
    The color of the station name.
-   Default is ``ffffff``.
+
 
 .. confval:: scheme.colors.stations.associated
+
+   Default: ``82AD58``
 
    Type: *color*
 
    The color of associated stations \(e.g. in scmv\).
-   Default is ``82AD58``.
+
 
 .. confval:: scheme.colors.stations.triggering
 
@@ -2226,75 +3235,99 @@ and feel.
 
 .. confval:: scheme.colors.qc.delay0
 
+   Default: ``00ffff``
+
    Type: *color*
 
-   Default is ``00ffff``.
+   *No description available*
 
 .. confval:: scheme.colors.qc.delay1
 
+   Default: ``00ff00``
+
    Type: *color*
 
-   Default is ``00ff00``.
+   *No description available*
 
 .. confval:: scheme.colors.qc.delay2
 
+   Default: ``fffd00``
+
    Type: *color*
 
-   Default is ``fffd00``.
+   *No description available*
 
 .. confval:: scheme.colors.qc.delay3
 
+   Default: ``ff6633``
+
    Type: *color*
 
-   Default is ``ff6633``.
+   *No description available*
 
 .. confval:: scheme.colors.qc.delay4
 
+   Default: ``ff0000``
+
    Type: *color*
 
-   Default is ``ff0000``.
+   *No description available*
 
 .. confval:: scheme.colors.qc.delay5
 
+   Default: ``cccccc``
+
    Type: *color*
 
-   Default is ``cccccc``.
+   *No description available*
 
 .. confval:: scheme.colors.qc.delay6
 
+   Default: ``999999``
+
    Type: *color*
 
-   Default is ``999999``.
+   *No description available*
 
 .. confval:: scheme.colors.qc.delay7
 
+   Default: ``666666``
+
    Type: *color*
 
-   Default is ``666666``.
+   *No description available*
 
 .. confval:: scheme.colors.qc.qcWarning
 
+   Default: ``ffff00``
+
    Type: *color*
 
-   Default is ``ffff00``.
+   *No description available*
 
 .. confval:: scheme.colors.qc.qcError
 
+   Default: ``ff0000``
+
    Type: *color*
 
-   Default is ``ff0000``.
+   *No description available*
 
 .. confval:: scheme.colors.qc.qcOk
 
+   Default: ``00ff00``
+
    Type: *color*
 
-   Default is ``00ff00``.
+   *No description available*
 
 .. confval:: scheme.colors.qc.qcNotSet
 
+   Default: ``000000``
+
    Type: *color*
 
-   Default is ``000000``.
+   *No description available*
 
 .. note::
    **scheme.colors.gm.\***
@@ -2370,10 +3403,12 @@ and feel.
 
 .. confval:: scheme.colors.recordView.selectedTraceZoom
 
+   Default: ``C0C0FFC0``
+
    Type: *color*
 
    The color of the selected zoom area \(e.g. manual picker\).
-   Default is ``C0C0FFC0``.
+
 
 .. confval:: scheme.colors.legend.background
 
@@ -2405,24 +3440,30 @@ and feel.
 
 .. confval:: scheme.colors.originSymbol.classic
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.colors.originSymbol.depth.gradient
+
+   Default: ``0:FF0000,50:ffA500,100:FFFF00,250:00FF00,600:0000FF``
 
    Type: *gradient*
 
    The depth gradient.
-   Default is ``0:FF0000,50:ffA500,100:FFFF00,250:00FF00,600:0000FF``.
+
 
 .. confval:: scheme.colors.originSymbol.depth.discrete
+
+   Default: ``true``
 
    Type: *boolean*
 
    Setting this parameter to true will not interpolate between
    the depth steps and the color for a depth <\= input is used.
-   Default is ``true``.
+
 
 .. note::
    **scheme.colors.originStatus.\***
@@ -2450,17 +3491,21 @@ and feel.
 
 .. confval:: scheme.colors.splash.message
 
+   Default: ``808080``
+
    Type: *color*
 
    Text color of the message string.
-   Default is ``808080``.
+
 
 .. confval:: scheme.colors.splash.version
+
+   Default: ``02589e``
 
    Type: *color*
 
    Text color of the version string.
-   Default is ``02589e``.
+
 
 .. confval:: scheme.marker.lineWidth
 
@@ -2473,32 +3518,40 @@ and feel.
 
 .. confval:: scheme.records.lineWidth
 
+   Default: ``1``
+
    Type: *int*
 
    Unit: *px*
 
    The line width of the records \/ traces.
-   Default is ``1``.
+
 
 .. confval:: scheme.records.antiAliasing
+
+   Default: ``true``
 
    Type: *boolean*
 
    Configures antialiasing of records \/ traces. Antialiasing
    needs more two times to storage space as non antialiasing
    but it improves visual quality.
-   Default is ``true``.
+
 
 .. confval:: scheme.records.optimize
+
+   Default: ``true``
 
    Type: *boolean*
 
    Configures optimization of trace polylines. If activated
    then lines on the same pixel line or same pixel row
    collapse into single lines.
-   Default is ``true``.
+
 
 .. confval:: scheme.records.borders.drawMode
+
+   Default: ``box``
 
    Type: *string*
 
@@ -2506,7 +3559,7 @@ and feel.
    bottom.
    
    Supported values: \"topline\",\"box\",\"bottomline\"
-   Default is ``box``.
+
 
 .. note::
    **scheme.fonts.base.\***
@@ -2531,27 +3584,35 @@ and feel.
 
 .. confval:: scheme.fonts.base.bold
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.base.italic
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.base.underline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.base.overline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. note::
    **scheme.fonts.small.\***
@@ -2575,27 +3636,35 @@ and feel.
 
 .. confval:: scheme.fonts.small.bold
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.small.italic
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.small.underline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.small.overline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. note::
    **scheme.fonts.normal.\***
@@ -2619,27 +3688,35 @@ and feel.
 
 .. confval:: scheme.fonts.normal.bold
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.normal.italic
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.normal.underline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.normal.overline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. note::
    **scheme.fonts.large.\***
@@ -2663,27 +3740,35 @@ and feel.
 
 .. confval:: scheme.fonts.large.bold
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.large.italic
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.large.underline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.large.overline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. note::
    **scheme.fonts.highlight.\***
@@ -2707,27 +3792,35 @@ and feel.
 
 .. confval:: scheme.fonts.highlight.bold
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.highlight.italic
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.highlight.underline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.highlight.overline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. note::
    **scheme.fonts.heading1.\***
@@ -2751,27 +3844,35 @@ and feel.
 
 .. confval:: scheme.fonts.heading1.bold
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.heading1.italic
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.heading1.underline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.heading1.overline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. note::
    **scheme.fonts.heading2.\***
@@ -2795,27 +3896,35 @@ and feel.
 
 .. confval:: scheme.fonts.heading2.bold
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.heading2.italic
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.heading2.underline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.heading2.overline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. note::
    **scheme.fonts.heading3.\***
@@ -2839,27 +3948,35 @@ and feel.
 
 .. confval:: scheme.fonts.heading3.bold
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.heading3.italic
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.heading3.underline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.heading3.overline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. note::
    **scheme.fonts.cityLabels.\***
@@ -2883,27 +4000,35 @@ and feel.
 
 .. confval:: scheme.fonts.cityLabels.bold
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.cityLabels.italic
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.cityLabels.underline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.cityLabels.overline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. note::
    **scheme.fonts.splashVersion.\***
@@ -2927,27 +4052,35 @@ and feel.
 
 .. confval:: scheme.fonts.splashVersion.bold
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.splashVersion.italic
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.splashVersion.underline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.splashVersion.overline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. note::
    **scheme.fonts.splashMessage.\***
@@ -2971,97 +4104,134 @@ and feel.
 
 .. confval:: scheme.fonts.splashMessage.bold
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.splashMessage.italic
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.splashMessage.underline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.fonts.splashMessage.overline
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Default is ``false``.
+   *No description available*
 
 .. confval:: scheme.precision.depth
+
+   Default: ``0``
 
    Type: *int*
 
    The precision of depth values.
-   Default is ``0``.
+
 
 .. confval:: scheme.precision.distance
+
+   Default: ``1``
 
    Type: *int*
 
    The precision of distance values.
-   Default is ``1``.
+
 
 .. confval:: scheme.precision.location
+
+   Default: ``2``
 
    Type: *int*
 
    The precision of lat\/lon values.
-   Default is ``2``.
+
 
 .. confval:: scheme.precision.magnitude
+
+   Default: ``1``
 
    Type: *int*
 
    The precision of magnitude values.
-   Default is ``2``.
+
+
+.. confval:: scheme.precision.originTime
+
+   Default: ``0``
+
+   Type: *int*
+
+   The precision of origin times.
+
 
 .. confval:: scheme.precision.pickTime
+
+   Default: ``1``
 
    Type: *int*
 
    The precision of pick times.
-   Default is ``1``.
+
 
 .. confval:: scheme.precision.traceValues
+
+   Default: ``1``
 
    Type: *int*
 
    Precision of displayed offset\/amp in all trace widgets.
-   Default is ``1``.
+
 
 .. confval:: scheme.precision.rms
+
+   Default: ``1``
 
    Type: *int*
 
    Precision of RMS values.
-   Default is ``1``.
+
 
 .. confval:: scheme.precision.uncertainties
+
+   Default: ``0``
 
    Type: *int*
 
    Precision of uncertainty values, e.g. latitude errors.
-   Default is ``0``.
+
 
 .. confval:: scheme.unit.distanceInKM
+
+   Default: ``false``
 
    Type: *boolean*
 
    Display distances in km?
-   Default is ``false``.
+
 
 .. confval:: scheme.dateTime.useLocalTime
+
+   Default: ``false``
 
    Type: *boolean*
 
    Display times in localtime or UTC \(default\).
-   Default is ``false``.
+
 
 .. note::
    **scheme.splash.\***
@@ -3077,10 +4247,12 @@ and feel.
 
 .. confval:: scheme.splash.message.align
 
+   Default: ``44``
+
    Type: *int*
 
    Qt::Alignment bit mask. Default: AlignHCenter \| AlignBottom
-   Default is ``44``.
+
 
 .. note::
    **scheme.splash.message.pos.\***
@@ -3090,21 +4262,25 @@ and feel.
 
 .. confval:: scheme.splash.message.pos.x
 
+   Default: ``200``
+
    Type: *int*
 
    Unit: *px*
 
    Horizontal position.
-   Default is ``200``.
+
 
 .. confval:: scheme.splash.message.pos.y
+
+   Default: ``260``
 
    Type: *int*
 
    Unit: *px*
 
    Vertical position.
-   Default is ``260``.
+
 
 .. note::
    **scheme.splash.version.\***
@@ -3114,10 +4290,12 @@ and feel.
 
 .. confval:: scheme.splash.version.align
 
+   Default: ``34``
+
    Type: *int*
 
    Qt::Alignment bit mask. Default: AlignRight \| AlignBottom
-   Default is ``34``.
+
 
 .. note::
    **scheme.splash.version.pos.\***
@@ -3127,21 +4305,25 @@ and feel.
 
 .. confval:: scheme.splash.version.pos.x
 
+   Default: ``362``
+
    Type: *int*
 
    Unit: *px*
 
    Horizontal position.
-   Default is ``362``.
+
 
 .. confval:: scheme.splash.version.pos.y
+
+   Default: ``190``
 
    Type: *int*
 
    Unit: *px*
 
    Vertical position.
-   Default is ``190``.
+
 
 .. note::
    **events.timeAgo.\***
@@ -3151,39 +4333,47 @@ and feel.
 
 .. confval:: events.timeAgo.days
 
+   Default: ``1``
+
    Type: *int*
 
    Unit: *d*
 
    Age in days.
-   Default is ``1``.
+
 
 .. confval:: events.timeAgo.hours
+
+   Default: ``0``
 
    Type: *int*
 
    Unit: *h*
 
    Age in hours.
-   Default is ``0``.
+
 
 .. confval:: events.timeAgo.minutes
+
+   Default: ``0``
 
    Type: *int*
 
    Unit: *m*
 
    Age in minutes.
-   Default is ``0``.
+
 
 .. confval:: events.timeAgo.seconds
+
+   Default: ``0``
 
    Type: *int*
 
    Unit: *s*
 
    Age in seconds.
-   Default is ``0``.
+
 
 .. note::
    **mode.\***
@@ -3193,50 +4383,68 @@ and feel.
 
 .. confval:: mode.interactive
 
+   Default: ``true``
+
    Type: *boolean*
 
    Defines if application interaction is allowed.
-   Default is ``true``.
+
 
 .. confval:: mode.fullscreen
+
+   Default: ``false``
 
    Type: *boolean*
 
    Defines if the application should be launched in fullscreen
    mode hiding title bar, main menu and status bar.
-   Default is ``false``.
+
 
 .. confval:: picker.filters
+
+   Default: ``"BP 0.1 - 1 Hz  3rd order;RMHP(10)>>ITAPER(30)>>BW(3,0.1,1)",      "BP 0.1 - 2 Hz  3rd order;RMHP(10)>>ITAPER(30)>>BW(3,0.1,2)",      "BP 1 - 3 Hz  3rd order;RMHP(10)>>ITAPER(30)>>BW(3,1.0,3)",      "BP 0.4 - 1 Hz  3rd order;RMHP(10)>>ITAPER(30)>>BW(3,0.4,1)",      "@BP 0.7 - 2 Hz  3rd order;RMHP(10)>>ITAPER(30)>>BW(3,0.7,2)",      "BP 2 - 4 Hz  3rd order;RMHP(5)>>ITAPER(10)>>BW(3,2.0,4)",      "BP 3 - 6 Hz  3rd order;RMHP(5)>>ITAPER(10)>>BW(3,3.0,6)",      "BP 4 - 8 Hz  3rd order;RMHP(5)>>ITAPER(10)>>BW(3,4.0,8)",      "BP 1 - 5 Hz  3rd order;RMHP(5)>>ITAPER(10)>>BW(3,1.0,5)",      "HP 3 Hz  3rd order;RMHP(1)>>ITAPER(2)>>BW_HP(3,3)",      "BP 0.7 - 2 Hz + STA/LTA(1,50);RMHP(10)->ITAPER(30)->BW(3,0.7,2)->STALTA(1,50)"``
 
    Type: *list:string*
 
    Configures the default filters selectable in manual picker.
    The entry with a leading \"\@\" is selected as default filter.
-   Default is ``"BP 0.1 - 1 Hz  3rd order;BW(3,0.1,1)","BP 0.1 - 2 Hz  3rd order;BW(3,0.1,2)","BP 0.4 - 1 Hz  3rd order;BW(3,0.4,1)","@BP 0.7 - 2 Hz  3rd order;BW(3,0.7,2)""BP 1 - 3 Hz  3rd order;BW(3,1.0,3)","BP 2 - 4 Hz  3rd order;BW(3,2.0,4)","BP 3 - 6 Hz  3rd order;BW(3,3.0,6)","BP 4 - 8 Hz  3rd order;BW(3,4.0,8)","BP 1 - 5 Hz  3rd order;BW(3,1.0,5)","HP 3 Hz  3rd order;BW_HP(3,3)","BP 0.7 - 2 Hz + STA/LTA(1,50);RMHP(10)->ITAPER(30)->BW(3,0.7,2)->STALTA(1,50)"``.
+
+
+.. note::
+   **eventlist.\***
+   *Control the Events tab, e.g. in scolv, showing the list of loaded events.*
+
+
 
 .. confval:: eventlist.visibleColumns
 
-   Type: *list:string*
-
-   Configure the columns of the event list that are visible initially.
-   The first column containing the origin time is always visible and cannot
-   be hidden. Possible values are: Type, M, TP, Phases, Lat, Lon, Depth, DType, Stat, AzGap, FM, Origins, Agency, Author, Region, ID.
-   Default is ``M, TP, Phases, RMS, Lat, Lon, Depth, Stat, Agency, Region, ID``.
-
-.. confval:: eventlist.regions
+   Default: ``M,MType,Phases,RMS,Lat,Lon,Depth,Stat,Agency,Region,ID``
 
    Type: *list:string*
 
-   Configured a list of regions that can be used as filter of
-   the result set.
+   Configure the columns of the event list that are visible
+   initially. The first column containing the origin time is
+   always visible and cannot be hidden. Possible values are:
+   
+   Certainty, Type, M, MType, RMS, AzGap, Phases, Lat, Lon, Depth, DType,
+   Stat, FM, Origins, Agency, Author, Region, ID.
+   
+   Custom columns can be added by eventlist.customColumn.\* or
+   eventlist.scripts.\* parameters.
 
 
-.. confval:: eventlist.customColumn
+.. note::
+   **eventlist.customColumn.\***
+   *Custom column showing origin or event comments.*
+
+
+
+.. confval:: eventlist.customColumn.name
 
    Type: *string*
 
-   Name of an additional custom column which displays the value
-   of certain origin and event comments.
+   Name of the custom column to be shown in the column
+   header.
 
 
 .. confval:: eventlist.customColumn.originCommentID
@@ -3251,215 +4459,73 @@ and feel.
    Type: *string*
 
    ID of the event comment to look up.
+   
+   originCommentID, if configured, takes priority.
 
 
 .. confval:: eventlist.customColumn.pos
 
+   Default: ``-1``
+
    Type: *int*
 
-   Position of the column. If the configured position is less than 0 or if it
-   exceeds the total number of columns then the column is appended to the right.
-   Default is ``-1``.
+   Position of the column. If the configured position is
+   less than 0 or if it exceeds the total number of columns,
+   then the column is appended to the right.
+
 
 .. confval:: eventlist.customColumn.default
 
    Type: *string*
 
-   Default value to display if the specified origin or event comment id was not found.
+   Default value to display if the specified origin or
+   event comment id was not found.
 
 
 .. confval:: eventlist.customColumn.colors
 
    Type: *list:string*
 
-   Mapping of comment values to colors used as text color. E.g. \"foo:#000,bar:red\".
+   Mapping of comment values to colors used as text color.
+   E.g. \"foo:#000,bar:red\".
 
 
 .. note::
+   **eventlist.scripts.\***
+   *Custom columns showing parameters extracted by scripts e.g.*
+   *from origins or events.*
 
-   **eventlist.region.$name.\***
-   *Defines a rectangular region that can be used as a result*
-   *set filter on client side.*
-   $name is a placeholder for the name to be used and needs to be added to :confval:`eventlist.regions` to become active.
 
-   .. code-block:: sh
-
-      eventlist.regions = a,b
-      eventlist.region.a.value1 = ...
-      eventlist.region.b.value1 = ...
-      # c is not active because it has not been added
-      # to the list of eventlist.regions
-      eventlist.region.c.value1 = ...
-
-
-.. confval:: eventlist.region.$name.name
-
-   Type: *string*
-
-   Defines the name of the region that shows up in the
-   listbox.
-
-
-.. confval:: eventlist.region.$name.rect
-
-   Type: *list:double*
-
-   Defines a rectangular region with a list of 4 values:
-   latmin, lonmin, latmax, lonmax.
-
-
-.. confval:: eventlist.filter.agencies.label
-
-   Type: *string*
-
-   Defines the text of the option \"Show only own events\".
-   Use double quotes '\"' around the string if it contains spaces.
-   Default is ``Show only own events``.
-
-.. confval:: eventlist.filter.agencies.whitelist
-
-   Type: *list:string*
-
-   Sets a list of preferred agencies. Events from preferred
-   agencies are defined as \"own\" events.
-
-
-.. confval:: eventlist.filter.agencies.type
-
-   Type: *string*
-
-   Sets the type of the filter. If type is \"events\" the agency
-   of the preferred origin of the event is checked.
-   If type is \"origins\" the agency of all origins of
-   an event is checked and if at least one origins agency is part
-   of the whitelist it will pass the filter. Or in other words,
-   the event is hidden if no origin is from a preferred agency.
-   Default is ``events``.
-
-.. confval:: eventlist.filter.agencies.enabled
-
-   Type: *boolean*
-
-   Sets the default state of the \"Show only own events\"
-   option.
-   Default is ``false``.
-
-.. confval:: eventlist.filter.types.label
-
-   Type: *string*
-
-   Defines the text of the option \"Hide other\/fake events\".
-   Use double quotes '\"' around the string if it contains spaces.
-   Default is ``Hide other/fake events``.
-
-.. confval:: eventlist.filter.types.blacklist
-
-   Type: *list:string*
-
-   List of event type to be hidden if the \"Hide other\/fake events\"
-   option is ticked.
-   Use double quotes '\"' around the string if it contains spaces.
-   Default is ``"not existing"``.
-
-.. confval:: eventlist.filter.types.enabled
-
-   Type: *boolean*
-
-   Sets the default state of the \"Hide other\/fake events\"
-   option.
-   Default is ``true``.
-
-.. confval:: eventlist.filter.regions.enabled
-
-   Type: *boolean*
-
-   Sets the default state of the \"Hide events outside\"
-   option.
-   Default is ``false``.
-
-.. note::
-   **eventlist.filter.database.\***
-   *Pre-set options to filter an event list request.*
-
-
-
-.. confval:: eventlist.filter.database.minlat
-
-   Type: *double*
-
-   Unit: *deg*
-
-   *No description available*
-
-.. confval:: eventlist.filter.database.maxlat
-
-   Type: *double*
-
-   Unit: *deg*
-
-   *No description available*
-
-.. confval:: eventlist.filter.database.minlon
-
-   Type: *double*
-
-   Unit: *deg*
-
-   *No description available*
-
-.. confval:: eventlist.filter.database.maxlon
-
-   Type: *double*
-
-   Unit: *deg*
-
-   *No description available*
-
-.. confval:: eventlist.filter.database.mindepth
-
-   Type: *double*
-
-   Unit: *km*
-
-   *No description available*
-
-.. confval:: eventlist.filter.database.maxdepth
-
-   Type: *double*
-
-   Unit: *km*
-
-   *No description available*
-
-.. confval:: eventlist.filter.database.minmag
-
-   Type: *double*
-
-   *No description available*
-
-.. confval:: eventlist.filter.database.maxmag
-
-   Type: *double*
-
-   *No description available*
 
 .. confval:: eventlist.scripts.columns
 
    Type: *list:string*
 
-   Registration of custom event list columns.
+   Name of custom column profiles to be registered. Comma
+   separated list.
 
 
 .. note::
    **eventlist.scripts.column.\***
-   *Definition of custom event list column whose values are filled by external scripts.*
+   *Definition of custom column profiles for creating custom*
+   *event list columns whose values are filled by external scripts.*
+   *The scolv documentation provides an example script.*
 
 
 
 .. note::
 
    **eventlist.scripts.column.$name.\***
-   $name is a placeholder for the name to be used.
+   $name is a placeholder for the name to be used and needs to be added to :confval:`eventlist.scripts.profiles` to become active.
+
+   .. code-block:: sh
+
+      eventlist.scripts.profiles = a,b
+      eventlist.scripts.column.a.value1 = ...
+      eventlist.scripts.column.b.value1 = ...
+      # c is not active because it has not been added
+      # to the list of eventlist.scripts.profiles
+      eventlist.scripts.column.c.value1 = ...
 
 
 .. confval:: eventlist.scripts.column.$name.script
@@ -3474,11 +4540,13 @@ and feel.
 
 .. confval:: eventlist.scripts.column.$name.pos
 
+   Default: ``-1``
+
    Type: *int*
 
    Position of the column. If the configured position is less than 0 or if it
-   exceeds the total number of columns then the column is appended to the right.
-   Default is ``-1``.
+   exceeds the total number of columns, then the column is appended to the right.
+
 
 .. confval:: eventlist.scripts.column.$name.label
 
@@ -3491,20 +4559,308 @@ and feel.
 
    Type: *list:string*
 
-   Object types this script should be invoked for. Supported values are 'Event' and 'Origin'.
+   Object types passed to the script.
+   Supported values are 'Event' and 'Origin'.
+   Mandatory parameter.
+
+
+.. note::
+   **eventlist.filter.agencies.\***
+   *Filter the loaded event list by agency ID.*
+
+
+
+.. confval:: eventlist.filter.agencies.label
+
+   Default: ``Show only own events``
+
+   Type: *string*
+
+   Defines the text of the option \"Show only own events\".
+   Use double quotes '\"' around the string if it contains spaces.
+
+
+.. confval:: eventlist.filter.agencies.whitelist
+
+   Type: *list:string*
+
+   Sets a list of preferred agencies. Events from preferred
+   agencies are defined as \"own\" events.
+
+
+.. confval:: eventlist.filter.agencies.type
+
+   Default: ``events``
+
+   Type: *string*
+
+   Sets the type of the filter. If type is \"events\" the agency
+   of the preferred origin of the event is checked.
+   If type is \"origins\" the agency of all origins of
+   an event is checked and if at least one origins agency is part
+   of the whitelist it will pass the filter. Or in other words,
+   the event is hidden if no origin is from a preferred agency.
+
+
+.. confval:: eventlist.filter.agencies.enabled
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Sets the default state of the \"Show only own events\"
+   option.
+
+
+.. note::
+   **eventlist.filter.regions.\***
+   *Filter the loaded event list by region within or outside a*
+   *bounding box. Register the profile name in the regions parameter.*
+
+
+
+.. confval:: eventlist.filter.regions.profiles
+
+   Type: *list:string*
+
+   Add the defined region profiles separated by comma.
+   The order determines the ocurrence in the filter menu.
+
+
+.. confval:: eventlist.filter.regions.enabled
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Hide events by the defined region by default.
+
+
+.. note::
+
+   **eventlist.filter.regions.region.$name.\***
+   *Define a rectangular region to filter the loaded event list.*
+   $name is a placeholder for the name to be used and needs to be added to :confval:`eventlist.filter.regions.profiles` to become active.
+
+   .. code-block:: sh
+
+      eventlist.filter.regions.profiles = a,b
+      eventlist.filter.regions.region.a.value1 = ...
+      eventlist.filter.regions.region.b.value1 = ...
+      # c is not active because it has not been added
+      # to the list of eventlist.filter.regions.profiles
+      eventlist.filter.regions.region.c.value1 = ...
+
+
+.. confval:: eventlist.filter.regions.region.$name.name
+
+   Type: *string*
+
+   Defines the name of the region that shows up in the
+   listbox.
+
+
+.. confval:: eventlist.filter.regions.region.$name.rect
+
+   Type: *list:double*
+
+   Defines a rectangular region with a list of 4 values:
+   latmin, lonmin, latmax, lonmax.
+
+
+.. confval:: eventlist.filter.regions.region.$name.poly
+
+   Type: *string*
+
+   Defines the name of the polygon for the region check.
+   If defined then the rect region has no effect.
+   The configured polygon name is being search for
+   in the global FEP regions and the spatial
+   vector layer. The first polygon found with
+   the given name will be taken.
+
+
+.. note::
+   **eventlist.filter.types.\***
+   *Filter the loaded event list by event types.*
+
+
+
+.. confval:: eventlist.filter.types.label
+
+   Default: ``"Hide other/fake events"``
+
+   Type: *string*
+
+   Defines the text of the option \"Hide other\/fake events\".
+   Use double quotes '\"' around the string if it contains spaces.
+
+
+.. confval:: eventlist.filter.types.blacklist
+
+   Default: ``"not existing"``
+
+   Type: *list:string*
+
+   List of event type to be hidden if the \"Hide other\/fake events\"
+   option is ticked.
+   Use double quotes '\"' around the string if it contains spaces.
+
+
+.. confval:: eventlist.filter.types.enabled
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   Sets the default state of the \"Hide other\/fake events\"
+   option.
+
+
+.. note::
+   **eventlist.filter.database.\***
+   *Pre-set options to filter a database request to load events*
+   *into the event list.*
+
+
+
+.. confval:: eventlist.filter.database.minlat
+
+   Type: *double*
+
+   Unit: *deg*
+
+   Minimum latitude
+
+
+.. confval:: eventlist.filter.database.maxlat
+
+   Type: *double*
+
+   Unit: *deg*
+
+   Maximum latitude
+
+
+.. confval:: eventlist.filter.database.minlon
+
+   Type: *double*
+
+   Unit: *deg*
+
+   Minimum longitude
+
+
+.. confval:: eventlist.filter.database.maxlon
+
+   Type: *double*
+
+   Unit: *deg*
+
+   Maximum longitude
+
+
+.. confval:: eventlist.filter.database.mindepth
+
+   Type: *double*
+
+   Unit: *km*
+
+   Minimum depth
+
+
+.. confval:: eventlist.filter.database.maxdepth
+
+   Type: *double*
+
+   Unit: *km*
+
+   Maximum depth
+
+
+.. confval:: eventlist.filter.database.minmag
+
+   Type: *double*
+
+   Minimum magnitude
+
+
+.. confval:: eventlist.filter.database.maxmag
+
+   Type: *double*
+
+   Maximum magnitude
+
+
+.. note::
+   **eventedit.\***
+   *Control the Event tab, e.g. in scolv, showing origins and*
+   *focal mechanisms of a selected event.*
+
 
 
 .. confval:: eventedit.origin.visibleColumns
 
+   Default: ``Phases, Lat, Lon, Depth, DType, RMS, AzGap, Stat, Method, Agency, Author, Region, ID``
+
    Type: *list:string*
 
    Configure the columns of the event edit origin table
-   that are visible initially.
-   Possible values are: Phases, Lat, Lon, Depth, DType, RMS, Stat,
-   Method, Agency, Author, Region
-   Default is ``Phases, Lat, Lon, Depth, DType, RMS, Stat, Method, Agency, Author, Region``.
+   that are visible initially. Origin creation time and
+   origin time are always visible.
+   Possible values are:
+   
+   Phases, Lat, Lon, Depth, DType, RMS, AzGap, Stat, Method, Agency, Author, Region, ID
+
+
+.. note::
+   **eventedit.origin.customColumn.\***
+   *Custom column showing origin comments.*
+
+
+
+.. confval:: eventedit.origin.customColumn.name
+
+   Type: *string*
+
+   Name of the custom column to be shown in the column
+   header.
+
+
+.. confval:: eventedit.origin.customColumn.originCommentID
+
+   Type: *string*
+
+   ID of the origin comment to look up.
+
+
+.. confval:: eventedit.origin.customColumn.pos
+
+   Default: ``-1``
+
+   Type: *int*
+
+   Position of the column. If the configured position is less than 0 or if it
+   exceeds the total number of columns then the column is appended to the right.
+
+
+.. confval:: eventedit.origin.customColumn.default
+
+   Type: *string*
+
+   Default value to display if the specified origin or event comment id was not found.
+
+
+.. confval:: eventedit.origin.customColumn.colors
+
+   Type: *list:string*
+
+   Mapping of comment values to colors used as text color. E.g. \"foo:#000,bar:red\".
+
 
 .. confval:: eventedit.fm.visibleColumns
+
+   Default: ``Depth, M, Count, Misfit, STDR, AzGap, Stat, DC, CLVD, ISO, S1, D1, R1, S2, D2, R2, Agency, Author``
 
    Type: *list:string*
 
@@ -3513,7 +4869,7 @@ and feel.
    Possible values are: Depth, M, Count, Misfit, STDR,
    AzGap, Stat, DC, CLVD, ISO, S1,
    D1, R1, S2, D2, R2, Agency, Author
-   Default is ``Depth, M, Count, Misfit, STDR, AzGap, Stat, DC, CLVD, ISO, S1, D1, R1, S2, D2, R2, Agency, Author``.
+
 
 .. note::
    **eventsummary.\***
@@ -3555,6 +4911,199 @@ and feel.
    The text size of the time ago label in case of an active alert.
 
 
+.. _global/MLc:
+
+
+MLc extension
+-------------
+
+Custom magnitude for local events measured on horizontal components
+
+
+.. note::
+   **magnitudes.MLc.\***
+   *Regionalized calibration parameters for MLc. The region itself is defined*
+   *by another magnitude-type MLc profile.*
+
+
+
+.. note::
+   **magnitudes.MLc.region.\***
+   *Add one profile for every region. The profile name*
+   *equals the name of a polygon configured in the BNA file*
+   *of the Magnitude-type profile. The Magnitude-type profile*
+   *and the polygon must exist.*
+   *The special name "world" corresponds to the*
+   *region of the entire planet as a fallback.*
+
+
+
+.. note::
+
+   **magnitudes.MLc.region.$name.\***
+   $name is a placeholder for the name to be used.
+
+
+.. note::
+   **magnitudes.MLc.region.$name.A0.\***
+   *Parameters for A0, non-parametric magnitude calibration.*
+
+
+
+.. confval:: magnitudes.MLc.region.$name.A0.logA0
+
+   Type: *string*
+
+   Overrides the calibration function log10\(A0\)
+   for computing MLc per region. See logA0
+   description in the bindings.
+
+
+.. note::
+   **magnitudes.MLc.region.$name.parametric.\***
+   *Parameters for parametric magnitude calibration:*
+   *MLc = log10(A) + c3 * log10(r/c5) + c2 * (r + c4) + c1 + c0(station)*
+
+
+
+.. confval:: magnitudes.MLc.region.$name.parametric.c0
+
+   Type: *double*
+
+   Overrides the calibration parameter c0
+   for computing MLc per region. See c0
+   description in the bindings.
+
+
+.. confval:: magnitudes.MLc.region.$name.parametric.c1
+
+   Type: *double*
+
+   Overrides the calibration parameter c1
+   for computing MLc per region. See c1
+   description in the bindings.
+
+
+.. confval:: magnitudes.MLc.region.$name.parametric.c2
+
+   Type: *double*
+
+   Overrides the calibration parameter c2
+   for computing MLc per region. See c2
+   description in the bindings.
+
+
+.. confval:: magnitudes.MLc.region.$name.parametric.c3
+
+   Type: *double*
+
+   Overrides the calibration parameter c3
+   for computing MLc per region. See c3
+   description in the bindings.
+
+
+.. confval:: magnitudes.MLc.region.$name.parametric.c4
+
+   Type: *double*
+
+   Overrides the calibration parameter c4
+   for computing MLc per region. See c4
+   description in the bindings.
+
+
+.. confval:: magnitudes.MLc.region.$name.parametric.c5
+
+   Type: *double*
+
+   Overrides the calibration parameter c5
+   for computing MLc per region. See c5
+   description in the bindings.
+
+
+.. _global/MLv:
+
+
+MLv extension
+-------------
+
+Local (Richter) magnitude measured on the vertical component
+
+
+.. note::
+   **magnitudes.MLv.\***
+   *Regional calibration parameters for MLv. The region itself is defined*
+   *by another magnitude-type MLv profile.*
+
+
+
+.. note::
+   **magnitudes.MLv.region.\***
+   *Add one profile for every region. The profile name*
+   *equals the name of a polygon configured in the BNA file*
+   *of the Magnitude-type profile. The Magnitude-type profile*
+   *and the polygon must exist.*
+   *The special name "world" corresponds to the*
+   *region of the entire planet as a fallback.*
+
+
+
+.. note::
+
+   **magnitudes.MLv.region.$name.\***
+   $name is a placeholder for the name to be used.
+
+
+.. confval:: magnitudes.MLv.region.$name.logA0
+
+   Type: *string*
+
+   Overrides the calibration function log10\(A0\)
+   for computing MLv per region. See logA0
+   description in the bindings.
+
+
+.. _global/ML:
+
+
+ML extension
+------------
+
+Standard local (Richter) magnitude
+
+
+.. note::
+   **magnitudes.ML.\***
+   *Regionalized calibration parameters for ML. The region itself is defined*
+   *by another magnitude-type ML profile.*
+
+
+
+.. note::
+   **magnitudes.ML.region.\***
+   *Add one profile for every region. The profile name*
+   *equals the name of a polygon configured in the BNA file*
+   *of the Magnitude-type profile. The Magnitude-type profile*
+   *and the polygon must exist.*
+   *The special name "world" corresponds to the*
+   *region of the entire planet as a fallback.*
+
+
+
+.. note::
+
+   **magnitudes.ML.region.$name.\***
+   $name is a placeholder for the name to be used.
+
+
+.. confval:: magnitudes.ML.region.$name.logA0
+
+   Type: *string*
+
+   Overrides the calibration function log10\(A0\)
+   for computing ML per region. See logA0
+   description in the bindings.
+
+
 .. _global/LOCSAT:
 
 
@@ -3573,21 +5122,27 @@ coordinates from phase picks.
 
 .. confval:: LOCSAT.profiles
 
+   Default: ``iasp91, tab``
+
    Type: *list:string*
 
    Defines a list of available LOCSAT travel\-time tables.
-   Default is ``iasp91, tab``.
+
 
 .. confval:: LOCSAT.depthInit
+
+   Default: ``20.0``
 
    Type: *double*
 
    Unit: *km*
 
    The initial depth estimate for LOCSAT.
-   Default is ``20.0``.
+
 
 .. confval:: LOCSAT.usePickUncertainties
+
+   Default: ``false``
 
    Type: *boolean*
 
@@ -3596,9 +5151,11 @@ coordinates from phase picks.
    retrieved from each individual pick object. If they are not
    defined then the default pick time uncertainty will be used
    as fallback.
-   Default is ``false``.
+
 
 .. confval:: LOCSAT.defaultTimeError
+
+   Default: ``1.0``
 
    Type: *double*
 
@@ -3608,28 +5165,58 @@ coordinates from phase picks.
    attribute if pick uncertainties are not going to be used or
    if they are absent. A time uncertainty of 0 s may result in
    errors of the SVD decomposition in LOCSAT.
-   Default is ``1.0``.
+
+
+.. confval:: LOCSAT.usePickBackazimuth
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   Whether to forward pick backazimuth to LOCSAT or not. In an
+   automatic mode backazimuth measurements might be inaccurrate
+   and disabling their usage in LOCSAT can be controlled with
+   this parameter.
+
+
+.. confval:: LOCSAT.usePickSlowness
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   Whether to forward pick horizontal slowness to LOCSAT or not.
+   In an automatic mode slowness measurements might be
+   inaccurrate and disabling their usage in LOCSAT can be
+   controlled with	this parameter.
+
 
 .. confval:: LOCSAT.degreesOfFreedom
+
+   Default: ``9999``
 
    Type: *int*
 
    Number of degrees of freedom.
-   Default is ``9999``.
+
 
 .. confval:: LOCSAT.confLevel
+
+   Default: ``0.9``
 
    Type: *double*
 
    Confidence level between 0.5 and 1.0.
-   Default is ``0.9``.
+
 
 .. confval:: LOCSAT.enableConfidenceEllipsoid
+
+   Default: ``false``
 
    Type: *boolean*
 
    Compute the confidence ellipsoid from covariance matrix in 3D.
-   Default is ``false``.
+
 
 .. _global/FixedHypocenter:
 
@@ -3648,6 +5235,8 @@ Locator for re-computing source time with fixed hypocenter
 
 .. confval:: FixedHypocenter.profiles
 
+   Default: ``LOCSAT/iasp91,LOCSAT/tab``
+
    Type: *list:string*
 
    Defines a list of available travel time tables. Each item
@@ -3655,9 +5244,11 @@ Locator for re-computing source time with fixed hypocenter
    Built\-in interfaces are \"LOCSAT\" and \"libtau\".
    Other interfaces might be added via plugins. Please check their
    documentation for the required interface name.
-   Default is ``LOCSAT/iasp91,LOCSAT/tab``.
+
 
 .. confval:: FixedHypocenter.usePickUncertainties
+
+   Default: ``false``
 
    Type: *boolean*
 
@@ -3666,9 +5257,11 @@ Locator for re-computing source time with fixed hypocenter
    each individual pick object. If they are not defined, then the
    default pick time uncertainty as defined by defaultTimeError
    will be used instead.
-   Default is ``false``.
+
 
 .. confval:: FixedHypocenter.defaultTimeError
+
+   Default: ``1.0``
 
    Type: *double*
 
@@ -3676,37 +5269,40 @@ Locator for re-computing source time with fixed hypocenter
 
    The default pick time uncertainty if pick uncertainties are
    not going to be used or if they are absent.
-   Default is ``1.0``.
+
 
 .. confval:: FixedHypocenter.degreesOfFreedom
+
+   Default: ``8``
 
    Type: *int*
 
    Number of degrees of freedom used for error estimate.
-   Default is ``8``.
+
 
 .. confval:: FixedHypocenter.confLevel
+
+   Default: ``0.9``
 
    Type: *double*
 
    Confidence level between 0.5 and 1.
-   Default is ``0.9``.
 
 
-Bindings
-========
 
+Bindings Parameters
+===================
 
-Configuration
--------------
 
 
 .. confval:: amplitudes.MLh.maxavg
 
+   Default: ``max``
+
    Type: *string*
 
    Define combiner operation for both horizontals \(min, max, avg\).
-   Default is ``max``.
+
 
 .. confval:: amplitudes.MLh.ClippingThreshold
 
@@ -3728,7 +5324,22 @@ Configuration
    Note: No MLh computation if params is empty.
 
 
+.. confval:: magnitudes.MLh.maxDepth
+
+   Default: ``80``
+
+   Type: *double*
+
+   Unit: *km*
+
+   Maximum depth allowed to compute the magnitude. Make sure to
+   also update the MLh amplitude bindings accordingly to this
+   value. maxDepth should not be greater than 80km.
+
+
 .. confval:: magnitudes.md.seismo
+
+   Default: ``9``
 
    Type: *int*
 
@@ -3742,126 +5353,156 @@ Configuration
    7 for a Butterworth High pass filter
    8 for a Butterworth Band pass filter
    9 for a 1Hz eigen\-frequency L4C seismometer
-   Default is ``9``.
+
 
 .. confval:: magnitudes.md.taper
+
+   Default: ``5``
 
    Type: *double*
 
    Unit: *s*
 
    taper applied to the signal
-   Default is ``5``.
+
 
 .. confval:: magnitudes.md.signal_length
+
+   Default: ``150``
 
    Type: *double*
 
    Unit: *s*
 
    signal length used to compute the duration magnitude
-   Default is ``150``.
+
 
 .. confval:: magnitudes.md.butterworth
+
+   Default: ``"3,1.5"``
 
    Type: *string*
 
    Butterworth filter parameter applied to the signal
-   Default is ``"3,1.5"``.
+
 
 .. confval:: magnitudes.md.depthmax
+
+   Default: ``200``
 
    Type: *double*
 
    Unit: *km*
 
    Maximum depth at which duration magnitude is valid
-   Default is ``200``.
+
 
 .. confval:: magnitudes.md.deltamax
+
+   Default: ``400``
 
    Type: *double*
 
    Unit: *km*
 
    Maximum distance between earthquake and station at which duration magnitude is valid
-   Default is ``400``.
+
 
 .. confval:: magnitudes.md.snrmin
+
+   Default: ``1.2``
 
    Type: *double*
 
    Signal to noise ratio below which the coda is reached
-   Default is ``1.2``.
+
 
 .. confval:: magnitudes.md.mdmax
+
+   Default: ``5.0``
 
    Type: *double*
 
    Maximum expected duration magnitude value
    This is used to find how much data should be loaded for a given station by reversing the formula
-   Default is ``5.0``.
+
 
 .. confval:: magnitudes.md.fma
+
+   Default: ``-0.87``
 
    Type: *double*
 
    FMA regional coefficient
    See Hypo2000 manual
-   Default is ``-0.87``.
+
 
 .. confval:: magnitudes.md.fmb
+
+   Default: ``2.0``
 
    Type: *double*
 
    FMB regional coefficient
    See Hypo2000 manual
-   Default is ``2.0``.
+
 
 .. confval:: magnitudes.md.fmd
+
+   Default: ``0.0035``
 
    Type: *double*
 
    FMD regional coefficient
    See Hypo2000 manual
-   Default is ``0.0035``.
+
 
 .. confval:: magnitudes.md.fmf
+
+   Default: ``0.0``
 
    Type: *double*
 
    FMF regional coefficient
    See Hypo2000 manual
-   Default is ``0.0``.
+
 
 .. confval:: magnitudes.md.fmz
+
+   Default: ``0.0``
 
    Type: *double*
 
    FMZ regional coefficient
    See Hypo2000 manual
-   Default is ``0.0``.
+
 
 .. confval:: magnitudes.md.linearcorrection
+
+   Default: ``1.0``
 
    Type: *double*
 
    Linear correction
-   Default is ``1.0``.
+
 
 .. confval:: magnitudes.md.offset
+
+   Default: ``0.0``
 
    Type: *double*
 
    Offset
-   Default is ``0.0``.
+
 
 .. confval:: magnitudes.md.stacor
+
+   Default: ``0.0``
 
    Type: *double*
 
    Station correction
-   Default is ``0.0``.
+
 
 .. note::
    **magnitudes.MLr.\***
@@ -3892,12 +5533,14 @@ Configuration
 
 .. confval:: amplitudes.MN.rms
 
+   Default: ``false``
+
    Type: *boolean*
 
    Whether to use RMS ratio of signal and noise window for
    SNR computation or the ration of the peak\-trough
    amplitudes of either window.
-   Default is ``false``.
+
 
 .. confval:: amplitudes.MN.filter
 
@@ -3913,15 +5556,19 @@ Configuration
 
 .. confval:: amplitudes.MN.Vmin
 
+   Default: ``3.2``
+
    Type: *double*
 
    Unit: *km/s*
 
    The minimum phase velocity used to determine the signal
    window end.
-   Default is ``3.2``.
+
 
 .. confval:: amplitudes.MN.Vmax
+
+   Default: ``3.6``
 
    Type: *double*
 
@@ -3929,18 +5576,22 @@ Configuration
 
    The maximum phase velocity used to determine the signal
    window start.
-   Default is ``3.6``.
+
 
 .. confval:: amplitudes.MN.snrWindowSeconds
+
+   Default: ``10``
 
    Type: *double*
 
    Unit: *s*
 
    The length of the SNR window.
-   Default is ``10``.
+
 
 .. confval:: amplitudes.MN.noiseWindowPreSeconds
+
+   Default: ``0``
 
    Type: *double*
 
@@ -3949,9 +5600,11 @@ Configuration
    The offset of the noise window. A positive value will move
    the computed noise window to the left on the time axis,
    a negative value will move it to the right on the time axis.
-   Default is ``0``.
+
 
 .. confval:: amplitudes.MN.signalStartPriorities
+
+   Default: ``Lg,Sg,Sn,S,Vmax``
 
    Type: *list:string*
 
@@ -3964,9 +5617,11 @@ Configuration
    retrieved or computed, is selected.
    
    Allowed tokens: Pg, Pn, P, Sg, Sn, S, Lg, Rg, Vmin, Vmax
-   Default is ``Lg,Sg,Sn,S,Vmax``.
+
 
 .. confval:: amplitudes.MN.signalEndPriorities
+
+   Default: ``Rg,Vmin``
 
    Type: *list:string*
 
@@ -3979,7 +5634,7 @@ Configuration
    retrieved or computed, is selected.
    
    Allowed tokens: Pg, Pn, P, Sg, Sn, S, Lg, Rg, Vmin, Vmax
-   Default is ``Rg,Vmin``.
+
 
 .. note::
    **magnitudes.MN.\***
@@ -3989,6 +5644,8 @@ Configuration
 
 .. confval:: magnitudes.MN.minSNR
 
+   Default: ``2``
+
    Type: *double*
 
    The minimum SNR required for a magnitude to pass
@@ -3996,9 +5653,11 @@ Configuration
    anyway but if the SNR is below this threshold it will
    be associated with weight zero and will not contribute
    to the network magnitude.
-   Default is ``2``.
+
 
 .. confval:: magnitudes.MN.minPeriod
+
+   Default: ``0.01``
 
    Type: *double*
 
@@ -4009,9 +5668,11 @@ Configuration
    anyway but if the period is below this threshold it will
    be associated with weight zero and will not contribute
    to the network magnitude.
-   Default is ``0.01``.
+
 
 .. confval:: magnitudes.MN.maxPeriod
+
+   Default: ``1.3``
 
    Type: *double*
 
@@ -4022,9 +5683,11 @@ Configuration
    anyway but if the period is above this threshold it will
    be associated with weight zero and will not contribute
    to the network magnitude.
-   Default is ``1.3``.
+
 
 .. confval:: magnitudes.MN.minDist
+
+   Default: ``0.5``
 
    Type: *double*
 
@@ -4035,9 +5698,11 @@ Configuration
    anyway but if the distance is below this threshold it
    will be associated with weight zero and will not contribute
    to the network magnitude.
-   Default is ``0.5``.
+
 
 .. confval:: magnitudes.MN.maxDist
+
+   Default: ``30``
 
    Type: *double*
 
@@ -4047,47 +5712,50 @@ Configuration
    computed. If the distance exceeds this threshold then
    the computation will be canceled and no station
    magnitude will be available at all.
-   Default is ``30``.
-
-.. confval:: detecStream
-
-   Type: *string*
-
-   Defines the channel code of the preferred stream used by
-   e.g. scautopick and scrttv. If no component code is given,
-   the vertical component will be fetched from inventory.
-   For that the channel orientation \(azimuth, dip\) will be used.
-   If that approach fails, 'Z' will be appended and used as
-   fallback.
 
 
 .. confval:: detecLocid
 
    Type: *string*
 
-   Defines the location code of the preferred stream used
-   eg by scautopick and scrttv.
+   The sensor location code of the preferred stream used e.g.
+   by scautopick and scrttv.
+
+
+.. confval:: detecStream
+
+   Type: *string*
+
+   The channel code of the preferred stream used by
+   e.g. scautopick and scrttv. If no component code is given,
+   the vertical component will be fetched from inventory
+   considering the channel orientation \(azimuth, dip\).
+   If that approach fails, 'Z' will be appended and used as
+   fallback. Do not use regular expressions\!
 
 
 .. note::
    **amplitudes.\***
    *Define general parameters for amplitudes of a certain type.*
    *Create amplitude type profiles to define the time windows,*
-   *minimum signal-to-noise ratio, amplitude thresholds and restitution*
-   *for measuring amplitudes of a certain type.*
+   *minimum signal-to-noise ratio, amplitude thresholds and*
+   *restitution for measuring amplitudes of a certain type.*
 
 
 
 .. confval:: amplitudes.saturationThreshold
 
+   Default: ``false``
+
    Type: *string*
 
    Unit: *counts; %*
 
-   Defines the saturation threshold for the optional saturation check.
-   By default the saturation check is disabled but giving a value above
-   0 will enable it. Waveforms that are saturated are not used
-   for amplitude calculations.
+   Define the saturation threshold for the optional saturation
+   check.
+   By default, the saturation check is disabled but giving a
+   value above 0 will enable it. Waveforms that are saturated
+   are not used for amplitude calculations.
    
    This value can either be an absolute value of counts such
    as \"100000\" counts or a relative value
@@ -4098,25 +5766,29 @@ Configuration
    
    The boolean value \"false\" explicitly disables
    the check.
-   Default is ``false``.
+
 
 .. confval:: amplitudes.enable
 
+   Default: ``true``
+
    Type: *boolean*
 
-   Defines if amplitude calculation is enabled. If disabled,
+   Define if amplitude calculation is enabled. If disabled,
    this station will be skipped for amplitudes and magnitudes.
-   Default is ``true``.
+
 
 .. confval:: amplitudes.enableResponses
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Activates deconvolution for this station. If no responses are
+   Activate deconvolution for this station. If no responses are
    configured, an error is raised and the data is not processed.
    This flag will be overridden by the type specific flag
    \(see Amplitude type profile\).
-   Default is ``false``.
+
 
 .. note::
 
@@ -4131,14 +5803,17 @@ Configuration
 
 .. confval:: amplitudes.$name.saturationThreshold
 
+   Default: ``false``
+
    Type: *string*
 
    Unit: *counts; %*
 
-   Defines the saturation threshold for the optional saturation check.
-   By default the saturation check is disabled but giving a value above
-   0 will enable it. Waveforms that are saturated are not used
-   for amplitude calculations.
+   Define the saturation threshold for the optional
+   saturation check. By default, the saturation check is
+   disabled but giving a value above 0 will enable it.
+   Waveforms that are saturated are not used for amplitude
+   calculations.
    
    This value can either be an absolute value of counts such
    as \"100000\" counts or a relative value
@@ -4149,29 +5824,33 @@ Configuration
    
    The boolean value \"false\" explicitly disables
    the check.
-   Default is ``false``.
+
 
 .. confval:: amplitudes.$name.enable
 
+   Default: ``true``
+
    Type: *boolean*
 
-   Defines if amplitude calculation of certain type is enabled.
-   Default is ``true``.
+   Define if amplitude calculation of certain type is enabled.
+
 
 .. confval:: amplitudes.$name.enableResponses
 
+   Default: ``false``
+
    Type: *boolean*
 
-   Activates deconvolution for this amplitude type. If not
-   set the global flag \"amplitudes.enableResponses\"
+   Activate deconvolution for this amplitude type. If not
+   set, the global flag \"amplitudes.enableResponses\"
    will be used instead.
-   Default is ``false``.
+
 
 .. confval:: amplitudes.$name.minSNR
 
    Type: *double*
 
-   Defines the mininum SNR to be reached to compute the
+   Define the mininum SNR to be reached to compute the
    amplitudes. This value is amplitude type specific and
    has no global default value.
 
@@ -4182,7 +5861,7 @@ Configuration
 
    Unit: *s*
 
-   Overrides the default time \(relative to the trigger
+   Override the default time \(relative to the trigger
    time\) of the begin of the noise window used to compute
    the noise offset and noise amplitude. Each amplitude
    processor sets its own noise time window and this option
@@ -4195,7 +5874,7 @@ Configuration
 
    Unit: *s*
 
-   Overrides the default time \(relative to the trigger
+   Override the default time \(relative to the trigger
    time\) of the end of the noise window used to compute
    the noise offset and noise amplitude. Each amplitude
    processor sets its own noise time window and this option
@@ -4208,7 +5887,7 @@ Configuration
 
    Unit: *s*
 
-   Overrides the default time \(relative to the trigger
+   Override the default time \(relative to the trigger
    time\) of the begin of the signal window used to compute
    the final amplitude. Each amplitude processor sets its
    own signal time window and this option should only be
@@ -4221,7 +5900,7 @@ Configuration
 
    Unit: *s*
 
-   Overrides the default time \(relative to the trigger
+   Override the default time \(relative to the trigger
    time\) of the end of the signal window used to compute
    the final amplitude. Each amplitude processor sets its
    own signal time window and this option should only be
@@ -4280,6 +5959,25 @@ Configuration
    specific.
 
 
+.. confval:: amplitudes.$name.regionalize
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   Control if the amplitude calculation should be
+   regionalized or not. The regions and their configuration
+   are taken from the corresponding magnitude profiles. If
+   regionalization is activate, then e.g. modules without
+   origin information will not be able to compute an
+   amplitude as the origin is required to determine the
+   effective settings.
+   
+   If amplitudes for this particular type shall be computed
+   regardless of any defined regions, set this parameter to
+   false.
+
+
 .. note::
    **amplitudes.$name.resp.\***
    *Several parameters if usage of full responses is enabled.*
@@ -4288,32 +5986,40 @@ Configuration
 
 .. confval:: amplitudes.$name.resp.taper
 
+   Default: ``5``
+
    Unit: *s*
 
-   Defines the length of the taper at either side of the
+   Define the length of the taper at either side of the
    waveform. The length will be added to the data
    request: start \- taper and end + taper.
-   Default is ``5``.
+
 
 .. confval:: amplitudes.$name.resp.minFreq
 
+   Default: ``0.00833333``
+
    Unit: *Hz*
 
-   After data are converted in to the frequency domain that
-   minimum frequency defines the end of the left\-side cosine taper for
-   the frequency spectrum. The taper applies from 0Hz to {minFreq}Hz.
+   After data are converted in to the frequency domain
+   that minimum frequency defines the end of the left\-side
+   cosine taper for the frequency spectrum. The taper
+   applies from 0 Hz to {minFreq} Hz.
    A value of 0 or lower disables that taper.
-   Default is ``0.00833333``.
+
 
 .. confval:: amplitudes.$name.resp.maxFreq
 
+   Default: ``0``
+
    Unit: *Hz*
 
-   After data are converted in to the frequency domain that
-   maximum frequency defines the start of the right\-side cosine taper for
-   the frequency spectrum. The taper applies from {maxFreq}Hz to {fNyquist}Hz.
+   After data are converted in to the frequency domain
+   that maximum frequency defines the start of the right\-side
+   cosine taper for the frequency spectrum. The taper
+   applies from {maxFreq} Hz to {fNyquist} Hz.
    A value of 0 or lower disables that taper.
-   Default is ``0``.
+
 
 .. note::
    **amplitudes.resp.\***
@@ -4325,130 +6031,91 @@ Configuration
 
 .. confval:: amplitudes.resp.taper
 
+   Default: ``5``
+
    Unit: *s*
 
-   Defines the length of the taper at either side of the
+   Define the length of the taper at either side of the
    waveform. The length will be added to the data
    request: start \- taper and end + taper.
-   Default is ``5``.
+
 
 .. confval:: amplitudes.resp.minFreq
 
+   Default: ``0.00833333``
+
    Unit: *Hz*
 
-   After data are converted in to the frequency domain that
-   minimum frequency defines the end of the left\-side cosine taper for
-   the frequency spectrum. The taper applies from 0Hz to {minFreq}Hz.
-   A value of 0 or lower disables that taper.
-   Default is ``0.00833333``.
+   The minimum frequency of the considered spectrum.
+   
+   After data is converted into the frequency domain that
+   minimum frequency defines the end of the left\-side cosine
+   taper applied to the spectrum. The taper applies from
+   0 Hz to {minFreq} Hz. A value of 0 or lower disables
+   that taper.
+
 
 .. confval:: amplitudes.resp.maxFreq
 
+   Default: ``0``
+
    Unit: *Hz*
 
+   The maximum frequency of the considered spectrum.
+   
    After data are converted in to the frequency domain that
-   maximum frequency defines the start of the right\-side cosine taper for
-   the frequency spectrum. The taper applies from {maxFreq}Hz to {fNyquist}Hz.
+   maximum frequency defines the start of the right\-side
+   cosine taper applied to the spectrum. The taper applies from
+   {maxFreq} Hz to {fNyquist} Hz.
    A value of 0 or lower disables that taper.
-   Default is ``0``.
+
 
 .. note::
    **amplitudes.WoodAnderson.\***
-   *Allows to configure the Wood-Anderson seismometer response.*
+   *Parameters of the Wood-Anderson seismometer response used*
+   *for instrument simulation.*
    *The default values are according to the version of*
    *Gutenberg (1935). The newer version by Uhrhammer and*
    *Collins (1990) is part of the IASPEI Magnitude*
    *Working Group recommendations of 2011 September 9. This*
-   *version uses gain=2800, T0=0.8, h=0.8.*
+   *version uses gain=2800, T0=0.8 s, h=0.8.*
 
 
 
 .. confval:: amplitudes.WoodAnderson.gain
 
+   Default: ``2800``
+
    Type: *double*
 
    The gain of the Wood\-Anderson response.
-   Default is ``2800``.
+
 
 .. confval:: amplitudes.WoodAnderson.T0
+
+   Default: ``0.8``
 
    Type: *double*
 
    Unit: *s*
 
-   The eigen period of the Wood\-Anderson seismometer.
-   Default is ``0.8``.
+   The eigenperiod of the Wood\-Anderson seismometer.
+
 
 .. confval:: amplitudes.WoodAnderson.h
+
+   Default: ``0.8``
 
    Type: *double*
 
    The damping constant of the Wood\-Anderson seismometer.
-   Default is ``0.8``.
 
-.. confval:: amplitudes.ML.absMax
-
-   Type: *boolean*
-
-   Whether to use the absolute maximum of the filtered WA
-   trace or the difference of the maximum and minimum value
-   of the signal window.
-   Default is ``true``.
-
-.. confval:: amplitudes.ML.measureType
-
-   Type: *string*
-
-   This parameter allows to set how the amplitude is measured.
-   Either by finding the absolute maximum of the demeaned
-   trace \(AbsMax\), the difference of maximum and minimum of
-   the signal window \(MinMax\) or the maximum peak\-trough
-   of one cycle \(PeakTrough\).
-   
-   Note that if absMax is already explicitly configured, this
-   parameter has no effect.
-   Default is ``AbsMax``.
-
-.. confval:: amplitudes.ML.combiner
-
-   Type: *string*
-
-   Defines the combiner operation for the amplitudes measured
-   on either both horizontal component. The default is to
-   use the average. Allowed values are: \"average\",
-   \"min\", \"max\" and \"geometric_mean\".
-   \"geometric_mean\" corresponds to averaging single\-trace
-   magnitudes instead of their amplitudes.
-   Default is ``average``.
-
-.. confval:: amplitudes.MLv.absMax
-
-   Type: *boolean*
-
-   Whether to use the absolute maximum of the filtered WA
-   trace or the difference of the maximum and minimum value
-   of the signal window.
-   Default is ``true``.
-
-.. confval:: amplitudes.MLv.measureType
-
-   Type: *string*
-
-   This parameter allows to set how the amplitude is measured.
-   Either by finding the absolute maximum of the demeaned
-   trace \(AbsMax\), the difference of maximum and minimum of
-   the signal window \(MinMax\) or the maximum peak\-trough
-   of one cycle \(PeakTrough\).
-   
-   Note that if absMax is already explicitly configured, this
-   parameter has no effect.
-   Default is ``AbsMax``.
 
 .. note::
    **magnitudes.\***
    *Define magnitude parameters independent of amplitude-type profiles.*
-   *For magnitude correction parameters, e.g. network of station corrections,*
-   *create a magnitude type profile.*
+   *For magnitude correction parameters, e.g, network of station*
+   *corrections, create a magnitude type profile.*
 
 
 
@@ -4465,255 +6132,546 @@ Configuration
 
 .. confval:: magnitudes.$name.multiplier
 
-   Type: *double*
+   Default: ``1``
+
+   Type: *list:string*
 
    Part of the magnitude station correction. The final
    magnitude value is multiplier\*M+offset. This value
-   is usually not required but is here for completeness.
-   Default is ``1``.
+   can be regionalized with name\-value pairs.
+   The name is the name of the region. Without
+   a name the value is the default without regionalization.
+   Example: \"1.0, regionA: 0.9, regionB: 1.1\".
+
 
 .. confval:: magnitudes.$name.offset
 
-   Type: *double*
+   Default: ``0``
+
+   Type: *list:string*
 
    Part of the magnitude station correction. The final
    magnitude value is multiplier\*M+offset. This value
-   can be used to correct station magnitudes.
-   Default is ``0``.
+   can be regionalized with name\-value pairs.
+   The name is the name of the region. Without
+   a name the value is the default without regionalization.
+   Example: \"0.0, regionA: \-0.1, regionB: 0.2\".
+
+
+.. note::
+   **picker.\***
+   *Parameters controlling the second-stage picker for re-picking P*
+   *phases after an initial detection.*
+
+
+
+.. note::
+   **picker.AIC.\***
+   *AIC picker is an implementation using the simple non-AR*
+   *algorithm of Maeda (1985),*
+   *see paper of Zhang et al. (2003) in BSSA. The picker*
+   *interface name to be used in configuration files, e.g. of*
+   *scautopick, is "AIC".*
+
+
+
+.. confval:: picker.AIC.noiseBegin
+
+   Default: ``0``
+
+   Type: *double*
+
+   Unit: *s*
+
+   Override the relative data acquisition time \(relative to
+   the triggering pick\). This adds a margin to the actual
+   processing and is useful to initialize the filter \(Example:
+   bandpass\). The data is not used at all until signalBegin
+   is reached. The data time window start is the minimum of
+   noiseBegin and signalBegin.
+
+
+.. confval:: picker.AIC.signalBegin
+
+   Default: ``-30``
+
+   Type: *double*
+
+   Unit: *s*
+
+   Override the default time \(relative to the trigger
+   time\) of the begin of the signal window used to pick.
+
+
+.. confval:: picker.AIC.signalEnd
+
+   Default: ``10``
+
+   Type: *double*
+
+   Unit: *s*
+
+   Override the default time \(relative to the trigger
+   time\) of the begin of the signal window used to pick.
+
+
+.. confval:: picker.AIC.filter
+
+   Type: *string*
+
+   Override the default filter which is \"raw\". The typical
+   filter grammar can be used.
+
+
+.. confval:: picker.AIC.minSNR
+
+   Default: ``3``
+
+   Type: *double*
+
+   Mininum SNR as returned from AIC for accepting picks.
+
 
 .. note::
    **picker.BK.\***
-   *Bkpicker is an implementation of the Baer/Kradolfer picker adapted*
-   *to SeisComP. It was created by converting Manfred Baers from Fortran*
-   *to C++ and inserting it as a replacement for the picker algorithm.*
-   *The picker interface name to be used in configuration files is*
+   *Bkpicker is an implementation of the Baer/Kradolfer picker*
+   *adapted to SeisComP. It was created by converting Manfred*
+   *Baers from Fortran to C++ and inserting it as a replacement*
+   *for the picker algorithm. The picker interface name to be*
+   *used in configuration files, e.g. of scautopick,is*
    *"BK".*
 
 
 
 .. confval:: picker.BK.noiseBegin
 
+   Default: ``0``
+
    Type: *double*
 
    Unit: *s*
 
-   Overrides the relative data acquisition time \(relative to the triggering
-   pick\). This adds a margin to the actual processing and is useful
-   to initialize the filter \(e.g. bandpass\). The data is not used
-   at all until signalBegin is reached. The data time window start
-   is the minimum of noiseBegin and signalBegin.
-   Default is ``0``.
+   Override the relative data acquisition time \(relative to
+   the triggering pick\). This adds a margin to the actual
+   processing and is useful to initialize the filter \(Example:
+   bandpass\). The data is not used at all until signalBegin
+   is reached. The data time window start is the minimum of
+   noiseBegin and signalBegin.
+
 
 .. confval:: picker.BK.signalBegin
 
+   Default: ``-20``
+
    Type: *double*
 
    Unit: *s*
 
-   Overrides the default time \(relative to the trigger
+   Override the default time \(relative to the trigger
    time\) of the begin of the signal window used to pick.
-   Default is ``-20``.
+
 
 .. confval:: picker.BK.signalEnd
 
+   Default: ``80``
+
    Type: *double*
 
    Unit: *s*
 
-   Overrides the default time \(relative to the trigger
+   Override the default time \(relative to the trigger
    time\) of the begin of the signal window used to pick.
-   Default is ``80``.
+
 
 .. confval:: picker.BK.filterType
+
+   Default: ``BP``
 
    Type: *string*
 
    BP \(Bandpass\) is currently the only option.
-   Default is ``BP``.
+
 
 .. confval:: picker.BK.filterPoles
+
+   Default: ``2``
 
    Type: *int*
 
    Number of poles.
-   Default is ``2``.
+
 
 .. confval:: picker.BK.f1
+
+   Default: ``5``
 
    Type: *double*
 
    Unit: *Hz*
 
    Bandpass lower cutoff freq. in Hz.
-   Default is ``5``.
+
 
 .. confval:: picker.BK.f2
+
+   Default: ``20``
 
    Type: *double*
 
    Unit: *Hz*
 
    Bandpass upper cutoff freq. in Hz.
-   Default is ``20``.
+
 
 .. confval:: picker.BK.thrshl1
+
+   Default: ``10``
 
    Type: *double*
 
    Threshold to trigger for pick \(c.f. paper\), default 10
-   Default is ``10``.
+
 
 .. confval:: picker.BK.thrshl2
+
+   Default: ``20``
 
    Type: *double*
 
    Threshold for updating sigma  \(c.f. paper\), default 20
-   Default is ``20``.
+
 
 .. note::
-   **picker.AIC.\***
-   *AIC picker is an implementation using the simple non-AR algorithm of Maeda (1985),*
-   *see paper of Zhang et al. (2003) in BSSA. The picker interface name to be used in configuration files is*
-   *"AIC".*
+   **spicker.\***
+   *Parameters controlling the secondary picker. Example: for picking S*
+   *phases.*
 
 
-
-.. confval:: picker.AIC.noiseBegin
-
-   Type: *double*
-
-   Unit: *s*
-
-   Overrides the relative data acquisition time \(relative to the triggering
-   pick\). This adds a margin to the actual processing and is useful
-   to initialize the filter \(e.g. bandpass\). The data is not used
-   at all until signalBegin is reached. The data time window start
-   is the minimum of noiseBegin and signalBegin.
-   Default is ``0``.
-
-.. confval:: picker.AIC.signalBegin
-
-   Type: *double*
-
-   Unit: *s*
-
-   Overrides the default time \(relative to the trigger
-   time\) of the begin of the signal window used to pick.
-   Default is ``-30``.
-
-.. confval:: picker.AIC.signalEnd
-
-   Type: *double*
-
-   Unit: *s*
-
-   Overrides the default time \(relative to the trigger
-   time\) of the begin of the signal window used to pick.
-   Default is ``10``.
-
-.. confval:: picker.AIC.filter
-
-   Type: *string*
-
-   Overrides the default filter which is \"raw\". The typical filter grammar can be used.
-
-
-.. confval:: picker.AIC.minSNR
-
-   Type: *double*
-
-   Defines the mininum SNR.
-   Default is ``3``.
 
 .. note::
    **spicker.L2.\***
-   *L2 is an algorithm to pick S-phases based on existing P-phases. The*
-   *picker interface name to be used in configuration files is*
+   *L2 is an algorithm to pick S-phases based on existing*
+   *P-phases. It works by creating the L2 norm of the two filtered*
+   *horizontal components and then running the `detecFilter` on*
+   *the L2 trace to find the S pick. Finally AIC is applied*
+   *around the detected pick time to refine the detection.*
+   *The picker name to be used in configuration files is*
    *"S-L2".*
 
 
 
 .. confval:: spicker.L2.noiseBegin
 
+   Default: ``-10``
+
    Type: *double*
 
    Unit: *s*
 
-   Overrides the relative data processing start time \(relative to the triggering
-   pick\). This adds a margin to the actual processing and is useful
-   to initialize the filter \(e.g. bandpass\). The data is not used
-   at all until signalBegin is reached. The data time window start
+   Override the relative data processing start time
+   \(relative to the triggering pick\). This adds a margin to
+   the actual processing and is useful to initialize the
+   filter \(Example: bandpass\). The data is not used at all
+   until signalBegin is reached. The data time window start
    is the minimum of noiseBegin and signalBegin.
-   Default is ``-10``.
+
 
 .. confval:: spicker.L2.signalBegin
 
+   Default: ``0``
+
    Type: *double*
 
    Unit: *s*
 
-   Overrides the relative start time \(relative to the triggering
-   pick\) of the begin of the signal processing.
-   Default is ``0``.
+   Override the relative start time \(relative to the
+   triggering pick\) of the begin of the signal processing.
+
 
 .. confval:: spicker.L2.signalEnd
 
+   Default: ``60``
+
    Type: *double*
 
    Unit: *s*
 
-   Overrides the relative end time \(relative to the triggering
+   Override the relative end time \(relative to the triggering
    pick\) of the end of the signal window used to pick.
-   Default is ``60``.
+
 
 .. confval:: spicker.L2.filter
 
+   Default: ``BW(4,0.3,1.0)``
+
    Type: *string*
 
-   Configures the filter used to compute the L2 and to pick
-   the onset \(with AIC\) after the detector triggered.
-   Default is ``BW(4,0.3,1.0)``.
+   Configure the filter used to process the horizontal
+   components traces before computing the L2\-norm.
+
 
 .. confval:: spicker.L2.detecFilter
 
+   Default: ``STALTA(1,10)``
+
    Type: *string*
 
-   Configures the detector in the filtered L2. This filter is
-   applied on top of the base L2 filter.
-   Default is ``STALTA(1,10)``.
+   Configure the detector filter applied on the filtered
+   L2 trace.
+
 
 .. confval:: spicker.L2.threshold
+
+   Default: ``3``
 
    Type: *double*
 
    The detector threshold that triggers the AIC picker.
-   Default is ``3``.
+
 
 .. confval:: spicker.L2.timeCorr
 
+   Default: ``0``
+
    Type: *double*
 
    Unit: *s*
 
-   The time correction \(in seconds\) added to the detection time
-   before AIC time window is computed.
-   Default is ``0``.
+   The time correction added to the detection
+   time before AIC time window is computed.
+
 
 .. confval:: spicker.L2.marginAIC
 
+   Default: ``5``
+
    Type: *double*
 
    Unit: *s*
 
-   The AIC time window around the detection used to pick. If 0 AIC is not used.
-   Default is ``5``.
+   The AIC time window around the detection used to pick.
+   If 0, AIC is not used.
+
 
 .. confval:: spicker.L2.minSNR
 
+   Default: ``15``
+
    Type: *double*
 
-   Defines the mininum SNR as returned from AIC.
-   Default is ``15``.
+   Minimum SNR as returned from AIC for accepting picks.
+
+
+.. note::
+   **spicker.V.\***
+   *This S-picker works similarly to L2 but it only uses the*
+   *vertical component to pick S-phases. The picker name to be*
+   *used in configuration files is "S-V".*
+
+
+
+.. confval:: spicker.V.noiseBegin
+
+   Default: ``-10``
+
+   Type: *double*
+
+   Unit: *s*
+
+   Override the relative data processing start time
+   \(relative to the triggering pick\). This adds a margin to
+   the actual processing and is useful to initialize the
+   filter \(Example: bandpass\). The data is not used at all
+   until signalBegin is reached. The data time window start
+   is the minimum of noiseBegin and signalBegin.
+
+
+.. confval:: spicker.V.signalBegin
+
+   Default: ``0``
+
+   Type: *double*
+
+   Unit: *s*
+
+   Override the relative start time \(relative to the
+   triggering pick\) of the begin of the signal processing.
+
+
+.. confval:: spicker.V.signalEnd
+
+   Default: ``60``
+
+   Type: *double*
+
+   Unit: *s*
+
+   Override the relative end time \(relative to the triggering
+   pick\) of the end of the signal window used to pick.
+
+
+.. confval:: spicker.V.filter
+
+   Default: ``BW(4,0.3,1.0)``
+
+   Type: *string*
+
+   Configure the filter used to process the raw vertical
+   component data.
+
+
+.. confval:: spicker.V.detecFilter
+
+   Default: ``STALTA(1,10)``
+
+   Type: *string*
+
+   Configure the detector filter applied on filtered data.
+
+
+.. confval:: spicker.V.threshold
+
+   Default: ``3``
+
+   Type: *double*
+
+   The detector threshold that triggers the AIC picker.
+
+
+.. confval:: spicker.V.timeCorr
+
+   Default: ``0``
+
+   Type: *double*
+
+   Unit: *s*
+
+   The time correction added to the detection time
+   before AIC time window is computed.
+
+
+.. confval:: spicker.V.marginAIC
+
+   Default: ``5``
+
+   Type: *double*
+
+   Unit: *s*
+
+   The AIC time window around the detection used to pick.
+   If 0, AIC is not used.
+
+
+.. confval:: spicker.V.minSNR
+
+   Default: ``15``
+
+   Type: *double*
+
+   Define the mininum SNR as returned from AIC.
+
+
+.. note::
+   **fx.\***
+   *Feature extraction types, e.g. for scautopick.*
+
+
+
+.. note::
+   **fx.DFX.\***
+   *Three component feature extraction algorithm ported from the*
+   *automatic processing system implemented at CTBTO/IDC. The*
+   *documentation of the methods is not publically available.*
+   *In case of questions and comments, please contact CTBTO by*
+   *email: support@ctbto.org.*
+
+
+
+.. note::
+   **fx.DFX.filter.\***
+   *Butterworth filter options of the bandpass.*
+
+
+
+.. confval:: fx.DFX.filter.order
+
+   Default: ``3``
+
+   Type: *int*
+
+   The order of the filter.
+
+
+.. confval:: fx.DFX.filter.loFreq
+
+   Default: ``1``
+
+   Type: *double*
+
+   Unit: *Hz*
+
+   The lower cut\-off frequency. A negative value or zero
+   will disable a lower cut\-off frequency.
+
+
+.. confval:: fx.DFX.filter.hiFreq
+
+   Default: ``3``
+
+   Type: *double*
+
+   Unit: *Hz*
+
+   The upper cut\-off frequency. A negative value or zero
+   will disable a upper cut\-off frequency.
+
+
+.. confval:: fx.DFX.polar.window
+
+   Default: ``1.5``
+
+   Type: *double*
+
+   Unit: *s*
+
+   Length of the covariance window in seconds.
+
+
+.. confval:: fx.DFX.polar.overlap
+
+   Default: ``0.5``
+
+   Type: *double*
+
+   The fraction of the covariance window to overlap.
+
+
+.. confval:: fx.DFX.polar.alpha
+
+   Default: ``0.3``
+
+   Type: *double*
+
+   A station\-dependent parameter used to compute a polarization slowness estimate.
+
+
+.. confval:: fx.DFX.polar.ds
+
+   Default: ``0.03``
+
+   Type: *double*
+
+   A station\-dependent parameter used to compute the back azimuth and slowness errors.
+
+
+.. confval:: fx.DFX.polar.dk
+
+   Default: ``0.1``
+
+   Type: *double*
+
+   A station\-dependent parameter used to compute the back azimuth and slowness errors.
+
 
 .. note::
    **magnitudes.mB.\***
@@ -4723,6 +6681,8 @@ Configuration
 
 .. confval:: magnitudes.mB.minDist
 
+   Default: ``5``
+
    Type: *double*
 
    Unit: *deg*
@@ -4730,16 +6690,18 @@ Configuration
    Minimum epicentral distance for computing mB. Note: According
    to the IASPEI recommendations in 2013, the minimum distance
    should be 20 deg.
-   Default is ``5``.
+
 
 .. confval:: magnitudes.mB.maxDist
+
+   Default: ``105``
 
    Type: *double*
 
    Unit: *deg*
 
    Maximum epicentral distance for computing mB.
-   Default is ``105``.
+
 
 .. note::
    **magnitudes.mb.\***
@@ -4749,6 +6711,8 @@ Configuration
 
 .. confval:: magnitudes.mb.minDist
 
+   Default: ``5``
+
    Type: *double*
 
    Unit: *deg*
@@ -4756,16 +6720,29 @@ Configuration
    Minimum epicentral distance for computing mb. Note: According
    to the IASPEI recommendations in 2013, the minimum distance
    should be 20 deg.
-   Default is ``5``.
+
 
 .. confval:: magnitudes.mb.maxDist
+
+   Default: ``105``
 
    Type: *double*
 
    Unit: *deg*
 
    Maximum epicentral distance for computing mb.
-   Default is ``105``.
+
+
+.. confval:: magnitudes.mb(IDC).Q
+
+   Type: *path*
+
+   Location of the station specific Q table. If not
+   specified then \@DATADIR\@\/magnitudes\/IDC\/qfvc.ml will be
+   used as fallback. {net}, {sta} and {loc} are placeholders
+   which will be replaced with the concrete network code,
+   station code and location code.
+
 
 .. note::
    **magnitudes.Ms_20.\***
@@ -4775,48 +6752,355 @@ Configuration
 
 .. confval:: magnitudes.Ms_20.lowerPeriod
 
+   Default: ``18``
+
    Type: *double*
 
    Unit: *s*
 
    Lower period limit of the signal for computing Ms_20.
-   Default is ``18``.
+
 
 .. confval:: magnitudes.Ms_20.upperPeriod
+
+   Default: ``22``
 
    Type: *double*
 
    Unit: *s*
 
    Upper period limit of the signal for computing Ms_20.
-   Default is ``22``.
+
 
 .. confval:: magnitudes.Ms_20.minDist
+
+   Default: ``20``
 
    Type: *double*
 
    Unit: *deg*
 
    Minimum epicentral distance for computing Ms_20.
-   Default is ``20``.
+
 
 .. confval:: magnitudes.Ms_20.maxDist
+
+   Default: ``160``
 
    Type: *double*
 
    Unit: *deg*
 
    Maximum epicentral distance for computing Ms_20.
-   Default is ``160``.
+
 
 .. confval:: magnitudes.Ms_20.maxDepth
+
+   Default: ``100``
 
    Type: *double*
 
    Unit: *km*
 
    Maximum depth for computing Ms_20.
-   Default is ``100``.
+
+
+.. note::
+   **amplitudes.MLc.\***
+   *Parameters for measuring MLc amplitudes. Add more parameters*
+   *by adding an amplitude type profile 'MLc',*
+
+
+
+.. confval:: amplitudes.MLc.preFilter
+
+   Default: ``BW(3,0.5,12)``
+
+   Type: *string*
+
+   The filter applied to raw records before applying
+   Wood\-Anderson simulation.
+
+
+.. confval:: amplitudes.MLc.applyWoodAnderson
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   Applying Wood\-Anderson simulation. To achieve displacement
+   records without WA simulation, an integration filter can
+   be applied with the pre\-filter.
+
+
+.. confval:: amplitudes.MLc.amplitudeScale
+
+   Default: ``1.0``
+
+   Type: *string*
+
+   Scaling value multiplied to the measured amplitudes to
+   match the amplitude units expected by the magnitude
+   calibration function.
+   
+   Expected amplitudes are
+   in units of mym but actual amplitudes provided from
+   Wood\-Anderson\-corrected seismograms are in units of mm:
+   amplitudeScale \= 1000.
+   
+   If data are not corrected for WA, measured amplitudes
+   take the unit of gain\-corrected data considering the
+   preFilter:
+   amplitudeScale converts between units of measured and
+   excpected amplitude.
+
+
+.. confval:: amplitudes.MLc.measureType
+
+   Default: ``AbsMax``
+
+   Type: *string*
+
+   Type for measuring amplitudes. Available:
+   
+   AbsMax: absolute maximum
+   
+   MinMax: half difference between absolute maximum and minimum
+   
+   PeakTrough: half difference between maximum and minimum
+   on a half cycle
+
+
+.. confval:: amplitudes.MLc.combiner
+
+   Default: ``max``
+
+   Type: *string*
+
+   Define how to combine the amplitudes measured on both
+   horizontals components:
+   
+   min: take the minimum
+   
+   max: take the maxium
+   
+   avgerage: form the average
+   
+   geometric_mean: form the geometric mean
+
+
+.. note::
+   **magnitudes.MLc.\***
+   *Parameters for computing MLc magnitudes from MLc amplitudes.*
+
+
+
+.. confval:: magnitudes.MLc.distMode
+
+   Default: ``hypocentral``
+
+   Type: *string*
+
+   Considered distance measure between source and receiver.
+   Possible values are
+   
+   hypocentral: hypocentral distance
+   
+   epicentral: epicentral
+
+
+.. confval:: magnitudes.MLc.minDist
+
+   Default: ``-1.0``
+
+   Type: *double*
+
+   Unit: *deg*
+
+   The minimum distance for computing magnitudes from amplitudes.
+   Negative values deactivate the check.
+
+
+.. confval:: magnitudes.MLc.maxDist
+
+   Default: ``8``
+
+   Type: *double*
+
+   Unit: *deg*
+
+   The maximum distance for computing magnitudes from amplitudes.
+   Negative values deactivate the check.
+
+
+.. confval:: magnitudes.MLc.maxDepth
+
+   Default: ``80``
+
+   Type: *double*
+
+   Unit: *km*
+
+   The maximum depth up to which magnitudes are computed.
+
+
+.. confval:: magnitudes.MLc.calibrationType
+
+   Default: ``"parametric"``
+
+   Type: *string*
+
+   Type of magnitude calibration formula to be considered.
+   The calibration parameters are considered accordingly.
+   Currently supported are
+   
+   \"parametric\": consider parameters of parametric
+   configuration in parametric section
+   
+   \"A0\": consider parameters of non\-parametric
+   configuration in A0 section.
+
+
+.. note::
+   **magnitudes.MLc.A0.\***
+   *Parameters for A0, non-parametric magnitude calibration.*
+   *Considered if magnitude.MLc.calibrationType = "A0".*
+
+
+
+.. confval:: magnitudes.MLc.A0.logA0
+
+   Default: ``0:-1.3,60:-2.8,100:-3.0,400:-4.5,1000:-5.85``
+
+   Type: *string*
+
+   The non\-parametric calibration function log10\(A0\).
+   
+   Format: any list of distance\-value pairs separated by
+   comma. Values within pairs are separated by colon.
+   
+   Example: \"0:\-1.3,60:\-2.8,100:\-3.0,400:\-4.5,1000:\-5.85\"
+   specifies 4 distance intervals from
+   0...60, 60...100, 100...400 and 400...1000 km distance.
+   Within these intervals log10\(A0\) is interpolated linearly
+   between \-1.3...\-2.8, \-2.8...\-3.0, \-3.0...\-4.5 and \-4.5...\-5.8,
+   respectively.
+   
+   Note: The first and last distance samples limit the
+   maximum distance range for computing MLv.
+
+
+.. note::
+   **magnitudes.MLc.parametric.\***
+   *Parameters for parametric magnitude calibration:*
+   *MLc = log10(A) + c3 * log10(r/c5) + c2 * (r + c4) + c1 + c0(station)*
+   **
+   *Considered if magnitude.MLc.calibrationType = "parametric".*
+
+
+
+.. confval:: magnitudes.MLc.parametric.c0
+
+   Default: ``0.0``
+
+   Type: *double*
+
+   Station correction. This is the calibration value 'c0'
+   applied in the magnitude calibration formula
+   
+   MLc \= c0\(station\) + c1 + c2 \* \(r + c4\) + c3 \* log\(r\/c5\) + log10\(A\)
+
+
+.. confval:: magnitudes.MLc.parametric.c1
+
+   Default: ``0.69``
+
+   Type: *double*
+
+   The calibration value 'c1' applied in the magnitude
+   calibration formula
+   
+   MLc \= c0\(station\) + c1 + c2 \* \(r + c4\) + c3 \* log\(r\/c5\) + log10\(A\)
+
+
+.. confval:: magnitudes.MLc.parametric.c2
+
+   Default: ``0.00095``
+
+   Type: *double*
+
+   The calibration value 'c2' applied in the
+   magnitude calibration formula
+   
+   MLc \= c0\(station\) + c1 + c2 \* \(r + c4\) + c3 \* log\(r\/c5\) + log10\(A\)
+
+
+.. confval:: magnitudes.MLc.parametric.c3
+
+   Default: ``1.11``
+
+   Type: *double*
+
+   The calibration value 'c3' applied in the
+   magnitude calibration formula
+   
+   MLc \= c0\(station\) + c1 + c2 \* \(r + c4\) + c3 \* log\(r\/c5\) + log10\(A\)
+
+
+.. confval:: magnitudes.MLc.parametric.c4
+
+   Default: ``0.0``
+
+   Type: *double*
+
+   The calibration value 'c4' applied in the
+   magnitude calibration formula
+   
+   MLc \= c0\(station\) + c1 + c2 \* \(r + c4\) + c3 \* log\(r\/c5\) + log10\(A\)
+
+
+.. confval:: magnitudes.MLc.parametric.c5
+
+   Default: ``1.0``
+
+   Type: *double*
+
+   The calibration value 'c4' applied in the
+   magnitude calibration formula
+   
+   MLc \= c0\(station\) + c1 + c2 \* \(r + c4\) + c3 \* log\(r\/c5\) + log10\(A\)
+
+
+.. note::
+   **amplitudes.MLv.\***
+   *Parameters for measuring MLv amplitudes. Add more parameters*
+   *by adding an amplitude type profile 'MLv',*
+
+
+
+.. confval:: amplitudes.MLv.preFilter
+
+   Type: *string*
+
+   The filter applied to raw records before applying
+   Wood\-Anderson simulation. Default: no pre\-filtering.
+
+
+.. confval:: amplitudes.MLv.measureType
+
+   Default: ``AbsMax``
+
+   Type: *string*
+
+   This parameter allows to set how the amplitude is measured.
+   Either by finding the absolute maximum of the demeaned
+   trace \(AbsMax\), the difference of maximum and minimum of
+   the signal window \(MinMax\) or the maximum peak\-trough
+   of one cycle \(PeakTrough\).
+   
+   Note that if absMax is already explicitly configured, this
+   parameter has no effect.
+
 
 .. note::
    **magnitudes.MLv.\***
@@ -4826,16 +7110,29 @@ Configuration
 
 .. confval:: magnitudes.MLv.logA0
 
+   Default: ``0:-1.3,60:-2.8,100:-3.0,400:-4.5,1000:-5.85``
+
    Type: *string*
 
-   Defines the calibration function log10\(A0\) for computing MLv.
-   Format: any number of distance\-value pairs separated by semicolons
-   Example: \"0 \-1.3;60 \-2.8;100 \-3.0;400 \-4.5;1000 \-5.85\" specifies 4 distance intervals from 0...60, 60...100, 100...400 and 400...1000 km distance. Within these intervals log10\(A0\) is interpolated linearly between \-1.3...\-2.8, \-2.8...\-3.0, \-3.0...\-4.5 and \-4.5...\-5.8, respectively
+   The calibration function log10\(A0\).
    
-   Note: The distances of the first and last sample specify the distance range within which MLv shall be computed.
-   Default is ``0 -1.3;60 -2.8;100 -3.0;400 -4.5;1000 -5.85``.
+   Format: any list of distance\-value pairs separated by
+   comma. Values within pairs are separated by colon.
+   
+   Example: \"0:\-1.3,60:\-2.8,100:\-3.0,400:\-4.5,1000:\-5.85\"
+   specifies 4 distance intervals from
+   0...60, 60...100, 100...400 and 400...1000 km distance.
+   Within these intervals log10\(A0\) is interpolated linearly
+   between \-1.3...\-2.8, \-2.8...\-3.0, \-3.0...\-4.5 and \-4.5...\-5.8,
+   respectively.
+   
+   Note: The first and last distance samples limit the
+   maximum distance range for computing MLv.
+
 
 .. confval:: magnitudes.MLv.maxDistanceKm
+
+   Default: ``-1.0``
 
    Type: *double*
 
@@ -4843,7 +7140,52 @@ Configuration
 
    Maximum epicentral distance for computing MLv.
    No distance limitation for maxDistanceKm\=\-1
-   Default is ``-1.0``.
+
+
+.. note::
+   **amplitudes.ML.\***
+   *Parameters for measuring ML amplitudes. Add more parameters*
+   *by adding an amplitude type profile 'ML',*
+
+
+
+.. confval:: amplitudes.ML.preFilter
+
+   Type: *string*
+
+   The filter applied to raw records before applying
+   Wood\-Anderson simulation. Default: no pre\-filtering.
+
+
+.. confval:: amplitudes.ML.measureType
+
+   Default: ``AbsMax``
+
+   Type: *string*
+
+   This parameter allows to set how the amplitude is measured.
+   Either by finding the absolute maximum of the demeaned
+   trace \(AbsMax\), the difference of maximum and minimum of
+   the signal window \(MinMax\) or the maximum peak\-trough
+   of one cycle \(PeakTrough\).
+   
+   Note that if absMax is already explicitly configured, this
+   parameter has no effect.
+
+
+.. confval:: amplitudes.ML.combiner
+
+   Default: ``average``
+
+   Type: *string*
+
+   Defines the combiner operation for the amplitudes measured
+   on either both horizontal component. The default is to
+   use the average. Allowed values are: \"average\",
+   \"min\", \"max\" and \"geometric_mean\".
+   \"geometric_mean\" corresponds to averaging single\-trace
+   magnitudes instead of their amplitudes.
+
 
 .. note::
    **magnitudes.ML.\***
@@ -4853,29 +7195,53 @@ Configuration
 
 .. confval:: magnitudes.ML.logA0
 
+   Default: ``0:-1.3,60:-2.8,100:-3.0,400:-4.5,1000:-5.85``
+
    Type: *string*
 
-   Defines the calibration function log10\(A0\) for computing ML.
-   Format: any number of distance\-value pairs separated by semicolons
-   Example: \"0 \-1.3;60 \-2.8;100 \-3.0,400 \-4.5;1000 \-5.85\" specifies 4 distance intervals from 0...60, 60...100, 100...400 and 400...1000 km distance. Within these intervals log10\(A0\) is interpolated linearly between \-1.3...\-2.8, \-2.8...\-3.0, \-3.0...\-4.5 and \-4.5...\-5.8, respectively
+   The calibration function log10\(A0\).
    
-   Note: The distances of the first and last sample specify the distance range within which ML shall be computed.
-   Default is ``0 -1.3;60 -2.8;100 -3.0;400 -4.5;1000 -5.85``.
+   Format: any list of distance\-value pairs separated by
+   comma. Values within pairs are separated by colon.
+   
+   Example: \"0:\-1.3,60:\-2.8,100:\-3.0,400:\-4.5,1000:\-5.85\"
+   specifies 4 distance intervals from
+   0...60, 60...100, 100...400 and 400...1000 km distance.
+   Within these intervals log10\(A0\) is interpolated linearly
+   between \-1.3...\-2.8, \-2.8...\-3.0, \-3.0...\-4.5 and \-4.5...\-5.8,
+   respectively.
+   
+   Note: The first and last distance samples limit the
+   maximum distance range for computing ML.
+
 
 .. confval:: magnitudes.ML.maxDistanceKm
+
+   Default: ``-1.0``
 
    Type: *double*
 
    Unit: *km*
 
    Maximum epicentral distance for computing ML.
-   No distance limitation for maxDistanceKm\=\-1
-   Default is ``-1.0``.
+   No distance limitation for maxDistanceKm \= \-1.
+
+
+.. confval:: magnitudes.ML(IDC).A
+
+   Type: *path*
+
+   Location of the station specific attenuation table. If not
+   specified then \@DATADIR\@\/magnitudes\/IDC\/global.ml will be
+   used as fallback. {net}, {sta} and {loc} are placeholders
+   which will be replaced with the concrete network code,
+   station code and location code.
 
 
 
-Command-line
-============
+
+Command-Line Options
+====================
 
 .. program:: global
 
@@ -4885,18 +7251,20 @@ Generic
 
 .. option:: -h, --help
 
-   show help message.
+   Show help message.
 
 .. option:: -V, --version
 
-   show version information
+   Show version information.
 
 .. option:: --config-file arg
 
-   Use alternative configuration file. When this option is used
-   the loading of all stages is disabled. Only the given configuration
-   file is parsed and used. To use another name for the configuration
-   create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+   Use alternative configuration file. When this option is
+   used the loading of all stages is disabled. Only the
+   given configuration file is parsed and used. To use
+   another name for the configuration create a symbolic
+   link of the application or copy it. Example:
+   scautopick \-> scautopick2.
 
 .. option:: --plugins arg
 
@@ -4904,26 +7272,28 @@ Generic
 
 .. option:: -D, --daemon
 
-   Run as daemon. This means the application will fork itself and
-   doesn't need to be started with \&.
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
 
 .. option:: --auto-shutdown arg
 
-   Enable\/disable self\-shutdown because a master module shutdown. This only
-   works when messaging is enabled and the master module sends a shutdown
-   message \(enabled with \-\-start\-stop\-msg for the master module\).
+   Enable\/disable self\-shutdown because a master module shutdown.
+   This only works when messaging is enabled and the master
+   module sends a shutdown message \(enabled with \-\-start\-stop\-msg
+   for the master module\).
 
 .. option:: --shutdown-master-module arg
 
-   Sets the name of the master\-module used for auto\-shutdown. This
-   is the application name of the module actually started. If symlinks
-   are used then it is the name of the symlinked application.
+   Set the name of the master\-module used for auto\-shutdown.
+   This is the application name of the module actually
+   started. If symlinks are used, then it is the name of
+   the symlinked application.
 
 .. option:: --shutdown-master-username arg
 
-   Sets the name of the master\-username of the messaging used for
-   auto\-shutdown. If \"shutdown\-master\-module\" is given as well this
-   parameter is ignored.
+   Set the name of the master\-username of the messaging
+   used for auto\-shutdown. If \"shutdown\-master\-module\" is
+   given as well, this parameter is ignored.
 
 
 Verbose
@@ -4931,15 +7301,16 @@ Verbose
 
 .. option:: --verbosity arg
 
-   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
 
 .. option:: -v, --v
 
-   Increase verbosity level \(may be repeated, eg. \-vv\)
+   Increase verbosity level \(may be repeated, eg. \-vv\).
 
 .. option:: -q, --quiet
 
-   Quiet mode: no logging output
+   Quiet mode: no logging output.
 
 .. option:: --print-component arg
 
@@ -4954,11 +7325,13 @@ Verbose
 
 .. option:: --component arg
 
-   Limits the logging to a certain component. This option can be given more than once.
+   Limit the logging to a certain component. This option can
+   be given more than once.
 
 .. option:: -s, --syslog
 
-   Use syslog logging back end. The output usually goes to \/var\/lib\/messages.
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
 
 .. option:: -l, --lockfile arg
 
@@ -4970,11 +7343,14 @@ Verbose
 
 .. option:: --debug
 
-   Debug mode: \-\-verbosity\=4 \-\-console\=1
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
 
 .. option:: --trace
 
-   Trace mode: \-\-verbosity\=4 \-\-console\=1 \-\-print\-component\=1 \-\-print\-context\=1
+   Execute in trace mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 \-\-print\-component\=1
+   \-\-print\-context\=1 .
 
 .. option:: --log-file arg
 
@@ -5002,7 +7378,8 @@ Messaging
 
 .. option:: -S, --subscribe-group arg
 
-   A group to subscribe to. This option can be given more than once.
+   A group to subscribe to.
+   This option can be given more than once.
 
 .. option:: --content-type arg
 
@@ -5010,7 +7387,7 @@ Messaging
 
 .. option:: --start-stop-msg arg
 
-   Sets sending of a start\- and a stop message.
+   Set sending of a start and a stop message.
 
 
 Database
@@ -5022,21 +7399,24 @@ Database
 
 .. option:: -d, --database arg
 
-   The database connection string, format: service:\/\/user:pwd\@host\/database.
-   \"service\" is the name of the database driver which can be
-   queried with \"\-\-db\-driver\-list\".
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
 
 .. option:: --config-module arg
 
-   The configmodule to use.
+   The config module to use.
 
 .. option:: --inventory-db arg
 
-   Load the inventory from the given database or file, format: [service:\/\/]location
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
 
 .. option:: --config-db arg
 
-   Load the configuration from the given database or file, format: [service:\/\/]location
+   Load the configuration from the given database or file,
+   format: [service:\/\/]location .
 
 
 Records
@@ -5044,14 +7424,16 @@ Records
 
 .. option:: --record-driver-list
 
-   List all supported record stream drivers
+   List all supported record stream drivers.
 
 .. option:: -I, --record-url arg
 
-   The recordstream source URL, format: [service:\/\/]location[#type].
-   \"service\" is the name of the recordstream driver which can be
-   queried with \"\-\-record\-driver\-list\". If \"service\"
-   is not given \"file:\/\/\" is used.
+   The recordstream source URL, format:
+   [service:\/\/]location[#type].
+   \"service\" is the name of the recordstream driver
+   which can be queried with \"\-\-record\-driver\-list\".
+   If \"service\" is not given, \"file:\/\/\" is
+   used.
 
 .. option:: --record-file arg
 
@@ -5068,7 +7450,7 @@ Cities
 .. option:: --city-xml arg
 
    The path to the cities XML file. This overrides the default
-   paths. Compare with the global parameter \"citiesXML\"
+   paths. Compare with the global parameter \"citiesXML\".
 
 
 User interface
@@ -5076,10 +7458,11 @@ User interface
 
 .. option:: -F, --full-screen
 
-   Starts the application filling the entire screen. This only works
-   with GUI applications.
+   Start the application filling the entire screen.
+   This only works with GUI applications.
 
 .. option:: -N, --non-interactive
 
-   Use non\-interactive presentation mode. This only works with GUI applications.
+   Use non\-interactive presentation mode. This only works with
+   GUI applications.
 

@@ -16,7 +16,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="caps_plugin" href="caps_plugin.html" />
+    <link rel="next" title="msrtsimul" href="msrtsimul.html" />
     <link rel="prev" title="Acquisition" href="../toc/acquisition.html" /> 
   </head>
   <body>
@@ -25,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -42,7 +42,7 @@
           </a>
         </li>
         <li class="right">
-          <a href="caps_plugin.html" title="caps_plugin"
+          <a href="msrtsimul.html" title="msrtsimul"
              accesskey="N">
             next
           </a>
@@ -74,10 +74,8 @@
   <div class="section" id="access">
 <span id="id1"></span><h1>access<a class="headerlink" href="#access" title="Permalink to this headline">¶</a></h1>
 <p><strong>Access module for FDSNWS.</strong></p>
-<div class="section" id="bindings">
-<h2>Bindings<a class="headerlink" href="#bindings" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="configuration">
-<h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="bindings-parameters">
+<h2>Bindings Parameters<a class="headerlink" href="#bindings-parameters" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>access.*</strong>
@@ -93,9 +91,9 @@
 <dl class="confval">
 <dt id="confval-access.disableStationCode">
 <code class="sig-name descname">access.disableStationCode</code><a class="headerlink" href="#confval-access.disableStationCode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>boolean</em></p>
-<p>When disableStationCode option is set to true the access entries will be generated only for the network level (and optionally stream level), no station code will be filled (this can potentially reduce the number of entries on the access table, and save memory on the request handler when used).
-Default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>When disableStationCode option is set to true the access entries will be generated only for the network level (and optionally stream level), no station code will be filled (this can potentially reduce the number of entries on the access table, and save memory on the request handler when used).</p>
 </dd></dl>
 
 <dl class="confval">
@@ -121,7 +119,6 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
 
 </div>
 </div>
-</div>
 
 
           <div id="anchors-bottom"></div>
@@ -143,10 +140,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
   <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">access</a><ul>
-<li><a class="reference internal" href="#bindings">Bindings</a><ul>
-<li><a class="reference internal" href="#configuration">Configuration</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#bindings-parameters">Bindings Parameters</a></li>
 </ul>
 </li>
 </ul>
@@ -155,8 +149,8 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
   <p class="topless"><a href="../toc/acquisition.html"
                         title="previous chapter">Acquisition</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="caps_plugin.html"
-                        title="next chapter">caps_plugin</a></p>
+  <p class="topless"><a href="msrtsimul.html"
+                        title="next chapter">msrtsimul</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -176,7 +170,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">false</s
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

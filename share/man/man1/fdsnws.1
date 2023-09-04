@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "FDSNWS" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "FDSNWS" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 fdsnws \- SeisComP Documentation
 .
@@ -31,7 +31,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
 .sp
-\fBProvides FDSN Web Services\fP
+\fBProvide FDSN Web Services.\fP
 .SH DESCRIPTION
 .sp
 fdsnws is a server that provides event and station information by FDSN Web Services
@@ -39,7 +39,7 @@ fdsnws is a server that provides event and station information by FDSN Web Servi
 from a SeisComP database and waveforms from a global_recordstream source.
 Also it may be configured to serve data
 availability information as described in the IRIS DMC FDSNWS availability Web
-Service Documentation ().
+Service Documentation (iris\-dmc).
 .sp
 \fBCAUTION:\fP
 .INDENT 0.0
@@ -164,7 +164,7 @@ sysop@host:~$ curl \-X POST \-\-data\-binary @request.txt "http://localhost:8080
 .sp
 where \fIrequest.txt\fP contains the POST message body. For details read the
 FDSN specifications.
-.SS Feature notes
+.SS Feature Notes
 .INDENT 0.0
 .IP \(bu 2
 \fBquality\fP parameter not implemented (information not available in SeisComP)
@@ -173,13 +173,23 @@ FDSN specifications.
 .IP \(bu 2
 \fBlongestonly\fP parameter is not implemented
 .IP \(bu 2
-Access to drestricted networks and stations is only granted through the
+Access to restricted networks and stations is only granted through the
 \fBqueryauth\fP method
-.UNINDENT
-.sp
-The data channels exposed by this service may be restrict by defining an
+.IP \(bu 2
+The data channels exposed by this service may be restricted by defining an
 inventory filter, see section \fI\%Filtering Inventories\fP\&.
-.SS Service configuration
+.IP \(bu 2
+\fBNo\fP trimming of miniSEED records to requested time window \-\- This FDSNWS
+implementation returns the records as available in its data source, e.g., SDS
+archive. It is guaranteed that the requested time range is within the returned
+data (if available in the archive) but not that it is exactly the requested
+time range. FDSNWS does not trim and therefore re\-encode miniSEED records. The
+rationale for that is that miniSEED records are probably further distributed
+and stored in other archives and we do not see the point in modifying them.
+Furthermore we do not want to increase the load on the web server with that
+extra processing step.
+.UNINDENT
+.SS Service Configuration
 .INDENT 0.0
 .IP \(bu 2
 Activate \fI\%serveDataSelect\fP in the module configuration
@@ -234,7 +244,7 @@ Request URL for querying the information for the GE network on response level:
 .sp
 \fI\%http://localhost:8080/fdsnws/station/1/query?net=GE&cha=BH%3F&level=response&nodata=404\fP
 .UNINDENT
-.SS Feature notes
+.SS Feature Notes
 .INDENT 0.0
 .IP \(bu 2
 To enable FDSNXML or StationXML support load the plugin \fBfdsnxml\fP\&. The
@@ -349,7 +359,7 @@ fetched by fdsnws.
 .sp
 The availability service is no official standard yet. This implementation aims
 to be compatible with the IRIS DMC availability FDSN Web Service
-() implementation.
+(iris\-dmc) implementation.
 .INDENT 0.0
 .IP \(bu 2
 request type: HTTP\-GET, HTTP\-POST
@@ -713,7 +723,7 @@ sysop@host:~$ echo "auth.enable = true" >> ~/seiscomp/etc/fdsnws.cfg
 .UNINDENT
 .UNINDENT
 .UNINDENT
-.SS Usage example
+.SS Usage Example
 .sp
 A client like \fI\%fdsnws_fetch\fP is recommended, but also tools like wget and
 curl can be used. As an example, let\(aqs request data from the restricted
@@ -894,9 +904,9 @@ SDS archive.
 .UNINDENT
 .SH PUBLIC FDSN WEB SERVERS
 .sp
-IRIS maintains a list of data centers ()
+IRIS maintains a list of data centers (fdsn\-datacenters)
 supporting FDSN Web Services (fdsn).
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/fdsnws.cfg\fP
@@ -911,39 +921,43 @@ fdsnws inherits global options\&.
 .INDENT 0.0
 .TP
 .B listenAddress
+Default: \fB0.0.0.0\fP
+.sp
 Type: \fIIP\fP
 .sp
-Defines the bind address of the server. "0.0.0.0" allows
+Define the bind address of the server. "0.0.0.0" allows
 any interface to connect to this server whereas "127.0.0.0"
 only allows connections from localhost.
-Default is \fB0.0.0.0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B port
+Default: \fB8080\fP
+.sp
 Type: \fIint\fP
 .sp
 Server port to listen for incoming requests. Note: The FDSN Web
 service specification defines the service port 80. Please refer
 to the documentation on how to serve on privileged ports.
-Default is \fB8080\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B connections
+Default: \fB5\fP
+.sp
 Type: \fIint\fP
 .sp
 Number of maximum simultaneous requests.
-Default is \fB5\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B queryObjects
+Default: \fB10000\fP
+.sp
 Type: \fIint\fP
 .sp
 Maximum number of objects per query, used in fdsnws\-station and
 fdsnws\-event to limit main memory consumption.
-Default is \fB10000\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -952,7 +966,7 @@ Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
-Restricts end time of requests to current time \- realtimeGap
+Restrict end time of requests to current time \- realtimeGap
 seconds. Negative values allowed. Used in fdsnws\-dataselect.
 WARNING: If this value is unset and a realtime recordsource
 (e.g. slink) is used, requests may block if end time in future
@@ -970,6 +984,8 @@ connection with a large request.
 .INDENT 0.0
 .TP
 .B recordBulkSize
+Default: \fB102400\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIbytes\fP
@@ -978,18 +994,18 @@ Set the number of bytes to buffer for each chunk of waveform data
 served to the client. The lower the buffer the higher the overhead
 of Python Twisted. The higher the buffer the higher the memory
 usage per request. 100kB seems to be a good trade\-off.
-Default is \fB102400\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B htpasswd
+Default: \fB@CONFIGDIR@/fdsnws.htpasswd\fP
+.sp
 Type: \fIstring\fP
 .sp
 Path to password file used in fdsnws\-dataselect/queryauth. The
 format is \(aqusername:password\(aq separated by lines. Because of the
 HTTP digest authentication method required by the FDSN
 specification, the passwords have to be stored in plain text.
-Default is \fB@CONFIGDIR@/fdsnws.htpasswd\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1015,6 +1031,8 @@ Secret salt for calculating userID.
 .INDENT 0.0
 .TP
 .B corsOrigins
+Default: \fB*\fP
+.sp
 Type: \fIlist:string:\fP
 .sp
 List of domain names Cross\-Origin Resource Sharing (CORS)
@@ -1022,98 +1040,108 @@ request may originate from. A value of \(aq*\(aq allows any web page
 to embed your service. An empty value will switch of CORS
 requests entirely. An example of multiple domains might be:
 \(aq\fI\%https://test.domain.de\fP, \fI\%https://production.domain.de\fP\(aq.
-Default is \fB*\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B allowRestricted
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
-Enables/disables access to restricted inventory data.
-Default is \fBtrue\fP\&.
+Enable/disable access to restricted inventory data.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B handleConditionalRequests
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
-Enables/disables handling of time\-based conditional requests (RFC
+Enable/disable handling of time\-based conditional requests (RFC
 7232) by the fdsnws\-station resource.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B useArclinkAccess
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
-If enabled, then access to restricted waveform data is controlled
-by arclink\-access bindings. By default authenticated users have
-access to all data.
-Default is \fBfalse\fP\&.
+If enabled, then access to restricted waveform data is
+controlled by arclink\-access bindings. By default authenticated
+users have access to all data.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B hideAuthor
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
-If enabled author information is removed from any event creationInfo element.
-Default is \fBfalse\fP\&.
+If enabled, author information is removed from any event
+creationInfo element.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B hideComments
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
-If enabled event comment elements are no longer accessible.
-Default is \fBfalse\fP\&.
+If enabled, event comment elements are no longer accessible.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B evaluationMode
 Type: \fIstring\fP
 .sp
-If set the event service will only return events having a preferred origin with a matching evaluationMode property.
+If set, the event service will only return events having a
+preferred origin with a matching evaluationMode property.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventFormats
 Type: \fIlist:string\fP
 .sp
-List of enabled event formats. If unspecified all supported
+List of enabled event formats. If unspecified, all supported
 formats are enabled.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B serveDataSelect
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
-Enables/disables the DataSelect service.
-Default is \fBtrue\fP\&.
+Enable/disable the DataSelect service.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B serveEvent
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
-Enables/disables the Event service.
-Default is \fBtrue\fP\&.
+Enable/disable the Event service.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B serveStation
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
-Enables/disables the Station service.
-Default is \fBtrue\fP\&.
+Enable/disable the Station service.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B serveAvailability
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
-Enables/disables the Availability service. Note: This is a non
+Enable/disable the Availability service. Note: This is a non
 standard FDSNWS extension served under fdsnws/ext/availability.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1132,20 +1160,23 @@ Path to dataselect inventory filter file.
 .INDENT 0.0
 .TP
 .B debugFilter
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
-If enabled a debug line is written for each stream ID explaining
+If enabled, a debug line is written for each stream ID explaining
 why a stream was added/removed by a inventory filter.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B fileNamePrefix
+Default: \fBfdsnws\fP
+.sp
 Type: \fIstring\fP
 .sp
-Defines the prefix for the default filenames if downloading and saving data from within a browser.
+Define the prefix for the default filenames if downloading and
+saving data from within a browser.
 For data loaded using dataselect, it is thus fdsnws.mseed by default.
-Default is \fBfdsnws\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1167,7 +1198,7 @@ List of disabled event types
 .INDENT 3.5
 \fBdataAvailability.*\fP
 \fIProvide access to waveform data availability information stored\fP
-\fIin the SeisComP database. In case of a SDS archive this\fP
+\fIin the SeisComP database. In case of a SDS archive, this\fP
 \fIinformation may be collected by scardac (SeisComP archive\fP
 \fIdata availability collector).\fP
 .UNINDENT
@@ -1175,72 +1206,82 @@ List of disabled event types
 .INDENT 0.0
 .TP
 .B dataAvailability.enable
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enable loading of data availabilty information from
 SeisComP database. Availability information is used by
 station and ext/availability service.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B dataAvailability.cacheDuration
+Default: \fB300\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
 Number of seconds data availabilty information is considered
-valid. If the duration time is exeeded the information is
+valid. If the duration time is exceeded, the information is
 fetched again from the database.
-Default is \fB300\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B dataAvailability.dccName
+Default: \fBDCC\fP
+.sp
 Type: \fIstring\fP
 .sp
-Name of the archive use in sync format of dataavailability extent service
-Default is \fBDCC\fP\&.
+Name of the archive use in sync format of dataavailability
+extent service.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B dataAvailability.repositoryName
+Default: \fBprimary\fP
+.sp
 Type: \fIstring\fP
 .sp
-Name of the archive use in some format of dataavailability extent service
-Default is \fBprimary\fP\&.
+Name of the archive use in some format of data availability
+extent service.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B trackdb.enable
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Save request log to database.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B trackdb.defaultUser
+Default: \fBfdsnws\fP
+.sp
 Type: \fIstring\fP
 .sp
 Default user.
-Default is \fBfdsnws\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B auth.enable
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Enable auth extension.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B auth.gnupgHome
+Default: \fB@ROOTDIR@/var/lib/gpg\fP
+.sp
 Type: \fIstring\fP
 .sp
 GnuPG home directory.
-Default is \fB@ROOTDIR@/var/lib/gpg\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1249,25 +1290,29 @@ Type: \fIlist:string\fP
 .sp
 List of revoked token IDs.
 .UNINDENT
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
+.sp
+\fBfdsnws [options]\fP
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1277,55 +1322,60 @@ Load given plugins.
 .INDENT 0.0
 .TP
 .B \-D, \-\-daemon
-Run as daemon. This means the application will fork itself and
-doesn\(aqt need to be started with &.
+Run as daemon. This means the application will fork itself
+and doesn\(aqt need to be started with &.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-auto\-shutdown arg
-Enable/disable self\-shutdown because a master module shutdown. This only
-works when messaging is enabled and the master module sends a shutdown
-message (enabled with \-\-start\-stop\-msg for the master module).
+Enable/disable self\-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with \-\-start\-stop\-msg
+for the master module).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-module arg
-Sets the name of the master\-module used for auto\-shutdown. This
-is the application name of the module actually started. If symlinks
-are used then it is the name of the symlinked application.
+Set the name of the master\-module used for auto\-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-username arg
-Sets the name of the master\-username of the messaging used for
-auto\-shutdown. If "shutdown\-master\-module" is given as well this
-parameter is ignored.
+Set the name of the master\-username of the messaging
+used for auto\-shutdown. If "shutdown\-master\-module" is
+given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1340,7 +1390,8 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1356,19 +1407,21 @@ List all supported database drivers.
 .INDENT 0.0
 .TP
 .B \-d, \-\-database arg
-The database connection string, format: \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which can be
-queried with "\-\-db\-driver\-list".
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+"service" is the name of the database driver which
+can be queried with "\-\-db\-driver\-list".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-module arg
-The configmodule to use.
+The config module to use.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-inventory\-db arg
-Load the inventory from the given database or file, format: [\fI\%service://]location\fP
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1379,15 +1432,17 @@ Do not use the database at all
 .INDENT 0.0
 .TP
 .B \-\-record\-driver\-list
-List all supported record stream drivers
+List all supported record stream drivers.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-I, \-\-record\-url arg
-The recordstream source URL, format: [\fI\%service://\fP]location[#type].
-"service" is the name of the recordstream driver which can be
-queried with "\-\-record\-driver\-list". If "service"
-is not given "\fI\%file://\fP" is used.
+The recordstream source URL, format:
+[\fI\%service://\fP]location[#type].
+"service" is the name of the recordstream driver
+which can be queried with "\-\-record\-driver\-list".
+If "service" is not given, "\fI\%file://\fP" is
+used.
 .UNINDENT
 .INDENT 0.0
 .TP

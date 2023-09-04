@@ -29,7 +29,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_OriginLocaterView
+class Ui_OriginLocatorView
 {
 public:
     QVBoxLayout *vboxLayout;
@@ -97,57 +97,57 @@ public:
     QTableView *tableArrivals;
     QFrame *toolButtonGroupBox;
     QGridLayout *gridLayout1;
-    QFrame *frameFixDepth;
+    QFrame *frameDepthType;
     QHBoxLayout *hboxLayout2;
+    QComboBox *cbDepthType;
+    QFrame *frameActionsLeft;
+    QHBoxLayout *hboxLayout3;
+    QToolButton *btnRelocate;
+    QToolButton *btnCustom0;
+    QToolButton *btnCustom1;
+    QSpacerItem *spacerItem2;
+    QFrame *frameLocator;
+    QHBoxLayout *hboxLayout4;
+    QComboBox *cbLocator;
+    QToolButton *btnLocatorSettings;
+    QSpacerItem *spacerItem3;
+    QLabel *label_2;
+    QComboBox *cbLocatorProfile;
+    QSpacerItem *spacerItem4;
+    QFrame *frameFixDepth;
+    QHBoxLayout *hboxLayout5;
     QCheckBox *cbFixedDepth;
     QLineEdit *editFixedDepth;
     QLabel *label_3;
-    QSpacerItem *spacerItem2;
+    QSpacerItem *spacerItem5;
     QFrame *frame;
-    QHBoxLayout *hboxLayout3;
+    QHBoxLayout *hboxLayout6;
     QCheckBox *cbDistanceCutOff;
     QLineEdit *editDistanceCutOff;
     QLabel *label;
-    QSpacerItem *spacerItem3;
+    QSpacerItem *spacerItem6;
     QCheckBox *cbIgnoreInitialLocation;
-    QSpacerItem *spacerItem4;
+    QSpacerItem *spacerItem7;
     QToolButton *buttonEditComment;
     QFrame *frameActionsRight;
-    QHBoxLayout *hboxLayout4;
-    QSpacerItem *spacerItem5;
+    QHBoxLayout *hboxLayout7;
+    QSpacerItem *spacerItem8;
     QToolButton *btnShowWaveforms;
     QToolButton *btnImportAllArrivals;
     QToolButton *btnMagnitudes;
     QToolButton *btnCommit;
-    QFrame *frameDepthType;
-    QHBoxLayout *hboxLayout5;
-    QComboBox *cbDepthType;
-    QFrame *frameActionsLeft;
-    QHBoxLayout *hboxLayout6;
-    QToolButton *btnRelocate;
-    QToolButton *btnCustom0;
-    QToolButton *btnCustom1;
-    QSpacerItem *spacerItem6;
-    QFrame *frameLocator;
-    QHBoxLayout *hboxLayout7;
-    QComboBox *cbLocator;
-    QToolButton *btnLocatorSettings;
-    QSpacerItem *spacerItem7;
-    QLabel *label_2;
-    QComboBox *cbLocatorProfile;
-    QSpacerItem *spacerItem8;
 
-    void setupUi(QWidget *OriginLocaterView)
+    void setupUi(QWidget *OriginLocatorView)
     {
-        if (OriginLocaterView->objectName().isEmpty())
-            OriginLocaterView->setObjectName(QString::fromUtf8("OriginLocaterView"));
-        OriginLocaterView->resize(1071, 869);
+        if (OriginLocatorView->objectName().isEmpty())
+            OriginLocatorView->setObjectName(QString::fromUtf8("OriginLocatorView"));
+        OriginLocatorView->resize(1734, 1127);
         QSizePolicy sizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5));
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(OriginLocaterView->sizePolicy().hasHeightForWidth());
-        OriginLocaterView->setSizePolicy(sizePolicy);
-        vboxLayout = new QVBoxLayout(OriginLocaterView);
+        sizePolicy.setHeightForWidth(OriginLocatorView->sizePolicy().hasHeightForWidth());
+        OriginLocatorView->setSizePolicy(sizePolicy);
+        vboxLayout = new QVBoxLayout(OriginLocatorView);
         vboxLayout->setSpacing(6);
         vboxLayout->setContentsMargins(0, 0, 0, 0);
         vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
@@ -155,7 +155,7 @@ public:
         hboxLayout->setSpacing(6);
         hboxLayout->setContentsMargins(0, 0, 0, 0);
         hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
-        groupSummary = new QFrame(OriginLocaterView);
+        groupSummary = new QFrame(OriginLocatorView);
         groupSummary->setObjectName(QString::fromUtf8("groupSummary"));
         QSizePolicy sizePolicy1(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5));
         sizePolicy1.setHorizontalStretch(2);
@@ -258,7 +258,7 @@ public:
 
         hboxLayout->addWidget(groupSummary);
 
-        groupBox = new QFrame(OriginLocaterView);
+        groupBox = new QFrame(OriginLocatorView);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
         QSizePolicy sizePolicy4(static_cast<QSizePolicy::Policy>(4), static_cast<QSizePolicy::Policy>(5));
         sizePolicy4.setHorizontalStretch(1);
@@ -556,7 +556,7 @@ public:
 
         hboxLayout->addWidget(groupBox);
 
-        groupResiduals = new QFrame(OriginLocaterView);
+        groupResiduals = new QFrame(OriginLocatorView);
         groupResiduals->setObjectName(QString::fromUtf8("groupResiduals"));
         sizePolicy1.setHeightForWidth(groupResiduals->sizePolicy().hasHeightForWidth());
         groupResiduals->setSizePolicy(sizePolicy1);
@@ -599,7 +599,7 @@ public:
 
         vboxLayout->addLayout(hboxLayout);
 
-        tableArrivals = new QTableView(OriginLocaterView);
+        tableArrivals = new QTableView(OriginLocatorView);
         tableArrivals->setObjectName(QString::fromUtf8("tableArrivals"));
         tableArrivals->setFrameShape(QFrame::NoFrame);
         tableArrivals->setFrameShadow(QFrame::Plain);
@@ -610,7 +610,7 @@ public:
 
         vboxLayout->addWidget(tableArrivals);
 
-        toolButtonGroupBox = new QFrame(OriginLocaterView);
+        toolButtonGroupBox = new QFrame(OriginLocatorView);
         toolButtonGroupBox->setObjectName(QString::fromUtf8("toolButtonGroupBox"));
         sizePolicy6.setHeightForWidth(toolButtonGroupBox->sizePolicy().hasHeightForWidth());
         toolButtonGroupBox->setSizePolicy(sizePolicy6);
@@ -619,158 +619,19 @@ public:
         gridLayout1->setSpacing(6);
         gridLayout1->setContentsMargins(0, 0, 0, 0);
         gridLayout1->setObjectName(QString::fromUtf8("gridLayout1"));
-        frameFixDepth = new QFrame(toolButtonGroupBox);
-        frameFixDepth->setObjectName(QString::fromUtf8("frameFixDepth"));
-        frameFixDepth->setFrameShape(QFrame::NoFrame);
-        frameFixDepth->setFrameShadow(QFrame::Raised);
-        hboxLayout2 = new QHBoxLayout(frameFixDepth);
-        hboxLayout2->setSpacing(6);
-        hboxLayout2->setContentsMargins(0, 0, 0, 0);
-        hboxLayout2->setObjectName(QString::fromUtf8("hboxLayout2"));
-        cbFixedDepth = new QCheckBox(frameFixDepth);
-        cbFixedDepth->setObjectName(QString::fromUtf8("cbFixedDepth"));
-
-        hboxLayout2->addWidget(cbFixedDepth);
-
-        editFixedDepth = new QLineEdit(frameFixDepth);
-        editFixedDepth->setObjectName(QString::fromUtf8("editFixedDepth"));
-        editFixedDepth->setEnabled(false);
-        QSizePolicy sizePolicy7(static_cast<QSizePolicy::Policy>(7), static_cast<QSizePolicy::Policy>(0));
-        sizePolicy7.setHorizontalStretch(0);
-        sizePolicy7.setVerticalStretch(0);
-        sizePolicy7.setHeightForWidth(editFixedDepth->sizePolicy().hasHeightForWidth());
-        editFixedDepth->setSizePolicy(sizePolicy7);
-        editFixedDepth->setMinimumSize(QSize(60, 0));
-        editFixedDepth->setMaximumSize(QSize(60, 16777215));
-        editFixedDepth->setAlignment(Qt::AlignRight);
-
-        hboxLayout2->addWidget(editFixedDepth);
-
-        label_3 = new QLabel(frameFixDepth);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-
-        hboxLayout2->addWidget(label_3);
-
-        spacerItem2 = new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        hboxLayout2->addItem(spacerItem2);
-
-
-        gridLayout1->addWidget(frameFixDepth, 0, 1, 1, 1);
-
-        frame = new QFrame(toolButtonGroupBox);
-        frame->setObjectName(QString::fromUtf8("frame"));
-        QSizePolicy sizePolicy8(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5));
-        sizePolicy8.setHorizontalStretch(1);
-        sizePolicy8.setVerticalStretch(0);
-        sizePolicy8.setHeightForWidth(frame->sizePolicy().hasHeightForWidth());
-        frame->setSizePolicy(sizePolicy8);
-        frame->setFrameShape(QFrame::NoFrame);
-        frame->setFrameShadow(QFrame::Raised);
-        hboxLayout3 = new QHBoxLayout(frame);
-        hboxLayout3->setSpacing(6);
-        hboxLayout3->setContentsMargins(0, 0, 0, 0);
-        hboxLayout3->setObjectName(QString::fromUtf8("hboxLayout3"));
-        cbDistanceCutOff = new QCheckBox(frame);
-        cbDistanceCutOff->setObjectName(QString::fromUtf8("cbDistanceCutOff"));
-
-        hboxLayout3->addWidget(cbDistanceCutOff);
-
-        editDistanceCutOff = new QLineEdit(frame);
-        editDistanceCutOff->setObjectName(QString::fromUtf8("editDistanceCutOff"));
-        editDistanceCutOff->setEnabled(false);
-        editDistanceCutOff->setMinimumSize(QSize(60, 0));
-        editDistanceCutOff->setMaximumSize(QSize(60, 16777215));
-        editDistanceCutOff->setAlignment(Qt::AlignRight);
-
-        hboxLayout3->addWidget(editDistanceCutOff);
-
-        label = new QLabel(frame);
-        label->setObjectName(QString::fromUtf8("label"));
-
-        hboxLayout3->addWidget(label);
-
-        spacerItem3 = new QSpacerItem(20, 27, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        hboxLayout3->addItem(spacerItem3);
-
-        cbIgnoreInitialLocation = new QCheckBox(frame);
-        cbIgnoreInitialLocation->setObjectName(QString::fromUtf8("cbIgnoreInitialLocation"));
-
-        hboxLayout3->addWidget(cbIgnoreInitialLocation);
-
-        spacerItem4 = new QSpacerItem(120, 27, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        hboxLayout3->addItem(spacerItem4);
-
-        buttonEditComment = new QToolButton(frame);
-        buttonEditComment->setObjectName(QString::fromUtf8("buttonEditComment"));
-        buttonEditComment->setEnabled(false);
-        buttonEditComment->setMaximumSize(QSize(25, 25));
-        const QIcon icon = QIcon(QString::fromUtf8(":/icons/icons/comment.png"));
-        buttonEditComment->setIcon(icon);
-        buttonEditComment->setIconSize(QSize(24, 24));
-        buttonEditComment->setAutoRaise(true);
-
-        hboxLayout3->addWidget(buttonEditComment);
-
-
-        gridLayout1->addWidget(frame, 0, 2, 1, 1);
-
-        frameActionsRight = new QFrame(toolButtonGroupBox);
-        frameActionsRight->setObjectName(QString::fromUtf8("frameActionsRight"));
-        sizePolicy8.setHeightForWidth(frameActionsRight->sizePolicy().hasHeightForWidth());
-        frameActionsRight->setSizePolicy(sizePolicy8);
-        frameActionsRight->setFrameShape(QFrame::NoFrame);
-        frameActionsRight->setFrameShadow(QFrame::Raised);
-        hboxLayout4 = new QHBoxLayout(frameActionsRight);
-        hboxLayout4->setSpacing(6);
-        hboxLayout4->setContentsMargins(0, 0, 0, 0);
-        hboxLayout4->setObjectName(QString::fromUtf8("hboxLayout4"));
-        spacerItem5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        hboxLayout4->addItem(spacerItem5);
-
-        btnShowWaveforms = new QToolButton(frameActionsRight);
-        btnShowWaveforms->setObjectName(QString::fromUtf8("btnShowWaveforms"));
-        btnShowWaveforms->setEnabled(false);
-
-        hboxLayout4->addWidget(btnShowWaveforms);
-
-        btnImportAllArrivals = new QToolButton(frameActionsRight);
-        btnImportAllArrivals->setObjectName(QString::fromUtf8("btnImportAllArrivals"));
-        btnImportAllArrivals->setEnabled(false);
-
-        hboxLayout4->addWidget(btnImportAllArrivals);
-
-        btnMagnitudes = new QToolButton(frameActionsRight);
-        btnMagnitudes->setObjectName(QString::fromUtf8("btnMagnitudes"));
-        btnMagnitudes->setEnabled(false);
-
-        hboxLayout4->addWidget(btnMagnitudes);
-
-        btnCommit = new QToolButton(frameActionsRight);
-        btnCommit->setObjectName(QString::fromUtf8("btnCommit"));
-        btnCommit->setEnabled(false);
-
-        hboxLayout4->addWidget(btnCommit);
-
-
-        gridLayout1->addWidget(frameActionsRight, 1, 2, 1, 1);
-
         frameDepthType = new QFrame(toolButtonGroupBox);
         frameDepthType->setObjectName(QString::fromUtf8("frameDepthType"));
         frameDepthType->setFrameShape(QFrame::NoFrame);
         frameDepthType->setFrameShadow(QFrame::Raised);
-        hboxLayout5 = new QHBoxLayout(frameDepthType);
-        hboxLayout5->setSpacing(6);
-        hboxLayout5->setContentsMargins(0, 0, 0, 0);
-        hboxLayout5->setObjectName(QString::fromUtf8("hboxLayout5"));
+        hboxLayout2 = new QHBoxLayout(frameDepthType);
+        hboxLayout2->setSpacing(6);
+        hboxLayout2->setContentsMargins(0, 0, 0, 0);
+        hboxLayout2->setObjectName(QString::fromUtf8("hboxLayout2"));
         cbDepthType = new QComboBox(frameDepthType);
         cbDepthType->setObjectName(QString::fromUtf8("cbDepthType"));
         cbDepthType->setEnabled(false);
 
-        hboxLayout5->addWidget(cbDepthType);
+        hboxLayout2->addWidget(cbDepthType);
 
 
         gridLayout1->addWidget(frameDepthType, 1, 1, 1, 1);
@@ -781,31 +642,31 @@ public:
         frameActionsLeft->setSizePolicy(sizePolicy);
         frameActionsLeft->setFrameShape(QFrame::NoFrame);
         frameActionsLeft->setFrameShadow(QFrame::Raised);
-        hboxLayout6 = new QHBoxLayout(frameActionsLeft);
-        hboxLayout6->setSpacing(6);
-        hboxLayout6->setContentsMargins(0, 0, 0, 0);
-        hboxLayout6->setObjectName(QString::fromUtf8("hboxLayout6"));
+        hboxLayout3 = new QHBoxLayout(frameActionsLeft);
+        hboxLayout3->setSpacing(6);
+        hboxLayout3->setContentsMargins(0, 0, 0, 0);
+        hboxLayout3->setObjectName(QString::fromUtf8("hboxLayout3"));
         btnRelocate = new QToolButton(frameActionsLeft);
         btnRelocate->setObjectName(QString::fromUtf8("btnRelocate"));
         btnRelocate->setEnabled(false);
 
-        hboxLayout6->addWidget(btnRelocate);
+        hboxLayout3->addWidget(btnRelocate);
 
         btnCustom0 = new QToolButton(frameActionsLeft);
         btnCustom0->setObjectName(QString::fromUtf8("btnCustom0"));
         btnCustom0->setEnabled(false);
 
-        hboxLayout6->addWidget(btnCustom0);
+        hboxLayout3->addWidget(btnCustom0);
 
         btnCustom1 = new QToolButton(frameActionsLeft);
         btnCustom1->setObjectName(QString::fromUtf8("btnCustom1"));
         btnCustom1->setEnabled(false);
 
-        hboxLayout6->addWidget(btnCustom1);
+        hboxLayout3->addWidget(btnCustom1);
 
-        spacerItem6 = new QSpacerItem(31, 24, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        spacerItem2 = new QSpacerItem(31, 24, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        hboxLayout6->addItem(spacerItem6);
+        hboxLayout3->addItem(spacerItem2);
 
 
         gridLayout1->addWidget(frameActionsLeft, 1, 0, 1, 1);
@@ -816,47 +677,195 @@ public:
         frameLocator->setSizePolicy(sizePolicy);
         frameLocator->setFrameShape(QFrame::NoFrame);
         frameLocator->setFrameShadow(QFrame::Raised);
-        hboxLayout7 = new QHBoxLayout(frameLocator);
-        hboxLayout7->setSpacing(6);
-        hboxLayout7->setContentsMargins(0, 0, 0, 0);
-        hboxLayout7->setObjectName(QString::fromUtf8("hboxLayout7"));
+        hboxLayout4 = new QHBoxLayout(frameLocator);
+        hboxLayout4->setSpacing(6);
+        hboxLayout4->setContentsMargins(0, 0, 0, 0);
+        hboxLayout4->setObjectName(QString::fromUtf8("hboxLayout4"));
         cbLocator = new QComboBox(frameLocator);
         cbLocator->setObjectName(QString::fromUtf8("cbLocator"));
         cbLocator->setEnabled(false);
 
-        hboxLayout7->addWidget(cbLocator);
+        hboxLayout4->addWidget(cbLocator);
 
         btnLocatorSettings = new QToolButton(frameLocator);
         btnLocatorSettings->setObjectName(QString::fromUtf8("btnLocatorSettings"));
         btnLocatorSettings->setEnabled(false);
-        const QIcon icon1 = QIcon(QString::fromUtf8(":/icons/icons/configure.png"));
-        btnLocatorSettings->setIcon(icon1);
+        const QIcon icon = QIcon(QString::fromUtf8(":/icons/icons/configure.png"));
+        btnLocatorSettings->setIcon(icon);
         btnLocatorSettings->setAutoRaise(true);
 
-        hboxLayout7->addWidget(btnLocatorSettings);
+        hboxLayout4->addWidget(btnLocatorSettings);
 
-        spacerItem7 = new QSpacerItem(20, 27, QSizePolicy::Fixed, QSizePolicy::Minimum);
+        spacerItem3 = new QSpacerItem(20, 27, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
-        hboxLayout7->addItem(spacerItem7);
+        hboxLayout4->addItem(spacerItem3);
 
         label_2 = new QLabel(frameLocator);
         label_2->setObjectName(QString::fromUtf8("label_2"));
 
-        hboxLayout7->addWidget(label_2);
+        hboxLayout4->addWidget(label_2);
 
         cbLocatorProfile = new QComboBox(frameLocator);
         cbLocatorProfile->setObjectName(QString::fromUtf8("cbLocatorProfile"));
         cbLocatorProfile->setEnabled(false);
         cbLocatorProfile->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
-        hboxLayout7->addWidget(cbLocatorProfile);
+        hboxLayout4->addWidget(cbLocatorProfile);
 
-        spacerItem8 = new QSpacerItem(20, 27, QSizePolicy::Fixed, QSizePolicy::Minimum);
+        spacerItem4 = new QSpacerItem(20, 27, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
-        hboxLayout7->addItem(spacerItem8);
+        hboxLayout4->addItem(spacerItem4);
 
 
         gridLayout1->addWidget(frameLocator, 0, 0, 1, 1);
+
+        frameFixDepth = new QFrame(toolButtonGroupBox);
+        frameFixDepth->setObjectName(QString::fromUtf8("frameFixDepth"));
+        frameFixDepth->setFrameShape(QFrame::NoFrame);
+        frameFixDepth->setFrameShadow(QFrame::Raised);
+        hboxLayout5 = new QHBoxLayout(frameFixDepth);
+        hboxLayout5->setSpacing(6);
+        hboxLayout5->setContentsMargins(0, 0, 0, 0);
+        hboxLayout5->setObjectName(QString::fromUtf8("hboxLayout5"));
+        cbFixedDepth = new QCheckBox(frameFixDepth);
+        cbFixedDepth->setObjectName(QString::fromUtf8("cbFixedDepth"));
+        QSizePolicy sizePolicy7(static_cast<QSizePolicy::Policy>(4), static_cast<QSizePolicy::Policy>(0));
+        sizePolicy7.setHorizontalStretch(0);
+        sizePolicy7.setVerticalStretch(0);
+        sizePolicy7.setHeightForWidth(cbFixedDepth->sizePolicy().hasHeightForWidth());
+        cbFixedDepth->setSizePolicy(sizePolicy7);
+
+        hboxLayout5->addWidget(cbFixedDepth);
+
+        editFixedDepth = new QLineEdit(frameFixDepth);
+        editFixedDepth->setObjectName(QString::fromUtf8("editFixedDepth"));
+        editFixedDepth->setEnabled(false);
+        QSizePolicy sizePolicy8(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(0));
+        sizePolicy8.setHorizontalStretch(0);
+        sizePolicy8.setVerticalStretch(0);
+        sizePolicy8.setHeightForWidth(editFixedDepth->sizePolicy().hasHeightForWidth());
+        editFixedDepth->setSizePolicy(sizePolicy8);
+        editFixedDepth->setMinimumSize(QSize(60, 0));
+        editFixedDepth->setAlignment(Qt::AlignRight);
+
+        hboxLayout5->addWidget(editFixedDepth);
+
+        label_3 = new QLabel(frameFixDepth);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+        QSizePolicy sizePolicy9(static_cast<QSizePolicy::Policy>(4), static_cast<QSizePolicy::Policy>(5));
+        sizePolicy9.setHorizontalStretch(0);
+        sizePolicy9.setVerticalStretch(0);
+        sizePolicy9.setHeightForWidth(label_3->sizePolicy().hasHeightForWidth());
+        label_3->setSizePolicy(sizePolicy9);
+
+        hboxLayout5->addWidget(label_3);
+
+        spacerItem5 = new QSpacerItem(20, 20, QSizePolicy::Maximum, QSizePolicy::Minimum);
+
+        hboxLayout5->addItem(spacerItem5);
+
+
+        gridLayout1->addWidget(frameFixDepth, 0, 1, 1, 1);
+
+        frame = new QFrame(toolButtonGroupBox);
+        frame->setObjectName(QString::fromUtf8("frame"));
+        QSizePolicy sizePolicy10(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5));
+        sizePolicy10.setHorizontalStretch(1);
+        sizePolicy10.setVerticalStretch(0);
+        sizePolicy10.setHeightForWidth(frame->sizePolicy().hasHeightForWidth());
+        frame->setSizePolicy(sizePolicy10);
+        frame->setFrameShape(QFrame::NoFrame);
+        frame->setFrameShadow(QFrame::Raised);
+        hboxLayout6 = new QHBoxLayout(frame);
+        hboxLayout6->setSpacing(6);
+        hboxLayout6->setContentsMargins(0, 0, 0, 0);
+        hboxLayout6->setObjectName(QString::fromUtf8("hboxLayout6"));
+        cbDistanceCutOff = new QCheckBox(frame);
+        cbDistanceCutOff->setObjectName(QString::fromUtf8("cbDistanceCutOff"));
+
+        hboxLayout6->addWidget(cbDistanceCutOff);
+
+        editDistanceCutOff = new QLineEdit(frame);
+        editDistanceCutOff->setObjectName(QString::fromUtf8("editDistanceCutOff"));
+        editDistanceCutOff->setEnabled(false);
+        editDistanceCutOff->setMinimumSize(QSize(60, 0));
+        editDistanceCutOff->setMaximumSize(QSize(60, 16777215));
+        editDistanceCutOff->setAlignment(Qt::AlignRight);
+
+        hboxLayout6->addWidget(editDistanceCutOff);
+
+        label = new QLabel(frame);
+        label->setObjectName(QString::fromUtf8("label"));
+
+        hboxLayout6->addWidget(label);
+
+        spacerItem6 = new QSpacerItem(20, 27, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        hboxLayout6->addItem(spacerItem6);
+
+        cbIgnoreInitialLocation = new QCheckBox(frame);
+        cbIgnoreInitialLocation->setObjectName(QString::fromUtf8("cbIgnoreInitialLocation"));
+
+        hboxLayout6->addWidget(cbIgnoreInitialLocation);
+
+        spacerItem7 = new QSpacerItem(120, 27, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        hboxLayout6->addItem(spacerItem7);
+
+        buttonEditComment = new QToolButton(frame);
+        buttonEditComment->setObjectName(QString::fromUtf8("buttonEditComment"));
+        buttonEditComment->setEnabled(false);
+        buttonEditComment->setMaximumSize(QSize(25, 25));
+        const QIcon icon1 = QIcon(QString::fromUtf8(":/icons/icons/comment.png"));
+        buttonEditComment->setIcon(icon1);
+        buttonEditComment->setIconSize(QSize(24, 24));
+        buttonEditComment->setAutoRaise(true);
+
+        hboxLayout6->addWidget(buttonEditComment);
+
+
+        gridLayout1->addWidget(frame, 0, 2, 1, 1);
+
+        frameActionsRight = new QFrame(toolButtonGroupBox);
+        frameActionsRight->setObjectName(QString::fromUtf8("frameActionsRight"));
+        sizePolicy10.setHeightForWidth(frameActionsRight->sizePolicy().hasHeightForWidth());
+        frameActionsRight->setSizePolicy(sizePolicy10);
+        frameActionsRight->setFrameShape(QFrame::NoFrame);
+        frameActionsRight->setFrameShadow(QFrame::Raised);
+        hboxLayout7 = new QHBoxLayout(frameActionsRight);
+        hboxLayout7->setSpacing(6);
+        hboxLayout7->setContentsMargins(0, 0, 0, 0);
+        hboxLayout7->setObjectName(QString::fromUtf8("hboxLayout7"));
+        spacerItem8 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        hboxLayout7->addItem(spacerItem8);
+
+        btnShowWaveforms = new QToolButton(frameActionsRight);
+        btnShowWaveforms->setObjectName(QString::fromUtf8("btnShowWaveforms"));
+        btnShowWaveforms->setEnabled(false);
+
+        hboxLayout7->addWidget(btnShowWaveforms);
+
+        btnImportAllArrivals = new QToolButton(frameActionsRight);
+        btnImportAllArrivals->setObjectName(QString::fromUtf8("btnImportAllArrivals"));
+        btnImportAllArrivals->setEnabled(false);
+
+        hboxLayout7->addWidget(btnImportAllArrivals);
+
+        btnMagnitudes = new QToolButton(frameActionsRight);
+        btnMagnitudes->setObjectName(QString::fromUtf8("btnMagnitudes"));
+        btnMagnitudes->setEnabled(false);
+
+        hboxLayout7->addWidget(btnMagnitudes);
+
+        btnCommit = new QToolButton(frameActionsRight);
+        btnCommit->setObjectName(QString::fromUtf8("btnCommit"));
+        btnCommit->setEnabled(false);
+
+        hboxLayout7->addWidget(btnCommit);
+
+
+        gridLayout1->addWidget(frameActionsRight, 1, 2, 1, 1);
 
 
         vboxLayout->addWidget(toolButtonGroupBox);
@@ -869,99 +878,99 @@ public:
         QWidget::setTabOrder(editFixedDepth, cbDistanceCutOff);
         QWidget::setTabOrder(cbDistanceCutOff, editDistanceCutOff);
 
-        retranslateUi(OriginLocaterView);
-        QObject::connect(cbDistanceCutOff, SIGNAL(toggled(bool)), editDistanceCutOff, SLOT(setEnabled(bool)));
+        retranslateUi(OriginLocatorView);
         QObject::connect(cbFixedDepth, SIGNAL(toggled(bool)), editFixedDepth, SLOT(setEnabled(bool)));
         QObject::connect(cbFixedDepth, SIGNAL(toggled(bool)), cbDepthType, SLOT(setEnabled(bool)));
+        QObject::connect(cbDistanceCutOff, SIGNAL(toggled(bool)), editDistanceCutOff, SLOT(setEnabled(bool)));
 
-        QMetaObject::connectSlotsByName(OriginLocaterView);
+        QMetaObject::connectSlotsByName(OriginLocatorView);
     } // setupUi
 
-    void retranslateUi(QWidget *OriginLocaterView)
+    void retranslateUi(QWidget *OriginLocatorView)
     {
-        OriginLocaterView->setWindowTitle(QApplication::translate("OriginLocaterView", "OriginLocatorView", 0, QApplication::UnicodeUTF8));
-        labelRegion->setText(QApplication::translate("OriginLocaterView", "Region", 0, QApplication::UnicodeUTF8));
-        labelNumPhases->setText(QApplication::translate("OriginLocaterView", "-", 0, QApplication::UnicodeUTF8));
-        labelAgency->setText(QApplication::translate("OriginLocaterView", "GFZ Potsdam", 0, QApplication::UnicodeUTF8));
-        labelMinDistUnit->setText(QApplication::translate("OriginLocaterView", "\302\260", 0, QApplication::UnicodeUTF8));
-        labelDepth->setText(QApplication::translate("OriginLocaterView", "-", 0, QApplication::UnicodeUTF8));
-        labelStdErrorUnit->setText(QApplication::translate("OriginLocaterView", "s", 0, QApplication::UnicodeUTF8));
-        lbEventID->setText(QApplication::translate("OriginLocaterView", "EventID:", 0, QApplication::UnicodeUTF8));
-        labelLatitudeErrorUnit->setText(QApplication::translate("OriginLocaterView", "km", 0, QApplication::UnicodeUTF8));
-        labelLatitudeError->setText(QApplication::translate("OriginLocaterView", "-", 0, QApplication::UnicodeUTF8));
-        label_13->setText(QApplication::translate("OriginLocaterView", "RMS Res.:", 0, QApplication::UnicodeUTF8));
-        labelLongitude->setText(QApplication::translate("OriginLocaterView", "-", 0, QApplication::UnicodeUTF8));
+        OriginLocatorView->setWindowTitle(QApplication::translate("OriginLocatorView", "OriginLocatorView", 0, QApplication::UnicodeUTF8));
+        labelRegion->setText(QApplication::translate("OriginLocatorView", "Region", 0, QApplication::UnicodeUTF8));
+        labelNumPhases->setText(QApplication::translate("OriginLocatorView", "-", 0, QApplication::UnicodeUTF8));
+        labelAgency->setText(QApplication::translate("OriginLocatorView", "GFZ Potsdam", 0, QApplication::UnicodeUTF8));
+        labelMinDistUnit->setText(QApplication::translate("OriginLocatorView", "\302\260", 0, QApplication::UnicodeUTF8));
+        labelDepth->setText(QApplication::translate("OriginLocatorView", "-", 0, QApplication::UnicodeUTF8));
+        labelStdErrorUnit->setText(QApplication::translate("OriginLocatorView", "s", 0, QApplication::UnicodeUTF8));
+        lbEventID->setText(QApplication::translate("OriginLocatorView", "EventID:", 0, QApplication::UnicodeUTF8));
+        labelLatitudeErrorUnit->setText(QApplication::translate("OriginLocatorView", "km", 0, QApplication::UnicodeUTF8));
+        labelLatitudeError->setText(QApplication::translate("OriginLocatorView", "-", 0, QApplication::UnicodeUTF8));
+        label_13->setText(QApplication::translate("OriginLocatorView", "RMS Res.:", 0, QApplication::UnicodeUTF8));
+        labelLongitude->setText(QApplication::translate("OriginLocatorView", "-", 0, QApplication::UnicodeUTF8));
         labelCreated->setText(QString());
-        label_11->setText(QApplication::translate("OriginLocaterView", "Lon:", 0, QApplication::UnicodeUTF8));
-        labelLongitudeErrorUnit->setText(QApplication::translate("OriginLocaterView", "km", 0, QApplication::UnicodeUTF8));
+        label_11->setText(QApplication::translate("OriginLocatorView", "Lon:", 0, QApplication::UnicodeUTF8));
+        labelLongitudeErrorUnit->setText(QApplication::translate("OriginLocatorView", "km", 0, QApplication::UnicodeUTF8));
         labelUser->setText(QString());
         labelEarthModel->setText(QString());
-        labelNumPhasesError->setText(QApplication::translate("OriginLocaterView", "-", 0, QApplication::UnicodeUTF8));
-        labelLatitudeUnit->setText(QApplication::translate("OriginLocaterView", "\302\260", 0, QApplication::UnicodeUTF8));
-        labelStdError->setText(QApplication::translate("OriginLocaterView", "-", 0, QApplication::UnicodeUTF8));
-        labelLatitude->setText(QApplication::translate("OriginLocaterView", "-", 0, QApplication::UnicodeUTF8));
-        label_7->setText(QApplication::translate("OriginLocaterView", " Az. Gap:", 0, QApplication::UnicodeUTF8));
+        labelNumPhasesError->setText(QApplication::translate("OriginLocatorView", "-", 0, QApplication::UnicodeUTF8));
+        labelLatitudeUnit->setText(QApplication::translate("OriginLocatorView", "\302\260", 0, QApplication::UnicodeUTF8));
+        labelStdError->setText(QApplication::translate("OriginLocatorView", "-", 0, QApplication::UnicodeUTF8));
+        labelLatitude->setText(QApplication::translate("OriginLocatorView", "-", 0, QApplication::UnicodeUTF8));
+        label_7->setText(QApplication::translate("OriginLocatorView", " Az. Gap:", 0, QApplication::UnicodeUTF8));
         labelEventID->setText(QString());
         labelDepthErrorUnit->setText(QString());
         labelTime->setText(QString());
-        label_12->setText(QApplication::translate("OriginLocaterView", "Depth:", 0, QApplication::UnicodeUTF8));
-        lbEarthModel->setText(QApplication::translate("OriginLocaterView", "Earth model:", 0, QApplication::UnicodeUTF8));
-        lbMethod->setText(QApplication::translate("OriginLocaterView", "Method:", 0, QApplication::UnicodeUTF8));
-        labelMinDist->setText(QApplication::translate("OriginLocaterView", "-", 0, QApplication::UnicodeUTF8));
-        lbAgencyID->setText(QApplication::translate("OriginLocaterView", "Agency:", 0, QApplication::UnicodeUTF8));
-        label_8->setText(QApplication::translate("OriginLocaterView", "Phases:", 0, QApplication::UnicodeUTF8));
+        label_12->setText(QApplication::translate("OriginLocatorView", "Depth:", 0, QApplication::UnicodeUTF8));
+        lbEarthModel->setText(QApplication::translate("OriginLocatorView", "Earth model:", 0, QApplication::UnicodeUTF8));
+        lbMethod->setText(QApplication::translate("OriginLocatorView", "Method:", 0, QApplication::UnicodeUTF8));
+        labelMinDist->setText(QApplication::translate("OriginLocatorView", "-", 0, QApplication::UnicodeUTF8));
+        lbAgencyID->setText(QApplication::translate("OriginLocatorView", "Agency:", 0, QApplication::UnicodeUTF8));
+        label_8->setText(QApplication::translate("OriginLocatorView", "Phases:", 0, QApplication::UnicodeUTF8));
         labelMethod->setText(QString());
-        label_10->setText(QApplication::translate("OriginLocaterView", "Lat:", 0, QApplication::UnicodeUTF8));
-        label_16->setText(QApplication::translate("OriginLocaterView", "Updated:", 0, QApplication::UnicodeUTF8));
-        labelNumPhasesUnit->setText(QApplication::translate("OriginLocaterView", "/", 0, QApplication::UnicodeUTF8));
-        lbUser->setText(QApplication::translate("OriginLocaterView", "Author:", 0, QApplication::UnicodeUTF8));
-        label_9->setText(QApplication::translate("OriginLocaterView", "Min. Dist.:", 0, QApplication::UnicodeUTF8));
-        labelLongitudeError->setText(QApplication::translate("OriginLocaterView", "-", 0, QApplication::UnicodeUTF8));
+        label_10->setText(QApplication::translate("OriginLocatorView", "Lat:", 0, QApplication::UnicodeUTF8));
+        label_16->setText(QApplication::translate("OriginLocatorView", "Updated:", 0, QApplication::UnicodeUTF8));
+        labelNumPhasesUnit->setText(QApplication::translate("OriginLocatorView", "/", 0, QApplication::UnicodeUTF8));
+        lbUser->setText(QApplication::translate("OriginLocatorView", "Author:", 0, QApplication::UnicodeUTF8));
+        label_9->setText(QApplication::translate("OriginLocatorView", "Min. Dist.:", 0, QApplication::UnicodeUTF8));
+        labelLongitudeError->setText(QApplication::translate("OriginLocatorView", "-", 0, QApplication::UnicodeUTF8));
         labelDepthError->setText(QString());
-        labelEvaluation->setText(QApplication::translate("OriginLocaterView", "- (-)", 0, QApplication::UnicodeUTF8));
-        labelLongitudeUnit->setText(QApplication::translate("OriginLocaterView", "\302\260", 0, QApplication::UnicodeUTF8));
-        label_15->setText(QApplication::translate("OriginLocaterView", "Time:", 0, QApplication::UnicodeUTF8));
-        labelAzimuthGap->setText(QApplication::translate("OriginLocaterView", "-", 0, QApplication::UnicodeUTF8));
-        labelDepthUnit->setText(QApplication::translate("OriginLocaterView", "km", 0, QApplication::UnicodeUTF8));
-        labelAzimuthGapUnit->setText(QApplication::translate("OriginLocaterView", "\302\260", 0, QApplication::UnicodeUTF8));
-        lbEvaluation->setText(QApplication::translate("OriginLocaterView", "Evaluation:", 0, QApplication::UnicodeUTF8));
-        lbComment->setText(QApplication::translate("OriginLocaterView", "Custom:", 0, QApplication::UnicodeUTF8));
-        labelComment->setText(QApplication::translate("OriginLocaterView", "-", 0, QApplication::UnicodeUTF8));
-        label_5->setText(QApplication::translate("OriginLocaterView", "Filter is", 0, QApplication::UnicodeUTF8));
-        labelPlotFilter->setText(QApplication::translate("OriginLocaterView", "<a href=\"filter\">not active</a>", 0, QApplication::UnicodeUTF8));
-        cbFixedDepth->setText(QApplication::translate("OriginLocaterView", "Fix depth", 0, QApplication::UnicodeUTF8));
-        label_3->setText(QApplication::translate("OriginLocaterView", "km", 0, QApplication::UnicodeUTF8));
-        cbDistanceCutOff->setText(QApplication::translate("OriginLocaterView", "Distance cutoff", 0, QApplication::UnicodeUTF8));
-        label->setText(QApplication::translate("OriginLocaterView", "km", 0, QApplication::UnicodeUTF8));
+        labelEvaluation->setText(QApplication::translate("OriginLocatorView", "- (-)", 0, QApplication::UnicodeUTF8));
+        labelLongitudeUnit->setText(QApplication::translate("OriginLocatorView", "\302\260", 0, QApplication::UnicodeUTF8));
+        label_15->setText(QApplication::translate("OriginLocatorView", "Time:", 0, QApplication::UnicodeUTF8));
+        labelAzimuthGap->setText(QApplication::translate("OriginLocatorView", "-", 0, QApplication::UnicodeUTF8));
+        labelDepthUnit->setText(QApplication::translate("OriginLocatorView", "km", 0, QApplication::UnicodeUTF8));
+        labelAzimuthGapUnit->setText(QApplication::translate("OriginLocatorView", "\302\260", 0, QApplication::UnicodeUTF8));
+        lbEvaluation->setText(QApplication::translate("OriginLocatorView", "Evaluation:", 0, QApplication::UnicodeUTF8));
+        lbComment->setText(QApplication::translate("OriginLocatorView", "Custom:", 0, QApplication::UnicodeUTF8));
+        labelComment->setText(QApplication::translate("OriginLocatorView", "-", 0, QApplication::UnicodeUTF8));
+        label_5->setText(QApplication::translate("OriginLocatorView", "Filter is", 0, QApplication::UnicodeUTF8));
+        labelPlotFilter->setText(QApplication::translate("OriginLocatorView", "<a href=\"filter\">not active</a>", 0, QApplication::UnicodeUTF8));
+        btnRelocate->setText(QApplication::translate("OriginLocatorView", "Relocate", 0, QApplication::UnicodeUTF8));
+        btnCustom0->setText(QApplication::translate("OriginLocatorView", "Custom1", 0, QApplication::UnicodeUTF8));
+        btnCustom1->setText(QApplication::translate("OriginLocatorView", "Custom2", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
-        cbIgnoreInitialLocation->setToolTip(QApplication::translate("OriginLocaterView", "Instructs the locator to ignore the passed initial location and to try to locate the event based on the given phases only.", 0, QApplication::UnicodeUTF8));
+        btnLocatorSettings->setToolTip(QApplication::translate("OriginLocatorView", "Change locator settings", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_TOOLTIP
+        btnLocatorSettings->setText(QApplication::translate("OriginLocatorView", "...", 0, QApplication::UnicodeUTF8));
+        label_2->setText(QApplication::translate("OriginLocatorView", "Profile:", 0, QApplication::UnicodeUTF8));
+        cbFixedDepth->setText(QApplication::translate("OriginLocatorView", "Fix depth", 0, QApplication::UnicodeUTF8));
+        label_3->setText(QApplication::translate("OriginLocatorView", "km", 0, QApplication::UnicodeUTF8));
+        cbDistanceCutOff->setText(QApplication::translate("OriginLocatorView", "Distance cutoff", 0, QApplication::UnicodeUTF8));
+        label->setText(QApplication::translate("OriginLocatorView", "km", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_TOOLTIP
+        cbIgnoreInitialLocation->setToolTip(QApplication::translate("OriginLocatorView", "Instructs the locator to ignore the passed initial location and to try to locate the event based on the given phases only.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_WHATSTHIS
-        cbIgnoreInitialLocation->setWhatsThis(QApplication::translate("OriginLocaterView", "Instructs the locator to ignore the passed initial location and to try to locate the event based on the given phases only.", 0, QApplication::UnicodeUTF8));
+        cbIgnoreInitialLocation->setWhatsThis(QApplication::translate("OriginLocatorView", "Instructs the locator to ignore the passed initial location and to try to locate the event based on the given phases only.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_WHATSTHIS
-        cbIgnoreInitialLocation->setText(QApplication::translate("OriginLocaterView", "Ignore initial location", 0, QApplication::UnicodeUTF8));
+        cbIgnoreInitialLocation->setText(QApplication::translate("OriginLocatorView", "Ignore initial location", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
-        buttonEditComment->setToolTip(QApplication::translate("OriginLocaterView", "Create a new comment on this event or edit an existing one.", 0, QApplication::UnicodeUTF8));
+        buttonEditComment->setToolTip(QApplication::translate("OriginLocatorView", "Create a new comment on this event or edit an existing one.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         buttonEditComment->setText(QString());
-        btnShowWaveforms->setText(QApplication::translate("OriginLocaterView", "Picker", 0, QApplication::UnicodeUTF8));
-        btnImportAllArrivals->setText(QApplication::translate("OriginLocaterView", "Import picks", 0, QApplication::UnicodeUTF8));
-        btnMagnitudes->setText(QApplication::translate("OriginLocaterView", "Compute magnitudes", 0, QApplication::UnicodeUTF8));
-        btnCommit->setText(QApplication::translate("OriginLocaterView", "Commit", 0, QApplication::UnicodeUTF8));
-        btnRelocate->setText(QApplication::translate("OriginLocaterView", "Relocate", 0, QApplication::UnicodeUTF8));
-        btnCustom0->setText(QApplication::translate("OriginLocaterView", "Custom1", 0, QApplication::UnicodeUTF8));
-        btnCustom1->setText(QApplication::translate("OriginLocaterView", "Custom2", 0, QApplication::UnicodeUTF8));
-#ifndef QT_NO_TOOLTIP
-        btnLocatorSettings->setToolTip(QApplication::translate("OriginLocaterView", "Change locator settings", 0, QApplication::UnicodeUTF8));
-#endif // QT_NO_TOOLTIP
-        btnLocatorSettings->setText(QApplication::translate("OriginLocaterView", "...", 0, QApplication::UnicodeUTF8));
-        label_2->setText(QApplication::translate("OriginLocaterView", "Profile:", 0, QApplication::UnicodeUTF8));
+        btnShowWaveforms->setText(QApplication::translate("OriginLocatorView", "Picker", 0, QApplication::UnicodeUTF8));
+        btnImportAllArrivals->setText(QApplication::translate("OriginLocatorView", "Import picks", 0, QApplication::UnicodeUTF8));
+        btnMagnitudes->setText(QApplication::translate("OriginLocatorView", "Compute magnitudes", 0, QApplication::UnicodeUTF8));
+        btnCommit->setText(QApplication::translate("OriginLocatorView", "Commit", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class OriginLocaterView: public Ui_OriginLocaterView {};
+    class OriginLocatorView: public Ui_OriginLocatorView {};
 } // namespace Ui
 
 QT_END_NAMESPACE

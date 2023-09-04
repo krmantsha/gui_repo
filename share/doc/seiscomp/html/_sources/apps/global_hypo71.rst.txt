@@ -331,8 +331,8 @@ More
 
 .. _global_hypo71_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 
 .. note::
@@ -343,39 +343,49 @@ Configuration
 
 .. confval:: hypo71.logFile
 
+   Default: ``@LOGDIR@/HYPO71.LOG``
+
    Type: *string*
 
    Temporary file used by Hypo71 to store calculation logs.
-   Default is ``@LOGDIR@/HYPO71.LOG``.
+
 
 .. confval:: hypo71.inputFile
+
+   Default: ``@DATADIR@/hypo71/HYPO71.INP``
 
    Type: *string*
 
    Temporary file to write Hypo71 input data to.
-   Default is ``@DATADIR@/hypo71/HYPO71.INP``.
+
 
 .. confval:: hypo71.outputFile
+
+   Default: ``@DATADIR@/hypo71/HYPO71.PRT``
 
    Type: *string*
 
    Temporary output file to read Hypo71 location data from.
-   Default is ``@DATADIR@/hypo71/HYPO71.PRT``.
+
 
 .. confval:: hypo71.defaultControlFile
+
+   Default: ``@DATADIR@/hypo71/profiles/default.hypo71.conf``
 
    Type: *string*
 
    Hypo71 default profile.
    If no custom profile is specified, this profile will be used by the plugin when proceeding to a localization.
-   Default is ``@DATADIR@/hypo71/profiles/default.hypo71.conf``.
+
 
 .. confval:: hypo71.hypo71ScriptFile
+
+   Default: ``@DATADIR@/hypo71/run.sh``
 
    Type: *string*
 
    Bash script executed when calling the Hypo71 locator plugin for locating the earthquake.
-   Default is ``@DATADIR@/hypo71/run.sh``.
+
 
 .. confval:: hypo71.profiles
 
@@ -430,11 +440,13 @@ Configuration
 
 .. confval:: hypo71.profile.$name.methodID
 
+   Default: ``Hypo71``
+
    Type: *string*
 
    Profile's method.
    It is generally the locator's name \(Hypo71\).
-   Default is ``Hypo71``.
+
 
 .. confval:: hypo71.profile.$name.controlFile
 
@@ -445,6 +457,8 @@ Configuration
 
 .. confval:: hypo71.profile.$name.fixStartDepthOnly
 
+   Default: ``false``
+
    Type: *boolean*
 
    If the depth is requested to be fixed \(e.g. by ticking the option
@@ -452,5 +466,5 @@ Configuration
    specified depth but with free depth evaluation. This option
    defines whether it should really fix the depth \(false\) or
    use this fixed depth only as starting point \(true\).
-   Default is ``false``.
+
 

@@ -54,8 +54,8 @@ An example configuration looks like this:
 
 .. _scm_email_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 
 .. confval:: memailplugin.recipients
@@ -91,38 +91,48 @@ Configuration
 
 .. confval:: memailplugin.reportSilentClients
 
+   Default: ``true``
+
    Type: *boolean*
 
-   Default is ``true``.
+   *No description available*
 
 .. confval:: memailplugin.reportSilentClientsTimeSpan
 
+   Default: ``1``
+
    Type: *double*
 
    Unit: *min*
 
-   Default is ``1``.
+   *No description available*
 
 .. confval:: memailplugin.reportRequiredClients
 
+   Default: ``10``
+
    Type: *double*
 
    Unit: *min*
 
-   Default is ``10``.
+   *No description available*
 
 .. confval:: memailplugin.filterMeanInterval
 
+   Default: ``10``
+
    Type: *double*
 
    Unit: *min*
 
-   Default is ``10``.
+   *No description available*
 
 .. confval:: memailplugin.sendEmail
+
+   Default: ``false``
 
    Type: *boolean*
 
    Enables sending of emails using mailx shell command.
-   Default is ``false``.
+
 

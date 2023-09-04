@@ -6,7 +6,7 @@
 scautopick
 ##########
 
-**Makes picks on waveforms.**
+**Phase detection and picking on waveforms.**
 
 
 Description
@@ -14,27 +14,47 @@ Description
 
 scautopick applies threshold monitoring by searching for waveform anomalies in
 form of changes in amplitudes. It is applied for detecting phase arrivals and
-and for measuring related amplitudes.
+and for measuring related features and amplitudes. The phase arrivals are
+typically associated by modules like :ref:`scautoloc` for locating the source.
+
+.. note::
+
+   Instead of detecting phase arrivals for source location, scautopick
+   can also be applied for detecting simple amplitude exceedence applying filters
+   like the :py:func:`MAX` filter. Exceedences are reported as picks and can be
+   processed further, e.g. by :ref:`scalert`.
 
 
 Phase Detections
 ================
 
-scautopick detects phase onsets for generating :term:`picks <pick>`. Initally
-it searches for P picks on the waveform streams defined by global bindings.
+scautopick detects phase onsets for generating :term:`picks <pick>`. Initally,
+it searches for detections on the waveform streams defined by global bindings.
 
-By default scautopick applies a robust STA/LTA detector
-(:ref:`STALTA filter <filter-grammar>`) to waveforms for detecting P phases. Other
-detection filters can be choosen from the :ref:`list of SeisComP filters <filter-grammar>`.
-The waveforms are typically :ref:`pre-filtered<filter-grammar>`.
-Without further configuration a running-mean highpass, a cosine taper and a Butterworth
-bandpass filter of third order with corner frequencies of 0.7 and 2 Hz are applied before
-the STALTA filter. The entire filter sequence is configurable by :confval:`filter`,
-module configuration, or :confval:`detecFilter`, binding configuration.
+
+P picks
+-------
+
+A primary detector is applied first. When a detection is found, 'P' is by default
+assigned to the guess of the phase type (phaseHint). The actual guess can be configured by
+:confval:`phaseHint`. By default the primary detector applies a robust STA/LTA
+detector (:py:func:`STALTA` filter) to waveforms for making detections. Other
+detection filters and filter chains can be choosen from the
+:ref:`list of SeisComP filters <filter-grammar>`. A guess of the pick type may
+be defined by :confval:`phaseHint`.
+
+Waveforms are typically :ref:`pre-filtered <filter-grammar>` before the actual
+:py:func:`STALTA` filter. Without further configuration a
+running-mean highpass, a cosine taper and a Butterworth bandpass filter of
+third order with corner frequencies of 0.7 and 2 Hz are applied before the
+:py:func:`STALTA` filter. The entire filter sequence is configurable by
+:confval:`filter`, module configuration, or :confval:`detecFilter`, binding
+configuration.
+
 Once the STA/LTA ratio has reached a configurable threshold (by default 3) for a
 particular stream, a :term:`pick` is set to the time when this
-threshold is exceeded (pick time) and the picker is set inactive. The picker is reactivated
-for this stream once the STA/LTA ratio falls to the value of 1.5 (default).
+threshold is exceeded (pick time) and the picker is set inactive. The picker is
+reactivated for this stream once the STA/LTA ratio falls to the value of 1.5 (default).
 
 The trigger thresholds are configurable:
 
@@ -43,20 +63,13 @@ The trigger thresholds are configurable:
 * Trigger off: :confval:`thresholds.triggerOff`, module configuration or :confval:`trigOff`,
   binding configuration.
 
-Following inital P-phase detections a second-stage P-phase picker (post picker) and
-a S-phase picker (secondary picker) can be applied. Configure :confval:`picker`,
-:confval:`spicker` and global bindings parameters accordingly.
+Initial detections can be further adjusted by a second-stage phase re-picker
+(post picker) as defined by :confval:`picker`. The re-picker should be tuned
+carefully and global bindings parameters :confval:`picker.*` should be
+configured accordingly.
 
-.. csv-table:: Second-stage pickers available by configuration of :confval:`picker` or :confval:`spicker`
-   :align: center
-   :header: "picker name", "picker","spicker","parameters in global bindings"
-
-   "AIC", "x", "", "picker.AIC"
-   "BK", "x", "", "picker.BK"
-   "S-L2", "", "x", "spicker.L2"
-
-After having detected a P phase, scautopick will not accept any further P detection
-until
+After having detected a phase, the re-picker will be inactive and accept no further
+detection until
 
 * The amplitudes measured after filtering (:confval:`filter` in module configuration
   or :confval:`detecFilter` in binding configuration) fall below the
@@ -81,6 +94,35 @@ until
   :math:`T_{minOffset}` (:confval:`thresholds.minAmplOffset`) is typically similar to
   the trigger threshold, :confval:`thresholds.triggerOn` (module configuration) or
   :confval:`trigOn` (binding configuration).
+
+
+S picks
+-------
+
+Based on the inital detection or pick a secondary picker may applied be applied,
+e.g., for picking S phases as defined by :confval:`spicker`. The secondary picker
+is halted as soon as new detections are made unless :confval:`killPendingSPickers`
+is inactive.
+
+As for the re-picker also the spicker should be tuned carefully and global
+bindings parameters :confval:`spicker.*` should be set.
+
+.. csv-table:: Second-stage pickers available by configuration of :confval:`picker` or :confval:`spicker`
+   :align: center
+   :delim: ,
+   :widths: 1 3 1 1 3
+   :header: "picker name", "phase", "picker", "spicker", "global bindings parameters"
+
+   "AIC", "P, configurable: :confval:`phaseHint`", "x", "", "picker.AIC.*"
+   "BK", "P, configurable: :confval:`phaseHint`", "x", "", "picker.BK.*"
+   "S-L2", "S", "", "x", "spicker.L2.*"
+
+
+Feature extraction
+------------------
+
+For extracting features related to picks such as polarization parameters
+configure :confval:`fx` and the related global bindings parameters :confval:`fx.*`.
 
 
 Amplitude Measurements
@@ -128,7 +170,7 @@ In real-time mode the workflow draws like this:
 * The samples are checked for exceedance of :confval:`trigOn` and in the positive
   case either a post picker (:confval:`picker`) is launched or a :term:`Pick <pick>`
   object will be sent.
-* If :confval:`sendDetections` is set to ``true`` trigger will be sent in any
+* If :confval:`sendDetections` is set to ``true``, a trigger will be sent in any
   case for e.g. debugging.
 * After the primary stage has finished (detector only or picker) secondary
   pickers will be launched if configured with :confval:`spicker`.
@@ -180,8 +222,8 @@ printed in :term:`SCML` format. Example:
 
 .. _scautopick_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 | :file:`etc/defaults/global.cfg`
 | :file:`etc/defaults/scautopick.cfg`
@@ -194,34 +236,20 @@ scautopick inherits :ref:`global options<global-configuration>`.
 
 
 
-.. confval:: filter
-
-   Type: *string*
-
-   Defines the default filter used for picking. Station specific configurations
-   will override this value.
-
-
-.. confval:: timeCorrection
-
-   Type: *double*
-
-   Unit: *s*
-
-   Time correction applied for each pick made. Station specific
-   values override this value.
-   Default is ``-0.8``.
-
 .. confval:: ringBufferSize
+
+   Default: ``300``
 
    Type: *int*
 
    Unit: *s*
 
    Defined the record ringbuffer size in seconds.
-   Default is ``300``.
+
 
 .. confval:: leadTime
+
+   Default: ``60``
 
    Type: *int*
 
@@ -229,105 +257,11 @@ scautopick inherits :ref:`global options<global-configuration>`.
 
    The leadTime defines the time in seconds to start picking on
    waveforms before current time.
-   Default is ``60``.
 
-.. confval:: initTime
-
-   Type: *int*
-
-   Unit: *s*
-
-   The initTime defines a time span in seconds for that the picker
-   is blind after initialization. This time is needed to initialize
-   the filter and depends on it.
-   Default is ``60``.
-
-.. confval:: gapInterpolation
-
-   Type: *boolean*
-
-   Interpolate gaps linearly? This is valid for gaps shorter
-   than thresholds.maxGapLength.
-   Default is ``false``.
-
-.. confval:: amplitudes
-
-   Type: *list:string*
-
-   Defines the amplitude types to be computed by the picker as well.
-   Default is ``MLv, mb, mB``.
-
-.. confval:: picker
-
-   Type: *string*
-
-   Configures the picker to use. By default only a simple detections
-   are emitted as picks. To enable real picking on a time window around
-   the detection, an algorithm \(plugin\) can be defined with this parameter.
-   Currently available is: \"AIC\", \"BK\" or
-   \"GFZ\". More options may be available by plugins.
-   Configure related parameters in global bindings.
-
-
-.. confval:: spicker
-
-   Type: *string*
-
-   Configures the secondary picker to use, e.g. for pick S\-phases.
-   Currently available is: \"S\-L2\". More options may
-   be available by plugins. Configure related parameters
-   in global bindings.
-
-
-.. confval:: useAllStreams
-
-   Type: *boolean*
-
-   If enabled the all streams are used for picking that are received by the picker.
-   This option has only effect if a file is used as input which contains more data than
-   the picker requests. If connected to a waveform server such as SeedLink the picker
-   will only receive the data it subscribed to.
-   Default is ``true``.
-
-.. confval:: killPendingSPickers
-
-   Type: *boolean*
-
-   If enabled the all secondary pickers that were triggered by
-   a previous pick will be terminated when a new detection or
-   pick has been found. This aims to avoid the case where an
-   S phase is wrongly picked as P but would also be picked as
-   S by the secondary picker. But suppressing the S pick can
-   lead to undesired results. It might be better in some
-   situations to have two picks \(P and S\) instead only a wrong
-   P.
-   Default is ``true``.
-
-.. confval:: sendDetections
-
-   Type: *boolean*
-
-   If enabled and \"picker\" is configured, then initial detections
-   are sent as well. To distinguish between detections and picks
-   the evaluation status of the pick is set to \"rejected\".
-   This is meant to be a debug option which can be used to compare
-   detections and picks by their evaluation status.
-   Default is ``false``.
-
-.. confval:: extraPickComments
-
-   Type: *boolean*
-
-   If enabled and \"picker\" or \"spicker\" is
-   configured, then extra comments
-   will be added to the resulting pick.
-   
-   Supported comments:
-   
-   SNR: added if SNR >\= 0, comment id is \"SNR\"
-   Default is ``false``.
 
 .. confval:: playback
+
+   Default: ``false``
 
    Type: *boolean*
 
@@ -337,17 +271,186 @@ scautopick inherits :ref:`global options<global-configuration>`.
    historic data in real\-time playbacks which are preserving the
    record times. See e.g. the \"msrtsimul\" module.
    This option deactivates \"leadTime\". Activate only for playbacks.
-   Default is ``false``.
+
+
+.. confval:: initTime
+
+   Default: ``60``
+
+   Type: *int*
+
+   Unit: *s*
+
+   The initTime defines a time span in seconds for that the picker
+   is blind after initialization. This time is needed to initialize
+   the filter and depends on it.
+
+
+.. confval:: gapInterpolation
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Interpolate gaps linearly? This is valid for gaps shorter
+   than thresholds.maxGapLength.
+
+
+.. confval:: useAllStreams
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   If enabled, all streams that are received by the picker are
+   used for picking. This option has only effect if a
+   file is used as input which contains more data than the
+   picker requests. If connected to a waveform server such as
+   SeedLink, the picker will only receive the data it is
+   subscribed to.
+
+
+.. confval:: filter
+
+   Default: ``"RMHP(10)>>ITAPER(30)>>BW(4,0.7,2)>>STALTA(2,80)"``
+
+   Type: *string*
+
+   The default filter used for making detections. Station\-specific
+   configurations \(bindings\) override this value.
+
+
+.. confval:: timeCorrection
+
+   Default: ``-0.8``
+
+   Type: *double*
+
+   Unit: *s*
+
+   The time correction applied for a pick. Station\-specific
+   values \(bindings\) override this value.
+
+
+.. confval:: picker
+
+   Type: *string*
+
+   The re\-picker to use. By default only simple detections
+   are emitted as picks. To enable re\-picking on a time window around
+   the detection, an algorithm \(plugin\) can be defined with this parameter.
+   
+   Currently available: \"AIC\", \"BK\" or
+   \"GFZ\".
+   
+   More options may be available by plugins. Configure related
+   parameters in global bindings.
+
+
+.. confval:: phaseHint
+
+   Default: ``P``
+
+   Type: *string*
+
+   Phase hint to be assigned to the pick made by the primary picker.
+
+
+.. confval:: sendDetections
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   If enabled and \"picker\" is configured, then
+   initial detections are sent as well. To distinguish between
+   detections and picks the evaluation status of the pick is
+   set to \"rejected\". This is meant to be a debug
+   option which can be used to compare detections and picks by
+   their evaluation status.
+
+
+.. confval:: spicker
+
+   Type: *string*
+
+   The secondary picker to use, e.g., for picking S\-phases.
+   Currently available is: \"S\-L2\". More options may
+   be available by plugins. Configure related parameters
+   in global bindings.
+
+
+.. confval:: killPendingSPickers
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   If enabled, all secondary pickers that were triggered by
+   a previous pick will be terminated when a new detection or
+   pick has been found. This aims to avoid the case where an
+   S phase is wrongly picked as P but would also be picked as
+   S by the secondary picker. But suppressing the S pick can
+   lead to undesired results. It might be better in some
+   situations to have two picks \(P and S\) instead only a wrong P.
+
+
+.. confval:: extraPickComments
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   If enabled and \"picker\" or \"spicker\" is
+   configured, extra comments will be added to the resulting pick.
+   
+   Supported comments:
+   
+   SNR: added if SNR >\= 0, comment id is \"SNR\"
+
+
+.. confval:: fx
+
+   Type: *string*
+
+   Configures the feature extraction type to use. Currently
+   available: \"DFX\". Configure related parameters
+   in global bindings.
+   
+   When configured, the usability of the features for locating
+   depends on the used locator, e.g. LOCSAT. Read the
+   locator's documentation and configuration parameters.
+
+
+.. confval:: amplitudes
+
+   Default: ``MLv, mb, mB``
+
+   Type: *list:string*
+
+   The amplitude types to be computed by the picker based on
+   picks.
+
+
+.. note::
+   **thresholds.\***
+   *Threshold parameters for the primary picker.*
+
+
 
 .. confval:: thresholds.triggerOn
+
+   Default: ``3``
 
    Type: *double*
 
    For which value on the filtered waveforms is a pick
    detected. Station specific values override this value.
-   Default is ``3``.
+
 
 .. confval:: thresholds.triggerOff
+
+   Default: ``1.5``
 
    Type: *double*
 
@@ -355,9 +458,11 @@ scautopick inherits :ref:`global options<global-configuration>`.
    detection again. Between triggerOn and triggerOff the
    picker is blind and does not produce picks. Station
    specific values override this value.
-   Default is ``1.5``.
+
 
 .. confval:: thresholds.maxGapLength
+
+   Default: ``4.5``
 
    Type: *double*
 
@@ -365,9 +470,11 @@ scautopick inherits :ref:`global options<global-configuration>`.
 
    The maximum gap length in seconds to handle.
    Gaps larger than this will cause the picker to be reset.
-   Default is ``4.5``.
+
 
 .. confval:: thresholds.amplMaxTimeWindow
+
+   Default: ``10``
 
    Type: *double*
 
@@ -375,9 +482,11 @@ scautopick inherits :ref:`global options<global-configuration>`.
 
    The time window used to compute a maximum \(snr\) amplitude
    on the filtered waveforms.
-   Default is ``10``.
+
 
 .. confval:: thresholds.deadTime
+
+   Default: ``30``
 
    Type: *double*
 
@@ -386,9 +495,11 @@ scautopick inherits :ref:`global options<global-configuration>`.
    The time used together with measured amplitude and
    `thresholds.minAmplOffset` for scaling the amplitude below which
    the picker is inactive after a P pick. Read the documentation\!
-   Default is ``30``.
+
 
 .. confval:: thresholds.minAmplOffset
+
+   Default: ``3``
 
    Type: *double*
 
@@ -396,7 +507,7 @@ scautopick inherits :ref:`global options<global-configuration>`.
    `thresholds.deadTime` for scaling the amplitude below which
    the picker is inactive after a P pick. The value is typically
    similar to the trigger threshold. Read the documentation\!
-   Default is ``3``.
+
 
 .. confval:: amplitudes.enableUpdate
 
@@ -413,70 +524,81 @@ scautopick inherits :ref:`global options<global-configuration>`.
 
 .. confval:: connection.amplitudeGroup
 
+   Default: ``AMPLITUDE``
+
    Type: *string*
 
-   Group used to send amplitudes to.
-   Default is ``AMPLITUDE``.
+   Message group for sending amplitudes to.
 
 
-Bindings
-========
 
+Bindings Parameters
+===================
 
-Configuration
--------------
 
 
 .. confval:: detecEnable
 
+   Default: ``true``
+
    Type: *boolean*
 
    Enables\/disables picking on a station.
-   Default is ``true``.
+
 
 .. confval:: detecFilter
+
+   Default: ``"RMHP(10)>>ITAPER(30)>>BW(4,0.7,2)>>STALTA(2,80)"``
 
    Type: *string*
 
    Defines the filter to be used for picking.
-   Default is ``"RMHP(10)>>ITAPER(30)>>BW(4,0.7,2)>>STALTA(2,80)"``.
+
 
 .. confval:: trigOn
+
+   Default: ``3``
 
    Type: *double*
 
    For which value on the filtered waveform is a pick detected.
-   Default is ``3``.
+
 
 .. confval:: trigOff
+
+   Default: ``1.5``
 
    Type: *double*
 
    The value the filtered waveform must reach to
    enable a detection again.
-   Default is ``1.5``.
+
 
 .. confval:: timeCorr
+
+   Default: ``-0.8``
 
    Type: *double*
 
    Unit: *s*
 
-   The time correction applied to a detected pick.
-   Default is ``-0.8``.
+   The time correction applied to a pick.
+
 
 .. confval:: sensitivityCorrection
+
+   Default: ``false``
 
    Type: *boolean*
 
    Defines whether the detector applies sensitivity correction
    \(applying the gain\) or not in advance to filter the data.
-   Default is ``false``.
 
 
 
-Command-line
-============
+
+Command-Line Options
+====================
 
 .. program:: scautopick
 
@@ -486,18 +608,20 @@ Generic
 
 .. option:: -h, --help
 
-   show help message.
+   Show help message.
 
 .. option:: -V, --version
 
-   show version information
+   Show version information.
 
 .. option:: --config-file arg
 
-   Use alternative configuration file. When this option is used
-   the loading of all stages is disabled. Only the given configuration
-   file is parsed and used. To use another name for the configuration
-   create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+   Use alternative configuration file. When this option is
+   used the loading of all stages is disabled. Only the
+   given configuration file is parsed and used. To use
+   another name for the configuration create a symbolic
+   link of the application or copy it. Example:
+   scautopick \-> scautopick2.
 
 .. option:: --plugins arg
 
@@ -505,26 +629,28 @@ Generic
 
 .. option:: -D, --daemon
 
-   Run as daemon. This means the application will fork itself and
-   doesn't need to be started with \&.
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
 
 .. option:: --auto-shutdown arg
 
-   Enable\/disable self\-shutdown because a master module shutdown. This only
-   works when messaging is enabled and the master module sends a shutdown
-   message \(enabled with \-\-start\-stop\-msg for the master module\).
+   Enable\/disable self\-shutdown because a master module shutdown.
+   This only works when messaging is enabled and the master
+   module sends a shutdown message \(enabled with \-\-start\-stop\-msg
+   for the master module\).
 
 .. option:: --shutdown-master-module arg
 
-   Sets the name of the master\-module used for auto\-shutdown. This
-   is the application name of the module actually started. If symlinks
-   are used then it is the name of the symlinked application.
+   Set the name of the master\-module used for auto\-shutdown.
+   This is the application name of the module actually
+   started. If symlinks are used, then it is the name of
+   the symlinked application.
 
 .. option:: --shutdown-master-username arg
 
-   Sets the name of the master\-username of the messaging used for
-   auto\-shutdown. If \"shutdown\-master\-module\" is given as well this
-   parameter is ignored.
+   Set the name of the master\-username of the messaging
+   used for auto\-shutdown. If \"shutdown\-master\-module\" is
+   given as well, this parameter is ignored.
 
 
 Verbosity
@@ -532,23 +658,26 @@ Verbosity
 
 .. option:: --verbosity arg
 
-   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
 
 .. option:: -v, --v
 
-   Increase verbosity level \(may be repeated, eg. \-vv\)
+   Increase verbosity level \(may be repeated, eg. \-vv\).
 
 .. option:: -q, --quiet
 
-   Quiet mode: no logging output
+   Quiet mode: no logging output.
 
 .. option:: --component arg
 
-   Limits the logging to a certain component. This option can be given more than once.
+   Limit the logging to a certain component. This option can
+   be given more than once.
 
 .. option:: -s, --syslog
 
-   Use syslog logging back end. The output usually goes to \/var\/lib\/messages.
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
 
 .. option:: -l, --lockfile arg
 
@@ -560,7 +689,8 @@ Verbosity
 
 .. option:: --debug
 
-   Debug mode: \-\-verbosity\=4 \-\-console\=1
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
 
 .. option:: --log-file arg
 
@@ -588,7 +718,8 @@ Messaging
 
 .. option:: -S, --subscribe-group arg
 
-   A group to subscribe to. This option can be given more than once.
+   A group to subscribe to.
+   This option can be given more than once.
 
 .. option:: --content-type arg
 
@@ -596,7 +727,7 @@ Messaging
 
 .. option:: --start-stop-msg arg
 
-   Sets sending of a start\- and a stop message.
+   Set sending of a start and a stop message.
 
 
 Database
@@ -608,17 +739,19 @@ Database
 
 .. option:: -d, --database arg
 
-   The database connection string, format: service:\/\/user:pwd\@host\/database.
-   \"service\" is the name of the database driver which can be
-   queried with \"\-\-db\-driver\-list\".
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
 
 .. option:: --config-module arg
 
-   The configmodule to use.
+   The config module to use.
 
 .. option:: --inventory-db arg
 
-   Load the inventory from the given database or file, format: [service:\/\/]location
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
 
 .. option:: --db-disable
 
@@ -630,14 +763,16 @@ Records
 
 .. option:: --record-driver-list
 
-   List all supported record stream drivers
+   List all supported record stream drivers.
 
 .. option:: -I, --record-url arg
 
-   The recordstream source URL, format: [service:\/\/]location[#type].
-   \"service\" is the name of the recordstream driver which can be
-   queried with \"\-\-record\-driver\-list\". If \"service\"
-   is not given \"file:\/\/\" is used.
+   The recordstream source URL, format:
+   [service:\/\/]location[#type].
+   \"service\" is the name of the recordstream driver
+   which can be queried with \"\-\-record\-driver\-list\".
+   If \"service\" is not given, \"file:\/\/\" is
+   used.
 
 .. option:: --record-file arg
 

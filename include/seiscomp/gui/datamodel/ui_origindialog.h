@@ -92,7 +92,7 @@ public:
         depthDoubleSpinBox = new QDoubleSpinBox(groupBox);
         depthDoubleSpinBox->setObjectName(QString::fromUtf8("depthDoubleSpinBox"));
         depthDoubleSpinBox->setAlignment(Qt::AlignRight);
-        depthDoubleSpinBox->setDecimals(0);
+        depthDoubleSpinBox->setDecimals(3);
         depthDoubleSpinBox->setMaximum(1000);
         depthDoubleSpinBox->setMinimum(-100);
         depthDoubleSpinBox->setSingleStep(10);

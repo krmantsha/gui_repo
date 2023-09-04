@@ -64,6 +64,16 @@ class SC_GUI_API RecordView : public QWidget {
 			ExtendedSelection
 		};
 
+		enum SelectionOperationFlag {
+			SelectNone   = 0x00,
+			Select       = 0x01,
+			SelectPlus   = 0x02,
+			SelectMinus  = 0x04,
+			SelectAll    = Select | SelectPlus | SelectMinus
+		};
+
+		Q_DECLARE_FLAGS(SelectionOperation, SelectionOperationFlag)
+
 
 	public:
 		//! Default c'tor
@@ -150,6 +160,9 @@ class SC_GUI_API RecordView : public QWidget {
 		//! Clears all available records
 		void clearRecords();
 
+		//! Clears all available markers
+		void clearMarker();
+
 		//! Sets the height of a row in pixels
 		void setRowHeight(int height, bool allowStretch = false);
 
@@ -202,11 +215,14 @@ class SC_GUI_API RecordView : public QWidget {
 		RecordViewItem* currentItem() const;
 
 		QList<RecordViewItem*> selectedItems() const;
+		bool hasSelectedItems() const;
 
 		double timeRangeMin() const;
 		double timeRangeMax() const;
 
 		double timeScale() const;
+
+		Core::Time mapToTime(int x) const;
 
 		//! Returns all streams belonging to a station
 		QList<RecordViewItem*> stationStreams(const std::string& networkCode,
@@ -255,6 +271,8 @@ class SC_GUI_API RecordView : public QWidget {
 		 * @return The data time window
 		 */
 		Core::TimeWindow coveredTimeRange() const;
+
+		Core::TimeWindow visibleTimeRange() const;
 
 
 	public slots:
@@ -313,9 +331,9 @@ class SC_GUI_API RecordView : public QWidget {
 
 		bool isFilterEnabled() const;
 
-		void setScale (double t, float a = 0.0f);
-		void setTimeRange (double t1, double t2);
-		void setSelection (double t1, double t2);
+		void setScale(double t, double a = 0.0f);
+		void setTimeRange(double t1, double t2);
+		void setSelection(double t1, double t2);
 
 		void move(double offset);
 
@@ -423,16 +441,30 @@ class SC_GUI_API RecordView : public QWidget {
 	
 		//! Enables zooming by drawing a zoomrect with
 		//! the mouse
-		void setZoomEnabled(bool);
+		void setZoomEnabled(bool = true);
+
+		/**
+		 * @brief Enables rubber band selection with the mouse
+		 * @param enable Whether to enable or disable it
+		 * @param filter Which operations are enabled
+		 */
+		void setRubberBandSelectionEnabled(bool enable = true,
+		                                   SelectionOperation filter = SelectAll);
+
+		/**
+		 * @brief Restores the default selection mode (rows) and disables
+		 *        either rubberband selection or zooming.
+		 */
+		void restoreSelectionMode();
 
 		void setDefaultDisplay();
 
 		//! Sets the parameters used to filter the traces
-		void setFilter(Seiscomp::Math::Filtering::InPlaceFilter<float>* filter);
+		void setFilter(RecordWidget::Filter *filter);
 		bool setFilterByName(const QString&);
 
 		//! Returns the set filter instance
-		Seiscomp::Math::Filtering::InPlaceFilter<float>* filter() const;
+		RecordWidget::Filter *filter() const;
 
 		void updateRecords();
 
@@ -446,12 +478,12 @@ class SC_GUI_API RecordView : public QWidget {
 		void updatedInterval(double da, double dt, double ofs);
 		void toggledFilter(bool);
 
-		void scaleChanged(double time, float amplitude);
+		void scaleChanged(double time, double amplitude);
 		void timeRangeChanged(double tmin, double tmax);
 		void selectionChanged(double smin, double smax);
 		void alignmentChanged(const Seiscomp::Core::Time&);
 
-		void amplScaleChanged(float);
+		void amplScaleChanged(double);
 
 		//! This signal will be emitted whenever a new item
 		//! has been automatically added to the view.
@@ -485,6 +517,23 @@ class SC_GUI_API RecordView : public QWidget {
 		//! recordview and the filter has been set and enabled successfully
 		void filterChanged(const QString&);
 
+	#ifndef Q_MOC_RUN
+	// Hack to set the signal public for Qt 4 wich are protected by default.
+	public:
+	#endif
+		/**
+		 * @brief This signal is being emitted if the user selected an area
+		 *        with the rubber band selection tool.
+		 * @param rect The selected rectangle in global coordinates
+		 * @param tmin The minimum absolute time of the selected time range
+		 * @param tmax The maximum absolute time of the selected time range
+		 * @param operation The operation to apply.
+		 */
+		void selectedRubberBand(QRect rect,
+		                        QList<Seiscomp::Gui::RecordViewItem*>,
+		                        double tmin, double tmax,
+		                        Seiscomp::Gui::RecordView::SelectionOperation operation);
+
 
 	private slots:
 		void onItemClicked(RecordViewItem*, bool buttonDown = false,
@@ -508,6 +557,7 @@ class SC_GUI_API RecordView : public QWidget {
 		void showEvent(QShowEvent *event);
 		void closeEvent(QCloseEvent *event);
 
+		void changeEvent(QEvent* e);
 		void resizeEvent(QResizeEvent *event);
 
 		void dragEnterEvent(QDragEnterEvent *event);
@@ -530,6 +580,7 @@ class SC_GUI_API RecordView : public QWidget {
 
 		void applyBufferChange();
 
+		double mapToUnit(int x) const;
 		// bool buildFilter(const QString& text, std::vector<Seiscomp::Math::Filtering::IIR::Filter<float>* >* filterList);
 
 
@@ -582,7 +633,7 @@ class SC_GUI_API RecordView : public QWidget {
 
 		double _timeScale;     // pixels per second
 		double _minTimeScale;
-		float  _amplScale;     // amplitude units per pixel
+		double _amplScale;     // amplitude units per pixel
 
 		bool _filtering;      // the filter state
 		bool _alternatingColors;
@@ -602,7 +653,7 @@ class SC_GUI_API RecordView : public QWidget {
 
 		RecordWidget::RecordBorderDrawMode _recordBorderDrawMode;
 
-		Seiscomp::Math::Filtering::InPlaceFilter<float> *_filter;
+		RecordWidget::Filter *_filter;
 
 	friend class RecordViewItem;
 };

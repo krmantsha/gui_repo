@@ -16,7 +16,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="LocExt" href="global_locext.html" />
+    <link rel="next" title="StdLoc" href="global_stdloc.html" />
     <link rel="prev" title="iLoc" href="global_iloc.html" /> 
   </head>
   <body>
@@ -25,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -42,7 +42,7 @@
           </a>
         </li>
         <li class="right">
-          <a href="global_locext.html" title="LocExt"
+          <a href="global_stdloc.html" title="StdLoc"
              accesskey="N">
             next
           </a>
@@ -76,7 +76,7 @@
 <p>Nuttli magnitude for Canada and other Cratonic regions</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>MN is the Nuttli magnitude <span id="id1">[<a class="reference internal" href="../base/references.html#id48" title="O.W. Nuttli. Seismic wave attenuation and magnitude relations for eastern north america. J. Geophys. Res., 5:876 - 885, 1973. doi:10.1029/JB078i005p00876.">22</a>]</span> for Canada and other Cratonic
+<p>MN is the Nuttli magnitude <span id="id1">[<a class="reference internal" href="../base/references.html#id57" title="O.W. Nuttli. Seismic wave attenuation and magnitude relations for eastern north america. J. Geophys. Res., 5:876 - 885, 1973. doi:10.1029/JB078i005p00876.">50</a>]</span> for Canada and other Cratonic
 regions. It is implemented by the <em>nuttli</em> plugin according to the
 Geological Survey of Canada (NRCan).</p>
 <p>For measuring AMN amplitudes and for computing MN magnitudes <cite>SeisComP</cite> provides
@@ -120,8 +120,8 @@ region-specific calibration parameters in the global module configuration
 the region polygons in the global module configuration (magnitude section).</p>
 </div>
 </div>
-<div class="section" id="configuration">
-<span id="global-mn-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-configuration">
+<span id="global-mn-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>amplitudes.MN.*</strong>
@@ -130,10 +130,10 @@ the region polygons in the global module configuration (magnitude section).</p>
 <dl class="confval">
 <dt id="confval-amplitudes.MN.velocityModel">
 <code class="sig-name descname">amplitudes.MN.velocityModel</code><a class="headerlink" href="#confval-amplitudes.MN.velocityModel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">iasp91</span></code></p>
+<p>Type: <em>string</em></p>
 <p>The travel time table set compiled for LocSAT. The tables
-are located in “share/locsat/tables/[vmodel].*”.
-Default is <code class="docutils literal notranslate"><span class="pre">iasp91</span></code>.</p>
+are located in “share/locsat/tables/[vmodel].*”.</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -144,11 +144,20 @@ Default is <code class="docutils literal notranslate"><span class="pre">iasp91</
 <dl class="confval">
 <dt id="confval-magnitudes.MN.region">
 <code class="sig-name descname">magnitudes.MN.region</code><a class="headerlink" href="#confval-magnitudes.MN.region" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>path</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/magnitudes/MN/MN.bna</span></code></p>
+<p>Type: <em>path</em></p>
 <p>The path to the BNA file which defines the valid region
 for the MN magnitude. Note that the entire path from
-source to receiver must lie entirely within the polygon(s).
-Default is <code class="docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/magnitudes/MN/MN.bna</span></code>.</p>
+source to receiver must lie entirely within the polygon(s).</p>
+</dd></dl>
+
+<dl class="confval">
+<dt id="confval-magnitudes.MN.offsetMw">
+<code class="sig-name descname">magnitudes.MN.offsetMw</code><a class="headerlink" href="#confval-magnitudes.MN.offsetMw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>double</em></p>
+<p>The offset applied to the MN network magnitude to
+estimate Mw(MN). If not configured then no Mw estimation
+will be applied.</p>
 </dd></dl>
 
 </div>
@@ -183,7 +192,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">&#64;DAT
 <li><a class="reference internal" href="#scmag">scmag</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
 </ul>
 </li>
 </ul>
@@ -192,8 +201,8 @@ Default is <code class="docutils literal notranslate"><span class="pre">&#64;DAT
   <p class="topless"><a href="global_iloc.html"
                         title="previous chapter">iLoc</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="global_locext.html"
-                        title="next chapter">LocExt</a></p>
+  <p class="topless"><a href="global_stdloc.html"
+                        title="next chapter">StdLoc</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -213,7 +222,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">&#64;DAT
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

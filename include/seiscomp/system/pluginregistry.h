@@ -80,6 +80,7 @@ class SC_SYSTEM_CORE_API PluginRegistry {
 	public:
 		//! Returns the global instance
 		static PluginRegistry *Instance();
+		static void Reset();
 
 		//! Adds a plugin to be loaded
 		void addPluginName(const std::string &name);
@@ -135,9 +136,9 @@ class SC_SYSTEM_CORE_API PluginRegistry {
 	// Private members
 	// ----------------------------------------------------------------------
 	private:
-		typedef std::list<PluginEntry> PluginList;
-		typedef std::vector<std::string> PathList;
-		typedef std::vector<std::string> NameList;
+		using PluginList = std::list<PluginEntry>;
+		using PathList = std::vector<std::string>;
+		using NameList = std::vector<std::string>;
 
 		static PluginRegistry *_instance;
 

@@ -269,7 +269,18 @@ MAKEENUM(
 		HYDROACOUSTIC_EVENT,
 		ICE_QUAKE,
 		SLIDE,
-		METEORITE
+		METEORITE,
+		CALVING,
+		FROST_QUAKE,
+		TREMOR_PULSE,
+		SUBMARINE_LANDSLIDE,
+		ROCKET_LAUNCH,
+		ROCKET,
+		ROCKET_IMPACT,
+		ARTILLERY_STRIKE,
+		BOMB_DETONATION,
+		MOVING_AIRCRAFT,
+		ATMOSPHERIC_METEOR_EXPLOSION
 	),
 	ENAMES(
 		"not existing",
@@ -320,7 +331,18 @@ MAKEENUM(
 		"hydroacoustic event",
 		"ice quake",
 		"slide",
-		"meteorite"
+		"meteorite",
+		"calving",
+		"frost quake",
+		"tremor pulse",
+		"submarine landslide",
+		"rocket launch",
+		"rocket",
+		"rocket impact",
+		"artillery strike",
+		"bomb detonation",
+		"moving aircraft",
+		"atmospheric meteor explosion"
 	)
 );
 
@@ -329,11 +351,15 @@ MAKEENUM(
 	EventTypeCertainty,
 	EVALUES(
 		KNOWN,
-		SUSPECTED
+		SUSPECTED,
+		DAMAGING,
+		FELT
 	),
 	ENAMES(
 		"known",
-		"suspected"
+		"suspected",
+		"damaging",
+		"felt"
 	)
 );
 

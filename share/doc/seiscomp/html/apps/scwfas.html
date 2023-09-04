@@ -25,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -94,8 +94,8 @@ on each level.</p>
 <p>All data are forwarded unrestricted. There are no options to add restriction
 checks or user authentication.</p>
 </div>
-<div class="section" id="configuration">
-<span id="scwfas-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-configuration">
+<span id="scwfas-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/global.cfg</span></code></div>
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/scwfas.cfg</span></code></div>
@@ -117,77 +117,79 @@ If not given, an internal implementation will be used.</p>
 <dl class="confval">
 <dt id="confval-filebase">
 <code class="sig-name descname">filebase</code><a class="headerlink" href="#confval-filebase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">&#64;ROOTDIR&#64;/var/lib/archive</span></code></p>
+<p>Type: <em>string</em></p>
 <p>The filebase of the SDS archive. If an alternative archive
 handler is defined by “handlerSDS”, this value serves
-as input to setSource().
-Default is <code class="docutils literal notranslate"><span class="pre">&#64;ROOTDIR&#64;/var/lib/archive</span></code>.</p>
+as input to setSource().</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-arclink.port">
 <code class="sig-name descname">arclink.port</code><a class="headerlink" href="#confval-arclink.port" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">-1</span></code></p>
+<p>Type: <em>int</em></p>
 <p>The server port for Arclink connections. -1
 deactivates the Arclink server. The standard Arclink port is
-18001.
-Default is <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</p>
+18001.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-fdsnws.port">
 <code class="sig-name descname">fdsnws.port</code><a class="headerlink" href="#confval-fdsnws.port" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">8080</span></code></p>
+<p>Type: <em>int</em></p>
 <p>The server port for FDSNWS connections. -1
-deactivates the FDSN Web server.
-Default is <code class="docutils literal notranslate"><span class="pre">8080</span></code>.</p>
+deactivates the FDSN Web server.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-fdsnws.baseURL">
 <code class="sig-name descname">fdsnws.baseURL</code><a class="headerlink" href="#confval-fdsnws.baseURL" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">http://localhost:8080/fdsnws</span></code></p>
+<p>Type: <em>string</em></p>
 <p>The base URL of the FDSN Web service that is
-given in the WADL document.
-Default is <code class="docutils literal notranslate"><span class="pre">http://localhost:8080/fdsnws</span></code>.</p>
+given in the WADL document.</p>
 </dd></dl>
 
 <dl class="confval">
 <dt id="confval-fdsnws.maxTimeWindow">
 <code class="sig-name descname">fdsnws.maxTimeWindow</code><a class="headerlink" href="#confval-fdsnws.maxTimeWindow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>int</em></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>int</em></p>
 <p>Unit: <em>s</em></p>
 <p>The aggregated maximum time window (seconds)
 for all requested streams. A value of 0 will deactive
-any restriction.
-Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+any restriction.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="command-line">
-<h2>Command-line<a class="headerlink" href="#command-line" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="command-line-options">
+<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
 <p><strong class="program">scwfas [options]</strong></p>
 <div class="section" id="generic">
 <h3>Generic<a class="headerlink" href="#generic" title="Permalink to this headline">¶</a></h3>
 <dl class="option">
 <dt id="cmdoption-scwfas-h">
 <code class="sig-name descname">-h</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--help</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scwfas-h" title="Permalink to this definition">¶</a></dt>
-<dd><p>show help message.</p>
+<dd><p>Show help message.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scwfas-v">
 <code class="sig-name descname">-V</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--version</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scwfas-v" title="Permalink to this definition">¶</a></dt>
-<dd><p>show version information</p>
+<dd><p>Show version information.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scwfas-config-file">
 <code class="sig-name descname">--config-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scwfas-config-file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick -&gt; scautopick2.</p>
+<dd><p>Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick -&gt; scautopick2.</p>
 </dd></dl>
 
 <dl class="option">
@@ -199,8 +201,8 @@ create a symbolic link of the application or copy it, eg scautopick -&gt; scauto
 <dl class="option">
 <dt id="cmdoption-scwfas-d">
 <code class="sig-name descname">-D</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--daemon</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scwfas-d" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run as daemon. This means the application will fork itself and
-doesn’t need to be started with &amp;.</p>
+<dd><p>Run as daemon. This means the application will fork itself
+and doesn’t need to be started with &amp;.</p>
 </dd></dl>
 
 </div>
@@ -209,19 +211,20 @@ doesn’t need to be started with &amp;.</p>
 <dl class="option">
 <dt id="cmdoption-scwfas-verbosity">
 <code class="sig-name descname">--verbosity</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scwfas-verbosity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug</p>
+<dd><p>Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="id2">
 <code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--v</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Increase verbosity level (may be repeated, eg. -vv)</p>
+<dd><p>Increase verbosity level (may be repeated, eg. -vv).</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scwfas-q">
 <code class="sig-name descname">-q</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--quiet</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scwfas-q" title="Permalink to this definition">¶</a></dt>
-<dd><p>Quiet mode: no logging output</p>
+<dd><p>Quiet mode: no logging output.</p>
 </dd></dl>
 
 <dl class="option">
@@ -235,13 +238,15 @@ for file output but disabled for console output.</p>
 <dl class="option">
 <dt id="cmdoption-scwfas-component">
 <code class="sig-name descname">--component</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scwfas-component" title="Permalink to this definition">¶</a></dt>
-<dd><p>Limits the logging to a certain component. This option can be given more than once.</p>
+<dd><p>Limit the logging to a certain component. This option can
+be given more than once.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scwfas-s">
 <code class="sig-name descname">-s</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--syslog</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scwfas-s" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use syslog logging back end. The output usually goes to /var/lib/messages.</p>
+<dd><p>Use syslog logging backend. The output usually goes to
+/var/lib/messages.</p>
 </dd></dl>
 
 <dl class="option">
@@ -259,13 +264,16 @@ for file output but disabled for console output.</p>
 <dl class="option">
 <dt id="cmdoption-scwfas-debug">
 <code class="sig-name descname">--debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scwfas-debug" title="Permalink to this definition">¶</a></dt>
-<dd><p>Debug mode: –verbosity=4 –console=1</p>
+<dd><p>Execute in debug mode.
+Equivalent to –verbosity=4 –console=1 .</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-scwfas-trace">
 <code class="sig-name descname">--trace</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scwfas-trace" title="Permalink to this definition">¶</a></dt>
-<dd><p>Trace mode: –verbosity=4 –console=1 –print-component=1 –print-context=1</p>
+<dd><p>Execute in trace mode.
+Equivalent to –verbosity=4 –console=1 –print-component=1
+–print-context=1 .</p>
 </dd></dl>
 
 <dl class="option">
@@ -320,8 +328,8 @@ for file output but disabled for console output.</p>
   <ul>
 <li><a class="reference internal" href="#">scwfas</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
-<li><a class="reference internal" href="#configuration">Configuration</a></li>
-<li><a class="reference internal" href="#command-line">Command-line</a><ul>
+<li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
+<li><a class="reference internal" href="#command-line-options">Command-Line Options</a><ul>
 <li><a class="reference internal" href="#generic">Generic</a></li>
 <li><a class="reference internal" href="#verbosity">Verbosity</a></li>
 <li><a class="reference internal" href="#server">Server</a></li>
@@ -356,7 +364,7 @@ for file output but disabled for console output.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

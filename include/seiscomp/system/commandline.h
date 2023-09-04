@@ -21,6 +21,7 @@
 #ifndef SEISCOMP_SYSTEM_COMMANDLINE_H
 #define SEISCOMP_SYSTEM_COMMANDLINE_H
 
+
 #include <boost/program_options/options_description.hpp>
 #include <boost/program_options/variables_map.hpp>
 #include <boost/shared_ptr.hpp>
@@ -28,6 +29,8 @@
 #include <seiscomp/core.h>
 
 #include <map>
+#include <functional>
+
 
 namespace Seiscomp {
 namespace System {
@@ -69,6 +72,7 @@ class SC_SYSTEM_CORE_API CommandLine {
 		                     const char* description, T* customValidator);
 
 		bool parse(int argc, char** argv);
+		bool parse(int argc, char** argv, std::function<bool(const std::string &)> unknownArgumentFilter);
 
 		void printOptions() const;
 

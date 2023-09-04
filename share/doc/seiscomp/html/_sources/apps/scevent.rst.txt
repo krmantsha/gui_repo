@@ -305,8 +305,8 @@ Plugins
 
 .. _scevent_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 | :file:`etc/defaults/global.cfg`
 | :file:`etc/defaults/scevent.cfg`
@@ -328,6 +328,8 @@ scevent inherits :ref:`global options<global-configuration>`.
 
 .. confval:: eventIDPattern
 
+   Default: ``%p%Y%04c``
+
    Type: *string*
 
    Defines the pattern to generate an event ID.
@@ -347,7 +349,35 @@ scevent inherits :ref:`global options<global-configuration>`.
    %[w]X: upper case hexadecimal
    
    [w] is an optional width parameter.
-   Default is ``%p%Y%04c``.
+
+
+.. confval:: eventIDLookupMargin
+
+   Default: ``-1``
+
+   Type: *integer*
+
+   Configures the number of event ID slots to look back and
+   forth when an event ID is already taken. The default in
+   previous versions was 5. Now \-1 means that the margin is
+   determined automatically based on \"eventAssociation.eventTimeBefore\"
+   and \"eventAssociation.eventTimeAfter\". According to the
+   configured \"eventIDPattern\" a fixed time range per slot
+   can be computed and with that width the number of look
+   ahead slots and look back slots can be computed based on
+   the given time ranges for event association.
+
+
+.. confval:: populateFERegion
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   If enabled then the EventDescription with type
+   'Flinn\-Engdahl region' will be populated with the
+   Flinn\-Engdahl region name.
+
 
 .. confval:: processing.blacklist.eventIDs
 
@@ -370,11 +400,13 @@ scevent inherits :ref:`global options<global-configuration>`.
 
 .. confval:: eventAssociation.minimumDefiningPhases
 
+   Default: ``10``
+
    Type: *int*
 
    Minimum number of Picks for an Origin that is automatic and cannot be
    associated with an Event to be allowed to form an new Event.
-   Default is ``10``.
+
 
 .. confval:: eventAssociation.minimumScore
 
@@ -392,13 +424,17 @@ scevent inherits :ref:`global options<global-configuration>`.
 
 .. confval:: eventAssociation.ignoreFMDerivedOrigins
 
+   Default: ``true``
+
    Type: *boolean*
 
    Ignore and do not associate Origins derived
    from CMT\/MT inversions.
-   Default is ``true``.
+
 
 .. confval:: eventAssociation.eventTimeBefore
+
+   Default: ``1800``
 
    Type: *double*
 
@@ -406,9 +442,11 @@ scevent inherits :ref:`global options<global-configuration>`.
 
    Time range before the Origin time of an incoming Origin to search for
    matching events.
-   Default is ``1800``.
+
 
 .. confval:: eventAssociation.eventTimeAfter
+
+   Default: ``1800``
 
    Type: *double*
 
@@ -416,17 +454,21 @@ scevent inherits :ref:`global options<global-configuration>`.
 
    Time range after the Origin time of an incoming Origin to search for
    matching events.
-   Default is ``1800``.
+
 
 .. confval:: eventAssociation.minimumMatchingArrivals
+
+   Default: ``3``
 
    Type: *int*
 
    Minimum number of matching picks between two Origins to be associated
    to the same event.
-   Default is ``3``.
+
 
 .. confval:: eventAssociation.maximumMatchingArrivalTimeDiff
+
+   Default: ``-1``
 
    Type: *double*
 
@@ -436,9 +478,11 @@ scevent inherits :ref:`global options<global-configuration>`.
    matching arrivals. A non negative
    value \(including 0\) compares pick times regardless
    of the pickID. Pass: \|pick1.time \- pick2.time\| <\= threshold
-   Default is ``-1``.
+
 
 .. confval:: eventAssociation.compareAllArrivalTimes
+
+   Default: ``true``
 
    Type: *boolean*
 
@@ -449,16 +493,20 @@ scevent inherits :ref:`global options<global-configuration>`.
    of a new pick to all arrivals must be within
    eventAssociation.maximumMatchingArrivalTimeDiff
    or if one matching arrival is enough.
-   Default is ``true``.
+
 
 .. confval:: eventAssociation.allowLooseAssociatedArrivals
+
+   Default: ``false``
 
    Type: *boolean*
 
    Allows to match picks that are associated with weight 0.
-   Default is ``false``.
+
 
 .. confval:: eventAssociation.maximumTimeSpan
+
+   Default: ``60``
 
    Type: *double*
 
@@ -467,9 +515,11 @@ scevent inherits :ref:`global options<global-configuration>`.
    Associates an Origin with an existing event  if the Origin
    time differs not more than 60 seconds unless the
    minimumMatchingArrivals criteria matches.
-   Default is ``60``.
+
 
 .. confval:: eventAssociation.maximumDistance
+
+   Default: ``5``
 
    Type: *double*
 
@@ -477,9 +527,11 @@ scevent inherits :ref:`global options<global-configuration>`.
 
    Allowed location difference between an incoming Origin compared with
    preferred Origins to get associated.
-   Default is ``5``.
+
 
 .. confval:: eventAssociation.magTypes
+
+   Default: ``M``
 
    Type: *list:string*
 
@@ -489,49 +541,61 @@ scevent inherits :ref:`global options<global-configuration>`.
    Example:
    
    M, mBc, Mw\(mB\), Mwp, ML, MLh, MLv, mb
-   Default is ``M``.
+
 
 .. confval:: eventAssociation.enableFallbackMagnitude
+
+   Default: ``false``
 
    Type: *boolean*
 
    If true, one magnitude will be preferred even if magnitude criteria are
    not fullfilled.
-   Default is ``false``.
+
 
 .. confval:: eventAssociation.minimumMagnitudes
+
+   Default: ``4``
 
    Type: *int*
 
    Minimum number of station magnitudes referenced to a network magnitude
    to become a preferred magnitude.
-   Default is ``4``.
+
 
 .. confval:: eventAssociation.minMwCount
+
+   Default: ``8``
 
    Type: *int*
 
    Minimum number of station magnitudes required for Mw\(mB\) to be considered as
    preferred magnitude.
-   Default is ``8``.
+
 
 .. confval:: eventAssociation.mbOverMwCount
+
+   Default: ``30``
 
    Type: *int*
 
    Minimum number of station magnitudes which ensures that Mw\(mB\) will be
    preferred and not mb.
-   Default is ``30``.
+
 
 .. confval:: eventAssociation.mbOverMwValue
+
+   Default: ``6``
 
    Type: *double*
 
    Average between mb and Mw\(mB\) which must be exceeded to become Mw\(mB\)
    preferred.
-   Default is ``6``.
+
 
 .. confval:: eventAssociation.magPriorityOverStationCount
+
+   Default: ``false``
 
    Type: *boolean*
 
@@ -542,9 +606,11 @@ scevent inherits :ref:`global options<global-configuration>`.
    If true then the priority rules out the station count
    which is only taken into account if two magnitudes have the
    same priority.
-   Default is ``false``.
+
 
 .. confval:: eventAssociation.priorities
+
+   Default: ``AGENCY, STATUS, PHASES_AUTOMATIC, TIME_AUTOMATIC``
 
    Type: *list:string*
 
@@ -594,7 +660,7 @@ scevent inherits :ref:`global options<global-configuration>`.
    
    SCORE: evaluates the score according to a configured ScoreProcessor and
    prefers the Origin\/Focalmechanism with the highest score.
-   Default is ``AGENCY, STATUS, PHASES_AUTOMATIC, TIME_AUTOMATIC``.
+
 
 .. confval:: eventAssociation.agencies
 
@@ -646,13 +712,15 @@ scevent inherits :ref:`global options<global-configuration>`.
 
 .. confval:: eventAssociation.declareFakeEventForRejectedOrigin
 
+   Default: ``false``
+
    Type: *boolean*
 
    If the preferred Origin has evaluation status 'rejected', the
    Event type will be set to 'not existing' unless the Event
    type has been fixed by an operator or the preferred Origin
    has been fixed.
-   Default is ``false``.
+
 
 .. confval:: eventAssociation.delayTimeSpan
 
@@ -665,11 +733,21 @@ scevent inherits :ref:`global options<global-configuration>`.
    timespan.
 
 
+.. note::
+   **eventAssociation.region.\***
+   *Region filter for creating events. Use with care! Origins*
+   *outside may be ignored even if they would*
+   *become preferred otherwise.*
+
+
+
 .. confval:: eventAssociation.region.rect
 
    Type: *string*
 
-   Region in which scevent is allowed to create Events.
+   Region by geographic coordinates.
+   
+   Format: \"South, East, North, West\"
 
 
 .. confval:: eventAssociation.region.minDepth
@@ -678,7 +756,7 @@ scevent inherits :ref:`global options<global-configuration>`.
 
    Unit: *km*
 
-   Minimum depth for which scevent is allowed to create Events.
+   Minimum depth.
 
 
 .. confval:: eventAssociation.region.maxDepth
@@ -687,7 +765,7 @@ scevent inherits :ref:`global options<global-configuration>`.
 
    Unit: *km*
 
-   Maximum depth for which scevent is allowed to create Events.
+   Maximum depth.
 
 
 .. note::
@@ -732,13 +810,48 @@ evrc plugin for scevent
    **rc.\***
    *Test if events lie within or outside a region.*
    *Events within a region are flagged as positive, outside as negative.*
-   *The event type is set accordingly.*
-   *Add the plugin "evrc" to the  plugins*
-   *parameter to make this feature available.*
+   *The event type is set accordingly. Add the*
+   *plugin "evrc" to the plugins parameter in the*
+   *order of priority to make this feature available. Read the*
+   *documentation of the RegionCheck for more details.*
 
+
+
+.. confval:: rc.setEventType
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   Allow setting the event type.
+   The type of events which have manual origins will
+   not be changed unless configured explicitely by
+   \"overwriteManual\".
+
+
+.. confval:: rc.overwriteEventType
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   Allow overwriting existing event types. Disabling does not
+   allow accounting for changes in source region.
+
+
+.. confval:: rc.overwriteManual
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Allow setting the event type if the mode of the preferred
+   origin is manual or if the event type was set manually.
 
 
 .. confval:: rc.regions
+
+   Default: ``!reject``
 
    Type: *list:string*
 
@@ -772,9 +885,11 @@ evrc plugin for scevent
    are negative and all events within the polygon \"saxony\" are positive:
    
    accept,\!germany,saxony
-   Default is ``!reject``.
+
 
 .. confval:: rc.readEventTypeFromBNA
+
+   Default: ``false``
 
    Type: *boolean*
 
@@ -785,7 +900,7 @@ evrc plugin for scevent
    
    When eventType is set, it supersedes eventTypePositive and eventTypeNegative.
    When not set, eventTypePositive and eventTypeNegative are considered.
-   Default is ``false``.
+
 
 .. confval:: rc.eventTypePositive
 
@@ -799,17 +914,19 @@ evrc plugin for scevent
 
 .. confval:: rc.eventTypeNegative
 
+   Default: ``"outside of network interest"``
+
    Type: *string*
 
    New type of an event which is flagged negative. Ignored
    if readEventTypeFromBNA is active.
    
    Empty means default: \"outside of network interest\"
-   Default is ``"outside of network interest"``.
 
 
-Command-line
-============
+
+Command-Line Options
+====================
 
 .. program:: scevent
 
@@ -819,18 +936,20 @@ Generic
 
 .. option:: -h, --help
 
-   show help message.
+   Show help message.
 
 .. option:: -V, --version
 
-   show version information
+   Show version information.
 
 .. option:: --config-file arg
 
-   Use alternative configuration file. When this option is used
-   the loading of all stages is disabled. Only the given configuration
-   file is parsed and used. To use another name for the configuration
-   create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+   Use alternative configuration file. When this option is
+   used the loading of all stages is disabled. Only the
+   given configuration file is parsed and used. To use
+   another name for the configuration create a symbolic
+   link of the application or copy it. Example:
+   scautopick \-> scautopick2.
 
 .. option:: --plugins arg
 
@@ -838,26 +957,28 @@ Generic
 
 .. option:: -D, --daemon
 
-   Run as daemon. This means the application will fork itself and
-   doesn't need to be started with \&.
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
 
 .. option:: --auto-shutdown arg
 
-   Enable\/disable self\-shutdown because a master module shutdown. This only
-   works when messaging is enabled and the master module sends a shutdown
-   message \(enabled with \-\-start\-stop\-msg for the master module\).
+   Enable\/disable self\-shutdown because a master module shutdown.
+   This only works when messaging is enabled and the master
+   module sends a shutdown message \(enabled with \-\-start\-stop\-msg
+   for the master module\).
 
 .. option:: --shutdown-master-module arg
 
-   Sets the name of the master\-module used for auto\-shutdown. This
-   is the application name of the module actually started. If symlinks
-   are used then it is the name of the symlinked application.
+   Set the name of the master\-module used for auto\-shutdown.
+   This is the application name of the module actually
+   started. If symlinks are used, then it is the name of
+   the symlinked application.
 
 .. option:: --shutdown-master-username arg
 
-   Sets the name of the master\-username of the messaging used for
-   auto\-shutdown. If \"shutdown\-master\-module\" is given as well this
-   parameter is ignored.
+   Set the name of the master\-username of the messaging
+   used for auto\-shutdown. If \"shutdown\-master\-module\" is
+   given as well, this parameter is ignored.
 
 .. option:: -x, --expiry time
 
@@ -874,23 +995,26 @@ Verbosity
 
 .. option:: --verbosity arg
 
-   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
 
 .. option:: -v, --v
 
-   Increase verbosity level \(may be repeated, eg. \-vv\)
+   Increase verbosity level \(may be repeated, eg. \-vv\).
 
 .. option:: -q, --quiet
 
-   Quiet mode: no logging output
+   Quiet mode: no logging output.
 
 .. option:: --component arg
 
-   Limits the logging to a certain component. This option can be given more than once.
+   Limit the logging to a certain component. This option can
+   be given more than once.
 
 .. option:: -s, --syslog
 
-   Use syslog logging back end. The output usually goes to \/var\/lib\/messages.
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
 
 .. option:: -l, --lockfile arg
 
@@ -902,7 +1026,8 @@ Verbosity
 
 .. option:: --debug
 
-   Debug mode: \-\-verbosity\=4 \-\-console\=1
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
 
 .. option:: --log-file arg
 
@@ -930,11 +1055,12 @@ Messaging
 
 .. option:: -S, --subscribe-group arg
 
-   A group to subscribe to. This option can be given more than once.
+   A group to subscribe to.
+   This option can be given more than once.
 
 .. option:: --start-stop-msg arg
 
-   Sets sending of a start\- and a stop message.
+   Set sending of a start and a stop message.
 
 
 Database
@@ -946,17 +1072,19 @@ Database
 
 .. option:: -d, --database arg
 
-   The database connection string, format: service:\/\/user:pwd\@host\/database.
-   \"service\" is the name of the database driver which can be
-   queried with \"\-\-db\-driver\-list\".
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
 
 .. option:: --config-module arg
 
-   The configmodule to use.
+   The config module to use.
 
 .. option:: --inventory-db arg
 
-   Load the inventory from the given database or file, format: [service:\/\/]location
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
 
 .. option:: --db-disable
 

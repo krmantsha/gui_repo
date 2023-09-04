@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">4.10.1</span>
+          <span class="version">5.5.3</span>
         </div>
       </div>
     </div>
@@ -101,6 +101,8 @@
 </li>
       <li><a href="base/glossary.html#term-magnitude-local-ml"><strong>magnitude, local (ML)</strong></a>
 </li>
+      <li><a href="base/glossary.html#term-magnitude-local-custom-mlc"><strong>magnitude, local custom (MLc)</strong></a>
+</li>
       <li><a href="base/glossary.html#term-magnitude-local-gns-geonet-mlr"><strong>magnitude, local GNS/GEONET (MLr)</strong></a>
 </li>
       <li><a href="base/glossary.html#term-magnitude-local-horizontal-mlh"><strong>magnitude, local horizontal (MLh)</strong></a>
@@ -145,10 +147,80 @@
 </li>
       </ul></li>
       <li>
+    magnitudes.$name.region.$name.check
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.$name.region.$name.check">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.$name.region.$name.enable
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.$name.region.$name.enable">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.$name.region.$name.maxDepth
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.$name.region.$name.maxDepth">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.$name.region.$name.maxDist
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.$name.region.$name.maxDist">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.$name.region.$name.minDepth
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.$name.region.$name.minDepth">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.$name.region.$name.minDist
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.$name.region.$name.minDist">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.$name.region.$name.multiplier
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.$name.region.$name.multiplier">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.$name.region.$name.offset
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.$name.region.$name.offset">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.$name.regionFile
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.$name.regionFile">configuration value</a>
+</li>
+      </ul></li>
+      <li>
     magnitudes.average
 
       <ul>
         <li><a href="apps/scmag.html#confval-magnitudes.average">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.mb(IDC).Q
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.mb(IDC).Q">configuration value</a>
 </li>
       </ul></li>
       <li>
@@ -292,6 +364,13 @@
 </li>
       </ul></li>
       <li>
+    magnitudes.ML(IDC).A
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.ML(IDC).A">configuration value</a>
+</li>
+      </ul></li>
+      <li>
     magnitudes.ML.logA0
 
       <ul>
@@ -303,6 +382,153 @@
 
       <ul>
         <li><a href="apps/global.html#confval-magnitudes.ML.maxDistanceKm">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.ML.region.$name.logA0
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.ML.region.$name.logA0">configuration value</a>, <a href="apps/global_ml.html#confval-magnitudes.ML.region.$name.logA0">[1]</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.MLc.A0.logA0
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MLc.A0.logA0">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.MLc.calibrationType
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MLc.calibrationType">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.MLc.distMode
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MLc.distMode">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.MLc.maxDepth
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MLc.maxDepth">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.MLc.maxDist
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MLc.maxDist">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.MLc.minDist
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MLc.minDist">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.MLc.parametric.c0
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MLc.parametric.c0">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.MLc.parametric.c1
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MLc.parametric.c1">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.MLc.parametric.c2
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MLc.parametric.c2">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.MLc.parametric.c3
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MLc.parametric.c3">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.MLc.parametric.c4
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MLc.parametric.c4">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.MLc.parametric.c5
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MLc.parametric.c5">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.MLc.region.$name.A0.logA0
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MLc.region.$name.A0.logA0">configuration value</a>, <a href="apps/global_mlc.html#confval-magnitudes.MLc.region.$name.A0.logA0">[1]</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.MLc.region.$name.parametric.c0
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MLc.region.$name.parametric.c0">configuration value</a>, <a href="apps/global_mlc.html#confval-magnitudes.MLc.region.$name.parametric.c0">[1]</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.MLc.region.$name.parametric.c1
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MLc.region.$name.parametric.c1">configuration value</a>, <a href="apps/global_mlc.html#confval-magnitudes.MLc.region.$name.parametric.c1">[1]</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.MLc.region.$name.parametric.c2
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MLc.region.$name.parametric.c2">configuration value</a>, <a href="apps/global_mlc.html#confval-magnitudes.MLc.region.$name.parametric.c2">[1]</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.MLc.region.$name.parametric.c3
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MLc.region.$name.parametric.c3">configuration value</a>, <a href="apps/global_mlc.html#confval-magnitudes.MLc.region.$name.parametric.c3">[1]</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.MLc.region.$name.parametric.c4
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MLc.region.$name.parametric.c4">configuration value</a>, <a href="apps/global_mlc.html#confval-magnitudes.MLc.region.$name.parametric.c4">[1]</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.MLc.region.$name.parametric.c5
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MLc.region.$name.parametric.c5">configuration value</a>, <a href="apps/global_mlc.html#confval-magnitudes.MLc.region.$name.parametric.c5">[1]</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.MLh.maxDepth
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MLh.maxDepth">configuration value</a>
 </li>
       </ul></li>
       <li>
@@ -331,6 +557,13 @@
 
       <ul>
         <li><a href="apps/global.html#confval-magnitudes.MLv.maxDistanceKm">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.MLv.region.$name.logA0
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MLv.region.$name.logA0">configuration value</a>, <a href="apps/global_mlv.html#confval-magnitudes.MLv.region.$name.logA0">[1]</a>
 </li>
       </ul></li>
       <li>
@@ -369,12 +602,21 @@
 </li>
       </ul></li>
       <li>
+    magnitudes.MN.offsetMw
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.MN.offsetMw">configuration value</a>, <a href="apps/global_mn.html#confval-magnitudes.MN.offsetMw">[1]</a>
+</li>
+      </ul></li>
+      <li>
     magnitudes.MN.region
 
       <ul>
         <li><a href="apps/global.html#confval-magnitudes.MN.region">configuration value</a>, <a href="apps/global_mn.html#confval-magnitudes.MN.region">[1]</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     magnitudes.Ms_20.lowerPeriod
 
@@ -461,8 +703,6 @@
         <li><a href="apps/global.html#confval-map.layers.cities.topPopulatedPlaces">configuration value</a>, <a href="apps/global_gui.html#confval-map.layers.cities.topPopulatedPlaces">[1]</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     map.layers.events.visible
 
@@ -503,6 +743,13 @@
 
       <ul>
         <li><a href="apps/scmv.html#confval-mapLegendPosition">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    mapPicks
+
+      <ul>
+        <li><a href="apps/scrttv.html#confval-mapPicks">configuration value</a>
 </li>
       </ul></li>
       <li><a href="base/filter-grammar.html#MAX">MAX() (built-in function)</a>
@@ -604,6 +851,20 @@
         <li><a href="base/api-python.html#seiscomp.datamodel.QCLog.message">(seiscomp.datamodel.QCLog method)</a>
 </li>
       </ul></li>
+      <li>
+    messaging.groups.config
+
+      <ul>
+        <li><a href="apps/scrttv.html#confval-messaging.groups.config">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    messaging.groups.location
+
+      <ul>
+        <li><a href="apps/scrttv.html#confval-messaging.groups.location">configuration value</a>
+</li>
+      </ul></li>
       <li><a href="base/api-python.html#seiscomp.datamodel.MomentTensor.method">method() (seiscomp.datamodel.MomentTensor method)</a>
 </li>
       <li><a href="base/api-python.html#seiscomp.datamodel.Amplitude.methodID">methodID() (seiscomp.datamodel.Amplitude method)</a>
@@ -630,6 +891,13 @@
 </li>
       <li><a href="base/api-python.html#seiscomp.datamodel.OriginUncertainty.minHorizontalUncertainty">minHorizontalUncertainty() (seiscomp.datamodel.OriginUncertainty method)</a>
 </li>
+      <li>
+    minimumArrivalWeight
+
+      <ul>
+        <li><a href="apps/scmag.html#confval-minimumArrivalWeight">configuration value</a>
+</li>
+      </ul></li>
       <li><a href="base/api-python.html#seiscomp.datamodel.OriginQuality.minimumDistance">minimumDistance() (seiscomp.datamodel.OriginQuality method)</a>
 </li>
       <li><a href="base/api-python.html#seiscomp.datamodel.MomentTensorPhaseSetting.minimumSNR">minimumSNR() (seiscomp.datamodel.MomentTensorPhaseSetting method)</a>
@@ -852,7 +1120,7 @@
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>4.10.1</b> Release
+		  Version <b>5.5.3</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

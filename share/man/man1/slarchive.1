@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SLARCHIVE" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SLARCHIVE" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 slarchive \- SeisComP Documentation
 .
@@ -218,7 +218,7 @@ T}	T{
 T}
 _
 .TE
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .sp
 \fBNOTE:\fP
 .INDENT 0.0
@@ -235,44 +235,50 @@ slarchive is a standalone module and does not inherit global options\&.
 .INDENT 0.0
 .TP
 .B address
+Default: \fB127.0.0.1\fP
+.sp
 Type: \fIstring\fP
 .sp
 Host of the Seedlink server to connect to. If the acquisition
 is running on one system nothing needs to be changed.
-Default is \fB127.0.0.1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B port
+Default: \fB18000\fP
+.sp
 Type: \fIint\fP
 .sp
 The port of the Seedlink server to connect to. If the acquisition
 is running on one system this port must match the configured
 local Seedlink port.
-Default is \fB18000\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B archive
+Default: \fBvar/lib/archive\fP
+.sp
 Type: \fIstring\fP
 .sp
 Path to waveform archive where all data is stored. Relative paths
 (as the default) are treated relative to the installation
 directory ($SEISCOMP_ROOT).
-Default is \fBvar/lib/archive\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B buffer
+Default: \fB1000\fP
+.sp
 Type: \fIint\fP
 .sp
 Number of records (512 byte units) to buffer before flushing to
 disk.
-Default is \fB1000\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B delay
+Default: \fB30\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
@@ -281,11 +287,12 @@ The network reconnect delay (in seconds) for the connection
 to the SeedLink server. If the connection breaks for any
 reason this will govern how soon a reconnection should be
 attempted. The default value is 30 seconds.
-Default is \fB30\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B networkTimeout
+Default: \fB900\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
@@ -295,11 +302,12 @@ SeedLink server. If no data [or keep alive packets?] are received
 in this time range the connection is closed and re\-established
 (after the reconnect delay has expired). The default value is
 600 seconds. A value of 0 disables the timeout.
-Default is \fB900\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B idleTimeout
+Default: \fB300\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
@@ -310,11 +318,12 @@ arrived. If no packets arrived no idle stream files will be
 closed. There is no reason to change this parameter except for
 the unusual cases where the process is running against an open
 file number limit. Default is 300 seconds.
-Default is \fB300\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B keepalive
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
@@ -323,11 +332,12 @@ Interval (in seconds) at which keepalive (heartbeat) packets
 are sent to the server. Keepalive packets are only sent if
 nothing is received within the interval. This requires a
 Seedlink version >= 3.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B validation.certs
+Default: \fBvar/lib/certs\fP
+.sp
 Type: \fIstring\fP
 .sp
 Path to cerificate store where all certificates and CRLs are stored. Relative
@@ -348,11 +358,12 @@ hash beyond the first missing number in the sequence."
 The hash value can be obtained as follows:
 .sp
 openssl x509 \-hash \-noout \-in <file>
-Default is \fBvar/lib/certs\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B validation.mode
+Default: \fBignore\fP
+.sp
 Type: \fIstring\fP
 .sp
 Signatures are expected to be carried in blockette 2000
@@ -365,10 +376,8 @@ which do not carry a valid signature or no signature
 at all will be logged with at warning level.
 skip   : All received records without a valid signature
 will be ignored and will not be processed.
-Default is \fBignore\fP\&.
 .UNINDENT
-.SH BINDINGS
-.SS Configuration
+.SH BINDINGS PARAMETERS
 .INDENT 0.0
 .TP
 .B selectors
@@ -381,15 +390,16 @@ more information.
 .INDENT 0.0
 .TP
 .B keep
+Default: \fB30\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIday\fP
 .sp
 Number of days the data is kept in the archive. This
 requires purge_datafile to be run as cronjob.
-Default is \fB30\fP\&.
 .UNINDENT
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
 .sp
 \fBslarchive [OPTION]... [host][:][port]\fP
 .sp

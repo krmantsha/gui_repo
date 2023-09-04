@@ -9,12 +9,9 @@ access
 **Access module for FDSNWS.**
 
 
-Bindings
-========
+Bindings Parameters
+===================
 
-
-Configuration
--------------
 
 
 .. note::
@@ -32,10 +29,12 @@ Configuration
 
 .. confval:: access.disableStationCode
 
+   Default: ``false``
+
    Type: *boolean*
 
    When disableStationCode option is set to true the access entries will be generated only for the network level \(and optionally stream level\), no station code will be filled \(this can potentially reduce the number of entries on the access table, and save memory on the request handler when used\).
-   Default is ``false``.
+
 
 .. confval:: access.streams
 

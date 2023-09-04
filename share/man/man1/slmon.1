@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SLMON" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SLMON" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 slmon \- SeisComP Documentation
 .
@@ -111,7 +111,7 @@ Example of a website with the station summary created by \fIslmon\fP\&..UNINDENT
 [image]
 Example of a website with a per\-station channel view created by \fIslmon\fP\&..UNINDENT
 .UNINDENT
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .sp
 \fBNOTE:\fP
 .INDENT 0.0
@@ -128,14 +128,17 @@ slmon is a standalone module and does not inherit global options\&.
 .INDENT 0.0
 .TP
 .B title
+Default: \fB"SeedLink Monitor"\fP
+.sp
 Type: \fIstring\fP
 .sp
 Title of the web page used as heading.
-Default is \fB"SeedLink Monitor"\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B refresh
+Default: \fB180\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
@@ -144,26 +147,27 @@ Refresh interval of the generated web page used by the browser.
 The interval should be similar to the interval for starting slmon.
 If empty, the web page must be manually refreshed from within
 the browser.
-Default is \fB180\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B address
+Default: \fB127.0.0.1\fP
+.sp
 Type: \fIstring\fP
 .sp
 Host of the Seedlink server to connect to. If the acquisition
 is running on one system nothing needs to be changed.
-Default is \fB127.0.0.1\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B port
+Default: \fB18000\fP
+.sp
 Type: \fIint\fP
 .sp
 The port of the Seedlink server to connect to. If the acquisition
 is running on one system this port must match the configured
 local Seedlink port.
-Default is \fB18000\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -175,53 +179,58 @@ e\-mail address added to web pages.
 .INDENT 0.0
 .TP
 .B wwwdir
+Default: \fB@ROOTDIR@/var/run/@NAME@\fP
+.sp
 Type: \fIstring\fP
 .sp
 Output directory of the web pages.
-Default is \fB@ROOTDIR@/var/run/@NAME@\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B icon
+Default: \fBhttp://www.gfz\-potsdam.de/favicon.ico\fP
+.sp
 Type: \fIstring\fP
 .sp
 Favicon URL of the web pages. Not mandatory.
-Default is \fBhttp://www.gfz\-potsdam.de/favicon.ico\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B linkname
+Default: \fBGEOFON\fP
+.sp
 Type: \fIstring\fP
 .sp
 Name of Link shown in footer of web pages.
-Default is \fBGEOFON\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B linkurl
+Default: \fBhttp://www.gfz\-potsdam.de/geofon/\fP
+.sp
 Type: \fIstring\fP
 .sp
 URL referred to by linkname in footer of web pages.
-Default is \fBhttp://www.gfz\-potsdam.de/geofon/\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B liveurl
+Default: \fBhttp://geofon.gfz\-potsdam.de/waveform/liveseis.php?station=%s\fP
+.sp
 Type: \fIstring\fP
 .sp
 URL to live seismograms. %s will be replaced by station name.
 Not mandatory.
-Default is \fBhttp://geofon.gfz\-potsdam.de/waveform/liveseis.php?station=%s\fP\&.
 .UNINDENT
-.SH BINDINGS
-.SS Configuration
+.SH BINDINGS PARAMETERS
 .INDENT 0.0
 .TP
 .B group
+Default: \fBlocal\fP
+.sp
 Type: \fIstring\fP
 .sp
 Defines the group of the station that is monitored.
-Default is \fBlocal\fP\&.
 .UNINDENT
 .SH AUTHOR
 gempa GmbH, GFZ Potsdam

@@ -140,8 +140,8 @@ class CommandLine(object):
     def addOption(self, group, option, description):
         return _system.CommandLine_addOption(self, group, option, description)
 
-    def parse(self, argc, argv):
-        return _system.CommandLine_parse(self, argc, argv)
+    def parse(self, *args):
+        return _system.CommandLine_parse(self, *args)
 
     def printOptions(self):
         return _system.CommandLine_printOptions(self)
@@ -265,6 +265,10 @@ class PluginRegistry(object):
     def Instance():
         return _system.PluginRegistry_Instance()
 
+    @staticmethod
+    def Reset():
+        return _system.PluginRegistry_Reset()
+
     def addPluginName(self, name):
         return _system.PluginRegistry_addPluginName(self, name)
 
@@ -292,6 +296,12 @@ _system.PluginRegistry_swigregister(PluginRegistry)
 def PluginRegistry_Instance():
     return _system.PluginRegistry_Instance()
 
+def PluginRegistry_Reset():
+    return _system.PluginRegistry_Reset()
+
+
+def join(prefix, relativeName):
+    return _system.join(prefix, relativeName)
 class SystemApplication(object):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr

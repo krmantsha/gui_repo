@@ -75,8 +75,8 @@ create by *slmon* is given in the :ref:`figures below<fig-slmon>`.
 
 .. _slmon_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 
 .. note::
@@ -92,12 +92,16 @@ Configuration
 
 .. confval:: title
 
+   Default: ``"SeedLink Monitor"``
+
    Type: *string*
 
    Title of the web page used as heading.
-   Default is ``"SeedLink Monitor"``.
+
 
 .. confval:: refresh
+
+   Default: ``180``
 
    Type: *double*
 
@@ -107,24 +111,28 @@ Configuration
    The interval should be similar to the interval for starting slmon.
    If empty, the web page must be manually refreshed from within
    the browser.
-   Default is ``180``.
+
 
 .. confval:: address
+
+   Default: ``127.0.0.1``
 
    Type: *string*
 
    Host of the Seedlink server to connect to. If the acquisition
    is running on one system nothing needs to be changed.
-   Default is ``127.0.0.1``.
+
 
 .. confval:: port
+
+   Default: ``18000``
 
    Type: *int*
 
    The port of the Seedlink server to connect to. If the acquisition
    is running on one system this port must match the configured
    local Seedlink port.
-   Default is ``18000``.
+
 
 .. confval:: email
 
@@ -135,53 +143,62 @@ Configuration
 
 .. confval:: wwwdir
 
+   Default: ``@ROOTDIR@/var/run/@NAME@``
+
    Type: *string*
 
    Output directory of the web pages.
-   Default is ``@ROOTDIR@/var/run/@NAME@``.
+
 
 .. confval:: icon
+
+   Default: ``http://www.gfz-potsdam.de/favicon.ico``
 
    Type: *string*
 
    Favicon URL of the web pages. Not mandatory.
-   Default is ``http://www.gfz-potsdam.de/favicon.ico``.
+
 
 .. confval:: linkname
+
+   Default: ``GEOFON``
 
    Type: *string*
 
    Name of Link shown in footer of web pages.
-   Default is ``GEOFON``.
+
 
 .. confval:: linkurl
+
+   Default: ``http://www.gfz-potsdam.de/geofon/``
 
    Type: *string*
 
    URL referred to by linkname in footer of web pages.
-   Default is ``http://www.gfz-potsdam.de/geofon/``.
+
 
 .. confval:: liveurl
+
+   Default: ``http://geofon.gfz-potsdam.de/waveform/liveseis.php?station=%s``
 
    Type: *string*
 
    URL to live seismograms. %s will be replaced by station name.
    Not mandatory.
-   Default is ``http://geofon.gfz-potsdam.de/waveform/liveseis.php?station=%s``.
 
 
-Bindings
-========
 
+Bindings Parameters
+===================
 
-Configuration
--------------
 
 
 .. confval:: group
 
+   Default: ``local``
+
    Type: *string*
 
    Defines the group of the station that is monitored.
-   Default is ``local``.
+
 

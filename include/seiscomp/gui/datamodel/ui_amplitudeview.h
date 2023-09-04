@@ -58,6 +58,7 @@ public:
     QAction *actionToggleFilter;
     QAction *actionMaximizeAmplitudes;
     QAction *actionComputeMagnitudes;
+    QAction *actionShowTheoreticalArrivals;
     QAction *actionShowAllStations;
     QAction *actionShowUsedStations;
     QAction *actionShowZComponent;
@@ -123,6 +124,7 @@ public:
     QMenu *menu_Navigation;
     QMenu *menu_Locate;
     QMenu *menu_Filter;
+    QToolBar *toolBarTTT;
     QToolBar *toolBarFilter;
     QToolBar *toolBarSetup;
     QToolBar *toolBarComputeMagnitudes;
@@ -217,6 +219,10 @@ public:
         actionComputeMagnitudes->setObjectName(QString::fromUtf8("actionComputeMagnitudes"));
         const QIcon icon11 = QIcon(QString::fromUtf8(":/icons/icons/locate.png"));
         actionComputeMagnitudes->setIcon(icon11);
+        actionShowTheoreticalArrivals = new QAction(AmplitudeView);
+        actionShowTheoreticalArrivals->setObjectName(QString::fromUtf8("actionShowTheoreticalArrivals"));
+        actionShowTheoreticalArrivals->setCheckable(true);
+        actionShowTheoreticalArrivals->setChecked(true);
         actionShowAllStations = new QAction(AmplitudeView);
         actionShowAllStations->setObjectName(QString::fromUtf8("actionShowAllStations"));
         actionShowAllStations->setCheckable(false);
@@ -558,6 +564,10 @@ public:
         menu_Filter = new QMenu(menuBar);
         menu_Filter->setObjectName(QString::fromUtf8("menu_Filter"));
         AmplitudeView->setMenuBar(menuBar);
+        toolBarTTT = new QToolBar(AmplitudeView);
+        toolBarTTT->setObjectName(QString::fromUtf8("toolBarTTT"));
+        toolBarTTT->setOrientation(Qt::Horizontal);
+        AmplitudeView->addToolBar(static_cast<Qt::ToolBarArea>(4), toolBarTTT);
         toolBarFilter = new QToolBar(AmplitudeView);
         toolBarFilter->setObjectName(QString::fromUtf8("toolBarFilter"));
         toolBarFilter->setOrientation(Qt::Horizontal);
@@ -600,6 +610,7 @@ public:
         menuView->addAction(actionDefaultView);
         menuView->addAction(actionShowUsedStations);
         menuView->addAction(actionShowTraceValuesInNmS);
+        menuView->addAction(actionShowTheoreticalArrivals);
         menuView->addSeparator();
         menuView->addAction(menu_Zoomtrace->menuAction());
         menuView->addAction(menuTraces->menuAction());
@@ -770,6 +781,12 @@ public:
         actionComputeMagnitudes->setStatusTip(QApplication::translate("AmplitudeView", "Compute the magnitude and update it in the origin.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_STATUSTIP
         actionComputeMagnitudes->setShortcut(QApplication::translate("AmplitudeView", "F5", 0, QApplication::UnicodeUTF8));
+        actionShowTheoreticalArrivals->setText(QApplication::translate("AmplitudeView", "Show theoretical arrivals", 0, QApplication::UnicodeUTF8));
+        actionShowTheoreticalArrivals->setIconText(QApplication::translate("AmplitudeView", "Show theoretical arrivals", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_TOOLTIP
+        actionShowTheoreticalArrivals->setToolTip(QApplication::translate("AmplitudeView", "Shows theoretical arrivals as blue bars in the traces", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_TOOLTIP
+        actionShowTheoreticalArrivals->setShortcut(QApplication::translate("AmplitudeView", "Ctrl+T", 0, QApplication::UnicodeUTF8));
         actionShowAllStations->setText(QApplication::translate("AmplitudeView", "Add stations in range", 0, QApplication::UnicodeUTF8));
         actionShowAllStations->setIconText(QApplication::translate("AmplitudeView", "Add stations in range", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
@@ -855,19 +872,22 @@ public:
         actionDisablePicking->setToolTip(QApplication::translate("AmplitudeView", "Leave picking mode (Esc)", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         actionDisablePicking->setShortcut(QApplication::translate("AmplitudeView", "Esc", 0, QApplication::UnicodeUTF8));
-        actionRecalculateAmplitudes->setText(QApplication::translate("AmplitudeView", "Recalculate all amplitudes", 0, QApplication::UnicodeUTF8));
-        actionRecalculateAmplitudes->setIconText(QApplication::translate("AmplitudeView", "Recalculate all amplitudes", 0, QApplication::UnicodeUTF8));
+        actionRecalculateAmplitudes->setText(QApplication::translate("AmplitudeView", "Remeasure all amplitudes", 0, QApplication::UnicodeUTF8));
+        actionRecalculateAmplitudes->setIconText(QApplication::translate("AmplitudeView", "Remeasure all amplitudes", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
-        actionRecalculateAmplitudes->setToolTip(QApplication::translate("AmplitudeView", "Recalculate all amplitudes", 0, QApplication::UnicodeUTF8));
+        actionRecalculateAmplitudes->setToolTip(QApplication::translate("AmplitudeView", "Remeasure all amplitudes", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         actionRecalculateAmplitudes->setShortcut(QApplication::translate("AmplitudeView", "Shift+R", 0, QApplication::UnicodeUTF8));
         actionPickAmplitude->setText(QApplication::translate("AmplitudeView", "Pick amplitudes", 0, QApplication::UnicodeUTF8));
         actionPickAmplitude->setIconText(QApplication::translate("AmplitudeView", "Pick amplitudes", 0, QApplication::UnicodeUTF8));
-        actionPickAmplitude->setShortcut(QApplication::translate("AmplitudeView", "1", 0, QApplication::UnicodeUTF8));
-        actionRecalculateAmplitude->setText(QApplication::translate("AmplitudeView", "Recalculate amplitude of selected waveform", 0, QApplication::UnicodeUTF8));
-        actionRecalculateAmplitude->setIconText(QApplication::translate("AmplitudeView", "Recalculate amplitude of selected waveform", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
-        actionRecalculateAmplitude->setToolTip(QApplication::translate("AmplitudeView", "Recalculate amplitude of selected waveform", 0, QApplication::UnicodeUTF8));
+        actionPickAmplitude->setToolTip(QApplication::translate("AmplitudeView", "Drag time window for measuring amplitudes", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_TOOLTIP
+        actionPickAmplitude->setShortcut(QApplication::translate("AmplitudeView", "1", 0, QApplication::UnicodeUTF8));
+        actionRecalculateAmplitude->setText(QApplication::translate("AmplitudeView", "Remeasure amplitude of selected waveform", 0, QApplication::UnicodeUTF8));
+        actionRecalculateAmplitude->setIconText(QApplication::translate("AmplitudeView", "Remeasure amplitude of selected waveform", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_TOOLTIP
+        actionRecalculateAmplitude->setToolTip(QApplication::translate("AmplitudeView", "Remeasure amplitude of selected waveform", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         actionRecalculateAmplitude->setShortcut(QApplication::translate("AmplitudeView", "R", 0, QApplication::UnicodeUTF8));
         actionSetAmplitude->setText(QApplication::translate("AmplitudeView", "Set amplitude", 0, QApplication::UnicodeUTF8));
@@ -907,6 +927,7 @@ public:
         menu_Navigation->setTitle(QApplication::translate("AmplitudeView", "&Navigation", 0, QApplication::UnicodeUTF8));
         menu_Locate->setTitle(QApplication::translate("AmplitudeView", "&Amplitudes", 0, QApplication::UnicodeUTF8));
         menu_Filter->setTitle(QApplication::translate("AmplitudeView", "&Filter", 0, QApplication::UnicodeUTF8));
+        toolBarTTT->setWindowTitle(QApplication::translate("AmplitudeView", "Travel times", 0, QApplication::UnicodeUTF8));
         toolBarSetup->setWindowTitle(QApplication::translate("AmplitudeView", "Calculate", 0, QApplication::UnicodeUTF8));
         toolBarComputeMagnitudes->setWindowTitle(QApplication::translate("AmplitudeView", "Apply", 0, QApplication::UnicodeUTF8));
     } // retranslateUi

@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCDBSTRIP" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCDBSTRIP" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scdbstrip \- SeisComP Documentation
 .
@@ -31,23 +31,42 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
 .sp
-\fBDatabase clean\-up of processing results.\fP
+\fBClean up a database from event and waveform quality parameters.\fP
 .SH DESCRIPTION
 .sp
-SeisComP\(aqs scmaster is continuously writing to the database. This causes
+\fISeisComP\fP\(aqs scmaster is continuously writing to the database. This causes
 the database to grow and to occupy much space on the harddisc. scdbstrip taggles
 this problem and removes processed objects from the database older than a
 configurable time span. The time comparison considers the object time, not the
 time of their creation.
 .sp
-This clean\-up procedure is based on events. scdbstrip will remove all events
-with an origin time older than specified. It will also remove all associated
+This clean\-up procedure is based on
+.INDENT 0.0
+.IP \(bu 2
+Events, event parameters,
+.IP \(bu 2
+waveform quality control, QC, parameters.
+.UNINDENT
+.sp
+scdbstrip will remove all events with an origin time and QC parameters older or
+younger than specified. Default is \(aqolder\(aq. It will also remove all associated
 objects such as picks, origins, arrivals, amplitudes and so on.
 .sp
 scdbstrip does not run as a daemon. To remove old objects continuously scdbstrip
 should be added to the list of cronjobs running every e.g. 30 minutes. The more
 often it runs the less objects it has to remove and the faster it will unlock
-the database again.
+the database again. The timing and the parameters to be removed is controlled
+by module configuration or command\-line options.
+.sp
+\fBHINT:\fP
+.INDENT 0.0
+.INDENT 3.5
+For removing specific parameters and not all in a time range, use
+scdispatch along with XML files created by scxmldump and
+scqueryqc for event parameters and waveform QC parameters,
+respectively.
+.UNINDENT
+.UNINDENT
 .SH KNOWN ISSUES
 .sp
 When running scdbstrip for the first time on a large database it can happen
@@ -75,7 +94,8 @@ That means your MYSQL server cannot hold enough data required for deletion.
 There are two solutions to this:
 .INDENT 0.0
 .IP 1. 3
-Increase the memory pool used by MYSQL by changing the configuration to:
+Increase the memory pool used by MYSQL by changing the configuration. The
+minimum is 64 MBytes but modern system typically have a larger default:
 .INDENT 3.0
 .INDENT 3.5
 .sp
@@ -88,7 +108,8 @@ innodb_buffer_pool_size = 64M
 .UNINDENT
 .sp
 The size of the new buffer depends on the size of the database that should
-be cleaned up.
+be cleaned up. Read also the section database_configuration\&. It
+provides more options for optimizing your database server.
 .IP 2. 3
 Run scdbstrip on smaller batches for the first time:
 .INDENT 3.0
@@ -108,19 +129,31 @@ $ scdbstrip \-d seis:mypass@localhost/seiscomp \-\-days 100
 .SH EXAMPLES
 .INDENT 0.0
 .IP \(bu 2
-Keep the events of the last 30 days
+Remove event and waveform quality parameters older than 30 days
 .INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
 .ft C
-scdbstrip \-\-days 30 \-d mysql://sysop:sysop@localhost/seiscomp
+scdbstrip \-d mysql://sysop:sysop@localhost/seiscomp \-\-days 30
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Only remove waveform QC parameters older than 30 days but no others
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scdbstrip \-d mysql://sysop:sysop@localhost/seiscomp \-\-days 30 \-\-qc\-only
 .ft P
 .fi
 .UNINDENT
 .UNINDENT
 .UNINDENT
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/scdbstrip.cfg\fP
@@ -132,6 +165,35 @@ scdbstrip \-\-days 30 \-d mysql://sysop:sysop@localhost/seiscomp
 .sp
 .sp
 scdbstrip inherits global options\&.
+.INDENT 0.0
+.TP
+.B database.cleanup.invertMode
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Delete all parameters after the specified time period,
+not before.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B database.cleanup.eventParameters
+Default: \fBtrue\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Strip all event parameters including events, origins,
+magnitudes, amplitudes, arrivals, picks, focal mechanisms.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B database.cleanup.qualityControl
+Default: \fBtrue\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Strip waveform quality control (QC) parameters.
+.UNINDENT
 .sp
 \fBNOTE:\fP
 .INDENT 0.0
@@ -145,63 +207,64 @@ scdbstrip inherits global options\&.
 .INDENT 0.0
 .TP
 .B database.cleanup.keep.days
+Default: \fB30\fP
+.sp
 Type: \fIint\fP
 .sp
 The number of days to preserve in the database. This
 value is added to the whole timespan. Hours
 and minutes are configured separately.
-Default is \fB30\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B database.cleanup.keep.hours
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 The number of hours to preserve in the database. This
 value is added to the whole timespan. Days
 and minutes are configured separately.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B database.cleanup.keep.minutes
+Default: \fB0\fP
+.sp
 Type: \fIint\fP
 .sp
 The number of minutes to preserve in the database. This
 value is added to the whole timespan. Days
 and hours are configured separately.
-Default is \fB0\fP\&.
 .UNINDENT
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
+.sp
+\fBscdbstrip [options]\fP
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-plugins arg
 Load given plugins.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B \-D, \-\-daemon
-Run as daemon. This means the application will fork itself and
-doesn\(aqt need to be started with &.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -212,27 +275,30 @@ Overrides configuration parameter \fBfirstNew\fP\&.
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -247,7 +313,8 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -263,73 +330,85 @@ List all supported database drivers.
 .INDENT 0.0
 .TP
 .B \-d, \-\-database arg
-The database connection string, format: \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which can be
-queried with "\-\-db\-driver\-list".
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+"service" is the name of the database driver which
+can be queried with "\-\-db\-driver\-list".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-module arg
-The configmodule to use.
+The config module to use.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-inventory\-db arg
-Load the inventory from the given database or file, format: [\fI\%service://]location\fP
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-db\-disable
 Do not use the database at all
 .UNINDENT
-.SS Settings
+.SS Mode
+.INDENT 0.0
+.TP
+.B \-\-check
+Checks if unreachable objects exist.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-clean\-unused
+Remove all unreachable objects when in checkmode. Default:
+off.
+.UNINDENT
+.SS Objects
+.INDENT 0.0
+.TP
+.B \-E, \-\-ep\-only
+Strip only event parameters. Other parameters, like QC, are
+are ignored.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-Q, \-\-qc\-only
+Strip only waveform quality control (QC) parameters. Other
+parameters, like event parameters, are are ignored.
+Overrides \(aqeq\-only\(aq.
+.UNINDENT
+.SS Timespan
 .INDENT 0.0
 .TP
 .B \-\-days arg
 Overrides configuration parameter \fI\%database.cleanup.keep.days\fP\&.
-The number of days to keep. Hours and minutes are also
-used the compute the whole time span.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-hours arg
 Overrides configuration parameter \fI\%database.cleanup.keep.hours\fP\&.
-The number of hours to keep. Days and minutes are also
-used the compute the whole time span.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-minutes arg
 Overrides configuration parameter \fI\%database.cleanup.keep.minutes\fP\&.
-The number of minutes to keep. Days and hours are also
-used the compute the whole time span.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-datetime arg
 Replaces the days:hours:minutes timespan definition by an
-arbtrary absolute timestamp in UTC. The format is
+aribtrary absolute timestamp in UTC. The format is
 %Y\-%m\-%d %H:%M:%S.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-i, \-\-invert
-Delete all events after the specified time period and not
-before.
+Overrides configuration parameter \fI\%database.cleanup.invertMode\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-keep\-events
-Event\-IDs to keep in the database separated with comma.
-.UNINDENT
-.SS Mode
-.INDENT 0.0
-.TP
-.B \-\-check
-.UNINDENT
-.INDENT 0.0
-.TP
-.B \-\-clean\-unused
+IDs of events to keep in the database separated with comma.
 .UNINDENT
 .SH AUTHOR
 gempa GmbH, GFZ Potsdam

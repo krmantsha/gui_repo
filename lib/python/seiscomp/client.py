@@ -131,6 +131,7 @@ import seiscomp.config
 import seiscomp.datamodel
 import seiscomp.io
 import seiscomp.math
+import seiscomp.geo
 import seiscomp.utils
 class Packet(seiscomp.core.BaseObject):
     r"""Proxy of C++ Seiscomp::Client::Packet class."""
@@ -338,6 +339,10 @@ class Protocol(object):
         r"""schemaVersion(Protocol self) -> Version"""
         return _client.Protocol_schemaVersion(self)
 
+    def extendedParameters(self):
+        r"""extendedParameters(Protocol self) -> Seiscomp::Client::Protocol::KeyValueStore const &"""
+        return _client.Protocol_extendedParameters(self)
+
     def clientName(self):
         r"""clientName(Protocol self) -> std::string const &"""
         return _client.Protocol_clientName(self)
@@ -409,6 +414,10 @@ class Protocol(object):
     def outboxSize(self):
         r"""outboxSize(Protocol self) -> size_t"""
         return _client.Protocol_outboxSize(self)
+
+    def setCertificate(self, cert):
+        r"""setCertificate(Protocol self, std::string const & cert)"""
+        return _client.Protocol_setCertificate(self, cert)
 
     @staticmethod
     def decode(*args):
@@ -567,6 +576,10 @@ class Connection(seiscomp.core.BaseObject):
         r"""getInfo(Connection self, Time timestamp, std::ostream & os)"""
         return _client.Connection_getInfo(self, timestamp, os)
 
+    def setCertificate(self, cert):
+        r"""setCertificate(Connection self, std::string const & cert) -> Seiscomp::Client::Result"""
+        return _client.Connection_setCertificate(self, cert)
+
     def clientName(self):
         r"""clientName(Connection self) -> std::string const &"""
         return _client.Connection_clientName(self)
@@ -574,6 +587,10 @@ class Connection(seiscomp.core.BaseObject):
     def schemaVersion(self):
         r"""schemaVersion(Connection self) -> Version"""
         return _client.Connection_schemaVersion(self)
+
+    def extendedParameters(self):
+        r"""extendedParameters(Connection self) -> Seiscomp::Client::Protocol::KeyValueStore const *"""
+        return _client.Connection_extendedParameters(self)
 
 # Register Connection in _client:
 _client.Connection_swigregister(Connection)
@@ -1211,6 +1228,10 @@ class Application(seiscomp.system.SystemApplication):
         r"""messagingURL(Application self) -> std::string const &"""
         return _client.Application_messagingURL(self)
 
+    def messagingCertificate(self):
+        r"""messagingCertificate(Application self) -> std::string const &"""
+        return _client.Application_messagingCertificate(self)
+
     def enableTimer(self, seconds):
         r"""enableTimer(Application self, unsigned int seconds)"""
         return _client.Application_enableTimer(self, seconds)
@@ -1412,10 +1433,6 @@ class Application(seiscomp.system.SystemApplication):
         r"""Instance() -> Application"""
         return _client.Application_Instance()
 
-    def createBaseCommandLineDescription(self):
-        r"""createBaseCommandLineDescription(Application self)"""
-        return _client.Application_createBaseCommandLineDescription(self)
-
     def validateParameters(self):
         r"""validateParameters(Application self) -> bool"""
         return _client.Application_validateParameters(self)
@@ -1507,6 +1524,10 @@ class Application(seiscomp.system.SystemApplication):
         self.this.disown()
         _client.disown_Application(self)
         return weakref.proxy(self)
+
+    def createBaseCommandLineDescription(self):
+        r"""createBaseCommandLineDescription(Application self)"""
+        return _client.Application_createBaseCommandLineDescription(self)
 
     def createCommandLineDescription(self):
         r"""createCommandLineDescription(Application self)"""
@@ -1823,6 +1844,11 @@ class Inventory(object):
         r"""Instance() -> Inventory"""
         return _client.Inventory_Instance()
 
+    @staticmethod
+    def Reset():
+        r"""Reset()"""
+        return _client.Inventory_Reset()
+
     def load(self, *args):
         r"""
         load(Inventory self, char const * filename)
@@ -1894,6 +1920,10 @@ def Inventory_Instance():
     r"""Inventory_Instance() -> Inventory"""
     return _client.Inventory_Instance()
 
+def Inventory_Reset():
+    r"""Inventory_Reset()"""
+    return _client.Inventory_Reset()
+
 class ConfigDB(object):
     r"""Proxy of C++ Seiscomp::Client::ConfigDB class."""
 
@@ -1907,6 +1937,11 @@ class ConfigDB(object):
     def Instance():
         r"""Instance() -> ConfigDB"""
         return _client.ConfigDB_Instance()
+
+    @staticmethod
+    def Reset():
+        r"""Reset()"""
+        return _client.ConfigDB_Reset()
 
     def load(self, *args):
         r"""
@@ -1926,6 +1961,10 @@ _client.ConfigDB_swigregister(ConfigDB)
 def ConfigDB_Instance():
     r"""ConfigDB_Instance() -> ConfigDB"""
     return _client.ConfigDB_Instance()
+
+def ConfigDB_Reset():
+    r"""ConfigDB_Reset()"""
+    return _client.ConfigDB_Reset()
 
 
 

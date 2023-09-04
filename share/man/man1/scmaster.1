@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCMASTER" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCMASTER" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scmaster \- SeisComP Documentation
 .
@@ -43,22 +43,36 @@ scmaster provides the message groups\&. Configure
 .IP \(bu 2
 \fI\%defaultGroups\fP: Add the groups which can be used by all queues.
 .IP \(bu 2
-\fI\%queues.$name.groups\fP: Add all groups which are used by the given queue.
-Adding any values ignores all values of \fI\%defaultGroups\fP\&.
+\fI\%queues.$name.groups\fP: Set all groups which are used by the given
+queue. You may inherit \fI\%defaultGroups\fP, e.g.:
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+queues.production.groups = ${defaultGroups},L1PICK
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+\fBWARNING:\fP
+.INDENT 2.0
+.INDENT 3.5
+Setting any value without inheriting \fI\%defaultGroups\fP ignores all
+values of \fI\%defaultGroups\fP\&.
+.UNINDENT
+.UNINDENT
 .UNINDENT
 .SH QUEUES
 .sp
-scmaster provides queues for separating the processing.
+scmaster provides \fIqueues\fP for separating the processing.
 Typically, the default queue \fIproduction\fP is used. To add new queues
 .INDENT 0.0
 .IP 1. 3
 Define a new queue by adding a new profile with some name,
 .IP 2. 3
-Configure the profile parameters :confval:
-.nf
-\(ga
-.fi
-queues.$name.*,
+Configure the profile parameters \fBqueues.$name.*\fP,
 .IP 3. 3
 Register the queue in \fI\%queues\fP\&.
 .UNINDENT
@@ -75,6 +89,8 @@ scmaster reads from and writes to the database and reports the database connecti
 to the clients of the messaging system (compare with the concepts section).
 .sp
 The database is configured per queue.
+.SS Single machine
+.sp
 When running all \fISeisComP\fP modules on a single machine, the read and write
 parameters are typically configured with \fIlocalhost\fP as a \fIhost name\fP\&.
 .sp
@@ -90,9 +106,10 @@ queues.production.processors.messages.dbstore.write = sysop:sysop@localhost/seis
 .fi
 .UNINDENT
 .UNINDENT
+.SS Multiple machines
 .sp
-However, if the clients are
-located on machines different from the messaging, the \fIhost name\fP of the read parameter
+If the clients are located on machines different from the messaging, the
+\fIhost name\fP of the read parameter
 must be available on the client machine and the client machine must be able to
 connect to the host with its name. If the database is on the same machine as the
 messaging, the \fIhost name\fP of the write connection typically remains \fIlocalhost\fP\&.
@@ -126,7 +143,7 @@ connection.server = computerA/production
 .UNINDENT
 .UNINDENT
 .UNINDENT
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/scmaster.cfg\fP
@@ -141,20 +158,22 @@ scmaster inherits global options\&.
 .INDENT 0.0
 .TP
 .B defaultGroups
+Default: \fBAMPLITUDE, PICK, LOCATION, MAGNITUDE, FOCMECH, EVENT, QC, PUBLICATION, GUI, INVENTORY, CONFIG, LOGGING, SERVICE_REQUEST, SERVICE_PROVIDE, STATUS_GROUP\fP
+.sp
 Type: \fIlist:string\fP
 .sp
 The default set of message groups for each queue. Only used
 if a queues group list is unset (note: empty is not unset).
-Default is \fBAMPLITUDE, PICK, LOCATION, MAGNITUDE, FOCMECH, EVENT, QC, PUBLICATION, GUI, INVENTORY, CONFIG, LOGGING, SERVICE_REQUEST, SERVICE_PROVIDE, STATUS_GROUP\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B queues
+Default: \fBproduction, playback\fP
+.sp
 Type: \fIlist:string\fP
 .sp
 Enable messaging queues defined as profile in queues. The profile
 names are the final queue names.
-Default is \fBproduction, playback\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -169,12 +188,13 @@ Default is \fBproduction, playback\fP\&.
 .INDENT 0.0
 .TP
 .B interface.bind
+Default: \fB0.0.0.0:18180\fP
+.sp
 Type: \fIipbind\fP
 .sp
 Local bind address and port of the messaging system.
-0.0.0.0:18180 accepts connections from all clients, 127.0.0.1:18180
-only from localhost.
-Default is \fB0.0.0.0:18180\fP\&.
+0.0.0.0:18180 accepts connections from all clients,
+127.0.0.1:18180 only from localhost.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -182,15 +202,18 @@ Default is \fB0.0.0.0:18180\fP\&.
 Type: \fIlist:ipmask\fP
 .sp
 The IP access control list for clients which are allowed
-to connect to the interface.
+to connect to the interface. Separate each IP with a space
+and put the entire list in double quotes, e.g.
+"127.0.0.1 192.168.1.2 192.168.0.0/16".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B interface.socketPortReuse
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 SO_REUSEADDR socket option for the TCP listening socket.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -203,11 +226,12 @@ Default is \fBtrue\fP\&.
 .INDENT 0.0
 .TP
 .B interface.ssl.bind
+Default: \fB0.0.0.0:\-1\fP
+.sp
 Type: \fIipbind\fP
 .sp
-Additional local bind address and port of the messaging system
-in case SSL encryption is active.
-Default is \fB0.0.0.0:\-1\fP\&.
+Additional local bind address and port of the messaging
+system in case SSL encryption is active.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -215,15 +239,17 @@ Default is \fB0.0.0.0:\-1\fP\&.
 Type: \fIlist:ipmask\fP
 .sp
 The IP access control list for clients which are allowed
-to connect to the interface.
+to connect to the interface. See interface.acl for
+further details.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B interface.ssl.socketPortReuse
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
 SO_REUSEADDR socket option for the TCP listening socket.
-Default is \fBtrue\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -274,23 +300,26 @@ queues.c.value1 = ...
 .B queues.$name.groups
 Type: \fIlist:string\fP
 .sp
-Define the list of message groups added to the queue. If unset
-then the defaultGroups will be used. A queue will always
-add the default group "STATUS_GROUP". This
-parameter overrides defaultGroups.
+Define the list of message groups added to the queue.
+If unset, then the defaultGroups will be used.
+A queue will always add the default group "STATUS_GROUP".
+This parameter overrides defaultGroups.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B queues.$name.acl
+Default: \fB0.0.0.0/0\fP
+.sp
 Type: \fIlist:ipmask\fP
 .sp
 The IP access control list for clients which are allowed
-to join the queue.
-Default is \fB0.0.0.0/0\fP\&.
+to join the queue. See interface.acl for further details.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B queues.$name.maximumPayloadSize
+Default: \fB1048576\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIB\fP
@@ -298,7 +327,6 @@ Unit: \fIB\fP
 The maximum size in bytes of a message to be accepted.
 Clients which send larger messages will be disconnected.
 The default is 1MB.
-Default is \fB1048576\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -317,7 +345,7 @@ Example: dbstore
 .B queues.$name.processors.messages
 Type: \fIstring\fP
 .sp
-Interface name. For now, use "dbstore" to
+Interface name. For now, use "dbstore"to
 use a database.
 .sp
 Use empty for testing or playbacks without a database.
@@ -335,9 +363,10 @@ Use empty for testing or playbacks without a database.
 .B queues.$name.processors.messages.dbstore.driver
 Type: \fIstring\fP
 .sp
-Selected the database driver to use. Database drivers are
-available through plugins. The default plugin is dbmysql
-which supports the MYSQL database server. It is activated
+Selected the database driver to use.
+Database drivers are available through plugins.
+The default plugin is dbmysql which supports
+the MYSQL database server. It is activated
 with the core.plugins parameter.
 .UNINDENT
 .INDENT 0.0
@@ -345,9 +374,10 @@ with the core.plugins parameter.
 .B queues.$name.processors.messages.dbstore.read
 Type: \fIstring\fP
 .sp
-Sets the database read connection which is reported to clients
-that connect to this server. If a remote setup should be
-implemented, ensure that the hostname is reachable from
+Set the database read connection which is
+reported to clients that connect to this server.
+If a remote setup should be implemented,
+ensure that the hostname is reachable from
 the remote computer.
 .UNINDENT
 .INDENT 0.0
@@ -355,47 +385,166 @@ the remote computer.
 .B queues.$name.processors.messages.dbstore.write
 Type: \fIstring\fP
 .sp
-Sets the database write connection which is private to
-scmaster. A separate write connection enables different
-permissions on the database level for scmaster and
-clients.
+Set the database write connection which is
+private to scmaster.
+A separate write connection enables different
+permissions on the database level for scmaster
+and clients.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B queues.$name.processors.messages.dbstore.strictVersionMatch
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
-If enabled, the plugin will check the database schema version and refuse to start
-if the version doesn\(aqt match the latest version. If disabled and the an object
-needs to be stored which is incompatible with the database schema this object is
-lost. Leave this option enabled unless you know exactly what are you doing and what
-the consequences are.
-Default is \fBtrue\fP\&.
+If enabled, the plugin will check the database
+schema version and refuse to start if the
+version doesn\(aqt match the latest version.
+If disabled and the an object needs to be
+stored, which is incompatible with the
+database schema, this object is lost.
+Leave this option enabled unless you know
+exactly what are you doing and what the
+consequences are.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B http.filebase
+Default: \fB@DATADIR@/scmaster/http/\fP
+.sp
 Type: \fIpath\fP
 .sp
 The directory served by the http server at staticPath.
-Default is \fB@DATADIR@/scmaster/http/\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B http.staticPath
+Default: \fB/\fP
+.sp
 Type: \fIstring\fP
 .sp
 The URL path at which html files and assets are available.
 All files under filebase will be served at this URL path.
-Default is \fB/\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B http.brokerPath
+Default: \fB/\fP
+.sp
 Type: \fIstring\fP
 .sp
 The URL path at which the broker websocket is available.
-Default is \fB/\fP\&.
+.UNINDENT
+.SH COMMAND-LINE OPTIONS
+.sp
+\fBscmaster [options]\fP
+.SS Generic
+.INDENT 0.0
+.TP
+.B \-h, \-\-help
+Show help message.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-V, \-\-version
+Show version information.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-config\-file arg
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-plugins arg
+Load given plugins.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-D, \-\-daemon
+Run as daemon. This means the application will fork itself
+and doesn\(aqt need to be started with &.
+.UNINDENT
+.SS Verbosity
+.INDENT 0.0
+.TP
+.B \-\-verbosity arg
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-v, \-\-v
+Increase verbosity level (may be repeated, eg. \-vv).
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-q, \-\-quiet
+Quiet mode: no logging output.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-component arg
+Limit the logging to a certain component. This option can
+be given more than once.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-s, \-\-syslog
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-l, \-\-lockfile arg
+Path to lock file.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-console arg
+Send log output to stdout.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-debug
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-log\-file arg
+Use alternative log file.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-print\-component arg
+For each log entry print the component right after the
+log level. By default the component output is enabled
+for file output but disabled for console output.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-trace
+Execute in trace mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 \-\-print\-component=1
+\-\-print\-context=1 .
+.UNINDENT
+.SS Wired
+.INDENT 0.0
+.TP
+.B \-\-bind arg
+The non\-encrypted bind address. Format [ip:]port
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-sbind arg
+The encrypted bind address. Format: [ip:]port
 .UNINDENT
 .SH AUTHOR
 gempa GmbH, GFZ Potsdam

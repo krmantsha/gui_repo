@@ -43,8 +43,9 @@ class SC_SYSTEM_CLIENT_API ConfigDB {
 
 	public:
 		static ConfigDB* Instance();
+		static void Reset();
 
-		void load(Seiscomp::DataModel::DatabaseReader* reader,
+		void load(DataModel::DatabaseReader* reader,
 			const OPT(std::string)& moduleName = Seiscomp::Core::None,
 			const OPT(std::string)& networkCode = Seiscomp::Core::None,
 			const OPT(std::string)& stationCode = Seiscomp::Core::None,
@@ -53,17 +54,17 @@ class SC_SYSTEM_CLIENT_API ConfigDB {
 
 		void load(const char *xml);
 
-		Seiscomp::DataModel::Config* config();
+		DataModel::Config *config();
 
 	private:
-		std::map<int, Seiscomp::DataModel::ConfigModulePtr> _configModules;
-		std::map<int, Seiscomp::DataModel::ConfigStationPtr> _configStations;
-		std::map<int, Seiscomp::DataModel::ParameterSetPtr> _parameterSets;
-		Seiscomp::DataModel::ConfigPtr _config;
+		std::map<int, DataModel::ConfigModulePtr> _configModules;
+		std::map<int, DataModel::ConfigStationPtr> _configStations;
+		std::map<int, DataModel::ParameterSetPtr> _parameterSets;
+		DataModel::ConfigPtr _config;
 		static ConfigDB *_instance;
 
-	Seiscomp::DataModel::DatabaseIterator getConfigObjects(Seiscomp::DataModel::DatabaseReader* reader,
-		const Seiscomp::Core::RTTI& classType,
+	DataModel::DatabaseIterator getConfigObjects(DataModel::DatabaseReader* reader,
+		const Core::RTTI& classType,
 		const OPT(std::string)& moduleName,
 		const OPT(std::string)& networkCode,
 		const OPT(std::string)& stationCode,

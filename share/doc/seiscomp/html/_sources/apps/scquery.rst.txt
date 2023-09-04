@@ -17,8 +17,8 @@ on custom queries and writes them to stdout.
 It extends :ref:`scevtls` and :ref:`scorgls` which are limited to searching event
 and origin IDs, respectively, by time.
 
-scquery takes into account the :ref:`query profiles <scquery_queries>`
-defined in
+scquery takes into account and requires :ref:`query profiles <scquery_queries>`
+for querying the database. The profiles are defined in
 
 * :file:`@SYSTEMCONFIGDIR@/queries.cfg` or
 * :file:`@CONFIGDIR@/queries.cfg`
@@ -48,6 +48,7 @@ Module Setup
       in the section :ref:`Examples<scquery_examples>` can be omitted or used to
       override the configuration.
 
+
 .. _scquery_examples:
 
 Examples
@@ -61,7 +62,7 @@ parameters are indicated by hashes, e.g. ##latMin##.
 
    .. code-block:: sh
 
-      scquery -d localhost/seiscomp --showqueries
+      scquery --showqueries
 
 #. Profile **event_filter**: Fetch all event IDs and event parameters for events
    with magnitude ranging from 2.5 to 5 in central Germany between 2014 and 2017:
@@ -195,8 +196,8 @@ below for the query "eventFilter".
 
 .. _scquery_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 | :file:`etc/defaults/global.cfg`
 | :file:`etc/defaults/scquery.cfg`
@@ -210,8 +211,8 @@ scquery inherits :ref:`global options<global-configuration>`.
 
 
 
-Command-line
-============
+Command-Line Options
+====================
 
 .. program:: scquery
 
@@ -223,18 +224,20 @@ Generic
 
 .. option:: -h, --help
 
-   show help message.
+   Show help message.
 
 .. option:: -V, --version
 
-   show version information
+   Show version information.
 
 .. option:: --config-file arg
 
-   Use alternative configuration file. When this option is used
-   the loading of all stages is disabled. Only the given configuration
-   file is parsed and used. To use another name for the configuration
-   create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+   Use alternative configuration file. When this option is
+   used the loading of all stages is disabled. Only the
+   given configuration file is parsed and used. To use
+   another name for the configuration create a symbolic
+   link of the application or copy it. Example:
+   scautopick \-> scautopick2.
 
 .. option:: --plugins arg
 
@@ -246,23 +249,26 @@ Verbosity
 
 .. option:: --verbosity arg
 
-   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
 
 .. option:: -v, --v
 
-   Increase verbosity level \(may be repeated, eg. \-vv\)
+   Increase verbosity level \(may be repeated, eg. \-vv\).
 
 .. option:: -q, --quiet
 
-   Quiet mode: no logging output
+   Quiet mode: no logging output.
 
 .. option:: --component arg
 
-   Limits the logging to a certain component. This option can be given more than once.
+   Limit the logging to a certain component. This option can
+   be given more than once.
 
 .. option:: -s, --syslog
 
-   Use syslog logging back end. The output usually goes to \/var\/lib\/messages.
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
 
 .. option:: -l, --lockfile arg
 
@@ -274,7 +280,8 @@ Verbosity
 
 .. option:: --debug
 
-   Debug mode: \-\-verbosity\=4 \-\-console\=1
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
 
 .. option:: --log-file arg
 
@@ -290,9 +297,10 @@ Database
 
 .. option:: -d, --database arg
 
-   The database connection string, format: service:\/\/user:pwd\@host\/database.
-   \"service\" is the name of the database driver which can be
-   queried with \"\-\-db\-driver\-list\".
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
 
 
 Commands

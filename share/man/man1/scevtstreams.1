@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCEVTSTREAMS" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCEVTSTREAMS" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scevtstreams \- SeisComP Documentation
 .
@@ -31,7 +31,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
 .sp
-\fBExtracts stream information and time windows from an event.\fP
+\fBExtract stream information and time windows from an event.\fP
 .SH DESCRIPTION
 .sp
 scevtstreams reads all picks of an event and determines the time window between
@@ -137,7 +137,7 @@ scevtstreams \-E gfz2012abcd \-i event.xml \-m 120,500 \-\-caps
 .UNINDENT
 .UNINDENT
 .UNINDENT
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/scevtstreams.cfg\fP
@@ -149,25 +149,29 @@ scevtstreams \-E gfz2012abcd \-i event.xml \-m 120,500 \-\-caps
 .sp
 .sp
 scevtstreams inherits global options\&.
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
+.sp
+\fBscevtstreams [options]\fP
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -177,55 +181,60 @@ Load given plugins.
 .INDENT 0.0
 .TP
 .B \-D, \-\-daemon
-Run as daemon. This means the application will fork itself and
-doesn\(aqt need to be started with &.
+Run as daemon. This means the application will fork itself
+and doesn\(aqt need to be started with &.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-auto\-shutdown arg
-Enable/disable self\-shutdown because a master module shutdown. This only
-works when messaging is enabled and the master module sends a shutdown
-message (enabled with \-\-start\-stop\-msg for the master module).
+Enable/disable self\-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with \-\-start\-stop\-msg
+for the master module).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-module arg
-Sets the name of the master\-module used for auto\-shutdown. This
-is the application name of the module actually started. If symlinks
-are used then it is the name of the symlinked application.
+Set the name of the master\-module used for auto\-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-username arg
-Sets the name of the master\-username of the messaging used for
-auto\-shutdown. If "shutdown\-master\-module" is given as well this
-parameter is ignored.
+Set the name of the master\-username of the messaging
+used for auto\-shutdown. If "shutdown\-master\-module" is
+given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -240,7 +249,8 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -256,19 +266,21 @@ List all supported database drivers.
 .INDENT 0.0
 .TP
 .B \-d, \-\-database arg
-The database connection string, format: \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which can be
-queried with "\-\-db\-driver\-list".
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+"service" is the name of the database driver which
+can be queried with "\-\-db\-driver\-list".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-module arg
-The configmodule to use.
+The config module to use.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-inventory\-db arg
-Load the inventory from the given database or file, format: [\fI\%service://]location\fP
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -279,7 +291,7 @@ Do not use the database at all
 .INDENT 0.0
 .TP
 .B \-i, \-\-input arg
-Input XML file name. Overwrites reading from database.
+Input XML file name. Override reading from database.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -297,46 +309,60 @@ Specifies the event id.
 .TP
 .B \-m, \-\-margin arg
 Time margin around the picked time window, default is 300.
-Added before the first and after the last pick, respectively. Use 2
-comma\-separted values (before,after) for asymmetric margins, e.g. 120,300.
+Added before the first and after the last pick, respectively.
+Use 2 comma\-separted values (before,after) for asymmetric
+margins. Example: 120,300.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-S, \-\-streams arg
-Comma separated list of streams per station to add, e.g. BH,SH,HH.
+Comma separated list of streams per station to add.
+Example: BH,SH,HH.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-C, \-\-all\-components arg
-Specifies whether to use all components (1) or just the picked ones (0). Default: 1.
+Specify whether to use all components (1) or just the
+picked ones (0). Default: 1.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-L, \-\-all\-locations arg
-Specifies whether to use all location codes (1) or just the picked ones (0). Default: 1.
+Specify whether to use all location codes (1) or just
+the picked ones (0). Default: 1.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-all\-stations flag
-Dump all stations from the same network. If unused, just stations with picks are dumped.
+.B \-\-all\-stations
+Dump all stations from the same network. If unused, just
+stations with picks are dumped.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-all\-networks flag
+.B \-\-all\-networks
 Dump all networks. If unused, just networks with picks are
 dumped. This option implies all\-stations, all\-locations,
-all\-streams, all\-components and will only provide the time window.
+all\-streams, all\-components and will only provide the time
+window.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-R, \-\-resolve\-wildcards flag
 If all components are used, use inventory to resolve stream
-components instead of using \(aq?\(aq (important when Arclink should be used).
+components instead of using \(aq?\(aq (important when Arclink
+should be used).
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-caps flag
-Dump in capstool format (Common Acquisition Protocol Server by gempa GmbH)
+.B \-\-net\-sta arg
+Filter streams by network code or network and station code.
+Format: NET or NET.STA
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-caps
+Dump in capstool format (Common Acquisition Protocol Server
+by gempa GmbH)
 .UNINDENT
 .INDENT 0.0
 .TP

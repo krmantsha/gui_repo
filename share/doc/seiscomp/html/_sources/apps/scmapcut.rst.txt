@@ -55,8 +55,8 @@ Examples
 
 .. _scmapcut_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 | :file:`etc/defaults/global.cfg`
 | :file:`etc/defaults/scmapcut.cfg`
@@ -70,10 +70,12 @@ scmapcut inherits :ref:`global options<global-configuration>`.
 
 
 
-Command-line
-============
+Command-Line Options
+====================
 
 .. program:: scmapcut
+
+:program:`scmapcut [options]`
 
 
 Generic
@@ -81,18 +83,20 @@ Generic
 
 .. option:: -h, --help
 
-   show help message.
+   Show help message.
 
 .. option:: -V, --version
 
-   show version information
+   Show version information.
 
 .. option:: --config-file arg
 
-   Use alternative configuration file. When this option is used
-   the loading of all stages is disabled. Only the given configuration
-   file is parsed and used. To use another name for the configuration
-   create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+   Use alternative configuration file. When this option is
+   used the loading of all stages is disabled. Only the
+   given configuration file is parsed and used. To use
+   another name for the configuration create a symbolic
+   link of the application or copy it. Example:
+   scautopick \-> scautopick2.
 
 .. option:: --plugins arg
 
@@ -100,26 +104,28 @@ Generic
 
 .. option:: -D, --daemon
 
-   Run as daemon. This means the application will fork itself and
-   doesn't need to be started with \&.
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
 
 .. option:: --auto-shutdown arg
 
-   Enable\/disable self\-shutdown because a master module shutdown. This only
-   works when messaging is enabled and the master module sends a shutdown
-   message \(enabled with \-\-start\-stop\-msg for the master module\).
+   Enable\/disable self\-shutdown because a master module shutdown.
+   This only works when messaging is enabled and the master
+   module sends a shutdown message \(enabled with \-\-start\-stop\-msg
+   for the master module\).
 
 .. option:: --shutdown-master-module arg
 
-   Sets the name of the master\-module used for auto\-shutdown. This
-   is the application name of the module actually started. If symlinks
-   are used then it is the name of the symlinked application.
+   Set the name of the master\-module used for auto\-shutdown.
+   This is the application name of the module actually
+   started. If symlinks are used, then it is the name of
+   the symlinked application.
 
 .. option:: --shutdown-master-username arg
 
-   Sets the name of the master\-username of the messaging used for
-   auto\-shutdown. If \"shutdown\-master\-module\" is given as well this
-   parameter is ignored.
+   Set the name of the master\-username of the messaging
+   used for auto\-shutdown. If \"shutdown\-master\-module\" is
+   given as well, this parameter is ignored.
 
 
 Verbosity
@@ -127,23 +133,26 @@ Verbosity
 
 .. option:: --verbosity arg
 
-   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
 
 .. option:: -v, --v
 
-   Increase verbosity level \(may be repeated, eg. \-vv\)
+   Increase verbosity level \(may be repeated, eg. \-vv\).
 
 .. option:: -q, --quiet
 
-   Quiet mode: no logging output
+   Quiet mode: no logging output.
 
 .. option:: --component arg
 
-   Limits the logging to a certain component. This option can be given more than once.
+   Limit the logging to a certain component. This option can
+   be given more than once.
 
 .. option:: -s, --syslog
 
-   Use syslog logging back end. The output usually goes to \/var\/lib\/messages.
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
 
 .. option:: -l, --lockfile arg
 
@@ -155,7 +164,8 @@ Verbosity
 
 .. option:: --debug
 
-   Debug mode: \-\-verbosity\=4 \-\-console\=1
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
 
 .. option:: --log-file arg
 
@@ -167,8 +177,8 @@ Cities
 
 .. option:: --city-xml arg
 
-   Path to the cities.xml file. If undefined the data is read from
-   \@CONFIGDIR\@\/cities.xml\@ or \@DATADIR\@\/cities.xml\@.
+   Path to the cities.xml file. If undefined, the data is
+   read from CONFIGDIR\@\/cities.xml or \@DATADIR\@\/cities.xml.
 
 
 Options
@@ -176,49 +186,49 @@ Options
 
 .. option:: -r, --region arg
 
-   Cut region \([lat_dim]x[lon_dim]+lat0+lon0 or +lat0+lon+lat1+lon1\)
+   Cut region \([lat_dim]x[lon_dim]+lat0+lon0 or +lat0+lon+lat1+lon1\).
 
 .. option:: -m, --margin arg
 
-   Margin in degrees around origin \(margin\|margin_latxmargin_lon\)
+   Margin in degrees around origin \(margin\|margin_latxmargin_lon\).
 
 .. option:: -d, --dimension arg
 
-   Output image dimension \(wxh\)
+   Output image dimension \(wxh\).
 
 .. option:: -o, --output arg
 
-   Output image, file name
+   Output image, file name.
 
 .. option:: --lat arg
 
-   Latitude of symbol
+   Latitude of symbol.
 
 .. option:: --long arg
 
-   Longitude of symbol
+   Longitude of symbol.
 
 .. option:: --depth arg
 
-   Depth of event
+   Depth of event.
 
 .. option:: --mag arg
 
-   Magnitude of event
+   Magnitude of event.
 
 .. option:: --layers arg
 
-   Draw polygonal layers
+   Draw polygonal layers.
 
 .. option:: --ep arg
 
-   Name of XML file containing the event parameters to load
+   Name of XML file containing the event parameters to load.
 
 .. option:: -E, --event-id arg
 
-   EventID of the event to plot on map
+   Event ID of the event to plot on map.
 
 .. option:: --html-area arg
 
-   Print html\/area section
+   Print html\/area section.
 

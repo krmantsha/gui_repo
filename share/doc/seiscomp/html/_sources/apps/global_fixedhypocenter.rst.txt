@@ -177,7 +177,7 @@ Application
 ===========
 
 #. Configure the parameters in the section *FixedHypocenter* of the global configuration.
-#. When using in :ref:`scolv` the FixedHypocenter locator can be chose right away
+#. When using in :ref:`scolv` the FixedHypocenter locator can be chosen right away
    from the available locators.
 
    .. figure:: media/scolv-fixedhypocenter.png
@@ -212,8 +212,8 @@ Application
 
 .. _global_fixedhypocenter_configuration:
 
-Configuration
-=============
+Module Configuration
+====================
 
 
 .. note::
@@ -224,6 +224,8 @@ Configuration
 
 .. confval:: FixedHypocenter.profiles
 
+   Default: ``LOCSAT/iasp91,LOCSAT/tab``
+
    Type: *list:string*
 
    Defines a list of available travel time tables. Each item
@@ -231,9 +233,11 @@ Configuration
    Built\-in interfaces are \"LOCSAT\" and \"libtau\".
    Other interfaces might be added via plugins. Please check their
    documentation for the required interface name.
-   Default is ``LOCSAT/iasp91,LOCSAT/tab``.
+
 
 .. confval:: FixedHypocenter.usePickUncertainties
+
+   Default: ``false``
 
    Type: *boolean*
 
@@ -242,9 +246,11 @@ Configuration
    each individual pick object. If they are not defined, then the
    default pick time uncertainty as defined by defaultTimeError
    will be used instead.
-   Default is ``false``.
+
 
 .. confval:: FixedHypocenter.defaultTimeError
+
+   Default: ``1.0``
 
    Type: *double*
 
@@ -252,19 +258,23 @@ Configuration
 
    The default pick time uncertainty if pick uncertainties are
    not going to be used or if they are absent.
-   Default is ``1.0``.
+
 
 .. confval:: FixedHypocenter.degreesOfFreedom
+
+   Default: ``8``
 
    Type: *int*
 
    Number of degrees of freedom used for error estimate.
-   Default is ``8``.
+
 
 .. confval:: FixedHypocenter.confLevel
+
+   Default: ``0.9``
 
    Type: *double*
 
    Confidence level between 0.5 and 1.
-   Default is ``0.9``.
+
 

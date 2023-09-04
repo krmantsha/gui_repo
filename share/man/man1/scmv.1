@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCMV" "1" "Dec 01, 2022" "4.10.1" "SeisComP"
+.TH "SCMV" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
 .SH NAME
 scmv \- SeisComP Documentation
 .
@@ -270,7 +270,7 @@ Type station/network name
 .IP \(bu 2
 Double click in a station in the list to center the map at this location
 .UNINDENT
-.SH CONFIGURATION
+.SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
 \fBetc/defaults/scmv.cfg\fP
@@ -287,61 +287,74 @@ scmv inherits global options\&.
 .B displaymode
 Type: \fIstring\fP
 .sp
-Set one of the available displaymodes: groundmotion or qualitycontrol
+Start scmv in one of the available display modes:
+.sp
+groundmotion or qualitycontrol
+.sp
+and without tabs and menus as walldisplay.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B groundMotionRecordLifeSpan
+Default: \fB300\fP
+.sp
 Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
-Sets the maximum latency in seconds of the ground motion records to be valid.
-Default is \fB300\fP\&.
+Set the maximum latency in seconds of the ground motion records
+to be valid.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B removeEventDataOlderThan
+Default: \fB43200\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
-Sets the time span in seconds to keep events.
-Default is \fB43200\fP\&.
+Set the time span in seconds to keep events.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B readEventsNotOlderThan
+Default: \fB0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
-Sets the time span in seconds to read events initially from database.
-Default is \fB0\fP\&.
+Set the time span in seconds to read events initially from
+database.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B centerOrigins
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
-If a new origin/event is set/selected this option defines if the map is centered
-or not at the origin location.
-Default is \fBfalse\fP\&.
+If a new origin/event is set/selected this option defines if the
+map is centered or not at the origin location.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventActivityLifeSpan
+Default: \fB900\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
 .sp
-Time span of which an event is active after origin time to show blinking associated
-stations.
-Default is \fB900\fP\&.
+Time span of which an event is active after origin time to
+show blinking associated stations.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B expiredEventsInterval
+Default: \fB0\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
@@ -350,49 +363,54 @@ A positive value (greater than zero) defines the interval to check
 for expired events. A negative or zero value disables the interval
 check and expired events are only removed when a new event is declared
 or an existing event is updated.
-Default is \fB0\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B annotations
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
-Enables/disabled drawing of station annotations at startup.
-Default is \fBfalse\fP\&.
+Enable/disable drawing of station annotations at startup.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B annotationsWithChannels
+Default: \fBtrue\fP
+.sp
 Type: \fIboolean\fP
 .sp
-Enables/disabled drawing of station annotations with location/channel codes.
-Default is \fBtrue\fP\&.
+Enable/disable drawing of station annotations with
+location/channel codes.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B mapLegendPosition
+Default: \fBtopleft\fP
+.sp
 Type: \fIstring\fP
 .sp
-Sets the location of the map symbol legend (QC, ground motion).
+Set the location of the map symbol legend (QC, ground motion).
 Use either: topleft, topright, bottomright or bottomleft.
-Default is \fBtopleft\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventLegendPosition
+Default: \fBbottomleft\fP
+.sp
 Type: \fIstring\fP
 .sp
-Sets the location of the event symbol legend. Use either:
+Set the location of the event symbol legend. Use either:
 topleft, topright, bottomright or bottomleft.
-Default is \fBbottomleft\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventTable.visible
+Default: \fBfalse\fP
+.sp
 Type: \fIboolean\fP
 .sp
 Whether to show the event table initially or not.
-Default is \fBfalse\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -401,85 +419,94 @@ Type: \fIlist:string\fP
 .sp
 The columns that are visible in the table. If nothing
 is specified then all columns are visible. Valid column names are:
-"Event", "Origin Time", "Magnitude", "Magnitude Type",
-"Region", "Latitude", "Longitude", "Depth".
+"Event", "Origin Time", "Magnitude",
+"Magnitude Type", "Region", "Latitude",
+"Longitude", "Depth".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B stations.groundMotionFilter
+Default: \fB"RMHP(50)>>ITAPER(20)>>BW(2,0.04,2)"\fP
+.sp
 Type: \fIstring\fP
 .sp
-Sets the filter applied to determine ground motion.
+The filter applied to waveforms for measuring ground motion.
 .UNINDENT
 .sp
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
 \fBdisplay.*\fP
-\fIAllows to define an initial rectangular region for the map.\fP
+\fIAllow to define an initial rectangular region for the map.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
 .B display.latmin
+Default: \fB\-90\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
 .sp
 Minimum latitude in degrees.
-Default is \fB\-90\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B display.lonmin
+Default: \fB\-180\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
 .sp
 Minimum longitude in degrees.
-Default is \fB\-180\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B display.latmax
+Default: \fB90\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
 .sp
 Maximum latitude in degrees.
-Default is \fB90\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B display.lonmax
+Default: \fB180\fP
+.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
 .sp
 Maximum longitude in degrees.
-Default is \fB180\fP\&.
 .UNINDENT
-.SH COMMAND-LINE
+.SH COMMAND-LINE OPTIONS
 .sp
 \fBscmv [options]\fP
 .SS Generic
 .INDENT 0.0
 .TP
 .B \-h, \-\-help
-show help message.
+Show help message.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-V, \-\-version
-show version information
+Show version information.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-file arg
-Use alternative configuration file. When this option is used
-the loading of all stages is disabled. Only the given configuration
-file is parsed and used. To use another name for the configuration
-create a symbolic link of the application or copy it, eg scautopick \-> scautopick2.
+Use alternative configuration file. When this option is
+used the loading of all stages is disabled. Only the
+given configuration file is parsed and used. To use
+another name for the configuration create a symbolic
+link of the application or copy it. Example:
+scautopick \-> scautopick2.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -489,49 +516,54 @@ Load given plugins.
 .INDENT 0.0
 .TP
 .B \-\-auto\-shutdown arg
-Enable/disable self\-shutdown because a master module shutdown. This only
-works when messaging is enabled and the master module sends a shutdown
-message (enabled with \-\-start\-stop\-msg for the master module).
+Enable/disable self\-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with \-\-start\-stop\-msg
+for the master module).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-module arg
-Sets the name of the master\-module used for auto\-shutdown. This
-is the application name of the module actually started. If symlinks
-are used then it is the name of the symlinked application.
+Set the name of the master\-module used for auto\-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-shutdown\-master\-username arg
-Sets the name of the master\-username of the messaging used for
-auto\-shutdown. If "shutdown\-master\-module" is given as well this
-parameter is ignored.
+Set the name of the master\-username of the messaging
+used for auto\-shutdown. If "shutdown\-master\-module" is
+given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
 .INDENT 0.0
 .TP
 .B \-\-verbosity arg
-Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info, 4:debug
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-v, \-\-v
-Increase verbosity level (may be repeated, eg. \-vv)
+Increase verbosity level (may be repeated, eg. \-vv).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-q, \-\-quiet
-Quiet mode: no logging output
+Quiet mode: no logging output.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-component arg
-Limits the logging to a certain component. This option can be given more than once.
+Limit the logging to a certain component. This option can
+be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-s, \-\-syslog
-Use syslog logging back end. The output usually goes to /var/lib/messages.
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -546,12 +578,27 @@ Send log output to stdout.
 .INDENT 0.0
 .TP
 .B \-\-debug
-Debug mode: \-\-verbosity=4 \-\-console=1
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-log\-file arg
 Use alternative log file.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-print\-component arg
+For each log entry print the component right after the
+log level. By default the component output is enabled
+for file output but disabled for console output.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-trace
+Execute in trace mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 \-\-print\-component=1
+\-\-print\-context=1 .
 .UNINDENT
 .SS Messaging
 .INDENT 0.0
@@ -577,7 +624,8 @@ Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
 .INDENT 0.0
 .TP
 .B \-S, \-\-subscribe\-group arg
-A group to subscribe to. This option can be given more than once.
+A group to subscribe to.
+This option can be given more than once.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -587,7 +635,7 @@ Overrides configuration parameter \fBconnection.contentType\fP\&.
 .INDENT 0.0
 .TP
 .B \-\-start\-stop\-msg arg
-Sets sending of a start\- and a stop message.
+Set sending of a start and a stop message.
 .UNINDENT
 .SS Database
 .INDENT 0.0
@@ -598,33 +646,42 @@ List all supported database drivers.
 .INDENT 0.0
 .TP
 .B \-d, \-\-database arg
-The database connection string, format: \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which can be
-queried with "\-\-db\-driver\-list".
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+"service" is the name of the database driver which
+can be queried with "\-\-db\-driver\-list".
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-config\-module arg
-The configmodule to use.
+The config module to use.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-inventory\-db arg
-Load the inventory from the given database or file, format: [\fI\%service://]location\fP
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-db\-disable
+Do not use the database at all
 .UNINDENT
 .SS Records
 .INDENT 0.0
 .TP
 .B \-\-record\-driver\-list
-List all supported record stream drivers
+List all supported record stream drivers.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-I, \-\-record\-url arg
-The recordstream source URL, format: [\fI\%service://\fP]location[#type].
-"service" is the name of the recordstream driver which can be
-queried with "\-\-record\-driver\-list". If "service"
-is not given "\fI\%file://\fP" is used.
+The recordstream source URL, format:
+[\fI\%service://\fP]location[#type].
+"service" is the name of the recordstream driver
+which can be queried with "\-\-record\-driver\-list".
+If "service" is not given, "\fI\%file://\fP" is
+used.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -641,31 +698,32 @@ Specify a type for the records being read.
 .TP
 .B \-\-city\-xml arg
 The path to the cities XML file. This overrides the default
-paths. Compare with the global parameter "citiesXML"
+paths. Compare with the global parameter "citiesXML".
 .UNINDENT
 .SS User interface
 .INDENT 0.0
 .TP
 .B \-F, \-\-full\-screen
-Starts the application filling the entire screen. This only works
-with GUI applications.
+Start the application filling the entire screen.
+This only works with GUI applications.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-N, \-\-non\-interactive
-Use non\-interactive presentation mode. This only works with GUI applications.
+Use non\-interactive presentation mode. This only works with
+GUI applications.
 .UNINDENT
 .SS Mapview
 .INDENT 0.0
 .TP
 .B \-\-displaymode arg
 Start scmv as walldisplay.
-Modes: groundmotion, qualitycontrol.
+Modes: groundmotion, qualitycontrol
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-with\-legend
-Shows the map legend if started as walldisplay.
+Show the map legend if started as walldisplay.
 .UNINDENT
 .SH AUTHOR
 gempa GmbH, GFZ Potsdam
