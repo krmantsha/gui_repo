@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCARDAC" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scardac \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,13 +27,16 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCARDAC" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scardac \- SeisComP Documentation
 .sp
 \fBWaveform archive data availability collector.\fP
 .SH DESCRIPTION
 .sp
-scardac scans an SDS waveform archive , e.g.,
-created by slarchive or scart for
-available miniSEED data. It will
+scardac scans an \fI\%SDS waveform archive\fP , e.g.,
+created by \fI\%slarchive\fP or \fI\%scart\fP for
+available \fI\%miniSEED\fP data. It will
 collect information about
 .INDENT 0.0
 .IP \(bu 2
@@ -50,20 +50,20 @@ rate attributes.
 scardac is intended to be executed periodically, e.g., as a cronjob.
 .sp
 The data availability information is stored in the SeisComP database under the
-root element DataAvailability\&. Access to the data
-availability is provided by the fdsnws module via the services:
+root element \fI\%DataAvailability\fP\&. Access to the data
+availability is provided by the \fI\%fdsnws\fP module via the services:
 .INDENT 0.0
 .IP \(bu 2
-/fdsnws/station (extent information only, see
+\fI\%/fdsnws/station\fP (extent information only, see
 \fBmatchtimeseries\fP and \fBincludeavailability\fP request parameters).
 .IP \(bu 2
-/fdsnws/ext/availability (extent and segment information
+\fI\%/fdsnws/ext/availability\fP (extent and segment information
 provided in different formats)
 .UNINDENT
 .SS Non\-SDS archives
 .sp
 scardac can be extended by plugins to scan non\-SDS archives. For example the
-\fIdaccaps\fP plugin provided by caps allows scanning archives generated
+\fIdaccaps\fP plugin provided by \fICAPS\fP [\fI\%3\fP] allows scanning archives generated
 by a CAPS server. Plugins are added to global module configuration, e.g.:
 .INDENT 0.0
 .INDENT 3.5
@@ -131,8 +131,8 @@ scardac \-\-debug
 .UNINDENT
 .IP 2. 3
 Update the availability of waveform data files existing in the standard
-SDS archive to the seiscomp database and create an XML file using
-scxmldump:
+\fI\%SDS\fP archive to the seiscomp database and create an XML file using
+\fI\%scxmldump\fP:
 .INDENT 3.0
 .INDENT 3.5
 .sp
@@ -146,7 +146,7 @@ scxmldump \-Yf \-d mysql://sysop:sysop@localhost/seiscomp \-o availability.xml
 .UNINDENT
 .IP 3. 3
 Update the availability of waveform data files existing in the standard
-SDS archive to the seiscomp database. Use fdsnws to fetch a flat file containing a list
+\fI\%SDS\fP archive to the seiscomp database. Use \fI\%fdsnws\fP to fetch a flat file containing a list
 of periods of available data from stations of the CX network sharing the same
 quality and sampling rate attributes:
 .INDENT 3.0
@@ -164,7 +164,7 @@ wget \-O availability.txt \(aqhttp://localhost:8080/fdsnws/ext/availability/1/qu
 \fBNOTE:\fP
 .INDENT 3.0
 .INDENT 3.5
-The \fISeisComP\fP module fdsnws must be running for executing this
+The \fISeisComP\fP module \fI\%fdsnws\fP must be running for executing this
 example.
 .UNINDENT
 .UNINDENT
@@ -180,7 +180,7 @@ example.
 .fi
 .sp
 .sp
-scardac inherits global options\&.
+scardac inherits \fI\%global options\fP\&.
 .INDENT 0.0
 .TP
 .B archive
@@ -331,7 +331,7 @@ Use alternative log file.
 .INDENT 0.0
 .TP
 .B \-a, \-\-archive arg
-Overrides configuration parameter \fBarchive\fP\&.
+Overrides configuration parameter \fI\%archive\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP

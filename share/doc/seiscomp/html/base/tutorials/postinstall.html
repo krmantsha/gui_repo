@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Installation on Ubuntu &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/seiscomp.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../../_static/seiscomp.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Upgrading SeisComP" href="upgrading.html" />
@@ -25,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.3</span>
+          <span class="version">5.5.4</span>
         </div>
       </div>
     </div>
@@ -68,8 +69,8 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="installation-on-ubuntu">
-<span id="tutorials-postinstall"></span><h1>Installation on Ubuntu<a class="headerlink" href="#installation-on-ubuntu" title="Permalink to this headline">¶</a></h1>
+  <section id="installation-on-ubuntu">
+<span id="tutorials-postinstall"></span><h1>Installation on Ubuntu<a class="headerlink" href="#installation-on-ubuntu" title="Permalink to this heading">¶</a></h1>
 <p>You will …</p>
 <ul class="simple">
 <li><p>Make a basic <cite>SeisComP</cite> installation</p></li>
@@ -100,16 +101,16 @@
 <li><p><a class="reference internal" href="#tutorials-postinstall-package"><span class="std std-ref">Installing pre-compiled release packages</span></a>
 including binaries, maps and documentation.</p></li>
 </ol>
-<div class="section" id="get-your-linux-system-ready">
-<h2>Get your Linux System ready<a class="headerlink" href="#get-your-linux-system-ready" title="Permalink to this headline">¶</a></h2>
+<section id="get-your-linux-system-ready">
+<h2>Get your Linux System ready<a class="headerlink" href="#get-your-linux-system-ready" title="Permalink to this heading">¶</a></h2>
 <p>First you need to get your Linux system ready.
 The following documentation refers to Ubuntu 20.04,
 but the steps for other Ubuntu versions are similar.</p>
 <ol class="arabic">
 <li><p>Add a new user. Throughout our documentation, this user is called <cite>sysop</cite>.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ sudo adduser sysop
-$ sudo addgroup admin
-$ sudo usermod -a -G admin,adm,audio sysop
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>adduser<span class="w"> </span>sysop
+$<span class="w"> </span>sudo<span class="w"> </span>addgroup<span class="w"> </span>admin
+$<span class="w"> </span>sudo<span class="w"> </span>usermod<span class="w"> </span>-a<span class="w"> </span>-G<span class="w"> </span>admin,adm,audio<span class="w"> </span>sysop
 </pre></div>
 </div>
 </li>
@@ -126,15 +127,15 @@ If ‘uname’ shows ‘i686’, you have a 32-bit system;
 if you see ‘x86_64’, you have 64-bit.</p>
 </li>
 </ol>
-</div>
-<div class="section" id="install-from-source-code">
-<span id="tutorials-postinstall-compile"></span><h2>Install from source code<a class="headerlink" href="#install-from-source-code" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="install-from-source-code">
+<span id="tutorials-postinstall-compile"></span><h2>Install from source code<a class="headerlink" href="#install-from-source-code" title="Permalink to this heading">¶</a></h2>
 <p>To compile SeisComP from the source code follow the
 <a class="reference internal" href="../build.html#build"><span class="std std-ref">instructions in the development section</span></a>. You may later download and add
 maps as described below in the <a class="reference internal" href="#tutorials-postinstall-package"><span class="std std-ref">package section</span></a>.</p>
-</div>
-<div class="section" id="install-pre-compiled-release-packages">
-<span id="tutorials-postinstall-package"></span><h2>Install pre-compiled release packages<a class="headerlink" href="#install-pre-compiled-release-packages" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="install-pre-compiled-release-packages">
+<span id="tutorials-postinstall-package"></span><h2>Install pre-compiled release packages<a class="headerlink" href="#install-pre-compiled-release-packages" title="Permalink to this heading">¶</a></h2>
 <p>You may download and installed pre-compile SeisComP binary package, maps and documentation.</p>
 <ol class="arabic">
 <li><p>Download the appropriate <cite>SeisComP</cite> binary package taking into
@@ -145,7 +146,7 @@ flavors such as RHEL/CentOS and Debian.</p></li>
 <li><p>When downloading the <cite>SeisComP</cite> binary packages you should also download</p>
 <ul>
 <li><p>maps for <cite>SeisComP</cite></p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>wget <span class="s2">&quot;https://www.seiscomp.de/downloader/seiscomp-maps.tar.gz&quot;</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span><span class="s2">&quot;https://www.seiscomp.de/downloader/seiscomp-maps.tar.gz&quot;</span>
 </pre></div>
 </div>
 </li>
@@ -162,12 +163,12 @@ for the respective version and no separate download is required.</p>
 <li><p>Untar the <code class="file docutils literal notranslate"><span class="pre">seiscomp*</span></code> files (binary package, maps and documentation)
 you will find in your home or downloads directory. For SeisComP in version
 4.0.0 this is:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span>
-$ tar xzf seiscomp-4.0.0-ubuntu20.04-x86_64.tar.gz
-$ tar xzf seiscomp-maps.tar.gz
-$ tar xzf seiscomp-4.0.0-doc.tar.gz
-$ ls seiscomp
-bin  etc  include  lib  man  sbin  share
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span>
+$<span class="w"> </span>tar<span class="w"> </span>xzf<span class="w"> </span>seiscomp-4.0.0-ubuntu20.04-x86_64.tar.gz
+$<span class="w"> </span>tar<span class="w"> </span>xzf<span class="w"> </span>seiscomp-maps.tar.gz
+$<span class="w"> </span>tar<span class="w"> </span>xzf<span class="w"> </span>seiscomp-4.0.0-doc.tar.gz
+$<span class="w"> </span>ls<span class="w"> </span>seiscomp
+bin<span class="w">  </span>etc<span class="w">  </span>include<span class="w">  </span>lib<span class="w">  </span>man<span class="w">  </span>sbin<span class="w">  </span>share
 </pre></div>
 </div>
 </li>
@@ -175,8 +176,8 @@ bin  etc  include  lib  man  sbin  share
 <ul>
 <li><p>This should be automatic for most distributions.
 Simply run the install script</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ ~/seiscomp/bin/seiscomp install-deps base
-Distribution: Ubuntu <span class="m">20</span>.04
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>~/seiscomp/bin/seiscomp<span class="w"> </span>install-deps<span class="w"> </span>base
+Distribution:<span class="w"> </span>Ubuntu<span class="w"> </span><span class="m">20</span>.04
 </pre></div>
 </div>
 <p>This will generally prompt for your user’s password to allow <cite>sudo</cite> to
@@ -184,34 +185,34 @@ install packages on your system.</p>
 </li>
 <li><p>On Ubuntu 18, Python 3 is installed, but not Python.
 Get it first</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get install python libqtgui4
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>python<span class="w"> </span>libqtgui4
 </pre></div>
 </div>
 </li>
 <li><p>On Ubuntu 20 and newer, you may need libpython3-dev before you can use
 “install-deps”</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get install libpython3-dev
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>libpython3-dev
 </pre></div>
 </div>
 </li>
 <li><p>Alternatively, for Mint 18 (Ubuntu 16.04):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get update
-$ sudo apt-get install libxml2 libboost-filesystem1.58.0
-libboost-iostreams1.58.0 libboost-thread1.58.0 libboost-program-options1.58.0
-libboost-regex1.58.0 libboost-signals1.58.0 libboost-system1.58.0 libssl1.0.0
-libncurses5 libmysqlclient20 libpq5 libpython2.7 python-numpy mysql-server
-mysql-client libqtgui4 libqt4-xml libqt4-opengl libqt4-sql-sqlite
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>libxml2<span class="w"> </span>libboost-filesystem1.58.0
+libboost-iostreams1.58.0<span class="w"> </span>libboost-thread1.58.0<span class="w"> </span>libboost-program-options1.58.0
+libboost-regex1.58.0<span class="w"> </span>libboost-signals1.58.0<span class="w"> </span>libboost-system1.58.0<span class="w"> </span>libssl1.0.0
+libncurses5<span class="w"> </span>libmysqlclient20<span class="w"> </span>libpq5<span class="w"> </span>libpython2.7<span class="w"> </span>python-numpy<span class="w"> </span>mysql-server
+mysql-client<span class="w"> </span>libqtgui4<span class="w"> </span>libqt4-xml<span class="w"> </span>libqt4-opengl<span class="w"> </span>libqt4-sql-sqlite
 </pre></div>
 </div>
 </li>
 </ul>
 </li>
 <li><p>Database. For a MariaDB installation:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ seiscomp install-deps mariadb-server
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>seiscomp<span class="w"> </span>install-deps<span class="w"> </span>mariadb-server
 </pre></div>
 </div>
 <p>or a MySQL installation:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ seiscomp install-deps mysql-server
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>seiscomp<span class="w"> </span>install-deps<span class="w"> </span>mysql-server
 </pre></div>
 </div>
 <p>Also, for better performance with a MariaDB/MySQL database,
@@ -224,11 +225,11 @@ in the <a class="reference internal" href="../installation.html#database-configu
 Before the next step, you must set a root password <em>for MariaDB/MySQL</em>
 (not the Linux root password!).</p>
 <p>MariaDB:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ sudo mysql -e <span class="s2">&quot;SET old_passwords=0; ALTER USER root@localhost IDENTIFIED BY &#39;MyNewPassword&#39;; FLUSH PRIVILEGES;&quot;</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>mysql<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SET old_passwords=0; ALTER USER root@localhost IDENTIFIED BY &#39;MyNewPassword&#39;; FLUSH PRIVILEGES;&quot;</span>
 </pre></div>
 </div>
 <p>MySQL:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ sudo mysql -e <span class="s2">&quot;ALTER USER root@localhost IDENTIFIED WITH mysql_native_password BY &#39;MyNewPassword&#39;; FLUSH PRIVILEGES;&quot;</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>mysql<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;ALTER USER root@localhost IDENTIFIED WITH mysql_native_password BY &#39;MyNewPassword&#39;; FLUSH PRIVILEGES;&quot;</span>
 </pre></div>
 </div>
 <p>Substitute <em>MyNewPassword</em> by your own password and remember it –
@@ -239,36 +240,36 @@ In case of problems, search the Internet, or the
 </div>
 </li>
 </ol>
-</div>
-<div class="section" id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
 <p>Find a detailed description in section <a class="reference internal" href="../getting-started.html#getting-started"><span class="std std-ref">Getting Started with SeisComP</span></a> and short guide below.</p>
 <ol class="arabic">
 <li><p>You may set some system environment variables.
 For bash users, print the environment variables and copy them to your
 <code class="file docutils literal notranslate"><span class="pre">.bashrc</span></code></p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ ~/seiscomp/bin/seiscomp print env
-<span class="nb">export</span> <span class="nv">SEISCOMP_ROOT</span><span class="o">=</span>/home/sysop/seiscomp
-<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/home/sysop/seiscomp/bin:<span class="nv">$PATH</span>
-<span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>/home/sysop/seiscomp/lib:<span class="nv">$LD_LIBRARY_PATH</span>
-<span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span>/home/sysop/seiscomp/lib/python:<span class="nv">$PYTHONPATH</span>
-<span class="nb">export</span> <span class="nv">MANPATH</span><span class="o">=</span>/home/sysop/seiscomp/share/man:<span class="nv">$MANPATH</span>
-<span class="nb">export</span> <span class="nv">LC_ALL</span><span class="o">=</span>C
-<span class="nb">source</span> /home/sysop/seiscomp/share/shell-completion/seiscomp.bash
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>~/seiscomp/bin/seiscomp<span class="w"> </span>print<span class="w"> </span>env
+<span class="nb">export</span><span class="w"> </span><span class="nv">SEISCOMP_ROOT</span><span class="o">=</span>/home/sysop/seiscomp
+<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/home/sysop/seiscomp/bin:<span class="nv">$PATH</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>/home/sysop/seiscomp/lib:<span class="nv">$LD_LIBRARY_PATH</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span>/home/sysop/seiscomp/lib/python:<span class="nv">$PYTHONPATH</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MANPATH</span><span class="o">=</span>/home/sysop/seiscomp/share/man:<span class="nv">$MANPATH</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">LC_ALL</span><span class="o">=</span>C
+<span class="nb">source</span><span class="w"> </span>/home/sysop/seiscomp/share/shell-completion/seiscomp.bash
 </pre></div>
 </div>
 <p>The path to your home directory will likely differ from <cite>/home/sysop</cite> as shown above.
 Therefore, do not copy and paste what you see here but use for your own
 system the output from the command</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>~/seiscomp/bin/seiscomp print env
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>~/seiscomp/bin/seiscomp<span class="w"> </span>print<span class="w"> </span>env
 </pre></div>
 </div>
 <p>Add the output from the command to your file <code class="file docutils literal notranslate"><span class="pre">~/.bashrc</span></code></p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ vi ~/.bashrc
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>vi<span class="w"> </span>~/.bashrc
 </pre></div>
 </div>
 <p>Then reload the content of <code class="file docutils literal notranslate"><span class="pre">~/.bashrc</span></code> in your current environment</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">source</span> ~/.bashrc
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </pre></div>
 </div>
 <p>After this, you won’t have to type <cite>~/seiscomp/bin/seiscomp</cite> as
@@ -277,7 +278,7 @@ the <span class="xref std std-ref">seiscomp</span> command will be added to your
 <p class="admonition-title">Hint</p>
 <p>If, when you attempt to run a SeisComP command such as <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> or
 <a class="reference internal" href="../../apps/scolv.html#scolv"><span class="std std-ref">scolv</span></a>, you receive an error message like</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scconfig: <span class="nb">command</span> not found
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scconfig:<span class="w"> </span><span class="nb">command</span><span class="w"> </span>not<span class="w"> </span>found
 </pre></div>
 </div>
 <p>then the most likely explanation is that you have not set your SeisComP
@@ -292,7 +293,7 @@ or equivalent file with commands to be run every time you log in.</p>
 </li>
 <li><p>Run <cite>seiscomp setup</cite> and enter your preferred IDs and password. For the other
 fields, you can always accept the default values.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ seiscomp setup
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>seiscomp<span class="w"> </span>setup
 </pre></div>
 </div>
 <p>You should enter an appropriate short name (without spaces) for Agency ID and
@@ -302,17 +303,17 @@ describing data model objects such as origins and events.</p>
 <li><p>The <cite>seiscomp</cite> command is a wrapper, which controls the SeisComP modules.
 See <a class="reference internal" href="../management.html#system-management"><span class="std std-ref">System management</span></a>.
 Run something by typing seiscomp followed by a command</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span> $ seiscomp <span class="nb">help</span>
- Available commands:
-  install-deps
-  setup
-  shell
-  <span class="nb">enable</span>
-  disable
-  print
-  <span class="nb">help</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>$<span class="w"> </span>seiscomp<span class="w"> </span><span class="nb">help</span>
+<span class="w"> </span>Available<span class="w"> </span>commands:
+<span class="w">  </span>install-deps
+<span class="w">  </span>setup
+<span class="w">  </span>shell
+<span class="w">  </span><span class="nb">enable</span>
+<span class="w">  </span>disable
+<span class="w">  </span>print
+<span class="w">  </span><span class="nb">help</span>
 
-Use <span class="s1">&#39;help [command]&#39;</span> to get more <span class="nb">help</span> about a <span class="nb">command</span>
+Use<span class="w"> </span><span class="s1">&#39;help [command]&#39;</span><span class="w"> </span>to<span class="w"> </span>get<span class="w"> </span>more<span class="w"> </span><span class="nb">help</span><span class="w"> </span>about<span class="w"> </span>a<span class="w"> </span><span class="nb">command</span>
 </pre></div>
 </div>
 </li>
@@ -320,29 +321,31 @@ Use <span class="s1">&#39;help [command]&#39;</span> to get more <span class="nb
 As described in the <a class="reference internal" href="../overview.html#overview"><span class="std std-ref">Overview</span></a>, these are needed for
 communication between the SeisComP database and the individual
 SeisComP modules.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ seiscomp start scmaster
-starting scmaster
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>seiscomp<span class="w"> </span>start<span class="w"> </span>scmaster
+starting<span class="w"> </span>scmaster
 </pre></div>
 </div>
 </li>
 <li><p>Install all dependencies needed for the GUI</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ seiscomp install-deps gui
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>seiscomp<span class="w"> </span>install-deps<span class="w"> </span>gui
 </pre></div>
 </div>
 </li>
 <li><p>Start the <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> GUI</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ seiscomp <span class="nb">exec</span> scconfig
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>seiscomp<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>scconfig
 </pre></div>
 </div>
 <p>Learn more about <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> in this documentation.
 You should see a screen/window like this.</p>
-<div class="figure align-center" id="id3">
+<figure class="align-center" id="id3">
 <a class="reference internal image-reference" href="../../_images/postinstall_scconfig.png"><img alt="../../_images/postinstall_scconfig.png" src="../../_images/postinstall_scconfig.png" style="width: 16cm;" /></a>
-<p class="caption"><span class="caption-text">First view of <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> configurator.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">First view of <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> configurator.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 </li>
 <li><p>Run <a class="reference internal" href="../../apps/scrttv.html#scrttv"><span class="std std-ref">scrttv</span></a></p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ seiscomp <span class="nb">exec</span> scrttv
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>seiscomp<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>scrttv
 </pre></div>
 </div>
 <p>After seeing the SeisComP splash screen,
@@ -353,15 +356,17 @@ Click that box away, and you’ll see a screen with
 To see stations and data you will later need to
 <a class="reference internal" href="addstation.html#tutorials-addstation"><span class="std std-ref">add inventory</span></a> and
 <a class="reference internal" href="geofon_waveforms.html#tutorials-geofon-waveforms"><span class="std std-ref">waveforms</span></a> to your system.</p>
-<div class="figure align-center" id="id4">
+<figure class="align-center" id="id4">
 <a class="reference internal image-reference" href="../../_images/postinstall_scrttv.png"><img alt="../../_images/postinstall_scrttv.png" src="../../_images/postinstall_scrttv.png" style="width: 14.6cm;" /></a>
-<p class="caption"><span class="caption-text">First view of the <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> configuration tool.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">First view of the <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> configuration tool.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 </li>
 </ol>
 <p>Congratulations, you’re done with this tutorial.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -374,14 +379,15 @@ To see stations and data you will later need to
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../../index.html">Table of Contents</a></h3>
-  <ul>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Installation on Ubuntu</a><ul>
 <li><a class="reference internal" href="#get-your-linux-system-ready">Get your Linux System ready</a></li>
 <li><a class="reference internal" href="#install-from-source-code">Install from source code</a></li>
@@ -391,12 +397,17 @@ To see stations and data you will later need to
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="../tutorials.html"
-                        title="previous chapter">Tutorials</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="upgrading.html"
-                        title="next chapter">Upgrading SeisComP</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../tutorials.html"
+                          title="previous chapter">Tutorials</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="upgrading.html"
+                          title="next chapter">Upgrading SeisComP</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -416,7 +427,7 @@ To see stations and data you will later need to
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.3</b> Release
+		  Version <b>5.5.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

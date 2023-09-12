@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "TABINVMODIFIER" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-tabinvmodifier \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "TABINVMODIFIER" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+tabinvmodifier \- SeisComP Documentation
 .sp
 \fBtab\-based inventory modifier\fP
 .SH DESCRIPTION
@@ -53,8 +53,8 @@ Set network\-level attributes. Suppose the file \fIge.rules\fP contains
 .nf
 .ft C
 Nw: GE 1993/001
-Na: Description="GEOFON Program, GFZ Potsdam, Germany"
-Na: Remark="Access to Libyan stations and Spanish HH streams limited"
+Na: Description=\(dqGEOFON Program, GFZ Potsdam, Germany\(dq
+Na: Remark=\(dqAccess to Libyan stations and Spanish HH streams limited\(dq
 Na: Type=VBB
 .ft P
 .fi
@@ -87,7 +87,7 @@ The resulting inventory now contains:
 .sp
 .nf
 .ft C
-<network publicID="Network#20130513163612.389203.2" code="GE">
+<network publicID=\(dqNetwork#20130513163612.389203.2\(dq code=\(dqGE\(dq>
   <start>1993\-01\-01T00:00:00.0000Z</start>
   <description>GEOFON Program, GFZ Potsdam, Germany</description>
   <institutions>GFZ/partners</institutions>
@@ -98,7 +98,7 @@ The resulting inventory now contains:
   <restricted>false</restricted>
   <shared>true</shared>
   <remark>access to Libyan stations and Spanish HH streams limited</remark>
-  <station publicID="Station#20130620185450.488952.190" code="MSBI" archiveNetworkCode="GE">
+  <station publicID=\(dqStation#20130620185450.488952.190\(dq code=\(dqMSBI\(dq archiveNetworkCode=\(dqGE\(dq>
     <start>2013\-06\-16T00:00:00.0000Z</start>
 .ft P
 .fi
@@ -108,7 +108,7 @@ The resulting inventory now contains:
 Other attributes present in inventory are left unchanged.
 .IP 2. 3
 Changing location codes. (Thanks to Andres H. for this example.)
-To replace an empty location code for station "KP.UPNV" with location code "00", together with its description and place.
+To replace an empty location code for station \(dqKP.UPNV\(dq with location code \(dq00\(dq, together with its description and place.
 The rules file is:
 .INDENT 3.0
 .INDENT 3.5
@@ -116,9 +116,9 @@ The rules file is:
 .nf
 .ft C
 Nw: KP 1980/001
-Sa: Description="GLISN Station Upernavik, Greenland" UPNV
-Sa: Place="Upernavik, Greenland" UPNV
-Sa: Code="00" UPNV,
+Sa: Description=\(dqGLISN Station Upernavik, Greenland\(dq UPNV
+Sa: Place=\(dqUpernavik, Greenland\(dq UPNV
+Sa: Code=\(dq00\(dq UPNV,
 .ft P
 .fi
 .UNINDENT
@@ -130,10 +130,10 @@ The resulting inventory now contains:
 .sp
 .nf
 .ft C
-<network publicID="Network#20140603153203.17936.2" code="KP">
+<network publicID=\(dqNetwork#20140603153203.17936.2\(dq code=\(dqKP\(dq>
   <start>1980\-01\-01T00:00:00.0000Z</start>
   ...
-  <station publicID="Station#20140603153203.179738.3" code="UPNV">
+  <station publicID=\(dqStation#20140603153203.179738.3\(dq code=\(dqUPNV\(dq>
     <start>2013\-08\-01T00:00:00.0000Z</start>
     <description>GLISN Station Upernavik, Greenland</description>
     <latitude>72.7829</latitude>
@@ -142,7 +142,7 @@ The resulting inventory now contains:
     <place>Upernavik, Greenland</place>
     <affiliation>GLISN</affiliation>
     ...
-    <sensorLocation publicID="SensorLocation#20140603153203.181119.4" code="00">
+    <sensorLocation publicID=\(dqSensorLocation#20140603153203.181119.4\(dq code=\(dq00\(dq>
       <start>2013\-08\-01T00:00:00.0000Z</start>
     ...
    </station>

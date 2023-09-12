@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "FDSNWS" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-fdsnws \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,16 +27,19 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "FDSNWS" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+fdsnws \- SeisComP Documentation
 .sp
 \fBProvide FDSN Web Services.\fP
 .SH DESCRIPTION
 .sp
 fdsnws is a server that provides event and station information by FDSN Web Services
-(fdsn)
-from a SeisComP database and waveforms from a global_recordstream source.
+(\fIFDSNWS\fP [\fI\%8\fP])
+from a SeisComP database and waveforms from a \fI\%RecordStream\fP source.
 Also it may be configured to serve data
 availability information as described in the IRIS DMC FDSNWS availability Web
-Service Documentation (iris\-dmc).
+Service Documentation (\fIIRIS DMC\fP [\fI\%12\fP]).
 .sp
 \fBCAUTION:\fP
 .INDENT 0.0
@@ -77,7 +77,7 @@ T{
 T}	T{
 network, station, channel, response metadata
 T}	T{
-\fI\%FDSN Station XML\fP, \fI\%StationXML\fP, SCML
+\fI\%FDSN Station XML\fP, \fI\%StationXML\fP, \fI\%SCML\fP
 T}
 _
 T{
@@ -85,7 +85,7 @@ T{
 T}	T{
 earthquake origin and magnitude estimates
 T}	T{
-\fI\%QuakeML\fP, SCML
+\fI\%QuakeML\fP, \fI\%SCML\fP
 T}
 _
 T{
@@ -100,7 +100,7 @@ _
 .sp
 The available services can be reached from the fdsnws start page.  The services
 also provide an interactive URL builder constructing the request URL based on
-user inputs. The FDSN specifications can be found on fdsn\&.
+user inputs. The FDSN specifications can be found on \fIFDSNWS\fP [\fI\%8\fP]\&.
 .sp
 \fBURL\fP
 .INDENT 0.0
@@ -156,7 +156,7 @@ To submit HTTP\-POST requests the command line tool \fBcurl\fP may be used:
 .sp
 .nf
 .ft C
-sysop@host:~$ curl \-X POST \-\-data\-binary @request.txt "http://localhost:8080/fdsnws/dataselect/1/query"
+sysop@host:~$ curl \-X POST \-\-data\-binary @request.txt \(dqhttp://localhost:8080/fdsnws/dataselect/1/query\(dq
 .ft P
 .fi
 .UNINDENT
@@ -194,21 +194,21 @@ extra processing step.
 .IP \(bu 2
 Activate \fI\%serveDataSelect\fP in the module configuration
 .IP \(bu 2
-Configure the global_recordstream in the module\(aqs global configuration.
+Configure the \fI\%RecordStream\fP in the module\(aqs global configuration.
 If the data is stored in a local waveform archive the
-rs\-sdsarchive provides fast access to the data. For archives on remote hosts
-use rs\-arclink or rs\-fdsnws instead.
+\fI\%SDSArchive\fP provides fast access to the data. For archives on remote hosts
+use \fI\%ArcLink\fP or \fI\%FDSNWS\fP instead.
 .UNINDENT
 .sp
 \fBWARNING:\fP
 .INDENT 0.0
 .INDENT 3.5
 Requesting future or delayed data may block the \fI\%DataSelect\fP service.
-Therefore, real\-time global_recordstream requests such as rs\-slink
+Therefore, real\-time \fI\%RecordStream\fP requests such as \fI\%SeedLink\fP
 should be avoided.
-If rs\-slink is inevitable make use of the \fBtimeout\fP and
-\fBretries\fP parameters. E.g. set the \fBrecordstream\fP to
-\fBslink://localhost:18000?timeout=1&retries=0\fP or in case of the rs\-combined
+If \fI\%SeedLink\fP is inevitable make use of the \fBtimeout\fP and
+\fBretries\fP parameters. E.g. set the \fI\%recordstream\fP to
+\fBslink://localhost:18000?timeout=1&retries=0\fP or in case of the \fI\%Combined\fP
 service to
 \fBcombined://slink/localhost:18000?timeout=1&retries=0;sdsarchive//home/sysop/seiscomp/var/lib/archive\fP\&.
 .UNINDENT
@@ -354,12 +354,12 @@ default: \fBxml\fP
 .sp
 The data availability web service returns detailed time span information of
 what time series data is available at the DMC archive. The availability information
-can be created by scardac in the \fISeisComP\fP database from where it is
+can be created by \fI\%scardac\fP in the \fISeisComP\fP database from where it is
 fetched by fdsnws.
 .sp
 The availability service is no official standard yet. This implementation aims
 to be compatible with the IRIS DMC availability FDSN Web Service
-(iris\-dmc) implementation.
+(\fIIRIS DMC\fP [\fI\%12\fP]) implementation.
 .INDENT 0.0
 .IP \(bu 2
 request type: HTTP\-GET, HTTP\-POST
@@ -404,7 +404,7 @@ Request URL for continues time spans of station \fBANMO\fP in July 2018:
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
-Use scardac for creating the availability information.
+Use \fI\%scardac\fP for creating the availability information.
 .UNINDENT
 .UNINDENT
 .SS Feature Notes
@@ -638,7 +638,7 @@ set up this rule permanently.
 .SH AUTHENTICATION EXTENSION
 .sp
 The FDSNWS standard requires HTTP digest authentication as the
-authentication mechanism. The "htpasswd" configuration option is used to
+authentication mechanism. The \(dqhtpasswd\(dq configuration option is used to
 define the location of the file storing usernames and passwords of users
 who are allowed to get restricted data. Any user with valid credentials
 would have access to all restricted data.
@@ -667,8 +667,8 @@ arclink\-access bindings.
 .UNINDENT
 .SS Configuration
 .sp
-The authentication extension is enabled by setting the "auth.enable"
-configuration option to "true" and pointing "auth.gnupgHome" to a directory
+The authentication extension is enabled by setting the \(dqauth.enable\(dq
+configuration option to \(dqtrue\(dq and pointing \(dqauth.gnupgHome\(dq to a directory
 where GPG stores its files. Let\(aqs use the directory
 ~/seiscomp/var/lib/gpg, which is the default.
 .INDENT 0.0
@@ -711,13 +711,13 @@ sysop@host:~$ gpg \-\-homedir ~/seiscomp/var/lib/gpg \-\-edit\-key XXXXXXXX sign
 .UNINDENT
 .UNINDENT
 .IP \(bu 2
-\&...and set auth.enable, either using the "scconfig" tool or:
+\&...and set auth.enable, either using the \(dqscconfig\(dq tool or:
 .INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
 .ft C
-sysop@host:~$ echo "auth.enable = true" >> ~/seiscomp/etc/fdsnws.cfg
+sysop@host:~$ echo \(dqauth.enable = true\(dq >> ~/seiscomp/etc/fdsnws.cfg
 .ft P
 .fi
 .UNINDENT
@@ -731,7 +731,7 @@ station AAI (assuming that we are authorized to get data of this station).
 .INDENT 0.0
 .IP \(bu 2
 The first step is to obtain the token from an authentication service.
-Assuming that the token is saved in "token.asc", credentials of the
+Assuming that the token is saved in \(dqtoken.asc\(dq, credentials of the
 temporary account can be requested using one of the following commands:
 .INDENT 2.0
 .INDENT 3.5
@@ -745,15 +745,15 @@ sysop@host:~$ curl \-\-data\-binary @token.asc https://geofon.gfz\-potsdam.de/fd
 .UNINDENT
 .UNINDENT
 .IP \(bu 2
-The resulting file "cred.txt" contains username and password separated by
+The resulting file \(dqcred.txt\(dq contains username and password separated by
 a colon, so one can conveniently use a shell expansion:
 .INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
 .ft C
-sysop@host:~$ wget "http://\(gacat cred.txt\(ga@geofon.gfz\-potsdam.de/fdsnws/dataselect/1/queryauth?starttime=2015\-12\-15T16:00:00Z&endtime=2015\-12\-15T16:10:00Z&network=IA&station=AAI" \-O data.mseed
-sysop@host:~$ curl \-\-digest "http://\(gacat cred.txt\(ga@geofon.gfz\-potsdam.de/fdsnws/dataselect/1/queryauth?starttime=2015\-12\-15T16:00:00Z&endtime=2015\-12\-15T16:10:00Z&network=IA&station=AAI" \-o data.mseed
+sysop@host:~$ wget \(dqhttp://\(gacat cred.txt\(ga@geofon.gfz\-potsdam.de/fdsnws/dataselect/1/queryauth?starttime=2015\-12\-15T16:00:00Z&endtime=2015\-12\-15T16:10:00Z&network=IA&station=AAI\(dq \-O data.mseed
+sysop@host:~$ curl \-\-digest \(dqhttp://\(gacat cred.txt\(ga@geofon.gfz\-potsdam.de/fdsnws/dataselect/1/queryauth?starttime=2015\-12\-15T16:00:00Z&endtime=2015\-12\-15T16:10:00Z&network=IA&station=AAI\(dq \-o data.mseed
 .ft P
 .fi
 .UNINDENT
@@ -776,7 +776,7 @@ sysop@host:~$ fdsnws_fetch \-a token.asc \-s 2015\-12\-15T16:00:00Z \-e 2015\-12
 .sp
 In addition to normal \fISeisComP\fP logs, fdsnws can create a simple HTTP access log
 and/or a detailed request log. The locations of log files are specified by
-"accessLog" and "requestLog" in fdsnws.cfg.
+\(dqaccessLog\(dq and \(dqrequestLog\(dq in fdsnws.cfg.
 .sp
 Both logs are text\-based and line\-oriented. Each line of \fIaccess\fP log
 contains the following fields, separated by \(aq|\(aq (some fields can be empty):
@@ -839,7 +839,7 @@ JSON object containing rough user location (eg., country) for statistic purposes
 time of request creation
 .TP
 .B status
-"OK", "NODATA", "ERROR" or "DENIED"
+\(dqOK\(dq, \(dqNODATA\(dq, \(dqERROR\(dq or \(dqDENIED\(dq
 .TP
 .B bytes
 length of data in bytes
@@ -876,7 +876,7 @@ end time
 True if the data requires authorization
 .TP
 .B status
-"OK", "NODATA", "ERROR" or "DENIED"
+\(dqOK\(dq, \(dqNODATA\(dq, \(dqERROR\(dq or \(dqDENIED\(dq
 .TP
 .B bytes
 length of trace in bytes
@@ -892,20 +892,20 @@ the GEOFON datacentre is currently serving between 0.5..1 million FDSNWS
 requests per day.
 .SH RELATED MODULES
 .sp
-GEOFON maintains scripts for FDSNWS fdsnws_scripts:
+\fI\%GEOFON\fP maintains scripts for FDSNWS [\fI\%7\fP]:
 .INDENT 0.0
 .IP \(bu 2
 The \fBfdsnws_fetch\fP client is a convenient tool for requesting
-waveforms from a FDSN web service hosted by EIDA nodes.
+waveforms from a FDSN web service hosted by \fI\%EIDA\fP nodes.
 .IP \(bu 2
 The \fBfdsnws2sds\fP client is a tool for requesting waveforms
-from a FDSN web service hosted by EIDA nodes and to store them into an
-SDS archive.
+from a FDSN web service hosted by \fI\%EIDA\fP nodes and to store them into an
+\fI\%SDS\fP archive.
 .UNINDENT
 .SH PUBLIC FDSN WEB SERVERS
 .sp
-IRIS maintains a list of data centers (fdsn\-datacenters)
-supporting FDSN Web Services (fdsn).
+IRIS maintains a list of data centers (\fIFDSN data centers\fP [\fI\%6\fP])
+supporting FDSN Web Services (\fIFDSNWS\fP [\fI\%8\fP]).
 .SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
@@ -917,7 +917,7 @@ supporting FDSN Web Services (fdsn).
 .fi
 .sp
 .sp
-fdsnws inherits global options\&.
+fdsnws inherits \fI\%global options\fP\&.
 .INDENT 0.0
 .TP
 .B listenAddress
@@ -925,8 +925,8 @@ Default: \fB0.0.0.0\fP
 .sp
 Type: \fIIP\fP
 .sp
-Define the bind address of the server. "0.0.0.0" allows
-any interface to connect to this server whereas "127.0.0.0"
+Define the bind address of the server. \(dq0.0.0.0\(dq allows
+any interface to connect to this server whereas \(dq127.0.0.0\(dq
 only allows connections from localhost.
 .UNINDENT
 .INDENT 0.0
@@ -1345,7 +1345,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
@@ -1409,8 +1409,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1439,9 +1439,9 @@ List all supported record stream drivers.
 .B \-I, \-\-record\-url arg
 The recordstream source URL, format:
 [\fI\%service://\fP]location[#type].
-"service" is the name of the recordstream driver
-which can be queried with "\-\-record\-driver\-list".
-If "service" is not given, "\fI\%file://\fP" is
+\(dqservice\(dq is the name of the recordstream driver
+which can be queried with \(dq\-\-record\-driver\-list\(dq.
+If \(dqservice\(dq is not given, \(dq\fI\%file://\fP\(dq is
 used.
 .UNINDENT
 .INDENT 0.0

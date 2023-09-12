@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCESV" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scesv \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCESV" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scesv \- SeisComP Documentation
 .sp
 \fBEvent summary view.\fP
 .SH DESCRIPTION
@@ -49,9 +49,9 @@ Summary tab with the details of the selected event, see Fig. \fI\%Summary tab\fP
 .SH EVENTS TAB
 .sp
 The Events tab shows the eventlist of the time span defined on the bottom side of
-the window. A the Events tab is also available for other GUIs, such as scolv
+the window. A the Events tab is also available for other GUIs, such as \fI\%scolv\fP
 it can be configured in the global module configuration.
-The description of the Events tab in scolv provides more
+The \fI\%description of the Events tab in scolv\fP provides more
 details.
 .INDENT 0.0
 .INDENT 2.5
@@ -66,9 +66,9 @@ Reading 2: spinboxes to limit timespan of displayed events (specified dates), St
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
-As for scolv filtering of the event list and custom information can be
+As for \fI\%scolv\fP filtering of the event list and custom information can be
 added to the event list by configuration. Read the scolv documentation on
-event filtering and custom action
+\fI\%event filtering\fP and \fI\%custom action\fP
 for the details.
 .UNINDENT
 .UNINDENT
@@ -119,8 +119,8 @@ Summary tab
 Tab1\-2: Summary/Events tab, Origin Time: origin time in UTC and relative to now, Map: map with region
 and location and stations, Magnitude: different magnitude types with values and counts,
 Origin Info: hypocenter information with position, phase count and azimuthal gap,
-Event: earthquake location, Station: station with ray\-path, Details: "Show Details" button to open
-detailed information in scolv, Event Type: event type combo box to set event type, Status: connection status
+Event: earthquake location, Station: station with ray\-path, Details: \(dqShow Details\(dq button to open
+detailed information in \fI\%scolv\fP, Event Type: event type combo box to set event type, Status: connection status
 .UNINDENT
 .UNINDENT
 .SH HOTKEYS
@@ -218,7 +218,7 @@ _
 .fi
 .sp
 .sp
-scesv inherits global options\&.
+scesv inherits \fI\%global options\fP\&.
 .INDENT 0.0
 .TP
 .B loadEventDB
@@ -303,8 +303,8 @@ Default: \fBtrue\fP
 .sp
 Type: \fIboolean\fP
 .sp
-If the event type is either "other" or
-"not existing" and this flag is true then the
+If the event type is either \(dqother\(dq or
+\(dqnot existing\(dq and this flag is true then the
 event will not be shown.
 .UNINDENT
 .INDENT 0.0
@@ -585,7 +585,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
@@ -656,22 +656,22 @@ Equivalent to \-\-verbosity=4 \-\-console=1 \-\-print\-component=1
 .INDENT 0.0
 .TP
 .B \-u, \-\-user arg
-Overrides configuration parameter \fBconnection.username\fP\&.
+Overrides configuration parameter \fI\%connection.username\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-H, \-\-host arg
-Overrides configuration parameter \fBconnection.server\fP\&.
+Overrides configuration parameter \fI\%connection.server\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-t, \-\-timeout arg
-Overrides configuration parameter \fBconnection.timeout\fP\&.
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-g, \-\-primary\-group arg
-Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -682,7 +682,7 @@ This option can be given more than once.
 .INDENT 0.0
 .TP
 .B \-\-content\-type arg
-Overrides configuration parameter \fBconnection.contentType\fP\&.
+Overrides configuration parameter \fI\%connection.contentType\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -700,8 +700,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -730,9 +730,9 @@ List all supported record stream drivers.
 .B \-I, \-\-record\-url arg
 The recordstream source URL, format:
 [\fI\%service://\fP]location[#type].
-"service" is the name of the recordstream driver
-which can be queried with "\-\-record\-driver\-list".
-If "service" is not given, "\fI\%file://\fP" is
+\(dqservice\(dq is the name of the recordstream driver
+which can be queried with \(dq\-\-record\-driver\-list\(dq.
+If \(dqservice\(dq is not given, \(dq\fI\%file://\fP\(dq is
 used.
 .UNINDENT
 .INDENT 0.0
@@ -750,7 +750,7 @@ Specify a type for the records being read.
 .TP
 .B \-\-city\-xml arg
 The path to the cities XML file. This overrides the default
-paths. Compare with the global parameter "citiesXML".
+paths. Compare with the global parameter \(dqcitiesXML\(dq.
 .UNINDENT
 .SS User interface
 .INDENT 0.0

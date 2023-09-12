@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCWFPARAM" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scwfparam \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCWFPARAM" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scwfparam \- SeisComP Documentation
 .sp
 \fBWaveform parametrization module.\fP
 .SH DESCRIPTION
@@ -315,7 +315,7 @@ database schema is installed in \fBshare/db/wfparam/*.sql\fP\&. Login into the
 database backend and source the .sql file corresponding to the used database
 backend.
 .sp
-In order to enable scmaster to handle messages containing objects for
+In order to enable \fI\%scmaster\fP to handle messages containing objects for
 strong motion parameters load the dmsm (data model strong motion) plugin as
 follows in scmaster.cfg:
 .INDENT 0.0
@@ -329,7 +329,7 @@ plugins = ${plugins}, dmsm
 .UNINDENT
 .UNINDENT
 .sp
-scmaster must be restarted to activate the plugin.
+\fI\%scmaster\fP must be restarted to activate the plugin.
 .sp
 To activate scwfparam to send messages with strong motion objects, set
 .INDENT 0.0
@@ -357,13 +357,13 @@ generated from a playback and does \fBnot\fP describe a \fBreal event\fP\&.
 .sp
 .nf
 .ft C
-<?xml version="1.0" encoding="UTF\-8" standalone="yes"?>
-<!DOCTYPE earthquake SYSTEM "earthquake.dtd">
-<earthquake id="gfz2011oasp" lat="38.916" lon="40.0711"
-            depth="10.3249" mag="5.80361" year="2011"
-            month="7" day="19" hour="14" minute="54"
-            second="21" timezone="GMT"
-            locstring="tst2011oasp / 38.916 / 40.0711"
+<?xml version=\(dq1.0\(dq encoding=\(dqUTF\-8\(dq standalone=\(dqyes\(dq?>
+<!DOCTYPE earthquake SYSTEM \(dqearthquake.dtd\(dq>
+<earthquake id=\(dqgfz2011oasp\(dq lat=\(dq38.916\(dq lon=\(dq40.0711\(dq
+            depth=\(dq10.3249\(dq mag=\(dq5.80361\(dq year=\(dq2011\(dq
+            month=\(dq7\(dq day=\(dq19\(dq hour=\(dq14\(dq minute=\(dq54\(dq
+            second=\(dq21\(dq timezone=\(dqGMT\(dq
+            locstring=\(dqtst2011oasp / 38.916 / 40.0711\(dq
 />
 .ft P
 .fi
@@ -375,44 +375,44 @@ generated from a playback and does \fBnot\fP describe a \fBreal event\fP\&.
 .sp
 .nf
 .ft C
-<?xml version="1.0" encoding="UTF\-8" standalone="yes"?>
-<!DOCTYPE earthquake SYSTEM "stationlist.dtd">
-<stationlist created="" xmlns="ch.ethz.sed.shakemap.usgs.xml">
-  <station code="JMB" name="JMB" lat="42.467" lon="26.583">
-    <comp name="BHZ">
-      <acc value="0.0175823522" flag="0"/>
-      <vel value="0.0265134476" flag="0"/>
-      <psa03 value="0.0177551343" flag="0"/>
-      <psa10 value="0.0179450342" flag="0"/>
-      <psa30 value="0.0507100318" flag="0"/>
+<?xml version=\(dq1.0\(dq encoding=\(dqUTF\-8\(dq standalone=\(dqyes\(dq?>
+<!DOCTYPE earthquake SYSTEM \(dqstationlist.dtd\(dq>
+<stationlist created=\(dq\(dq xmlns=\(dqch.ethz.sed.shakemap.usgs.xml\(dq>
+  <station code=\(dqJMB\(dq name=\(dqJMB\(dq lat=\(dq42.467\(dq lon=\(dq26.583\(dq>
+    <comp name=\(dqBHZ\(dq>
+      <acc value=\(dq0.0175823522\(dq flag=\(dq0\(dq/>
+      <vel value=\(dq0.0265134476\(dq flag=\(dq0\(dq/>
+      <psa03 value=\(dq0.0177551343\(dq flag=\(dq0\(dq/>
+      <psa10 value=\(dq0.0179450342\(dq flag=\(dq0\(dq/>
+      <psa30 value=\(dq0.0507100318\(dq flag=\(dq0\(dq/>
     </comp>
   </station>
-  <station code="BUD" name="BUD" insttype="STS\-2/N"
-           lat="47.4836" lon="19.0239">
-    <comp name="BHZ">
-      <acc value="0.0018418704" flag="0"/>
-      <vel value="0.0012123935" flag="0"/>
-      <psa03 value="0.0019287320" flag="0"/>
-      <psa10 value="0.0033152716" flag="0"/>
-      <psa30 value="0.0027636448" flag="0"/>
+  <station code=\(dqBUD\(dq name=\(dqBUD\(dq insttype=\(dqSTS\-2/N\(dq
+           lat=\(dq47.4836\(dq lon=\(dq19.0239\(dq>
+    <comp name=\(dqBHZ\(dq>
+      <acc value=\(dq0.0018418704\(dq flag=\(dq0\(dq/>
+      <vel value=\(dq0.0012123935\(dq flag=\(dq0\(dq/>
+      <psa03 value=\(dq0.0019287320\(dq flag=\(dq0\(dq/>
+      <psa10 value=\(dq0.0033152716\(dq flag=\(dq0\(dq/>
+      <psa30 value=\(dq0.0027636448\(dq flag=\(dq0\(dq/>
     </comp>
   </station>
-  <station code="ANTO" name="ANTO" lat="39.868" lon="32.7934">
-    <comp name="BHZ">
-      <acc value="0.0322238962" flag="0"/>
-      <vel value="0.0250842840" flag="0"/>
-      <psa03 value="0.0326696355" flag="0"/>
-      <psa10 value="0.0621788884" flag="0"/>
-      <psa30 value="0.0903777107" flag="0"/>
+  <station code=\(dqANTO\(dq name=\(dqANTO\(dq lat=\(dq39.868\(dq lon=\(dq32.7934\(dq>
+    <comp name=\(dqBHZ\(dq>
+      <acc value=\(dq0.0322238962\(dq flag=\(dq0\(dq/>
+      <vel value=\(dq0.0250842840\(dq flag=\(dq0\(dq/>
+      <psa03 value=\(dq0.0326696355\(dq flag=\(dq0\(dq/>
+      <psa10 value=\(dq0.0621788884\(dq flag=\(dq0\(dq/>
+      <psa30 value=\(dq0.0903777107\(dq flag=\(dq0\(dq/>
     </comp>
   </station>
-  <station code="GNI" name="GNI" lat="40.148" lon="44.741">
-    <comp name="BHZ">
-      <acc value="0.0760558909" flag="0"/>
-      <vel value="0.0273735691" flag="0"/>
-      <psa03 value="0.0818660133" flag="0"/>
-      <psa10 value="0.1230812588" flag="0"/>
-      <psa30 value="0.1682284546" flag="0"/>
+  <station code=\(dqGNI\(dq name=\(dqGNI\(dq lat=\(dq40.148\(dq lon=\(dq44.741\(dq>
+    <comp name=\(dqBHZ\(dq>
+      <acc value=\(dq0.0760558909\(dq flag=\(dq0\(dq/>
+      <vel value=\(dq0.0273735691\(dq flag=\(dq0\(dq/>
+      <psa03 value=\(dq0.0818660133\(dq flag=\(dq0\(dq/>
+      <psa10 value=\(dq0.1230812588\(dq flag=\(dq0\(dq/>
+      <psa30 value=\(dq0.1682284546\(dq flag=\(dq0\(dq/>
     </comp>
   </station>
 </stationlist>
@@ -434,7 +434,7 @@ is done. The scheduler is disabled in offline mode.
 .ft C
 scwfparam \-\-offline \-I vallorcine.mseed \e
           \-\-inventory\-db vallorcine_inv.xml \e
-          \-\-ep vallorcine.xml \-E "Vallorcine.2005.09.08" \e
+          \-\-ep vallorcine.xml \-E \(dqVallorcine.2005.09.08\(dq \e
           \-\-lo\-filter 0.1 \-\-hi\-filter 0
 .ft P
 .fi
@@ -469,8 +469,8 @@ enough to configure the record stream with \-I:
 .ft C
 scwfparam \-\-offline \-I vallorcine.mseed \e
           \-\-inventory\-db vallorcine_inv.xml \e
-          \-\-ep vallorcine.xml \-E "Vallorcine.2005.09.08" \e
-          \-I "arclink://arclink.ethz.ch:18002"
+          \-\-ep vallorcine.xml \-E \(dqVallorcine.2005.09.08\(dq \e
+          \-I \(dqarclink://arclink.ethz.ch:18002\(dq
 .ft P
 .fi
 .UNINDENT
@@ -487,8 +487,8 @@ reached on command line:
 .ft C
 scwfparam \-\-offline \-I vallorcine.mseed \e
           \-\-inventory\-db vallorcine_inv.xml \e
-          \-\-ep vallorcine.xml \-E "Vallorcine.2005.09.08" \e
-          \-I "arclink://arclink.ethz.ch:18002" \e
+          \-\-ep vallorcine.xml \-E \(dqVallorcine.2005.09.08\(dq \e
+          \-I \(dqarclink://arclink.ethz.ch:18002\(dq \e
           \-\-wfparam.acquisition.initialTimeout=300
 .ft P
 .fi
@@ -505,8 +505,8 @@ To use a remote Seedlink server it is enough to configure the record stream with
 .ft C
 scwfparam \-\-offline \-I vallorcine.mseed \e
           \-\-inventory\-db vallorcine_inv.xml \e
-          \-\-ep vallorcine.xml \-E "Vallorcine.2005.09.08" \e
-          \-I "slink://geofon.gfz\-potsdam.de:18000"
+          \-\-ep vallorcine.xml \-E \(dqVallorcine.2005.09.08\(dq \e
+          \-I \(dqslink://geofon.gfz\-potsdam.de:18000\(dq
 .ft P
 .fi
 .UNINDENT
@@ -523,7 +523,7 @@ scwfparam \-\-offline \-I vallorcine.mseed \e
 .fi
 .sp
 .sp
-scwfparam inherits global options\&.
+scwfparam inherits \fI\%global options\fP\&.
 .INDENT 0.0
 .TP
 .B wfparam.logfile
@@ -552,11 +552,11 @@ includes wfparam.preEventWindowLength.
 Type: \fIlist:string\fP
 .sp
 Magnitude dependent time window table. The format is
-"mag1:secs1, mag2:secs2, mag3:secs3". If a magnitude falls
+\(dqmag1:secs1, mag2:secs2, mag3:secs3\(dq. If a magnitude falls
 between two configured magnitudes the time window of the lower
 magnitude is used then. No interpolation is performed. Magnitude
 outside the configured range are clipped to the lowest/highest value.
-Example: "3:100, 4:200, 5:300"
+Example: \(dq3:100, 4:200, 5:300\(dq
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -589,7 +589,7 @@ Type: \fIlist:string\fP
 .sp
 Analogue to wfparam.magnitudeTimeWindowTable but instead giving a
 time window, the distance in km is specified.
-Example: "3:400, 4:450, 5:500"
+Example: \(dq3:400, 4:450, 5:500\(dq
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -669,7 +669,7 @@ Unit: \fI%\fP
 .sp
 Specifies a list of damping values (in percent) for computation of
 the relative displacement elastic response spectrum.
-Example: "5,10,15"
+Example: \(dq5,10,15\(dq
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -747,13 +747,13 @@ Default: \fB0:0.2;0.8fNyquist,3:0.1;0.8fNyquist,5:0.05;0.8fNyquist,7:0.025;0.8fN
 Type: \fIlist:string\fP
 .sp
 Magnitude dependent filter table. The format is
-"mag1:fmin1;fmax1, mag2:fmin2;fmax2, mag3:fmin3;fmax3".
+\(dqmag1:fmin1;fmax1, mag2:fmin2;fmax2, mag3:fmin3;fmax3\(dq.
 If a magnitude falls between two configured magnitudes the filter of
 the lower magnitude is then used. No interpolation takes place.
 Magnitude outside the configured range are clipped to the
 lowest/highest value.
 Frequency values are given as simple positive doubles (Hz is assumed)
-or with suffix "fNyquist" which is then multiplied by the
+or with suffix \(dqfNyquist\(dq which is then multiplied by the
 Nyquist frequency of the data to get the final corner frequency.
 .UNINDENT
 .INDENT 0.0
@@ -847,7 +847,7 @@ Type: \fIdouble\fP
 .sp
 Specifies the frequency of the 1st stage hi\-pass filter. If this
 parameter is equal to 0 the hi\-pass filter is not used.
-If suffix "fNyquist" is used then the value is multiplied
+If suffix \(dqfNyquist\(dq is used then the value is multiplied
 by the Nyquist frequency of the data to get the final corner
 frequency of the filter.
 .UNINDENT
@@ -860,7 +860,7 @@ Type: \fIdouble\fP
 .sp
 Specifies the frequency of the 1st stage lo\-pass filter. If this
 parameter is equal to 0 the lo\-pass filter is not used.
-If suffix "fNyquist" is used then the value is multiplied
+If suffix \(dqfNyquist\(dq is used then the value is multiplied
 by the Nyquist frequency of the data to get the final corner
 frequency of the filter.
 .UNINDENT
@@ -891,7 +891,7 @@ Type: \fIdouble\fP
 .sp
 Specifies the frequency of the 2nd stage hi\-pass filter. If this
 parameter is equal to 0 the hi\-pass filter is not used.
-If suffix "fNyquist" is used then the value is multiplied
+If suffix \(dqfNyquist\(dq is used then the value is multiplied
 by the Nyquist frequency of the data to get the final corner
 frequency of the filter.
 .UNINDENT
@@ -904,7 +904,7 @@ Type: \fIdouble\fP
 .sp
 Specifies the frequency of the 2nd stage lo\-pass filter. If this
 parameter is equal to 0 the lo\-pass filter is not used.
-If suffix "fNyquist" is used then the value is multiplied
+If suffix \(dqfNyquist\(dq is used then the value is multiplied
 by the Nyquist frequency of the data to get the final corner
 frequency of the filter.
 .UNINDENT
@@ -1001,7 +1001,7 @@ Type: \fIlist:int\fP
 Specifies a list of delay times in seconds relative to event time
 to trigger the processing. When the first origin of an event arrives
 this list is used to construct the crontab for this event.
-Example: "60, 120, 300, 3600"
+Example: \(dq60, 120, 300, 3600\(dq
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1248,13 +1248,13 @@ By default the saturation check is configured for all stations
 as module parameter. This parameters overrides the threshold
 per station.
 .sp
-This value can either be an absolute value such as "100000"
+This value can either be an absolute value such as \(dq100000\(dq
 or a relative value (optionally in percent) with respect to
-the number of effective bits, e.g. "0.8@23" or
-"80%@23". The first version uses 1**23 * 0.8
+the number of effective bits, e.g. \(dq0.8@23\(dq or
+\(dq80%@23\(dq. The first version uses 1**23 * 0.8
 whereas the latter uses 1**23 * 80/100.
 .sp
-The special value "false" explicitly disables
+The special value \(dqfalse\(dq explicitly disables
 the check.
 .UNINDENT
 .SH COMMAND-LINE OPTIONS
@@ -1310,7 +1310,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .INDENT 0.0
@@ -1382,22 +1382,22 @@ Use alternative log file.
 .INDENT 0.0
 .TP
 .B \-u, \-\-user arg
-Overrides configuration parameter \fBconnection.username\fP\&.
+Overrides configuration parameter \fI\%connection.username\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-H, \-\-host arg
-Overrides configuration parameter \fBconnection.server\fP\&.
+Overrides configuration parameter \fI\%connection.server\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-t, \-\-timeout arg
-Overrides configuration parameter \fBconnection.timeout\fP\&.
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-g, \-\-primary\-group arg
-Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1408,7 +1408,7 @@ This option can be given more than once.
 .INDENT 0.0
 .TP
 .B \-\-content\-type arg
-Overrides configuration parameter \fBconnection.contentType\fP\&.
+Overrides configuration parameter \fI\%connection.contentType\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1431,8 +1431,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1461,9 +1461,9 @@ List all supported record stream drivers.
 .B \-I, \-\-record\-url arg
 The recordstream source URL, format:
 [\fI\%service://\fP]location[#type].
-"service" is the name of the recordstream driver
-which can be queried with "\-\-record\-driver\-list".
-If "service" is not given, "\fI\%file://\fP" is
+\(dqservice\(dq is the name of the recordstream driver
+which can be queried with \(dq\-\-record\-driver\-list\(dq.
+If \(dqservice\(dq is not given, \(dq\fI\%file://\fP\(dq is
 used.
 .UNINDENT
 .INDENT 0.0

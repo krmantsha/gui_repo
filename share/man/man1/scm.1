@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCM" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scm \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCM" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scm \- SeisComP Documentation
 .sp
 \fBProcess monitor.\fP
 .SH DESCRIPTION
@@ -38,7 +38,7 @@ scm monitors client activity. scm connects to a certain master and periodically
 processes the status messages sent by the clients.
 .sp
 Each client status if forwarded to the plugins loaded by scm. By default
-the mncursesplugin is loaded which presents an interface
+the \fI\%mncursesplugin\fP is loaded which presents an interface
 similar to the gnu program top.
 .SH FILTERS
 .sp
@@ -85,7 +85,7 @@ A filter might look like this:
 .sp
 .nf
 .ft C
-memailplugin.filter = "(cpuusage>100 || totalmemory>1000) && hostname==proc\-machine"
+memailplugin.filter = \(dq(cpuusage>100 || totalmemory>1000) && hostname==proc\-machine\(dq
 .ft P
 .fi
 .UNINDENT
@@ -195,15 +195,15 @@ where \fBscm_level1\fP could monitor all mandatory clients whereas
 .SH PLUGINS
 .INDENT 0.0
 .IP \(bu 2
-text
+\fI\%text\fP
 .sp
 Text output plugin for scm.
 .IP \(bu 2
-email
+\fI\%email\fP
 .sp
 Email plugin for scm which sends emails based on client status.
 .IP \(bu 2
-ncurses
+\fI\%ncurses\fP
 .sp
 Ncurses output plugin for scm which presents an interactive table of processes.
 .UNINDENT
@@ -218,7 +218,7 @@ Ncurses output plugin for scm which presents an interactive table of processes.
 .fi
 .sp
 .sp
-scm inherits global options\&.
+scm inherits \fI\%global options\fP\&.
 .SS text extension
 .sp
 Text output plugin for scm.
@@ -374,7 +374,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
@@ -431,22 +431,22 @@ Use alternative log file.
 .INDENT 0.0
 .TP
 .B \-u, \-\-user arg
-Overrides configuration parameter \fBconnection.username\fP\&.
+Overrides configuration parameter \fI\%connection.username\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-H, \-\-host arg
-Overrides configuration parameter \fBconnection.server\fP\&.
+Overrides configuration parameter \fI\%connection.server\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-t, \-\-timeout arg
-Overrides configuration parameter \fBconnection.timeout\fP\&.
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-g, \-\-primary\-group arg
-Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -457,7 +457,7 @@ This option can be given more than once.
 .INDENT 0.0
 .TP
 .B \-\-content\-type arg
-Overrides configuration parameter \fBconnection.contentType\fP\&.
+Overrides configuration parameter \fI\%connection.contentType\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP

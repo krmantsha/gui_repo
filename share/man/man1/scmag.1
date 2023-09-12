@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCMAG" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scmag \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCMAG" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scmag \- SeisComP Documentation
 .sp
 \fBCalculates magnitudes of different types.\fP
 .SH DESCRIPTION
@@ -37,23 +37,23 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 The purpose of scmag is to compute magnitudes from pre\-computed amplitudes.
 Instead it takes amplitudes and origins as input and produces StationMagnitudes
 and (network) Magnitudes as output. It does not access waveforms.
-The resulting magnitudes are sent to the "MAGNITUDE" group. scmag doesn’t access
+The resulting magnitudes are sent to the \(dqMAGNITUDE\(dq group. scmag doesn’t access
 any waveforms. It only uses amplitudes previously calculated.
 .sp
 The purpose of scmag is the decoupling of magnitude computation from amplitude
 measurements. This allows several modules to generate amplitudes concurrently,
-like scautopick or scamp\&. As soon as an origin comes in, the amplitudes related
+like \fI\%scautopick\fP or \fI\%scamp\fP\&. As soon as an origin comes in, the amplitudes related
 to the picks are taken either from the memory buffer or the database to compute
 the magnitudes.
 .SS Relationship between amplitudes and origins
 .sp
-scmag makes use of the fact that origins sent by scautoloc, scolv
+scmag makes use of the fact that origins sent by \fI\%scautoloc\fP, \fI\%scolv\fP
 or other modules include
 the complete set of arrivals, which reference picks used for origin computation.
 The picks in turn are referenced by a number of amplitudes, some of which are
 relevant for magnitude computation.
 .sp
-Read the scamp documentation for more details on amplitude measurements.
+Read the \fI\%scamp\fP documentation for more details on amplitude measurements.
 .SS Primary magnitudes
 .sp
 Primary magnitudes are computed from amplitudes and station\-event distances.
@@ -61,54 +61,54 @@ Currently the following primary magnitude types are implemented.
 .SS Local distances
 .INDENT 0.0
 .TP
-.B Md
-Duration magnitude as described in HYPOINVERSE (klein\-2002).
+.B \fI\%Md\fP
+Duration magnitude as described in HYPOINVERSE (Klein [\fI\%47\fP]).
 .TP
-.B Mjma
+.B \fI\%Mjma\fP
 Mjma is computed on displacement data using body waves of period < 30s.
 .TP
-.B ML
+.B \fI\%ML\fP
 Local (Richter) magnitude calculated on the horizontal components using a
-correction term to fit with the standard ML (richter\-1935).
+correction term to fit with the standard ML (Richter [\fI\%53\fP]).
 .TP
-.B MLc
+.B \fI\%MLc\fP
 Local custom magnitude calculated on the horizontal components according to
-Hessian Earthquake Service and stange\-2006
+Hessian Earthquake Service and Stange [\fI\%57\fP]
 .TP
-.B MLh
+.B \fI\%MLh\fP
 Local magnitude calculated on the horizontal components according to SED
 specifications.
 .TP
-.B MLv
+.B \fI\%MLv\fP
 Local magnitude calculated on the vertical component using a correction term
 to fit with the standard ML.
 .TP
-.B MLr
+.B \fI\%MLr\fP
 Local magnitude calculated from MLv amplitudes based on GNS/GEONET specifications
-for New Zealand (ristau\-2016).
+for New Zealand (Ristau \fIet al.\fP [\fI\%54\fP]).
 .TP
-.B MN
-Nuttli magnitude for Canada and other Cratonic regions (nuttli\-1973).
+.B \fI\%MN\fP
+Nuttli magnitude for Canada and other Cratonic regions (Nuttli [\fI\%50\fP]).
 .UNINDENT
 .SS Teleseismic distances
 .INDENT 0.0
 .TP
-.B mb
+.B \fI\%mb\fP
 Narrow band body wave magnitude measured on a WWSSN\-SP filtered trace
 .TP
-.B mBc
+.B \fI\%mBc\fP
 Cumulative body wave magnitude
 .TP
-.B mB
-Broad band body wave magnitude after bormann\-2008
+.B \fI\%mB\fP
+Broad band body wave magnitude after Bormann and Saul [\fI\%35\fP]
 .TP
-.B Mwp
-The body wave magnitude of tsuboi\-1995
+.B \fI\%Mwp\fP
+The body wave magnitude of Tsuboi \fIet al.\fP [\fI\%58\fP]
 .TP
-.B Ms_20
+.B \fI\%Ms_20\fP
 Surface\-wave magnitude at 20 s period
 .TP
-.B Ms(BB)
+.B \fI\%Ms(BB)\fP
 Broad band surface\-wave magnitude
 .UNINDENT
 .SS Derived magnitudes
@@ -116,15 +116,15 @@ Broad band surface\-wave magnitude
 Additionally, scmag derives the following magnitudes from primary magnitudes:
 .INDENT 0.0
 .TP
-.B Mw(mB)
+.B \fI\%Mw(mB)\fP
 Estimation of the moment magnitude Mw based on mB using the Mw vs. mB
-regression of bormann\-2008
+regression of Bormann and Saul [\fI\%35\fP]
 .TP
-.B Mw(Mwp)
+.B \fI\%Mw(Mwp)\fP
 Estimation of the moment magnitude Mw based on Mwp using the Mw vs. Mwp
-regression of whitmore\-2002
+regression of Whitmore \fIet al.\fP [\fI\%60\fP]
 .TP
-.B M
+.B \fI\%M\fP
 Summary magnitude, which consists of a weighted average of the individual
 magnitudes and attempts to be a best possible compromise between all magnitudes.
 See below for configuration and also scevent for how to add the summary magnitude
@@ -157,14 +157,14 @@ at which the amplitude was measured. Typically, epicentral distance is used.
 .INDENT 0.0
 .INDENT 3.5
 Usually station magnitudes use amplitudes of the same type. However, some magnitude
-consider amplitudes of another type. E.g. MLr
-uses amplitudes computed for MLv\&.
+consider amplitudes of another type. E.g. \fI\%MLr\fP
+uses amplitudes computed for \fI\%MLv\fP\&.
 .UNINDENT
 .UNINDENT
 .SH NETWORK MAGNITUDES
 .sp
 The network magnitude is a magnitude value summarizing several \fI\%station magnitudes\fP
-values of one origin\&.
+values of one \fI\%origin\fP\&.
 Different methods are available for summarizing the station magnitudes:
 .INDENT 0.0
 .IP \(bu 2
@@ -172,7 +172,7 @@ mean: the usual mean value
 .IP \(bu 2
 trimmed mean value:
 To stabilize the network magnitudes the smallest and the largest 12.5% of the
-station magnitude values are removed before computing the mean.
+\fI\%station magnitude\fP values are removed before computing the mean.
 .IP \(bu 2
 median: the usual median value
 .IP \(bu 2
@@ -183,7 +183,7 @@ remaining station magnitudes.
 .UNINDENT
 .sp
 Default values apply for each magnitude type.
-In scolv the methods, the stations magnitudes and other parameters can be
+In \fI\%scolv\fP the methods, the stations magnitudes and other parameters can be
 selected interactively.
 .SH SUMMARY MAGNITUDE
 .sp
@@ -212,13 +212,13 @@ as defined in \fI\%summaryMagnitude.whitelist\fP or
 .INDENT 0.0
 .INDENT 3.5
 While the magnitudes are computed by scmag the decision about the preferred
-magnitude of an event is made by scevent\&.
+magnitude of an \fI\%event\fP is made by \fI\%scevent\fP\&.
 .UNINDENT
 .UNINDENT
 .SH PREFERRED MAGNITUDE
 .sp
-The preferred magnitude of an event is set automatically by scevent
-or interactively in scolv\&. It can be any network magnitude or the summary
+The preferred magnitude of an \fI\%event\fP is set automatically by \fI\%scevent\fP
+or interactively in \fI\%scolv\fP\&. It can be any network magnitude or the summary
 magnitude.
 .SH MODULE CONFIGURATION
 .nf
@@ -231,7 +231,7 @@ magnitude.
 .fi
 .sp
 .sp
-scmag inherits global options\&.
+scmag inherits \fI\%global options\fP\&.
 .INDENT 0.0
 .TP
 .B magnitudes
@@ -274,15 +274,15 @@ from station magnitudes. Exactly one method per
 magnitude can be configured.
 To define the averaging method per magnitude type append
 the type after colon, e.g.:
-"magnitudes.average = default, MLv:median"
+\(dqmagnitudes.average = default, MLv:median\(dq
 .sp
 default: Compute the mean if less than 4 contributed
 station magnitudes exist. Otherwise apply a trimmed mean
 of 25%.
 .sp
-Options are "default", "mean",
-"median", "trimmedMean" and
-"medianTrimmedMean".
+Options are \(dqdefault\(dq, \(dqmean\(dq,
+\(dqmedian\(dq, \(dqtrimmedMean\(dq and
+\(dqmedianTrimmedMean\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -441,7 +441,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .INDENT 0.0
@@ -503,22 +503,22 @@ Use alternative log file.
 .INDENT 0.0
 .TP
 .B \-u, \-\-user arg
-Overrides configuration parameter \fBconnection.username\fP\&.
+Overrides configuration parameter \fI\%connection.username\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-H, \-\-host arg
-Overrides configuration parameter \fBconnection.server\fP\&.
+Overrides configuration parameter \fI\%connection.server\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-t, \-\-timeout arg
-Overrides configuration parameter \fBconnection.timeout\fP\&.
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-g, \-\-primary\-group arg
-Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -529,7 +529,7 @@ This option can be given more than once.
 .INDENT 0.0
 .TP
 .B \-\-content\-type arg
-Overrides configuration parameter \fBconnection.contentType\fP\&.
+Overrides configuration parameter \fI\%connection.contentType\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -547,8 +547,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP

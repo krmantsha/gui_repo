@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>scinv &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../_static/seiscomp.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="tab2inv" href="tab2inv.html" />
@@ -25,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.3</span>
+          <span class="version">5.5.4</span>
         </div>
       </div>
     </div>
@@ -71,29 +72,29 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="scinv">
-<span id="id1"></span><h1>scinv<a class="headerlink" href="#scinv" title="Permalink to this headline">¶</a></h1>
+  <section id="scinv">
+<span id="id1"></span><h1>scinv<a class="headerlink" href="#scinv" title="Permalink to this heading">¶</a></h1>
 <p><strong>Inventory database synchronisation.</strong></p>
-<div class="section" id="description">
-<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
 <p>scinv merges and tests inventory XML files to a single inventory, synchronises
 an inventory with another (most common use is with database), creates initial
 key files and much more …</p>
 <p>scinv is used by <code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/etc/init/scinv.py</span></code> to synchronise the
 inventory from <code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/etc/inventory</span></code> with the database.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp update-config inventory
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>update-config<span class="w"> </span>inventory
 </pre></div>
 </div>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>Inventory files in <a class="reference internal" href="../base/glossary.html#term-scml"><span class="xref std std-term">SCML</span></a> format may be generated or modified by
+<p>Inventory files in <a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> format may be generated or modified by
 <span id="id2"><em>SMP</em> [<a class="reference internal" href="../base/references.html#id262" title="SMP. Station Management Portal by gempa GmbH. URL: https://smp.gempa.de/.">21</a>]</span> or <a class="reference internal" href="invextr.html#invextr"><span class="std std-ref">invextr</span></a>. For conversion from FDSN station XML and
-dataless SEED volume to <a class="reference internal" href="../base/glossary.html#term-scml"><span class="xref std std-term">SCML</span></a> use <a class="reference internal" href="fdsnxml2inv.html#fdsnxml2inv"><span class="std std-ref">fdsnxml2inv</span></a> and
+dataless SEED volume to <a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> use <a class="reference internal" href="fdsnxml2inv.html#fdsnxml2inv"><span class="std std-ref">fdsnxml2inv</span></a> and
 <a class="reference internal" href="dlsv2inv.html#dlsv2inv"><span class="std std-ref">dlsv2inv</span></a>, respectively.</p>
 </div>
-</div>
-<div class="section" id="commands">
-<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="commands">
+<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
 <p>scinv works with different commands:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#scinv-ls"><span class="std std-ref">ls</span></a>: List the content of inventories in XML files,</p></li>
@@ -109,11 +110,11 @@ notifiers to the messaging for saving to the database,</p></li>
 </ul>
 <p>The command <strong>must</strong> be given as <strong>1st</strong>
 parameter to the application. All others parameters must follow.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scinv <span class="nv">$command</span> <span class="o">[</span>options<span class="o">]</span> <span class="o">[</span>files<span class="o">]</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scinv<span class="w"> </span><span class="nv">$command</span><span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="o">[</span>files<span class="o">]</span>
 </pre></div>
 </div>
-<div class="section" id="sync">
-<span id="scinv-sync"></span><h3>sync<a class="headerlink" href="#sync" title="Permalink to this headline">¶</a></h3>
+<section id="sync">
+<span id="scinv-sync"></span><h3>sync<a class="headerlink" href="#sync" title="Permalink to this heading">¶</a></h3>
 <p>Synchronises an applications inventory with a given source given as file(s).
 It checks the consistency of the inventory using <a class="reference internal" href="#scinv-check"><span class="std std-ref">check</span></a> before
 synchronization.
@@ -123,24 +124,24 @@ to target and target does not contain any additional information. The source
 must hold all information. This works different to merge. If an output file is
 specified with <code class="xref std std-option docutils literal notranslate"><span class="pre">-o</span></code> no notifiers are generated and sent via messaging.</p>
 <p>This command is used by <code class="file docutils literal notranslate"><span class="pre">etc/init/scinv.py</span></code> as follows:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scinv sync --console<span class="o">=</span><span class="m">1</span> -H localhost:<span class="nv">$p</span> --filebase <span class="s2">&quot;</span><span class="nv">$fb</span><span class="s2">&quot;</span> <span class="se">\</span>
-           --rc-dir <span class="s2">&quot;</span><span class="nv">$rc</span><span class="s2">&quot;</span> --key-dir <span class="s2">&quot;</span><span class="nv">$kd</span><span class="s2">&quot;</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scinv<span class="w"> </span>sync<span class="w"> </span>--console<span class="o">=</span><span class="m">1</span><span class="w"> </span>-H<span class="w"> </span>localhost:<span class="nv">$p</span><span class="w"> </span>--filebase<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$fb</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">           </span>--rc-dir<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$rc</span><span class="s2">&quot;</span><span class="w"> </span>--key-dir<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$kd</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
 <p>where</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">$p</span> <span class="o">=</span> configured messaging port
-<span class="nv">$fb</span> <span class="o">=</span> <span class="nv">$SEISCOMP_ROOT</span>/etc/inventory
-<span class="nv">$rc</span> <span class="o">=</span> <span class="nv">$SEISCOMP_ROOT</span>/var/lib/rc
-<span class="nv">$kd</span> <span class="o">=</span> <span class="nv">$SEISCOMP_ROOT</span>/etc/key
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">$p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>configured<span class="w"> </span>messaging<span class="w"> </span>port
+<span class="nv">$fb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$SEISCOMP_ROOT</span>/etc/inventory
+<span class="nv">$rc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$SEISCOMP_ROOT</span>/var/lib/rc
+<span class="nv">$kd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$SEISCOMP_ROOT</span>/etc/key
 </pre></div>
 </div>
-</div>
-<div class="section" id="merge">
-<span id="scinv-merge"></span><h3>merge<a class="headerlink" href="#merge" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="merge">
+<span id="scinv-merge"></span><h3>merge<a class="headerlink" href="#merge" title="Permalink to this heading">¶</a></h3>
 <p>Merges two or more inventories into one inventory checking the consistency
 of the inventory by using <a class="reference internal" href="#scinv-check"><span class="std std-ref">check</span></a>. This command is useful to merge
 existing subtrees into a final inventory before synchronization.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scinv merge net1.xml net2.xml -o inv.xml
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scinv<span class="w"> </span>merge<span class="w"> </span>net1.xml<span class="w"> </span>net2.xml<span class="w"> </span>-o<span class="w"> </span>inv.xml
 </pre></div>
 </div>
 <div class="admonition note">
@@ -148,75 +149,75 @@ existing subtrees into a final inventory before synchronization.</p>
 <p>Merging inventory XML files is also supported by <a class="reference internal" href="scxmlmerge.html#scxmlmerge"><span class="std std-ref">scxmlmerge</span></a> but
 without the full <a class="reference internal" href="#scinv-check"><span class="std std-ref">consistency checks</span></a>.</p>
 </div>
-</div>
-<div class="section" id="apply">
-<span id="scinv-apply"></span><h3>apply<a class="headerlink" href="#apply" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="apply">
+<span id="scinv-apply"></span><h3>apply<a class="headerlink" href="#apply" title="Permalink to this heading">¶</a></h3>
 <p>Applies stored notifiers created with <strong>sync</strong> and option <code class="docutils literal notranslate"><span class="pre">--create-notifier</span></code>
 which is saved in a file (<code class="docutils literal notranslate"><span class="pre">-o</span></code>). Source is the applications inventory read
 from the database or given with <code class="docutils literal notranslate"><span class="pre">--inventory-db</span></code>.
 If <code class="docutils literal notranslate"><span class="pre">-o</span></code> is passed, no messages are sent but the result is stored in a file.
 Useful to test/debug or prepare an inventory for offline processing.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Synchronise inventory and save the notifiers locally. No messages are sent.</span>
-scinv sync -d mysql://sysop:sysop@localhost/seiscomp <span class="se">\</span>
-      --create-notifier -o sync_patch.xml
+scinv<span class="w"> </span>sync<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@localhost/seiscomp<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>--create-notifier<span class="w"> </span>-o<span class="w"> </span>sync_patch.xml
 
 <span class="c1"># Sent the notifiers to the target system</span>
-scinv apply -H localhost sync_patch.xml
+scinv<span class="w"> </span>apply<span class="w"> </span>-H<span class="w"> </span>localhost<span class="w"> </span>sync_patch.xml
 </pre></div>
 </div>
 <p>This operation can be useful to save differences in synchronization for
 validation or debugging problems.</p>
-</div>
-<div class="section" id="keys">
-<span id="scinv-keys"></span><h3>keys<a class="headerlink" href="#keys" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="keys">
+<span id="scinv-keys"></span><h3>keys<a class="headerlink" href="#keys" title="Permalink to this heading">¶</a></h3>
 <p>Synchronise station key files with current inventory pool. This command merges
 all XML files in the inventory pool (or the given files) and checks if a
 corresponding station key file in <code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/etc/key</span></code> exists. If not,
 an empty station key file is created. If a station key file without a
 corresponding station in the merged inventory is found, it is deleted.</p>
-</div>
-<div class="section" id="ls">
-<span id="scinv-ls"></span><h3>ls<a class="headerlink" href="#ls" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="ls">
+<span id="scinv-ls"></span><h3>ls<a class="headerlink" href="#ls" title="Permalink to this heading">¶</a></h3>
 <p>List contained items up to response level. This command is useful to inspect
 an XML file or the complete inventory pool.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ scinv ls SK.KOLS.xml
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>scinv<span class="w"> </span>ls<span class="w"> </span>SK.KOLS.xml
 
-  network SK       Slovak National Network of Seismic Stations
-    epoch <span class="m">1980</span>-01-01
-    station KOLS   Kolonicke sedlo, Slovakia
-      epoch <span class="m">2004</span>-09-01
-      location __
-        epoch <span class="m">2004</span>-09-01
-        channel BHE
-          epoch <span class="m">2006</span>-04-25 <span class="m">12</span>:00:00 - <span class="m">2010</span>-03-24
-        channel BHN
-          epoch <span class="m">2006</span>-04-25 <span class="m">12</span>:00:00 - <span class="m">2010</span>-03-24
-        channel BHZ
-          epoch <span class="m">2006</span>-04-25 <span class="m">12</span>:00:00 - <span class="m">2010</span>-03-24
-        channel EHE
-          epoch <span class="m">2004</span>-09-01 - <span class="m">2006</span>-04-25 <span class="m">10</span>:00:00
-        channel EHN
-          epoch <span class="m">2004</span>-09-01 - <span class="m">2006</span>-04-25 <span class="m">10</span>:00:00
-        channel EHZ
-          epoch <span class="m">2004</span>-09-01 - <span class="m">2006</span>-04-25 <span class="m">10</span>:00:00
-        channel HHE
-          epoch <span class="m">2006</span>-04-25 <span class="m">12</span>:00:00 - <span class="m">2010</span>-03-24
-        channel HHE
-          epoch <span class="m">2010</span>-03-25
-        channel HHN
-          epoch <span class="m">2006</span>-04-25 <span class="m">12</span>:00:00 - <span class="m">2010</span>-03-24
-        channel HHN
-          epoch <span class="m">2010</span>-03-25
-        channel HHZ
-          epoch <span class="m">2006</span>-04-25 <span class="m">12</span>:00:00 - <span class="m">2010</span>-03-24
-        channel HHZ
-          epoch <span class="m">2010</span>-03-25
+<span class="w">  </span>network<span class="w"> </span>SK<span class="w">       </span>Slovak<span class="w"> </span>National<span class="w"> </span>Network<span class="w"> </span>of<span class="w"> </span>Seismic<span class="w"> </span>Stations
+<span class="w">    </span>epoch<span class="w"> </span><span class="m">1980</span>-01-01
+<span class="w">    </span>station<span class="w"> </span>KOLS<span class="w">   </span>Kolonicke<span class="w"> </span>sedlo,<span class="w"> </span>Slovakia
+<span class="w">      </span>epoch<span class="w"> </span><span class="m">2004</span>-09-01
+<span class="w">      </span>location<span class="w"> </span>__
+<span class="w">        </span>epoch<span class="w"> </span><span class="m">2004</span>-09-01
+<span class="w">        </span>channel<span class="w"> </span>BHE
+<span class="w">          </span>epoch<span class="w"> </span><span class="m">2006</span>-04-25<span class="w"> </span><span class="m">12</span>:00:00<span class="w"> </span>-<span class="w"> </span><span class="m">2010</span>-03-24
+<span class="w">        </span>channel<span class="w"> </span>BHN
+<span class="w">          </span>epoch<span class="w"> </span><span class="m">2006</span>-04-25<span class="w"> </span><span class="m">12</span>:00:00<span class="w"> </span>-<span class="w"> </span><span class="m">2010</span>-03-24
+<span class="w">        </span>channel<span class="w"> </span>BHZ
+<span class="w">          </span>epoch<span class="w"> </span><span class="m">2006</span>-04-25<span class="w"> </span><span class="m">12</span>:00:00<span class="w"> </span>-<span class="w"> </span><span class="m">2010</span>-03-24
+<span class="w">        </span>channel<span class="w"> </span>EHE
+<span class="w">          </span>epoch<span class="w"> </span><span class="m">2004</span>-09-01<span class="w"> </span>-<span class="w"> </span><span class="m">2006</span>-04-25<span class="w"> </span><span class="m">10</span>:00:00
+<span class="w">        </span>channel<span class="w"> </span>EHN
+<span class="w">          </span>epoch<span class="w"> </span><span class="m">2004</span>-09-01<span class="w"> </span>-<span class="w"> </span><span class="m">2006</span>-04-25<span class="w"> </span><span class="m">10</span>:00:00
+<span class="w">        </span>channel<span class="w"> </span>EHZ
+<span class="w">          </span>epoch<span class="w"> </span><span class="m">2004</span>-09-01<span class="w"> </span>-<span class="w"> </span><span class="m">2006</span>-04-25<span class="w"> </span><span class="m">10</span>:00:00
+<span class="w">        </span>channel<span class="w"> </span>HHE
+<span class="w">          </span>epoch<span class="w"> </span><span class="m">2006</span>-04-25<span class="w"> </span><span class="m">12</span>:00:00<span class="w"> </span>-<span class="w"> </span><span class="m">2010</span>-03-24
+<span class="w">        </span>channel<span class="w"> </span>HHE
+<span class="w">          </span>epoch<span class="w"> </span><span class="m">2010</span>-03-25
+<span class="w">        </span>channel<span class="w"> </span>HHN
+<span class="w">          </span>epoch<span class="w"> </span><span class="m">2006</span>-04-25<span class="w"> </span><span class="m">12</span>:00:00<span class="w"> </span>-<span class="w"> </span><span class="m">2010</span>-03-24
+<span class="w">        </span>channel<span class="w"> </span>HHN
+<span class="w">          </span>epoch<span class="w"> </span><span class="m">2010</span>-03-25
+<span class="w">        </span>channel<span class="w"> </span>HHZ
+<span class="w">          </span>epoch<span class="w"> </span><span class="m">2006</span>-04-25<span class="w"> </span><span class="m">12</span>:00:00<span class="w"> </span>-<span class="w"> </span><span class="m">2010</span>-03-24
+<span class="w">        </span>channel<span class="w"> </span>HHZ
+<span class="w">          </span>epoch<span class="w"> </span><span class="m">2010</span>-03-25
 </pre></div>
 </div>
 <p>The default level of information printed is <em>chan</em>. Available levels are <em>net</em>,
 <em>sta</em>, <em>chan</em> and <em>resp</em>. The output level is controlled by <code class="xref std std-option docutils literal notranslate"><span class="pre">--level`</span></code>.</p>
 <p>For checking the available networks and stations in the inventory pool, calling</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scinv ls --level sta
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scinv<span class="w"> </span>ls<span class="w"> </span>--level<span class="w"> </span>sta
 </pre></div>
 </div>
 <p>is enough.</p>
@@ -225,16 +226,16 @@ an XML file or the complete inventory pool.</p>
 <p>Stream lists in NSLC format (NET.STA.LOC.CHA) may be generated when combining
 with <code class="xref std std-option docutils literal notranslate"><span class="pre">--nslc</span></code>. Such lists can be used as input for filtering
 waveforms, e.g., to <a class="reference internal" href="scmssort.html#scmssort"><span class="std std-ref">scmssort</span></a> or <a class="reference internal" href="scart.html#scart"><span class="std std-ref">scart</span></a>.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ scinv ls --nslc inventory.xml
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>scinv<span class="w"> </span>ls<span class="w"> </span>--nslc<span class="w"> </span>inventory.xml
 
-  IU.WVT.00.BHZ <span class="m">2017</span>-11-16
-  IU.XMAS.00.BH1 <span class="m">2018</span>-07-06 <span class="m">20</span>:00:00
+<span class="w">  </span>IU.WVT.00.BHZ<span class="w"> </span><span class="m">2017</span>-11-16
+<span class="w">  </span>IU.XMAS.00.BH1<span class="w"> </span><span class="m">2018</span>-07-06<span class="w"> </span><span class="m">20</span>:00:00
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="check">
-<span id="scinv-check"></span><h3>check<a class="headerlink" href="#check" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="check">
+<span id="scinv-check"></span><h3>check<a class="headerlink" href="#check" title="Permalink to this heading">¶</a></h3>
 <p>Checks consistency of passed inventory files or a complete filebase. In the
 first step the inventory is merged from all files. In the second step several
 consistency checks are applied such as:</p>
@@ -276,12 +277,12 @@ results.</p>
 <li><p>Please report inventory issues not caught by tests to the SeisComP
 development team, e.g. on <span id="id3"><em>SeisComP on GitHub</em> [<a class="reference internal" href="../base/references.html#id252" title="Seiscomp on github. URL: https://github.com/SeisComP.">1</a>]</span>.</p></li>
 </ul>
-<table class="colwidths-given docutils align-left">
+<table class="docutils align-left">
 <colgroup>
-<col style="width: 9%" />
-<col style="width: 27%" />
-<col style="width: 5%" />
-<col style="width: 59%" />
+<col style="width: 9.1%" />
+<col style="width: 27.3%" />
+<col style="width: 4.5%" />
+<col style="width: 59.1%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Object</p></th>
@@ -528,10 +529,10 @@ development team, e.g. on <span id="id3"><em>SeisComP on GitHub</em> [<a class="
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="section" id="module-configuration">
-<span id="scinv-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="module-configuration">
+<span id="scinv-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/global.cfg</span></code></div>
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/scinv.cfg</span></code></div>
@@ -541,17 +542,17 @@ development team, e.g. on <span id="id3"><em>SeisComP on GitHub</em> [<a class="
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">~/.seiscomp/scinv.cfg</span></code></div>
 </div>
 <p>scinv inherits <a class="reference internal" href="global.html#global-configuration"><span class="std std-ref">global options</span></a>.</p>
-<dl class="confval">
-<dt id="confval-syncKeys">
-<code class="sig-name descname">syncKeys</code><a class="headerlink" href="#confval-syncKeys" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-syncKeys">
+<span class="sig-name descname"><span class="pre">syncKeys</span></span><a class="headerlink" href="#confval-syncKeys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Synchronise key files.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-purgeKeys">
-<code class="sig-name descname">purgeKeys</code><a class="headerlink" href="#confval-purgeKeys" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-purgeKeys">
+<span class="sig-name descname"><span class="pre">purgeKeys</span></span><a class="headerlink" href="#confval-purgeKeys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Delete key files if a station does not exist in inventory.</p>
@@ -562,9 +563,9 @@ development team, e.g. on <span id="id3"><em>SeisComP on GitHub</em> [<a class="
 <p><strong>check.*</strong>
 <em>Quantities probed when using the check command.</em></p>
 </div>
-<dl class="confval">
-<dt id="confval-check.maxDistance">
-<code class="sig-name descname">check.maxDistance</code><a class="headerlink" href="#confval-check.maxDistance" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-check.maxDistance">
+<span class="sig-name descname"><span class="pre">check.maxDistance</span></span><a class="headerlink" href="#confval-check.maxDistance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Unit: <em>km</em></p>
@@ -572,9 +573,9 @@ development team, e.g. on <span id="id3"><em>SeisComP on GitHub</em> [<a class="
 coordinates.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-check.maxElevationDifference">
-<code class="sig-name descname">check.maxElevationDifference</code><a class="headerlink" href="#confval-check.maxElevationDifference" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-check.maxElevationDifference">
+<span class="sig-name descname"><span class="pre">check.maxElevationDifference</span></span><a class="headerlink" href="#confval-check.maxElevationDifference" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">500</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Unit: <em>m</em></p>
@@ -582,9 +583,9 @@ coordinates.</p>
 sensor location.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-check.maxSensorDepth">
-<code class="sig-name descname">check.maxSensorDepth</code><a class="headerlink" href="#confval-check.maxSensorDepth" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-check.maxSensorDepth">
+<span class="sig-name descname"><span class="pre">check.maxSensorDepth</span></span><a class="headerlink" href="#confval-check.maxSensorDepth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">500</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Unit: <em>m</em></p>
@@ -592,28 +593,28 @@ sensor location.</p>
 of the sensor below the surface.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="command-line-options">
-<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="command-line-options">
+<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this heading">¶</a></h2>
 <p><strong class="program">scinv command [options] [files]</strong></p>
 <p>Command is one of: sync, merge, apply, keys, ls and check.</p>
-<div class="section" id="generic">
-<h3>Generic<a class="headerlink" href="#generic" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scinv-h">
-<code class="sig-name descname">-h</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--help</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scinv-h" title="Permalink to this definition">¶</a></dt>
+<section id="generic">
+<h3>Generic<a class="headerlink" href="#generic" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-h">
+<span id="cmdoption-scinv-help"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-h" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show help message.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-v">
-<code class="sig-name descname">-V</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--version</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scinv-v" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-V">
+<span id="cmdoption-scinv-version"></span><span class="sig-name descname"><span class="pre">-V</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--version</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-V" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show version information.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-config-file">
-<code class="sig-name descname">--config-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scinv-config-file" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-config-file">
+<span class="sig-name descname"><span class="pre">--config-file</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scinv-config-file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use alternative configuration file. When this option is
 used the loading of all stages is disabled. Only the
 given configuration file is parsed and used. To use
@@ -622,340 +623,340 @@ link of the application or copy it. Example:
 scautopick -&gt; scautopick2.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-plugins">
-<code class="sig-name descname">--plugins</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scinv-plugins" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-plugins">
+<span class="sig-name descname"><span class="pre">--plugins</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scinv-plugins" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load given plugins.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-d">
-<code class="sig-name descname">-D</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--daemon</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scinv-d" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-D">
+<span id="cmdoption-scinv-daemon"></span><span class="sig-name descname"><span class="pre">-D</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--daemon</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-D" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run as daemon. This means the application will fork itself
 and doesn’t need to be started with &amp;.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-auto-shutdown">
-<code class="sig-name descname">--auto-shutdown</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scinv-auto-shutdown" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-auto-shutdown">
+<span class="sig-name descname"><span class="pre">--auto-shutdown</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scinv-auto-shutdown" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable/disable self-shutdown because a master module shutdown.
 This only works when messaging is enabled and the master
-module sends a shutdown message (enabled with –start-stop-msg
+module sends a shutdown message (enabled with --start-stop-msg
 for the master module).</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-shutdown-master-module">
-<code class="sig-name descname">--shutdown-master-module</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scinv-shutdown-master-module" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-shutdown-master-module">
+<span class="sig-name descname"><span class="pre">--shutdown-master-module</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scinv-shutdown-master-module" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the name of the master-module used for auto-shutdown.
 This is the application name of the module actually
 started. If symlinks are used, then it is the name of
 the symlinked application.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-shutdown-master-username">
-<code class="sig-name descname">--shutdown-master-username</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scinv-shutdown-master-username" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-shutdown-master-username">
+<span class="sig-name descname"><span class="pre">--shutdown-master-username</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scinv-shutdown-master-username" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the name of the master-username of the messaging
-used for auto-shutdown. If “shutdown-master-module” is
+used for auto-shutdown. If &quot;shutdown-master-module&quot; is
 given as well, this parameter is ignored.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="verbosity">
-<h3>Verbosity<a class="headerlink" href="#verbosity" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scinv-verbosity">
-<code class="sig-name descname">--verbosity</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scinv-verbosity" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="verbosity">
+<h3>Verbosity<a class="headerlink" href="#verbosity" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-verbosity">
+<span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scinv-verbosity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
 4:debug.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="id4">
-<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--v</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id4" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-v">
+<span id="cmdoption-scinv-v"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--v</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-v" title="Permalink to this definition">¶</a></dt>
 <dd><p>Increase verbosity level (may be repeated, eg. -vv).</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-q">
-<code class="sig-name descname">-q</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--quiet</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scinv-q" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-q">
+<span id="cmdoption-scinv-quiet"></span><span class="sig-name descname"><span class="pre">-q</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--quiet</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-q" title="Permalink to this definition">¶</a></dt>
 <dd><p>Quiet mode: no logging output.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-component">
-<code class="sig-name descname">--component</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scinv-component" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-component">
+<span class="sig-name descname"><span class="pre">--component</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scinv-component" title="Permalink to this definition">¶</a></dt>
 <dd><p>Limit the logging to a certain component. This option can
 be given more than once.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-s">
-<code class="sig-name descname">-s</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--syslog</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scinv-s" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-s">
+<span id="cmdoption-scinv-syslog"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--syslog</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use syslog logging backend. The output usually goes to
 /var/lib/messages.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-l">
-<code class="sig-name descname">-l</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--lockfile</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scinv-l" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-l">
+<span id="cmdoption-scinv-lockfile"></span><span class="sig-name descname"><span class="pre">-l</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--lockfile</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scinv-l" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path to lock file.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-console">
-<code class="sig-name descname">--console</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scinv-console" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-console">
+<span class="sig-name descname"><span class="pre">--console</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scinv-console" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send log output to stdout.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-debug">
-<code class="sig-name descname">--debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scinv-debug" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-debug">
+<span class="sig-name descname"><span class="pre">--debug</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-debug" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute in debug mode.
-Equivalent to –verbosity=4 –console=1 .</p>
+Equivalent to --verbosity=4 --console=1 .</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-log-file">
-<code class="sig-name descname">--log-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scinv-log-file" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-log-file">
+<span class="sig-name descname"><span class="pre">--log-file</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scinv-log-file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use alternative log file.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-print-component">
-<code class="sig-name descname">--print-component</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scinv-print-component" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-print-component">
+<span class="sig-name descname"><span class="pre">--print-component</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scinv-print-component" title="Permalink to this definition">¶</a></dt>
 <dd><p>For each log entry print the component right after the
 log level. By default the component output is enabled
 for file output but disabled for console output.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-trace">
-<code class="sig-name descname">--trace</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scinv-trace" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-trace">
+<span class="sig-name descname"><span class="pre">--trace</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-trace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute in trace mode.
-Equivalent to –verbosity=4 –console=1 –print-component=1
-–print-context=1 .</p>
+Equivalent to --verbosity=4 --console=1 --print-component=1
+--print-context=1 .</p>
 </dd></dl>
 
-</div>
-<div class="section" id="messaging">
-<h3>Messaging<a class="headerlink" href="#messaging" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scinv-u">
-<code class="sig-name descname">-u</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--user</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scinv-u" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="messaging">
+<h3>Messaging<a class="headerlink" href="#messaging" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-u">
+<span id="cmdoption-scinv-user"></span><span class="sig-name descname"><span class="pre">-u</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--user</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scinv-u" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.username"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.username</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-host">
-<code class="sig-name descname">-H</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--host</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scinv-host" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-H">
+<span id="cmdoption-scinv-host"></span><span class="sig-name descname"><span class="pre">-H</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--host</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scinv-H" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.server"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.server</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-t">
-<code class="sig-name descname">-t</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--timeout</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scinv-t" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-t">
+<span id="cmdoption-scinv-timeout"></span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--timeout</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scinv-t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.timeout"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.timeout</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-g">
-<code class="sig-name descname">-g</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--primary-group</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scinv-g" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-g">
+<span id="cmdoption-scinv-primary-group"></span><span class="sig-name descname"><span class="pre">-g</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--primary-group</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scinv-g" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.primaryGroup"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.primaryGroup</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-subscribe-group">
-<code class="sig-name descname">-S</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--subscribe-group</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scinv-subscribe-group" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-S">
+<span id="cmdoption-scinv-subscribe-group"></span><span class="sig-name descname"><span class="pre">-S</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--subscribe-group</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scinv-S" title="Permalink to this definition">¶</a></dt>
 <dd><p>A group to subscribe to.
 This option can be given more than once.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-content-type">
-<code class="sig-name descname">--content-type</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scinv-content-type" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-content-type">
+<span class="sig-name descname"><span class="pre">--content-type</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scinv-content-type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.contentType"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.contentType</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-start-stop-msg">
-<code class="sig-name descname">--start-stop-msg</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scinv-start-stop-msg" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-start-stop-msg">
+<span class="sig-name descname"><span class="pre">--start-stop-msg</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scinv-start-stop-msg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set sending of a start and a stop message.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="database">
-<h3>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scinv-db-driver-list">
-<code class="sig-name descname">--db-driver-list</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scinv-db-driver-list" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="database">
+<h3>Database<a class="headerlink" href="#database" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-db-driver-list">
+<span class="sig-name descname"><span class="pre">--db-driver-list</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-db-driver-list" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all supported database drivers.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-database">
-<code class="sig-name descname">-d</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--database</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scinv-database" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-d">
+<span id="cmdoption-scinv-database"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--database</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scinv-d" title="Permalink to this definition">¶</a></dt>
 <dd><p>The database connection string, format:
 <a class="reference external" href="service://user:pwd&#64;host/database">service://user:pwd&#64;host/database</a>.
-“service” is the name of the database driver which
-can be queried with “–db-driver-list”.</p>
+&quot;service&quot; is the name of the database driver which
+can be queried with &quot;--db-driver-list&quot;.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-config-module">
-<code class="sig-name descname">--config-module</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scinv-config-module" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-config-module">
+<span class="sig-name descname"><span class="pre">--config-module</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scinv-config-module" title="Permalink to this definition">¶</a></dt>
 <dd><p>The config module to use.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-inventory-db">
-<code class="sig-name descname">--inventory-db</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scinv-inventory-db" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-inventory-db">
+<span class="sig-name descname"><span class="pre">--inventory-db</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scinv-inventory-db" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load the inventory from the given database or file, format:
 [<a class="reference external" href="service://]location">service://]location</a> .</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-db-disable">
-<code class="sig-name descname">--db-disable</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scinv-db-disable" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-db-disable">
+<span class="sig-name descname"><span class="pre">--db-disable</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-db-disable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do not use the database at all</p>
 </dd></dl>
 
-</div>
-<div class="section" id="manager">
-<h3>Manager<a class="headerlink" href="#manager" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scinv-filebase">
-<code class="sig-name descname">--filebase</code><code class="sig-prename descclassname"> dir</code><a class="headerlink" href="#cmdoption-scinv-filebase" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="manager">
+<h3>Manager<a class="headerlink" href="#manager" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-filebase">
+<span class="sig-name descname"><span class="pre">--filebase</span></span><span class="sig-prename descclassname"> <span class="pre">dir</span></span><a class="headerlink" href="#cmdoption-scinv-filebase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Directory to check for inventory XML files. If not given,
 all XML files passed are checked.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-rc-dir">
-<code class="sig-name descname">--rc-dir</code><code class="sig-prename descclassname"> dir</code><a class="headerlink" href="#cmdoption-scinv-rc-dir" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-rc-dir">
+<span class="sig-name descname"><span class="pre">--rc-dir</span></span><span class="sig-prename descclassname"> <span class="pre">dir</span></span><a class="headerlink" href="#cmdoption-scinv-rc-dir" title="Permalink to this definition">¶</a></dt>
 <dd><p>If given, rc (resource) files will be created in this
 directory for each station. The station descriptions will be
 from the last available epoch.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-key-dir">
-<code class="sig-name descname">--key-dir</code><code class="sig-prename descclassname"> dir</code><a class="headerlink" href="#cmdoption-scinv-key-dir" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-key-dir">
+<span class="sig-name descname"><span class="pre">--key-dir</span></span><span class="sig-prename descclassname"> <span class="pre">dir</span></span><a class="headerlink" href="#cmdoption-scinv-key-dir" title="Permalink to this definition">¶</a></dt>
 <dd><p>The directory to synchronise key files to. If not given,
 &#64;SYSTEMCONFIGDIR&#64;/key is assumed.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-o">
-<code class="sig-name descname">-o</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--output</code><code class="sig-prename descclassname"> file</code><a class="headerlink" href="#cmdoption-scinv-o" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-o">
+<span id="cmdoption-scinv-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">file</span></span><a class="headerlink" href="#cmdoption-scinv-o" title="Permalink to this definition">¶</a></dt>
 <dd><p>Output file for writing inventory XML after merging.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-purge-keys">
-<code class="sig-name descname">--purge-keys</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scinv-purge-keys" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-purge-keys">
+<span class="sig-name descname"><span class="pre">--purge-keys</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-purge-keys" title="Permalink to this definition">¶</a></dt>
 <dd><p>(default) Delete key files if a station does not exist in
 inventory.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-no-purge-keys">
-<code class="sig-name descname">--no-purge-keys</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scinv-no-purge-keys" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-no-purge-keys">
+<span class="sig-name descname"><span class="pre">--no-purge-keys</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-no-purge-keys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do not delete key files if a station does not exist in
 inventory.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="id5">
-<h3>Check<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scinv-distance">
-<code class="sig-name descname">--distance</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scinv-distance" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="id4">
+<h3>Check<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-distance">
+<span class="sig-name descname"><span class="pre">--distance</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-distance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maximum allowed distance between station and location
 coordinates when using the check command.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-max-elevation-difference">
-<code class="sig-name descname">--max-elevation-difference</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scinv-max-elevation-difference" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-max-elevation-difference">
+<span class="sig-name descname"><span class="pre">--max-elevation-difference</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-max-elevation-difference" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maximum allowed difference in elevation
 between station and sensorlocation in m. Larger differences
 will be reported.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-max-sensor-depth">
-<code class="sig-name descname">--max-sensor-depth</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scinv-max-sensor-depth" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-max-sensor-depth">
+<span class="sig-name descname"><span class="pre">--max-sensor-depth</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-max-sensor-depth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maximum allowed depth of channel (sensor). This is the depth
 of the sensor below the surface in m. Larger depths will be
 reported.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="list">
-<h3>List<a class="headerlink" href="#list" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scinv-compact">
-<code class="sig-name descname">--compact</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scinv-compact" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="list">
+<h3>List<a class="headerlink" href="#list" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-compact">
+<span class="sig-name descname"><span class="pre">--compact</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-compact" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable compact output for ls: each object one line.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-level">
-<code class="sig-name descname">--level</code><code class="sig-prename descclassname"> int</code><a class="headerlink" href="#cmdoption-scinv-level" title="Permalink to this definition">¶</a></dt>
-<dd><p>Information level reported by ls. One of “net”, “sta”,
-“cha” or “resp”. Default is “cha”.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-level">
+<span class="sig-name descname"><span class="pre">--level</span></span><span class="sig-prename descclassname"> <span class="pre">int</span></span><a class="headerlink" href="#cmdoption-scinv-level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Information level reported by ls. One of &quot;net&quot;, &quot;sta&quot;,
+&quot;cha&quot; or &quot;resp&quot;. Default is &quot;cha&quot;.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-nslc">
-<code class="sig-name descname">--nslc</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scinv-nslc" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-nslc">
+<span class="sig-name descname"><span class="pre">--nslc</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-nslc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable NSLC output for ls as  NET.STA.LOC.CHA. The option
 implies level = cha.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="id6">
-<h3>Merge<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scinv-strip">
-<code class="sig-name descname">--strip</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scinv-strip" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="id5">
+<h3>Merge<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-strip">
+<span class="sig-name descname"><span class="pre">--strip</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-strip" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove unreferenced objects (data loggers, sensors, …).</p>
 </dd></dl>
 
-</div>
-<div class="section" id="id7">
-<h3>Sync<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scinv-create-notifier">
-<code class="sig-name descname">--create-notifier</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scinv-create-notifier" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="id6">
+<h3>Sync<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-create-notifier">
+<span class="sig-name descname"><span class="pre">--create-notifier</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-create-notifier" title="Permalink to this definition">¶</a></dt>
 <dd><p>If an output file is given, then all notifiers will be saved
 and not the result set itself.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-no-keys">
-<code class="sig-name descname">--no-keys</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scinv-no-keys" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-no-keys">
+<span class="sig-name descname"><span class="pre">--no-keys</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-no-keys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do not synchronise key files.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-no-rc">
-<code class="sig-name descname">--no-rc</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scinv-no-rc" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-no-rc">
+<span class="sig-name descname"><span class="pre">--no-rc</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-no-rc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do not synchronise rc files.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scinv-test">
-<code class="sig-name descname">--test</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scinv-test" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scinv-test">
+<span class="sig-name descname"><span class="pre">--test</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scinv-test" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do not send any notifiers and just output resulting
 operations and conflicts.</p>
 </dd></dl>
 
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -968,14 +969,15 @@ operations and conflicts.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">scinv</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
 <li><a class="reference internal" href="#commands">Commands</a><ul>
@@ -994,22 +996,27 @@ operations and conflicts.</p>
 <li><a class="reference internal" href="#messaging">Messaging</a></li>
 <li><a class="reference internal" href="#database">Database</a></li>
 <li><a class="reference internal" href="#manager">Manager</a></li>
-<li><a class="reference internal" href="#id5">Check</a></li>
+<li><a class="reference internal" href="#id4">Check</a></li>
 <li><a class="reference internal" href="#list">List</a></li>
-<li><a class="reference internal" href="#id6">Merge</a></li>
-<li><a class="reference internal" href="#id7">Sync</a></li>
+<li><a class="reference internal" href="#id5">Merge</a></li>
+<li><a class="reference internal" href="#id6">Sync</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="invextr.html"
-                        title="previous chapter">invextr</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="tab2inv.html"
-                        title="next chapter">tab2inv</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="invextr.html"
+                          title="previous chapter">invextr</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="tab2inv.html"
+                          title="next chapter">tab2inv</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -1029,7 +1036,7 @@ operations and conflicts.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.3</b> Release
+		  Version <b>5.5.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

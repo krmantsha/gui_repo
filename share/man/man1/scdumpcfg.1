@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCDUMPCFG" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scdumpcfg \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,22 +27,25 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCDUMPCFG" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scdumpcfg \- SeisComP Documentation
 .sp
 \fBDump bindings or module configurations used by a specific module or global
 for particular stations.\fP
 .SH DESCRIPTION
 .sp
 scdumpcfg reads and prints the
-module or bindings configuration
+\fI\%module or bindings configuration\fP
 for a specific module or for global. This command\-line utility is useful for
 debugging of configuration parameters.
 .sp
-Related to \fBscdumpcfg\fP is bindings2cfg which dumps the bindings
-configuration to SCML\&.
+Related to \fBscdumpcfg\fP is \fI\%bindings2cfg\fP which dumps the bindings
+configuration to \fI\%SCML\fP\&.
 .sp
 Instead of printing parameters and values for stations, the option \fB\-\-nlsc\fP
 allows printing the stream codes considered by the bindings. The output may be
-used e.g. for filtering dumped streams in scart\&.
+used e.g. for filtering dumped streams in \fI\%scart\fP\&.
 .SH EXAMPLES
 .INDENT 0.0
 .IP 1. 3
@@ -62,7 +62,7 @@ scdumpcfg global \-d mysql://sysop:sysop@localhost/seiscomp \-B
 .UNINDENT
 .IP 2. 3
 Dump the bindings configuration for all stations which have bindings to a
-scautopick profile. Additionally use \fI\-G\fP as scautopick inherits global bindings.
+\fI\%scautopick\fP profile. Additionally use \fI\-G\fP as \fI\%scautopick\fP inherits global bindings.
 .INDENT 3.0
 .INDENT 3.5
 .sp
@@ -124,7 +124,7 @@ scdumpcfg \-d localhost \-BG \-\-nslc
 .fi
 .sp
 .sp
-scdumpcfg inherits global options\&.
+scdumpcfg inherits \fI\%global options\fP\&.
 .SH COMMAND-LINE OPTIONS
 .sp
 \fBscdumpcfg [options]\fP
@@ -180,7 +180,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
@@ -244,8 +244,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP

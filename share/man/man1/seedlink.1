@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SEEDLINK" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-seedlink \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SEEDLINK" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+seedlink \- SeisComP Documentation
 .sp
 \fBReal\-time waveform server implementing the SeedLink protocol.\fP
 .SH DESCRIPTION
@@ -38,7 +38,7 @@ SeedLink is a real\-time data acquisition protocol and a client\-server software
 that implements this protocol. The SeedLink protocol is based on TCP. All
 connections are initiated by the client. During handshaking phase the client can
 subscribe to specific stations and streams using simple commands in ASCII coding.
-When handshaking is completed, a stream of SeedLink "packets" consisting of a
+When handshaking is completed, a stream of SeedLink \(dqpackets\(dq consisting of a
 8\-byte SeedLink header (containing the sequence number) followed by a 512\-byte
 miniSEED record, is sent to the client. The packets of each individual station
 are always transferred in timely (FIFO) order. The SeedLink implementation used
@@ -47,14 +47,14 @@ exist. Another well\-known implementation is deployed in IRIS DMC and some
 manufacturers have implemented SeedLink in their digitizer firmware. All
 implementations are generally compatible, but not all of them support the full
 SeedLink protocol. On the other hand IRIS DMC implements some extensions which
-are not supported by other servers. In the following we use "SeedLink" to denote
+are not supported by other servers. In the following we use \(dqSeedLink\(dq to denote
 the SeedLink implementation used in SeisComP. The data source of a SeedLink
 server can be anything which is supported by a SeedLink plugin \- a small program
 that sends data to the SeedLink server. Plugins are controlled by the SeedLink
 server, e.g., a plugin is automatically restarted if it crashes or a timeout
 occurs. Data supplied by a plugin can be a form of miniSEED packets or just
 raw integer samples with accompanying timing information. In the latter case,
-the SeedLink server uses an inegrated "Stream Processor" to create the desired
+the SeedLink server uses an inegrated \(dqStream Processor\(dq to create the desired
 data streams and assemble miniSEED packets.
 .SS Supported data sources
 .sp
@@ -63,10 +63,10 @@ SeedLink plugins. More plugins (Kinemetrics K2, Lennartz MARS\-88, Lennartz PCM
 5800, etc.) have been implemented by various users, but are not (yet) included
 in the package. The included C language plugin interface is described in
 section 5.1.1.5. Antelope, Earthworm and NAQS can also import data from
-SeisComP. In SeisComP the class RecordStream is implemented that supports both
+SeisComP. In SeisComP the class \fI\%RecordStream\fP is implemented that supports both
 SeedLink and ArcLink sources; this class is used by all SeisComP modules that
 work with waveform data. On a lower level, SeedLink clients can be implemented
-using the libslink software library or its Java counterpart, JSeedLink. Libslink
+using the \fILibslink\fP [\fI\%15\fP] software library or its Java counterpart, JSeedLink. Libslink
 supports Linux/UNIX, Windows and MacOS X platforms, and comes with an exhaustive
 documentation in form of UNIX manual pages.
 .TS
@@ -92,7 +92,7 @@ _
 T{
 \fI\%caps\fP
 T}	T{
-CAPS server caps
+CAPS server [\fI\%3\fP]
 T}	T{
 \fI\%gempa GmbH\fP
 T}
@@ -366,7 +366,7 @@ _
 .SS Telnet interface
 .sp
 \fBseedlink\fP provides a telnet interface accepting the commands set out in
-\fI\%Commands\fP through the seedlink \fBport\fP
+\fI\%Commands\fP through the seedlink \fI\%port\fP
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -434,14 +434,14 @@ selectors, request a packet sequence number to start with and eventually start
 data transmission. SeedLink commands consist of an ASCII string followed by
 zero or several arguments separated by spaces and terminated with carriage
 return (<cr>, ASCII code 13) followed by an optional linefeed
-(<lf>, ASCII code 10). The commands can be divided into two categories: "action
-commands" and "modifier commands". Action commands perform a function such as
+(<lf>, ASCII code 10). The commands can be divided into two categories: \(dqaction
+commands\(dq and \(dqmodifier commands\(dq. Action commands perform a function such as
 starting data transfer. Modifier commands are used to specialize or modify the
 function performed by the action commands that follow. When a server receives a
-modifier command it responds with the ASCII string "OK" followed by a carriage
+modifier command it responds with the ASCII string \(dqOK\(dq followed by a carriage
 return and a line feed to acknowledge that the command has been accepted. If
 the command was not recognized by the server or has invalid parameters, then
-the ASCII string "ERROR" is sent as a response to the client followed by a
+the ASCII string \(dqERROR\(dq is sent as a response to the client followed by a
 carriage return and a line feed. The client should not send any further
 commands before it has received a response to the previous modifier command. If
 a network error or timeout occurs the client should close the connection and
@@ -459,18 +459,18 @@ Handshaking in uni\-station vs. multi\-station mode..UNINDENT
 .sp
 When handshaking has been completed the server starts sending data packets, each
 consisting of an 8\-byte SeedLink header followed by a 512\-byte miniSEED record.
-The SeedLink header is an ASCII string consisting of the letters "SL" followed
+The SeedLink header is an ASCII string consisting of the letters \(dqSL\(dq followed
 by a six\-digit hexadecimal packet sequence number. Each station has its own
 sequence numbers. If multiple stations are requested using a single TCP channel
 the client should look at the contents of the miniSEED header to determine the
 station name (or to maintain the current sequence numbers for each station). A
-sequence number in the same format is used as an argument to the commands "DATA"
-or "FETCH" to start the data transfer from a particular packet. Each SeedLink
+sequence number in the same format is used as an argument to the commands \(dqDATA\(dq
+or \(dqFETCH\(dq to start the data transfer from a particular packet. Each SeedLink
 node re\-assigns sequence numbers for technical reasons. It is not possible to
 use the same sequence numbers when communicating with alternative servers.
 Within a particular node the sequence numbers of a single station are
 consecutive and wrap around at FFFFFF. This can be used by the client to detect
-"sequence gaps" (e.g., some data has been missed by the client due to long
+\(dqsequence gaps\(dq (e.g., some data has been missed by the client due to long
 network outage or a software bug). However, if stream selectors are used the
 sequence numbers are only guaranteed to be in increasing order (with wrap)
 because some packets might be filtered out by the server. In this case the
@@ -484,39 +484,39 @@ Obviously, the average data transfer rate must be greater than the rate at
 which new data becomes ready to send at the server. If this is the case, sooner
 or later the server has sent all data available to the client. When this
 happens, depending on the SeedLink mode, the server sends new data as soon as
-it arrives or appends ASCII string "END" to the last packet and waits for the
-client to close connection. The latter mode is called "dial\-up mode" because
+it arrives or appends ASCII string \(dqEND\(dq to the last packet and waits for the
+client to close connection. The latter mode is called \(dqdial\-up mode\(dq because
 it is normally used in conjunction with dial\-up lines to open the connection
 periodically for a short time and download all data available. A SeedLink
-packet can never start with "END" thus no ambiguity arises.
+packet can never start with \(dqEND\(dq thus no ambiguity arises.
 .SS Commands
 .INDENT 0.0
 .TP
 .B HELLO
-responds with a two\-line message (both lines terminated with <cr><lf>). The first line contains the version number of the SeedLink daemon, the second  line contains station or data center description specified in the configuration. HELLO is used mainly for testing a SeedLink server with "telnet". It is also used by libslink to determine the server version.
+responds with a two\-line message (both lines terminated with <cr><lf>). The first line contains the version number of the SeedLink daemon, the second  line contains station or data center description specified in the configuration. HELLO is used mainly for testing a SeedLink server with \(dqtelnet\(dq. It is also used by libslink to determine the server version.
 .TP
 .B CAT
-shows the station list. Used mainly for testing a SeedLink server with "telnet".
+shows the station list. Used mainly for testing a SeedLink server with \(dqtelnet\(dq.
 .TP
 .B BYE
-closes the connection. Used mainly for testing a SeedLink server with "telnet".
+closes the connection. Used mainly for testing a SeedLink server with \(dqtelnet\(dq.
 .TP
 .B STATION station code [network code]
-turns on multi\-station mode, used to transfer data of multiple stations over a single TCP channel. The STATION command, followed by SELECT (optional) and FETCH, DATA or TIME commands is repeated for each station and the handshaking is finished with END. STATION is a modifier command (it modifies the function of subsequent SELECT, and DATA, FETCH or TIME commands) so it responds with "OK" on success, "ERROR" otherwise.
+turns on multi\-station mode, used to transfer data of multiple stations over a single TCP channel. The STATION command, followed by SELECT (optional) and FETCH, DATA or TIME commands is repeated for each station and the handshaking is finished with END. STATION is a modifier command (it modifies the function of subsequent SELECT, and DATA, FETCH or TIME commands) so it responds with \(dqOK\(dq on success, \(dqERROR\(dq otherwise.
 .TP
 .B END
 end of handshaking in multi\-station mode. This is an action command, because it starts data transfer. No explicit response is sent.
 .TP
 .B SELECT [pattern]
-when used without pattern, all selectors are canceled. Otherwise, the pattern is a positive selector to enable matching miniSEED stream transfer. The pattern can be used as well as a negative selector with a leading "!" to prevent the transfer of some miniSEED streams. Only one selector can be used in a single SELECT request. A SeedLink packet is sent to the client if it matches any positive selector and doesn’t match any negative selectors.
+when used without pattern, all selectors are canceled. Otherwise, the pattern is a positive selector to enable matching miniSEED stream transfer. The pattern can be used as well as a negative selector with a leading \(dq!\(dq to prevent the transfer of some miniSEED streams. Only one selector can be used in a single SELECT request. A SeedLink packet is sent to the client if it matches any positive selector and doesn’t match any negative selectors.
 .UNINDENT
 .sp
-General format of selectors is LLCCC.T where LL is location, CCC is channel, and T is type (one of DECOTL for data, event, calibration, blockette, timing, and log records). "LL", ".T", and "LLCCC." can be omitted, meaning "any". It is also possible to use "?" in place of L and C. Some examples can be found in table 3\-1 in section 3.3.3.2.
-SELECT is a modifier command (it modifies the function of subsequent DATA, FETCH or TIME commands) so a response follows with "OK" on success, "ERROR" otherwise.
+General format of selectors is LLCCC.T where LL is location, CCC is channel, and T is type (one of DECOTL for data, event, calibration, blockette, timing, and log records). \(dqLL\(dq, \(dq.T\(dq, and \(dqLLCCC.\(dq can be omitted, meaning \(dqany\(dq. It is also possible to use \(dq?\(dq in place of L and C. Some examples can be found in table 3\-1 in section 3.3.3.2.
+SELECT is a modifier command (it modifies the function of subsequent DATA, FETCH or TIME commands) so a response follows with \(dqOK\(dq on success, \(dqERROR\(dq otherwise.
 .INDENT 0.0
 .TP
 .B DATA [n [begin time]]
-in multi\-station mode this sets the current station into real\-time mode and (optionally) the current sequence number to n; in uni\-station mode this starts data transfer in real\-time mode from packet n or from the next packet available if used without arguments. If begin time is used, any older packets are filtered out. begin time should be in the form of 6 decimal numbers separated by commas in the form: year,month,day,hour,minute,second, e.g. ’2002,08,05,14,00,00’. DATA is a modifier command in multi\-station mode (responds with "OK" or "ERROR"); in uni\-station mode it is an action command (no explicit response is sent).
+in multi\-station mode this sets the current station into real\-time mode and (optionally) the current sequence number to n; in uni\-station mode this starts data transfer in real\-time mode from packet n or from the next packet available if used without arguments. If begin time is used, any older packets are filtered out. begin time should be in the form of 6 decimal numbers separated by commas in the form: year,month,day,hour,minute,second, e.g. ’2002,08,05,14,00,00’. DATA is a modifier command in multi\-station mode (responds with \(dqOK\(dq or \(dqERROR\(dq); in uni\-station mode it is an action command (no explicit response is sent).
 .TP
 .B FETCH [n [begin time]]
 works like DATA but sets the station to dial\-up mode instead of real\-time mode.
@@ -533,7 +533,7 @@ In order to implement a SeedLink plugin a developer needs two files included in 
 In these files the following public functions are defined:
 .INDENT 0.0
 .TP
-.B int send_raw3(const char\fI\ *station\fP, const char\fI\ *channel\fP, const struct ptime\fI\ *pt\fP, int\fI\ usec_correction\fP, int\fI\ timing_quality\fP, const int32_t\fI\ *dataptr\fP, int\fI\ number_of_samples\fP)
+.B int  send_raw3(const  char  *station, const  char  *channel, const  struct  ptime  *pt, int  usec_correction, int  timing_quality, const  int32_t  *dataptr, int  number_of_samples) 
 .UNINDENT
 .sp
 is used to send a raw packet (array of 32\-bit integer samples) to SeedLink. The parameters are:
@@ -543,7 +543,7 @@ is used to send a raw packet (array of 32\-bit integer samples) to SeedLink. The
 station ID, must match one of the defined stations in seedlink.ini. (Up to 10 characters.)
 .TP
 .B channel
-channel ID, referenced by the "input" element in streams.xml. (Up to 10 characters.)
+channel ID, referenced by the \(dqinput\(dq element in streams.xml. (Up to 10 characters.)
 .TP
 .B pt
 time of the first sample in the array. If NULL then time is calculated relative to the previous send_raw3() call. struct ptime is defined in \fBplugin.h\fP\&.
@@ -572,16 +572,16 @@ If dataptr = NULL send a gap (advance time as if number of samples was sent with
 .UNINDENT
 .INDENT 0.0
 .TP
-.B int send_raw_depoch(const char\fI\ *station\fP, const char\fI\ *channel\fP, double\fI\ depoch\fP, int\fI\ usec_correction\fP, int\fI\ timing_quality\fP, const int32_t\fI\ dataptr\fP, int\fI\ number_of_samples\fP)
+.B int  send_raw_depoch(const  char  *station, const  char  *channel, double  depoch, int  usec_correction, int  timing_quality, const  int32_t  dataptr, int  number_of_samples) 
 .UNINDENT
 .sp
 same as send_raw3() except time is measured in seconds since 1 January 1970 (depoch). Leap seconds are ignored.
 .INDENT 0.0
 .TP
-.B int send_flush3(const char\fI\ *station\fP, const char\fI\ *channel\fP)
+.B int  send_flush3(const  char  *station, const  char  *channel) 
 .UNINDENT
 .sp
-flushes all miniSEED data streams associated with a channel. All buffered data is sent out creating "unfilled" miniSEED records if necessary. The parameters are:
+flushes all miniSEED data streams associated with a channel. All buffered data is sent out creating \(dqunfilled\(dq miniSEED records if necessary. The parameters are:
 .INDENT 0.0
 .TP
 .B station
@@ -592,7 +592,7 @@ channel ID.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B int send_mseed(const char\fI\ *station\fP, const void\fI\ *dataptr\fP, int\fI\ packet_size\fP)
+.B int  send_mseed(const  char  *station, const  void  *dataptr, int  packet_size) 
 .UNINDENT
 .sp
 is used to send a miniSEED packet to SeedLink. Such packets are not further processed. The parameters are:
@@ -609,7 +609,7 @@ must be 512.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B int send_log3(const char\fI\ *station\fP, const struct ptime\fI\ *pt\fP, const char\fI\ *fmt\fP, \&...)
+.B int  send_log3(const  char  *station, const  struct  ptime  *pt, const  char  *fmt, \&...) 
 .UNINDENT
 .sp
 is used to send a log message to SeedLink (LOG stream). It must be noted that encapsulating log messages in miniSEED records is relatively inefficient because each message takes at least one record (512 bytes), regardless of message size. Due to 64\-byte miniSEED header, up to 448 bytes per record can be used *  The parameters are:
@@ -626,7 +626,7 @@ format string, as used by printf(), followed by a variable number of arguments.
 .UNINDENT
 .SH COMPATIBILITY WITH EARLIER VERSIONS
 .sp
-It is possible to determine the version of the plugin interface by looking at the C macro PLUGIN_INTERFACE_VERSION. The current version is 3, therefore all functions that have changed since earlier versions end with "3". It is possible to enable full backward compatibility with earlier versions of the plugin interface by defining the C macro PLUGIN_COMPATIBILITY. In this case the old functions are also defined.
+It is possible to determine the version of the plugin interface by looking at the C macro PLUGIN_INTERFACE_VERSION. The current version is 3, therefore all functions that have changed since earlier versions end with \(dq3\(dq. It is possible to enable full backward compatibility with earlier versions of the plugin interface by defining the C macro PLUGIN_COMPATIBILITY. In this case the old functions are also defined.
 .SH SEEDLINK CONFIGURATION FILES
 .sp
 The following configuration files are used by SeedLink and its plugins.
@@ -649,7 +649,7 @@ Configuration file for SeedLink plugins. Used by serial_plugin, fs_plugin and co
 Main configuration file for SeedLink. For more details see below.
 .TP
 .B filters.fir
-Coefficients of SeedLink’s decimating FIR filters. If a filter’s name ends with "M", it is a minimum\-phase filter – causal filter with minimized (non\-constant) phase delay; since the filter is non\-symmetric all coefficients must be given. Otherwise the filter is a zero\-phase filter, i.e. a non\-causal filter with zero phase delay; in this case the filter is symmetric and so only half of the coefficients must be given (it is not possible to use a zero\-phase filter with an odd number of coefficients).
+Coefficients of SeedLink’s decimating FIR filters. If a filter’s name ends with \(dqM\(dq, it is a minimum\-phase filter – causal filter with minimized (non\-constant) phase delay; since the filter is non\-symmetric all coefficients must be given. Otherwise the filter is a zero\-phase filter, i.e. a non\-causal filter with zero phase delay; in this case the filter is symmetric and so only half of the coefficients must be given (it is not possible to use a zero\-phase filter with an odd number of coefficients).
 .UNINDENT
 .sp
 \fBWARNING:\fP
@@ -671,20 +671,20 @@ SeedLink stream configuration file for the internal stream processor, referenced
 *.ini files have a somewhat obscure syntax. They contain zero or more sections, each beginning with a section name
 in squared brackets which should appear on a line of its own. Section name cannot contain spaces and squared brackets,
 but it can be optionally surrounded by spaces. Each section consists of zero or more entries – definitions and assignments.
-A definition consists of a keyword and a name separated by spaces (e.g. "station EDD"). An assignment consists of a
-parameter and a value separated by the "=" sign and optionally surrounded by spaces (e.g. "network = GE").
+A definition consists of a keyword and a name separated by spaces (e.g. \(dqstation EDD\(dq). An assignment consists of a
+parameter and a value separated by the \(dq=\(dq sign and optionally surrounded by spaces (e.g. \(dqnetwork = GE\(dq).
 .sp
 The set of assignments that immediately follow a definition is in the scope of that definition. Assignments in the
-beginning of a section are "global" – they are used to set some generic parameters and provide default values
-(e.g. "network = GE" in the beginning of the section sets the default network that can be overridden in the scope
+beginning of a section are \(dqglobal\(dq – they are used to set some generic parameters and provide default values
+(e.g. \(dqnetwork = GE\(dq in the beginning of the section sets the default network that can be overridden in the scope
 of a station definition).
 .sp
-Parameters and keywords are case insensitive and must not contain the symbols "=", "[", "]" or spaces. Names must
-not contain "=" signs or spaces. Values must not contain "=" signs or spaces, unless enclosed in double quotes.
-Double quotes that are part of the value itself must be preceded by "".
+Parameters and keywords are case insensitive and must not contain the symbols \(dq=\(dq, \(dq[\(dq, \(dq]\(dq or spaces. Names must
+not contain \(dq=\(dq signs or spaces. Values must not contain \(dq=\(dq signs or spaces, unless enclosed in double quotes.
+Double quotes that are part of the value itself must be preceded by \(dq\(dq.
 .sp
 Each assignment must be complete on a single line, but several assignments can appear on one line, separated by spaces.
-Any line beginning with a "#" or "*" character is regarded as a comment and ignored.
+Any line beginning with a \(dq#\(dq or \(dq*\(dq character is regarded as a comment and ignored.
 .SS seedlink.ini
 .sp
 seedlink.ini may contain several sections, but only one having the same name as
@@ -697,10 +697,10 @@ seedlink.ini is generated from \fB~/.seiscomp/seedlink.cfg\fP and
 .SS streams.xml
 .sp
 This file, like all XML documents, has a tree\-like structure. The root element
-is called "stream" and it in turn contains "proc" elements which are referenced
-by name in seedlink.ini. A "proc" element contains one or more "tree" elements,
-which in turn contain "input" and "node" elements. There should be one "input"
-element per plugin channel; if an "input" element is missing, the channel is
+is called \(dqstream\(dq and it in turn contains \(dqproc\(dq elements which are referenced
+by name in seedlink.ini. A \(dqproc\(dq element contains one or more \(dqtree\(dq elements,
+which in turn contain \(dqinput\(dq and \(dqnode\(dq elements. There should be one \(dqinput\(dq
+element per plugin channel; if an \(dqinput\(dq element is missing, the channel is
 ignored and you will see a message like:
 .INDENT 0.0
 .INDENT 3.5
@@ -720,25 +720,25 @@ Here is the description of all elements and attributes:
 root element, has no attributes.
 .TP
 \fBelement\fP proc
-defines a "proc" object (set of "stream trees"), referenced from seedlink.ini.
+defines a \(dqproc\(dq object (set of \(dqstream trees\(dq), referenced from seedlink.ini.
 .TP
 \fBattribute\fP name
-name of "proc" object, for reference.
+name of \(dqproc\(dq object, for reference.
 .TP
 \fBelement\fP using
-used to include all "stream trees" defined by one "proc" object in another "proc" object.
+used to include all \(dqstream trees\(dq defined by one \(dqproc\(dq object in another \(dqproc\(dq object.
 .TP
 \fBattribute\fP name
-the name of referenced "proc" object.
+the name of referenced \(dqproc\(dq object.
 .TP
 \fBelement\fP tree
-defines a "stream tree" – a downsampling scheme of an input channel.
+defines a \(dqstream tree\(dq – a downsampling scheme of an input channel.
 .TP
 \fBelement\fP input
 associates an input channel with the stream tree.
 .TP
 \fBattribute\fP name
-name of the input channel; depends on the configuration of the particular plugin (usual channel names are "Z", "N" and "E").
+name of the input channel; depends on the configuration of the particular plugin (usual channel names are \(dqZ\(dq, \(dqN\(dq and \(dqE\(dq).
 .TP
 \fBattribute\fP channel
 name of the output channel (last letter of a miniSEED stream name).
@@ -750,13 +750,13 @@ miniSEED location code of the output channel (up to two characters).
 sampling rate of the input channel (must match the actual sampling rate, which is dependent on the configuration of the plugin and digitizer).
 .TP
 \fBelement\fP node
-defines a node of a stream tree; this element is recursive, meaning that it may contain one or more "node" elements itself.
+defines a node of a stream tree; this element is recursive, meaning that it may contain one or more \(dqnode\(dq elements itself.
 .TP
 \fBattribute\fP filter
 use the named filter for decimation; filters are defined in file filters.fir.
 .TP
 \fBattribute\fP stream
-create miniSEED output stream at this node. The value of the attribute should be a miniSEED stream name without the last character (which is taken from the attribute "channel" of element "input").
+create miniSEED output stream at this node. The value of the attribute should be a miniSEED stream name without the last character (which is taken from the attribute \(dqchannel\(dq of element \(dqinput\(dq).
 .UNINDENT
 .sp
 \fBstreams.xml\fP is generated into \fBvar/lib/seedlink/streams.xml\fP\&. Each
@@ -772,7 +772,7 @@ template file at \fBshare/templates/seedlink/[source]/streams_[proc].tpl\fP\&.
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
-seedlink is a standalone module and does not inherit global options\&.
+seedlink is a \fI\%standalone module\fP and does not inherit \fI\%global options\fP\&.
 .UNINDENT
 .UNINDENT
 .nf
@@ -913,8 +913,8 @@ Type: \fIstring\fP
 .sp
 Defines a database read connection to be used for Seedlink
 station descriptions. If no database is to be used (the default;
-configure with "") then the station code will be used. Example:
-"mysql://sysop:sysop@localhost/seiscomp". If a remote host is
+configure with \(dq\(dq) then the station code will be used. Example:
+\(dqmysql://sysop:sysop@localhost/seiscomp\(dq. If a remote host is
 specified, ensure that its database server is reachable from
 this computer.
 .UNINDENT
@@ -1133,7 +1133,7 @@ Type: \fIstring\fP
 .sp
 Path to named fifo pipe. Default:
 $SEISCOMP_ROOT/var/run/seedlink/mseedfifo for seedlink.
-Alias modules automatically replace "seedlink"
+Alias modules automatically replace \(dqseedlink\(dq
 by the alias name.
 .UNINDENT
 .INDENT 0.0
@@ -1155,7 +1155,7 @@ Default: \fB5500\fP
 .sp
 Type: \fIint\fP
 .sp
-UDP base port used when udp port is defined as "auto"
+UDP base port used when udp port is defined as \(dqauto\(dq
 .UNINDENT
 .SS chain extension
 .sp
@@ -1449,10 +1449,10 @@ construct blockette 1001 for downsampled data.
 .B sources.chain.overlapRemoval
 Type: \fIstring\fP
 .sp
-If overlap removal is set to "initial" or "full", then
+If overlap removal is set to \(dqinitial\(dq or \(dqfull\(dq, then
 earlier records will be discarded (record number is used
 in case several subsequent records have the same header time).
-All other values are treated as "none". Leave this option
+All other values are treated as \(dqnone\(dq. Leave this option
 unset unless you know what you are doing.
 .UNINDENT
 .INDENT 0.0
@@ -1519,7 +1519,7 @@ Type: \fIlist:string\fP
 .sp
 Allows to rename channels. This is a list of
 strings where each item defines one mapping in the
-format "SRC_LOCCHA:DST_LOCCHA". Either SRC_LOCCHA or
+format \(dqSRC_LOCCHA:DST_LOCCHA\(dq. Either SRC_LOCCHA or
 DST_LOCCHA may contain wildcard characters (question
 mark) and the location code (LOC) in both identifiers
 is optional.
@@ -1533,9 +1533,9 @@ Allows to unpack channels instead of sending them as
 miniseed to Seedlink. Unpacked streams can be downsampled
 by Seedlink. This is a list of strings where each item
 defines one unpack mapping  in the format
-"SRC_LOCCHA:DST_ID:1" where DST_ID can
+\(dqSRC_LOCCHA:DST_ID:1\(dq where DST_ID can
 be an arbitrary channel id which must match the definition of
-a stream in streams.xml. The last ":1" is optional and defines
+a stream in streams.xml. The last \(dq:1\(dq is optional and defines
 if the unpacked data should be doubled (duplicate each sample).
 In case rename mappings are active, SRC_LOCCHA referes to
 the final channel name after renaming.
@@ -1765,10 +1765,10 @@ Type: \fIpath\fP
 .B sources.fs_mseed.pattern
 Type: \fIstring\fP
 .sp
-"pattern" is a POSIX extended regular expression that
+\(dqpattern\(dq is a POSIX extended regular expression that
 must match input file names (useful for filtering out non\-data
-files). For example "BH[NEZ]" would match any files
-that contained "BHE", "BHN" or "BHZ".
+files). For example \(dqBH[NEZ]\(dq would match any files
+that contained \(dqBHE\(dq, \(dqBHN\(dq or \(dqBHZ\(dq.
 If no pattern is specified all files will be processed.
 .UNINDENT
 .INDENT 0.0
@@ -1787,7 +1787,7 @@ Default: \fBtrue\fP
 .sp
 Type: \fIboolean\fP
 .sp
-Move file to subdirectory "processed" before starting to read it.
+Move file to subdirectory \(dqprocessed\(dq before starting to read it.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1826,7 +1826,7 @@ Type: \fIint\fP
 .sp
 Unit: \fIs\fP
 .sp
-New files are searched for every "polltime" seconds.
+New files are searched for every \(dqpolltime\(dq seconds.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1883,7 +1883,7 @@ raw streams (streams submitted by a plugin as raw samples).
 .INDENT 3.5
 \fBsources.fs_mseed.channels.*\fP
 \fIChannel definitions (Mini\-SEED streams are defined in streams.xml,\fP
-\fIlook for <proc name="generic_3x50">).\fP
+\fIlook for <proc name=\(dqgeneric_3x50\(dq>).\fP
 .UNINDENT
 .UNINDENT
 .sp
@@ -2332,7 +2332,7 @@ LISS server (TCP/IP)
 .INDENT 0.0
 .TP
 .B sources.liss.address
-Default: \fB"$STATION.$NET.liss.org"\fP
+Default: \fB\(dq$STATION.$NET.liss.org\(dq\fP
 .sp
 Type: \fIstring\fP
 .sp
@@ -2516,7 +2516,7 @@ Default: \fBHHZ,HHN,HHE\fP
 .sp
 Type: \fIstring\fP
 .sp
-Names of the channels. These names are only used if you choose to automatically generate the proc. Nevertheless, even if you are not using the auto proc, it is important to declare correctly this list as the number of channels is used to size the internal plugin\(aqs buffers. If you do not want seedlink to use one of the channels, replace it names with "none". Example : 01HHZ,none,none,02HHZ,HHE,HHN
+Names of the channels. These names are only used if you choose to automatically generate the proc. Nevertheless, even if you are not using the auto proc, it is important to declare correctly this list as the number of channels is used to size the internal plugin\(aqs buffers. If you do not want seedlink to use one of the channels, replace it names with \(dqnone\(dq. Example : 01HHZ,none,none,02HHZ,HHE,HHN
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2573,7 +2573,7 @@ Default: \fBHHZ,HHN,HHE\fP
 .sp
 Type: \fIstring\fP
 .sp
-Names of the channels. These names are only used if you choose to automatically generate the proc. Nevertheless, even if you are not using the auto proc, it is important to declare correctly this list as the number of channels is used to size the internal plugin\(aqs buffers. If you do not want seedlink to use one of the channels, replace it names with "none". Example : 01HHZ,none,none,02HHZ,HHE,HHN
+Names of the channels. These names are only used if you choose to automatically generate the proc. Nevertheless, even if you are not using the auto proc, it is important to declare correctly this list as the number of channels is used to size the internal plugin\(aqs buffers. If you do not want seedlink to use one of the channels, replace it names with \(dqnone\(dq. Example : 01HHZ,none,none,02HHZ,HHE,HHN
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2600,7 +2600,7 @@ Default: \fB0\fP
 .sp
 Type: \fIint\fP
 .sp
-If this parameter is not 0, a date frame ("YYYY,mm,dd hh:mm:ss\en") will be send on serial port every serial_clock_period seconds.
+If this parameter is not 0, a date frame (\(dqYYYY,mm,dd hh:mm:ss\en\(dq) will be send on serial port every serial_clock_period seconds.
 .UNINDENT
 .SS mk6
 .sp
@@ -3333,7 +3333,7 @@ Type: \fIlist:string\fP
 .sp
 List of channels (hexID:name, ...). The name can either be a single
 channel name or a combination of station and channel separated by
-a whitespace, e.g. "ABCD BHZ". If no station name is given,
+a whitespace, e.g. \(dqABCD BHZ\(dq. If no station name is given,
 e.g. only BHZ is specified, the name of the station the plugin bound to
 is used. The definition of a station name is important if the plugin
 configuration is used as a profile and assigned to multiple stations.

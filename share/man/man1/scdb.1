@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCDB" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scdb \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCDB" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scdb \- SeisComP Documentation
 .sp
 \fBPopulate a SQL database from XML files or messages.\fP
 .SH DESCRIPTION
@@ -38,7 +38,7 @@ A major component of the SeisComP system is the database. Almost all
 applications have only read access to the database, but all the processing
 results and objects have to be written into the database. This was the task of
 scdb. In very first versions of SeisComP scdb was the only component that had
-write access to the database. Its task is to connect to scmaster and populate
+write access to the database. Its task is to connect to \fI\%scmaster\fP and populate
 the database with all received notifier messages. Although it worked it
 introduced race conditions caused by the latency of the database backend since
 all other clients received the message at the same time. Accessing the database
@@ -76,7 +76,7 @@ the read\-only database, just override the application\(aqs database address
 .SS Offline mode
 .sp
 Another important task of \fI\%scdb\fP is to populate the database with any SeisComP
-data model content. In combination with scxmldump it can be used to copy events
+data model content. In combination with \fI\%scxmldump\fP it can be used to copy events
 from one database to another.
 .sp
 For that it does not connect to a messaging server but reads data from XML
@@ -158,7 +158,7 @@ scdb \-i data1.xml \-i data2.xml \-i data3.xml \e
 .fi
 .sp
 .sp
-scdb inherits global options\&.
+scdb inherits \fI\%global options\fP\&.
 .INDENT 0.0
 .TP
 .B connection.requestGroup
@@ -244,7 +244,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
@@ -301,22 +301,22 @@ Use alternative log file.
 .INDENT 0.0
 .TP
 .B \-u, \-\-user arg
-Overrides configuration parameter \fBconnection.username\fP\&.
+Overrides configuration parameter \fI\%connection.username\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-H, \-\-host arg
-Overrides configuration parameter \fBconnection.server\fP\&.
+Overrides configuration parameter \fI\%connection.server\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-t, \-\-timeout arg
-Overrides configuration parameter \fBconnection.timeout\fP\&.
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-g, \-\-primary\-group arg
-Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -327,7 +327,7 @@ This option can be given more than once.
 .INDENT 0.0
 .TP
 .B \-\-content\-type arg
-Overrides configuration parameter \fBconnection.contentType\fP\&.
+Overrides configuration parameter \fI\%connection.contentType\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -355,8 +355,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP

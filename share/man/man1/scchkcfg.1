@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCCHKCFG" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scchkcfg \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,13 +27,16 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCCHKCFG" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scchkcfg \- SeisComP Documentation
 .sp
 \fBChecks a module configuration.\fP
 .SH DESCRIPTION
 .sp
 scchkcfg checks for case\-sensitivity issues of parameter names of the module
 configuration file for a module. It reads all defined configuration stages
-(see global_modules) and checks for each parameter read if it exists
+(see \fI\%Modules\fP) and checks for each parameter read if it exists
 again with a different spelling.
 .sp
 If \fIstandalone\fP is not given, it checks all 6 configurations
@@ -75,7 +75,7 @@ Conflict #1
 .sp
 In this case everything is ok and the conflict needs to be fixed.
 \fBconnection.Server\fP is not a valid parameter name
-(but \fBconnection.server\fP is) in
+(but \fI\%connection.server\fP is) in
 \fB/home/sysop/.seiscomp/scautopick.cfg\fP and thus will not be used.
 .INDENT 0.0
 .INDENT 3.5

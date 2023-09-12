@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>FixedHypocenter &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../_static/seiscomp.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="scevent" href="../toc/extensions/scevent.html" />
@@ -25,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.3</span>
+          <span class="version">5.5.4</span>
         </div>
       </div>
     </div>
@@ -71,11 +72,11 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="fixedhypocenter">
-<span id="global-fixedhypocenter"></span><h1>FixedHypocenter<a class="headerlink" href="#fixedhypocenter" title="Permalink to this headline">¶</a></h1>
+  <section id="fixedhypocenter">
+<span id="global-fixedhypocenter"></span><h1>FixedHypocenter<a class="headerlink" href="#fixedhypocenter" title="Permalink to this heading">¶</a></h1>
 <p>Locator for re-computing source time with fixed hypocenter</p>
-<div class="section" id="description">
-<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
 <p>Mining-related events are useful as ground truth events (<span id="id1">Bondár and McLaughlin [<a class="reference internal" href="../base/references.html#id12" title="I. Bondár and K.L. McLaughlin. A new ground truth data set for seismic studies. Seismol. Res. Lett., 3:465 - 472, 2009. doi:10.1785/gssrl.80.3.465.">31</a>]</span>)
 because the epicentre and depth can be constrained by physical inspection.
 Unless a local seismograph network with accurate timing also locates the event,
@@ -95,11 +96,11 @@ the practise of the Comprehensive Test Ban Treaty Organization (CTBTO).</p></li>
 in use, such as GENLOC <span id="id2">Pavlis <em>et al.</em> [<a class="reference internal" href="../base/references.html#id59" title="G.L. Pavlis, F. Vernon, D. Harvey, and D. Quinlan. Lsqr: an algorithm for sparse linear equations and sparse least squares. ACM Transactions on Mathematical Software, 1:43 - 71, 1982. doi:10.1145/355984.355989.">52</a>]</span> and GRL, a
 grid-based locator developed at the Canadian Hazards Information Service (CHIS).</p></li>
 </ul>
-<p>The implementation of this locator by <a class="reference internal" href="../base/glossary.html#term-gempa-gmbh"><span class="xref std std-term">gempa GmbH</span></a> was initiated and has received
+<p>The implementation of this locator by <a class="reference internal" href="../base/glossary.html#term-gempa-GmbH"><span class="xref std std-term">gempa GmbH</span></a> was initiated and has received
 initial funding from <span id="id3"><em>Natural Resources Canada (NRCAN), Earthquakes Canada</em> [<a class="reference internal" href="../base/references.html#id167" title="Natural Resources Canada (NRCAN), Earthquakes Canada. URL: https://earthquakescanada.nrcan.gc.ca/index-en.php.">16</a>]</span>.</p>
-</div>
-<div class="section" id="methodology">
-<h2>Methodology<a class="headerlink" href="#methodology" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="methodology">
+<h2>Methodology<a class="headerlink" href="#methodology" title="Permalink to this heading">¶</a></h2>
 <p>Given the measured arrival times <img class="math" src="../_images/math/ef0cc8a9abcd91d4c81e277fda15f02f61283b8a.png" alt="t_i^k"/> of phase <img class="math" src="../_images/math/9630132210b904754c9ab272b61cb527d12263ca.png" alt="k"/> at
 station <img class="math" src="../_images/math/5aa339d4daf45a810dda332e3c80a0698e526e04.png" alt="i"/>, most methods of earthquake hypocentre location involve
 minimization of the weighted squared sum of the residuals. That is,
@@ -203,17 +204,19 @@ fixed-hypocentre origin time estimate are recorded as:</p>
 </ul>
 <p>For the sake of reproducibility, a comment is added to every new <a class="reference internal" href="../base/glossary.html#term-origin"><span class="xref std std-term">origin</span></a>
 reporting <img class="math" src="../_images/math/52ddc0cde6d632f631533173562fe3ca375b1f32.png" alt="K"/>, <img class="math" src="../_images/math/93ad30f90f5091591a2dc0895c6171abda508e06.png" alt="s_K"/> and <img class="math" src="../_images/math/e2e0165baaf165355d3e4661b14d1558d9bde02b.png" alt="\kappa_p"/>.</p>
-</div>
-<div class="section" id="application">
-<h2>Application<a class="headerlink" href="#application" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="application">
+<h2>Application<a class="headerlink" href="#application" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic">
 <li><p>Configure the parameters in the section <em>FixedHypocenter</em> of the global configuration.</p></li>
 <li><p>When using in <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a> the FixedHypocenter locator can be chosen right away
 from the available locators.</p>
-<div class="figure align-center" id="id8">
+<figure class="align-center" id="id8">
 <a class="reference internal image-reference" href="../_images/scolv-fixedhypocenter.png"><img alt="../_images/scolv-fixedhypocenter.png" src="../_images/scolv-fixedhypocenter.png" style="width: 18cm;" /></a>
-<p class="caption"><span class="caption-text">scolv Location tab with FixHypocenter selected for relocating.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">scolv Location tab with FixHypocenter selected for relocating.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 </li>
 <li><p>Configure the module, e.g. <a class="reference internal" href="screloc.html#screloc"><span class="std std-ref">screloc</span></a> or <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a>, which is to use FixedHypocenter:</p>
 <ul class="simple">
@@ -241,29 +244,29 @@ and the <em>confidence/description</em> comment of the origin paramters, e.g.:</
 </div>
 </li>
 </ol>
-</div>
-<div class="section" id="module-configuration">
-<span id="global-fixedhypocenter-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-configuration">
+<span id="global-fixedhypocenter-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>FixedHypocenter.*</strong>
 <em>Locator parameters: FixedHypocenter</em></p>
 </div>
-<dl class="confval">
-<dt id="confval-FixedHypocenter.profiles">
-<code class="sig-name descname">FixedHypocenter.profiles</code><a class="headerlink" href="#confval-FixedHypocenter.profiles" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-FixedHypocenter.profiles">
+<span class="sig-name descname"><span class="pre">FixedHypocenter.profiles</span></span><a class="headerlink" href="#confval-FixedHypocenter.profiles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">LOCSAT/iasp91,LOCSAT/tab</span></code></p>
 <p>Type: <em>list:string</em></p>
 <p>Defines a list of available travel time tables. Each item
-is a tuple separated by a slash with format “[interface]/[model]”.
-Built-in interfaces are “LOCSAT” and “libtau”.
+is a tuple separated by a slash with format &quot;[interface]/[model]&quot;.
+Built-in interfaces are &quot;LOCSAT&quot; and &quot;libtau&quot;.
 Other interfaces might be added via plugins. Please check their
 documentation for the required interface name.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-FixedHypocenter.usePickUncertainties">
-<code class="sig-name descname">FixedHypocenter.usePickUncertainties</code><a class="headerlink" href="#confval-FixedHypocenter.usePickUncertainties" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-FixedHypocenter.usePickUncertainties">
+<span class="sig-name descname"><span class="pre">FixedHypocenter.usePickUncertainties</span></span><a class="headerlink" href="#confval-FixedHypocenter.usePickUncertainties" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Whether to use pick time uncertainties rather than a fixed
@@ -273,9 +276,9 @@ default pick time uncertainty as defined by defaultTimeError
 will be used instead.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-FixedHypocenter.defaultTimeError">
-<code class="sig-name descname">FixedHypocenter.defaultTimeError</code><a class="headerlink" href="#confval-FixedHypocenter.defaultTimeError" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-FixedHypocenter.defaultTimeError">
+<span class="sig-name descname"><span class="pre">FixedHypocenter.defaultTimeError</span></span><a class="headerlink" href="#confval-FixedHypocenter.defaultTimeError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">1.0</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
@@ -283,24 +286,24 @@ will be used instead.</p>
 not going to be used or if they are absent.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-FixedHypocenter.degreesOfFreedom">
-<code class="sig-name descname">FixedHypocenter.degreesOfFreedom</code><a class="headerlink" href="#confval-FixedHypocenter.degreesOfFreedom" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-FixedHypocenter.degreesOfFreedom">
+<span class="sig-name descname"><span class="pre">FixedHypocenter.degreesOfFreedom</span></span><a class="headerlink" href="#confval-FixedHypocenter.degreesOfFreedom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">8</span></code></p>
 <p>Type: <em>int</em></p>
 <p>Number of degrees of freedom used for error estimate.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-FixedHypocenter.confLevel">
-<code class="sig-name descname">FixedHypocenter.confLevel</code><a class="headerlink" href="#confval-FixedHypocenter.confLevel" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-FixedHypocenter.confLevel">
+<span class="sig-name descname"><span class="pre">FixedHypocenter.confLevel</span></span><a class="headerlink" href="#confval-FixedHypocenter.confLevel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.9</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Confidence level between 0.5 and 1.</p>
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -313,14 +316,15 @@ not going to be used or if they are absent.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">FixedHypocenter</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
 <li><a class="reference internal" href="#methodology">Methodology</a></li>
@@ -330,12 +334,17 @@ not going to be used or if they are absent.</p>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="global_locsat.html"
-                        title="previous chapter">LOCSAT</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="../toc/extensions/scevent.html"
-                        title="next chapter">scevent</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="global_locsat.html"
+                          title="previous chapter">LOCSAT</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../toc/extensions/scevent.html"
+                          title="next chapter">scevent</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -355,7 +364,7 @@ not going to be used or if they are absent.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.3</b> Release
+		  Version <b>5.5.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

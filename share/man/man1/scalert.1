@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCALERT" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scalert \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,12 +27,15 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCALERT" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scalert \- SeisComP Documentation
 .sp
 \fBReal time alert template.\fP
 .SH DESCRIPTION
 .sp
 This module executes custom scripts upon arrival of objects or updates.
-It provides as template for custom modification and is not a replacement for scvoice\&.
+It provides as template for custom modification and is not a replacement for \fI\%scvoice\fP\&.
 .sp
 There are four possible trigger mechanisms for calling scripts:
 .INDENT 0.0
@@ -52,9 +52,9 @@ Pick creation with filter for phase hint.
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
-People started modifying scvoice to send emails or
+People started modifying \fI\%scvoice\fP to send emails or
 other alert messages. Then, the name \fIscvoice\fP is then just wrong.
-If you want to customize scvoice, use scalert instead.
+If you want to customize \fI\%scvoice\fP, use scalert instead.
 .UNINDENT
 .UNINDENT
 .SH MODULE CONFIGURATION
@@ -68,7 +68,7 @@ If you want to customize scvoice, use scalert instead.
 .fi
 .sp
 .sp
-scalert inherits global options\&.
+scalert inherits \fI\%global options\fP\&.
 .INDENT 0.0
 .TP
 .B firstNew
@@ -89,7 +89,7 @@ and compared with the configured IDs.
 .sp
 unset (=): use agencyID defined in global, default
 .sp
-empty list (=""): all agencies are allowed
+empty list (=\(dq\(dq): all agencies are allowed
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -97,14 +97,14 @@ empty list (=""): all agencies are allowed
 Type: \fIstring\fP
 .sp
 The default message string for the event\-script is
-"earthquake, [HOURS] hours [MINS] minutes ago, [DESC],
-magnitude [MAG], depth [DEP] kilometers" whereas [DESC]
+\(dqearthquake, [HOURS] hours [MINS] minutes ago, [DESC],
+magnitude [MAG], depth [DEP] kilometers\(dq whereas [DESC]
 is the string given in the event.description attribute. This
 string can be overwritten using one of the following options.
 There are three placeholders that can be used: @region@,
 @dist@ and @poi@.
-Example: "@region@, @dist@ kilometers from @poi@
-away".
+Example: \(dq@region@, @dist@ kilometers from @poi@
+away\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -196,7 +196,7 @@ all picks are accepted, otherwise only the ones whose stream ID
 matches one of the entry of this comma separated list. Each entry
 must follow the NET.STA.LOC.CHA format, but the special
 characters ? * | ( ) are also accepeted.
-E.g. "CH.*,GR.STA??.*,*.*.*.HH?,*.*.*.??(Z|1)"
+E.g. \(dqCH.*,GR.STA??.*,*.*.*.HH?,*.*.*.??(Z|1)\(dq
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -275,13 +275,13 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-first\-new
-Overrides configuration parameter \fBfirstNew\fP\&.
+Overrides configuration parameter \fI\%firstNew\fP\&.
 .UNINDENT
 .SS Verbosity
 .INDENT 0.0
@@ -337,22 +337,22 @@ Use alternative log file.
 .INDENT 0.0
 .TP
 .B \-u, \-\-user arg
-Overrides configuration parameter \fBconnection.username\fP\&.
+Overrides configuration parameter \fI\%connection.username\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-H, \-\-host arg
-Overrides configuration parameter \fBconnection.server\fP\&.
+Overrides configuration parameter \fI\%connection.server\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-t, \-\-timeout arg
-Overrides configuration parameter \fBconnection.timeout\fP\&.
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-g, \-\-primary\-group arg
-Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -363,7 +363,7 @@ This option can be given more than once.
 .INDENT 0.0
 .TP
 .B \-\-content\-type arg
-Overrides configuration parameter \fBconnection.contentType\fP\&.
+Overrides configuration parameter \fI\%connection.contentType\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -381,8 +381,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -409,28 +409,28 @@ Specify the amplitude type to listen to.
 .INDENT 0.0
 .TP
 .B \-\-amp\-script arg
-Overrides configuration parameter \fBscripts.amplitude\fP\&.
+Overrides configuration parameter \fI\%scripts.amplitude\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-alert\-script arg
-Overrides configuration parameter \fBscripts.alert\fP\&.
+Overrides configuration parameter \fI\%scripts.alert\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-event\-script arg
-Overrides configuration parameter \fBscripts.event\fP\&.
+Overrides configuration parameter \fI\%scripts.event\fP\&.
 .UNINDENT
 .SS Cities
 .INDENT 0.0
 .TP
 .B \-\-max\-dist arg
-Overrides configuration parameter \fBpoi.maxDist\fP\&.
+Overrides configuration parameter \fI\%poi.maxDist\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-min\-population arg
-Overrides configuration parameter \fBpoi.minPopulation\fP\&.
+Overrides configuration parameter \fI\%poi.minPopulation\fP\&.
 .UNINDENT
 .SS Debug
 .INDENT 0.0

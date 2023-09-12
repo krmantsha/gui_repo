@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCSENDJOURNAL" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scsendjournal \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,15 +27,18 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCSENDJOURNAL" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scsendjournal \- SeisComP Documentation
 .sp
 \fBSend journaling information to the messaging to manipulate event parameter objects.\fP
 .SH DESCRIPTION
 .sp
 scsendjournal sends journals to the \fIscname\fP messaging system.
-Currently, journals can be used to command scevent\&.
-The journals command scevent to manipulate event parameters according to
+Currently, journals can be used to command \fI\%scevent\fP\&.
+The journals command \fI\%scevent\fP to manipulate event parameters according to
 the \fI\%journal actions\fP which must be known to
-scevent\&.
+\fI\%scevent\fP\&.
 .sp
 The actions allow to:
 .INDENT 0.0
@@ -52,14 +52,14 @@ Control the association of origins to events.
 .SH ACTIONS
 .sp
 There are specific journal actions for handling non\-events and events. The documentation
-of scevent contains a complete list of journals known to scevent\&.
+of \fI\%scevent\fP contains a \fI\%complete list of journals known to scevent\fP\&.
 Parameters used on the command line can also be passed from file using the option
 \fB\-i\fP\&.
 .SS None\-event specific actions
 .INDENT 0.0
 .IP \(bu 2
 \fBEvNewEvent\fP: Create a new event from origin with the provided origin ID.
-The origin must be known to scevent\&.
+The origin must be known to \fI\%scevent\fP\&.
 .sp
 Example: Create a new event from the
 origin with given originID. Apply the action in the message system on \fIlocalhost\fP:
@@ -111,7 +111,7 @@ eventID \fIgempa2021abcd\fP to \fIPetrinja\fP
 .sp
 .nf
 .ft C
-scsendjournal \-H localhost gempa2020abcd EvName "Petrinja"
+scsendjournal \-H localhost gempa2020abcd EvName \(dqPetrinja\(dq
 .ft P
 .fi
 .UNINDENT
@@ -133,7 +133,7 @@ scsendjournal \-H localhost gempa2020abcd EvName "Petrinja"
 .IP \(bu 2
 \fBEvRefresh\fP: Select the preferred origin, the preferred magnitude, update
 the region. Call processors loaded with plugins, e.g. the
-evrc plugin for scevent.
+\fI\%evrc\fP plugin for scevent.
 .sp
 Example:
 .INDENT 2.0
@@ -155,7 +155,7 @@ Example: Set the type of the event with eventID \fIgempa2021abcd\fP to \fInuclea
 .sp
 .nf
 .ft C
-scsendjournal \-H localhost gempa2021abcd EvType "nuclear explosion"
+scsendjournal \-H localhost gempa2021abcd EvType \(dqnuclear explosion\(dq
 .ft P
 .fi
 .UNINDENT
@@ -218,7 +218,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
@@ -275,22 +275,22 @@ Use alternative log file.
 .INDENT 0.0
 .TP
 .B \-u, \-\-user arg
-Overrides configuration parameter \fBconnection.username\fP\&.
+Overrides configuration parameter \fI\%connection.username\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-H, \-\-host arg
-Overrides configuration parameter \fBconnection.server\fP\&.
+Overrides configuration parameter \fI\%connection.server\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-t, \-\-timeout arg
-Overrides configuration parameter \fBconnection.timeout\fP\&.
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-g, \-\-primary\-group arg
-Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP

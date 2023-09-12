@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Create a new tutorial &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/seiscomp.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../../_static/seiscomp.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Graphical User Interfaces" href="../../gui.html" />
@@ -25,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.3</span>
+          <span class="version">5.5.4</span>
         </div>
       </div>
     </div>
@@ -68,8 +69,8 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="create-a-new-tutorial">
-<span id="tutorials-template"></span><h1>Create a new tutorial<a class="headerlink" href="#create-a-new-tutorial" title="Permalink to this headline">¶</a></h1>
+  <section id="create-a-new-tutorial">
+<span id="tutorials-template"></span><h1>Create a new tutorial<a class="headerlink" href="#create-a-new-tutorial" title="Permalink to this heading">¶</a></h1>
 <p>You will …</p>
 <ul class="simple">
 <li><p>Add something</p></li>
@@ -88,8 +89,8 @@
 <li><p>30 minutes</p></li>
 </ul>
 <hr class="docutils" />
-<div class="section" id="set-up">
-<h2>Set-up<a class="headerlink" href="#set-up" title="Permalink to this headline">¶</a></h2>
+<section id="set-up">
+<h2>Set-up<a class="headerlink" href="#set-up" title="Permalink to this heading">¶</a></h2>
 <p>To use this template, you’ll need to:</p>
 <ol class="arabic simple">
 <li><p>Get the source code of the SeisComP documentation, e.g. from
@@ -114,30 +115,30 @@ existing tutorials.</p></li>
 </ul>
 </li>
 </ol>
-</div>
-<div class="section" id="final-tests">
-<span id="tutorials-template-testing"></span><h2>Final Tests<a class="headerlink" href="#final-tests" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="final-tests">
+<span id="tutorials-template-testing"></span><h2>Final Tests<a class="headerlink" href="#final-tests" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>If you’ve applied this template,</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ls doc/base/tutorials
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>doc/base/tutorials
 </pre></div>
 </div>
 <p>will show your new tutorial.</p>
 </li>
 <li><p>Rebuild the documentation</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> doc
-$ python3 build-doc.py
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>doc
+$<span class="w"> </span>python3<span class="w"> </span>build-doc.py
 </pre></div>
 </div>
 </li>
 <li><p>View the new files in <cite>build-doc/base/html/tutorials</cite> using a web browser, e.g. firefox:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ firefox build-doc/html/basetutorials.html
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>firefox<span class="w"> </span>build-doc/html/basetutorials.html
 </pre></div>
 </div>
 </li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -150,14 +151,15 @@ $ python3 build-doc.py
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../../index.html">Table of Contents</a></h3>
-  <ul>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Create a new tutorial</a><ul>
 <li><a class="reference internal" href="#set-up">Set-up</a></li>
 <li><a class="reference internal" href="#final-tests">Final Tests</a></li>
@@ -165,12 +167,17 @@ $ python3 build-doc.py
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="help.html"
-                        title="previous chapter">Help! I’m stuck! Now what?</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="../../gui.html"
-                        title="next chapter">Graphical User Interfaces</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="help.html"
+                          title="previous chapter">Help! I’m stuck! Now what?</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../../gui.html"
+                          title="next chapter">Graphical User Interfaces</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -190,7 +197,7 @@ $ python3 build-doc.py
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.3</b> Release
+		  Version <b>5.5.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

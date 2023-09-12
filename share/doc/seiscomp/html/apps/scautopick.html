@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>scautopick &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../_static/seiscomp.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="scevent" href="scevent.html" />
@@ -25,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.3</span>
+          <span class="version">5.5.4</span>
         </div>
       </div>
     </div>
@@ -71,11 +72,11 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="scautopick">
-<span id="id1"></span><h1>scautopick<a class="headerlink" href="#scautopick" title="Permalink to this headline">¶</a></h1>
+  <section id="scautopick">
+<span id="id1"></span><h1>scautopick<a class="headerlink" href="#scautopick" title="Permalink to this heading">¶</a></h1>
 <p><strong>Phase detection and picking on waveforms.</strong></p>
-<div class="section" id="description">
-<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
 <p>scautopick applies threshold monitoring by searching for waveform anomalies in
 form of changes in amplitudes. It is applied for detecting phase arrivals and
 and for measuring related features and amplitudes. The phase arrivals are
@@ -87,13 +88,13 @@ can also be applied for detecting simple amplitude exceedence applying filters
 like the <a class="reference internal" href="../base/filter-grammar.html#MAX" title="MAX"><code class="xref py py-func docutils literal notranslate"><span class="pre">MAX()</span></code></a> filter. Exceedences are reported as picks and can be
 processed further, e.g. by <a class="reference internal" href="scalert.html#scalert"><span class="std std-ref">scalert</span></a>.</p>
 </div>
-</div>
-<div class="section" id="phase-detections">
-<h2>Phase Detections<a class="headerlink" href="#phase-detections" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="phase-detections">
+<h2>Phase Detections<a class="headerlink" href="#phase-detections" title="Permalink to this heading">¶</a></h2>
 <p>scautopick detects phase onsets for generating <a class="reference internal" href="../base/glossary.html#term-pick"><span class="xref std std-term">picks</span></a>. Initally,
 it searches for detections on the waveform streams defined by global bindings.</p>
-<div class="section" id="p-picks">
-<h3>P picks<a class="headerlink" href="#p-picks" title="Permalink to this headline">¶</a></h3>
+<section id="p-picks">
+<h3>P picks<a class="headerlink" href="#p-picks" title="Permalink to this heading">¶</a></h3>
 <p>A primary detector is applied first. When a detection is found, ‘P’ is by default
 assigned to the guess of the phase type (phaseHint). The actual guess can be configured by
 <a class="reference internal" href="#confval-phaseHint"><code class="xref std std-confval docutils literal notranslate"><span class="pre">phaseHint</span></code></a>. By default the primary detector applies a robust STA/LTA
@@ -145,23 +146,23 @@ the trigger threshold, <a class="reference internal" href="#confval-thresholds.t
 <a class="reference internal" href="#confval-trigOn"><code class="xref std std-confval docutils literal notranslate"><span class="pre">trigOn</span></code></a> (binding configuration).</p>
 </li>
 </ul>
-</div>
-<div class="section" id="s-picks">
-<h3>S picks<a class="headerlink" href="#s-picks" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="s-picks">
+<h3>S picks<a class="headerlink" href="#s-picks" title="Permalink to this heading">¶</a></h3>
 <p>Based on the inital detection or pick a secondary picker may applied be applied,
 e.g., for picking S phases as defined by <a class="reference internal" href="#confval-spicker"><code class="xref std std-confval docutils literal notranslate"><span class="pre">spicker</span></code></a>. The secondary picker
 is halted as soon as new detections are made unless <a class="reference internal" href="#confval-killPendingSPickers"><code class="xref std std-confval docutils literal notranslate"><span class="pre">killPendingSPickers</span></code></a>
 is inactive.</p>
 <p>As for the re-picker also the spicker should be tuned carefully and global
 bindings parameters <code class="xref std std-confval docutils literal notranslate"><span class="pre">spicker.*</span></code> should be set.</p>
-<table class="colwidths-given docutils align-center" id="id3">
-<caption><span class="caption-text">Second-stage pickers available by configuration of <a class="reference internal" href="#confval-picker"><code class="xref std std-confval docutils literal notranslate"><span class="pre">picker</span></code></a> or <a class="reference internal" href="#confval-spicker"><code class="xref std std-confval docutils literal notranslate"><span class="pre">spicker</span></code></a></span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<table class="docutils align-center" id="id2">
+<caption><span class="caption-text">Second-stage pickers available by configuration of <a class="reference internal" href="#confval-picker"><code class="xref std std-confval docutils literal notranslate"><span class="pre">picker</span></code></a> or <a class="reference internal" href="#confval-spicker"><code class="xref std std-confval docutils literal notranslate"><span class="pre">spicker</span></code></a></span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col style="width: 11%" />
-<col style="width: 33%" />
-<col style="width: 11%" />
-<col style="width: 11%" />
-<col style="width: 33%" />
+<col style="width: 11.1%" />
+<col style="width: 33.3%" />
+<col style="width: 11.1%" />
+<col style="width: 11.1%" />
+<col style="width: 33.3%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>picker name</p></th>
@@ -192,15 +193,15 @@ bindings parameters <code class="xref std std-confval docutils literal notransla
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="feature-extraction">
-<h3>Feature extraction<a class="headerlink" href="#feature-extraction" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="feature-extraction">
+<h3>Feature extraction<a class="headerlink" href="#feature-extraction" title="Permalink to this heading">¶</a></h3>
 <p>For extracting features related to picks such as polarization parameters
 configure <a class="reference internal" href="#confval-fx"><code class="xref std std-confval docutils literal notranslate"><span class="pre">fx</span></code></a> and the related global bindings parameters <code class="xref std std-confval docutils literal notranslate"><span class="pre">fx.*</span></code>.</p>
-</div>
-</div>
-<div class="section" id="amplitude-measurements">
-<h2>Amplitude Measurements<a class="headerlink" href="#amplitude-measurements" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="amplitude-measurements">
+<h2>Amplitude Measurements<a class="headerlink" href="#amplitude-measurements" title="Permalink to this heading">¶</a></h2>
 <p>The second task of scautopick is to calculate amplitudes of a given type for the
 corresponding magnitude type (see <a class="reference internal" href="scamp.html#scamp"><span class="std std-ref">scamp</span></a> for a list of amplitude types and
 <a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a> for the magnitude types). Such amplitudes are required by:</p>
@@ -219,14 +220,14 @@ the magnitude tool, <a class="reference internal" href="scmag.html#scmag"><span 
 The fixed time window poses a limitation to EEW system. Howver, a speed-up is
 available with <a class="reference internal" href="#confval-amplitudes.enableUpdate"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.enableUpdate</span></code></a>.
 Read the <a class="reference internal" href="scamp.html#scamp"><span class="std std-ref">scamp</span></a> documentation for more details on amplitude measurements.</p>
-</div>
-<div class="section" id="modes-of-operation">
-<h2>Modes of Operation<a class="headerlink" href="#modes-of-operation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="modes-of-operation">
+<h2>Modes of Operation<a class="headerlink" href="#modes-of-operation" title="Permalink to this heading">¶</a></h2>
 <p>scautopick usually runs in the background connected to a real-time data source
 such as <a class="reference internal" href="seedlink.html#seedlink"><span class="std std-ref">Seedlink</span></a>. This is referred to as online mode. Another
 option to run scautopick is on offline mode with files.</p>
-<div class="section" id="real-time">
-<h3>Real-time<a class="headerlink" href="#real-time" title="Permalink to this headline">¶</a></h3>
+<section id="real-time">
+<h3>Real-time<a class="headerlink" href="#real-time" title="Permalink to this heading">¶</a></h3>
 <p>In real-time mode the workflow draws like this:</p>
 <ul class="simple">
 <li><p>scautopick reads all of its binding parameters and subscribes to stations
@@ -253,9 +254,9 @@ $ seiscomp start scautopick
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>$ seiscomp exec scautopick -h
 </pre></div>
 </div>
-</div>
-<div class="section" id="non-real-time">
-<h3>Non-real-time<a class="headerlink" href="#non-real-time" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="non-real-time">
+<h3>Non-real-time<a class="headerlink" href="#non-real-time" title="Permalink to this heading">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Due to code changes in the file data source, the command line option <strong>–playback</strong>
@@ -269,21 +270,21 @@ acquisition of data records has to change. If the input data (file) has been
 read, scautopick will exit and furthermore it must not ask for a particular
 time window, especially not for a real-time time window. To accomplish that
 the command-line parameter <code class="docutils literal notranslate"><span class="pre">`--playback`</span></code> has to be used. Example:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ scautopick --playback -I data.mseed
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>scautopick<span class="w"> </span>--playback<span class="w"> </span>-I<span class="w"> </span>data.mseed
 </pre></div>
 </div>
 <p>This call will process all records in <code class="file docutils literal notranslate"><span class="pre">data.mseed</span></code> for which bindings
 exist and <strong>send the results to the messaging</strong>. If all data records are processed,
 scautopick will exit. The processing steps are similar to the online mode.</p>
 <p>Use the <code class="docutils literal notranslate"><span class="pre">`--ep`</span></code> for offline processing <strong>without messaging</strong>. The results are
-printed in <a class="reference internal" href="../base/glossary.html#term-scml"><span class="xref std std-term">SCML</span></a> format. Example:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ scautopick --playback -I data.mseed --ep -d <span class="o">[</span>type<span class="o">]</span>://<span class="o">[</span>host<span class="o">]</span>/<span class="o">[</span>database<span class="o">]</span> &gt; picks.xml
+printed in <a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> format. Example:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>scautopick<span class="w"> </span>--playback<span class="w"> </span>-I<span class="w"> </span>data.mseed<span class="w"> </span>--ep<span class="w"> </span>-d<span class="w"> </span><span class="o">[</span>type<span class="o">]</span>://<span class="o">[</span>host<span class="o">]</span>/<span class="o">[</span>database<span class="o">]</span><span class="w"> </span>&gt;<span class="w"> </span>picks.xml
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="module-configuration">
-<span id="scautopick-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="module-configuration">
+<span id="scautopick-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/global.cfg</span></code></div>
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/scautopick.cfg</span></code></div>
@@ -293,18 +294,18 @@ printed in <a class="reference internal" href="../base/glossary.html#term-scml">
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">~/.seiscomp/scautopick.cfg</span></code></div>
 </div>
 <p>scautopick inherits <a class="reference internal" href="global.html#global-configuration"><span class="std std-ref">global options</span></a>.</p>
-<dl class="confval">
-<dt id="confval-ringBufferSize">
-<code class="sig-name descname">ringBufferSize</code><a class="headerlink" href="#confval-ringBufferSize" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-ringBufferSize">
+<span class="sig-name descname"><span class="pre">ringBufferSize</span></span><a class="headerlink" href="#confval-ringBufferSize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">300</span></code></p>
 <p>Type: <em>int</em></p>
 <p>Unit: <em>s</em></p>
 <p>Defined the record ringbuffer size in seconds.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-leadTime">
-<code class="sig-name descname">leadTime</code><a class="headerlink" href="#confval-leadTime" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-leadTime">
+<span class="sig-name descname"><span class="pre">leadTime</span></span><a class="headerlink" href="#confval-leadTime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">60</span></code></p>
 <p>Type: <em>int</em></p>
 <p>Unit: <em>s</em></p>
@@ -312,22 +313,22 @@ printed in <a class="reference internal" href="../base/glossary.html#term-scml">
 waveforms before current time.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-playback">
-<code class="sig-name descname">playback</code><a class="headerlink" href="#confval-playback" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-playback">
+<span class="sig-name descname"><span class="pre">playback</span></span><a class="headerlink" href="#confval-playback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>If enabled, picks can be made on waveforms which are older than
-current time - “leadTime”. Current time is the time
+current time - &quot;leadTime&quot;. Current time is the time
 when the module was started. This allows to pick
 historic data in real-time playbacks which are preserving the
-record times. See e.g. the “msrtsimul” module.
-This option deactivates “leadTime”. Activate only for playbacks.</p>
+record times. See e.g. the &quot;msrtsimul&quot; module.
+This option deactivates &quot;leadTime&quot;. Activate only for playbacks.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-initTime">
-<code class="sig-name descname">initTime</code><a class="headerlink" href="#confval-initTime" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-initTime">
+<span class="sig-name descname"><span class="pre">initTime</span></span><a class="headerlink" href="#confval-initTime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">60</span></code></p>
 <p>Type: <em>int</em></p>
 <p>Unit: <em>s</em></p>
@@ -336,18 +337,18 @@ is blind after initialization. This time is needed to initialize
 the filter and depends on it.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-gapInterpolation">
-<code class="sig-name descname">gapInterpolation</code><a class="headerlink" href="#confval-gapInterpolation" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-gapInterpolation">
+<span class="sig-name descname"><span class="pre">gapInterpolation</span></span><a class="headerlink" href="#confval-gapInterpolation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Interpolate gaps linearly? This is valid for gaps shorter
 than thresholds.maxGapLength.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-useAllStreams">
-<code class="sig-name descname">useAllStreams</code><a class="headerlink" href="#confval-useAllStreams" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-useAllStreams">
+<span class="sig-name descname"><span class="pre">useAllStreams</span></span><a class="headerlink" href="#confval-useAllStreams" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>If enabled, all streams that are received by the picker are
@@ -358,18 +359,18 @@ SeedLink, the picker will only receive the data it is
 subscribed to.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-filter">
-<code class="sig-name descname">filter</code><a class="headerlink" href="#confval-filter" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-filter">
+<span class="sig-name descname"><span class="pre">filter</span></span><a class="headerlink" href="#confval-filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">&quot;RMHP(10)&gt;&gt;ITAPER(30)&gt;&gt;BW(4,0.7,2)&gt;&gt;STALTA(2,80)&quot;</span></code></p>
 <p>Type: <em>string</em></p>
 <p>The default filter used for making detections. Station-specific
 configurations (bindings) override this value.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-timeCorrection">
-<code class="sig-name descname">timeCorrection</code><a class="headerlink" href="#confval-timeCorrection" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-timeCorrection">
+<span class="sig-name descname"><span class="pre">timeCorrection</span></span><a class="headerlink" href="#confval-timeCorrection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">-0.8</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
@@ -377,53 +378,53 @@ configurations (bindings) override this value.</p>
 values (bindings) override this value.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-picker">
-<code class="sig-name descname">picker</code><a class="headerlink" href="#confval-picker" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-picker">
+<span class="sig-name descname"><span class="pre">picker</span></span><a class="headerlink" href="#confval-picker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>The re-picker to use. By default only simple detections
 are emitted as picks. To enable re-picking on a time window around
 the detection, an algorithm (plugin) can be defined with this parameter.</p>
-<p>Currently available: “AIC”, “BK” or
-“GFZ”.</p>
+<p>Currently available: &quot;AIC&quot;, &quot;BK&quot; or
+&quot;GFZ&quot;.</p>
 <p>More options may be available by plugins. Configure related
 parameters in global bindings.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-phaseHint">
-<code class="sig-name descname">phaseHint</code><a class="headerlink" href="#confval-phaseHint" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-phaseHint">
+<span class="sig-name descname"><span class="pre">phaseHint</span></span><a class="headerlink" href="#confval-phaseHint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">P</span></code></p>
 <p>Type: <em>string</em></p>
 <p>Phase hint to be assigned to the pick made by the primary picker.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-sendDetections">
-<code class="sig-name descname">sendDetections</code><a class="headerlink" href="#confval-sendDetections" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-sendDetections">
+<span class="sig-name descname"><span class="pre">sendDetections</span></span><a class="headerlink" href="#confval-sendDetections" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
-<p>If enabled and “picker” is configured, then
+<p>If enabled and &quot;picker&quot; is configured, then
 initial detections are sent as well. To distinguish between
 detections and picks the evaluation status of the pick is
-set to “rejected”. This is meant to be a debug
+set to &quot;rejected&quot;. This is meant to be a debug
 option which can be used to compare detections and picks by
 their evaluation status.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-spicker">
-<code class="sig-name descname">spicker</code><a class="headerlink" href="#confval-spicker" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-spicker">
+<span class="sig-name descname"><span class="pre">spicker</span></span><a class="headerlink" href="#confval-spicker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>The secondary picker to use, e.g., for picking S-phases.
-Currently available is: “S-L2”. More options may
+Currently available is: &quot;S-L2&quot;. More options may
 be available by plugins. Configure related parameters
 in global bindings.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-killPendingSPickers">
-<code class="sig-name descname">killPendingSPickers</code><a class="headerlink" href="#confval-killPendingSPickers" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-killPendingSPickers">
+<span class="sig-name descname"><span class="pre">killPendingSPickers</span></span><a class="headerlink" href="#confval-killPendingSPickers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>If enabled, all secondary pickers that were triggered by
@@ -435,32 +436,32 @@ lead to undesired results. It might be better in some
 situations to have two picks (P and S) instead only a wrong P.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-extraPickComments">
-<code class="sig-name descname">extraPickComments</code><a class="headerlink" href="#confval-extraPickComments" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-extraPickComments">
+<span class="sig-name descname"><span class="pre">extraPickComments</span></span><a class="headerlink" href="#confval-extraPickComments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
-<p>If enabled and “picker” or “spicker” is
+<p>If enabled and &quot;picker&quot; or &quot;spicker&quot; is
 configured, extra comments will be added to the resulting pick.</p>
 <p>Supported comments:</p>
-<p>SNR: added if SNR &gt;= 0, comment id is “SNR”</p>
+<p>SNR: added if SNR &gt;= 0, comment id is &quot;SNR&quot;</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-fx">
-<code class="sig-name descname">fx</code><a class="headerlink" href="#confval-fx" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-fx">
+<span class="sig-name descname"><span class="pre">fx</span></span><a class="headerlink" href="#confval-fx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Configures the feature extraction type to use. Currently
-available: “DFX”. Configure related parameters
+available: &quot;DFX&quot;. Configure related parameters
 in global bindings.</p>
 <p>When configured, the usability of the features for locating
 depends on the used locator, e.g. LOCSAT. Read the
 locator’s documentation and configuration parameters.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes">
-<code class="sig-name descname">amplitudes</code><a class="headerlink" href="#confval-amplitudes" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes">
+<span class="sig-name descname"><span class="pre">amplitudes</span></span><a class="headerlink" href="#confval-amplitudes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">MLv,</span> <span class="pre">mb,</span> <span class="pre">mB</span></code></p>
 <p>Type: <em>list:string</em></p>
 <p>The amplitude types to be computed by the picker based on
@@ -472,18 +473,18 @@ picks.</p>
 <p><strong>thresholds.*</strong>
 <em>Threshold parameters for the primary picker.</em></p>
 </div>
-<dl class="confval">
-<dt id="confval-thresholds.triggerOn">
-<code class="sig-name descname">thresholds.triggerOn</code><a class="headerlink" href="#confval-thresholds.triggerOn" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-thresholds.triggerOn">
+<span class="sig-name descname"><span class="pre">thresholds.triggerOn</span></span><a class="headerlink" href="#confval-thresholds.triggerOn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
 <p>Type: <em>double</em></p>
 <p>For which value on the filtered waveforms is a pick
 detected. Station specific values override this value.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-thresholds.triggerOff">
-<code class="sig-name descname">thresholds.triggerOff</code><a class="headerlink" href="#confval-thresholds.triggerOff" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-thresholds.triggerOff">
+<span class="sig-name descname"><span class="pre">thresholds.triggerOff</span></span><a class="headerlink" href="#confval-thresholds.triggerOff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">1.5</span></code></p>
 <p>Type: <em>double</em></p>
 <p>The value the filtered waveforms must reach to enable
@@ -492,9 +493,9 @@ picker is blind and does not produce picks. Station
 specific values override this value.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-thresholds.maxGapLength">
-<code class="sig-name descname">thresholds.maxGapLength</code><a class="headerlink" href="#confval-thresholds.maxGapLength" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-thresholds.maxGapLength">
+<span class="sig-name descname"><span class="pre">thresholds.maxGapLength</span></span><a class="headerlink" href="#confval-thresholds.maxGapLength" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">4.5</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
@@ -502,9 +503,9 @@ specific values override this value.</p>
 Gaps larger than this will cause the picker to be reset.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-thresholds.amplMaxTimeWindow">
-<code class="sig-name descname">thresholds.amplMaxTimeWindow</code><a class="headerlink" href="#confval-thresholds.amplMaxTimeWindow" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-thresholds.amplMaxTimeWindow">
+<span class="sig-name descname"><span class="pre">thresholds.amplMaxTimeWindow</span></span><a class="headerlink" href="#confval-thresholds.amplMaxTimeWindow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
@@ -512,9 +513,9 @@ Gaps larger than this will cause the picker to be reset.</p>
 on the filtered waveforms.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-thresholds.deadTime">
-<code class="sig-name descname">thresholds.deadTime</code><a class="headerlink" href="#confval-thresholds.deadTime" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-thresholds.deadTime">
+<span class="sig-name descname"><span class="pre">thresholds.deadTime</span></span><a class="headerlink" href="#confval-thresholds.deadTime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">30</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
@@ -523,9 +524,9 @@ on the filtered waveforms.</p>
 the picker is inactive after a P pick. Read the documentation!</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-thresholds.minAmplOffset">
-<code class="sig-name descname">thresholds.minAmplOffset</code><a class="headerlink" href="#confval-thresholds.minAmplOffset" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-thresholds.minAmplOffset">
+<span class="sig-name descname"><span class="pre">thresholds.minAmplOffset</span></span><a class="headerlink" href="#confval-thresholds.minAmplOffset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
 <p>Type: <em>double</em></p>
 <p>The amplitude used together with measured amplitude and
@@ -534,9 +535,9 @@ the picker is inactive after a P pick. The value is typically
 similar to the trigger threshold. Read the documentation!</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-amplitudes.enableUpdate">
-<code class="sig-name descname">amplitudes.enableUpdate</code><a class="headerlink" href="#confval-amplitudes.enableUpdate" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.enableUpdate">
+<span class="sig-name descname"><span class="pre">amplitudes.enableUpdate</span></span><a class="headerlink" href="#confval-amplitudes.enableUpdate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p>Configure a list of magnitude types.
 Update and send amplitudes for these magnitudes as soon as data are
@@ -546,88 +547,88 @@ This option is for rapid magnitude estimation and EEW.</p>
 <p>WARNING: This option increases the load on the system!</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-connection.amplitudeGroup">
-<code class="sig-name descname">connection.amplitudeGroup</code><a class="headerlink" href="#confval-connection.amplitudeGroup" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-connection.amplitudeGroup">
+<span class="sig-name descname"><span class="pre">connection.amplitudeGroup</span></span><a class="headerlink" href="#confval-connection.amplitudeGroup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">AMPLITUDE</span></code></p>
 <p>Type: <em>string</em></p>
 <p>Message group for sending amplitudes to.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="bindings-parameters">
-<h2>Bindings Parameters<a class="headerlink" href="#bindings-parameters" title="Permalink to this headline">¶</a></h2>
-<dl class="confval">
-<dt id="confval-detecEnable">
-<code class="sig-name descname">detecEnable</code><a class="headerlink" href="#confval-detecEnable" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="bindings-parameters">
+<h2>Bindings Parameters<a class="headerlink" href="#bindings-parameters" title="Permalink to this heading">¶</a></h2>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-detecEnable">
+<span class="sig-name descname"><span class="pre">detecEnable</span></span><a class="headerlink" href="#confval-detecEnable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Enables/disables picking on a station.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-detecFilter">
-<code class="sig-name descname">detecFilter</code><a class="headerlink" href="#confval-detecFilter" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-detecFilter">
+<span class="sig-name descname"><span class="pre">detecFilter</span></span><a class="headerlink" href="#confval-detecFilter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">&quot;RMHP(10)&gt;&gt;ITAPER(30)&gt;&gt;BW(4,0.7,2)&gt;&gt;STALTA(2,80)&quot;</span></code></p>
 <p>Type: <em>string</em></p>
 <p>Defines the filter to be used for picking.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-trigOn">
-<code class="sig-name descname">trigOn</code><a class="headerlink" href="#confval-trigOn" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-trigOn">
+<span class="sig-name descname"><span class="pre">trigOn</span></span><a class="headerlink" href="#confval-trigOn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
 <p>Type: <em>double</em></p>
 <p>For which value on the filtered waveform is a pick detected.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-trigOff">
-<code class="sig-name descname">trigOff</code><a class="headerlink" href="#confval-trigOff" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-trigOff">
+<span class="sig-name descname"><span class="pre">trigOff</span></span><a class="headerlink" href="#confval-trigOff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">1.5</span></code></p>
 <p>Type: <em>double</em></p>
 <p>The value the filtered waveform must reach to
 enable a detection again.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-timeCorr">
-<code class="sig-name descname">timeCorr</code><a class="headerlink" href="#confval-timeCorr" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-timeCorr">
+<span class="sig-name descname"><span class="pre">timeCorr</span></span><a class="headerlink" href="#confval-timeCorr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">-0.8</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
 <p>The time correction applied to a pick.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-sensitivityCorrection">
-<code class="sig-name descname">sensitivityCorrection</code><a class="headerlink" href="#confval-sensitivityCorrection" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-sensitivityCorrection">
+<span class="sig-name descname"><span class="pre">sensitivityCorrection</span></span><a class="headerlink" href="#confval-sensitivityCorrection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Defines whether the detector applies sensitivity correction
 (applying the gain) or not in advance to filter the data.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="command-line-options">
-<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="generic">
-<h3>Generic<a class="headerlink" href="#generic" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scautopick-h">
-<code class="sig-name descname">-h</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--help</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scautopick-h" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="command-line-options">
+<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this heading">¶</a></h2>
+<section id="generic">
+<h3>Generic<a class="headerlink" href="#generic" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-h">
+<span id="cmdoption-scautopick-help"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scautopick-h" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show help message.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-v">
-<code class="sig-name descname">-V</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--version</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scautopick-v" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-V">
+<span id="cmdoption-scautopick-version"></span><span class="sig-name descname"><span class="pre">-V</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--version</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scautopick-V" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show version information.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-config-file">
-<code class="sig-name descname">--config-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-config-file" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-config-file">
+<span class="sig-name descname"><span class="pre">--config-file</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-config-file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use alternative configuration file. When this option is
 used the loading of all stages is disabled. Only the
 given configuration file is parsed and used. To use
@@ -636,233 +637,233 @@ link of the application or copy it. Example:
 scautopick -&gt; scautopick2.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-plugins">
-<code class="sig-name descname">--plugins</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-plugins" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-plugins">
+<span class="sig-name descname"><span class="pre">--plugins</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-plugins" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load given plugins.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-d">
-<code class="sig-name descname">-D</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--daemon</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scautopick-d" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-D">
+<span id="cmdoption-scautopick-daemon"></span><span class="sig-name descname"><span class="pre">-D</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--daemon</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scautopick-D" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run as daemon. This means the application will fork itself
 and doesn’t need to be started with &amp;.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-auto-shutdown">
-<code class="sig-name descname">--auto-shutdown</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-auto-shutdown" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-auto-shutdown">
+<span class="sig-name descname"><span class="pre">--auto-shutdown</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-auto-shutdown" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable/disable self-shutdown because a master module shutdown.
 This only works when messaging is enabled and the master
-module sends a shutdown message (enabled with –start-stop-msg
+module sends a shutdown message (enabled with --start-stop-msg
 for the master module).</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-shutdown-master-module">
-<code class="sig-name descname">--shutdown-master-module</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-shutdown-master-module" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-shutdown-master-module">
+<span class="sig-name descname"><span class="pre">--shutdown-master-module</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-shutdown-master-module" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the name of the master-module used for auto-shutdown.
 This is the application name of the module actually
 started. If symlinks are used, then it is the name of
 the symlinked application.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-shutdown-master-username">
-<code class="sig-name descname">--shutdown-master-username</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-shutdown-master-username" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-shutdown-master-username">
+<span class="sig-name descname"><span class="pre">--shutdown-master-username</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-shutdown-master-username" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the name of the master-username of the messaging
-used for auto-shutdown. If “shutdown-master-module” is
+used for auto-shutdown. If &quot;shutdown-master-module&quot; is
 given as well, this parameter is ignored.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="verbosity">
-<h3>Verbosity<a class="headerlink" href="#verbosity" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scautopick-verbosity">
-<code class="sig-name descname">--verbosity</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-verbosity" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="verbosity">
+<h3>Verbosity<a class="headerlink" href="#verbosity" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-verbosity">
+<span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-verbosity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
 4:debug.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="id2">
-<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--v</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-v">
+<span id="cmdoption-scautopick-v"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--v</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scautopick-v" title="Permalink to this definition">¶</a></dt>
 <dd><p>Increase verbosity level (may be repeated, eg. -vv).</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-q">
-<code class="sig-name descname">-q</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--quiet</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scautopick-q" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-q">
+<span id="cmdoption-scautopick-quiet"></span><span class="sig-name descname"><span class="pre">-q</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--quiet</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scautopick-q" title="Permalink to this definition">¶</a></dt>
 <dd><p>Quiet mode: no logging output.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-component">
-<code class="sig-name descname">--component</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-component" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-component">
+<span class="sig-name descname"><span class="pre">--component</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-component" title="Permalink to this definition">¶</a></dt>
 <dd><p>Limit the logging to a certain component. This option can
 be given more than once.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-s">
-<code class="sig-name descname">-s</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--syslog</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scautopick-s" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-s">
+<span id="cmdoption-scautopick-syslog"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--syslog</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scautopick-s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use syslog logging backend. The output usually goes to
 /var/lib/messages.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-l">
-<code class="sig-name descname">-l</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--lockfile</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-l" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-l">
+<span id="cmdoption-scautopick-lockfile"></span><span class="sig-name descname"><span class="pre">-l</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--lockfile</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-l" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path to lock file.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-console">
-<code class="sig-name descname">--console</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-console" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-console">
+<span class="sig-name descname"><span class="pre">--console</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-console" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send log output to stdout.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-debug">
-<code class="sig-name descname">--debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scautopick-debug" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-debug">
+<span class="sig-name descname"><span class="pre">--debug</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scautopick-debug" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute in debug mode.
-Equivalent to –verbosity=4 –console=1 .</p>
+Equivalent to --verbosity=4 --console=1 .</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-log-file">
-<code class="sig-name descname">--log-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-log-file" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-log-file">
+<span class="sig-name descname"><span class="pre">--log-file</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-log-file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use alternative log file.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="messaging">
-<h3>Messaging<a class="headerlink" href="#messaging" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scautopick-u">
-<code class="sig-name descname">-u</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--user</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-u" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="messaging">
+<h3>Messaging<a class="headerlink" href="#messaging" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-u">
+<span id="cmdoption-scautopick-user"></span><span class="sig-name descname"><span class="pre">-u</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--user</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-u" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.username"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.username</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-host">
-<code class="sig-name descname">-H</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--host</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-host" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-H">
+<span id="cmdoption-scautopick-host"></span><span class="sig-name descname"><span class="pre">-H</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--host</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-H" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.server"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.server</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-t">
-<code class="sig-name descname">-t</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--timeout</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-t" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-t">
+<span id="cmdoption-scautopick-timeout"></span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--timeout</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.timeout"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.timeout</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-g">
-<code class="sig-name descname">-g</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--primary-group</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-g" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-g">
+<span id="cmdoption-scautopick-primary-group"></span><span class="sig-name descname"><span class="pre">-g</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--primary-group</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-g" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.primaryGroup"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.primaryGroup</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-subscribe-group">
-<code class="sig-name descname">-S</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--subscribe-group</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-subscribe-group" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-S">
+<span id="cmdoption-scautopick-subscribe-group"></span><span class="sig-name descname"><span class="pre">-S</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--subscribe-group</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-S" title="Permalink to this definition">¶</a></dt>
 <dd><p>A group to subscribe to.
 This option can be given more than once.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-content-type">
-<code class="sig-name descname">--content-type</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-content-type" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-content-type">
+<span class="sig-name descname"><span class="pre">--content-type</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-content-type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.contentType"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.contentType</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-start-stop-msg">
-<code class="sig-name descname">--start-stop-msg</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-start-stop-msg" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-start-stop-msg">
+<span class="sig-name descname"><span class="pre">--start-stop-msg</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-start-stop-msg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set sending of a start and a stop message.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="database">
-<h3>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scautopick-db-driver-list">
-<code class="sig-name descname">--db-driver-list</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scautopick-db-driver-list" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="database">
+<h3>Database<a class="headerlink" href="#database" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-db-driver-list">
+<span class="sig-name descname"><span class="pre">--db-driver-list</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scautopick-db-driver-list" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all supported database drivers.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-database">
-<code class="sig-name descname">-d</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--database</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-database" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-d">
+<span id="cmdoption-scautopick-database"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--database</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-d" title="Permalink to this definition">¶</a></dt>
 <dd><p>The database connection string, format:
 <a class="reference external" href="service://user:pwd&#64;host/database">service://user:pwd&#64;host/database</a>.
-“service” is the name of the database driver which
-can be queried with “–db-driver-list”.</p>
+&quot;service&quot; is the name of the database driver which
+can be queried with &quot;--db-driver-list&quot;.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-config-module">
-<code class="sig-name descname">--config-module</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-config-module" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-config-module">
+<span class="sig-name descname"><span class="pre">--config-module</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-config-module" title="Permalink to this definition">¶</a></dt>
 <dd><p>The config module to use.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-inventory-db">
-<code class="sig-name descname">--inventory-db</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-inventory-db" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-inventory-db">
+<span class="sig-name descname"><span class="pre">--inventory-db</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-inventory-db" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load the inventory from the given database or file, format:
 [<a class="reference external" href="service://]location">service://]location</a> .</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-db-disable">
-<code class="sig-name descname">--db-disable</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scautopick-db-disable" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-db-disable">
+<span class="sig-name descname"><span class="pre">--db-disable</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scautopick-db-disable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do not use the database at all</p>
 </dd></dl>
 
-</div>
-<div class="section" id="records">
-<h3>Records<a class="headerlink" href="#records" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scautopick-record-driver-list">
-<code class="sig-name descname">--record-driver-list</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scautopick-record-driver-list" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="records">
+<h3>Records<a class="headerlink" href="#records" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-record-driver-list">
+<span class="sig-name descname"><span class="pre">--record-driver-list</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scautopick-record-driver-list" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all supported record stream drivers.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-i">
-<code class="sig-name descname">-I</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--record-url</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-i" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-I">
+<span id="cmdoption-scautopick-record-url"></span><span class="sig-name descname"><span class="pre">-I</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--record-url</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-I" title="Permalink to this definition">¶</a></dt>
 <dd><p>The recordstream source URL, format:
 [<a class="reference external" href="service://">service://</a>]location[#type].
-“service” is the name of the recordstream driver
-which can be queried with “–record-driver-list”.
-If “service” is not given, “<a class="reference external" href="file://">file://</a>” is
+&quot;service&quot; is the name of the recordstream driver
+which can be queried with &quot;--record-driver-list&quot;.
+If &quot;service&quot; is not given, &quot;<a class="reference external" href="file://">file://</a>&quot; is
 used.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-record-file">
-<code class="sig-name descname">--record-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-record-file" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-record-file">
+<span class="sig-name descname"><span class="pre">--record-file</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-record-file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify a file as record source.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-record-type">
-<code class="sig-name descname">--record-type</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-record-type" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-record-type">
+<span class="sig-name descname"><span class="pre">--record-type</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-record-type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify a type for the records being read.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="mode">
-<h3>Mode<a class="headerlink" href="#mode" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scautopick-offline">
-<code class="sig-name descname">--offline</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scautopick-offline" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="mode">
+<h3>Mode<a class="headerlink" href="#mode" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-offline">
+<span class="sig-name descname"><span class="pre">--offline</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scautopick-offline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do not connect to a messaging server and do not use the database.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-playback">
-<code class="sig-name descname">--playback</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scautopick-playback" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-playback">
+<span class="sig-name descname"><span class="pre">--playback</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scautopick-playback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Switches to playback mode which does not request a particular time window from
 the input data source. This implies that all records are forwarded to scautopick
 if files are being used. Without this option scautopick sets the requested
@@ -870,138 +871,138 @@ start time to NOW-leadTime and therefore would not work anymore with
 older datasets in offline mode or when running playbacks.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-ep">
-<code class="sig-name descname">--ep</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scautopick-ep" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-ep">
+<span class="sig-name descname"><span class="pre">--ep</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scautopick-ep" title="Permalink to this definition">¶</a></dt>
 <dd><p>Outputs an XML event parameters file containing all picks and amplitudes.
 This option implies offline.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-amplitudes">
-<code class="sig-name descname">--amplitudes</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-amplitudes" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-amplitudes">
+<span class="sig-name descname"><span class="pre">--amplitudes</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-amplitudes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enables or disables computation of amplitudes.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-test">
-<code class="sig-name descname">--test</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scautopick-test" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-test">
+<span class="sig-name descname"><span class="pre">--test</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scautopick-test" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs the picker as usual but does not send any messages. This can be useful to
 test the picker within a running system.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-dump-config">
-<code class="sig-name descname">--dump-config</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scautopick-dump-config" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-dump-config">
+<span class="sig-name descname"><span class="pre">--dump-config</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scautopick-dump-config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dumps the current configuration and exits. Station configuration is only read if
 the picker connects to the messaging and the database. In offline mode it will
 only dump the application specific setting unless a station.conf file is provided.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-dump-records">
-<code class="sig-name descname">--dump-records</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scautopick-dump-records" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-dump-records">
+<span class="sig-name descname"><span class="pre">--dump-records</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scautopick-dump-records" title="Permalink to this definition">¶</a></dt>
 <dd><p>This option only works in combination with <a class="reference internal" href="#cmdoption-scautopick-offline"><code class="xref std std-option docutils literal notranslate"><span class="pre">--offline</span></code></a>. It will dump
 the data of an amplitude processor if it completed processing successfully
 and a new amplitude is available. The output format is a simple ASCII format.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="settings">
-<h3>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scautopick-filter">
-<code class="sig-name descname">--filter</code><code class="sig-prename descclassname"> filter</code><a class="headerlink" href="#cmdoption-scautopick-filter" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="settings">
+<h3>Settings<a class="headerlink" href="#settings" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-filter">
+<span class="sig-name descname"><span class="pre">--filter</span></span><span class="sig-prename descclassname"> <span class="pre">filter</span></span><a class="headerlink" href="#cmdoption-scautopick-filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="scrttv.html#confval-filter"><code class="xref std std-confval docutils literal notranslate"><span class="pre">filter</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-time-correction">
-<code class="sig-name descname">--time-correction</code><code class="sig-prename descclassname"> time</code><a class="headerlink" href="#cmdoption-scautopick-time-correction" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-time-correction">
+<span class="sig-name descname"><span class="pre">--time-correction</span></span><span class="sig-prename descclassname"> <span class="pre">time</span></span><a class="headerlink" href="#cmdoption-scautopick-time-correction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-timeCorrection"><code class="xref std std-confval docutils literal notranslate"><span class="pre">timeCorrection</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-buffer-size">
-<code class="sig-name descname">--buffer-size</code><code class="sig-prename descclassname"> timespan</code><a class="headerlink" href="#cmdoption-scautopick-buffer-size" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-buffer-size">
+<span class="sig-name descname"><span class="pre">--buffer-size</span></span><span class="sig-prename descclassname"> <span class="pre">timespan</span></span><a class="headerlink" href="#cmdoption-scautopick-buffer-size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-ringBufferSize"><code class="xref std std-confval docutils literal notranslate"><span class="pre">ringBufferSize</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-before">
-<code class="sig-name descname">--before</code><code class="sig-prename descclassname"> timespan</code><a class="headerlink" href="#cmdoption-scautopick-before" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-before">
+<span class="sig-name descname"><span class="pre">--before</span></span><span class="sig-prename descclassname"> <span class="pre">timespan</span></span><a class="headerlink" href="#cmdoption-scautopick-before" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-leadTime"><code class="xref std std-confval docutils literal notranslate"><span class="pre">leadTime</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-init-time">
-<code class="sig-name descname">--init-time</code><code class="sig-prename descclassname"> timespan</code><a class="headerlink" href="#cmdoption-scautopick-init-time" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-init-time">
+<span class="sig-name descname"><span class="pre">--init-time</span></span><span class="sig-prename descclassname"> <span class="pre">timespan</span></span><a class="headerlink" href="#cmdoption-scautopick-init-time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-initTime"><code class="xref std std-confval docutils literal notranslate"><span class="pre">initTime</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-trigger-on">
-<code class="sig-name descname">--trigger-on</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-trigger-on" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-trigger-on">
+<span class="sig-name descname"><span class="pre">--trigger-on</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-trigger-on" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-thresholds.triggerOn"><code class="xref std std-confval docutils literal notranslate"><span class="pre">thresholds.triggerOn</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-trigger-off">
-<code class="sig-name descname">--trigger-off</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-trigger-off" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-trigger-off">
+<span class="sig-name descname"><span class="pre">--trigger-off</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-trigger-off" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-thresholds.triggerOff"><code class="xref std std-confval docutils literal notranslate"><span class="pre">thresholds.triggerOff</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-trigger-dead-time">
-<code class="sig-name descname">--trigger-dead-time</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-trigger-dead-time" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-trigger-dead-time">
+<span class="sig-name descname"><span class="pre">--trigger-dead-time</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-trigger-dead-time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-thresholds.deadTime"><code class="xref std std-confval docutils literal notranslate"><span class="pre">thresholds.deadTime</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-ampl-max-time-window">
-<code class="sig-name descname">--ampl-max-time-window</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-ampl-max-time-window" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-ampl-max-time-window">
+<span class="sig-name descname"><span class="pre">--ampl-max-time-window</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-ampl-max-time-window" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-thresholds.amplMaxTimeWindow"><code class="xref std std-confval docutils literal notranslate"><span class="pre">thresholds.amplMaxTimeWindow</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-min-ampl-offset">
-<code class="sig-name descname">--min-ampl-offset</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-min-ampl-offset" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-min-ampl-offset">
+<span class="sig-name descname"><span class="pre">--min-ampl-offset</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-min-ampl-offset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-thresholds.minAmplOffset"><code class="xref std std-confval docutils literal notranslate"><span class="pre">thresholds.minAmplOffset</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-gap-tolerance">
-<code class="sig-name descname">--gap-tolerance</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-gap-tolerance" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-gap-tolerance">
+<span class="sig-name descname"><span class="pre">--gap-tolerance</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-gap-tolerance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-thresholds.maxGapLength"><code class="xref std std-confval docutils literal notranslate"><span class="pre">thresholds.maxGapLength</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-gap-interpolation">
-<code class="sig-name descname">--gap-interpolation</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-gap-interpolation" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-gap-interpolation">
+<span class="sig-name descname"><span class="pre">--gap-interpolation</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-gap-interpolation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-gapInterpolation"><code class="xref std std-confval docutils literal notranslate"><span class="pre">gapInterpolation</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-any-stream">
-<code class="sig-name descname">--any-stream</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scautopick-any-stream" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-any-stream">
+<span class="sig-name descname"><span class="pre">--any-stream</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scautopick-any-stream" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-useAllStreams"><code class="xref std std-confval docutils literal notranslate"><span class="pre">useAllStreams</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-send-detections">
-<code class="sig-name descname">--send-detections</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scautopick-send-detections" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-send-detections">
+<span class="sig-name descname"><span class="pre">--send-detections</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scautopick-send-detections" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-sendDetections"><code class="xref std std-confval docutils literal notranslate"><span class="pre">sendDetections</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scautopick-extra-comments">
-<code class="sig-name descname">--extra-comments</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scautopick-extra-comments" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scautopick-extra-comments">
+<span class="sig-name descname"><span class="pre">--extra-comments</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scautopick-extra-comments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-extraPickComments"><code class="xref std std-confval docutils literal notranslate"><span class="pre">extraPickComments</span></code></a>.</p>
 </dd></dl>
 
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -1014,14 +1015,15 @@ and a new amplitude is available. The output format is a simple ASCII format.</p
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">scautopick</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
 <li><a class="reference internal" href="#phase-detections">Phase Detections</a><ul>
@@ -1052,12 +1054,17 @@ and a new amplitude is available. The output format is a simple ASCII format.</p
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="scautoloc.html"
-                        title="previous chapter">scautoloc</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="scevent.html"
-                        title="next chapter">scevent</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="scautoloc.html"
+                          title="previous chapter">scautoloc</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="scevent.html"
+                          title="next chapter">scevent</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -1077,7 +1084,7 @@ and a new amplitude is available. The output format is a simple ASCII format.</p
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.3</b> Release
+		  Version <b>5.5.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

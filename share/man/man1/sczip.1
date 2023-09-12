@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCZIP" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-sczip \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCZIP" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+sczip \- SeisComP Documentation
 .sp
 \fBCompress or expand files with ZIP algorithm\fP
 .SH DESCRIPTION
@@ -95,7 +95,7 @@ sczip < file.xml > file.xml.zip
 .fi
 .sp
 .sp
-sczip inherits global options\&.
+sczip inherits \fI\%global options\fP\&.
 .SH COMMAND-LINE OPTIONS
 .sp
 \fBsczip file.dat \-o file.zip\fP
@@ -153,7 +153,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity

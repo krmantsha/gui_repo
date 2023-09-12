@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "INVEXTR" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-invextr \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "INVEXTR" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+invextr \- SeisComP Documentation
 .sp
 \fBExtract channels from inventory.\fP
 .SH DESCRIPTION
@@ -73,7 +73,7 @@ in the inventory. This final channel ID is constructed by joining the codes of
 all stages with a dot where the stages are network, station, location and
 channel.
 .sp
-The content of the resulting inventory may be listed using scinv\&.
+The content of the resulting inventory may be listed using \fI\%scinv\fP\&.
 .SS Examples
 .sp
 Suppose an inventory with network GE, a station MORC and several channels:
@@ -103,7 +103,7 @@ The IDs are matched against streams passed with \-\-chans.
 .sp
 .nf
 .ft C
-invextr \-\-chans "GE*" inv.xml
+invextr \-\-chans \(dqGE*\(dq inv.xml
 .ft P
 .fi
 .UNINDENT
@@ -133,7 +133,7 @@ Nothing is filtered again because \fIMORC\fP matches all available IDs.
 .sp
 .nf
 .ft C
-invextr \-\-chans "*MORC*" inv.xml
+invextr \-\-chans \(dq*MORC*\(dq inv.xml
 .ft P
 .fi
 .UNINDENT
@@ -146,7 +146,7 @@ work, an asterisk needs to be appended: GE.MORC* or GE.MORC.*.
 .sp
 .nf
 .ft C
-invextr \-\-chans "GE.MORC" inv.xml
+invextr \-\-chans \(dqGE.MORC\(dq inv.xml
 .ft P
 .fi
 .UNINDENT
@@ -158,7 +158,7 @@ To extract all vertical components, use:
 .sp
 .nf
 .ft C
-invextr \-\-chans "*Z" inv.xml
+invextr \-\-chans \(dq*Z\(dq inv.xml
 .ft P
 .fi
 .UNINDENT
@@ -171,7 +171,7 @@ To extract BHN and LHZ, use:
 .sp
 .nf
 .ft C
-invextr \-\-chans "*BHN,*LHZ" inv.xml
+invextr \-\-chans \(dq*BHN,*LHZ\(dq inv.xml
 .ft P
 .fi
 .UNINDENT
@@ -184,7 +184,7 @@ To remove all HH and SH channels, use:
 .sp
 .nf
 .ft C
-invextr \-\-rm \-\-chans "*HH?,*SH?" inv.xml
+invextr \-\-rm \-\-chans \(dq*HH?,*SH?\(dq inv.xml
 .ft P
 .fi
 .UNINDENT
@@ -201,7 +201,7 @@ invextr \-\-rm \-\-chans "*HH?,*SH?" inv.xml
 .fi
 .sp
 .sp
-invextr inherits global options\&.
+invextr inherits \fI\%global options\fP\&.
 .SH COMMAND-LINE OPTIONS
 .sp
 \fBinvextr [OPTIONS] [input=stdin] [output=stdout]\fP
@@ -309,13 +309,13 @@ A comma separated list of channel IDs to extract
 which can contain wildcards. Default: *.*.*.* meaning
 all streams.
 .sp
-Example: invextr \-\-chans "GE.*.*.BHZ,GE.MORC.*.*" inv.xml
+Example: invextr \-\-chans \(dqGE.*.*.BHZ,GE.MORC.*.*\(dq inv.xml
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-r, \-\-region arg
 Filter streams by geographic region given as
-"South, East, North, West". Region is unused by default.
+\(dqSouth, East, North, West\(dq. Region is unused by default.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -323,7 +323,7 @@ Filter streams by geographic region given as
 Removes all channels given with \(aq\-\-chans\(aq instead of
 extracting them.
 .sp
-Example: invextr \-\-rm \-\-chans "GE.*" inv.xml
+Example: invextr \-\-rm \-\-chans \(dqGE.*\(dq inv.xml
 .UNINDENT
 .INDENT 0.0
 .TP

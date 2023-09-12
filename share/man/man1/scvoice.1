@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCVOICE" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scvoice \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCVOICE" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scvoice \- SeisComP Documentation
 .sp
 \fBReal time voice alert.\fP
 .SH DESCRIPTION
@@ -51,7 +51,7 @@ Origin creation (with status = preliminary)
 .sp
 Although this tool was designed to alert the user acoustically it can also be
 used to send e\-mails, sms or to do any other kind of alert. scvoice can only
-run one script per call type at a time! A template (scalert) Python script with
+run one script per call type at a time! A template (\fI\%scalert\fP) Python script with
 more options has been added to \fISeisComP\fP to be used as source for custom notifications.
 .SH EXAMPLES
 .SS Event script
@@ -86,10 +86,10 @@ Save an executable script file, e.g., under, e.g. \fB~/.seiscomp/event.sh\fP:
 .nf
 .ft C
 #!/bin/sh
-if [ "$2" = "1" ]; then
-echo " $1" | sed \(aqs/,/, ,/g\(aq   | festival \-\-tts;
+if [ \(dq$2\(dq = \(dq1\(dq ]; then
+echo \(dq $1\(dq | sed \(aqs/,/, ,/g\(aq   | festival \-\-tts;
 else
-echo "Event updated, $1" | sed \(aqs/,/, ,/g\(aq   | festival \-\-tts;
+echo \(dqEvent updated, $1\(dq | sed \(aqs/,/, ,/g\(aq   | festival \-\-tts;
 fi
 .ft P
 .fi
@@ -182,7 +182,7 @@ scripts.alert = /home/sysop/.seiscomp/alert.sh
 .fi
 .sp
 .sp
-scvoice inherits global options\&.
+scvoice inherits \fI\%global options\fP\&.
 .INDENT 0.0
 .TP
 .B firstNew
@@ -207,13 +207,13 @@ If this list is empty, all agencies are allowed.
 Type: \fIstring\fP
 .sp
 The default message string for the event\-script is
-"earthquake, [HOURS] hours [MINS] minutes ago, [DESC],
-magnitude [MAG], depth [DEP] kilometers" whereas [DESC]
+\(dqearthquake, [HOURS] hours [MINS] minutes ago, [DESC],
+magnitude [MAG], depth [DEP] kilometers\(dq whereas [DESC]
 is the string given in the event.description attribute.
 This string can be overwritten using one of the following
 options. There are three placeholders that can be used:
 @region@, @dist@ and @poi@.
-Example: "@region@, @dist@ kilometers from @poi@ away".
+Example: \(dq@region@, @dist@ kilometers from @poi@ away\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -321,7 +321,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .INDENT 0.0
@@ -383,22 +383,22 @@ Use alternative log file.
 .INDENT 0.0
 .TP
 .B \-u, \-\-user arg
-Overrides configuration parameter \fBconnection.username\fP\&.
+Overrides configuration parameter \fI\%connection.username\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-H, \-\-host arg
-Overrides configuration parameter \fBconnection.server\fP\&.
+Overrides configuration parameter \fI\%connection.server\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-t, \-\-timeout arg
-Overrides configuration parameter \fBconnection.timeout\fP\&.
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-g, \-\-primary\-group arg
-Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -409,7 +409,7 @@ This option can be given more than once.
 .INDENT 0.0
 .TP
 .B \-\-content\-type arg
-Overrides configuration parameter \fBconnection.contentType\fP\&.
+Overrides configuration parameter \fI\%connection.contentType\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -427,8 +427,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP

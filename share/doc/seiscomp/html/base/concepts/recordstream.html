@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>RecordStream &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/seiscomp.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../../_static/seiscomp.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Inventory" href="inventory.html" />
@@ -25,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.3</span>
+          <span class="version">5.5.4</span>
         </div>
       </div>
     </div>
@@ -68,14 +69,14 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="recordstream">
-<span id="concepts-recordstream"></span><h1>RecordStream<a class="headerlink" href="#recordstream" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="scope">
-<h2>Scope<a class="headerlink" href="#scope" title="Permalink to this headline">¶</a></h2>
+  <section id="recordstream">
+<span id="concepts-recordstream"></span><h1>RecordStream<a class="headerlink" href="#recordstream" title="Permalink to this heading">¶</a></h1>
+<section id="scope">
+<h2>Scope<a class="headerlink" href="#scope" title="Permalink to this heading">¶</a></h2>
 <p>This document describes the RecordStream interface for accessing waveform data.</p>
-</div>
-<div class="section" id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
 <p>A RecordStream refers to the interface which allows to retrieve records
 (time series) from arbitrary sources. An implementation can either be real-time
 and stream records continuously or time window based and just deliver what is
@@ -123,8 +124,8 @@ retrieval is done with the RecordStream concept. There is no knowledge about
 the underlying implementation. This leads to a high flexibility and
 implementations can be added without the need to modify the base <cite>SeisComP</cite>
 sources.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -137,14 +138,15 @@ sources.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../../index.html">Table of Contents</a></h3>
-  <ul>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">RecordStream</a><ul>
 <li><a class="reference internal" href="#scope">Scope</a></li>
 <li><a class="reference internal" href="#overview">Overview</a></li>
@@ -152,12 +154,17 @@ sources.</p>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="waveformarchives.html"
-                        title="previous chapter">Waveform archives</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="inventory.html"
-                        title="next chapter">Inventory</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="waveformarchives.html"
+                          title="previous chapter">Waveform archives</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="inventory.html"
+                          title="next chapter">Inventory</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -177,7 +184,7 @@ sources.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.3</b> Release
+		  Version <b>5.5.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

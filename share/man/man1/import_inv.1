@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "IMPORT_INV" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-import_inv \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "IMPORT_INV" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+import_inv \- SeisComP Documentation
 .sp
 \fBImport inventory information from various sources.\fP
 .SH DESCRIPTION
@@ -53,7 +53,7 @@ scml
 T}	T{
 scml2inv
 T}	T{
-SeisComP inventory XML, schema: \fB$SEISCOMP_ROOT/share/xml/\fP
+\fI\%SeisComP inventory XML\fP, schema: \fB$SEISCOMP_ROOT/share/xml/\fP
 T}
 _
 T{
@@ -75,7 +75,7 @@ _
 T{
 dlsv
 T}	T{
-dlsv2inv
+\fI\%dlsv2inv\fP
 T}	T{
 \fI\%dataless SEED\fP
 T}
@@ -83,7 +83,7 @@ _
 T{
 fdsnxml
 T}	T{
-fdsnxml2inv
+\fI\%fdsnxml2inv\fP
 T}	T{
 \fI\%FDSN StationXML\fP
 T}
@@ -113,7 +113,7 @@ converter.
 .sp
 For making a new converter work with import_inv it must implement an interface
 on shell level. Furthermore the converter program must be named
-\fB\fIformat\fP\fP\fB2inv\fP and must live in \fBSEISCOMP_ROOT/bin\fP\&.
+\fIformat\fP\fB2inv\fP and must live in \fBSEISCOMP_ROOT/bin\fP\&.
 .sp
 The converter program must take the input location (file, directory, URL, ...)
 as first parameter and the output file (SeisComP XML) as second parameter. The
@@ -126,7 +126,7 @@ program at \fB$SEISCOMP_ROOT/bin/excel2inv\fP\&.
 .IP \(bu 2
 Convert inventory file in FDSN StationXML format (fdsnxml) and copy the content to
 \fB$SEISCOMP_ROOT/etc/inventoy/inventory.xml\fP\&. The call will invoke
-fdsnxml2inv for actually making the conversion:
+\fI\%fdsnxml2inv\fP for actually making the conversion:
 .INDENT 2.0
 .INDENT 3.5
 .sp
@@ -149,7 +149,7 @@ $ import_inv fdsnxml inventory_fdsn.xml $SEISCOMP_ROOT/etc/inventoy/inventory.xm
 .fi
 .sp
 .sp
-import_inv inherits global options\&.
+import_inv inherits \fI\%global options\fP\&.
 .SH COMMAND-LINE OPTIONS
 .sp
 \fBimport_inv [FORMAT] input [output]\fP
@@ -160,10 +160,10 @@ The first form takes the format as first parameter and the input
 and output location. The input location is either a file or directory
 depending on the format and its converter. If the output is not
 given it defaults to seiscomp/etc/inventory/{input}.xml. To write
-the output to stdout, "\-" must be used.
+the output to stdout, \(dq\-\(dq must be used.
 .sp
 The second form provides help on a particular topic. The only topic
-currently supported is "formats" which prints all available input
+currently supported is \(dqformats\(dq which prints all available input
 formats.
 .SS Generic
 .INDENT 0.0
@@ -217,7 +217,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity

@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCQCV" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scqcv \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,13 +27,16 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCQCV" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scqcv \- SeisComP Documentation
 .sp
 \fBQuality control view.\fP
 .SH DESCRIPTION
 .sp
 scqcv provides both, a brief overview of the seismometer network status and a
 detailed view of specific stream parameters. Quality Control (QC) parameters,
-determined by scqc and sent via messaging system, are received and displayed.
+determined by \fI\%scqc\fP and sent via messaging system, are received and displayed.
 .sp
 scqcv allows to interactively disable or to enable streams for automatic data processing
 based on the observed QC reports.
@@ -48,10 +48,10 @@ be changed by pressing a header field of a parameter. A widget displaying the
 currently received waveform data is shown by pressing the cell with the streamID.
 Positioning the mouse over the parameter cell a ToolTip indicates
 more detailed information on the selected parameter. Typing a regular
-expression in the "StreamIDFilter" text entry field results in a stream code
+expression in the \(dqStreamIDFilter\(dq text entry field results in a stream code
 filter, only displaying the matching stream codes with QC parameter. Green
 colored fields indicate that the QC parameter values lie within the configured
-"good" interval. Red colors indicate that the QC parameters lie outside the
+\(dqgood\(dq interval. Red colors indicate that the QC parameters lie outside the
 tolerated value interval \-\- this stream might have an issue. All \fI\%colors are
 configurable\fP\&.
 Click on the table header to sort by the selected value or drag the columns to
@@ -110,7 +110,7 @@ e.g., by \fBscore.default\fP\&. The counts are defined per QC parameter by the
 \fIcount\fP parameter of the applicable range, e.g. \fI\%timing.range.$name.count\fP\&.
 .SH SETUP
 .sp
-While some important parameters can be configured using scconfig the configuration
+While some important parameters can be configured using \fI\%scconfig\fP the configuration
 of others is available by examples in the extensive default configuration of scqcv in
 \fI@DEFAULTCONFIGDIR/scqcv.cfg@\fP
 .sp
@@ -118,7 +118,7 @@ Apply your setup to scqcv.cfg in @SYSTEMCONFIGDIR@ or in @CONFIGDIR@.
 If the parameters are not configured, the defaults configuration will be considered.
 .SS Message groups and QC parameters
 .sp
-Select the desired parameters from the list below. "#" disables a parameter.
+Select the desired parameters from the list below. \(dq#\(dq disables a parameter.
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -127,21 +127,21 @@ Select the desired parameters from the list below. "#" disables a parameter.
 connection.primaryGroup = QC
 connection.subscription = QC, CONFIG
 
-parameter =  "latency           : latency",\e
-                             "delay             : delay",\e
-                             "timing quality    : timing",\e
-                             "offset            : offset",\e
-                             "rms               : rms",\e
-                             "gaps count        : gap",\e
-                             "overlaps count    : overlap",\e
-                             "availability      : availability",\e
-                             "spikes count      : spike"
-#                            "gaps interval     : gapInterval",\e
-#                            "gaps length       : gapLength",\e
-#                            "spikes interval   : spikeInterval",\e
-#                            "spikes amplitude  : spikeAmplitude"
-#                            "overlaps interval : overlapInterval",\e
-#                            "overlaps length   : overlapLength"
+parameter =  \(dqlatency           : latency\(dq,\e
+                             \(dqdelay             : delay\(dq,\e
+                             \(dqtiming quality    : timing\(dq,\e
+                             \(dqoffset            : offset\(dq,\e
+                             \(dqrms               : rms\(dq,\e
+                             \(dqgaps count        : gap\(dq,\e
+                             \(dqoverlaps count    : overlap\(dq,\e
+                             \(dqavailability      : availability\(dq,\e
+                             \(dqspikes count      : spike\(dq
+#                            \(dqgaps interval     : gapInterval\(dq,\e
+#                            \(dqgaps length       : gapLength\(dq,\e
+#                            \(dqspikes interval   : spikeInterval\(dq,\e
+#                            \(dqspikes amplitude  : spikeAmplitude\(dq
+#                            \(dqoverlaps interval : overlapInterval\(dq,\e
+#                            \(dqoverlaps length   : overlapLength\(dq
 .ft P
 .fi
 .UNINDENT
@@ -149,7 +149,7 @@ parameter =  "latency           : latency",\e
 .SS Stream selection
 .sp
 By default all streams configured by the global bindings will be displayed. To limit
-the streams or to use a specific list configure \fBstreams.codes\fP and
+the streams or to use a specific list configure \fI\%streams.codes\fP and
 \fI\%streams.cumulative\fP\&.
 .sp
 Example configuration or the AM network:
@@ -320,7 +320,7 @@ _
 .fi
 .sp
 .sp
-scqcv inherits global options\&.
+scqcv inherits \fI\%global options\fP\&.
 .INDENT 0.0
 .TP
 .B parameter
@@ -331,10 +331,10 @@ Read the scqc documentation for a list of available QC parameters
 and the default configuration of scqcv
 $SEISCOMP_ROOT/etc/defaults/scqcv.cfg for more examples.
 .sp
-Format: "Parameter name : ConfigName"
+Format: \(dqParameter name : ConfigName\(dq
 .sp
-Example: "delay : delay","spikes count : spike","spikes amplitude :
-spikeAmplitude".
+Example: \(dqdelay : delay\(dq,\(dqspikes count : spike\(dq,\(dqspikes amplitude :
+spikeAmplitude\(dq.
 Refer to the parameters by their ConfigName to configure the
 attributes.
 .UNINDENT
@@ -412,7 +412,7 @@ range parameters control the coloring.
 .INDENT 3.5
 \fBdefault.*\fP
 \fIDefault configuration for all QC parameters. The configuration\fP
-\fIcan be extended to each QC parameter by placing "default" with\fP
+\fIcan be extended to each QC parameter by placing \(dqdefault\(dq with\fP
 \fIthe parameter name in scqcv.cfg. Examples for some QC parameters\fP
 \fIare given below.\fP
 **
@@ -3059,7 +3059,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
@@ -3130,22 +3130,22 @@ Equivalent to \-\-verbosity=4 \-\-console=1 \-\-print\-component=1
 .INDENT 0.0
 .TP
 .B \-u, \-\-user arg
-Overrides configuration parameter \fBconnection.username\fP\&.
+Overrides configuration parameter \fI\%connection.username\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-H, \-\-host arg
-Overrides configuration parameter \fBconnection.server\fP\&.
+Overrides configuration parameter \fI\%connection.server\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-t, \-\-timeout arg
-Overrides configuration parameter \fBconnection.timeout\fP\&.
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-g, \-\-primary\-group arg
-Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3156,7 +3156,7 @@ This option can be given more than once.
 .INDENT 0.0
 .TP
 .B \-\-content\-type arg
-Overrides configuration parameter \fBconnection.contentType\fP\&.
+Overrides configuration parameter \fI\%connection.contentType\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3174,8 +3174,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3204,9 +3204,9 @@ List all supported record stream drivers.
 .B \-I, \-\-record\-url arg
 The recordstream source URL, format:
 [\fI\%service://\fP]location[#type].
-"service" is the name of the recordstream driver
-which can be queried with "\-\-record\-driver\-list".
-If "service" is not given, "\fI\%file://\fP" is
+\(dqservice\(dq is the name of the recordstream driver
+which can be queried with \(dq\-\-record\-driver\-list\(dq.
+If \(dqservice\(dq is not given, \(dq\fI\%file://\fP\(dq is
 used.
 .UNINDENT
 .INDENT 0.0
@@ -3224,7 +3224,7 @@ Specify a type for the records being read.
 .TP
 .B \-\-city\-xml arg
 The path to the cities XML file. This overrides the default
-paths. Compare with the global parameter "citiesXML".
+paths. Compare with the global parameter \(dqcitiesXML\(dq.
 .UNINDENT
 .SS User interface
 .INDENT 0.0

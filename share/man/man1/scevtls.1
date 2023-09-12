@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCEVTLS" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scevtls \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,14 +27,17 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCEVTLS" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scevtls \- SeisComP Documentation
 .sp
 \fBList event IDs from database.\fP
 .SH DESCRIPTION
 .sp
 \fIscevtls\fP lists all available event IDs within a given time range to stdout.
 .sp
-Use scorgls for listing all origin IDs. In extension to \fIscevtls\fP and
-scorgls scquery can search for parameters based on complex
+Use \fI\%scorgls\fP for listing all origin IDs. In extension to \fIscevtls\fP and
+\fI\%scorgls\fP \fI\%scquery\fP can search for parameters based on complex
 custom queries.
 .SH EXAMPLES
 .INDENT 0.0
@@ -49,8 +49,8 @@ Print all event IDs for the complete year 2012:
 .nf
 .ft C
 scevtls \-d mysql://sysop:sysop@localhost/seiscomp \e
-        \-\-begin "2012\-01\-01 00:00:00" \e
-        \-\-end "2013\-01\-01 00:00:00"
+        \-\-begin \(dq2012\-01\-01 00:00:00\(dq \e
+        \-\-end \(dq2013\-01\-01 00:00:00\(dq
 .ft P
 .fi
 .UNINDENT
@@ -79,7 +79,7 @@ scevtls \-d localhost \-p
 .fi
 .sp
 .sp
-scevtls inherits global options\&.
+scevtls inherits \fI\%global options\fP\&.
 .SH COMMAND-LINE OPTIONS
 .sp
 \fBscevtls [options]\fP
@@ -165,8 +165,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -189,13 +189,13 @@ Do not use the database at all
 .TP
 .B \-\-begin time
 Specify the lower bound of the time interval. Format is
-"2012\-01\-01 00:00:00".
+\(dq2012\-01\-01 00:00:00\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-end time
 Specify the upper bound of the time interval. Format is
-"2012\-01\-01 00:00:00".
+\(dq2012\-01\-01 00:00:00\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP

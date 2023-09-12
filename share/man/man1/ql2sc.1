@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "QL2SC" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-ql2sc \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,13 +27,16 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "QL2SC" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+ql2sc \- SeisComP Documentation
 .sp
 \fBQuakeLink (gempa GmbH) to SeisComP event parameter exchange.\fP
 .SH DESCRIPTION
 .sp
 ql2sc manages the import of SeisComP objects from one or several QuakeLink servers
-into a SeisComP system in real time. Like scimex but contrary to
-scimport the exchange of the SeisComP objects is event based. This means no
+into a SeisComP system in real time. Like \fI\%scimex\fP but contrary to
+\fI\%scimport\fP the exchange of the SeisComP objects is event based. This means no
 messages will be exchanged until the exporting system has produced an event.
 .sp
 The user may control at various levels which information to import. Whenever
@@ -143,7 +143,7 @@ _
 Subsequent to the server\-side filters a routing table defines which objects to
 import and to which message group to send them. Depending on the \fISeisComP\fP modules
 listening to the specified message groups an object may be further processed.
-Typically no modules (other than scmaster) is connected to the
+Typically no modules (other than \fI\%scmaster\fP) is connected to the
 \fBIMPORT_GROUP\fP so that objects sent to this group are just stored to the
 database. If an object should be discarded, the special group identifier \fBNULL\fP
 may be used.
@@ -212,12 +212,12 @@ applications, e.g., graphical user interfaces for strong motion analysis or
 tsunami risk assessment.
 .UNINDENT
 .sp
-We don\(aqt route events at all. With the help of scevent locations are
+We don\(aqt route events at all. With the help of \fI\%scevent\fP locations are
 either associated to existing events or will create new events with local
 settings.
 .sp
 We don\(aqt route StationMagnitudes and Magnitude to the \fBMAGNITDUE\fP group
-because scmag subscribes to \fBLOCATION\fP and \fBMAGNITUDE\fP\&. Separated
+because \fI\%scmag\fP subscribes to \fBLOCATION\fP and \fBMAGNITUDE\fP\&. Separated
 groups might lead to duplicated magnitude types in case a manual magnitude
 solution is imported. In this case the foreign Origin with its Magnitudes would
 be split into at least two messages, the first one containing the Origin, the
@@ -235,7 +235,7 @@ defined in the \fBprocessing.whitelist.agencies\fP or
 \fBcreationInfo.agencyID\fP of amplitudes, arrivals, comments, events, focal
 mechanisms, magnitudes, moment tensors, origins, picks and station magnitudes is
 evaluated. Objects with unmatched or unset agency information are filtered out.
-If objects with unset agency ID should match, then empty string \fB""\fP has to be
+If objects with unset agency ID should match, then empty string \fB\(dq\(dq\fP has to be
 added to the white list.
 .sp
 The agency filter is applied on remote as well as local objects. In this way
@@ -316,7 +316,7 @@ Ones all notifiers are collected they are send to the local messaging system.
 For performance reasons and because of the processing logic of listening \fISeisComP\fP
 modules ql2sc tries to batch as many notifiers as possible into one notifier
 message. A separate notifier message is created if the target message group
-changes between successive notifiers or if the configurable \fBbatchSize\fP
+changes between successive notifiers or if the configurable \fI\%batchSize\fP
 limit is reached.
 .sp
 \fBNOTE:\fP
@@ -327,7 +327,7 @@ is to big the overall message size limit (default: 1MB) may be exceeded
 resulting in an undeliverable message. On the other hand a much to small
 value will create unwanted results in the \fISeisComP\fP processing chain. If for
 instance picks are routed to the \fBPICK\fP group and the pick set is split
-into several notifier messages the local scautoloc might create
+into several notifier messages the local \fI\%scautoloc\fP might create
 locations based on an incomplete dataset.
 .UNINDENT
 .UNINDENT
@@ -336,7 +336,7 @@ locations based on an incomplete dataset.
 It might be desirable to synchronize event attributes set at the source with
 the local system. In particular the event type, the type uncertainty, event
 descriptions and comments might be of interest. Because it is not advisable
-to route events and let scevent associate imported origins it can
+to route events and let \fI\%scevent\fP associate imported origins it can
 happen that the imported event ID is different from the event ID of the local
 system. The input host configuration parameter \fBsyncEventAttributes\fP
 controls that behaviour. It is set to true by default which means that imported
@@ -367,8 +367,8 @@ event type and ignores the request.
 That simple case would not create an infinite loop even if \fBql2sc@A\fP would
 accept the last change. The situation changes immediately if two subsequent
 attribute changes are being received by \fBql2sc@B\fP while both of them are
-already applied on system \fBA\fP\&. \fBql2sc@B\fP would "restore" the old state due
-to the first received update and then apply the "final" state due to the
+already applied on system \fBA\fP\&. \fBql2sc@B\fP would \(dqrestore\(dq the old state due
+to the first received update and then apply the \(dqfinal\(dq state due to the
 second update. Each update triggers again an update at system \fBA\fP and the
 states start flapping. Without the described check there wouldn\(aqt be a well
 defined exit condition.
@@ -400,7 +400,7 @@ the publicID prefix of \fBB\fP to \fBprocessing.blacklist.publicIDs\fP\&.
 .fi
 .sp
 .sp
-ql2sc inherits global options\&.
+ql2sc inherits \fI\%global options\fP\&.
 .INDENT 0.0
 .TP
 .B backLog
@@ -770,22 +770,22 @@ Use alternative log file.
 .INDENT 0.0
 .TP
 .B \-u, \-\-user arg
-Overrides configuration parameter \fBconnection.username\fP\&.
+Overrides configuration parameter \fI\%connection.username\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-H, \-\-host arg
-Overrides configuration parameter \fBconnection.server\fP\&.
+Overrides configuration parameter \fI\%connection.server\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-t, \-\-timeout arg
-Overrides configuration parameter \fBconnection.timeout\fP\&.
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-g, \-\-primary\-group arg
-Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -796,7 +796,7 @@ This option can be given more than once.
 .INDENT 0.0
 .TP
 .B \-\-content\-type arg
-Overrides configuration parameter \fBconnection.contentType\fP\&.
+Overrides configuration parameter \fI\%connection.contentType\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -814,8 +814,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .SH AUTHOR
 gempa GmbH, GFZ Potsdam

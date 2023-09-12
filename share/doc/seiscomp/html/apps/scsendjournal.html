@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>scsendjournal &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../_static/seiscomp.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="scsendorigin" href="scsendorigin.html" />
@@ -25,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.3</span>
+          <span class="version">5.5.4</span>
         </div>
       </div>
     </div>
@@ -71,11 +72,11 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="scsendjournal">
-<span id="id1"></span><h1>scsendjournal<a class="headerlink" href="#scsendjournal" title="Permalink to this headline">¶</a></h1>
+  <section id="scsendjournal">
+<span id="id1"></span><h1>scsendjournal<a class="headerlink" href="#scsendjournal" title="Permalink to this heading">¶</a></h1>
 <p><strong>Send journaling information to the messaging to manipulate event parameter objects.</strong></p>
-<div class="section" id="description">
-<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
 <p>scsendjournal sends journals to the <cite>scname</cite> messaging system.
 Currently, journals can be used to command <a class="reference internal" href="scevent.html#scevent"><span class="std std-ref">scevent</span></a>.
 The journals command <a class="reference internal" href="scevent.html#scevent"><span class="std std-ref">scevent</span></a> to manipulate event parameters according to
@@ -87,15 +88,15 @@ the <a class="reference internal" href="#scsendjournal-actions"><span class="std
 <li><p>Modify event parameters,</p></li>
 <li><p>Control the association of origins to events.</p></li>
 </ul>
-</div>
-<div class="section" id="actions">
-<span id="scsendjournal-actions"></span><h2>Actions<a class="headerlink" href="#actions" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="actions">
+<span id="scsendjournal-actions"></span><h2>Actions<a class="headerlink" href="#actions" title="Permalink to this heading">¶</a></h2>
 <p>There are specific journal actions for handling non-events and events. The documentation
 of <a class="reference internal" href="scevent.html#scevent"><span class="std std-ref">scevent</span></a> contains a <a class="reference internal" href="scevent.html#scevent-journals"><span class="std std-ref">complete list of journals known to scevent</span></a>.
 Parameters used on the command line can also be passed from file using the option
 <code class="xref std std-option docutils literal notranslate"><span class="pre">-i</span></code>.</p>
-<div class="section" id="none-event-specific-actions">
-<h3>None-event specific actions<a class="headerlink" href="#none-event-specific-actions" title="Permalink to this headline">¶</a></h3>
+<section id="none-event-specific-actions">
+<h3>None-event specific actions<a class="headerlink" href="#none-event-specific-actions" title="Permalink to this heading">¶</a></h3>
 <ul>
 <li><p><strong>EvNewEvent</strong>: Create a new event from origin with the provided origin ID.
 The origin must be known to <a class="reference internal" href="scevent.html#scevent"><span class="std std-ref">scevent</span></a>.</p>
@@ -106,9 +107,9 @@ origin with given originID. Apply the action in the message system on <em>localh
 </div>
 </li>
 </ul>
-</div>
-<div class="section" id="origin-association">
-<h3>Origin association<a class="headerlink" href="#origin-association" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="origin-association">
+<h3>Origin association<a class="headerlink" href="#origin-association" title="Permalink to this heading">¶</a></h3>
 <ul>
 <li><p><strong>EvGrabOrg</strong>: Grab origin and move the origin to the event with the given eventID.
 If the origins is already associated to another event, remove this reference
@@ -123,9 +124,9 @@ the message system on <em>host</em>:</p>
 </li>
 <li><p><strong>EvSplitOrg</strong>: Split origins to 2 events.</p></li>
 </ul>
-</div>
-<div class="section" id="event-parameters">
-<h3>Event parameters<a class="headerlink" href="#event-parameters" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="event-parameters">
+<h3>Event parameters<a class="headerlink" href="#event-parameters" title="Permalink to this heading">¶</a></h3>
 <ul>
 <li><p><strong>EvName</strong>: Set <em>EventDescription</em> of type <em>earthquake name</em>.</p>
 <p>Example, setting the name of the event with
@@ -157,28 +158,28 @@ the region. Call processors loaded with plugins, e.g. the
 </li>
 <li><p><strong>EvTypeCertainty</strong>: set event type certainty.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="command-line-options">
-<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="command-line-options">
+<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this heading">¶</a></h2>
 <p><strong class="program">scsendjournal [opts] {objectID} {action} [parameters]</strong></p>
-<div class="section" id="generic">
-<h3>Generic<a class="headerlink" href="#generic" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scsendjournal-h">
-<code class="sig-name descname">-h</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--help</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scsendjournal-h" title="Permalink to this definition">¶</a></dt>
+<section id="generic">
+<h3>Generic<a class="headerlink" href="#generic" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-h">
+<span id="cmdoption-scsendjournal-help"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scsendjournal-h" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show help message.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scsendjournal-v">
-<code class="sig-name descname">-V</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--version</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scsendjournal-v" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-V">
+<span id="cmdoption-scsendjournal-version"></span><span class="sig-name descname"><span class="pre">-V</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--version</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scsendjournal-V" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show version information.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scsendjournal-config-file">
-<code class="sig-name descname">--config-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scsendjournal-config-file" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-config-file">
+<span class="sig-name descname"><span class="pre">--config-file</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scsendjournal-config-file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use alternative configuration file. When this option is
 used the loading of all stages is disabled. Only the
 given configuration file is parsed and used. To use
@@ -187,158 +188,158 @@ link of the application or copy it. Example:
 scautopick -&gt; scautopick2.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scsendjournal-plugins">
-<code class="sig-name descname">--plugins</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scsendjournal-plugins" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-plugins">
+<span class="sig-name descname"><span class="pre">--plugins</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scsendjournal-plugins" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load given plugins.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scsendjournal-d">
-<code class="sig-name descname">-D</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--daemon</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scsendjournal-d" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-D">
+<span id="cmdoption-scsendjournal-daemon"></span><span class="sig-name descname"><span class="pre">-D</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--daemon</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scsendjournal-D" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run as daemon. This means the application will fork itself
 and doesn’t need to be started with &amp;.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scsendjournal-auto-shutdown">
-<code class="sig-name descname">--auto-shutdown</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scsendjournal-auto-shutdown" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-auto-shutdown">
+<span class="sig-name descname"><span class="pre">--auto-shutdown</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scsendjournal-auto-shutdown" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable/disable self-shutdown because a master module shutdown.
 This only works when messaging is enabled and the master
-module sends a shutdown message (enabled with –start-stop-msg
+module sends a shutdown message (enabled with --start-stop-msg
 for the master module).</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scsendjournal-shutdown-master-module">
-<code class="sig-name descname">--shutdown-master-module</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scsendjournal-shutdown-master-module" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-shutdown-master-module">
+<span class="sig-name descname"><span class="pre">--shutdown-master-module</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scsendjournal-shutdown-master-module" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the name of the master-module used for auto-shutdown.
 This is the application name of the module actually
 started. If symlinks are used, then it is the name of
 the symlinked application.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scsendjournal-shutdown-master-username">
-<code class="sig-name descname">--shutdown-master-username</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scsendjournal-shutdown-master-username" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-shutdown-master-username">
+<span class="sig-name descname"><span class="pre">--shutdown-master-username</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scsendjournal-shutdown-master-username" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the name of the master-username of the messaging
-used for auto-shutdown. If “shutdown-master-module” is
+used for auto-shutdown. If &quot;shutdown-master-module&quot; is
 given as well, this parameter is ignored.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="verbosity">
-<h3>Verbosity<a class="headerlink" href="#verbosity" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scsendjournal-verbosity">
-<code class="sig-name descname">--verbosity</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scsendjournal-verbosity" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="verbosity">
+<h3>Verbosity<a class="headerlink" href="#verbosity" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-verbosity">
+<span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scsendjournal-verbosity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
 4:debug.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="id2">
-<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--v</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-v">
+<span id="cmdoption-scsendjournal-v"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--v</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scsendjournal-v" title="Permalink to this definition">¶</a></dt>
 <dd><p>Increase verbosity level (may be repeated, eg. -vv).</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scsendjournal-q">
-<code class="sig-name descname">-q</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--quiet</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scsendjournal-q" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-q">
+<span id="cmdoption-scsendjournal-quiet"></span><span class="sig-name descname"><span class="pre">-q</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--quiet</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scsendjournal-q" title="Permalink to this definition">¶</a></dt>
 <dd><p>Quiet mode: no logging output.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scsendjournal-component">
-<code class="sig-name descname">--component</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scsendjournal-component" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-component">
+<span class="sig-name descname"><span class="pre">--component</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scsendjournal-component" title="Permalink to this definition">¶</a></dt>
 <dd><p>Limit the logging to a certain component. This option can
 be given more than once.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scsendjournal-s">
-<code class="sig-name descname">-s</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--syslog</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scsendjournal-s" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-s">
+<span id="cmdoption-scsendjournal-syslog"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--syslog</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scsendjournal-s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use syslog logging backend. The output usually goes to
 /var/lib/messages.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scsendjournal-l">
-<code class="sig-name descname">-l</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--lockfile</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scsendjournal-l" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-l">
+<span id="cmdoption-scsendjournal-lockfile"></span><span class="sig-name descname"><span class="pre">-l</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--lockfile</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scsendjournal-l" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path to lock file.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scsendjournal-console">
-<code class="sig-name descname">--console</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scsendjournal-console" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-console">
+<span class="sig-name descname"><span class="pre">--console</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scsendjournal-console" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send log output to stdout.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scsendjournal-debug">
-<code class="sig-name descname">--debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scsendjournal-debug" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-debug">
+<span class="sig-name descname"><span class="pre">--debug</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scsendjournal-debug" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute in debug mode.
-Equivalent to –verbosity=4 –console=1 .</p>
+Equivalent to --verbosity=4 --console=1 .</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scsendjournal-log-file">
-<code class="sig-name descname">--log-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scsendjournal-log-file" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-log-file">
+<span class="sig-name descname"><span class="pre">--log-file</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scsendjournal-log-file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use alternative log file.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="messaging">
-<h3>Messaging<a class="headerlink" href="#messaging" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scsendjournal-u">
-<code class="sig-name descname">-u</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--user</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scsendjournal-u" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="messaging">
+<h3>Messaging<a class="headerlink" href="#messaging" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-u">
+<span id="cmdoption-scsendjournal-user"></span><span class="sig-name descname"><span class="pre">-u</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--user</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scsendjournal-u" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.username"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.username</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scsendjournal-host">
-<code class="sig-name descname">-H</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--host</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scsendjournal-host" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-H">
+<span id="cmdoption-scsendjournal-host"></span><span class="sig-name descname"><span class="pre">-H</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--host</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scsendjournal-H" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.server"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.server</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scsendjournal-t">
-<code class="sig-name descname">-t</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--timeout</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scsendjournal-t" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-t">
+<span id="cmdoption-scsendjournal-timeout"></span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--timeout</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scsendjournal-t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.timeout"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.timeout</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scsendjournal-g">
-<code class="sig-name descname">-g</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--primary-group</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scsendjournal-g" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-g">
+<span id="cmdoption-scsendjournal-primary-group"></span><span class="sig-name descname"><span class="pre">-g</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--primary-group</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scsendjournal-g" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.primaryGroup"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.primaryGroup</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scsendjournal-subscribe-group">
-<code class="sig-name descname">-S</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--subscribe-group</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scsendjournal-subscribe-group" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-S">
+<span id="cmdoption-scsendjournal-subscribe-group"></span><span class="sig-name descname"><span class="pre">-S</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--subscribe-group</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scsendjournal-S" title="Permalink to this definition">¶</a></dt>
 <dd><p>A group to subscribe to.
 This option can be given more than once.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scsendjournal-start-stop-msg">
-<code class="sig-name descname">--start-stop-msg</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scsendjournal-start-stop-msg" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-start-stop-msg">
+<span class="sig-name descname"><span class="pre">--start-stop-msg</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scsendjournal-start-stop-msg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set sending of a start and a stop message.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="input">
-<h3>Input<a class="headerlink" href="#input" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scsendjournal-i">
-<code class="sig-name descname">-i</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--input</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scsendjournal-i" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="input">
+<h3>Input<a class="headerlink" href="#input" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scsendjournal-i">
+<span id="cmdoption-scsendjournal-input"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--input</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scsendjournal-i" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read parameters from given file instead from command line.</p>
 </dd></dl>
 
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -351,14 +352,15 @@ This option can be given more than once.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">scsendjournal</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
 <li><a class="reference internal" href="#actions">Actions</a><ul>
@@ -378,12 +380,17 @@ This option can be given more than once.</p>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="scqueryqc.html"
-                        title="previous chapter">scqueryqc</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="scsendorigin.html"
-                        title="next chapter">scsendorigin</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="scqueryqc.html"
+                          title="previous chapter">scqueryqc</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="scsendorigin.html"
+                          title="next chapter">scsendorigin</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -403,7 +410,7 @@ This option can be given more than once.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.3</b> Release
+		  Version <b>5.5.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCINV" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scinv \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCINV" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scinv \- SeisComP Documentation
 .sp
 \fBInventory database synchronisation.\fP
 .SH DESCRIPTION
@@ -54,10 +54,10 @@ seiscomp update\-config inventory
 \fBHINT:\fP
 .INDENT 0.0
 .INDENT 3.5
-Inventory files in SCML format may be generated or modified by
-smp or invextr\&. For conversion from FDSN station XML and
-dataless SEED volume to SCML use fdsnxml2inv and
-dlsv2inv, respectively.
+Inventory files in \fI\%SCML\fP format may be generated or modified by
+\fISMP\fP [\fI\%21\fP] or \fI\%invextr\fP\&. For conversion from FDSN station XML and
+dataless SEED volume to \fI\%SCML\fP use \fI\%fdsnxml2inv\fP and
+\fI\%dlsv2inv\fP, respectively.
 .UNINDENT
 .UNINDENT
 .SH COMMANDS
@@ -111,8 +111,8 @@ This command is used by \fBetc/init/scinv.py\fP as follows:
 .sp
 .nf
 .ft C
-scinv sync \-\-console=1 \-H localhost:$p \-\-filebase "$fb" \e
-           \-\-rc\-dir "$rc" \-\-key\-dir "$kd"
+scinv sync \-\-console=1 \-H localhost:$p \-\-filebase \(dq$fb\(dq \e
+           \-\-rc\-dir \(dq$rc\(dq \-\-key\-dir \(dq$kd\(dq
 .ft P
 .fi
 .UNINDENT
@@ -151,7 +151,7 @@ scinv merge net1.xml net2.xml \-o inv.xml
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
-Merging inventory XML files is also supported by scxmlmerge but
+Merging inventory XML files is also supported by \fI\%scxmlmerge\fP but
 without the full \fI\%consistency checks\fP\&.
 .UNINDENT
 .UNINDENT
@@ -255,7 +255,7 @@ is enough.
 .INDENT 3.5
 Stream lists in NSLC format (NET.STA.LOC.CHA) may be generated when combining
 with \fB\-\-nslc\fP\&. Such lists can be used as input for filtering
-waveforms, e.g., to scmssort or scart\&.
+waveforms, e.g., to \fI\%scmssort\fP or \fI\%scart\fP\&.
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -288,7 +288,7 @@ Set gain unit,
 .IP \(bu 2
 Distance of the sensor location to the station location,
 .IP \(bu 2
-"Invalid" location 0/0.
+\(dqInvalid\(dq location 0/0.
 .UNINDENT
 .sp
 When inconsistencies or other relevant information are found, alerts are printed:
@@ -335,7 +335,7 @@ results.
 This test matrix may be incomplete. Consider adding more tests and results.
 .IP \(bu 2
 Please report inventory issues not caught by tests to the SeisComP
-development team, e.g. on seiscomp\-github\&.
+development team, e.g. on \fISeisComP on GitHub\fP [\fI\%1\fP]\&.
 .UNINDENT
 .TS
 center;
@@ -744,7 +744,7 @@ _
 .fi
 .sp
 .sp
-scinv inherits global options\&.
+scinv inherits \fI\%global options\fP\&.
 .INDENT 0.0
 .TP
 .B syncKeys
@@ -864,7 +864,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
@@ -935,22 +935,22 @@ Equivalent to \-\-verbosity=4 \-\-console=1 \-\-print\-component=1
 .INDENT 0.0
 .TP
 .B \-u, \-\-user arg
-Overrides configuration parameter \fBconnection.username\fP\&.
+Overrides configuration parameter \fI\%connection.username\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-H, \-\-host arg
-Overrides configuration parameter \fBconnection.server\fP\&.
+Overrides configuration parameter \fI\%connection.server\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-t, \-\-timeout arg
-Overrides configuration parameter \fBconnection.timeout\fP\&.
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-g, \-\-primary\-group arg
-Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -961,7 +961,7 @@ This option can be given more than once.
 .INDENT 0.0
 .TP
 .B \-\-content\-type arg
-Overrides configuration parameter \fBconnection.contentType\fP\&.
+Overrides configuration parameter \fI\%connection.contentType\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -979,8 +979,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1065,8 +1065,8 @@ Enable compact output for ls: each object one line.
 .INDENT 0.0
 .TP
 .B \-\-level int
-Information level reported by ls. One of "net", "sta",
-"cha" or "resp". Default is "cha".
+Information level reported by ls. One of \(dqnet\(dq, \(dqsta\(dq,
+\(dqcha\(dq or \(dqresp\(dq. Default is \(dqcha\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP

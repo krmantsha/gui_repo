@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCIMEX" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scimex \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,13 +27,16 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCIMEX" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scimex \- SeisComP Documentation
 .sp
 \fBSeisComP event exchange between two systems.\fP
 .SH DESCRIPTION
 .sp
 scimex manages the \fISeisComP\fP object exchange between two or more different SeisComP systems in
 real time. scimex may import or export the data to one or several systems. In
-contrary to scimport the exchange of the \fISeisComP\fP objects is event based.
+contrary to \fI\%scimport\fP the exchange of the \fISeisComP\fP objects is event based.
 This means no messages will be exchanged until the exporting system has produced
 an event.
 .sp
@@ -106,11 +106,11 @@ importHosts = import1
 criteria.world.longitude = \-180:180
 criteria.world.latitude = \-90:90
 criteria.world.magnitude = 1:9
-criteria.world.agencyID = ""
+criteria.world.agencyID = \(dq\(dq
 criteria.world.arrivalcount = 15
 
 hosts.import1.address = localhost
-# The criterion "world" has been defined above
+# The criterion \(dqworld\(dq has been defined above
 hosts.import1.criteria = world
 # optional and true per default
 hosts.import1.filter = false
@@ -132,14 +132,14 @@ receiving system\(aqs IMPORT group to avoid interfering with the receiving syste
 picking.
 .sp
 On the sending system, only those events with a high enough magnitude
-and enough arrivals, and with the AgencyID "GFZ" are exported:
+and enough arrivals, and with the AgencyID \(dqGFZ\(dq are exported:
 scimex_export.cfg
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .nf
 .ft C
-connection.username="scimexEx"
+connection.username=\(dqscimexEx\(dq
 connection.server = localhost
 
 mode = EXPORT
@@ -179,7 +179,7 @@ hosts.exp2.criteria = globalM5
 .fi
 .sp
 .sp
-scimex inherits global options\&.
+scimex inherits \fI\%global options\fP\&.
 .INDENT 0.0
 .TP
 .B mode
@@ -402,7 +402,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
@@ -459,22 +459,22 @@ Use alternative log file.
 .INDENT 0.0
 .TP
 .B \-u, \-\-user arg
-Overrides configuration parameter \fBconnection.username\fP\&.
+Overrides configuration parameter \fI\%connection.username\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-H, \-\-host arg
-Overrides configuration parameter \fBconnection.server\fP\&.
+Overrides configuration parameter \fI\%connection.server\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-t, \-\-timeout arg
-Overrides configuration parameter \fBconnection.timeout\fP\&.
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-g, \-\-primary\-group arg
-Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -485,7 +485,7 @@ This option can be given more than once.
 .INDENT 0.0
 .TP
 .B \-\-content\-type arg
-Overrides configuration parameter \fBconnection.contentType\fP\&.
+Overrides configuration parameter \fI\%connection.contentType\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP

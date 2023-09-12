@@ -1,22 +1,23 @@
-# Defines the channel code of the preferred stream used by e.g. scautopick and
-# scrttv. If no component code is given, the vertical component will be fetched
-# from inventory. For that the channel orientation (azimuth, dip) will be used.
-# If that approach fails, 'Z' will be appended and used as fallback.
+# The channel code of the preferred stream used by e.g. scautopick and scrttv.
+# If no component code is given, the vertical component will be fetched from
+# inventory considering the channel orientation (azimuth, dip). If that
+# approach fails, 'Z' will be appended and used as fallback. Do not use regular
+# expressions!
 detecStream = HNZ
 
-# Defines the calibration function log10(A0) for computing MLv. Format: any
-# number of distance-value pairs separated by semicolons Example: "0 -1.3;60
-# -2.8;100 -3.0;400 -4.5;1000 -5.85" specifies 4 distance intervals from
-# 0...60, 60...100, 100...400 and 400...1000 km distance. Within these
-# intervals log10(A0) is interpolated linearly between -1.3...-2.8,
-# -2.8...-3.0, -3.0...-4.5 and -4.5...-5.8, respectively
-# Note: The distances of the first and last sample specify the distance range
-# within which MLv shall be computed.
-# magnitudes.MLv.logA0 = "0 -0.85;5 -1.46;10 -1.75;15 -1.94;20 -2.08;25 -2.20;30 -2.30;35 -2.39;40 -2.48;45 -2.56;50 -2.63;55 -2.71;60 -2.78;100 -3.0;400 -4.5;1000 -5.85"
+# The calibration function log10(A0).
+# Format: any list of distance-value pairs separated by comma. Values within
+# pairs are separated by colon.
+# Example: "0:-1.3,60:-2.8,100:-3.0,400:-4.5,1000:-5.85" specifies 4 distance
+# intervals from 0...60, 60...100, 100...400 and 400...1000 km distance. Within
+# these intervals log10(A0) is interpolated linearly between -1.3...-2.8,
+# -2.8...-3.0, -3.0...-4.5 and -4.5...-5.8, respectively.
+# Note: The first and last distance samples limit the maximum distance range
+# for computing MLv.
 magnitudes.MLv.logA0 = "0:-0.85,5:-1.46,10:-1.75,15:-1.94,20:-2.08,25:-2.20,30:-2.30,35:-2.39,40:-2.48,45:-2.56,50:-2.63,55:-2.71,60:-2.78,100:-3.0,400:-4.5,1000:-5.85"
 
-# Defines the saturation threshold for the optional saturation check. By
-# default the saturation check is disabled but giving a value above 0 will
+# Define the saturation threshold for the optional saturation check. By
+# default, the saturation check is disabled but giving a value above 0 will
 # enable it. Waveforms that are saturated are not used for amplitude
 # calculations.
 # This value can either be an absolute value of counts such as "100000" counts
@@ -26,22 +27,10 @@ magnitudes.MLv.logA0 = "0:-0.85,5:-1.46,10:-1.75,15:-1.94,20:-2.08,25:-2.20,30:-
 # The boolean value "false" explicitly disables the check.
 amplitudes.saturationThreshold = false
 
-# Activates deconvolution for this station. If no responses are configured, an
+# Activate deconvolution for this station. If no responses are configured, an
 # error is raised and the data is not processed. This flag will be overridden
 # by the type specific flag (see Amplitude type profile).
 amplitudes.enableResponses = true
-
-# After data are converted in to the frequency domain that minimum frequency
-# defines the end of the left-side cosine taper for the frequency spectrum. The
-# taper applies from 0Hz to {minFreq}Hz. A value of 0 or lower disables that
-# taper.
-amplitudes.resp.minFreq = 0.1
-
-# The gain of the Wood-Anderson response.
-amplitudes.WoodAnderson.gain = 2080
-
-# The damping constant of the Wood-Anderson seismometer.
-amplitudes.WoodAnderson.h = 0.7
 
 # This parameter allows to set how the amplitude is measured. Either by finding
 # the absolute maximum of the demeaned trace (AbsMax), the difference of
@@ -50,6 +39,19 @@ amplitudes.WoodAnderson.h = 0.7
 # Note that if absMax is already explicitly configured, this parameter has no
 # effect.
 amplitudes.MLv.measureType = AbsMax
+
+# The minimum frequency of the considered spectrum.
+# After data is converted into the frequency domain that minimum frequency
+# defines the end of the left-side cosine taper applied to the spectrum. The
+# taper applies from 0 Hz to {minFreq} Hz. A value of 0 or lower disables that
+# taper.
+amplitudes.resp.minFreq = 0.1
+
+# The gain of the Wood-Anderson response.
+amplitudes.WoodAnderson.gain = 2080
+
+# The damping constant of the Wood-Anderson seismometer.
+amplitudes.WoodAnderson.h = 0.7
 
 # Start time of the signal processing relative to the triggering P pick. This
 # adds a margin to the actual processing and is useful to initialize the filter

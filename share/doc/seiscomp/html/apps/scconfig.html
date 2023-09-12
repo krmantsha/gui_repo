@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>scconfig &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../_static/seiscomp.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="scdb" href="scdb.html" />
@@ -25,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.3</span>
+          <span class="version">5.5.4</span>
         </div>
       </div>
     </div>
@@ -71,11 +72,11 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="scconfig">
-<span id="id1"></span><h1>scconfig<a class="headerlink" href="#scconfig" title="Permalink to this headline">¶</a></h1>
+  <section id="scconfig">
+<span id="id1"></span><h1>scconfig<a class="headerlink" href="#scconfig" title="Permalink to this heading">¶</a></h1>
 <p><strong>Configuration and system managment frontend.</strong></p>
-<div class="section" id="description">
-<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
 <p>scconfig is a graphical user interface which allows to configure all SeisComP
 modules for which descriptions are provided.</p>
 <p>The modules are usually programs part of the SeisComP system and have two
@@ -103,40 +104,42 @@ tasks that it can handle today are:</p>
 </ul>
 <p>In the future, it could accumulate more tasks like inventory editor and even
 more advanced system monitoring and log inspection.</p>
-<div class="section" id="first-start">
-<span id="scconfig-first-start"></span><h3>First start<a class="headerlink" href="#first-start" title="Permalink to this headline">¶</a></h3>
+<section id="first-start">
+<span id="scconfig-first-start"></span><h3>First start<a class="headerlink" href="#first-start" title="Permalink to this heading">¶</a></h3>
 <p>If scconfig is started for the first time it will ask the user to setup
 its new installation.</p>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../_images/first-start.png" src="../_images/first-start.png" />
-</div>
+</figure>
 <p>If done already with the <a class="reference internal" href="../base/getting-started.html#getting-started"><span class="std std-ref">command line interface</span></a>
 this step can be skipped. If the setup has been run already is indicated by
 the presence of the file <code class="file docutils literal notranslate"><span class="pre">var/run/seiscomp.init</span></code>.</p>
 <p>If pressing yes, the setup wizard will be started and will configure exactly
 the same parameters as described in <a class="reference internal" href="../base/getting-started.html#getting-started"><span class="std std-ref">Getting Started with SeisComP</span></a>.</p>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../_images/wizard-start.png" src="../_images/wizard-start.png" />
-</div>
-<div class="figure align-center">
+</figure>
+<figure class="align-center">
 <img alt="../_images/wizard-finish.png" src="../_images/wizard-finish.png" />
-</div>
+</figure>
 <p>Pressing ‘Finish’ will run the setup and report the progress.</p>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../_images/wizard-done.png" src="../_images/wizard-done.png" />
-</div>
+</figure>
 <p>Pressing ‘Close’ will launch the main configuration window.</p>
-</div>
-<div class="section" id="main-window">
-<span id="scconfig-mainwindow"></span><h3>Main Window<a class="headerlink" href="#main-window" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="main-window">
+<span id="scconfig-mainwindow"></span><h3>Main Window<a class="headerlink" href="#main-window" title="Permalink to this heading">¶</a></h3>
 <p>The layout of the main window is always the same regardless of what panel
 is selected.</p>
-<div class="figure align-center" id="id2">
+<figure class="align-center" id="id2">
 <span id="fig-scconfig-mainwindow"></span><img alt="../_images/mainwindow.png" src="../_images/mainwindow.png" />
-<p class="caption"><span class="caption-text">Main window of scconfig: mode switch (red), panel selection (yellow),
+<figcaption>
+<p><span class="caption-text">Main window of scconfig: mode switch (red), panel selection (yellow),
 panel title and description (green),
 panel content (blue)</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</div>
+</figcaption>
+</figure>
 <p>It is divided into 4 areas:</p>
 <ul class="simple">
 <li><p>red: the mode switch (user vs. system)</p></li>
@@ -150,23 +153,23 @@ the configuration (<span class="guilabel">Reload</span>), to save the
 configuration (<span class="guilabel">Save</span>) and to close the configuration (<span class="guilabel">Quit</span>).</p>
 <p>The edit menu allows to switch the current configuration mode. Pressing the
 switch button in the upper left corner (red box) is a shortcut for this operation.</p>
-</div>
-<div class="section" id="information-panel">
-<span id="scconfig-information"></span><h3>Information panel<a class="headerlink" href="#information-panel" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="information-panel">
+<span id="scconfig-information"></span><h3>Information panel<a class="headerlink" href="#information-panel" title="Permalink to this heading">¶</a></h3>
 <p>This panel shows information about the SeisComP environment
 (see figure <a class="reference internal" href="#fig-scconfig-mainwindow"><span class="std std-ref">main window</span></a>). All variables (except PATH) can
 be used as placeholders in most of the configuration parameters which define
 directories or files, e.g.:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>autoloc.grid <span class="o">=</span> @CONFIGDIR@/autoloc/local.grid
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>autoloc.grid<span class="w"> </span><span class="o">=</span><span class="w"> </span>@CONFIGDIR@/autoloc/local.grid
 </pre></div>
 </div>
-</div>
-<div class="section" id="system-panel">
-<span id="scconfig-system"></span><h3>System panel<a class="headerlink" href="#system-panel" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="system-panel">
+<span id="scconfig-system"></span><h3>System panel<a class="headerlink" href="#system-panel" title="Permalink to this heading">¶</a></h3>
 <p>The system panel is a graphical frontend for the <a class="reference internal" href="../base/management.html#system-management"><span class="std std-ref">seiscomp</span></a> script.</p>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../_images/system-overview.png" src="../_images/system-overview.png" />
-</div>
+</figure>
 <p>It is divided into 3 parts: the toolbar on the top (red), the module list (green)
 and the log window (blue).
 The log window shows the output of all external programs called such as <strong class="program">seiscomp</strong>.
@@ -202,39 +205,39 @@ module configuration or bindings have changed and before restarting the
 affected modules.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="inventory-panel">
-<span id="scconfig-inventory"></span><h3>Inventory panel<a class="headerlink" href="#inventory-panel" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="inventory-panel">
+<span id="scconfig-inventory"></span><h3>Inventory panel<a class="headerlink" href="#inventory-panel" title="Permalink to this heading">¶</a></h3>
 <p>The inventory panel allows to import and synchronize inventory files. It shows
 a list of inventory XML files located in folder <code class="file docutils literal notranslate"><span class="pre">etc/inventory</span></code>. Only
 SeisComP XML files be used as source for inventory data but various importers
 exist to integrate inventory data from other formats. After the first start
 the list is empty and contains only a README file.</p>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../_images/inventory-empty.png" src="../_images/inventory-empty.png" />
-</div>
+</figure>
 <p>One source of importing inventory information is ArcLink as run at
 <a class="reference external" href="http://www.webdc.eu">http://www.webdc.eu</a>. After downloading the inventory XML file from ArcLink it
 can be imported into SeisComP by pressing the ‘Import’ button in the toolbar
 on the top.</p>
 <p>It will open a popup which allows to select for input format.</p>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../_images/inventory-import-format.png" src="../_images/inventory-import-format.png" />
-</div>
+</figure>
 <p>If ArcLink is selected, the source location should then point to the ArcLink
 XML file downloaded before.</p>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../_images/inventory-import-source.png" src="../_images/inventory-import-source.png" />
-</div>
+</figure>
 <p>If successfully imported a window will popup with the execution result and
 the import output.</p>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../_images/inventory-import-finished.png" src="../_images/inventory-import-finished.png" />
-</div>
+</figure>
 <p>After closing the popup the new file will show up in the list.</p>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../_images/inventory-arclink.png" src="../_images/inventory-arclink.png" />
-</div>
+</figure>
 <p>The toolbar support 3 additional actions:</p>
 <dl>
 <dt><em>Test sync</em></dt><dd><p>The inventory XML files are not used directly with SeisComP. They need to
@@ -246,9 +249,9 @@ This action is a dry-run of the actual synchronisation. It performs merging
 and creates differences but does not send any update. This actions is useful
 to test all your existing inventory files before actually modifying the
 database.</p>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../_images/inventory-sync-test-passed.png" src="../_images/inventory-sync-test-passed.png" />
-</div>
+</figure>
 </dd>
 <dt><em>Sync</em></dt><dd><p>Almost identical to <em>Test sync</em> but it does send updates to the database and
 additionally synchronizes key files and resource files.</p>
@@ -263,24 +266,24 @@ each key file will have a corresponding station in inventory.</p>
 </dl>
 <p><em>Sync</em> and <em>Sync keys</em> will cause a reload of the configuration to refresh the
 current binding tree (see <a class="reference internal" href="#scconfig-bindings"><span class="std std-ref">Bindings panel</span></a>).</p>
-</div>
-<div class="section" id="modules-panel">
-<span id="scconfig-modules"></span><h3>Modules panel<a class="headerlink" href="#modules-panel" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="modules-panel">
+<span id="scconfig-modules"></span><h3>Modules panel<a class="headerlink" href="#modules-panel" title="Permalink to this heading">¶</a></h3>
 <p>The modules panel allows configuration of all registered modules.</p>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../_images/modules-overview.png" src="../_images/modules-overview.png" />
-</div>
+</figure>
 <p>The left/green part shows the list of available modules grouped by defined
 categories and the right/blue part shows the current active module configuration.
 The active configuration corresponds to the selected item in the list. See
 section <a class="reference internal" href="#scconfig-editing"><span class="std std-ref">Editing</span></a> for further information about the content panel.</p>
-</div>
-<div class="section" id="bindings-panel">
-<span id="scconfig-bindings"></span><h3>Bindings panel<a class="headerlink" href="#bindings-panel" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="bindings-panel">
+<span id="scconfig-bindings"></span><h3>Bindings panel<a class="headerlink" href="#bindings-panel" title="Permalink to this heading">¶</a></h3>
 <p>The binding panel configures a station for a module.</p>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../_images/modules-binding.png" src="../_images/modules-binding.png" />
-</div>
+</figure>
 <p>It is separated into 3 main areas: the station tree (red + orange), the
 binding content (green) and the module tree (blue + magenta).</p>
 <p>The station tree (red) shows a tree of all available networks and their
@@ -295,68 +298,70 @@ The upper/blue window contains the modules and all available binding profiles
 for each module and the lower/magenta part shows all binding profiles of the
 currently selected module. This view is used to add new profiles and delete
 existing profiles.</p>
-<div class="section" id="station-bindings">
-<h4>Station bindings<a class="headerlink" href="#station-bindings" title="Permalink to this headline">¶</a></h4>
+<section id="station-bindings">
+<h4>Station bindings<a class="headerlink" href="#station-bindings" title="Permalink to this heading">¶</a></h4>
 <p>To create an exclusive station binding for a module, it must be opened in the
 binding view (orange box) by either selecting a station in the station tree
 (red) or opening/clicking that station in the binding view (orange). The
 binding view will then contain all currently configured bindings.</p>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../_images/modules-bindings-station.png" src="../_images/modules-bindings-station.png" />
-</div>
+</figure>
 <p>Clicking with the right mouse button into the free area will open a menu which
 allows to add a binding for a module which has not yet been added. Adding
 a binding will activate it and bring its content into the content panel.</p>
 <p>To convert an existing profile into a station binding, right click on the
 binding icon and select <span class="menuselection">Change profile ‣ None</span>. The existing
 profile will be converted into a station binding and activated for editing.</p>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../_images/modules-bindings-convert.png" src="../_images/modules-bindings-convert.png" />
-</div>
-</div>
-<div class="section" id="profiles">
-<h4>Profiles<a class="headerlink" href="#profiles" title="Permalink to this headline">¶</a></h4>
+</figure>
+</section>
+<section id="profiles">
+<h4>Profiles<a class="headerlink" href="#profiles" title="Permalink to this heading">¶</a></h4>
 <p>To assign a binding profile to a station, a network or a set of stations/networks,
 drag a profile from the right part (blue or magenta) to the left part (red or
 orange). It is also possible to drag and drop multiple profiles with one action.</p>
-</div>
-</div>
-<div class="section" id="editing">
-<span id="scconfig-editing"></span><h3>Editing<a class="headerlink" href="#editing" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="editing">
+<span id="scconfig-editing"></span><h3>Editing<a class="headerlink" href="#editing" title="Permalink to this heading">¶</a></h3>
 <p>The content panel of a configuration is organized as a tree. Each module/binding
 name is a toplevel item and all namespace are titles of collapsible sections.
 Namespaces are separated by dot in the configuration file, e.g.: scautopick.cfg
 which also reads global.cfg would end up in a tree like this:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>+ global
-<span class="p">|</span>  <span class="p">|</span>
-<span class="p">|</span>  +-- connection
-<span class="p">|</span>  <span class="p">|</span>    <span class="p">|</span>
-<span class="p">|</span>  <span class="p">|</span>    +-- server <span class="o">(</span>global.cfg: connection.server<span class="o">)</span>
-<span class="p">|</span>  <span class="p">|</span>    <span class="p">|</span>
-<span class="p">|</span>  <span class="p">|</span>    +-- username <span class="o">(</span>global.cfg: connection.username<span class="o">)</span>
-<span class="p">|</span>  <span class="p">|</span>
-<span class="p">|</span>  +-- database <span class="o">(</span>global.cfg: database<span class="o">)</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>+<span class="w"> </span>global
+<span class="p">|</span><span class="w">  </span><span class="p">|</span>
+<span class="p">|</span><span class="w">  </span>+--<span class="w"> </span>connection
+<span class="p">|</span><span class="w">  </span><span class="p">|</span><span class="w">    </span><span class="p">|</span>
+<span class="p">|</span><span class="w">  </span><span class="p">|</span><span class="w">    </span>+--<span class="w"> </span>server<span class="w"> </span><span class="o">(</span>global.cfg:<span class="w"> </span>connection.server<span class="o">)</span>
+<span class="p">|</span><span class="w">  </span><span class="p">|</span><span class="w">    </span><span class="p">|</span>
+<span class="p">|</span><span class="w">  </span><span class="p">|</span><span class="w">    </span>+--<span class="w"> </span>username<span class="w"> </span><span class="o">(</span>global.cfg:<span class="w"> </span>connection.username<span class="o">)</span>
+<span class="p">|</span><span class="w">  </span><span class="p">|</span>
+<span class="p">|</span><span class="w">  </span>+--<span class="w"> </span>database<span class="w"> </span><span class="o">(</span>global.cfg:<span class="w"> </span>database<span class="o">)</span>
 <span class="p">|</span>
-+ scautopick
-   <span class="p">|</span>
-   +-- connection
-   <span class="p">|</span>    <span class="p">|</span>
-   <span class="p">|</span>    +-- server <span class="o">(</span>scautopick.cfg: connection.server<span class="o">)</span>
-   <span class="p">|</span>    <span class="p">|</span>
-   <span class="p">|</span>    +-- username <span class="o">(</span>scautopick.cfg: connection.username<span class="o">)</span>
-   <span class="p">|</span>
-   +-- database <span class="o">(</span>scautopick.cfg: database<span class="o">)</span>
++<span class="w"> </span>scautopick
+<span class="w">   </span><span class="p">|</span>
+<span class="w">   </span>+--<span class="w"> </span>connection
+<span class="w">   </span><span class="p">|</span><span class="w">    </span><span class="p">|</span>
+<span class="w">   </span><span class="p">|</span><span class="w">    </span>+--<span class="w"> </span>server<span class="w"> </span><span class="o">(</span>scautopick.cfg:<span class="w"> </span>connection.server<span class="o">)</span>
+<span class="w">   </span><span class="p">|</span><span class="w">    </span><span class="p">|</span>
+<span class="w">   </span><span class="p">|</span><span class="w">    </span>+--<span class="w"> </span>username<span class="w"> </span><span class="o">(</span>scautopick.cfg:<span class="w"> </span>connection.username<span class="o">)</span>
+<span class="w">   </span><span class="p">|</span>
+<span class="w">   </span>+--<span class="w"> </span>database<span class="w"> </span><span class="o">(</span>scautopick.cfg:<span class="w"> </span>database<span class="o">)</span>
 </pre></div>
 </div>
 <p>Figure <a class="reference internal" href="#fig-scconfig-modules-global"><span class="std std-ref">Content panel layout</span></a> describes each item in the content
 panel.</p>
-<div class="figure align-center" id="id3">
+<figure class="align-center" id="id3">
 <span id="fig-scconfig-modules-global"></span><img alt="../_images/modules-global.png" src="../_images/modules-global.png" />
-<p class="caption"><span class="caption-text">Content panel layout</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</div>
-<div class="figure align-right">
+<figcaption>
+<p><span class="caption-text">Content panel layout</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-right">
 <img alt="../_images/config-typing.png" src="../_images/config-typing.png" />
-</div>
+</figure>
 <p>The content of the input widget (except for boolean types which are mapped
 to a simple checkbox) is the raw content of the configuration file without parsing.
 While typing a box pops up which contains the parsed and interpreted content as
@@ -375,15 +380,15 @@ stages. If the system configuration is active but a parameter has set in the
 user configuration it cannot be overriden in the system configuration. The user
 configuration is always of higher priority. scconfig will detect such problems
 and will color the input widget red in such situations.</p>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../_images/config-warning.png" src="../_images/config-warning.png" />
-</div>
+</figure>
 <p>The value in the edit widget will show the currently configured value in the
 active configuration file but the tooltip will show the evaluated value, the
 location of the definition and a warning.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -396,14 +401,15 @@ location of the definition and a warning.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">scconfig</a><ul>
 <li><a class="reference internal" href="#description">Description</a><ul>
 <li><a class="reference internal" href="#first-start">First start</a></li>
@@ -424,12 +430,17 @@ location of the definition and a warning.</p>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="sccnv.html"
-                        title="previous chapter">sccnv</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="scdb.html"
-                        title="next chapter">scdb</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="sccnv.html"
+                          title="previous chapter">sccnv</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="scdb.html"
+                          title="next chapter">scdb</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -449,7 +460,7 @@ location of the definition and a warning.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.3</b> Release
+		  Version <b>5.5.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

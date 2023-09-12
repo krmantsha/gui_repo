@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SLINKTOOL" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-slinktool \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,11 +27,14 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SLINKTOOL" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+slinktool \- SeisComP Documentation
 .sp
 \fBSeedLink query interface module\fP
 .SH DESCRIPTION
 .sp
-slinktool connects to a seedlink server and queries the server for information
+slinktool connects to a \fI\%seedlink\fP server and queries the server for information
 or requests data using uni\-station or multi\-station mode and prints information
 about the packets received. All received packets can optionally be dumped to a
 single file or saved in custom directory and file layouts.
@@ -143,11 +143,11 @@ As an example, all US network data can be requested using the following syntax
 SeedLink selectors are used to request specific types of data within a given data
 stream, in effect limiting the default action of sending all data types.
 A data packet is sent to the client if it matches any positive selector
-(without leading "!") and doesn\(aqt match any negative selectors (with a leading "!").
+(without leading \(dq!\(dq) and doesn\(aqt match any negative selectors (with a leading \(dq!\(dq).
 The general format of selectors is LLSSS.T, where LL is location, SSS is channel
 and T is type (one of [DECOTL] for Data, Event, Calibration, Blockette, Timing,
-and Log records). "LL", ".T", and "LLSSS." can be omitted, implying anything in
-that field. It is also possible to use "?" in place of L and S as a single character
+and Log records). \(dqLL\(dq, \(dq.T\(dq, and \(dqLLSSS.\(dq can be omitted, implying anything in
+that field. It is also possible to use \(dq?\(dq in place of L and S as a single character
 wildcard. Multiple selectors are separated by space(s).
 .sp
 Examples:
@@ -346,7 +346,7 @@ Print program usage and exit.
 .INDENT 0.0
 .TP
 .B \-v
-Be more verbose. This flag can be used multiple times ("\-v \-v" or "\-vv")
+Be more verbose. This flag can be used multiple times (\(dq\-v \-v\(dq or \(dq\-vv\(dq)
 for more verbosity. One flag: report basic handshaking (link configuration) details and
 briefly report each packet received. Two flags: report the details of the handshaking,
 each packet received and detailed connection diagnostics.
@@ -360,7 +360,7 @@ Ping the server, report the server ID and exit.
 .TP
 .B \-p
 Print details of received Mini\-SEED data records. This flag can be used multiple times
-("\-p \-p" or "\-pp") for more detail. One flag: a single summary line
+(\(dq\-p \-p\(dq or \(dq\-pp\(dq) for more detail. One flag: a single summary line
 for each data packet received. Two flags: details of the Mini\-SEED data records received,
 including information from fixed header and 100/1000/1001 blockettes.
 .UNINDENT
@@ -405,14 +405,14 @@ received. Otherwise the state will be saved only on normal program termination.
 .INDENT 0.0
 .TP
 .B \-d
-Configure the connection in "dial\-up" mode. The remote server will close the connection when
+Configure the connection in \(dqdial\-up\(dq mode. The remote server will close the connection when
 it has sent all of the data in its buffers for the selected data streams. This is opposed to
 the normal behavior of waiting indefinitely for data.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-b
-Configure the connection in "batch" mode.
+Configure the connection in \(dqbatch\(dq mode.
 .UNINDENT
 .SS Data stream selection
 .INDENT 0.0
@@ -434,7 +434,7 @@ Define a stream list for multi\-station mode.
 .sp
 \(aqstream\(aq is in NET_STA format, for example:
 .sp
-\-S "IU_KONO:BHE BHN,GE_WLF,MN_AQU:HH?.D"
+\-S \(dqIU_KONO:BHE BHN,GE_WLF,MN_AQU:HH?.D\(dq
 .UNINDENT
 .INDENT 0.0
 .TP

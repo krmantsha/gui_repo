@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCCONFIG" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scconfig \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCCONFIG" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scconfig \- SeisComP Documentation
 .sp
 \fBConfiguration and system managment frontend.\fP
 .SH DESCRIPTION
@@ -82,12 +82,12 @@ its new installation.
 .UNINDENT
 .UNINDENT
 .sp
-If done already with the command line interface
+If done already with the \fI\%command line interface\fP
 this step can be skipped. If the setup has been run already is indicated by
 the presence of the file \fBvar/run/seiscomp.init\fP\&.
 .sp
 If pressing yes, the setup wizard will be started and will configure exactly
-the same parameters as described in getting\-started\&.
+the same parameters as described in \fI\%Getting Started with SeisComP\fP\&.
 .INDENT 0.0
 .INDENT 2.5
 [image]
@@ -157,7 +157,7 @@ autoloc.grid = @CONFIGDIR@/autoloc/local.grid
 .UNINDENT
 .SS System panel
 .sp
-The system panel is a graphical frontend for the seiscomp script.
+The system panel is a graphical frontend for the \fI\%seiscomp\fP script.
 .INDENT 0.0
 .INDENT 2.5
 [image]
@@ -264,7 +264,7 @@ The toolbar support 3 additional actions:
 .TP
 .B \fITest sync\fP
 The inventory XML files are not used directly with SeisComP. They need to
-be synchronized with the database first (see global\-stations).
+be synchronized with the database first (see \fI\%Station meta data\fP).
 Synchronization needs to merge all existing XML files and create differences
 against the existing database tables. While merging conflicts can occur such
 as duplicate stations with different content (e.g. different description).

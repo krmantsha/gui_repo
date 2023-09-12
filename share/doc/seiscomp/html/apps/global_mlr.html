@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>MLr &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../_static/seiscomp.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="iLoc" href="global_iloc.html" />
@@ -25,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.3</span>
+          <span class="version">5.5.4</span>
         </div>
       </div>
     </div>
@@ -71,11 +72,11 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="mlr">
-<span id="global-mlr"></span><h1>MLr<a class="headerlink" href="#mlr" title="Permalink to this headline">¶</a></h1>
+  <section id="mlr">
+<span id="global-mlr"></span><h1>MLr<a class="headerlink" href="#mlr" title="Permalink to this heading">¶</a></h1>
 <p>The GNS/Geonet local magnitude</p>
-<div class="section" id="description">
-<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
 <p>The MLr magnitude provides a GNS/Geonet local magnitude (<span id="id1">Ristau <em>et al.</em> [<a class="reference internal" href="../base/references.html#id63" title="J. Ristau, D. Harte, and J. Salichon. A Revised Local Magnitude (ML) Scale for New Zealand Earthquakes. Bull. Seismol. Soc. Am., 106(2):, 2016. doi:10.1785/0120150293.">54</a>]</span>).
 MLr magnitudes are implemented by the <em>mlr</em> plugin.
 It is a modified version of the gempa ML magnitude developed
@@ -84,13 +85,13 @@ at the Liverpool developer meeting (<span id="id2"><em>gempa GmbH</em> [<a class
 The <em>mlr</em> plugin is designed to use the MLv station amplitudes for computing
 MLr magnitudes.
 The magnitude uses a station correction term and the hypocentral distance.</p>
-</div>
-<div class="section" id="amplitude">
-<h2>Amplitude<a class="headerlink" href="#amplitude" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="amplitude">
+<h2>Amplitude<a class="headerlink" href="#amplitude" title="Permalink to this heading">¶</a></h2>
 <p>The MLr amplitude calculation is that of <a class="reference internal" href="global_mlv.html#global-mlv"><span class="std std-ref">MLv</span></a>.</p>
-</div>
-<div class="section" id="station-magnitude">
-<h2>Station Magnitude<a class="headerlink" href="#station-magnitude" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="station-magnitude">
+<h2>Station Magnitude<a class="headerlink" href="#station-magnitude" title="Permalink to this heading">¶</a></h2>
 <p>The <em>mLr</em> plugin calculates individual MLr station local magnitudes from
 <a class="reference internal" href="global_mlv.html#global-mlv"><span class="std std-ref">MLv</span></a> amplitudes as:</p>
 <div class="math">
@@ -114,21 +115,21 @@ The option “nomag” disables the station magnitude.</p>
 <li><p>Distance range: 0 - 20 deg (hypocentral distance, hard-coded)</p></li>
 <li><p>Depth range: 0 - 800 km (hard-coded)</p></li>
 </ul>
-</div>
-<div class="section" id="network-magnitude">
-<h2>Network magnitude<a class="headerlink" href="#network-magnitude" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="network-magnitude">
+<h2>Network magnitude<a class="headerlink" href="#network-magnitude" title="Permalink to this heading">¶</a></h2>
 <p>The GNS/Geonet Mlr local magnitude is using the default <cite>SeisComP</cite> behaviour for
 the automatic network magnitudes.
 Hard-coded ranges are 0-20 degrees maximum distance and 800 km maximum depth.</p>
-</div>
-<div class="section" id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
 <p>Add the mlr plugin to the existing plugins in the global configuration.
 Set the calibration parameters in the global bindings. Add MLr to the list of
 magnitudes in the configuration of <a class="reference internal" href="scamp.html#scamp"><span class="std std-ref">scamp</span></a> and <a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a> for computation
 and in <a class="reference internal" href="scesv.html#scesv"><span class="std std-ref">scesv</span></a> for visibility.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -141,14 +142,15 @@ and in <a class="reference internal" href="scesv.html#scesv"><span class="std st
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">MLr</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
 <li><a class="reference internal" href="#amplitude">Amplitude</a></li>
@@ -159,12 +161,17 @@ and in <a class="reference internal" href="scesv.html#scesv"><span class="std st
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="global_md.html"
-                        title="previous chapter">Md</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="global_iloc.html"
-                        title="next chapter">iLoc</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="global_md.html"
+                          title="previous chapter">Md</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="global_iloc.html"
+                          title="next chapter">iLoc</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -184,7 +191,7 @@ and in <a class="reference internal" href="scesv.html#scesv"><span class="std st
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.3</b> Release
+		  Version <b>5.5.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

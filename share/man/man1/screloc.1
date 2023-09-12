@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCRELOC" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-screloc \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCRELOC" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+screloc \- SeisComP Documentation
 .sp
 \fBAutomatic relocator.\fP
 .SH DESCRIPTION
@@ -83,7 +83,7 @@ seiscomp exec screloc \-\-debug
 .SH SETUP
 .sp
 The following example configuration shows a setup of screloc for
-NonLinLoc:
+\fI\%NonLinLoc\fP:
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -99,7 +99,7 @@ reloc.locator = NonLinLoc
 # This helps to identify pairs of origins before and after relocation.
 # However, new publicIDs are unrelated to the time of creation.
 # If not defined, a new publicID will be generated automatically.
-reloc.originIDSuffix = "#relocated"
+reloc.originIDSuffix = \(dq#relocated\(dq
 
 ########################################################
 ################ NonLinLoc configuration################
@@ -123,7 +123,7 @@ NonLinLoc.profiles = swiss_3d, global
 
 # The earthModelID is copied to earthModelID attribute of the
 # resulting origin
-NonLinLoc.profile.swiss_1d.earthModelID = "swiss regional 1D"
+NonLinLoc.profile.swiss_1d.earthModelID = \(dqswiss regional 1D\(dq
 
 # Specify the velocity model table path as used by NonLinLoc
 NonLinLoc.profile.swiss_1d.tablePath = ${NLLROOT}/time_1d_regio/regio
@@ -135,7 +135,7 @@ NonLinLoc.profile.swiss_1d.region = 41.2, 3.8, 50.1, 16.8
 NonLinLoc.profile.swiss_1d.controlFile = ${NLLROOT}/NLL.swiss_1d.conf
 
 # Configure the swiss_3d profile
-NonLinLoc.profile.swiss_3d.earthModelID = "swiss regional 3D"
+NonLinLoc.profile.swiss_3d.earthModelID = \(dqswiss regional 3D\(dq
 NonLinLoc.profile.swiss_3d.tablePath = ${NLLROOT}/time_3d/ch
 NonLinLoc.profile.swiss_3d.region = 45.15, 5.7, 48.3, 11.0
 NonLinLoc.profile.swiss_3d.controlFile = ${NLLROOT}/NLL.swiss_3d.conf
@@ -151,9 +151,9 @@ NonLinLoc.profile.global.controlFile = ${NLLROOT}/NLL.global.conf
 .SH EXAMPLES
 .INDENT 0.0
 .IP \(bu 2
-Run screloc to with a specific velocity model given in a profile by NonLinLoc\&.
+Run screloc to with a specific velocity model given in a profile by \fI\%NonLinLoc\fP\&.
 Use a specific userID and authorID for uniquely recognizing the relocation.
-Changing the priority in scevent before running the example, e.g. to
+Changing the priority in \fI\%scevent\fP before running the example, e.g. to
 TIME_AUTOMATIC, sets the latest origin (which will be created by screloc) to preferred.
 .INDENT 2.0
 .INDENT 3.5
@@ -163,13 +163,13 @@ TIME_AUTOMATIC, sets the latest origin (which will be created by screloc) to pre
 # set specific velocity profile defined for NonLinLoc
 profile=<your_profile>
 # set userID
-userID="<your_user>"
+userID=\(dq<your_user>\(dq
 # set authorID
-authorID="<screloc>"
+authorID=\(dq<screloc>\(dq
 
 for i in \(gascevtls \-d mysql://sysop:sysop@localhost/seiscomp \-\-begin \(aq2015\-01\-01 00:00:00\(aq \-\-end \(aq2015\-02\-01 00:00:00\(aq\(ga; do
 
-    orgID=\(gaecho "select preferredOriginID from Event,PublicObject where Event._oid=PublicObject._oid and PublicObject.publicID=\(aq$i\(aq" |\e
+    orgID=\(gaecho \(dqselect preferredOriginID from Event,PublicObject where Event._oid=PublicObject._oid and PublicObject.publicID=\(aq$i\(aq\(dq |\e
     mysql \-u sysop \-p sysop \-D seiscomp \-h localhost \-N\(ga
 
     screloc \-O $orgID \-d localhost \-\-locator NonLinLoc \-\-profile $profile \-u $userID \-\-debug \-\-author=$authorID
@@ -191,7 +191,7 @@ done
 .fi
 .sp
 .sp
-screloc inherits global options\&.
+screloc inherits \fI\%global options\fP\&.
 .INDENT 0.0
 .TP
 .B reloc.locator
@@ -331,7 +331,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
@@ -388,22 +388,22 @@ Use alternative log file.
 .INDENT 0.0
 .TP
 .B \-u, \-\-user arg
-Overrides configuration parameter \fBconnection.username\fP\&.
+Overrides configuration parameter \fI\%connection.username\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-H, \-\-host arg
-Overrides configuration parameter \fBconnection.server\fP\&.
+Overrides configuration parameter \fI\%connection.server\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-t, \-\-timeout arg
-Overrides configuration parameter \fBconnection.timeout\fP\&.
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-g, \-\-primary\-group arg
-Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -414,7 +414,7 @@ This option can be given more than once.
 .INDENT 0.0
 .TP
 .B \-\-content\-type arg
-Overrides configuration parameter \fBconnection.contentType\fP\&.
+Overrides configuration parameter \fI\%connection.contentType\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -432,8 +432,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -476,7 +476,7 @@ Use current picks weight
 .INDENT 0.0
 .TP
 .B \-\-evaluation\-mode arg
-set origin evaluation mode: "AUTOMATIC" or "MANUAL"
+set origin evaluation mode: \(dqAUTOMATIC\(dq or \(dqMANUAL\(dq
 .UNINDENT
 .INDENT 0.0
 .TP

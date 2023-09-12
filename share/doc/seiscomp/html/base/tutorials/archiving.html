@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Set up local waveform archiving &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/seiscomp.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../../_static/seiscomp.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Configure real-time processing" href="processing.html" />
@@ -25,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.3</span>
+          <span class="version">5.5.4</span>
         </div>
       </div>
     </div>
@@ -68,8 +69,8 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="set-up-local-waveform-archiving">
-<span id="tutorials-archiving"></span><h1>Set up local waveform archiving<a class="headerlink" href="#set-up-local-waveform-archiving" title="Permalink to this headline">¶</a></h1>
+  <section id="set-up-local-waveform-archiving">
+<span id="tutorials-archiving"></span><h1>Set up local waveform archiving<a class="headerlink" href="#set-up-local-waveform-archiving" title="Permalink to this heading">¶</a></h1>
 <p>You will …</p>
 <ul class="simple">
 <li><p>Set up <a class="reference internal" href="../../apps/slarchive.html#slarchive"><span class="std std-ref">slarchive</span></a> with its necessary bindings</p></li>
@@ -87,7 +88,7 @@ somewhere else (see <a class="reference internal" href="waveforms.html#tutorials
 <p>Afterwards/Results/Outcomes:</p>
 <ul class="simple">
 <li><p>Save real-time data in a local archive for later processing.</p></li>
-<li><p>See <a class="reference internal" href="../glossary.html#term-miniseed"><span class="xref std std-term">miniSEED</span></a> day files for GE stations in your local <a class="reference internal" href="../concepts/waveformarchives.html#concepts-waveformarchives"><span class="std std-ref">waveform archive</span></a>.</p></li>
+<li><p>See <a class="reference internal" href="../glossary.html#term-miniSeed"><span class="xref std std-term">miniSEED</span></a> day files for GE stations in your local <a class="reference internal" href="../concepts/waveformarchives.html#concepts-waveformarchives"><span class="std std-ref">waveform archive</span></a>.</p></li>
 </ul>
 <p>Time range estimate:</p>
 <ul class="simple">
@@ -108,10 +109,10 @@ Before starting, you’ll need bindings for your stations;
 see the tutorials <a class="reference internal" href="geofon_waveforms.html#tutorials-geofon-waveforms"><span class="std std-ref">Add real-time stations from GEOFON</span></a>
 or <a class="reference internal" href="waveforms.html#tutorials-waveforms"><span class="std std-ref">Get real-time data from a remote Seedlink server (single station)</span></a>.</p>
 <p>The <strong class="program">slarchive</strong> collects data and archives it
-locally using a <a class="reference internal" href="../glossary.html#term-sds"><span class="xref std std-term">SDS</span></a> file system structure of
+locally using a <a class="reference internal" href="../glossary.html#term-SDS"><span class="xref std std-term">SDS</span></a> file system structure of
 nested subdirectories and systematically named files.</p>
-<div class="section" id="in-scconfig">
-<h2>In scconfig<a class="headerlink" href="#in-scconfig" title="Permalink to this headline">¶</a></h2>
+<section id="in-scconfig">
+<h2>In scconfig<a class="headerlink" href="#in-scconfig" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic">
 <li><p>Under the Modules tab, go to Acquisition, and select <strong class="program">slarchive</strong>.
 Here you can see the default parameters used.
@@ -151,11 +152,11 @@ by setting “<a class="reference internal" href="../../apps/slarchive.html#conf
 Make sure the <strong class="program">slarchive</strong> module, or no module, is selected.</p></li>
 <li><p>Restart <strong class="program">slarchive</strong>.</p></li>
 <li><p>Adjust the <a class="reference internal" href="../concepts/recordstream.html#concepts-recordstream"><span class="std std-ref">RecordStream</span></a> for making use of the archived waveforms
-from within a <a class="reference internal" href="../glossary.html#term-gui"><span class="xref std std-term">GUI</span></a> or automatic data processing modules.</p></li>
+from within a <a class="reference internal" href="../glossary.html#term-GUI"><span class="xref std std-term">GUI</span></a> or automatic data processing modules.</p></li>
 </ol>
-</div>
-<div class="section" id="command-line">
-<h2>Command line<a class="headerlink" href="#command-line" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="command-line">
+<h2>Command line<a class="headerlink" href="#command-line" title="Permalink to this heading">¶</a></h2>
 <p>You will need to edit each of your top-level key files to refer to
 a new binding profile.
 e.g.:</p>
@@ -223,9 +224,9 @@ ARCH_KEEP feature.
 A convenient way to do this for many stations is with
 multiple binding profiles, one for each length of time desired.</p>
 </div>
-</div>
-<div class="section" id="checking-archiving-is-functioning">
-<h2>Checking archiving is functioning<a class="headerlink" href="#checking-archiving-is-functioning" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="checking-archiving-is-functioning">
+<h2>Checking archiving is functioning<a class="headerlink" href="#checking-archiving-is-functioning" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>If <strong class="program">seedlink</strong> is configured correctly, a new station’s streams
 appears in output from <strong class="program">slinktool</strong>:</p>
@@ -241,23 +242,23 @@ The second time shown is the time of the most recent data for each stream.</p>
 <li><p>If <strong class="program">slarchive</strong> is configured correctly, waveform data for the
 station appears in <strong class="program">slarchive</strong>’s SDS archive directory:</p>
 <blockquote>
-<div><div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ ls -l seiscomp/var/lib/archive/2020/GR/CLL
-total <span class="m">12</span>
-drwxr-xr-x <span class="m">2</span> user user <span class="m">4096</span> Apr  <span class="m">1</span> <span class="m">06</span>:30 HHE.D
-drwxr-xr-x <span class="m">2</span> user user <span class="m">4096</span> Apr  <span class="m">1</span> <span class="m">06</span>:30 HHN.D
-drwxr-xr-x <span class="m">2</span> user user <span class="m">4096</span> Apr  <span class="m">1</span> <span class="m">06</span>:30 HHZ.D
+<div><div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>seiscomp/var/lib/archive/2020/GR/CLL
+total<span class="w"> </span><span class="m">12</span>
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>user<span class="w"> </span>user<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Apr<span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">06</span>:30<span class="w"> </span>HHE.D
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>user<span class="w"> </span>user<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Apr<span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">06</span>:30<span class="w"> </span>HHN.D
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>user<span class="w"> </span>user<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Apr<span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">06</span>:30<span class="w"> </span>HHZ.D
 
-$ ls -l seiscomp/var/lib/archive/2020/GR/CLL/HHZ.D/
-total <span class="m">12728</span>
--rw-r--r-- <span class="m">1</span> user user <span class="m">5492224</span> Mar <span class="m">31</span> <span class="m">00</span>:04 GR.CLL..BHZ.D.2020.090
--rw-r--r-- <span class="m">1</span> user user <span class="m">7531008</span> Apr  <span class="m">1</span> <span class="m">00</span>:03 GR.CLL..BHZ.D.2020.091
+$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>seiscomp/var/lib/archive/2020/GR/CLL/HHZ.D/
+total<span class="w"> </span><span class="m">12728</span>
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>user<span class="w"> </span>user<span class="w"> </span><span class="m">5492224</span><span class="w"> </span>Mar<span class="w"> </span><span class="m">31</span><span class="w"> </span><span class="m">00</span>:04<span class="w"> </span>GR.CLL..BHZ.D.2020.090
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>user<span class="w"> </span>user<span class="w"> </span><span class="m">7531008</span><span class="w"> </span>Apr<span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>GR.CLL..BHZ.D.2020.091
 </pre></div>
 </div>
 </div></blockquote>
 </li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -270,14 +271,15 @@ total <span class="m">12728</span>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../../index.html">Table of Contents</a></h3>
-  <ul>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Set up local waveform archiving</a><ul>
 <li><a class="reference internal" href="#in-scconfig">In scconfig</a></li>
 <li><a class="reference internal" href="#command-line">Command line</a></li>
@@ -286,12 +288,17 @@ total <span class="m">12728</span>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="waveforms.html"
-                        title="previous chapter">Get real-time data from a remote Seedlink server (single station)</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="processing.html"
-                        title="next chapter">Configure real-time processing</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="waveforms.html"
+                          title="previous chapter">Get real-time data from a remote Seedlink server (single station)</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="processing.html"
+                          title="next chapter">Configure real-time processing</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -311,7 +318,7 @@ total <span class="m">12728</span>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.3</b> Release
+		  Version <b>5.5.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

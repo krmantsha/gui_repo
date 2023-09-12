@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCXMLMERGE" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scxmlmerge \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,17 +27,20 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCXMLMERGE" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scxmlmerge \- SeisComP Documentation
 .sp
 \fBMerge the content of multiple XML files in SCML format.\fP
 .SH DESCRIPTION
 .sp
-scxmlmerge reads all \fISeisComP\fP elements from one or more XML files in SCML
+scxmlmerge reads all \fISeisComP\fP elements from one or more XML files in \fI\%SCML\fP
 format. It merges the content and prints the result to standard output. The
-input can contain and SeisComP element and the
+input can contain and \fI\%SeisComP element\fP and the
 content can be filtered to print only some elements such as EventParameters.
 The output can be redirected into one single file and used by other applications.
 .sp
-The supported SeisComP elements are:
+The supported \fI\%SeisComP elements\fP are:
 .INDENT 0.0
 .IP \(bu 2
 Config
@@ -62,9 +62,9 @@ Use options to restrict the element types.
 There are alternative modules for processing inventory XML files:
 .INDENT 0.0
 .IP \(bu 2
-scinv: Merge inventory XML files, extract inventory information.
+\fI\%scinv\fP: Merge inventory XML files, extract inventory information.
 .IP \(bu 2
-invextr: Extract and filter inventory information.
+\fI\%invextr\fP: Extract and filter inventory information.
 .UNINDENT
 .SH EXAMPLES
 .INDENT 0.0
@@ -105,7 +105,7 @@ scxmlmerge \-E \-C file1.xml file2.xml > file.xml
 .fi
 .sp
 .sp
-scxmlmerge inherits global options\&.
+scxmlmerge inherits \fI\%global options\fP\&.
 .SH COMMAND-LINE OPTIONS
 .sp
 \fBscxmlmerge [options] inputFiles\fP

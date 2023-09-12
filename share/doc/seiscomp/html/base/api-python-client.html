@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>seiscomp.client &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../_static/seiscomp.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Examples" href="sdk-python-examples.html" />
@@ -25,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.3</span>
+          <span class="version">5.5.4</span>
         </div>
       </div>
     </div>
@@ -74,8 +75,8 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="module-seiscomp.client">
-<span id="seiscomp-client"></span><span id="api-client-python"></span><h1>seiscomp.client<a class="headerlink" href="#module-seiscomp.client" title="Permalink to this headline">¶</a></h1>
+  <section id="module-seiscomp.client">
+<span id="seiscomp-client"></span><span id="api-client-python"></span><h1>seiscomp.client<a class="headerlink" href="#module-seiscomp.client" title="Permalink to this heading">¶</a></h1>
 <p>Modules are meant to be standalone programs doing a particular job. The
 seiscomp.client package focuses on three main aspects:</p>
 <ul class="simple">
@@ -107,8 +108,8 @@ prefixed with <em>handle</em>, e.g. <code class="xref py py-func docutils litera
 <p>When overriding handlers it is always good practise to call the base
 handlers before running custom code.</p>
 </div>
-<div class="section" id="application-class">
-<h2>Application class<a class="headerlink" href="#application-class" title="Permalink to this headline">¶</a></h2>
+<section id="application-class">
+<h2>Application class<a class="headerlink" href="#application-class" title="Permalink to this heading">¶</a></h2>
 <p>The application class is part of the seiscomp.client package. It needs to
 be imported first.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seiscomp.client</span>
@@ -151,33 +152,23 @@ Operator() is a wrapper for <code class="xref py py-func docutils literal notran
 </div>
 <p><code class="xref py py-func docutils literal notranslate"><span class="pre">init()</span></code>, <code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">done()</span></code> are explained in more detail in
 the next sections.</p>
-<div class="section" id="constructor">
-<h3>Constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h3>
+<section id="constructor">
+<h3>Constructor<a class="headerlink" href="#constructor" title="Permalink to this heading">¶</a></h3>
 <p>To create an application, derive from the seiscomp.client.Application class
 and configure it in the constructor.</p>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyApp</span><span class="p">(</span><span class="n">seiscomp</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">Application</span><span class="p">):</span>
-    <span class="c1"># MyApp constructor</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">):</span>
-        <span class="c1"># IMPORTANT: call the base class constructor</span>
-        <span class="n">seiscomp</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">)</span>
-        <span class="c1"># Default is TRUE</span>
-<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">setMessagingEnabled</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-</span>        <span class="c1"># Default is TRUE, TRUE</span>
-<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">setDatabaseEnabled</span><span class="p">(</span><span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
-</span>        <span class="c1"># Default is TRUE</span>
-<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">setDaemonEnabled</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">MyApp</span><span class="p">(</span><span class="n">seiscomp</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">Application</span><span class="p">):</span>
+<span class="linenos"> 2</span>    <span class="c1"># MyApp constructor</span>
+<span class="linenos"> 3</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">):</span>
+<span class="linenos"> 4</span>        <span class="c1"># IMPORTANT: call the base class constructor</span>
+<span class="linenos"> 5</span>        <span class="n">seiscomp</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">)</span>
+<span class="linenos"> 6</span>        <span class="c1"># Default is TRUE</span>
+<span class="hll"><span class="linenos"> 7</span>        <span class="bp">self</span><span class="o">.</span><span class="n">setMessagingEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</span><span class="linenos"> 8</span>        <span class="c1"># Default is TRUE, TRUE</span>
+<span class="hll"><span class="linenos"> 9</span>        <span class="bp">self</span><span class="o">.</span><span class="n">setDatabaseEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+</span><span class="linenos">10</span>        <span class="c1"># Default is TRUE</span>
+<span class="hll"><span class="linenos">11</span>        <span class="bp">self</span><span class="o">.</span><span class="n">setDaemonEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 </span></pre></div>
-</td></tr></table></div>
+</div>
 <p>As marked in line 4, the call of the constructor of the base class is very
 important. It takes the command line parameters and sets up internal
 application variables. Without this call the application will either not run
@@ -201,9 +192,9 @@ file (<a class="reference internal" href="../apps/global.html#global"><span clas
 by the messaging server.</p>
 <p>All application methods are defined in the C++ header file
 <code class="file docutils literal notranslate"><span class="pre">src/trunk/libs/seiscomp/client/application.h</span></code>.</p>
-</div>
-<div class="section" id="init">
-<h3>Init<a class="headerlink" href="#init" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="init">
+<h3>Init<a class="headerlink" href="#init" title="Permalink to this heading">¶</a></h3>
 <p>The workflow of the init function looks like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">init</span> <span class="p">(</span><span class="n">virtual</span><span class="p">)</span>
     <span class="n">initConfiguration</span> <span class="p">(</span><span class="n">virtual</span><span class="p">)</span>
@@ -232,14 +223,14 @@ False and to exit the application with a non-zero result code.</p>
 <p>An example is show below:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">initConfiguration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">seiscomp</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="n">initConfiguration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="kc">False</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_directory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configGetString</span><span class="p">(</span><span class="s2">&quot;directory&quot;</span><span class="p">)</span>
     <span class="k">except</span><span class="p">:</span>
         <span class="k">pass</span>
 
-    <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">return</span> <span class="kc">True</span>
 </pre></div>
 </div>
 <p>This method reads the directory parameter from the configuration file(s) and
@@ -272,23 +263,23 @@ application is aborted with a non-zero result code.</p>
     <span class="c1"># initConfiguration.</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_directory</span><span class="p">:</span>
         <span class="n">seiscomp</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;directory not set&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="kc">False</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_directory</span><span class="p">):</span>
         <span class="n">seiscomp</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="s2">&quot;directory {} does not exist&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_directory</span><span class="p">))</span>
-        <span class="k">return</span> <span class="bp">False</span>
+            <span class="s2">&quot;directory </span><span class="si">{}</span><span class="s2"> does not exist&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_directory</span><span class="p">))</span>
+        <span class="k">return</span> <span class="kc">False</span>
 
-    <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">return</span> <span class="kc">True</span>
 </pre></div>
 </div>
 <p>Custom initialization code after checking all parameters can be placed in the
 overridden method <code class="xref py py-func docutils literal notranslate"><span class="pre">init()</span></code>.</p>
 <p>But be aware that the process forked already if started as daemon. To run before
 the fork, it needs to be put into <code class="xref py py-func docutils literal notranslate"><span class="pre">validateParameters()</span></code>.</p>
-</div>
-<div class="section" id="run">
-<h3>Run<a class="headerlink" href="#run" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="run">
+<h3>Run<a class="headerlink" href="#run" title="Permalink to this heading">¶</a></h3>
 <p>The workflow of the run method looks like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">run</span> <span class="p">(</span><span class="n">virtual</span><span class="p">)</span>
     <span class="n">startMessageThread</span>
@@ -330,9 +321,9 @@ messages by itself and implement this method.</p>
 applied automatically to objects in local memory. If the client has already
 an object in memory and an update notifier for this object is received, the object
 in the notifier is copied to the local object. This behaviour is enabled by default.</p>
-</div>
-<div class="section" id="done">
-<h3>Done<a class="headerlink" href="#done" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="done">
+<h3>Done<a class="headerlink" href="#done" title="Permalink to this heading">¶</a></h3>
 <p>The workflow of the done method looks like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">done</span> <span class="p">(</span><span class="n">virtual</span><span class="p">)</span>
     <span class="n">closeTimer</span>
@@ -351,10 +342,10 @@ void function.</p>
     <span class="n">closeCustomConnections</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="streamapplication-class">
-<h2>StreamApplication class<a class="headerlink" href="#streamapplication-class" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="streamapplication-class">
+<h2>StreamApplication class<a class="headerlink" href="#streamapplication-class" title="Permalink to this heading">¶</a></h2>
 <p>The application class has another occurrence: <code class="xref py py-class docutils literal notranslate"><span class="pre">seiscomp.client.StreamApplication</span></code>.</p>
 <p>The class <code class="xref py py-class docutils literal notranslate"><span class="pre">StreamApplication</span></code> extends the <code class="xref py py-class docutils literal notranslate"><span class="pre">Application</span></code>
 in terms of record acquisition. It spawns another thread that reads the records
@@ -375,18 +366,18 @@ from a configurable source and adds a new handler method
 </div>
 <p>Received records can be handled with <code class="xref py py-func docutils literal notranslate"><span class="pre">handleRecord()</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">handleRecord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rec</span><span class="p">):</span>
-    <span class="k">print</span> <span class="n">rec</span><span class="o">.</span><span class="n">streamID</span><span class="p">()</span>
+    <span class="nb">print</span> <span class="n">rec</span><span class="o">.</span><span class="n">streamID</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>The stream subscription should be done in <code class="xref py py-func docutils literal notranslate"><span class="pre">init()</span></code>. <code class="xref py py-func docutils literal notranslate"><span class="pre">recordStream()</span></code>
 returns the RecordStream instance which can be used to add stream requests.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">seiscomp</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">StreamApplication</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="kc">False</span>
 
     <span class="c1"># Subscribe to some streams</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">recordStream</span><span class="p">()</span><span class="o">.</span><span class="n">addStream</span><span class="p">(</span><span class="s2">&quot;GE&quot;</span><span class="p">,</span> <span class="s2">&quot;MORC&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;BHZ&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">return</span> <span class="kc">True</span>
 </pre></div>
 </div>
 <p>The record stream service is configured either with configuration files
@@ -395,8 +386,8 @@ via command-line options <code class="docutils literal notranslate"><span class=
 <p>The application finishes if the record stream read EOF. Running a <code class="xref py py-class docutils literal notranslate"><span class="pre">StreamApplication</span></code>
 with <a class="reference internal" href="../apps/seedlink.html#seedlink"><span class="std std-ref">Seedlink</span></a> would probably never terminate since it is a
 real time connection and handles reconnects automatically.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -409,14 +400,15 @@ real time connection and handles reconnects automatically.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">seiscomp.client</a><ul>
 <li><a class="reference internal" href="#application-class">Application class</a><ul>
 <li><a class="reference internal" href="#constructor">Constructor</a></li>
@@ -430,12 +422,17 @@ real time connection and handles reconnects automatically.</p>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="api-python.html"
-                        title="previous chapter">seiscomp.datamodel</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="sdk-python-examples.html"
-                        title="next chapter">Examples</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="api-python.html"
+                          title="previous chapter">seiscomp.datamodel</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="sdk-python-examples.html"
+                          title="next chapter">Examples</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -455,7 +452,7 @@ real time connection and handles reconnects automatically.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.3</b> Release
+		  Version <b>5.5.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCMV" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scmv \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCMV" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scmv \- SeisComP Documentation
 .sp
 \fBMap view\fP
 .SH DESCRIPTION
@@ -127,7 +127,7 @@ Event selection widget.UNINDENT
 .sp
 The event information widget opens by right mouse click on an event symbol.
 It shows event details.
-Clicking on the "Show Details" button allows to open the preferred origin of
+Clicking on the \(dqShow Details\(dq button allows to open the preferred origin of
 the event in other GUIs such as in scolv.
 .INDENT 0.0
 .INDENT 2.5
@@ -258,7 +258,7 @@ Press the middle mouse button
 .IP \(bu 2
 Set date & time and latitude, longitude & depth
 .IP \(bu 2
-Press "Create" to open the origin in another GUI, e.g. scolv.
+Press \(dqCreate\(dq to open the origin in another GUI, e.g. scolv.
 [image]
 .UNINDENT
 .SS Search station/network
@@ -281,7 +281,7 @@ Double click in a station in the list to center the map at this location
 .fi
 .sp
 .sp
-scmv inherits global options\&.
+scmv inherits \fI\%global options\fP\&.
 .INDENT 0.0
 .TP
 .B displaymode
@@ -419,14 +419,14 @@ Type: \fIlist:string\fP
 .sp
 The columns that are visible in the table. If nothing
 is specified then all columns are visible. Valid column names are:
-"Event", "Origin Time", "Magnitude",
-"Magnitude Type", "Region", "Latitude",
-"Longitude", "Depth".
+\(dqEvent\(dq, \(dqOrigin Time\(dq, \(dqMagnitude\(dq,
+\(dqMagnitude Type\(dq, \(dqRegion\(dq, \(dqLatitude\(dq,
+\(dqLongitude\(dq, \(dqDepth\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B stations.groundMotionFilter
-Default: \fB"RMHP(50)>>ITAPER(20)>>BW(2,0.04,2)"\fP
+Default: \fB\(dqRMHP(50)>>ITAPER(20)>>BW(2,0.04,2)\(dq\fP
 .sp
 Type: \fIstring\fP
 .sp
@@ -533,7 +533,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
@@ -604,22 +604,22 @@ Equivalent to \-\-verbosity=4 \-\-console=1 \-\-print\-component=1
 .INDENT 0.0
 .TP
 .B \-u, \-\-user arg
-Overrides configuration parameter \fBconnection.username\fP\&.
+Overrides configuration parameter \fI\%connection.username\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-H, \-\-host arg
-Overrides configuration parameter \fBconnection.server\fP\&.
+Overrides configuration parameter \fI\%connection.server\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-t, \-\-timeout arg
-Overrides configuration parameter \fBconnection.timeout\fP\&.
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-g, \-\-primary\-group arg
-Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -630,7 +630,7 @@ This option can be given more than once.
 .INDENT 0.0
 .TP
 .B \-\-content\-type arg
-Overrides configuration parameter \fBconnection.contentType\fP\&.
+Overrides configuration parameter \fI\%connection.contentType\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -648,8 +648,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -678,9 +678,9 @@ List all supported record stream drivers.
 .B \-I, \-\-record\-url arg
 The recordstream source URL, format:
 [\fI\%service://\fP]location[#type].
-"service" is the name of the recordstream driver
-which can be queried with "\-\-record\-driver\-list".
-If "service" is not given, "\fI\%file://\fP" is
+\(dqservice\(dq is the name of the recordstream driver
+which can be queried with \(dq\-\-record\-driver\-list\(dq.
+If \(dqservice\(dq is not given, \(dq\fI\%file://\fP\(dq is
 used.
 .UNINDENT
 .INDENT 0.0
@@ -698,7 +698,7 @@ Specify a type for the records being read.
 .TP
 .B \-\-city\-xml arg
 The path to the cities XML file. This overrides the default
-paths. Compare with the global parameter "citiesXML".
+paths. Compare with the global parameter \(dqcitiesXML\(dq.
 .UNINDENT
 .SS User interface
 .INDENT 0.0

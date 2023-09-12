@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>fdsnws &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../_static/seiscomp.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="ql2sc" href="ql2sc.html" />
@@ -25,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.3</span>
+          <span class="version">5.5.4</span>
         </div>
       </div>
     </div>
@@ -71,11 +72,11 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="fdsnws">
-<span id="id1"></span><h1>fdsnws<a class="headerlink" href="#fdsnws" title="Permalink to this headline">¶</a></h1>
+  <section id="fdsnws">
+<span id="id1"></span><h1>fdsnws<a class="headerlink" href="#fdsnws" title="Permalink to this heading">¶</a></h1>
 <p><strong>Provide FDSN Web Services.</strong></p>
-<div class="section" id="description">
-<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
 <p>fdsnws is a server that provides event and station information by FDSN Web Services
 (<span id="id2"><em>FDSNWS</em> [<a class="reference internal" href="../base/references.html#id106" title="FDSNWS. International Federation of Digital Seismograph Networks. URL: http://www.fdsn.org/webservices/.">8</a>]</span>)
 from a SeisComP database and waveforms from a <a class="reference internal" href="global_recordstream.html#global-recordstream"><span class="std std-ref">RecordStream</span></a> source.
@@ -88,16 +89,11 @@ Service Documentation (<span id="id3"><em>IRIS DMC</em> [<a class="reference int
 the database connection is read-only. fdsnws will never attempt to write
 into the database.</p>
 </div>
-</div>
-<div class="section" id="service-overview">
-<h2>Service Overview<a class="headerlink" href="#service-overview" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="service-overview">
+<h2>Service Overview<a class="headerlink" href="#service-overview" title="Permalink to this heading">¶</a></h2>
 <p>The following services are available:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Service</p></th>
 <th class="head"><p>Provides</p></th>
@@ -111,11 +107,11 @@ into the database.</p>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sec-station"><span class="std std-ref">fdsnws-station</span></a></p></td>
 <td><p>network, station, channel, response metadata</p></td>
-<td><p><a class="reference external" href="http://www.fdsn.org/xml/station/">FDSN Station XML</a>, <a class="reference external" href="http://www.data.scec.org/station/xml.html">StationXML</a>, <a class="reference internal" href="../base/glossary.html#term-scml"><span class="xref std std-term">SCML</span></a></p></td>
+<td><p><a class="reference external" href="http://www.fdsn.org/xml/station/">FDSN Station XML</a>, <a class="reference external" href="http://www.data.scec.org/station/xml.html">StationXML</a>, <a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sec-event"><span class="std std-ref">fdsnws-event</span></a></p></td>
 <td><p>earthquake origin and magnitude estimates</p></td>
-<td><p><a class="reference external" href="https://quake.ethz.ch/quakeml">QuakeML</a>, <a class="reference internal" href="../base/glossary.html#term-scml"><span class="xref std std-term">SCML</span></a></p></td>
+<td><p><a class="reference external" href="https://quake.ethz.ch/quakeml">QuakeML</a>, <a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sec-avail"><span class="std std-ref">ext-availability</span></a></p></td>
 <td><p>waveform data availability information</p></td>
@@ -140,14 +136,14 @@ FDSNWS specification.</p>
 you have to change the URL string in the <code class="docutils literal notranslate"><span class="pre">*.wadl</span></code> documents located under
 <code class="docutils literal notranslate"><span class="pre">$DATADIR/fdsnws</span></code>.</p>
 </div>
-<div class="section" id="dataselect">
-<span id="sec-dataselect"></span><h3>DataSelect<a class="headerlink" href="#dataselect" title="Permalink to this headline">¶</a></h3>
+<section id="dataselect">
+<span id="sec-dataselect"></span><h3>DataSelect<a class="headerlink" href="#dataselect" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Provides time series data in miniSEED format</p></li>
 <li><p>Request type: HTTP-GET, HTTP-POST</p></li>
 </ul>
-<div class="section" id="url">
-<h4>URL<a class="headerlink" href="#url" title="Permalink to this headline">¶</a></h4>
+<section id="url">
+<h4>URL<a class="headerlink" href="#url" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
 <li><p><a class="reference external" href="http://localhost:8080/fdsnws/dataselect/1/builder">http://localhost:8080/fdsnws/dataselect/1/builder</a></p></li>
 <li><p><a class="reference external" href="http://localhost:8080/fdsnws/dataselect/1/query">http://localhost:8080/fdsnws/dataselect/1/query</a></p></li>
@@ -155,9 +151,9 @@ you have to change the URL string in the <code class="docutils literal notransla
 <li><p><a class="reference external" href="http://localhost:8080/fdsnws/dataselect/1/version">http://localhost:8080/fdsnws/dataselect/1/version</a></p></li>
 <li><p><a class="reference external" href="http://localhost:8080/fdsnws/dataselect/1/application.wadl">http://localhost:8080/fdsnws/dataselect/1/application.wadl</a></p></li>
 </ul>
-</div>
-<div class="section" id="example">
-<h4>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="example">
+<h4>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h4>
 <ul>
 <li><p>Request URL for querying waveform data from the GE station BKNI, all BH channels
 on 11 April 2013 between 00:00:00 and 12:00:00:</p>
@@ -165,14 +161,14 @@ on 11 April 2013 between 00:00:00 and 12:00:00:</p>
 </li>
 </ul>
 <p>To submit HTTP-POST requests the command line tool <code class="docutils literal notranslate"><span class="pre">curl</span></code> may be used:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$ curl -X POST --data-binary @request.txt <span class="s2">&quot;http://localhost:8080/fdsnws/dataselect/1/query&quot;</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$<span class="w"> </span>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>--data-binary<span class="w"> </span>@request.txt<span class="w"> </span><span class="s2">&quot;http://localhost:8080/fdsnws/dataselect/1/query&quot;</span>
 </pre></div>
 </div>
 <p>where <em>request.txt</em> contains the POST message body. For details read the
 FDSN specifications.</p>
-</div>
-<div class="section" id="feature-notes">
-<h4>Feature Notes<a class="headerlink" href="#feature-notes" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="feature-notes">
+<h4>Feature Notes<a class="headerlink" href="#feature-notes" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">quality</span></code> parameter not implemented (information not available in SeisComP)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">minimumlength</span></code> parameter is not implemented</p></li>
@@ -191,9 +187,9 @@ and stored in other archives and we do not see the point in modifying them.
 Furthermore we do not want to increase the load on the web server with that
 extra processing step.</p></li>
 </ul>
-</div>
-<div class="section" id="service-configuration">
-<h4>Service Configuration<a class="headerlink" href="#service-configuration" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="service-configuration">
+<h4>Service Configuration<a class="headerlink" href="#service-configuration" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
 <li><p>Activate <a class="reference internal" href="#confval-serveDataSelect"><code class="xref std std-confval docutils literal notranslate"><span class="pre">serveDataSelect</span></code></a> in the module configuration</p></li>
 <li><p>Configure the <a class="reference internal" href="global_recordstream.html#global-recordstream"><span class="std std-ref">RecordStream</span></a> in the module’s global configuration.
@@ -212,10 +208,10 @@ If <a class="reference internal" href="global_recordstream.html#rs-slink"><span 
 service to
 <code class="docutils literal notranslate"><span class="pre">combined://slink/localhost:18000?timeout=1&amp;retries=0;sdsarchive//home/sysop/seiscomp/var/lib/archive</span></code>.</p>
 </div>
-</div>
-</div>
-<div class="section" id="station">
-<span id="sec-station"></span><h3>Station<a class="headerlink" href="#station" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="station">
+<span id="sec-station"></span><h3>Station<a class="headerlink" href="#station" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Provides network, station, channel, response metadata</p></li>
 <li><p>Request type: HTTP-GET, HTTP-POST</p></li>
@@ -224,25 +220,25 @@ information depth level is selectable</p></li>
 <li><p>Optionally handles time-based conditional HTTP-GET requests as specified by
 <a class="reference external" href="https://tools.ietf.org/html/rfc7232">RFC 7232</a>.</p></li>
 </ul>
-<div class="section" id="id5">
-<h4>URL<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<section id="id5">
+<h4>URL<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
 <li><p><a class="reference external" href="http://localhost:8080/fdsnws/station/1/builder">http://localhost:8080/fdsnws/station/1/builder</a></p></li>
 <li><p><a class="reference external" href="http://localhost:8080/fdsnws/station/1/query">http://localhost:8080/fdsnws/station/1/query</a></p></li>
 <li><p><a class="reference external" href="http://localhost:8080/fdsnws/station/1/version">http://localhost:8080/fdsnws/station/1/version</a></p></li>
 <li><p><a class="reference external" href="http://localhost:8080/fdsnws/station/1/application.wadl">http://localhost:8080/fdsnws/station/1/application.wadl</a></p></li>
 </ul>
-</div>
-<div class="section" id="id6">
-<h4>Example<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id6">
+<h4>Example<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h4>
 <ul>
 <li><p>Request URL for querying the information for the GE network on response level:</p>
 <p><a class="reference external" href="http://localhost:8080/fdsnws/station/1/query?net=GE&amp;cha=BH%3F&amp;level=response&amp;nodata=404">http://localhost:8080/fdsnws/station/1/query?net=GE&amp;cha=BH%3F&amp;level=response&amp;nodata=404</a></p>
 </li>
 </ul>
-</div>
-<div class="section" id="id7">
-<h4>Feature Notes<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id7">
+<h4>Feature Notes<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
 <li><p>To enable FDSNXML or StationXML support load the plugin <code class="docutils literal notranslate"><span class="pre">fdsnxml</span></code>. The
 plugin is loaded by default configuration.</p></li>
@@ -266,17 +262,17 @@ would be much too expensive.</p></li>
 </ul>
 <p>The inventory exposed by this service may be restricted, see section
 <a class="reference internal" href="#sec-inv-filter"><span class="std std-ref">Filtering Inventories</span></a>.</p>
-</div>
-</div>
-<div class="section" id="event">
-<span id="sec-event"></span><h3>Event<a class="headerlink" href="#event" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="event">
+<span id="sec-event"></span><h3>Event<a class="headerlink" href="#event" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Provides earthquake origin and magnitude estimates</p></li>
 <li><p>Request type: HTTP-GET</p></li>
 <li><p>Events may be filtered e.g. by hypocenter, time and magnitude</p></li>
 </ul>
-<div class="section" id="id8">
-<h4>URL<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<section id="id8">
+<h4>URL<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
 <li><p><a class="reference external" href="http://localhost:8080/fdsnws/event/1/builder">http://localhost:8080/fdsnws/event/1/builder</a></p></li>
 <li><p><a class="reference external" href="http://localhost:8080/fdsnws/event/1/query">http://localhost:8080/fdsnws/event/1/query</a></p></li>
@@ -285,18 +281,18 @@ would be much too expensive.</p></li>
 <li><p><a class="reference external" href="http://localhost:8080/fdsnws/event/1/version">http://localhost:8080/fdsnws/event/1/version</a></p></li>
 <li><p><a class="reference external" href="http://localhost:8080/fdsnws/event/1/application.wadl">http://localhost:8080/fdsnws/event/1/application.wadl</a></p></li>
 </ul>
-</div>
-<div class="section" id="id9">
-<h4>Example<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id9">
+<h4>Example<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h4>
 <ul>
 <li><p>Request URL for fetching the event parameters within 10 degrees around 50°N/11°E
 starting on 18 April 2013:</p>
 <p><a class="reference external" href="http://localhost:8080/fdsnws/event/1/query?start=2018-06-01&amp;lat=50&amp;lon=11&amp;maxradius=10&amp;nodata=404">http://localhost:8080/fdsnws/event/1/query?start=2018-06-01&amp;lat=50&amp;lon=11&amp;maxradius=10&amp;nodata=404</a></p>
 </li>
 </ul>
-</div>
-<div class="section" id="id10">
-<h4>Feature Notes<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id10">
+<h4>Feature Notes<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
 <li><p><cite>SeisComP</cite> does not distinguish between catalogs and contributors, but
 supports agencyIDs. Hence, if specified, the value of the <code class="docutils literal notranslate"><span class="pre">contributor</span></code>
@@ -330,10 +326,10 @@ with <code class="docutils literal notranslate"><span class="pre">includearrival
 </ul>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="data-availability">
-<span id="sec-avail"></span><h3>Data Availability<a class="headerlink" href="#data-availability" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="data-availability">
+<span id="sec-avail"></span><h3>Data Availability<a class="headerlink" href="#data-availability" title="Permalink to this heading">¶</a></h3>
 <p>The data availability web service returns detailed time span information of
 what time series data is available at the DMC archive. The availability information
 can be created by <a class="reference internal" href="scardac.html#scardac"><span class="std std-ref">scardac</span></a> in the <cite>SeisComP</cite> database from where it is
@@ -345,8 +341,8 @@ to be compatible with the IRIS DMC availability FDSN Web Service
 <li><p>request type: HTTP-GET, HTTP-POST</p></li>
 <li><p>results may be filtered e.g. by channel code, time and quality</p></li>
 </ul>
-<div class="section" id="id12">
-<h4>URL<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<section id="id12">
+<h4>URL<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
 <li><p><a class="reference external" href="http://localhost:8080/ext/availability/1/extent">http://localhost:8080/ext/availability/1/extent</a> - Produces list of available
 time extents (earliest to latest) for selected channels (network, station,
@@ -360,9 +356,9 @@ quality) and time ranges.</p></li>
 form your data time span requests</p></li>
 <li><p><a class="reference external" href="http://localhost:8080/ext/availability/1/version">http://localhost:8080/ext/availability/1/version</a></p></li>
 </ul>
-</div>
-<div class="section" id="examples">
-<h4>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="examples">
+<h4>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h4>
 <ul>
 <li><p>Request URL for data extents of seismic network <code class="docutils literal notranslate"><span class="pre">IU</span></code>:</p>
 <p><a class="reference external" href="http://localhost:8080/fdsnws/ext/availability/1/extent?net=IU">http://localhost:8080/fdsnws/ext/availability/1/extent?net=IU</a></p>
@@ -378,9 +374,9 @@ form your data time span requests</p></li>
 <p class="admonition-title">Note</p>
 <p>Use <a class="reference internal" href="scardac.html#scardac"><span class="std std-ref">scardac</span></a> for creating the availability information.</p>
 </div>
-</div>
-<div class="section" id="id13">
-<h4>Feature Notes<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id13">
+<h4>Feature Notes<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h4>
 <ul>
 <li><p>The IRISWS availability implementation truncates the time spans of the returned
 data extents and segments to the requested start and end times (if any). This
@@ -406,11 +402,11 @@ generated.</p></li>
 </ul>
 </li>
 </ul>
-</div>
-</div>
-</div>
-<div class="section" id="filtering-inventories">
-<span id="sec-inv-filter"></span><h2>Filtering Inventories<a class="headerlink" href="#filtering-inventories" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="filtering-inventories">
+<span id="sec-inv-filter"></span><h2>Filtering Inventories<a class="headerlink" href="#filtering-inventories" title="Permalink to this heading">¶</a></h2>
 <p>The channels served by the <a class="reference internal" href="#sec-station"><span class="std std-ref">Station</span></a> and <a class="reference internal" href="#sec-dataselect"><span class="std std-ref">DataSelect</span></a> services
 may be filtered by specified an INI file in the <code class="docutils literal notranslate"><span class="pre">stationFilter</span></code> and
 <code class="docutils literal notranslate"><span class="pre">dataSelectFilter</span></code> configuration parameter. You may use the same file for both
@@ -418,16 +414,16 @@ services or define a separate configuration set. <strong>Note:</strong> If disti
 names are specified and both services are activated, the inventory is loaded
 twice which will increase the memory consumption of this module.</p>
 <div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Chile]</span>
-<span class="na">code</span> <span class="o">=</span> <span class="s">CX.*.*.*</span>
+<span class="na">code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">CX.*.*.*</span>
 
 <span class="k">[!Exclude station APE]</span>
-<span class="na">code</span> <span class="o">=</span> <span class="s">GE.APE.*.*</span>
+<span class="na">code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">GE.APE.*.*</span>
 
 <span class="k">[German (not restricted)]</span>
-<span class="na">code</span> <span class="o">=</span> <span class="s">GE.*.*.*</span>
-<span class="na">restricted</span> <span class="o">=</span> <span class="s">false</span>
-<span class="na">shared</span> <span class="o">=</span> <span class="s">true</span>
-<span class="na">archive</span> <span class="o">=</span> <span class="s">GFZ</span>
+<span class="na">code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">GE.*.*.*</span>
+<span class="na">restricted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">false</span>
+<span class="na">shared</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span>
+<span class="na">archive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">GFZ</span>
 </pre></div>
 </div>
 <p>The listing above shows a configuration example which includes all Chile
@@ -443,14 +439,6 @@ parameter <code class="docutils literal notranslate"><span class="pre">debugFilt
 station, location, channel). In addition the following optional attributes
 exist:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 17%" />
-<col style="width: 17%" />
-<col style="width: 17%" />
-<col style="width: 17%" />
-<col style="width: 17%" />
-<col style="width: 17%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute</p></th>
 <th class="head"><p>Type</p></th>
@@ -503,9 +491,9 @@ immediately. So the order of the rules is important.</p>
 <p>One may decided to specify a pure whitelist, a pure blacklist, or to mix include
 and exclude rules. If neither a matching include nor exclude rule is found, then
 channel is only added if no other include rule exists in the entire rule set.</p>
-</div>
-<div class="section" id="changing-the-service-port">
-<span id="sec-port"></span><h2>Changing the Service Port<a class="headerlink" href="#changing-the-service-port" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="changing-the-service-port">
+<span id="sec-port"></span><h2>Changing the Service Port<a class="headerlink" href="#changing-the-service-port" title="Permalink to this heading">¶</a></h2>
 <p>The FDSN Web service specification defines that the Service SHOULD be available
 under port 80. Typically <cite>SeisComP</cite> runs under a user without root permissions
 and therefore is not allowed to bind to privileged ports (&lt;1024).
@@ -517,41 +505,41 @@ To serve on port 80 you may for instance</p>
 <li><p>Configure and use <a class="reference internal" href="#sec-authbind"><span class="std std-ref">Authbind</span></a></p></li>
 <li><p>Setup <a class="reference internal" href="#sec-firewall"><span class="std std-ref">Firewall</span></a> redirect rules</p></li>
 </ul>
-</div>
-<div class="section" id="authbind">
-<span id="sec-authbind"></span><h2>Authbind<a class="headerlink" href="#authbind" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="authbind">
+<span id="sec-authbind"></span><h2>Authbind<a class="headerlink" href="#authbind" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">authbind</span></code> allows a program which does not or should not run as root to bind
 to low-numbered ports in a controlled way. Please refer to <code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">authbind</span></code> for
 program descriptions. The following lines show how to install and setup authbind
 for the user <code class="docutils literal notranslate"><span class="pre">sysop</span></code> under the Ubuntu OS.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$ sudo apt-get install authbind
-sysop@host:~$ sudo touch /etc/authbind/byport/80
-sysop@host:~$ sudo chown sysop /etc/authbind/byport/80
-sysop@host:~$ sudo chmod <span class="m">500</span> /etc/authbind/byport/80
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>authbind
+sysop@host:~$<span class="w"> </span>sudo<span class="w"> </span>touch<span class="w"> </span>/etc/authbind/byport/80
+sysop@host:~$<span class="w"> </span>sudo<span class="w"> </span>chown<span class="w"> </span>sysop<span class="w"> </span>/etc/authbind/byport/80
+sysop@host:~$<span class="w"> </span>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">500</span><span class="w"> </span>/etc/authbind/byport/80
 </pre></div>
 </div>
 <p>Once <code class="docutils literal notranslate"><span class="pre">authbind</span></code> is configured correctly the FDSN Web services may be started
 as follows:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$ authbind --deep seiscomp <span class="nb">exec</span> fdsnws
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$<span class="w"> </span>authbind<span class="w"> </span>--deep<span class="w"> </span>seiscomp<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>fdsnws
 </pre></div>
 </div>
 <p>In order use <code class="docutils literal notranslate"><span class="pre">authbind</span></code> when starting <code class="docutils literal notranslate"><span class="pre">fdsnws</span></code> as <cite>SeisComP</cite> service the last
 line in the <code class="docutils literal notranslate"><span class="pre">~/seiscomp/etc/init/fdsnws.py</span></code> have to be commented in.</p>
-</div>
-<div class="section" id="firewall">
-<span id="sec-firewall"></span><h2>Firewall<a class="headerlink" href="#firewall" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="firewall">
+<span id="sec-firewall"></span><h2>Firewall<a class="headerlink" href="#firewall" title="Permalink to this heading">¶</a></h2>
 <p>All major Linux distributions ship with their own firewall implementations which
 are front-ends for the <code class="docutils literal notranslate"><span class="pre">iptables</span></code> kernel functions. The following line
 temporary adds a firewall rule which redirects all incoming traffic on port 8080
 to port 80.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$ sudo iptables -t nat -A PREROUTING -p tcp --dport <span class="m">80</span> -j REDIRECT --to <span class="m">8080</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$<span class="w"> </span>sudo<span class="w"> </span>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">80</span><span class="w"> </span>-j<span class="w"> </span>REDIRECT<span class="w"> </span>--to<span class="w"> </span><span class="m">8080</span>
 </pre></div>
 </div>
 <p>Please refer to the documentation of your particular firewall solution on how to
 set up this rule permanently.</p>
-</div>
-<div class="section" id="authentication-extension">
-<h2>Authentication Extension<a class="headerlink" href="#authentication-extension" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="authentication-extension">
+<h2>Authentication Extension<a class="headerlink" href="#authentication-extension" title="Permalink to this heading">¶</a></h2>
 <p>The FDSNWS standard requires HTTP digest authentication as the
 authentication mechanism. The “htpasswd” configuration option is used to
 define the location of the file storing usernames and passwords of users
@@ -574,39 +562,39 @@ account, separated by ‘:’. The account is typically valid for 24 hours.</p><
 <li><p>Authorization is based on user’s e-mail address in the token and
 arclink-access bindings.</p></li>
 </ul>
-<div class="section" id="configuration">
-<h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
+<section id="configuration">
+<h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h3>
 <p>The authentication extension is enabled by setting the “auth.enable”
 configuration option to “true” and pointing “auth.gnupgHome” to a directory
 where GPG stores its files. Let’s use the directory
 ~/seiscomp/var/lib/gpg, which is the default.</p>
 <ul>
 <li><p>First create the direcory and your own signing key:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$ mkdir -m <span class="m">700</span> ~/seiscomp/var/lib/gpg
-sysop@host:~$ gpg --homedir ~/seiscomp/var/lib/gpg --gen-key
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$<span class="w"> </span>mkdir<span class="w"> </span>-m<span class="w"> </span><span class="m">700</span><span class="w"> </span>~/seiscomp/var/lib/gpg
+sysop@host:~$<span class="w"> </span>gpg<span class="w"> </span>--homedir<span class="w"> </span>~/seiscomp/var/lib/gpg<span class="w"> </span>--gen-key
 </pre></div>
 </div>
 </li>
 <li><p>Now import GPG keys of all authentication services you trust:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$ gpg --homedir ~/seiscomp/var/lib/gpg --import &lt;keys.asc
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$<span class="w"> </span>gpg<span class="w"> </span>--homedir<span class="w"> </span>~/seiscomp/var/lib/gpg<span class="w"> </span>--import<span class="w"> </span>&lt;keys.asc
 </pre></div>
 </div>
 </li>
 <li><p>Finally sign all imported keys with your own key (XXXXXXXX is the ID of
 an imported key):</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$ gpg --homedir ~/seiscomp/var/lib/gpg --edit-key XXXXXXXX sign save
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$<span class="w"> </span>gpg<span class="w"> </span>--homedir<span class="w"> </span>~/seiscomp/var/lib/gpg<span class="w"> </span>--edit-key<span class="w"> </span>XXXXXXXX<span class="w"> </span>sign<span class="w"> </span>save
 </pre></div>
 </div>
 </li>
 <li><p>…and set auth.enable, either using the “scconfig” tool or:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$ <span class="nb">echo</span> <span class="s2">&quot;auth.enable = true&quot;</span> &gt;&gt; ~/seiscomp/etc/fdsnws.cfg
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;auth.enable = true&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/seiscomp/etc/fdsnws.cfg
 </pre></div>
 </div>
 </li>
 </ul>
-</div>
-<div class="section" id="usage-example">
-<h3>Usage Example<a class="headerlink" href="#usage-example" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="usage-example">
+<h3>Usage Example<a class="headerlink" href="#usage-example" title="Permalink to this heading">¶</a></h3>
 <p>A client like <a class="reference internal" href="#sec-fdsnws-related"><span class="std std-ref">fdsnws_fetch</span></a> is recommended, but also tools like wget and
 curl can be used. As an example, let’s request data from the restricted
 station AAI (assuming that we are authorized to get data of this station).</p>
@@ -614,29 +602,29 @@ station AAI (assuming that we are authorized to get data of this station).</p>
 <li><p>The first step is to obtain the token from an authentication service.
 Assuming that the token is saved in “token.asc”, credentials of the
 temporary account can be requested using one of the following commands:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$ wget --post-file token.asc https://geofon.gfz-potsdam.de/fdsnws/dataselect/1/auth -O cred.txt
-sysop@host:~$ curl --data-binary @token.asc https://geofon.gfz-potsdam.de/fdsnws/dataselect/1/auth -o cred.txt
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$<span class="w"> </span>wget<span class="w"> </span>--post-file<span class="w"> </span>token.asc<span class="w"> </span>https://geofon.gfz-potsdam.de/fdsnws/dataselect/1/auth<span class="w"> </span>-O<span class="w"> </span>cred.txt
+sysop@host:~$<span class="w"> </span>curl<span class="w"> </span>--data-binary<span class="w"> </span>@token.asc<span class="w"> </span>https://geofon.gfz-potsdam.de/fdsnws/dataselect/1/auth<span class="w"> </span>-o<span class="w"> </span>cred.txt
 </pre></div>
 </div>
 </li>
 <li><p>The resulting file “cred.txt” contains username and password separated by
 a colon, so one can conveniently use a shell expansion:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$ wget <span class="s2">&quot;http://`cat cred.txt`@geofon.gfz-potsdam.de/fdsnws/dataselect/1/queryauth?starttime=2015-12-15T16:00:00Z&amp;endtime=2015-12-15T16:10:00Z&amp;network=IA&amp;station=AAI&quot;</span> -O data.mseed
-sysop@host:~$ curl --digest <span class="s2">&quot;http://`cat cred.txt`@geofon.gfz-potsdam.de/fdsnws/dataselect/1/queryauth?starttime=2015-12-15T16:00:00Z&amp;endtime=2015-12-15T16:10:00Z&amp;network=IA&amp;station=AAI&quot;</span> -o data.mseed
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$<span class="w"> </span>wget<span class="w"> </span><span class="s2">&quot;http://`cat cred.txt`@geofon.gfz-potsdam.de/fdsnws/dataselect/1/queryauth?starttime=2015-12-15T16:00:00Z&amp;endtime=2015-12-15T16:10:00Z&amp;network=IA&amp;station=AAI&quot;</span><span class="w"> </span>-O<span class="w"> </span>data.mseed
+sysop@host:~$<span class="w"> </span>curl<span class="w"> </span>--digest<span class="w"> </span><span class="s2">&quot;http://`cat cred.txt`@geofon.gfz-potsdam.de/fdsnws/dataselect/1/queryauth?starttime=2015-12-15T16:00:00Z&amp;endtime=2015-12-15T16:10:00Z&amp;network=IA&amp;station=AAI&quot;</span><span class="w"> </span>-o<span class="w"> </span>data.mseed
 </pre></div>
 </div>
 </li>
 <li><p>Using the <a class="reference internal" href="#sec-fdsnws-related"><span class="std std-ref">fdsnws_fetch</span></a> utility, the two steps above can be combined into
 one:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$ fdsnws_fetch -a token.asc -s <span class="m">2015</span>-12-15T16:00:00Z -e <span class="m">2015</span>-12-15T16:10:00Z -N IA -S AAI -o data.mseed
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sysop@host:~$<span class="w"> </span>fdsnws_fetch<span class="w"> </span>-a<span class="w"> </span>token.asc<span class="w"> </span>-s<span class="w"> </span><span class="m">2015</span>-12-15T16:00:00Z<span class="w"> </span>-e<span class="w"> </span><span class="m">2015</span>-12-15T16:10:00Z<span class="w"> </span>-N<span class="w"> </span>IA<span class="w"> </span>-S<span class="w"> </span>AAI<span class="w"> </span>-o<span class="w"> </span>data.mseed
 </pre></div>
 </div>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="logging">
-<h2>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="logging">
+<h2>Logging<a class="headerlink" href="#logging" title="Permalink to this heading">¶</a></h2>
 <p>In addition to normal <cite>SeisComP</cite> logs, fdsnws can create a simple HTTP access log
 and/or a detailed request log. The locations of log files are specified by
 “accessLog” and “requestLog” in fdsnws.cfg.</p>
@@ -713,25 +701,25 @@ into SeisComP database using the ArcLink request log schema. Be aware that the
 number of requests in a production system can be rather large. For example,
 the GEOFON datacentre is currently serving between 0.5..1 million FDSNWS
 requests per day.</p>
-</div>
-<div class="section" id="related-modules">
-<span id="sec-fdsnws-related"></span><h2>Related Modules<a class="headerlink" href="#related-modules" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="../base/glossary.html#term-geofon"><span class="xref std std-term">GEOFON</span></a> maintains scripts for FDSNWS <span id="id14">[<a class="reference internal" href="../base/references.html#id111" title="FDSNWS scripts. SeisComP. URL: https://www.seiscomp.de/seiscomp3/doc/applications/fdsnws_scripts.html.">7</a>]</span>:</p>
+</section>
+<section id="related-modules">
+<span id="sec-fdsnws-related"></span><h2>Related Modules<a class="headerlink" href="#related-modules" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference internal" href="../base/glossary.html#term-GEOFON"><span class="xref std std-term">GEOFON</span></a> maintains scripts for FDSNWS <span id="id14">[<a class="reference internal" href="../base/references.html#id111" title="FDSNWS scripts. SeisComP. URL: https://www.seiscomp.de/seiscomp3/doc/applications/fdsnws_scripts.html.">7</a>]</span>:</p>
 <ul class="simple">
 <li><p>The <strong class="program">fdsnws_fetch</strong> client is a convenient tool for requesting
-waveforms from a FDSN web service hosted by <a class="reference internal" href="../base/glossary.html#term-eida"><span class="xref std std-term">EIDA</span></a> nodes.</p></li>
+waveforms from a FDSN web service hosted by <a class="reference internal" href="../base/glossary.html#term-EIDA"><span class="xref std std-term">EIDA</span></a> nodes.</p></li>
 <li><p>The <strong class="program">fdsnws2sds</strong> client is a tool for requesting waveforms
-from a FDSN web service hosted by <a class="reference internal" href="../base/glossary.html#term-eida"><span class="xref std std-term">EIDA</span></a> nodes and to store them into an
-<a class="reference internal" href="../base/glossary.html#term-sds"><span class="xref std std-term">SDS</span></a> archive.</p></li>
+from a FDSN web service hosted by <a class="reference internal" href="../base/glossary.html#term-EIDA"><span class="xref std std-term">EIDA</span></a> nodes and to store them into an
+<a class="reference internal" href="../base/glossary.html#term-SDS"><span class="xref std std-term">SDS</span></a> archive.</p></li>
 </ul>
-</div>
-<div class="section" id="public-fdsn-web-servers">
-<h2>Public FDSN Web Servers<a class="headerlink" href="#public-fdsn-web-servers" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="public-fdsn-web-servers">
+<h2>Public FDSN Web Servers<a class="headerlink" href="#public-fdsn-web-servers" title="Permalink to this heading">¶</a></h2>
 <p>IRIS maintains a list of data centers (<span id="id15"><em>FDSN data centers</em> [<a class="reference internal" href="../base/references.html#id108" title="FDSN data centers. International Federation of Digital Seismograph Networks. URL: https://www.fdsn.org/webservices/datacenters/.">6</a>]</span>)
 supporting FDSN Web Services (<span id="id16"><em>FDSNWS</em> [<a class="reference internal" href="../base/references.html#id106" title="FDSNWS. International Federation of Digital Seismograph Networks. URL: http://www.fdsn.org/webservices/.">8</a>]</span>).</p>
-</div>
-<div class="section" id="module-configuration">
-<span id="fdsnws-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-configuration">
+<span id="fdsnws-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/global.cfg</span></code></div>
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/fdsnws.cfg</span></code></div>
@@ -741,19 +729,19 @@ supporting FDSN Web Services (<span id="id16"><em>FDSNWS</em> [<a class="referen
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">~/.seiscomp/fdsnws.cfg</span></code></div>
 </div>
 <p>fdsnws inherits <a class="reference internal" href="global.html#global-configuration"><span class="std std-ref">global options</span></a>.</p>
-<dl class="confval">
-<dt id="confval-listenAddress">
-<code class="sig-name descname">listenAddress</code><a class="headerlink" href="#confval-listenAddress" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-listenAddress">
+<span class="sig-name descname"><span class="pre">listenAddress</span></span><a class="headerlink" href="#confval-listenAddress" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.0.0.0</span></code></p>
 <p>Type: <em>IP</em></p>
-<p>Define the bind address of the server. “0.0.0.0” allows
-any interface to connect to this server whereas “127.0.0.0”
+<p>Define the bind address of the server. &quot;0.0.0.0&quot; allows
+any interface to connect to this server whereas &quot;127.0.0.0&quot;
 only allows connections from localhost.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-port">
-<code class="sig-name descname">port</code><a class="headerlink" href="#confval-port" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-port">
+<span class="sig-name descname"><span class="pre">port</span></span><a class="headerlink" href="#confval-port" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">8080</span></code></p>
 <p>Type: <em>int</em></p>
 <p>Server port to listen for incoming requests. Note: The FDSN Web
@@ -761,26 +749,26 @@ service specification defines the service port 80. Please refer
 to the documentation on how to serve on privileged ports.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-connections">
-<code class="sig-name descname">connections</code><a class="headerlink" href="#confval-connections" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-connections">
+<span class="sig-name descname"><span class="pre">connections</span></span><a class="headerlink" href="#confval-connections" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
 <p>Type: <em>int</em></p>
 <p>Number of maximum simultaneous requests.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-queryObjects">
-<code class="sig-name descname">queryObjects</code><a class="headerlink" href="#confval-queryObjects" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-queryObjects">
+<span class="sig-name descname"><span class="pre">queryObjects</span></span><a class="headerlink" href="#confval-queryObjects" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">10000</span></code></p>
 <p>Type: <em>int</em></p>
 <p>Maximum number of objects per query, used in fdsnws-station and
 fdsnws-event to limit main memory consumption.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-realtimeGap">
-<code class="sig-name descname">realtimeGap</code><a class="headerlink" href="#confval-realtimeGap" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-realtimeGap">
+<span class="sig-name descname"><span class="pre">realtimeGap</span></span><a class="headerlink" href="#confval-realtimeGap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
 <p>Unit: <em>s</em></p>
 <p>Restrict end time of requests to current time - realtimeGap
@@ -790,18 +778,18 @@ WARNING: If this value is unset and a realtime recordsource
 is requested.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-samplesM">
-<code class="sig-name descname">samplesM</code><a class="headerlink" href="#confval-samplesM" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-samplesM">
+<span class="sig-name descname"><span class="pre">samplesM</span></span><a class="headerlink" href="#confval-samplesM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>float</em></p>
 <p>Maximum number of samples (in units of million) per query, used
 in fdsnws-dataselect to prevent a single user to block one
 connection with a large request.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-recordBulkSize">
-<code class="sig-name descname">recordBulkSize</code><a class="headerlink" href="#confval-recordBulkSize" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-recordBulkSize">
+<span class="sig-name descname"><span class="pre">recordBulkSize</span></span><a class="headerlink" href="#confval-recordBulkSize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">102400</span></code></p>
 <p>Type: <em>int</em></p>
 <p>Unit: <em>bytes</em></p>
@@ -811,9 +799,9 @@ of Python Twisted. The higher the buffer the higher the memory
 usage per request. 100kB seems to be a good trade-off.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-htpasswd">
-<code class="sig-name descname">htpasswd</code><a class="headerlink" href="#confval-htpasswd" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-htpasswd">
+<span class="sig-name descname"><span class="pre">htpasswd</span></span><a class="headerlink" href="#confval-htpasswd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">&#64;CONFIGDIR&#64;/fdsnws.htpasswd</span></code></p>
 <p>Type: <em>string</em></p>
 <p>Path to password file used in fdsnws-dataselect/queryauth. The
@@ -822,30 +810,30 @@ HTTP digest authentication method required by the FDSN
 specification, the passwords have to be stored in plain text.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-accessLog">
-<code class="sig-name descname">accessLog</code><a class="headerlink" href="#confval-accessLog" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-accessLog">
+<span class="sig-name descname"><span class="pre">accessLog</span></span><a class="headerlink" href="#confval-accessLog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Path to access log file. If unset no access log is created.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-requestLog">
-<code class="sig-name descname">requestLog</code><a class="headerlink" href="#confval-requestLog" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-requestLog">
+<span class="sig-name descname"><span class="pre">requestLog</span></span><a class="headerlink" href="#confval-requestLog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Path to request log file. If unset no request log is created.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-userSalt">
-<code class="sig-name descname">userSalt</code><a class="headerlink" href="#confval-userSalt" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-userSalt">
+<span class="sig-name descname"><span class="pre">userSalt</span></span><a class="headerlink" href="#confval-userSalt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Secret salt for calculating userID.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-corsOrigins">
-<code class="sig-name descname">corsOrigins</code><a class="headerlink" href="#confval-corsOrigins" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-corsOrigins">
+<span class="sig-name descname"><span class="pre">corsOrigins</span></span><a class="headerlink" href="#confval-corsOrigins" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">*</span></code></p>
 <p>Type: <em>list:string:</em></p>
 <p>List of domain names Cross-Origin Resource Sharing (CORS)
@@ -855,26 +843,26 @@ requests entirely. An example of multiple domains might be:
 ‘<a class="reference external" href="https://test.domain.de">https://test.domain.de</a>, <a class="reference external" href="https://production.domain.de">https://production.domain.de</a>’.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-allowRestricted">
-<code class="sig-name descname">allowRestricted</code><a class="headerlink" href="#confval-allowRestricted" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-allowRestricted">
+<span class="sig-name descname"><span class="pre">allowRestricted</span></span><a class="headerlink" href="#confval-allowRestricted" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Enable/disable access to restricted inventory data.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-handleConditionalRequests">
-<code class="sig-name descname">handleConditionalRequests</code><a class="headerlink" href="#confval-handleConditionalRequests" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-handleConditionalRequests">
+<span class="sig-name descname"><span class="pre">handleConditionalRequests</span></span><a class="headerlink" href="#confval-handleConditionalRequests" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Enable/disable handling of time-based conditional requests (RFC
 7232) by the fdsnws-station resource.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-useArclinkAccess">
-<code class="sig-name descname">useArclinkAccess</code><a class="headerlink" href="#confval-useArclinkAccess" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-useArclinkAccess">
+<span class="sig-name descname"><span class="pre">useArclinkAccess</span></span><a class="headerlink" href="#confval-useArclinkAccess" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>If enabled, then access to restricted waveform data is
@@ -882,98 +870,98 @@ controlled by arclink-access bindings. By default authenticated
 users have access to all data.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-hideAuthor">
-<code class="sig-name descname">hideAuthor</code><a class="headerlink" href="#confval-hideAuthor" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-hideAuthor">
+<span class="sig-name descname"><span class="pre">hideAuthor</span></span><a class="headerlink" href="#confval-hideAuthor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>If enabled, author information is removed from any event
 creationInfo element.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-hideComments">
-<code class="sig-name descname">hideComments</code><a class="headerlink" href="#confval-hideComments" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-hideComments">
+<span class="sig-name descname"><span class="pre">hideComments</span></span><a class="headerlink" href="#confval-hideComments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>If enabled, event comment elements are no longer accessible.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-evaluationMode">
-<code class="sig-name descname">evaluationMode</code><a class="headerlink" href="#confval-evaluationMode" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-evaluationMode">
+<span class="sig-name descname"><span class="pre">evaluationMode</span></span><a class="headerlink" href="#confval-evaluationMode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>If set, the event service will only return events having a
 preferred origin with a matching evaluationMode property.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-eventFormats">
-<code class="sig-name descname">eventFormats</code><a class="headerlink" href="#confval-eventFormats" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventFormats">
+<span class="sig-name descname"><span class="pre">eventFormats</span></span><a class="headerlink" href="#confval-eventFormats" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p>List of enabled event formats. If unspecified, all supported
 formats are enabled.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-serveDataSelect">
-<code class="sig-name descname">serveDataSelect</code><a class="headerlink" href="#confval-serveDataSelect" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-serveDataSelect">
+<span class="sig-name descname"><span class="pre">serveDataSelect</span></span><a class="headerlink" href="#confval-serveDataSelect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Enable/disable the DataSelect service.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-serveEvent">
-<code class="sig-name descname">serveEvent</code><a class="headerlink" href="#confval-serveEvent" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-serveEvent">
+<span class="sig-name descname"><span class="pre">serveEvent</span></span><a class="headerlink" href="#confval-serveEvent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Enable/disable the Event service.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-serveStation">
-<code class="sig-name descname">serveStation</code><a class="headerlink" href="#confval-serveStation" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-serveStation">
+<span class="sig-name descname"><span class="pre">serveStation</span></span><a class="headerlink" href="#confval-serveStation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Enable/disable the Station service.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-serveAvailability">
-<code class="sig-name descname">serveAvailability</code><a class="headerlink" href="#confval-serveAvailability" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-serveAvailability">
+<span class="sig-name descname"><span class="pre">serveAvailability</span></span><a class="headerlink" href="#confval-serveAvailability" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Enable/disable the Availability service. Note: This is a non
 standard FDSNWS extension served under fdsnws/ext/availability.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-stationFilter">
-<code class="sig-name descname">stationFilter</code><a class="headerlink" href="#confval-stationFilter" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-stationFilter">
+<span class="sig-name descname"><span class="pre">stationFilter</span></span><a class="headerlink" href="#confval-stationFilter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Path to station inventory filter file.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-dataSelectFilter">
-<code class="sig-name descname">dataSelectFilter</code><a class="headerlink" href="#confval-dataSelectFilter" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-dataSelectFilter">
+<span class="sig-name descname"><span class="pre">dataSelectFilter</span></span><a class="headerlink" href="#confval-dataSelectFilter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Path to dataselect inventory filter file.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-debugFilter">
-<code class="sig-name descname">debugFilter</code><a class="headerlink" href="#confval-debugFilter" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-debugFilter">
+<span class="sig-name descname"><span class="pre">debugFilter</span></span><a class="headerlink" href="#confval-debugFilter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>If enabled, a debug line is written for each stream ID explaining
 why a stream was added/removed by a inventory filter.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-fileNamePrefix">
-<code class="sig-name descname">fileNamePrefix</code><a class="headerlink" href="#confval-fileNamePrefix" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-fileNamePrefix">
+<span class="sig-name descname"><span class="pre">fileNamePrefix</span></span><a class="headerlink" href="#confval-fileNamePrefix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">fdsnws</span></code></p>
 <p>Type: <em>string</em></p>
 <p>Define the prefix for the default filenames if downloading and
@@ -981,16 +969,16 @@ saving data from within a browser.
 For data loaded using dataselect, it is thus fdsnws.mseed by default.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-eventType.whitelist">
-<code class="sig-name descname">eventType.whitelist</code><a class="headerlink" href="#confval-eventType.whitelist" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventType.whitelist">
+<span class="sig-name descname"><span class="pre">eventType.whitelist</span></span><a class="headerlink" href="#confval-eventType.whitelist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p>List of enabled event types</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-eventType.blacklist">
-<code class="sig-name descname">eventType.blacklist</code><a class="headerlink" href="#confval-eventType.blacklist" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventType.blacklist">
+<span class="sig-name descname"><span class="pre">eventType.blacklist</span></span><a class="headerlink" href="#confval-eventType.blacklist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p>List of disabled event types</p>
 </dd></dl>
@@ -1003,9 +991,9 @@ For data loaded using dataselect, it is thus fdsnws.mseed by default.</p>
 <em>information may be collected by scardac (SeisComP archive</em>
 <em>data availability collector).</em></p>
 </div>
-<dl class="confval">
-<dt id="confval-dataAvailability.enable">
-<code class="sig-name descname">dataAvailability.enable</code><a class="headerlink" href="#confval-dataAvailability.enable" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-dataAvailability.enable">
+<span class="sig-name descname"><span class="pre">dataAvailability.enable</span></span><a class="headerlink" href="#confval-dataAvailability.enable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Enable loading of data availabilty information from
@@ -1013,9 +1001,9 @@ SeisComP database. Availability information is used by
 station and ext/availability service.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-dataAvailability.cacheDuration">
-<code class="sig-name descname">dataAvailability.cacheDuration</code><a class="headerlink" href="#confval-dataAvailability.cacheDuration" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-dataAvailability.cacheDuration">
+<span class="sig-name descname"><span class="pre">dataAvailability.cacheDuration</span></span><a class="headerlink" href="#confval-dataAvailability.cacheDuration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">300</span></code></p>
 <p>Type: <em>int</em></p>
 <p>Unit: <em>s</em></p>
@@ -1024,84 +1012,84 @@ valid. If the duration time is exceeded, the information is
 fetched again from the database.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-dataAvailability.dccName">
-<code class="sig-name descname">dataAvailability.dccName</code><a class="headerlink" href="#confval-dataAvailability.dccName" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-dataAvailability.dccName">
+<span class="sig-name descname"><span class="pre">dataAvailability.dccName</span></span><a class="headerlink" href="#confval-dataAvailability.dccName" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">DCC</span></code></p>
 <p>Type: <em>string</em></p>
 <p>Name of the archive use in sync format of dataavailability
 extent service.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-dataAvailability.repositoryName">
-<code class="sig-name descname">dataAvailability.repositoryName</code><a class="headerlink" href="#confval-dataAvailability.repositoryName" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-dataAvailability.repositoryName">
+<span class="sig-name descname"><span class="pre">dataAvailability.repositoryName</span></span><a class="headerlink" href="#confval-dataAvailability.repositoryName" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">primary</span></code></p>
 <p>Type: <em>string</em></p>
 <p>Name of the archive use in some format of data availability
 extent service.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-trackdb.enable">
-<code class="sig-name descname">trackdb.enable</code><a class="headerlink" href="#confval-trackdb.enable" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-trackdb.enable">
+<span class="sig-name descname"><span class="pre">trackdb.enable</span></span><a class="headerlink" href="#confval-trackdb.enable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Save request log to database.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-trackdb.defaultUser">
-<code class="sig-name descname">trackdb.defaultUser</code><a class="headerlink" href="#confval-trackdb.defaultUser" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-trackdb.defaultUser">
+<span class="sig-name descname"><span class="pre">trackdb.defaultUser</span></span><a class="headerlink" href="#confval-trackdb.defaultUser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">fdsnws</span></code></p>
 <p>Type: <em>string</em></p>
 <p>Default user.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-auth.enable">
-<code class="sig-name descname">auth.enable</code><a class="headerlink" href="#confval-auth.enable" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-auth.enable">
+<span class="sig-name descname"><span class="pre">auth.enable</span></span><a class="headerlink" href="#confval-auth.enable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Enable auth extension.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-auth.gnupgHome">
-<code class="sig-name descname">auth.gnupgHome</code><a class="headerlink" href="#confval-auth.gnupgHome" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-auth.gnupgHome">
+<span class="sig-name descname"><span class="pre">auth.gnupgHome</span></span><a class="headerlink" href="#confval-auth.gnupgHome" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">&#64;ROOTDIR&#64;/var/lib/gpg</span></code></p>
 <p>Type: <em>string</em></p>
 <p>GnuPG home directory.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-auth.blacklist">
-<code class="sig-name descname">auth.blacklist</code><a class="headerlink" href="#confval-auth.blacklist" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-auth.blacklist">
+<span class="sig-name descname"><span class="pre">auth.blacklist</span></span><a class="headerlink" href="#confval-auth.blacklist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p>List of revoked token IDs.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="command-line-options">
-<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="command-line-options">
+<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this heading">¶</a></h2>
 <p><strong class="program">fdsnws [options]</strong></p>
-<div class="section" id="generic">
-<h3>Generic<a class="headerlink" href="#generic" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-fdsnws-h">
-<code class="sig-name descname">-h</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--help</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-fdsnws-h" title="Permalink to this definition">¶</a></dt>
+<section id="generic">
+<h3>Generic<a class="headerlink" href="#generic" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-h">
+<span id="cmdoption-fdsnws-help"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-fdsnws-h" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show help message.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-fdsnws-v">
-<code class="sig-name descname">-V</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--version</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-fdsnws-v" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-V">
+<span id="cmdoption-fdsnws-version"></span><span class="sig-name descname"><span class="pre">-V</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--version</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-fdsnws-V" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show version information.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-fdsnws-config-file">
-<code class="sig-name descname">--config-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-fdsnws-config-file" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-config-file">
+<span class="sig-name descname"><span class="pre">--config-file</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-fdsnws-config-file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use alternative configuration file. When this option is
 used the loading of all stages is disabled. Only the
 given configuration file is parsed and used. To use
@@ -1110,178 +1098,178 @@ link of the application or copy it. Example:
 scautopick -&gt; scautopick2.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-fdsnws-plugins">
-<code class="sig-name descname">--plugins</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-fdsnws-plugins" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-plugins">
+<span class="sig-name descname"><span class="pre">--plugins</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-fdsnws-plugins" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load given plugins.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-fdsnws-d">
-<code class="sig-name descname">-D</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--daemon</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-fdsnws-d" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-D">
+<span id="cmdoption-fdsnws-daemon"></span><span class="sig-name descname"><span class="pre">-D</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--daemon</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-fdsnws-D" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run as daemon. This means the application will fork itself
 and doesn’t need to be started with &amp;.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-fdsnws-auto-shutdown">
-<code class="sig-name descname">--auto-shutdown</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-fdsnws-auto-shutdown" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-auto-shutdown">
+<span class="sig-name descname"><span class="pre">--auto-shutdown</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-fdsnws-auto-shutdown" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable/disable self-shutdown because a master module shutdown.
 This only works when messaging is enabled and the master
-module sends a shutdown message (enabled with –start-stop-msg
+module sends a shutdown message (enabled with --start-stop-msg
 for the master module).</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-fdsnws-shutdown-master-module">
-<code class="sig-name descname">--shutdown-master-module</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-fdsnws-shutdown-master-module" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-shutdown-master-module">
+<span class="sig-name descname"><span class="pre">--shutdown-master-module</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-fdsnws-shutdown-master-module" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the name of the master-module used for auto-shutdown.
 This is the application name of the module actually
 started. If symlinks are used, then it is the name of
 the symlinked application.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-fdsnws-shutdown-master-username">
-<code class="sig-name descname">--shutdown-master-username</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-fdsnws-shutdown-master-username" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-shutdown-master-username">
+<span class="sig-name descname"><span class="pre">--shutdown-master-username</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-fdsnws-shutdown-master-username" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the name of the master-username of the messaging
-used for auto-shutdown. If “shutdown-master-module” is
+used for auto-shutdown. If &quot;shutdown-master-module&quot; is
 given as well, this parameter is ignored.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="verbosity">
-<h3>Verbosity<a class="headerlink" href="#verbosity" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-fdsnws-verbosity">
-<code class="sig-name descname">--verbosity</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-fdsnws-verbosity" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="verbosity">
+<h3>Verbosity<a class="headerlink" href="#verbosity" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-verbosity">
+<span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-fdsnws-verbosity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
 4:debug.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="id17">
-<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--v</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id17" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-v">
+<span id="cmdoption-fdsnws-v"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--v</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-fdsnws-v" title="Permalink to this definition">¶</a></dt>
 <dd><p>Increase verbosity level (may be repeated, eg. -vv).</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-fdsnws-q">
-<code class="sig-name descname">-q</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--quiet</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-fdsnws-q" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-q">
+<span id="cmdoption-fdsnws-quiet"></span><span class="sig-name descname"><span class="pre">-q</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--quiet</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-fdsnws-q" title="Permalink to this definition">¶</a></dt>
 <dd><p>Quiet mode: no logging output.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-fdsnws-component">
-<code class="sig-name descname">--component</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-fdsnws-component" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-component">
+<span class="sig-name descname"><span class="pre">--component</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-fdsnws-component" title="Permalink to this definition">¶</a></dt>
 <dd><p>Limit the logging to a certain component. This option can
 be given more than once.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-fdsnws-s">
-<code class="sig-name descname">-s</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--syslog</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-fdsnws-s" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-s">
+<span id="cmdoption-fdsnws-syslog"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--syslog</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-fdsnws-s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use syslog logging backend. The output usually goes to
 /var/lib/messages.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-fdsnws-l">
-<code class="sig-name descname">-l</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--lockfile</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-fdsnws-l" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-l">
+<span id="cmdoption-fdsnws-lockfile"></span><span class="sig-name descname"><span class="pre">-l</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--lockfile</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-fdsnws-l" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path to lock file.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-fdsnws-console">
-<code class="sig-name descname">--console</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-fdsnws-console" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-console">
+<span class="sig-name descname"><span class="pre">--console</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-fdsnws-console" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send log output to stdout.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-fdsnws-debug">
-<code class="sig-name descname">--debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-fdsnws-debug" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-debug">
+<span class="sig-name descname"><span class="pre">--debug</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-fdsnws-debug" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute in debug mode.
-Equivalent to –verbosity=4 –console=1 .</p>
+Equivalent to --verbosity=4 --console=1 .</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-fdsnws-log-file">
-<code class="sig-name descname">--log-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-fdsnws-log-file" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-log-file">
+<span class="sig-name descname"><span class="pre">--log-file</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-fdsnws-log-file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use alternative log file.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="database">
-<h3>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-fdsnws-db-driver-list">
-<code class="sig-name descname">--db-driver-list</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-fdsnws-db-driver-list" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="database">
+<h3>Database<a class="headerlink" href="#database" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-db-driver-list">
+<span class="sig-name descname"><span class="pre">--db-driver-list</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-fdsnws-db-driver-list" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all supported database drivers.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-fdsnws-database">
-<code class="sig-name descname">-d</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--database</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-fdsnws-database" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-d">
+<span id="cmdoption-fdsnws-database"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--database</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-fdsnws-d" title="Permalink to this definition">¶</a></dt>
 <dd><p>The database connection string, format:
 <a class="reference external" href="service://user:pwd&#64;host/database">service://user:pwd&#64;host/database</a>.
-“service” is the name of the database driver which
-can be queried with “–db-driver-list”.</p>
+&quot;service&quot; is the name of the database driver which
+can be queried with &quot;--db-driver-list&quot;.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-fdsnws-config-module">
-<code class="sig-name descname">--config-module</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-fdsnws-config-module" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-config-module">
+<span class="sig-name descname"><span class="pre">--config-module</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-fdsnws-config-module" title="Permalink to this definition">¶</a></dt>
 <dd><p>The config module to use.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-fdsnws-inventory-db">
-<code class="sig-name descname">--inventory-db</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-fdsnws-inventory-db" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-inventory-db">
+<span class="sig-name descname"><span class="pre">--inventory-db</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-fdsnws-inventory-db" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load the inventory from the given database or file, format:
 [<a class="reference external" href="service://]location">service://]location</a> .</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-fdsnws-db-disable">
-<code class="sig-name descname">--db-disable</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-fdsnws-db-disable" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-db-disable">
+<span class="sig-name descname"><span class="pre">--db-disable</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-fdsnws-db-disable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do not use the database at all</p>
 </dd></dl>
 
-</div>
-<div class="section" id="records">
-<h3>Records<a class="headerlink" href="#records" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-fdsnws-record-driver-list">
-<code class="sig-name descname">--record-driver-list</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-fdsnws-record-driver-list" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="records">
+<h3>Records<a class="headerlink" href="#records" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-record-driver-list">
+<span class="sig-name descname"><span class="pre">--record-driver-list</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-fdsnws-record-driver-list" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all supported record stream drivers.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-fdsnws-i">
-<code class="sig-name descname">-I</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--record-url</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-fdsnws-i" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-I">
+<span id="cmdoption-fdsnws-record-url"></span><span class="sig-name descname"><span class="pre">-I</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--record-url</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-fdsnws-I" title="Permalink to this definition">¶</a></dt>
 <dd><p>The recordstream source URL, format:
 [<a class="reference external" href="service://">service://</a>]location[#type].
-“service” is the name of the recordstream driver
-which can be queried with “–record-driver-list”.
-If “service” is not given, “<a class="reference external" href="file://">file://</a>” is
+&quot;service&quot; is the name of the recordstream driver
+which can be queried with &quot;--record-driver-list&quot;.
+If &quot;service&quot; is not given, &quot;<a class="reference external" href="file://">file://</a>&quot; is
 used.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-fdsnws-record-file">
-<code class="sig-name descname">--record-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-fdsnws-record-file" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-record-file">
+<span class="sig-name descname"><span class="pre">--record-file</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-fdsnws-record-file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify a file as record source.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-fdsnws-record-type">
-<code class="sig-name descname">--record-type</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-fdsnws-record-type" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-fdsnws-record-type">
+<span class="sig-name descname"><span class="pre">--record-type</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-fdsnws-record-type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify a type for the records being read.</p>
 </dd></dl>
 
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -1294,14 +1282,15 @@ used.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">fdsnws</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
 <li><a class="reference internal" href="#service-overview">Service Overview</a><ul>
@@ -1356,12 +1345,17 @@ used.</p>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="bindings2cfg.html"
-                        title="previous chapter">bindings2cfg</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="ql2sc.html"
-                        title="next chapter">ql2sc</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="bindings2cfg.html"
+                          title="previous chapter">bindings2cfg</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="ql2sc.html"
+                          title="next chapter">ql2sc</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -1381,7 +1375,7 @@ used.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.3</b> Release
+		  Version <b>5.5.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

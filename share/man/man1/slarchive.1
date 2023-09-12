@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SLARCHIVE" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-slarchive \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SLARCHIVE" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+slarchive \- SeisComP Documentation
 .sp
 \fBSeedLink client for data stream archiving\fP
 .SH DESCRIPTION
@@ -112,7 +112,7 @@ $ slarchive \-h
 .sp
 slarchive allows generating aliases, e.g. for running in multiple instances with
 different module and bindings configurations. For creating/removing aliases use the
-seiscomp script, e.g.
+\fI\%seiscomp script\fP, e.g.
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -223,7 +223,7 @@ _
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
-slarchive is a standalone module and does not inherit global options\&.
+slarchive is a \fI\%standalone module\fP and does not inherit \fI\%global options\fP\&.
 .UNINDENT
 .UNINDENT
 .nf
@@ -345,7 +345,7 @@ paths(as the default) are treated relative to the installation
 directory ($SEISCOMP_ROOT).
 If the signature check is enabled slarchive loads all files at start. The store
 uses the OpenSSl store format. From the offical OpenSSL documentation:
-"The directory should contain one certificate or CRL per file in PEM format,
+\(dqThe directory should contain one certificate or CRL per file in PEM format,
 with a file name of the form hash.N for a certificate, or hash.rN for a CRL.
 The .N or .rN suffix is a sequence number that starts at zero, and is incremented
 consecutively for each certificate or CRL with the same hash value. Gaps in the
@@ -354,7 +354,7 @@ with the same hash beyond the first missing number in the sequence.The .N or .rN
 is a sequence number that starts at zero, and is incremented consecutively for
 each certificate or CRL with the same hash value. Gaps in the sequence numbers
 are not supported, it is assumed that there are no more objects with the same
-hash beyond the first missing number in the sequence."
+hash beyond the first missing number in the sequence.\(dq
 The hash value can be obtained as follows:
 .sp
 openssl x509 \-hash \-noout \-in <file>
@@ -422,7 +422,7 @@ Print program usage and exit.
 .INDENT 0.0
 .TP
 .B \-v
-Be more verbose. This flag can be used multiple times ("\-v \-v" or "\-vv")
+Be more verbose. This flag can be used multiple times (\(dq\-v \-v\(dq or \(dq\-vv\(dq)
 for more verbosity. One flag: report basic handshaking (link configuration) details and
 briefly report each packet received. Two flags: report the details of the handshaking,
 each packet received and detailed connection diagnostics.
@@ -431,7 +431,7 @@ each packet received and detailed connection diagnostics.
 .TP
 .B \-p
 Print details of received Mini\-SEED data records. This flag can be used multiple times
-("\-p \-p" or "\-pp") for more detail. One flag: a single summary line
+(\(dq\-p \-p\(dq or \(dq\-pp\(dq) for more detail. One flag: a single summary line
 for each data packet received. Two flags: details of the Mini\-SEED data records received,
 including information from fixed header and 100/1000/1001 blockettes.
 .UNINDENT
@@ -478,14 +478,14 @@ process is running against an open file number limit. Default is 300 seconds.
 .INDENT 0.0
 .TP
 .B \-d
-Configure the connection in "dial\-up" mode. The remote server will close the connection when
+Configure the connection in \(dqdial\-up\(dq mode. The remote server will close the connection when
 it has sent all of the data in its buffers for the selected data streams. This is opposed to
 the normal behavior of waiting indefinitely for data.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-b
-Configure the connection in "batch" mode.
+Configure the connection in \(dqbatch\(dq mode.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -516,7 +516,7 @@ formats where each unique data stream is written to a unique file (e.g. SDS form
 If specified, all received packets (Mini\-SEED records) will be appended to a directory/file
 structure defined by format. All directories implied in the format string will be created if
 necessary. The option may be used multiple times to write received packets to multiple archives.
-See the section "archiving data".
+See the section \(dqarchiving data\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -554,7 +554,7 @@ The DLOG dir/file structure is:
 .TP
 .B \-l streamfile
 The given file contains a list of streams. This option implies multi\-station mode.
-The format of the stream list file is given below in the section "stream list file".
+The format of the stream list file is given below in the section \(dqstream list file\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -576,7 +576,7 @@ Requires SeedLink >= 2.5.
 .TP
 .B \-tw start:[end]
 Specifying a time window for the data streams that is applied by the server. The format
-for both times is year,month,day,hour,min,sec; for example: "2002,08,05,14,00:2002,08,05,14,15,00".
+for both times is year,month,day,hour,min,sec; for example: \(dq2002,08,05,14,00:2002,08,05,14,15,00\(dq.
 The end time is optional but the colon must be present. If no end time is specified the
 server will send data indefinitely. This option will override any saved state information.
 .sp

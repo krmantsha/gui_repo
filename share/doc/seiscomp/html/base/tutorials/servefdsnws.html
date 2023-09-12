@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Enable local FDSNWS server &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/seiscomp.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../../_static/seiscomp.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Play back archived waveforms" href="waveformplayback.html" />
@@ -25,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.3</span>
+          <span class="version">5.5.4</span>
         </div>
       </div>
     </div>
@@ -68,8 +69,8 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="enable-local-fdsnws-server">
-<span id="tutorials-servefdsnws"></span><h1>Enable local FDSNWS server<a class="headerlink" href="#enable-local-fdsnws-server" title="Permalink to this headline">¶</a></h1>
+  <section id="enable-local-fdsnws-server">
+<span id="tutorials-servefdsnws"></span><h1>Enable local FDSNWS server<a class="headerlink" href="#enable-local-fdsnws-server" title="Permalink to this heading">¶</a></h1>
 <p>You will …</p>
 <ul class="simple">
 <li><p>Enable FDSN web service by <a class="reference internal" href="../../apps/fdsnws.html#fdsnws"><span class="std std-ref">fdsnws</span></a> to serve waveforms and inventory for
@@ -102,8 +103,8 @@ This information is written to the
 To active the availability feature set <a class="reference internal" href="../../apps/fdsnws.html#confval-serveAvailability"><code class="xref std std-confval docutils literal notranslate"><span class="pre">serveAvailability</span></code></a> and
 <a class="reference internal" href="../../apps/fdsnws.html#confval-dataAvailability.enable"><code class="xref std std-confval docutils literal notranslate"><span class="pre">dataAvailability.enable</span></code></a> to true.
 The availability information can be retrieved using <a class="reference internal" href="../../apps/scxmldump.html#scxmldump"><span class="std std-ref">scxmldump</span></a> or <a class="reference internal" href="../../apps/fdsnws.html#fdsnws"><span class="std std-ref">fdsnws</span></a>.</p>
-<div class="section" id="set-up">
-<h2>Set-up<a class="headerlink" href="#set-up" title="Permalink to this headline">¶</a></h2>
+<section id="set-up">
+<h2>Set-up<a class="headerlink" href="#set-up" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic">
 <li><p>Configure <a class="reference internal" href="../../apps/fdsnws.html#fdsnws"><span class="std std-ref">fdsnws</span></a>:</p>
 <ul class="simple">
@@ -117,8 +118,8 @@ The availability information can be retrieved using <a class="reference internal
 Click on the line for the “fdsnws” module, and press “Enable module(s)”.
 Then restart SeisComP.</p></li>
 <li><p>or from the command line</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ seiscomp <span class="nb">enable</span> fdsnws
-$ seiscomp start fdsnws
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>seiscomp<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>fdsnws
+$<span class="w"> </span>seiscomp<span class="w"> </span>start<span class="w"> </span>fdsnws
 </pre></div>
 </div>
 </li>
@@ -137,20 +138,22 @@ and uncheck this parameter.</p>
 <p>You can limit the choice of stations shared to be less than what is in your
 SeisComP <a class="reference internal" href="../concepts/inventory.html#concepts-inventory"><span class="std std-ref">inventory</span></a> using the <cite>allowRestricted</cite>,
 <cite>dataSelectFilter</cite> and <cite>stationFilter</cite> options.</p>
-</div>
-<div class="section" id="visiting-the-service">
-<span id="tutorials-servefdsnws-visit"></span><h2>Visiting the Service<a class="headerlink" href="#visiting-the-service" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="visiting-the-service">
+<span id="tutorials-servefdsnws-visit"></span><h2>Visiting the Service<a class="headerlink" href="#visiting-the-service" title="Permalink to this heading">¶</a></h2>
 <p>Once <a class="reference internal" href="../../apps/fdsnws.html#fdsnws"><span class="std std-ref">fdsnws</span></a> is running, you can visit the local web server
 that it runs.
 In your browser, visit <a class="reference external" href="http://localhost:8080/fdsnws/dataselect/1/">http://localhost:8080/fdsnws/dataselect/1/</a></p>
-<div class="figure align-center" id="id2">
+<figure class="align-center" id="id2">
 <a class="reference internal image-reference" href="../../_images/servefdsnws_dataselect.png"><img alt="../../_images/servefdsnws_dataselect.png" src="../../_images/servefdsnws_dataselect.png" style="width: 16cm;" /></a>
-<p class="caption"><span class="caption-text">Information screen shown by fdsnws-dataselect at
+<figcaption>
+<p><span class="caption-text">Information screen shown by fdsnws-dataselect at
 <a class="reference external" href="http://localhost:8080/fdsnws/dataselect/1/">http://localhost:8080/fdsnws/dataselect/1/</a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-<div class="section" id="check-it-works">
-<h2>Check it Works<a class="headerlink" href="#check-it-works" title="Permalink to this headline">¶</a></h2>
+</figcaption>
+</figure>
+</section>
+<section id="check-it-works">
+<h2>Check it Works<a class="headerlink" href="#check-it-works" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>If you visit the URL <a class="reference external" href="http://localhost:8080/fdsnws/dataselect/1/version">http://localhost:8080/fdsnws/dataselect/1/version</a>
 you should receive a version number string - currently <cite>1.1.0</cite>.</p></li>
@@ -160,23 +163,25 @@ and served by the service, e.g. visiting
 <a class="reference external" href="http://localhost:8080/fdsnws/station/1/query?level=network&amp;format=text">http://localhost:8080/fdsnws/station/1/query?level=network&amp;format=text</a>
 produces</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#Network|Description|StartTime|EndTime|TotalStations</span>
-GE<span class="p">|</span>GEOFON Program, GFZ Potsdam, Germany<span class="p">|</span><span class="m">1993</span>-01-01T00:00:00<span class="o">||</span><span class="m">84</span>
+GE<span class="p">|</span>GEOFON<span class="w"> </span>Program,<span class="w"> </span>GFZ<span class="w"> </span>Potsdam,<span class="w"> </span>Germany<span class="p">|</span><span class="m">1993</span>-01-01T00:00:00<span class="o">||</span><span class="m">84</span>
 </pre></div>
 </div>
 <p>Omitting the <cite>format=text</cite> argument in the query string of the above URL
 results in the service returning a StationXML file.</p>
 </li>
 </ul>
-<div class="figure align-center" id="id3">
+<figure class="align-center" id="id3">
 <a class="reference internal image-reference" href="../../_images/servefdsnws_stationxml.png"><img alt="../../_images/servefdsnws_stationxml.png" src="../../_images/servefdsnws_stationxml.png" style="width: 16cm;" /></a>
-<p class="caption"><span class="caption-text">Example of StationXML returned by the fdsnws-station service at</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<figcaption>
+<p><span class="caption-text">Example of StationXML returned by the fdsnws-station service at</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 <div class="legend">
 <p><a class="reference external" href="http://localhost:8080/fdsnws/station/1/query?level=network">http://localhost:8080/fdsnws/station/1/query?level=network</a></p>
 </div>
-</div>
-</div>
-<div class="section" id="further-information">
-<h2>Further Information<a class="headerlink" href="#further-information" title="Permalink to this headline">¶</a></h2>
+</figcaption>
+</figure>
+</section>
+<section id="further-information">
+<h2>Further Information<a class="headerlink" href="#further-information" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>The <a class="reference external" href="https://geofon.gfz-potsdam.de/waveform/builder.php">URL Builder at GEOFON</a>
 lets you fill out a form to tailor your request.
@@ -186,9 +191,9 @@ The URL to use to make your request is displayed at the bottom of that page.</p>
 <li><p>The FDSN Web Services specification document <span id="id1">[<a class="reference internal" href="../references.html#id107" title="FDSN Web Service Specifications. International Federation of Digital Seismograph Networks. URL: http://www.fdsn.org/webservices/FDSN-WS-Specifications-1.2.pdf.">5</a>]</span> provides the
 technical documentation and examples.</p></li>
 </ul>
-</div>
-<div class="section" id="final-tests">
-<h2>Final Tests<a class="headerlink" href="#final-tests" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="final-tests">
+<h2>Final Tests<a class="headerlink" href="#final-tests" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>The station should now be visible when you query your local fdsnws instance.
 In your browser, visit
@@ -201,8 +206,8 @@ actually present in your archive.
 The above example is just for the first hour of 2020.</p>
 </li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -215,14 +220,15 @@ The above example is just for the first hour of 2020.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../../index.html">Table of Contents</a></h3>
-  <ul>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Enable local FDSNWS server</a><ul>
 <li><a class="reference internal" href="#set-up">Set-up</a></li>
 <li><a class="reference internal" href="#visiting-the-service">Visiting the Service</a></li>
@@ -233,12 +239,17 @@ The above example is just for the first hour of 2020.</p>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="geofon_waveforms.html"
-                        title="previous chapter">Add real-time stations from GEOFON</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="waveformplayback.html"
-                        title="next chapter">Play back archived waveforms</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="geofon_waveforms.html"
+                          title="previous chapter">Add real-time stations from GEOFON</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="waveformplayback.html"
+                          title="next chapter">Play back archived waveforms</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -258,7 +269,7 @@ The above example is just for the first hour of 2020.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.3</b> Release
+		  Version <b>5.5.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

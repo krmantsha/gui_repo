@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Introduction and Scope &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../_static/seiscomp.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Overview" href="overview.html" />
@@ -25,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.3</span>
+          <span class="version">5.5.4</span>
         </div>
       </div>
     </div>
@@ -65,8 +66,8 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="introduction-and-scope">
-<span id="introduction"></span><h1>Introduction and Scope<a class="headerlink" href="#introduction-and-scope" title="Permalink to this headline">¶</a></h1>
+  <section id="introduction-and-scope">
+<span id="introduction"></span><h1>Introduction and Scope<a class="headerlink" href="#introduction-and-scope" title="Permalink to this heading">¶</a></h1>
 <p>SeisComP is likely the most widely distributed software package for real-time monitoring
 of earthquakes and other seismic events. It provides automatic and interactive
 seismological data acquisition, processing and data exchange over the internet. Its
@@ -80,12 +81,12 @@ research centers, companies and governmental agencies world-wide by:</p>
 <span id="id1">[<a class="reference internal" href="references.html#id252" title="Seiscomp on github. URL: https://github.com/SeisComP.">1</a>]</span> welcoming community contributions.</p></li>
 </ul>
 <p>The first work on what became <cite>SeisComP</cite> today began nearly two decades ago
-with developments at <a class="reference internal" href="glossary.html#term-gfz"><span class="xref std std-term">GFZ</span></a> of plugins for digitizers.
-It is now continued by <a class="reference internal" href="glossary.html#term-gempa-gmbh"><span class="xref std std-term">gempa GmbH</span></a> and GFZ.
+with developments at <a class="reference internal" href="glossary.html#term-GFZ"><span class="xref std std-term">GFZ</span></a> of plugins for digitizers.
+It is now continued by <a class="reference internal" href="glossary.html#term-gempa-GmbH"><span class="xref std std-term">gempa GmbH</span></a> and GFZ.
 The <a class="reference internal" href="history.html#history"><span class="std std-ref">section on historical information</span></a> provides details on the past
 and current releases.</p>
-<div class="section" id="features">
-<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this heading">¶</a></h2>
 <p>Today <cite>SeisComP</cite> includes the following features:</p>
 <ul class="simple">
 <li><p>Data acquisition</p></li>
@@ -106,9 +107,9 @@ and current releases.</p>
 earthquakes through graphical user interface and command-line tools</p></li>
 <li><p>Python interface for developing custom scripts and modules.</p></li>
 </ul>
-</div>
-<div class="section" id="software-design">
-<h2>Software Design<a class="headerlink" href="#software-design" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="software-design">
+<h2>Software Design<a class="headerlink" href="#software-design" title="Permalink to this heading">¶</a></h2>
 <p>The guidelines for the design of <cite>SeisComP</cite> are:</p>
 <ul class="simple">
 <li><p>Implementation of critical functions as standalone modules to guarantee the
@@ -126,9 +127,9 @@ to respond to new developments. The <cite>SeisComP</cite> community is encourage
 their <cite>SeisComP</cite> source code on GitHub <span id="id2">[<a class="reference internal" href="references.html#id252" title="Seiscomp on github. URL: https://github.com/SeisComP.">1</a>]</span>. Examples and
 guidelines for generating
 code are given in the <a class="reference internal" href="../index.html#sec-index-developers"><span class="std std-ref">developer section</span></a>.</p>
-</div>
-<div class="section" id="this-documentation">
-<h2>This Documentation<a class="headerlink" href="#this-documentation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="this-documentation">
+<h2>This Documentation<a class="headerlink" href="#this-documentation" title="Permalink to this heading">¶</a></h2>
 <p>This documentation begins with an <a class="reference internal" href="overview.html#overview"><span class="std std-ref">Overview</span></a> and a <a class="reference internal" href="concepts.html#concepts"><span class="std std-ref">Concepts</span></a> section
 necessary for understanding and using <cite>SeisComP</cite> successfully.
 The <a class="reference internal" href="glossary.html#glossary"><span class="std std-ref">Glossary section</span></a> introduces technical terms.
@@ -151,7 +152,7 @@ of each individual <cite>SeisComP</cite> module, grouped by their general functi
 <li><p>Utilities</p></li>
 </ul>
 <p>and many more <a class="reference internal" href="../index.html#sec-index-extensions"><span class="std std-ref">extensions</span></a> like descriptions of the
-<a class="reference internal" href="glossary.html#term-recordstream"><span class="xref std std-term">RecordStream</span></a>, magnitude types, locators, GUI customizations, waveform
+<a class="reference internal" href="glossary.html#term-RecordStream"><span class="xref std std-term">RecordStream</span></a>, magnitude types, locators, GUI customizations, waveform
 filters or plugins.</p>
 <p>The final part of the documentation relates to
 <a class="reference internal" href="../index.html#sec-index-developers"><span class="std std-ref">contributing your own source code</span></a> to <cite>SeisComP</cite>.
@@ -164,8 +165,8 @@ and a <a class="reference internal" href="contributing-docs.html#contributing-do
 quickly with programming for <cite>SeisComP</cite>.</p>
 <p><cite>SeisComP</cite> is developed and distributed under the terms of the GNU
 <span id="id3"><em>Affero General Public License</em> [<a class="reference internal" href="references.html#id85" title="Affero General Public License. GNU. URL: https://www.gnu.org/licenses/agpl-3.0.html.">2</a>]</span>, as set out in the <a class="reference internal" href="license.html#license"><span class="std std-ref">License</span></a> section.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -178,14 +179,15 @@ quickly with programming for <cite>SeisComP</cite>.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Introduction and Scope</a><ul>
 <li><a class="reference internal" href="#features">Features</a></li>
 <li><a class="reference internal" href="#software-design">Software Design</a></li>
@@ -194,12 +196,17 @@ quickly with programming for <cite>SeisComP</cite>.</p>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="../index.html"
-                        title="previous chapter">Welcome</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="overview.html"
-                        title="next chapter">Overview</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../index.html"
+                          title="previous chapter">Welcome</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="overview.html"
+                          title="next chapter">Overview</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -219,7 +226,7 @@ quickly with programming for <cite>SeisComP</cite>.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.3</b> Release
+		  Version <b>5.5.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

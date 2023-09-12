@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Examples &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../_static/seiscomp.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Getting the Source Code" href="build.html" />
@@ -25,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.3</span>
+          <span class="version">5.5.4</span>
         </div>
       </div>
     </div>
@@ -71,21 +72,21 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="examples">
-<span id="sdk-python-examples"></span><h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="simple-messaging-client">
-<h2>Simple messaging client<a class="headerlink" href="#simple-messaging-client" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="summary">
-<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
+  <section id="examples">
+<span id="sdk-python-examples"></span><h1>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h1>
+<section id="simple-messaging-client">
+<h2>Simple messaging client<a class="headerlink" href="#simple-messaging-client" title="Permalink to this heading">¶</a></h2>
+<section id="summary">
+<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h3>
 <p>Example client that connects to the messaging, listens for event
 objects and dumps the event IDs.</p>
-</div>
-<div class="section" id="goal">
-<h3>Goal<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="goal">
+<h3>Goal<a class="headerlink" href="#goal" title="Permalink to this heading">¶</a></h3>
 <p>Illustrate the basic messaging concepts.</p>
-</div>
-<div class="section" id="script">
-<h3>Script<a class="headerlink" href="#script" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="script">
+<h3>Script<a class="headerlink" href="#script" title="Permalink to this heading">¶</a></h3>
 <p>This script was demonstrated at the <cite>SeisComP</cite> workshop in Erice. It should be
 relatively self-explanatory, but full understanding does require certain knowlege
 of Python.</p>
@@ -96,21 +97,21 @@ of Python.</p>
 <li><p>listen to these messages</p></li>
 <li><p>dump the event IDs to the screen</p></li>
 </ul>
-<div class="section" id="event-listener-py">
-<h4>event-listener.py<a class="headerlink" href="#event-listener-py" title="Permalink to this headline">¶</a></h4>
+<section id="event-listener-py">
+<h4>event-listener.py<a class="headerlink" href="#event-listener-py" title="Permalink to this heading">¶</a></h4>
 <p>No actual real-world use case but a truly minimum example for a <cite>SeisComP</cite> application.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env seiscomp-python</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
-<span class="kn">from</span> <span class="nn">seiscomp</span> <span class="k">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">datamodel</span>
-<span class="kn">from</span> <span class="nn">seiscomp.client</span> <span class="k">import</span> <span class="n">Protocol</span>
+<span class="kn">from</span> <span class="nn">seiscomp</span> <span class="kn">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">datamodel</span>
+<span class="kn">from</span> <span class="nn">seiscomp.client</span> <span class="kn">import</span> <span class="n">Protocol</span>
 
 
 <span class="k">class</span> <span class="nc">EventListener</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">Application</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">):</span>
         <span class="n">client</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setMessagingEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setDatabaseEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
@@ -165,43 +166,43 @@ enable messaging and database usage in the __init__ routine. The real action
 takes place in the doSomethingWithEvent routine, which is called by both
 updateObject and addObject, depending on whether the event object received is a
 newly added or just and updated event.</p>
-</div>
-</div>
-</div>
-<div class="section" id="inventory-examples">
-<h2>Inventory examples<a class="headerlink" href="#inventory-examples" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id1">
-<h3>Summary<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+</section>
+<section id="inventory-examples">
+<h2>Inventory examples<a class="headerlink" href="#inventory-examples" title="Permalink to this heading">¶</a></h2>
+<section id="id1">
+<h3>Summary<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
 <p>Various Python example scripts that retrieve inventory information from the
 database.</p>
-</div>
-<div class="section" id="id2">
-<h3>Goal<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id2">
+<h3>Goal<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
 <p>Illustrate the usefulness of simple Python scripts to retrieve inventory
 information.</p>
-</div>
-<div class="section" id="scripts">
-<h3>Scripts<a class="headerlink" href="#scripts" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="scripts">
+<h3>Scripts<a class="headerlink" href="#scripts" title="Permalink to this heading">¶</a></h3>
 <p>The scripts in this section all deal with inventory access. All need to be
 invoked with the command-line <code class="docutils literal notranslate"><span class="pre">-d</span></code> option to specify the <cite>SeisComP</cite> database
 from which the information is to be read. For example:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python configured-streams.py -d localhost
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>configured-streams.py<span class="w"> </span>-d<span class="w"> </span>localhost
 </pre></div>
 </div>
-<div class="section" id="configured-streams-py">
-<h4>configured-streams.py<a class="headerlink" href="#configured-streams-py" title="Permalink to this headline">¶</a></h4>
+<section id="configured-streams-py">
+<h4>configured-streams.py<a class="headerlink" href="#configured-streams-py" title="Permalink to this heading">¶</a></h4>
 <p>Print a list of all streams configured on a <cite>SeisComP</cite> system.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env seiscomp-python</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
-<span class="kn">from</span> <span class="nn">seiscomp</span> <span class="k">import</span> <span class="n">core</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span> <span class="n">datamodel</span>
+<span class="kn">from</span> <span class="nn">seiscomp</span> <span class="kn">import</span> <span class="n">core</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span> <span class="n">datamodel</span>
 
 
 <span class="k">class</span> <span class="nc">ListStreamsApp</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">Application</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">):</span>
         <span class="n">client</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setMessagingEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setDatabaseEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
@@ -270,21 +271,21 @@ from which the information is to be read. For example:</p>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="station-coordinates-py">
-<h4>station-coordinates.py<a class="headerlink" href="#station-coordinates-py" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="station-coordinates-py">
+<h4>station-coordinates.py<a class="headerlink" href="#station-coordinates-py" title="Permalink to this heading">¶</a></h4>
 <p>Print the coordinates of all stations configured on a <cite>SeisComP</cite> system.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env seiscomp-python</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
-<span class="kn">from</span> <span class="nn">seiscomp</span> <span class="k">import</span> <span class="n">core</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span> <span class="n">datamodel</span>
+<span class="kn">from</span> <span class="nn">seiscomp</span> <span class="kn">import</span> <span class="n">core</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span> <span class="n">datamodel</span>
 
 
 <span class="k">class</span> <span class="nc">InvApp</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">Application</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">):</span>
         <span class="n">client</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setMessagingEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setDatabaseEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
@@ -351,21 +352,21 @@ from which the information is to be read. For example:</p>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="channel-gains-py">
-<h4>channel-gains.py<a class="headerlink" href="#channel-gains-py" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="channel-gains-py">
+<h4>channel-gains.py<a class="headerlink" href="#channel-gains-py" title="Permalink to this heading">¶</a></h4>
 <p>Print channel gains for all streams configured on a <cite>SeisComP</cite> system.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env seiscomp-python</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
-<span class="kn">from</span> <span class="nn">seiscomp</span> <span class="k">import</span> <span class="n">core</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span> <span class="n">datamodel</span>
+<span class="kn">from</span> <span class="nn">seiscomp</span> <span class="kn">import</span> <span class="n">core</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span> <span class="n">datamodel</span>
 
 
 <span class="k">class</span> <span class="nc">InvApp</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">Application</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">):</span>
         <span class="n">client</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setMessagingEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setDatabaseEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
@@ -438,34 +439,34 @@ from which the information is to be read. For example:</p>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="simple-waveform-client">
-<h2>Simple waveform client<a class="headerlink" href="#simple-waveform-client" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id3">
-<h3>Summary<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+</section>
+<section id="simple-waveform-client">
+<h2>Simple waveform client<a class="headerlink" href="#simple-waveform-client" title="Permalink to this heading">¶</a></h2>
+<section id="id3">
+<h3>Summary<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <p>Example client that connects to a RecordStream service and dumps the content
 to stdout.</p>
-</div>
-<div class="section" id="id4">
-<h3>Goal<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id4">
+<h3>Goal<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <p>Illustrate the basic RecordStream concepts.</p>
-</div>
-<div class="section" id="id5">
-<h3>Script<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="waveform-client-py">
-<h4>waveform-client.py<a class="headerlink" href="#waveform-client-py" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id5">
+<h3>Script<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<section id="waveform-client-py">
+<h4>waveform-client.py<a class="headerlink" href="#waveform-client-py" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env seiscomp-python</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">seiscomp</span> <span class="k">import</span> <span class="n">core</span><span class="p">,</span> <span class="n">client</span>
+<span class="kn">from</span> <span class="nn">seiscomp</span> <span class="kn">import</span> <span class="n">core</span><span class="p">,</span> <span class="n">client</span>
 
 
 <span class="k">class</span> <span class="nc">App</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">StreamApplication</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">):</span>
         <span class="n">client</span><span class="o">.</span><span class="n">StreamApplication</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">)</span>
         <span class="c1"># Do not connect to messaging and do not use database at all</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setMessagingEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
@@ -529,40 +530,40 @@ to stdout.</p>
 </div>
 <p>The command-line option <code class="docutils literal notranslate"><span class="pre">-I</span></code> can be used to configure the record
 stream backend when running the test application.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python testrec.py -I slink://localhost:18000
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>testrec.py<span class="w"> </span>-I<span class="w"> </span>slink://localhost:18000
 </pre></div>
 </div>
 <p>or to ask Arclink for data</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python testrec.py -I arclink://localhost:18001
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>testrec.py<span class="w"> </span>-I<span class="w"> </span>arclink://localhost:18001
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="waveform-client-and-record-filtering">
-<h2>Waveform client and record filtering<a class="headerlink" href="#waveform-client-and-record-filtering" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id6">
-<h3>Summary<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+</section>
+<section id="waveform-client-and-record-filtering">
+<h2>Waveform client and record filtering<a class="headerlink" href="#waveform-client-and-record-filtering" title="Permalink to this heading">¶</a></h2>
+<section id="id6">
+<h3>Summary<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
 <p>Example client that connects to a RecordStream service, filters the records
 with a given <cite>SeisComP</cite> filter and dumps the content to stdout.</p>
-</div>
-<div class="section" id="id7">
-<h3>Goal<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id7">
+<h3>Goal<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
 <p>Illustrate the recordfilter concepts.</p>
-</div>
-<div class="section" id="id8">
-<h3>Script<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="waveform-filter-py">
-<h4>waveform-filter.py<a class="headerlink" href="#waveform-filter-py" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id8">
+<h3>Script<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
+<section id="waveform-filter-py">
+<h4>waveform-filter.py<a class="headerlink" href="#waveform-filter-py" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env seiscomp-python</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">seiscomp</span> <span class="k">import</span> <span class="n">core</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span> <span class="n">io</span><span class="p">,</span> <span class="n">math</span><span class="p">,</span> <span class="n">logging</span>
+<span class="kn">from</span> <span class="nn">seiscomp</span> <span class="kn">import</span> <span class="n">core</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span> <span class="n">io</span><span class="p">,</span> <span class="n">math</span><span class="p">,</span> <span class="n">logging</span>
 
 
 <span class="k">class</span> <span class="nc">App</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">StreamApplication</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">):</span>
         <span class="n">client</span><span class="o">.</span><span class="n">StreamApplication</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">)</span>
         <span class="c1"># Do not connect to messaging and do not use database at all</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setMessagingEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
@@ -643,10 +644,10 @@ with a given <cite>SeisComP</cite> filter and dumps the content to stdout.</p>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -659,14 +660,15 @@ with a given <cite>SeisComP</cite> filter and dumps the content to stdout.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Examples</a><ul>
 <li><a class="reference internal" href="#simple-messaging-client">Simple messaging client</a><ul>
 <li><a class="reference internal" href="#summary">Summary</a></li>
@@ -710,12 +712,17 @@ with a given <cite>SeisComP</cite> filter and dumps the content to stdout.</p>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="api-python-client.html"
-                        title="previous chapter">seiscomp.client</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="build.html"
-                        title="next chapter">Getting the Source Code</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="api-python-client.html"
+                          title="previous chapter">seiscomp.client</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="build.html"
+                          title="next chapter">Getting the Source Code</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -735,7 +742,7 @@ with a given <cite>SeisComP</cite> filter and dumps the content to stdout.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.3</b> Release
+		  Version <b>5.5.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

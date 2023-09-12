@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCEVTSTREAMS" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scevtstreams \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCEVTSTREAMS" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scevtstreams \- SeisComP Documentation
 .sp
 \fBExtract stream information and time windows from an event.\fP
 .SH DESCRIPTION
@@ -39,7 +39,7 @@ the first pick and the last pick. In addition a symmetric or an asymmetric time
 margin is added to this
 time window. It writes the streams that are picked including the determined
 time window for the event to stdout. This tool gives appropriate input
-information for scart, fdsnws and
+information for \fI\%scart\fP, \fI\%fdsnws\fP and
 \fI\%caps\fP
 (Common Acquisition Protocol Server by gempa GmbH) to dump waveforms from archives
 based on event data.
@@ -124,7 +124,7 @@ scart \-\-list \- ./my\-archive
 .UNINDENT
 .UNINDENT
 .IP 5. 3
-Create lists compatible with fdsnws or \fI\%caps\fP:
+Create lists compatible with \fI\%fdsnws\fP or \fI\%caps\fP:
 .INDENT 3.0
 .INDENT 3.5
 .sp
@@ -148,7 +148,7 @@ scevtstreams \-E gfz2012abcd \-i event.xml \-m 120,500 \-\-caps
 .fi
 .sp
 .sp
-scevtstreams inherits global options\&.
+scevtstreams inherits \fI\%global options\fP\&.
 .SH COMMAND-LINE OPTIONS
 .sp
 \fBscevtstreams [options]\fP
@@ -204,7 +204,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
@@ -268,8 +268,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP

@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCWFAS" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scwfas \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCWFAS" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scwfas \- SeisComP Documentation
 .sp
 \fBWaveform archive server\fP
 .SH DESCRIPTION
@@ -38,7 +38,7 @@ The waveform archive server is a small application that serves a local
 SDS archive via different protocols. Currently there are two implementations:
 .INDENT 0.0
 .IP \(bu 2
-fdsnws dataselect
+\fI\%fdsnws dataselect\fP
 .INDENT 2.0
 .IP \(bu 2
 dataselect/1/query
@@ -68,7 +68,7 @@ checks or user authentication.
 .fi
 .sp
 .sp
-scwfas inherits global options\&.
+scwfas inherits \fI\%global options\fP\&.
 .INDENT 0.0
 .TP
 .B handlerSDS
@@ -86,7 +86,7 @@ Default: \fB@ROOTDIR@/var/lib/archive\fP
 Type: \fIstring\fP
 .sp
 The filebase of the SDS archive. If an alternative archive
-handler is defined by "handlerSDS", this value serves
+handler is defined by \(dqhandlerSDS\(dq, this value serves
 as input to setSource().
 .UNINDENT
 .INDENT 0.0

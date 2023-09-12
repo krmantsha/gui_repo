@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "FDSNXML2INV" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-fdsnxml2inv \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,13 +27,16 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "FDSNXML2INV" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+fdsnxml2inv \- SeisComP Documentation
 .sp
 \fBConvert station inventory between FDSN StationXML format and
 SeisComP inventory XML.\fP
 .SH DESCRIPTION
 .sp
 fdsnws2inv is an inventory converter. It converts station meta data from
-FDSN StationXML format to SeisComP XML (SCML) and back. Write the output to the command line.
+FDSN StationXML format to SeisComP XML (\fI\%SCML\fP) and back. Write the output to the command line.
 .SH EXAMPLES
 .INDENT 0.0
 .IP 1. 3
@@ -77,7 +77,7 @@ fdsnxml2inv \-\-to\-staxml \-f inventory_sc.xml > inventory_fdns.xml
 .fi
 .sp
 .sp
-fdsnxml2inv inherits global options\&.
+fdsnxml2inv inherits \fI\%global options\fP\&.
 .SH COMMAND-LINE OPTIONS
 .sp
 \fBfdsnxml2inv [OPTIONS] input [output]\fP

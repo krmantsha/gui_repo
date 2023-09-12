@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>ql2sc &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../_static/seiscomp.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="scalert" href="scalert.html" />
@@ -25,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.3</span>
+          <span class="version">5.5.4</span>
         </div>
       </div>
     </div>
@@ -71,11 +72,11 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="ql2sc">
-<span id="id1"></span><h1>ql2sc<a class="headerlink" href="#ql2sc" title="Permalink to this headline">¶</a></h1>
+  <section id="ql2sc">
+<span id="id1"></span><h1>ql2sc<a class="headerlink" href="#ql2sc" title="Permalink to this heading">¶</a></h1>
 <p><strong>QuakeLink (gempa GmbH) to SeisComP event parameter exchange.</strong></p>
-<div class="section" id="description">
-<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
 <p>ql2sc manages the import of SeisComP objects from one or several QuakeLink servers
 into a SeisComP system in real time. Like <a class="reference internal" href="scimex.html#scimex"><span class="std std-ref">scimex</span></a> but contrary to
 <a class="reference internal" href="scimport.html#scimport"><span class="std std-ref">scimport</span></a> the exchange of the SeisComP objects is event based. This means no
@@ -84,9 +85,9 @@ messages will be exchanged until the exporting system has produced an event.</p>
 possible server-side filters should be preferred to reduce both the network
 bandwidth consumption as well as the CPU and memory utilization on the local
 machine.</p>
-</div>
-<div class="section" id="server-side-event-filter">
-<span id="ql2sc-event-filter"></span><h2>Server-Side Event Filter<a class="headerlink" href="#server-side-event-filter" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="server-side-event-filter">
+<span id="ql2sc-event-filter"></span><h2>Server-Side Event Filter<a class="headerlink" href="#server-side-event-filter" title="Permalink to this heading">¶</a></h2>
 <p>QuakeLink provides a filter syntax similar to SQL-WHERE clauses which may be
 used to filter interesting events on the server side:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>clause    := condition[ AND|OR [(]clause[)]]
@@ -102,7 +103,7 @@ time      := %Y,%m,%d[,%H,%M,%S,%f]
 <p>E.g., the following filter string would select only those events with a minimum
 magnitude of 6, detected by at least 10 stations and which are shallower than
 100km:</p>
-<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">MAG</span> <span class="o">&gt;=</span> <span class="mi">6</span><span class="p">.</span><span class="mi">0</span> <span class="k">AND</span> <span class="n">PHASES</span> <span class="o">&gt;=</span> <span class="mi">10</span> <span class="k">AND</span> <span class="n">DEPTH</span> <span class="o">&lt;</span> <span class="mi">100</span>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">MAG</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">6</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">PHASES</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">DEPTH</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">100</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -112,15 +113,11 @@ list all available options you may connect to the server, e.g., using
 <cite>telnet localhost 18010</cite>, and request the help page of the <cite>SELECT</cite> command
 using <cite>help select</cite>.</p>
 </div>
-</div>
-<div class="section" id="server-side-object-filter">
-<span id="ql2sc-object-filter"></span><h2>Server-Side Object Filter<a class="headerlink" href="#server-side-object-filter" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="server-side-object-filter">
+<span id="ql2sc-object-filter"></span><h2>Server-Side Object Filter<a class="headerlink" href="#server-side-object-filter" title="Permalink to this heading">¶</a></h2>
 <p>QuakeLink provides a coarse object filter for the most relevant SeisComP objects:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 16%" />
-<col style="width: 84%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Option</p></th>
 <th class="head"><p>Impact</p></th>
@@ -147,9 +144,9 @@ using <cite>help select</cite>.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="local-object-filter-and-routing">
-<span id="routing"></span><h2>Local Object Filter and Routing<a class="headerlink" href="#local-object-filter-and-routing" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="local-object-filter-and-routing">
+<span id="routing"></span><h2>Local Object Filter and Routing<a class="headerlink" href="#local-object-filter-and-routing" title="Permalink to this heading">¶</a></h2>
 <p>Subsequent to the server-side filters a routing table defines which objects to
 import and to which message group to send them. Depending on the <cite>SeisComP</cite> modules
 listening to the specified message groups an object may be further processed.
@@ -162,8 +159,8 @@ may be used.</p>
 recursively within the SeisComP object tree. If no explicit rule exists for an
 object, the routing of its parent is evaluated up to the <code class="docutils literal notranslate"><span class="pre">EventParameters</span></code>
 root node.</p>
-<div class="section" id="examples">
-<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>EventParameters:IMPORT_GROUP
 </pre></div>
 </div>
@@ -178,9 +175,9 @@ root node.</p>
 <p>Sends origins and it’s children arrival, origin uncertainty to the <code class="docutils literal notranslate"><span class="pre">LOCATION</span></code>
 group but the magnitude children to the <code class="docutils literal notranslate"><span class="pre">MAGNITUDE</span></code> group. Skips picks,
 amplitudes, focal mechanisms and events.</p>
-</div>
-<div class="section" id="default-routing-table">
-<h3>Default routing table<a class="headerlink" href="#default-routing-table" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="default-routing-table">
+<h3>Default routing table<a class="headerlink" href="#default-routing-table" title="Permalink to this heading">¶</a></h3>
 <p>The default use case of ql2sc is to import earthquake solutions from other data
 centers or in-house redundant SeisComP systems. The intention is not to
 reprocess the solution but to add them to the local catalog.</p>
@@ -205,11 +202,11 @@ be split into at least two messages, the first one containing the Origin, the
 second one the Magnitude. The Origin message immediately triggers magnitude
 calculation, potentially for a magnitude type which is received with the second
 message.</p>
-<p>The default routing table is set as given in <a class="reference internal" href="#confval-host.$name.routingTable"><code class="xref std std-confval docutils literal notranslate"><span class="pre">host.$name.routingTable</span></code></a>.</p>
-</div>
-</div>
-<div class="section" id="agency-list-filter">
-<span id="agency-filter"></span><h2>Agency List Filter<a class="headerlink" href="#agency-list-filter" title="Permalink to this headline">¶</a></h2>
+<p>The default routing table is set as given in <a class="reference internal" href="#confval-host.-name.routingTable"><code class="xref std std-confval docutils literal notranslate"><span class="pre">host.$name.routingTable</span></code></a>.</p>
+</section>
+</section>
+<section id="agency-list-filter">
+<span id="agency-filter"></span><h2>Agency List Filter<a class="headerlink" href="#agency-list-filter" title="Permalink to this heading">¶</a></h2>
 <p>In addition to the local object filter the user may choose to accept only those
 objects originating from a set of trusted agencies. If at least one agency is
 defined in the <code class="docutils literal notranslate"><span class="pre">processing.whitelist.agencies</span></code> or
@@ -229,9 +226,9 @@ are also skipped even if they carry a different agency ID.</p>
 <p>The agency white list filter might be essential to avoid circular event
 updates between cross-connected SeisComP systems.</p>
 </div>
-</div>
-<div class="section" id="publicid-prefix-filter">
-<span id="publicid-filter"></span><h2>PublicID Prefix Filter<a class="headerlink" href="#publicid-prefix-filter" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="publicid-prefix-filter">
+<span id="publicid-filter"></span><h2>PublicID Prefix Filter<a class="headerlink" href="#publicid-prefix-filter" title="Permalink to this heading">¶</a></h2>
 <p>In addition to the <a class="reference internal" href="#agency-filter"><span class="std std-ref">agency filter</span></a> incoming or local objects
 can be skipped by checking their publicID prefix. It behaves similar to the
 <a class="reference internal" href="#agency-filter"><span class="std std-ref">agency filter</span></a> but checks the <code class="docutils literal notranslate"><span class="pre">publicID</span></code> attribute rather
@@ -239,9 +236,9 @@ than the <code class="docutils literal notranslate"><span class="pre">creationIn
 Prefixes can be configure as white- or blacklist with
 <code class="docutils literal notranslate"><span class="pre">processing.whitelist.publicIDs</span> <span class="pre">=</span> <span class="pre">...</span></code> and
 <code class="docutils literal notranslate"><span class="pre">processing.blacklist.publicIDs</span> <span class="pre">=</span> <span class="pre">...</span></code>.</p>
-</div>
-<div class="section" id="workflow">
-<h2>Workflow<a class="headerlink" href="#workflow" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="workflow">
+<h2>Workflow<a class="headerlink" href="#workflow" title="Permalink to this heading">¶</a></h2>
 <p>Each event update received from a QuakeLink host is parsed and analyzed for
 differences to the local database. The comparison starts at the level of the
 top-level elements in the following order: picks, amplitudes, origins, focal
@@ -251,10 +248,6 @@ order. Objects on the same level are processed in the order of their appearance.
 The differences are collected as a list of notifier objects with the following
 operation types:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 9%" />
-<col style="width: 91%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Type</p></th>
 <th class="head"><p>Description</p></th>
@@ -297,9 +290,9 @@ instance picks are routed to the <code class="docutils literal notranslate"><spa
 into several notifier messages the local <a class="reference internal" href="scautoloc.html#scautoloc"><span class="std std-ref">scautoloc</span></a> might create
 locations based on an incomplete dataset.</p>
 </div>
-</div>
-<div class="section" id="event-attributes">
-<h2>Event Attributes<a class="headerlink" href="#event-attributes" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="event-attributes">
+<h2>Event Attributes<a class="headerlink" href="#event-attributes" title="Permalink to this heading">¶</a></h2>
 <p>It might be desirable to synchronize event attributes set at the source with
 the local system. In particular the event type, the type uncertainty, event
 descriptions and comments might be of interest. Because it is not advisable
@@ -311,8 +304,8 @@ event attributes are going to be imported as well. ql2sc does not update
 directly the attributes but commandates scevent in as many cases as possible
 to do so. To find the matching local event it takes the first occurrence which
 has associated the currently imported preferred origin.</p>
-<div class="section" id="limitations">
-<h3>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h3>
+<section id="limitations">
+<h3>Limitations<a class="headerlink" href="#limitations" title="Permalink to this heading">¶</a></h3>
 <p>There are limitations to this process to avoid infinite loops when cross
 connecting two systems. Prior to sending the commands to scevent to change a
 particular attribute ql2sc checks if that attribute has been set already by
@@ -336,10 +329,10 @@ to the first received update and then apply the “final” state due to the
 second update. Each update triggers again an update at system <code class="docutils literal notranslate"><span class="pre">A</span></code> and the
 states start flapping. Without the described check there wouldn’t be a well
 defined exit condition.</p>
-</div>
-</div>
-<div class="section" id="caveats">
-<h2>Caveats<a class="headerlink" href="#caveats" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="caveats">
+<h2>Caveats<a class="headerlink" href="#caveats" title="Permalink to this heading">¶</a></h2>
 <p>Specific combinations of remote and local object filters may result in the loss
 of data. If for instance origins are imported from system <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">B</span></code> and
 additional magnitudes for the received origins are calculated on <code class="docutils literal notranslate"><span class="pre">B</span></code>, care must
@@ -353,9 +346,9 @@ should be available, an <a class="reference internal" href="#agency-filter"><spa
 <p>Make sure <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> use either distinct agency IDs or distinct publicID
 patterns and add the agency ID of <code class="docutils literal notranslate"><span class="pre">B</span></code> to <code class="docutils literal notranslate"><span class="pre">processing.blacklist.agencies</span></code> or
 the publicID prefix of <code class="docutils literal notranslate"><span class="pre">B</span></code> to <code class="docutils literal notranslate"><span class="pre">processing.blacklist.publicIDs</span></code>.</p>
-</div>
-<div class="section" id="module-configuration">
-<span id="ql2sc-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-configuration">
+<span id="ql2sc-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/global.cfg</span></code></div>
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/ql2sc.cfg</span></code></div>
@@ -365,26 +358,26 @@ the publicID prefix of <code class="docutils literal notranslate"><span class="p
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">~/.seiscomp/ql2sc.cfg</span></code></div>
 </div>
 <p>ql2sc inherits <a class="reference internal" href="global.html#global-configuration"><span class="std std-ref">global options</span></a>.</p>
-<dl class="confval">
-<dt id="confval-backLog">
-<code class="sig-name descname">backLog</code><a class="headerlink" href="#confval-backLog" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-backLog">
+<span class="sig-name descname"><span class="pre">backLog</span></span><a class="headerlink" href="#confval-backLog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">1800</span></code></p>
 <p>Type: <em>int</em></p>
 <p>Unit: <em>s</em></p>
 <p>Number of seconds to fetch missed updates on start up.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-cacheSize">
-<code class="sig-name descname">cacheSize</code><a class="headerlink" href="#confval-cacheSize" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-cacheSize">
+<span class="sig-name descname"><span class="pre">cacheSize</span></span><a class="headerlink" href="#confval-cacheSize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">5000</span></code></p>
 <p>Type: <em>int</em></p>
 <p>Number of public objects to cache.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-batchSize">
-<code class="sig-name descname">batchSize</code><a class="headerlink" href="#confval-batchSize" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-batchSize">
+<span class="sig-name descname"><span class="pre">batchSize</span></span><a class="headerlink" href="#confval-batchSize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">2000</span></code></p>
 <p>Type: <em>int</em></p>
 <p>Maximum number of notifiers to batch in one message. If set
@@ -393,9 +386,9 @@ overall message size limited of 16MiB which is enforced by
 the messaging system.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-eventAssociationTimeout">
-<code class="sig-name descname">eventAssociationTimeout</code><a class="headerlink" href="#confval-eventAssociationTimeout" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociationTimeout">
+<span class="sig-name descname"><span class="pre">eventAssociationTimeout</span></span><a class="headerlink" href="#confval-eventAssociationTimeout" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code></p>
 <p>Type: <em>int</em></p>
 <p>Unit: <em>s</em></p>
@@ -405,9 +398,9 @@ then this timeout defines the maximum number of seconds to
 wait for an association.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-hosts">
-<code class="sig-name descname">hosts</code><a class="headerlink" href="#confval-hosts" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-hosts">
+<span class="sig-name descname"><span class="pre">hosts</span></span><a class="headerlink" href="#confval-hosts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p>Registration of the host profiles defining the connection
 parameters to the QuakeLink hosts.</p>
@@ -425,18 +418,18 @@ parameters to the QuakeLink hosts.</p>
 <p><strong>host.$name.*</strong>
 <em>Provide the connection parameters to one QuakeLink server.</em>
 $name is a placeholder for the name to be used and needs to be added to <a class="reference internal" href="#confval-hosts"><code class="xref std std-confval docutils literal notranslate"><span class="pre">hosts</span></code></a> to become active.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">hosts</span> <span class="o">=</span> a,b
-host.a.value1 <span class="o">=</span> ...
-host.b.value1 <span class="o">=</span> ...
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">hosts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a,b
+host.a.value1<span class="w"> </span><span class="o">=</span><span class="w"> </span>...
+host.b.value1<span class="w"> </span><span class="o">=</span><span class="w"> </span>...
 <span class="c1"># c is not active because it has not been added</span>
 <span class="c1"># to the list of hosts</span>
-host.c.value1 <span class="o">=</span> ...
+host.c.value1<span class="w"> </span><span class="o">=</span><span class="w"> </span>...
 </pre></div>
 </div>
 </div>
-<dl class="confval">
-<dt id="confval-host.$name.url">
-<code class="sig-name descname">host.$name.url</code><a class="headerlink" href="#confval-host.$name.url" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-host.-name.url">
+<span class="sig-name descname"><span class="pre">host.$name.url</span></span><a class="headerlink" href="#confval-host.-name.url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">ql://localhost:18010</span></code></p>
 <p>Type: <em>string</em></p>
 <p>URL of the QuakeLink service, the scheme ‘qls’ enables SSL.</p>
@@ -444,26 +437,26 @@ host.c.value1 <span class="o">=</span> ...
 <p>If set to an empty string the application will run without any QuakeLink connection attempt.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-host.$name.gzip">
-<code class="sig-name descname">host.$name.gzip</code><a class="headerlink" href="#confval-host.$name.gzip" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-host.-name.gzip">
+<span class="sig-name descname"><span class="pre">host.$name.gzip</span></span><a class="headerlink" href="#confval-host.-name.gzip" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Enable/disable GZip (GNU zip) compression.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-host.$name.native">
-<code class="sig-name descname">host.$name.native</code><a class="headerlink" href="#confval-host.$name.native" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-host.-name.native">
+<span class="sig-name descname"><span class="pre">host.$name.native</span></span><a class="headerlink" href="#confval-host.-name.native" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Request native data instead of XML format.
 Native data export may be disabled on some hosts.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-host.$name.syncEventAttributes">
-<code class="sig-name descname">host.$name.syncEventAttributes</code><a class="headerlink" href="#confval-host.$name.syncEventAttributes" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-host.-name.syncEventAttributes">
+<span class="sig-name descname"><span class="pre">host.$name.syncEventAttributes</span></span><a class="headerlink" href="#confval-host.-name.syncEventAttributes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Try to update the event attributes of the target event
@@ -474,9 +467,9 @@ input preferred origin at the target system and will
 update the event attributes via journaling.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-host.$name.syncPreferred">
-<code class="sig-name descname">host.$name.syncPreferred</code><a class="headerlink" href="#confval-host.$name.syncPreferred" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-host.-name.syncPreferred">
+<span class="sig-name descname"><span class="pre">host.$name.syncPreferred</span></span><a class="headerlink" href="#confval-host.-name.syncPreferred" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Synchronize the preferred origin and preferred
@@ -491,9 +484,9 @@ operations as within scolv to fix an origin and
 a particular magnitude type.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-host.$name.keepAlive">
-<code class="sig-name descname">host.$name.keepAlive</code><a class="headerlink" href="#confval-host.$name.keepAlive" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-host.-name.keepAlive">
+<span class="sig-name descname"><span class="pre">host.$name.keepAlive</span></span><a class="headerlink" href="#confval-host.-name.keepAlive" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Request server to send keep alive message every 30s to
@@ -502,9 +495,9 @@ periods. If activated the client will reset the
 connection if no alive message is received within 60s.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-host.$name.filter">
-<code class="sig-name descname">host.$name.filter</code><a class="headerlink" href="#confval-host.$name.filter" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-host.-name.filter">
+<span class="sig-name descname"><span class="pre">host.$name.filter</span></span><a class="headerlink" href="#confval-host.-name.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>SQL like WHERE clause to filter the result set.</p>
 <p>clause    := condition[ AND|OR [(]clause[)]] __
@@ -513,9 +506,9 @@ op        := =|&gt;|&gt;=|&lt;|&lt;=|eq|gt|ge|lt|ge __
 time      := %Y,%m,%d[,%H,%M,%S,%f]</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-host.$name.routingTable">
-<code class="sig-name descname">host.$name.routingTable</code><a class="headerlink" href="#confval-host.$name.routingTable" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-host.-name.routingTable">
+<span class="sig-name descname"><span class="pre">host.$name.routingTable</span></span><a class="headerlink" href="#confval-host.-name.routingTable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">Pick:IMPORT_GROUP,Amplitude:IMPORT_GROUP,FocalMechanism:EVENT,Origin:EVENT</span></code></p>
 <p>Type: <em>list:string</em></p>
 <p>Map datamodel class names to messaging groups. For unmapped objects
@@ -529,91 +522,91 @@ may be excluded by mapping them to ‘NULL’.</p>
 <em>Specify the XML components to fetch.</em>
 <em>Note: These options are not used if ‘native’ data is requested.</em></p>
 </div>
-<dl class="confval">
-<dt id="confval-host.$name.data.picks">
-<code class="sig-name descname">host.$name.data.picks</code><a class="headerlink" href="#confval-host.$name.data.picks" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-host.-name.data.picks">
+<span class="sig-name descname"><span class="pre">host.$name.data.picks</span></span><a class="headerlink" href="#confval-host.-name.data.picks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Include picks</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-host.$name.data.amplitudes">
-<code class="sig-name descname">host.$name.data.amplitudes</code><a class="headerlink" href="#confval-host.$name.data.amplitudes" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-host.-name.data.amplitudes">
+<span class="sig-name descname"><span class="pre">host.$name.data.amplitudes</span></span><a class="headerlink" href="#confval-host.-name.data.amplitudes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Include amplitudes</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-host.$name.data.arrivals">
-<code class="sig-name descname">host.$name.data.arrivals</code><a class="headerlink" href="#confval-host.$name.data.arrivals" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-host.-name.data.arrivals">
+<span class="sig-name descname"><span class="pre">host.$name.data.arrivals</span></span><a class="headerlink" href="#confval-host.-name.data.arrivals" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Include origin arrivals</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-host.$name.data.staMags">
-<code class="sig-name descname">host.$name.data.staMags</code><a class="headerlink" href="#confval-host.$name.data.staMags" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-host.-name.data.staMags">
+<span class="sig-name descname"><span class="pre">host.$name.data.staMags</span></span><a class="headerlink" href="#confval-host.-name.data.staMags" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Include origin station magnitudes</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-host.$name.data.staMts">
-<code class="sig-name descname">host.$name.data.staMts</code><a class="headerlink" href="#confval-host.$name.data.staMts" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-host.-name.data.staMts">
+<span class="sig-name descname"><span class="pre">host.$name.data.staMts</span></span><a class="headerlink" href="#confval-host.-name.data.staMts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Include moment tensor station contributions and phase settings</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-host.$name.data.preferred">
-<code class="sig-name descname">host.$name.data.preferred</code><a class="headerlink" href="#confval-host.$name.data.preferred" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-host.-name.data.preferred">
+<span class="sig-name descname"><span class="pre">host.$name.data.preferred</span></span><a class="headerlink" href="#confval-host.-name.data.preferred" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Include only preferred origin and magnitude information</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-processing.blacklist.publicIDs">
-<code class="sig-name descname">processing.blacklist.publicIDs</code><a class="headerlink" href="#confval-processing.blacklist.publicIDs" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-processing.blacklist.publicIDs">
+<span class="sig-name descname"><span class="pre">processing.blacklist.publicIDs</span></span><a class="headerlink" href="#confval-processing.blacklist.publicIDs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p>Defines a whitelist of publicID prefixes that are
 allowed for processing. Separate items by comma.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-processing.whitelist.publicIDs">
-<code class="sig-name descname">processing.whitelist.publicIDs</code><a class="headerlink" href="#confval-processing.whitelist.publicIDs" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-processing.whitelist.publicIDs">
+<span class="sig-name descname"><span class="pre">processing.whitelist.publicIDs</span></span><a class="headerlink" href="#confval-processing.whitelist.publicIDs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p>Defines a blacklist of publicID prefixes that are
 not allowed for processing. Separate items by comma.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="command-line-options">
-<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="command-line-options">
+<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this heading">¶</a></h2>
 <p><strong class="program">ql2sc [options]</strong></p>
-<div class="section" id="generic">
-<h3>Generic<a class="headerlink" href="#generic" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-ql2sc-h">
-<code class="sig-name descname">-h</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--help</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-ql2sc-h" title="Permalink to this definition">¶</a></dt>
+<section id="generic">
+<h3>Generic<a class="headerlink" href="#generic" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-h">
+<span id="cmdoption-ql2sc-help"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-ql2sc-h" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show help message.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-ql2sc-v">
-<code class="sig-name descname">-V</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--version</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-ql2sc-v" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-V">
+<span id="cmdoption-ql2sc-version"></span><span class="sig-name descname"><span class="pre">-V</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--version</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-ql2sc-V" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show version information.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-ql2sc-config-file">
-<code class="sig-name descname">--config-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-ql2sc-config-file" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-config-file">
+<span class="sig-name descname"><span class="pre">--config-file</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-ql2sc-config-file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use alternative configuration file. When this option is
 used the loading of all stages is disabled. Only the
 given configuration file is parsed and used. To use
@@ -622,163 +615,163 @@ link of the application or copy it. Example:
 scautopick -&gt; scautopick2.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-ql2sc-plugins">
-<code class="sig-name descname">--plugins</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-ql2sc-plugins" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-plugins">
+<span class="sig-name descname"><span class="pre">--plugins</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-ql2sc-plugins" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load given plugins.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-ql2sc-d">
-<code class="sig-name descname">-D</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--daemon</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-ql2sc-d" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-D">
+<span id="cmdoption-ql2sc-daemon"></span><span class="sig-name descname"><span class="pre">-D</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--daemon</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-ql2sc-D" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run as daemon. This means the application will fork itself
 and doesn’t need to be started with &amp;.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="verbosity">
-<h3>Verbosity<a class="headerlink" href="#verbosity" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-ql2sc-verbosity">
-<code class="sig-name descname">--verbosity</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-ql2sc-verbosity" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="verbosity">
+<h3>Verbosity<a class="headerlink" href="#verbosity" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-verbosity">
+<span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-ql2sc-verbosity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
 4:debug.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="id2">
-<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--v</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-v">
+<span id="cmdoption-ql2sc-v"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--v</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-ql2sc-v" title="Permalink to this definition">¶</a></dt>
 <dd><p>Increase verbosity level (may be repeated, eg. -vv).</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-ql2sc-q">
-<code class="sig-name descname">-q</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--quiet</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-ql2sc-q" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-q">
+<span id="cmdoption-ql2sc-quiet"></span><span class="sig-name descname"><span class="pre">-q</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--quiet</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-ql2sc-q" title="Permalink to this definition">¶</a></dt>
 <dd><p>Quiet mode: no logging output.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-ql2sc-print-component">
-<code class="sig-name descname">--print-component</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-ql2sc-print-component" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-print-component">
+<span class="sig-name descname"><span class="pre">--print-component</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-ql2sc-print-component" title="Permalink to this definition">¶</a></dt>
 <dd><p>For each log entry print the component right after the
 log level. By default the component output is enabled
 for file output but disabled for console output.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-ql2sc-component">
-<code class="sig-name descname">--component</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-ql2sc-component" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-component">
+<span class="sig-name descname"><span class="pre">--component</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-ql2sc-component" title="Permalink to this definition">¶</a></dt>
 <dd><p>Limit the logging to a certain component. This option can
 be given more than once.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-ql2sc-s">
-<code class="sig-name descname">-s</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--syslog</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-ql2sc-s" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-s">
+<span id="cmdoption-ql2sc-syslog"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--syslog</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-ql2sc-s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use syslog logging backend. The output usually goes to
 /var/lib/messages.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-ql2sc-l">
-<code class="sig-name descname">-l</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--lockfile</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-ql2sc-l" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-l">
+<span id="cmdoption-ql2sc-lockfile"></span><span class="sig-name descname"><span class="pre">-l</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--lockfile</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-ql2sc-l" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path to lock file.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-ql2sc-console">
-<code class="sig-name descname">--console</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-ql2sc-console" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-console">
+<span class="sig-name descname"><span class="pre">--console</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-ql2sc-console" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send log output to stdout.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-ql2sc-debug">
-<code class="sig-name descname">--debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-ql2sc-debug" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-debug">
+<span class="sig-name descname"><span class="pre">--debug</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-ql2sc-debug" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute in debug mode.
-Equivalent to –verbosity=4 –console=1 .</p>
+Equivalent to --verbosity=4 --console=1 .</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-ql2sc-trace">
-<code class="sig-name descname">--trace</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-ql2sc-trace" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-trace">
+<span class="sig-name descname"><span class="pre">--trace</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-ql2sc-trace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute in trace mode.
-Equivalent to –verbosity=4 –console=1 –print-component=1
-–print-context=1 .</p>
+Equivalent to --verbosity=4 --console=1 --print-component=1
+--print-context=1 .</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-ql2sc-log-file">
-<code class="sig-name descname">--log-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-ql2sc-log-file" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-log-file">
+<span class="sig-name descname"><span class="pre">--log-file</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-ql2sc-log-file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use alternative log file.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="messaging">
-<h3>Messaging<a class="headerlink" href="#messaging" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-ql2sc-u">
-<code class="sig-name descname">-u</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--user</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-ql2sc-u" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="messaging">
+<h3>Messaging<a class="headerlink" href="#messaging" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-u">
+<span id="cmdoption-ql2sc-user"></span><span class="sig-name descname"><span class="pre">-u</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--user</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-ql2sc-u" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.username"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.username</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-ql2sc-host">
-<code class="sig-name descname">-H</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--host</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-ql2sc-host" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-H">
+<span id="cmdoption-ql2sc-host"></span><span class="sig-name descname"><span class="pre">-H</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--host</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-ql2sc-H" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.server"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.server</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-ql2sc-t">
-<code class="sig-name descname">-t</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--timeout</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-ql2sc-t" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-t">
+<span id="cmdoption-ql2sc-timeout"></span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--timeout</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-ql2sc-t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.timeout"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.timeout</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-ql2sc-g">
-<code class="sig-name descname">-g</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--primary-group</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-ql2sc-g" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-g">
+<span id="cmdoption-ql2sc-primary-group"></span><span class="sig-name descname"><span class="pre">-g</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--primary-group</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-ql2sc-g" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.primaryGroup"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.primaryGroup</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-ql2sc-subscribe-group">
-<code class="sig-name descname">-S</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--subscribe-group</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-ql2sc-subscribe-group" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-S">
+<span id="cmdoption-ql2sc-subscribe-group"></span><span class="sig-name descname"><span class="pre">-S</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--subscribe-group</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-ql2sc-S" title="Permalink to this definition">¶</a></dt>
 <dd><p>A group to subscribe to.
 This option can be given more than once.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-ql2sc-content-type">
-<code class="sig-name descname">--content-type</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-ql2sc-content-type" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-content-type">
+<span class="sig-name descname"><span class="pre">--content-type</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-ql2sc-content-type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.contentType"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.contentType</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-ql2sc-start-stop-msg">
-<code class="sig-name descname">--start-stop-msg</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-ql2sc-start-stop-msg" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-start-stop-msg">
+<span class="sig-name descname"><span class="pre">--start-stop-msg</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-ql2sc-start-stop-msg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set sending of a start and a stop message.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="database">
-<h3>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-ql2sc-db-driver-list">
-<code class="sig-name descname">--db-driver-list</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-ql2sc-db-driver-list" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="database">
+<h3>Database<a class="headerlink" href="#database" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-db-driver-list">
+<span class="sig-name descname"><span class="pre">--db-driver-list</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-ql2sc-db-driver-list" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all supported database drivers.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-ql2sc-database">
-<code class="sig-name descname">-d</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--database</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-ql2sc-database" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-ql2sc-d">
+<span id="cmdoption-ql2sc-database"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--database</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-ql2sc-d" title="Permalink to this definition">¶</a></dt>
 <dd><p>The database connection string, format:
 <a class="reference external" href="service://user:pwd&#64;host/database">service://user:pwd&#64;host/database</a>.
-“service” is the name of the database driver which
-can be queried with “–db-driver-list”.</p>
+&quot;service&quot; is the name of the database driver which
+can be queried with &quot;--db-driver-list&quot;.</p>
 </dd></dl>
 
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -791,14 +784,15 @@ can be queried with “–db-driver-list”.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">ql2sc</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
 <li><a class="reference internal" href="#server-side-event-filter">Server-Side Event Filter</a></li>
@@ -828,12 +822,17 @@ can be queried with “–db-driver-list”.</p>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="fdsnws.html"
-                        title="previous chapter">fdsnws</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="scalert.html"
-                        title="next chapter">scalert</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="fdsnws.html"
+                          title="previous chapter">fdsnws</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="scalert.html"
+                          title="next chapter">scalert</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -853,7 +852,7 @@ can be queried with “–db-driver-list”.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.3</b> Release
+		  Version <b>5.5.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

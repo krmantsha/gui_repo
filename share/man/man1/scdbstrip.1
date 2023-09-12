@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCDBSTRIP" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scdbstrip \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,11 +27,14 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCDBSTRIP" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scdbstrip \- SeisComP Documentation
 .sp
 \fBClean up a database from event and waveform quality parameters.\fP
 .SH DESCRIPTION
 .sp
-\fISeisComP\fP\(aqs scmaster is continuously writing to the database. This causes
+\fISeisComP\fP\(aqs \fI\%scmaster\fP is continuously writing to the database. This causes
 the database to grow and to occupy much space on the harddisc. scdbstrip taggles
 this problem and removes processed objects from the database older than a
 configurable time span. The time comparison considers the object time, not the
@@ -62,8 +62,8 @@ by module configuration or command\-line options.
 .INDENT 0.0
 .INDENT 3.5
 For removing specific parameters and not all in a time range, use
-scdispatch along with XML files created by scxmldump and
-scqueryqc for event parameters and waveform QC parameters,
+\fI\%scdispatch\fP along with XML files created by \fI\%scxmldump\fP and
+\fI\%scqueryqc\fP for event parameters and waveform QC parameters,
 respectively.
 .UNINDENT
 .UNINDENT
@@ -77,9 +77,9 @@ that it aborts in case of MYSQL with the following error message:
 .nf
 .ft C
 [  3%] Delete origin references of old events...08:48:22 [error]
-execute("delete Object from Object, OriginReference, old_events where
+execute(\(dqdelete Object from Object, OriginReference, old_events where
 Object._oid=OriginReference._oid and
-OriginReference._parent_oid=old_events._oid") = 1206 (The total number
+OriginReference._parent_oid=old_events._oid\(dq) = 1206 (The total number
 of locks exceeds the lock table size)
 
 Exception: ERROR: command \(aqdelete Object from Object, OriginReference,
@@ -108,7 +108,7 @@ innodb_buffer_pool_size = 64M
 .UNINDENT
 .sp
 The size of the new buffer depends on the size of the database that should
-be cleaned up. Read also the section database_configuration\&. It
+be cleaned up. Read also the section \fI\%Database Server Configuration\fP\&. It
 provides more options for optimizing your database server.
 .IP 2. 3
 Run scdbstrip on smaller batches for the first time:
@@ -164,7 +164,7 @@ scdbstrip \-d mysql://sysop:sysop@localhost/seiscomp \-\-days 30 \-\-qc\-only
 .fi
 .sp
 .sp
-scdbstrip inherits global options\&.
+scdbstrip inherits \fI\%global options\fP\&.
 .INDENT 0.0
 .TP
 .B database.cleanup.invertMode
@@ -269,7 +269,7 @@ Load given plugins.
 .INDENT 0.0
 .TP
 .B \-\-first\-new
-Overrides configuration parameter \fBfirstNew\fP\&.
+Overrides configuration parameter \fI\%firstNew\fP\&.
 .UNINDENT
 .SS Verbosity
 .INDENT 0.0
@@ -332,8 +332,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP

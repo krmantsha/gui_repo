@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "DLSV2INV" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-dlsv2inv \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,12 +27,15 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "DLSV2INV" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+dlsv2inv \- SeisComP Documentation
 .sp
 \fBConvert dataless SEED to SeisComP inventory XML.\fP
 .SH DESCRIPTION
 .sp
 dlsv2inv converts dataless \fI\%SEED\fP to
-SeisComP XML (SCML). Due to the limitations of dataless SEED dlsv2inv allows to set
+SeisComP XML (\fI\%SCML\fP). Due to the limitations of dataless SEED dlsv2inv allows to set
 attributes which are not available in dataless such as network type, network
 description and so on.
 .sp
@@ -52,14 +52,14 @@ whereas the output file defaults to stdout if not given.
 The SeisComP inventory network and station objects have the attribute archive
 which should contain the local datacenter where the information comes from.
 .sp
-While importing the attribute \fBdatacenterID\fP is read and written into
+While importing the attribute \fI\%datacenterID\fP is read and written into
 the archive attribute of all networks and stations available in the dataless.
 The datacenterID can be overridden with the \fB\-\-dcid\fP command\-line option.
 .sp
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
-Conversion of inventory in \fISeisComP\fP XML to dataless SEED is provided by inv2dlsv\&.
+Conversion of inventory in \fISeisComP\fP XML to dataless SEED is provided by \fI\%inv2dlsv\fP\&.
 .UNINDENT
 .UNINDENT
 .SH EXAMPLES
@@ -83,7 +83,7 @@ Override the datacenterID and leave it blank in the output.
 .sp
 .nf
 .ft C
-dlsv2inv \-\-dcid "" GE.dataless GE.xml
+dlsv2inv \-\-dcid \(dq\(dq GE.dataless GE.xml
 .ft P
 .fi
 .UNINDENT
@@ -100,7 +100,7 @@ dlsv2inv \-\-dcid "" GE.dataless GE.xml
 .fi
 .sp
 .sp
-dlsv2inv inherits global options\&.
+dlsv2inv inherits \fI\%global options\fP\&.
 .SH COMMAND-LINE OPTIONS
 .sp
 \fBdlsv2inv [OPTIONS] input [output=stdout]\fP

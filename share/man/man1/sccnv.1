@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCCNV" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-sccnv \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCCNV" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+sccnv \- SeisComP Documentation
 .sp
 \fBConverts data in different formats.\fP
 .SH DESCRIPTION
@@ -120,7 +120,7 @@ _
 T{
 qml1.2
 T}	T{
-QuakeML format
+\fI\%QuakeML\fP format
 T}	T{
 *
 T}	T{
@@ -130,7 +130,7 @@ _
 T{
 qml1.2rt
 T}	T{
-QuakeML real time (RT) format
+\fI\%QuakeML\fP real time (RT) format
 T}	T{
 *
 T}	T{
@@ -149,7 +149,7 @@ _
 T{
 trunk
 T}	T{
-SeisComP XML (SCML) \- SCML API
+SeisComP XML (\fI\%SCML\fP) \- \fI\%SCML API\fP
 T}	T{
 X
 T}	T{
@@ -163,7 +163,7 @@ but can be realized by system tools. Read section \fI\%QuakeML\fP for
 details and instructions.
 .SS QuakeML
 .sp
-QuakeML is used in a variety of flavors involving, e.g.,
+\fI\%QuakeML\fP is used in a variety of flavors involving, e.g.,
 .INDENT 0.0
 .IP \(bu 2
 Using non\-standard objects,
@@ -175,7 +175,7 @@ Missing references to parent objects,
 Missing creationInfo parameters.
 .UNINDENT
 .sp
-The ability to convert from QuakeML to SCML is thus limited and it
+The ability to convert from QuakeML to \fI\%SCML\fP is thus limited and it
 depends on the parameters provided with the input QuakeML file.
 .sp
 However, XSLT stylesheets are provided for mapping the parameters. The files
@@ -219,7 +219,7 @@ $ sccnv \-\-format\-list
 .UNINDENT
 .UNINDENT
 .IP \(bu 2
-Convert an  event parameter file in SCML format to QuakeML and
+Convert an  event parameter file in \fI\%SCML\fP format to \fI\%QuakeML\fP and
 store the content in a file:
 .INDENT 2.0
 .INDENT 3.5
@@ -232,7 +232,7 @@ $ sccnv \-i seiscomp.xml \-o qml1.2:quakeml.xml
 .UNINDENT
 .UNINDENT
 .IP \(bu 2
-Convert an inventory file in Arclink XML format to SCML and store the
+Convert an inventory file in Arclink XML format to \fI\%SCML\fP and store the
 content in a file:
 .INDENT 2.0
 .INDENT 3.5
@@ -245,7 +245,7 @@ $ sccnv \-i arclink:Package_inventory.xml \-o inventory.sc.xml
 .UNINDENT
 .UNINDENT
 .IP \(bu 2
-Convert an event parameter file in SCML format to ims1.0 and store the
+Convert an event parameter file in \fI\%SCML\fP format to ims1.0 and store the
 content in a file:
 .INDENT 2.0
 .INDENT 3.5

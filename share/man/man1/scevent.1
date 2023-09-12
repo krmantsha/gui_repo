@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCEVENT" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scevent \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,16 +27,19 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCEVENT" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scevent \- SeisComP Documentation
 .sp
 \fBAssociates an Origin to an Event or forms a new Event if no match is found.
 Selects the preferred origin, magnitude and focal mechanism.\fP
 .SH DESCRIPTION
 .sp
 As a consequence of a real\-time system the \fISeisComP\fP modules creates several
-origins (results of localization processes) for one earthquake
+\fI\%origins\fP (results of localization processes) for one earthquake
 or other seismic events because as time
 goes by more seismic phases are available. scevent receives these origins and
-associates the origins to events\&. It is also possible to import
+associates the origins to \fI\%events\fP\&. It is also possible to import
 and associate origins from other agencies.
 .sp
 The main tasks of scevent are:
@@ -56,9 +56,9 @@ Set the \fI\%preferred magnitude\fP from all available magnitudes.
 Set the \fI\%preferred focal mechanism\fP from all available focal mechanisms.
 .IP \(bu 2
 \fIOptional:\fP Set the event type of automatic origins based on the plugin
-evrc and the hypocenter location of the preferred
-origin. This requires the configuration of the evrc
-plugin and of regions by BNA polygons\&.
+\fI\%evrc\fP and the hypocenter location of the preferred
+origin. This requires the configuration of the \fI\%evrc\fP
+plugin and of regions by \fI\%BNA polygons\fP\&.
 .UNINDENT
 .SH ORIGIN ASSOCIATION
 .sp
@@ -77,7 +77,7 @@ If a match is not found, a new event can be formed.
 .SS Origin match
 .sp
 The new origin is matched to existing origins by comparing differences in epicenter,
-origin time, and arrivals (associated picks).
+origin time, and \fI\%arrivals\fP (associated picks).
 The new origin is matched to an existing origin which has the highest rank in
 the following three groups (1, 2, 3):
 .INDENT 0.0
@@ -121,10 +121,10 @@ new event is formed and the origin is associated to that event. The following
 criteria are applied to allow the creation of the new event:
 .INDENT 0.0
 .IP \(bu 2
-The agency for the origin is not black listed (\fBprocessing.blacklist.agencies\fP).
+The agency for the origin is not black listed (\fI\%processing.blacklist.agencies\fP).
 .IP \(bu 2
 The origin is automatic and it has more than \fI\%eventAssociation.minimumDefiningPhases\fP
-arrivals (associated picks).
+\fI\%arrivals\fP (associated picks).
 .UNINDENT
 .INDENT 0.0
 .INDENT 2.5
@@ -140,7 +140,7 @@ parameters.
 .SH PREFERRED MAGNITUDE
 .sp
 The preferred magnitude is set by ranking of the
-summary magnitude and all network magnitudes
+\fI\%summary magnitude\fP and all \fI\%network magnitudes\fP
 of the preferred origin. The ranking is mainly controlled by
 \fI\%eventAssociation.magTypes\fP and \fI\%eventAssociation.minimumMagnitudes\fP
 and related configuration parameters.
@@ -159,7 +159,7 @@ string containing the year and a set of characters or numbers defining the time.
 scevent can be commanded by journals to do a certain action. Journal entries are being
 received via the messaging bus to any of the subscribed groups. A journal entry
 contains an action, a subject (a publicID of an object) and optional parameters.
-Journals can be interactively sent to the messaging by scsendjournal\&.
+Journals can be interactively sent to the messaging by \fI\%scsendjournal\fP\&.
 .sp
 If scevent has handled an action, it will send a reply journal entry with
 an action formed from the origin action name plus \fBOK\fP or \fBFailed\fP\&. The
@@ -202,7 +202,7 @@ completion the source event will be deleted.
 .INDENT 0.0
 .TP
 .B EvName(objectID, parameters)
-Adds or updates the event description with type "earthquake name".
+Adds or updates the event description with type \(dqearthquake name\(dq.
 .INDENT 7.0
 .TP
 .B Parameters
@@ -234,7 +234,7 @@ create the new event.
 .INDENT 0.0
 .TP
 .B EvOpComment(objectID, parameters)
-Adds or updates the event comment text with id "Operator".
+Adds or updates the event comment text with id \(dqOperator\(dq.
 .INDENT 7.0
 .TP
 .B Parameters
@@ -254,7 +254,7 @@ is passed then it will be fixed as preferred solution for this event and
 any subsequent focal mechanism associations will not cause a change of the
 preferred focal mechanism.
 .sp
-If an empty focal mechanism ID is passed then this is considered as "unfix"
+If an empty focal mechanism ID is passed then this is considered as \(dqunfix\(dq
 and scevent will switch back to automatic preferred selection mode.
 .INDENT 7.0
 .TP
@@ -295,7 +295,7 @@ preferred magnitude of the event.
 .IP \(bu 2
 \fBobjectID\fP \-\- The ID of an existing event
 .IP \(bu 2
-\fBparameters\fP \-\- Boolean flag, either "true" or "false"
+\fBparameters\fP \-\- Boolean flag, either \(dqtrue\(dq or \(dqfalse\(dq
 .UNINDENT
 .UNINDENT
 .UNINDENT
@@ -327,7 +327,7 @@ scevent releases this constraint.
 .IP \(bu 2
 \fBobjectID\fP \-\- The ID of an existing event
 .IP \(bu 2
-\fBparameters\fP \-\- The evaluation mode ("automatic", "manual") or empty
+\fBparameters\fP \-\- The evaluation mode (\(dqautomatic\(dq, \(dqmanual\(dq) or empty
 .UNINDENT
 .UNINDENT
 .UNINDENT
@@ -338,7 +338,7 @@ Sets the preferred origin ID of an event. If an origin ID is passed then
 it will be fixed as preferred solution for this event and any subsequent
 origin associations will not cause a change of the preferred origin.
 .sp
-If an empty origin ID is passed then this is considered as "unfix" and
+If an empty origin ID is passed then this is considered as \(dqunfix\(dq and
 scevent will switch back to automatic preferred selection mode.
 .INDENT 7.0
 .TP
@@ -419,7 +419,7 @@ Sets the event type certainty to the passed value.
 .SH PLUGINS
 .INDENT 0.0
 .IP \(bu 2
-RegionCheck
+\fI\%RegionCheck\fP
 .sp
 evrc plugin for scevent
 .UNINDENT
@@ -434,7 +434,7 @@ evrc plugin for scevent
 .fi
 .sp
 .sp
-scevent inherits global options\&.
+scevent inherits \fI\%global options\fP\&.
 .INDENT 0.0
 .TP
 .B eventIDPrefix
@@ -477,9 +477,9 @@ Type: \fIinteger\fP
 Configures the number of event ID slots to look back and
 forth when an event ID is already taken. The default in
 previous versions was 5. Now \-1 means that the margin is
-determined automatically based on "eventAssociation.eventTimeBefore"
-and "eventAssociation.eventTimeAfter". According to the
-configured "eventIDPattern" a fixed time range per slot
+determined automatically based on \(dqeventAssociation.eventTimeBefore\(dq
+and \(dqeventAssociation.eventTimeAfter\(dq. According to the
+configured \(dqeventIDPattern\(dq a fixed time range per slot
 can be computed and with that width the number of look
 ahead slots and look back slots can be computed based on
 the given time ranges for event association.
@@ -533,9 +533,9 @@ Type: \fIdouble\fP
 .sp
 Minimum score of an automatic Origin to be allowed to
 form an new Event. This requires an activated score
-plugin and a score processor. Configure "score"
+plugin and a score processor. Configure \(dqscore\(dq
 for defining the score processor and the score processor
-parameters. If minimumScore is defined, "minimumDefiningPhases"
+parameters. If minimumScore is defined, \(dqminimumDefiningPhases\(dq
 has no effect on association as this phase check will be
 superseded by the score check. It is the task of the score
 processor to evaluate a proper score for all input Origins.
@@ -791,7 +791,7 @@ selects then the best one among the highest priority agency. It also defines the
 agency priority for custom priority checks
 (eventAssociation.priorities).
 .sp
-The parameter is only considered when defined in "priorities".
+The parameter is only considered when defined in \(dqpriorities\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -803,7 +803,7 @@ select a preferred Origin based on AUTHOR it orders all Origins by its author pr
 selects then the best one among the highest priority author. It also defines the
 author priority for custom priority checks (eventAssociation.priorities).
 .sp
-The parameter is only considered when defined in "priorities".
+The parameter is only considered when defined in \(dqpriorities\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -816,7 +816,7 @@ selects then the best one among the highest priority method. It also defines the
 method priority for custom priority checks (eventAssociation.priorities).
 A defined method string must match exactly the string in Origin.methodID.
 .sp
-The parameter is only considered when defined in "priorities".
+The parameter is only considered when defined in \(dqpriorities\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -824,9 +824,9 @@ The parameter is only considered when defined in "priorities".
 Type: \fIstring\fP
 .sp
 Defines the ScoreProcessor interface to be used along
-with priority "SCORE".
+with priority \(dqSCORE\(dq.
 .sp
-The parameter is only considered when defined in "priorities".
+The parameter is only considered when defined in \(dqpriorities\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -868,7 +868,7 @@ Type: \fIstring\fP
 .sp
 Region by geographic coordinates.
 .sp
-Format: "South, East, North, West"
+Format: \(dqSouth, East, North, West\(dq
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -916,8 +916,8 @@ The author of the Origin to be delayed.
 .B eventAssociation.delayFilter.evaluationMode
 Type: \fIstring\fP
 .sp
-The evaluation mode of the Origin to be delayed. Can be either "manual"
-or "automatic".
+The evaluation mode of the Origin to be delayed. Can be either \(dqmanual\(dq
+or \(dqautomatic\(dq.
 .UNINDENT
 .SS RegionCheck extension
 .sp
@@ -930,7 +930,7 @@ evrc plugin for scevent
 \fITest if events lie within or outside a region.\fP
 \fIEvents within a region are flagged as positive, outside as negative.\fP
 \fIThe event type is set accordingly. Add the\fP
-\fIplugin "evrc" to the plugins parameter in the\fP
+\fIplugin \(dqevrc\(dq to the plugins parameter in the\fP
 \fIorder of priority to make this feature available. Read the\fP
 \fIdocumentation of the RegionCheck for more details.\fP
 .UNINDENT
@@ -945,7 +945,7 @@ Type: \fIboolean\fP
 Allow setting the event type.
 The type of events which have manual origins will
 not be changed unless configured explicitely by
-"overwriteManual".
+\(dqoverwriteManual\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -982,26 +982,26 @@ polygons. The last matching criteria applies and the event type
 is set accordingly.
 .sp
 Default: If events are not positive or are negative regions the
-event type is set to "outside of network interest".
-Default: "!reject", use "accecpt" to overwrite the default.
+event type is set to \(dqoutside of network interest\(dq.
+Default: \(dq!reject\(dq, use \(dqaccecpt\(dq to overwrite the default.
 .sp
 Examples:
 .sp
-Events are flagged positive within the polygon "germany":
+Events are flagged positive within the polygon \(dqgermany\(dq:
 .sp
 germany
 .sp
-All events are flagged positive but events within the polygon "quarries" are negative:
+All events are flagged positive but events within the polygon \(dqquarries\(dq are negative:
 .sp
 accept,!quarries
 .sp
-Events within the polygon "germany" are flagged positive but
-all other events and events within the polygon "quarries" are negaitve:
+Events within the polygon \(dqgermany\(dq are flagged positive but
+all other events and events within the polygon \(dqquarries\(dq are negaitve:
 .sp
 germany,!quarries
 .sp
-All events are flagged positive but events within the polygon "germany"
-are negative and all events within the polygon "saxony" are positive:
+All events are flagged positive but events within the polygon \(dqgermany\(dq
+are negative and all events within the polygon \(dqsaxony\(dq are positive:
 .sp
 accept,!germany,saxony
 .UNINDENT
@@ -1013,9 +1013,9 @@ Default: \fBfalse\fP
 Type: \fIboolean\fP
 .sp
 Read the event type, minDepth and maxDepth from the BNA polygon header. The header may contain
-the values, e.g. header of a polygon with name "quarry":
+the values, e.g. header of a polygon with name \(dqquarry\(dq:
 .sp
-"quarry","rank 1","eventType: quarry blast, minDepth: \-5, maxDepth: 10",13
+\(dqquarry\(dq,\(dqrank 1\(dq,\(dqeventType: quarry blast, minDepth: \-5, maxDepth: 10\(dq,13
 .sp
 When eventType is set, it supersedes eventTypePositive and eventTypeNegative.
 When not set, eventTypePositive and eventTypeNegative are considered.
@@ -1033,14 +1033,14 @@ Empty: Do not set type
 .INDENT 0.0
 .TP
 .B rc.eventTypeNegative
-Default: \fB"outside of network interest"\fP
+Default: \fB\(dqoutside of network interest\(dq\fP
 .sp
 Type: \fIstring\fP
 .sp
 New type of an event which is flagged negative. Ignored
 if readEventTypeFromBNA is active.
 .sp
-Empty means default: "outside of network interest"
+Empty means default: \(dqoutside of network interest\(dq
 .UNINDENT
 .SH COMMAND-LINE OPTIONS
 .SS Generic
@@ -1095,7 +1095,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .INDENT 0.0
@@ -1163,22 +1163,22 @@ Use alternative log file.
 .INDENT 0.0
 .TP
 .B \-u, \-\-user arg
-Overrides configuration parameter \fBconnection.username\fP\&.
+Overrides configuration parameter \fI\%connection.username\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-H, \-\-host arg
-Overrides configuration parameter \fBconnection.server\fP\&.
+Overrides configuration parameter \fI\%connection.server\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-t, \-\-timeout arg
-Overrides configuration parameter \fBconnection.timeout\fP\&.
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-g, \-\-primary\-group arg
-Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1202,8 +1202,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP

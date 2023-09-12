@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCOLV" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scolv \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCOLV" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scolv \- SeisComP Documentation
 .sp
 \fBOrigin locator view\fP
 .SH DESCRIPTION
@@ -84,7 +84,7 @@ The main scolv window is divided into 4 perspectives (tabs) from which external 
 can be opened:
 .INDENT 0.0
 .IP \(bu 2
-\fI\%Location tab\fP: Details of the selected origin with
+\fI\%Location tab\fP: Details of the selected \fI\%origin\fP with
 .INDENT 2.0
 .IP \(bu 2
 \fI\%Phase picker\fP (external window): Review
@@ -104,7 +104,7 @@ Waveform review for measuring amplitudes and for computing magnitudes.
 .UNINDENT
 .IP \(bu 2
 \fI\%Event tab\fP: Origins and focal mechanisms referenced
-by the selected event\&.
+by the selected \fI\%event\fP\&.
 .IP \(bu 2
 \fI\%Events tab\fP: Table of event parameters of the loaded
 events with interactive filtering of database requests and loaded events.
@@ -115,7 +115,7 @@ scolv can be operated in 2 modes:
 .INDENT 0.0
 .IP \(bu 2
 \fBConnected to the messaging\fP where all event and station inventory parameters
-are received from the messaging or the database and
+are received from the \fI\%messaging\fP or the database and
 \fIupdated in real time\fP\&. New or updated
 parameters can be commited to the messaging. Simply start scolv without any argument
 or connect to a specific host providing the messaging, e.g.:
@@ -136,7 +136,7 @@ inventory parameters are read from an XML files or from the database and
 \fIupdated interactively\fP\&. New or updated parameters can be written to an XML file.
 Execute scolv with the command\-line option
 \fB\-\-offline\fP and optionally provide the database or inventory and bindings
-parameters in SCML format to fetch event parameters as well as inventory
+parameters in \fI\%SCML\fP format to fetch event parameters as well as inventory
 and bindings configuration parameters. Examples:
 .INDENT 2.0
 .INDENT 3.5
@@ -240,7 +240,7 @@ is also interactive to select a subset of data or to zoom into a region.
 .sp
 A plot filter can be defined. Filtering means that arrivals that match the
 filter are not plotted. They are filtered out visually. To enable a filter
-click the link "not active" right below the plot tabs. A setup window pops up
+click the link \(dqnot active\(dq right below the plot tabs. A setup window pops up
 where the filter can be defined. Currently only a filter by azimuth around
 epicenter can be applied.
 .INDENT 0.0
@@ -251,8 +251,8 @@ epicenter can be applied.
 .sp
 Select the center azimuth and the extent to either side. If OK is pressed all
 arrivals that fall outside the defined azimuthal area are hidden from the plot
-and the line below the tabs turns into "Filter is active". Clicking on the
-link again and select the "None" filter will show all arrivals in the plot again.
+and the line below the tabs turns into \(dqFilter is active\(dq. Clicking on the
+link again and select the \(dqNone\(dq filter will show all arrivals in the plot again.
 .sp
 Plots can also be configured to show or hide dashed grid lines. Use \fI\%olv.drawGridLines\fP
 for configuration (\fBscolv.cfg\fP). The default is true.
@@ -566,10 +566,10 @@ An example configuration looks like this (\fBscolv.cfg\fP):
 # Define two phase groups: regional and teleseismic
 picker.phases.groups = regional, teleseismic
 
-# Define all phases of group "regional"
+# Define all phases of group \(dqregional\(dq
 picker.phases.groups.regional = Pn, P, Pg, PmP, P1, Sg, S, Sn, SmS
 
-# Define all phases of group "teleseismic"
+# Define all phases of group \(dqteleseismic\(dq
 picker.phases.groups.teleseismic = pP, sP, sS, PKP, PKP
 .ft P
 .fi
@@ -631,7 +631,7 @@ defined using \fI\%picker.uncertainties\fP, e.g.:
 .sp
 .nf
 .ft C
-picker.uncertainties = 0.05, 0.1, 0.2, "(0.1,0.2)", "(0.05,0.02)"
+picker.uncertainties = 0.05, 0.1, 0.2, \(dq(0.1,0.2)\(dq, \(dq(0.05,0.02)\(dq
 .ft P
 .fi
 .UNINDENT
@@ -654,10 +654,10 @@ As for phase types, uncertainty profiles can be additionally configured (\fBscol
 # in seconds.
 
 # Define an uncertainty profile for local events
-picker.uncertainties.profile.local = 0.05, 0.1, 0.2, 0.3, "(0.1,0.2)"
+picker.uncertainties.profile.local = 0.05, 0.1, 0.2, 0.3, \(dq(0.1,0.2)\(dq
 
 # Define an uncertainty profile for teleseismic events
-picker.uncertainties.profile.teleseismic = 0.5, 1, 2, 3, "(1,2)"
+picker.uncertainties.profile.teleseismic = 0.5, 1, 2, 3, \(dq(1,2)\(dq
 
 # Define the list of uncertainty sets that are active in scolv.
 # This first set in the list is used by default. The other sets
@@ -724,24 +724,24 @@ Defaults may be configured, e.g.
 The locators available by default in \fISeisComP\fP are
 .INDENT 0.0
 .IP \(bu 2
-LOCSAT,
+\fI\%LOCSAT\fP,
 .IP \(bu 2
-FixedHypocenter\&.
+\fI\%FixedHypocenter\fP\&.
 .UNINDENT
 .sp
-Additional locator routines are available by concepts_plugins which
+Additional locator routines are available by \fI\%SeisComP plugins\fP which
 provide their own specific global configuration, e.g.
 .INDENT 0.0
 .IP \(bu 2
-Hypo71,
+\fI\%Hypo71\fP,
 .IP \(bu 2
-NonLinLoc,
+\fI\%NonLinLoc\fP,
 .IP \(bu 2
-iLoc (currently only on when building SeisComP from source).
+iLoc (currently only on when \fI\%building SeisComP from source\fP).
 .UNINDENT
 .sp
 Any other custom locator can be intergrated through configuration of
-global_locext\&.
+\fI\%LocExt\fP\&.
 .sp
 Pressing \fIRelocate\fP creates a new origin and updates the arrival table and the
 parameters displayed in the Location tab.
@@ -756,9 +756,9 @@ You need to create a new origin for \fI\%computing magnitudes\fP\&.
 .sp
 When an event was \fI\%relocated\fP a new origin is created
 and new magnitudes can be calculated by using the
-"Compute Magnitudes" button. The advantage of calculating the magnitudes before
+\(dqCompute Magnitudes\(dq button. The advantage of calculating the magnitudes before
 committing the new origin, is the possibility to check the resulting magnitudes
-before they are computed manually by scmag\&.
+before they are computed manually by \fI\%scmag\fP\&.
 .INDENT 0.0
 .INDENT 2.5
 [image]
@@ -856,7 +856,7 @@ Event type
 .IP \(bu 2
 Event type certainty
 .IP \(bu 2
-Magnitude type of the preferred magnitude\&. The preferred magnitude
+Magnitude type of the \fI\%preferred magnitude\fP\&. The preferred magnitude
 can also be set in the \fI\%magnitude tab\fP\&.
 .IP \(bu 2
 Event comments
@@ -894,10 +894,10 @@ over residual)
 .SS Station magnitudes
 .sp
 For each of the different magnitude types (e.g. mb, mB, MLv, Mw(mB)),
-the station magnitudes are shown in the magnitude residual plot and the table.
+the \fI\%station magnitudes\fP are shown in the magnitude residual plot and the table.
 The residual plot visualizes the difference between the station magnitude and
 the network magnitude for the different station distances. After relocation the
-magnitudes can be recalculated by the "Compute Magnitudes" button in the
+magnitudes can be recalculated by the \(dqCompute Magnitudes\(dq button in the
 Location tab.
 .sp
 The station magnitudes can also be recalculated by
@@ -915,8 +915,8 @@ review window or to just remove outliers.
 .UNINDENT
 .SS Network magnitudes
 .sp
-Network magnitudes are computed from corresponding
-station magnitudes\&.
+\fI\%Network magnitudes\fP are computed from corresponding
+\fI\%station magnitudes\fP\&.
 The considered station magnitudes can be selected or unselected in the
 list and in the plot of station magnitudes. The method, the status and the margins
 to disregard outliers can be selected.
@@ -932,10 +932,10 @@ parameters, open the waveforms and add at least one station magnitude. Otherwise
 the rejected magnitude will be removed from the origin prio to committing it.
 .SS Summary magnitude
 .sp
-The summary magnitude typically is calculated from all network magnitudes
-by scmag and set as preferred magnitude type by scevent after committing
-or confirming an origin. The defaults can be changed by configuring scmag
-and scevent\&.
+The \fI\%summary magnitude\fP typically is calculated from all network magnitudes
+by \fI\%scmag\fP and set as preferred magnitude type by \fI\%scevent\fP after committing
+or confirming an origin. The defaults can be changed by configuring \fI\%scmag\fP
+and \fI\%scevent\fP\&.
 .sp
 However, in combination with \fI\%custom commit buttons\fP,
 the network magnitude to be considered as the preferred can be set by hitting this
@@ -1051,8 +1051,8 @@ configuration file similar to the manual picker filters (\fBscolv.cfg\fP):
 .nf
 .ft C
 # List of filters available in the picker. Format:
-# "name1;filter\-definition1", "name2;filter\-definition2"
-amplitudePicker.filters = "4 pole HP @2s;BW_HP(4,0.5)"
+# \(dqname1;filter\-definition1\(dq, \(dqname2;filter\-definition2\(dq
+amplitudePicker.filters = \(dq4 pole HP @2s;BW_HP(4,0.5)\(dq
 .ft P
 .fi
 .UNINDENT
@@ -1109,7 +1109,7 @@ settings: \fIMean\fP, \fIMedian\fP or \fITrimmed mean\fP\&.
 .sp
 The Event tab gives all information of associated origins and magnitude of the
 actual event. Here the selection of the preferred origin and preferred magnitude
-can be influenced independent from scevent\&. The messaging between
+can be influenced independent from \fI\%scevent\fP\&. The messaging between
 scevent and scolv about the selected origins and magnitudes can be viewed in
 a window that has to be opened by pulling the left side frame to the right.
 .INDENT 0.0
@@ -1122,11 +1122,11 @@ Event tab of scolv..UNINDENT
 \fBOrigin list:\fP List of all associated origins
 * \fBB1\fP Selector for the event type
 * \fBB2\fP Button to fix the selected origin as preferred
-* \fBB3\fP Button to let scevent select the preferred origin
+* \fBB3\fP Button to let \fI\%scevent\fP select the preferred origin
 .IP \(bu 2
 \fBMagnitude list\fP List of magnitudes of the actual origin
 * \fBB4\fP Button to fix the selected magnitude as preferred
-* \fBB5\fP Button to let scevent select the preferred magnitude
+* \fBB5\fP Button to let \fI\%scevent\fP select the preferred magnitude
 .IP \(bu 2
 \fBFocal Mechanism:\fP List of all focal mechanisms associated to the selected event.
 .UNINDENT
@@ -1154,7 +1154,7 @@ The mode is color coded:
 The status is coded by a single character:
 .INDENT 0.0
 .IP \(bu 2
-\fBA\fP: unset, status not specifically set, e.g. usually automatic origins from scautoloc
+\fBA\fP: unset, status not specifically set, e.g. usually automatic origins from \fI\%scautoloc\fP
 .IP \(bu 2
 \fBF\fP: final
 .IP \(bu 2
@@ -1162,7 +1162,7 @@ The status is coded by a single character:
 .IP \(bu 2
 \fBC\fP: confirmed
 .IP \(bu 2
-\fBP\fP: preliminary, e.g. XXL origins from scautoloc
+\fBP\fP: preliminary, e.g. XXL origins from \fI\%scautoloc\fP
 .IP \(bu 2
 \fBR\fP: reported
 .IP \(bu 2
@@ -1180,7 +1180,7 @@ press the right mouse button to copy the row or cell, respectively.
 .sp
 The Focal Mechanism tab shows all focal mechanisms and moment tensors associated
 to the selected event. You may fix the preferred mechanism or fix/unfix
-Mw to become the preferred magnitude.
+\fI\%Mw\fP to become the preferred magnitude.
 .sp
 Select a row or cell and
 press the right mouse button to copy the row or cell, respectively.
@@ -1200,9 +1200,9 @@ file using the File menu in the main window.
 scolv Events tab with the list of events and the filter window..UNINDENT
 .UNINDENT
 .sp
-Information about origin time, preferred ("best") magnitude, preferred magnitude
+Information about origin time, preferred (\(dqbest\(dq) magnitude, preferred magnitude
 type, number of phases, epicenter and depth, origin status, region, agency and
-event/origin ID are similar to the event list in scesv\&. Additionally,
+event/origin ID are similar to the event list in \fI\%scesv\fP\&. Additionally,
 all origins associated with one event are displayed if an event item is expanded.
 .sp
 \fBNOTE:\fP
@@ -1248,8 +1248,8 @@ DType : depth type
 .IP \(bu 2
 \fBStat\fP : a combination of the \fI\%color\-coded mode\fP and
 the \fI\%status\fP of the preferred origin as described by
-a letter. A trailing "+" indicates that origins were contributed to the event
-by multiple agencies, e.g. "C+".
+a letter. A trailing \(dq+\(dq indicates that origins were contributed to the event
+by multiple agencies, e.g. \(dqC+\(dq.
 .IP \(bu 2
 FM : focal mechanism
 .IP \(bu 2
@@ -1273,7 +1273,7 @@ by dragging the header fields, respectively. Right\-click on cells to copy indiv
 cells values or entire rows.
 .sp
 This list can also be customized
-with \fBeventlist.visibleColumns\fP in the global configuration
+with \fI\%eventlist.visibleColumns\fP in the global configuration
 (\fBscolv.cfg\fP or \fBglobal.cfg\fP):
 .INDENT 0.0
 .INDENT 3.5
@@ -1297,7 +1297,7 @@ filter** in the filter parameter window which opens when pressing the Filter
 button. Press \fIRead\fP to reload the events list based on the filter parameters.
 \fBThe interactive custom request filter only concerns the
 database request for loading events. It does not update the current list.\fP
-Use the global for presetting the values (\fBscolv.cfg\fP or
+Use the \fI\%Global parameters\fP for presetting the values (\fBscolv.cfg\fP or
 \fBglobal.cfg\fP), e.g.:
 .INDENT 2.0
 .INDENT 3.5
@@ -1319,18 +1319,18 @@ to hide are \fInot existing\fP and \fIother\fP are hidden. If unchecked, the fil
 is inactive and the events are shown. \fBPressing the Hide button only affects
 the currently loaded list.\fP Configure the event types used for this filter as well
 as the label text for the checkbox.
-Use the global for presetting the values s (\fBscolv.cfg\fP or \fBglobal.cfg\fP):
+Use the \fI\%Global parameters\fP for presetting the values s (\fBscolv.cfg\fP or \fBglobal.cfg\fP):
 .INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
 .ft C
 # Define the event types to be filtered
-eventlist.filter.types.blacklist = "not existing", "other",\e
-                                   "outside of network interest"
+eventlist.filter.types.blacklist = \(dqnot existing\(dq, \(dqother\(dq,\e
+                                   \(dqoutside of network interest\(dq
 
 # Define the label of the button to filter the events
-eventlist.filter.types.label = "Hide fake events"
+eventlist.filter.types.label = \(dqHide fake events\(dq
 
 # Define the default behavior
 eventlist.filter.types.enabled = true
@@ -1339,10 +1339,10 @@ eventlist.filter.types.enabled = true
 .UNINDENT
 .UNINDENT
 .IP \(bu 2
-\fBAgency\fP: Activate by check boxes \fIShow only own origin\fP and/or "Show only
-latest/preferred origin per agency". The button \fIShow only own events\fP
+\fBAgency\fP: Activate by check boxes \fIShow only own origin\fP and/or \(dqShow only
+latest/preferred origin per agency\(dq. The button \fIShow only own events\fP
 will hide all events where the preferred origins agencyID is not the configured
-\fBagencyID\fP of scolv. This is the default behavior which can be customized
+\fI\%agencyID\fP of scolv. This is the default behavior which can be customized
 (\fBscolv.cfg\fP or \fBglobal.cfg\fP):
 .INDENT 2.0
 .INDENT 3.5
@@ -1358,8 +1358,8 @@ eventlist.filter.agencies.whitelist = GFZ, EMSC
 # origin.
 eventlist.filter.agencies.type = origins
 
-# Defines the text of the option "Show only own events".
-eventlist.filter.agencies.label = "Show only own events"
+# Defines the text of the option \(dqShow only own events\(dq.
+eventlist.filter.agencies.label = \(dqShow only own events\(dq
 
 # Enable this filter initially. If this option is not used, the filter
 # is disabled by default.
@@ -1369,7 +1369,7 @@ eventlist.filter.agencies.enabled = true
 .UNINDENT
 .UNINDENT
 .IP \(bu 2
-\fBSource region:\fP Select a source region, activate "Hide events" and choose to
+\fBSource region:\fP Select a source region, activate \(dqHide events\(dq and choose to
 hide events inside or outside the region.
 \fBPressing the Hide button only affects the currently loaded list.\fP
 Pre\-defined regions can be configured in the global configuration
@@ -1427,7 +1427,7 @@ configure display paramters in scolv. Example (\fBscolv.cfg\fP):
 display.origin.comment.id = SED.quality
 
 # Define the default display value if no comment is available
-display.origin.comment.default = "\-"
+display.origin.comment.default = \(dq\-\(dq
 
 # Define the label text in the information panel for this value
 display.origin.comment.label = Quality
@@ -1446,13 +1446,13 @@ comment value, configure eventedit parameters in scolv or global. Example
 .nf
 .ft C
 # Define the default value if no comment is present
-eventedit.origin.customColumn.default = "\-"
+eventedit.origin.customColumn.default = \(dq\-\(dq
 
 # Define the comment id to be used
 eventedit.origin.customColumn.originCommentID = SED.quality
 
 # Define the column header label
-eventedit.origin.customColumn.name = "Qual"
+eventedit.origin.customColumn.name = \(dqQual\(dq
 
 # Define the column position in the table
 eventedit.origin.customColumn.pos = 4
@@ -1460,8 +1460,8 @@ eventedit.origin.customColumn.pos = 4
 # Allows to map comment values (strings) to colors. In this case the
 # comment will have A,B,C or D which is mapped to green, yellow, orange and
 # red
-eventedit.origin.customColumn.colors = "A:00FF00","B:rgb(64,192,0)",\e
-                                        "C:rgb(192,64,0)","D:FF0000"
+eventedit.origin.customColumn.colors = \(dqA:00FF00\(dq,\(dqB:rgb(64,192,0)\(dq,\e
+                                        \(dqC:rgb(192,64,0)\(dq,\(dqD:FF0000\(dq
 .ft P
 .fi
 .UNINDENT
@@ -1477,13 +1477,13 @@ value, configure eventlist parameters in scolv or global. Example
 .nf
 .ft C
 # Define the default value if no comment is present
-eventlist.customColumn.default = "\-"
+eventlist.customColumn.default = \(dq\-\(dq
 
 # Define the comment id to be used
-eventlist.customColumn.originCommentID = "SED.quality"
+eventlist.customColumn.originCommentID = \(dqSED.quality\(dq
 
 # Define the column header label
-eventlist.customColumn.name = "Qual"
+eventlist.customColumn.name = \(dqQual\(dq
 
 # Define the column position in the table
 eventlist.customColumn.pos = 5
@@ -1491,15 +1491,15 @@ eventlist.customColumn.pos = 5
 # Allows to map comment values (strings) to colors. In this case the
 # comment will have A,B,C or D which is mapped to green, yellow, orange and
 # red
-eventlist.customColumn.colors = "A:00FF00","B:rgb(64,192,0)",\e
-                                "C:rgb(192,64,0)","D:FF0000"
+eventlist.customColumn.colors = \(dqA:00FF00\(dq,\(dqB:rgb(64,192,0)\(dq,\e
+                                \(dqC:rgb(192,64,0)\(dq,\(dqD:FF0000\(dq
 .ft P
 .fi
 .UNINDENT
 .UNINDENT
 .sp
 The last three examples are used to show the \fISED.quality\fP comment value which
-is set by the NonLinLoc locator plugin\&.
+is set by the \fI\%NonLinLoc locator plugin\fP\&.
 .SS External scripts
 .sp
 User\-defined scripts may generated and executed
@@ -1563,7 +1563,7 @@ def main():
     ar = io.BinaryArchive()
 
     # Open standard input
-    if not ar.open("\-"):
+    if not ar.open(\(dq\-\(dq):
         # Hmmm, opening stdin failed
         return 1
 
@@ -1586,7 +1586,7 @@ def main():
 
     return 0
 
-if __name__ == "__main__":
+if __name__ == \(dq__main__\(dq:
     sys.exit(main())
 .ft P
 .fi
@@ -1636,11 +1636,11 @@ configure display parameters in scolv. An example script is given
 display.origin.addons = qual, qual2
 
 # Configure each add\-on
-display.origin.addon.qual1.label = "Qual1"
-display.origin.addon.qual1.script = "@DATADIR@/scripts/scolv/script1"
+display.origin.addon.qual1.label = \(dqQual1\(dq
+display.origin.addon.qual1.script = \(dq@DATADIR@/scripts/scolv/script1\(dq
 
-display.origin.addon.qual2.label = "Qual2"
-display.origin.addon.qual2.script = "@DATADIR@/scripts/scolv/script2"
+display.origin.addon.qual2.label = \(dqQual2\(dq
+display.origin.addon.qual2.script = \(dq@DATADIR@/scripts/scolv/script2\(dq
 .ft P
 .fi
 .UNINDENT
@@ -1658,21 +1658,21 @@ Configuration example:
 .ft C
 eventedit.scripts.columns = qual1, qual2
 
-eventedit.scripts.column.qual1.label = "Qual1"
+eventedit.scripts.column.qual1.label = \(dqQual1\(dq
 eventedit.scripts.column.qual1.pos = 8
-eventedit.scripts.column.qual1.script = "@DATADIR@/scripts/scolv/script1"
+eventedit.scripts.column.qual1.script = \(dq@DATADIR@/scripts/scolv/script1\(dq
 
-eventedit.scripts.column.qual2.label = "Qual2"
+eventedit.scripts.column.qual2.label = \(dqQual2\(dq
 eventedit.scripts.column.qual2.pos = 9
-eventedit.scripts.column.qual2.script = "@DATADIR@/scripts/scolv/script2"
+eventedit.scripts.column.qual2.script = \(dq@DATADIR@/scripts/scolv/script2\(dq
 .ft P
 .fi
 .UNINDENT
 .UNINDENT
 .SS Events tab
 .sp
-From the event list external scripts can be excuted with origin or
-event objects or both as input from stdin to display the output of the
+From the event list external scripts can be excuted with \fI\%origin\fP or
+\fI\%event\fP objects or both as input from stdin to display the output of the
 script (stdout) in a custom column.
 .sp
 Provide an external script and add the output to \fBevent list of the Events tab\fP,
@@ -1686,14 +1686,14 @@ Configuration example for passing origin or event objects:
 .ft C
 eventlist.scripts.columns = qual1, qual2
 
-eventlist.scripts.column.qual1.label = "Qual1"
+eventlist.scripts.column.qual1.label = \(dqQual1\(dq
 eventlist.scripts.column.qual1.pos = 5
-eventlist.scripts.column.qual1.script = "@DATADIR@/scripts/scolv/script1"
+eventlist.scripts.column.qual1.script = \(dq@DATADIR@/scripts/scolv/script1\(dq
 eventlist.scripts.column.qual1.types = Origin
 
-eventlist.scripts.column.qual2.label = "Qual2"
+eventlist.scripts.column.qual2.label = \(dqQual2\(dq
 eventlist.scripts.column.qual2.pos = 6
-eventlist.scripts.column.qual2.script = "@DATADIR@/scripts/scolv/script2"
+eventlist.scripts.column.qual2.script = \(dq@DATADIR@/scripts/scolv/script2\(dq
 eventlist.scripts.column.qual2.types = Event
 .ft P
 .fi
@@ -1736,7 +1736,7 @@ Sets the reduction velocity used for plot \fIMoveOut\fP\&.
 .TP
 .B \fICompute magnitudes after relocate\fP
 Automatically computes magnitudes after each relocation. This has the same
-effect as pressing "Compute magnitudes" manually.
+effect as pressing \(dqCompute magnitudes\(dq manually.
 .TP
 .B \fICompute magnitudes silently\fP
 Automatically closes the compute magnitudes dialog if the computation is
@@ -1748,7 +1748,7 @@ Enables dashed grid lines in all plots.
 .B \fIData source\fP
 Defines the waveform data source for both, pick review and amplitude review
 .TP
-.B \fIDefault distance for "add station"\fP
+.B \fIDefault distance for \(dqadd station\(dq\fP
 The default value to add stations (traces) that have not been picked or
 associated is 15 degrees. A lower value can be defined, e.g. if mainly local events are analyzed.
 .TP
@@ -1842,7 +1842,7 @@ scheme.precision.pickTime = 1
 .INDENT 3.5
 Configuring units and precisions only affects the way the values are presented,
 not the values themselves. These and other lock\-and\-feel parameters can be
-adjusted in \fIscheme\fP section of the global configuration\&.
+adjusted in \fIscheme\fP section of the \fI\%global configuration\fP\&.
 .UNINDENT
 .UNINDENT
 .SH HOTKEYS
@@ -2090,7 +2090,7 @@ T}	T{
 Toggle display of picks (not arrivals). If picks should
 be shown the first time, all picks within the time span of
 interest are loaded from database. The behavior is the
-same as ticking the option "Load all picks".
+same as ticking the option \(dqLoad all picks\(dq.
 T}
 _
 T{
@@ -2492,7 +2492,7 @@ _
 .fi
 .sp
 .sp
-scolv inherits global options\&.
+scolv inherits \fI\%global options\fP\&.
 .INDENT 0.0
 .TP
 .B loadEventDB
@@ -2531,7 +2531,7 @@ A list of magnitude types to be displayed in the summary widget (F8).
 Type: \fIstring\fP
 .sp
 Label of the button that triggers the script defined in
-"scripts.script0".
+\(dqscripts.script0\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2539,7 +2539,7 @@ Label of the button that triggers the script defined in
 Type: \fIstring\fP
 .sp
 Label of the button that triggers the script defined in
-"scripts.script1".
+\(dqscripts.script1\(dq.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -2563,7 +2563,7 @@ summary panel on the left side of scolv (activated with F8).
 .B scripts.script0
 Type: \fIstring\fP
 .sp
-Full path to the script executed when hitting the button labeled with "button0".
+Full path to the script executed when hitting the button labeled with \(dqbutton0\(dq.
 OriginID and EventID are passed to the script as arguments.
 .UNINDENT
 .INDENT 0.0
@@ -2571,7 +2571,7 @@ OriginID and EventID are passed to the script as arguments.
 .B scripts.script1
 Type: \fIstring\fP
 .sp
-Full path to the script executed when hitting the button labeled with "button1".
+Full path to the script executed when hitting the button labeled with \(dqbutton1\(dq.
 OriginID and EventID are passed to the script as arguments.
 .UNINDENT
 .INDENT 0.0
@@ -2593,7 +2593,7 @@ without user interaction and the warning message.
 Type: \fIstring\fP
 .sp
 Sets the default event type to be used when confirming a solution. If
-not set, the event type is not changed at all unless "with options"
+not set, the event type is not changed at all unless \(dqwith options\(dq
 is used. The origin or its source must be associated with an event already.
 .UNINDENT
 .INDENT 0.0
@@ -2606,15 +2606,15 @@ a priority list which will be displayed on top of the event
 type selection menu. Additionally the remaining (non\-prioritized)
 types are displayed with less contrast.
 The order is preserved in the event editor as well as in the drop\-down
-list of the "Commit with additional options" dialog.
+list of the \(dqCommit with additional options\(dq dialog.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B olv.defaultMagnitudeAggregation
 Type: \fIstring\fP
 .sp
-Sets the default magnitude aggregation method. It can be either "mean",
-"trimmed mean" or "median". If not set, the default
+Sets the default magnitude aggregation method. It can be either \(dqmean\(dq,
+\(dqtrimmed mean\(dq or \(dqmedian\(dq. If not set, the default
 behavior is used which computes the mean if less than 4 stations are available,
 trimmed mean otherwise.
 .UNINDENT
@@ -2648,7 +2648,7 @@ Type: \fIboolean\fP
 .sp
 If enabled, a magnitude selection pop window will open
 in advance to compute magnitudes. The default selection
-reflects the configuration parameter "magnitudes".
+reflects the configuration parameter \(dqmagnitudes\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2660,7 +2660,7 @@ Type: \fIdouble\fP
 Unit: \fIkm/s\fP
 .sp
 The velocity applied to reduce travel times in the
-"MoveOut" plot of the Location tab.
+\(dqMoveOut\(dq plot of the Location tab.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2860,7 +2860,7 @@ Default: \fBfalse\fP
 .sp
 Type: \fIboolean\fP
 .sp
-Activates the button "Force association with event" when
+Activates the button \(dqForce association with event\(dq when
 committing with additional options. This is just the default
 setting and can be changed manually when the dialog pops up.
 .UNINDENT
@@ -2871,7 +2871,7 @@ Default: \fBfalse\fP
 .sp
 Type: \fIboolean\fP
 .sp
-Activates the button "Fix this origin as preferred solution" when
+Activates the button \(dqFix this origin as preferred solution\(dq when
 committing with additional options. This is just the default
 setting and can be changed manually when the dialog pops up.
 .UNINDENT
@@ -2963,7 +2963,7 @@ values.
 .INDENT 3.5
 \fBolv.customCommits.*\fP
 \fIConfigure custom commit buttons which\fP
-\fIbehave like shortcuts to "Commit with additional options".\fP
+\fIbehave like shortcuts to \(dqCommit with additional options\(dq.\fP
 \fIPressing a custom button does not open a popup window. Instead\fP
 \fIit reads the configured profile and applies the options to the event\fP
 \fIand origin. Each commit button can be coloured and labeled.\fP
@@ -2993,7 +2993,7 @@ Default: \fBfalse\fP
 .sp
 Type: \fIboolean\fP
 .sp
-Ask for confirmation by presenting the "commit with options"
+Ask for confirmation by presenting the \(dqcommit with options\(dq
 dialog with the options pre\-populated from this configuration.
 Cancelling the dialog aborts the commit procedure.
 .UNINDENT
@@ -3024,7 +3024,7 @@ Type: \fIstring\fP
 The event type to be set of the event associated with
 the committed origin. If unset, the type remains unchanged.
 Use quotes for event types with spaces, e.g.
-"not existing".
+\(dqnot existing\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3062,7 +3062,7 @@ Type: \fIstring\fP
 Optional event name which will be set. This option
 exists for completeness and does not make much
 sense to be applied on any event. Use quotes for event
-names with spaces, e.g. "Quarry XYZ".
+names with spaces, e.g. \(dqQuarry XYZ\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3070,7 +3070,7 @@ names with spaces, e.g. "Quarry XYZ".
 Type: \fIstring\fP
 .sp
 Optional event comment which will be set. Use quotes for event
-comments with spaces, e.g. "Blast on Monday morning".
+comments with spaces, e.g. \(dqBlast on Monday morning\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3089,7 +3089,7 @@ Default: \fBCommit+\fP
 Type: \fIstring\fP
 .sp
 The commit button label. Use quotes for labels with
-spaces, e.g. "Earthquake reported".
+spaces, e.g. \(dqEarthquake reported\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3224,7 +3224,7 @@ Default: \fBfalse\fP
 Type: \fIboolean\fP
 .sp
 Limit the data acquisition to the number of nearest
-stations given by "picker.limitStationAcquisitionCount".
+stations given by \(dqpicker.limitStationAcquisitionCount\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3235,7 +3235,7 @@ Type: \fIint\fP
 .sp
 Limit the data acquisituion to the given number of
 the nearest stations. Requires to activate
-"picker.limitStationAcquisition".
+\(dqpicker.limitStationAcquisition\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3266,7 +3266,7 @@ Type: \fIboolean\fP
 .sp
 If enabled, all three components are shown in the picker
 zoom trace. The distance is limited to what is configured
-in "picker.allComponentsMaximumDistance".
+in \(dqpicker.allComponentsMaximumDistance\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3277,7 +3277,7 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIdeg\fP
 .sp
-The distance limit for the "picker.showAllComponents" flag.
+The distance limit for the \(dqpicker.showAllComponents\(dq flag.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3386,7 +3386,7 @@ End of the re\-picker time window relative the cursor position on the trace.
 Type: \fIlist:string\fP
 .sp
 List of filters available in the picker. Format:
-"name1;filter\-definition1", "name2;filter\-definition2"
+\(dqname1;filter\-definition1\(dq, \(dqname2;filter\-definition2\(dq
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3422,9 +3422,9 @@ Type: \fIlist:string\fP
 .sp
 A list of phases that is available for picking in the Picking menu.
 The phases are not accessible through hot keys as for
-"picker.phases.favourites".
+\(dqpicker.phases.favourites\(dq.
 The phases are considered if the more complex phase group definition
-"picker.phases.groups" is not provided.
+\(dqpicker.phases.groups\(dq is not provided.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3436,8 +3436,8 @@ Unit: \fIs\fP
 List of pre\-defined pick uncertainties.
 The format of each list item is either a double value or a pair of
 double values for asymmetric uncertainties, e.g.
-"val1","(val2,val3)".
-This parameter is only used if "picker.uncertainties.preferred"
+\(dqval1\(dq,\(dq(val2,val3)\(dq.
+This parameter is only used if \(dqpicker.uncertainties.preferred\(dq
 is undefined.
 .UNINDENT
 .INDENT 0.0
@@ -3576,7 +3576,7 @@ List of phase types. Separate types by comma.
 \fBpicker.uncertainties.*\fP
 \fIDefine uncertainty profiles. Once defined,\fP
 \fIthey can be selected in the scolv picker settings [F3].\fP
-\fIThe profiles override uncertainties defined in "uncertainties".\fP
+\fIThe profiles override uncertainties defined in \(dquncertainties\(dq.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -3620,7 +3620,7 @@ Unit: \fIs\fP
 List of pre\-defined pick uncertainties.
 The format of each list item is either a double value or a pair of
 double values for asymmetric uncertainties, e.g.
-"val1","(val2,val3)".
+\(dqval1\(dq,\(dq(val2,val3)\(dq.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -3640,7 +3640,7 @@ Type: \fIstring\fP
 An optional pre\-filter which is applied prior to the
 numerical integration to stabilize the result. This
 filter is applied for each integration step or just
-once depending on the parameter "applyOnce".
+once depending on the parameter \(dqapplyOnce\(dq.
 Multiple integrations are necessary if acceleration
 data should be converted to displacement.
 .UNINDENT
@@ -3692,7 +3692,7 @@ amplitude time window.
 Type: \fIlist:string\fP
 .sp
 A list of filters used for the amplitude picker. Format:
-"name1;filter\-definition1", "name2;filter\-definition2"
+\(dqname1;filter\-definition1\(dq, \(dqname2;filter\-definition2\(dq
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -3836,7 +3836,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
@@ -3893,22 +3893,22 @@ Use alternative log file.
 .INDENT 0.0
 .TP
 .B \-u, \-\-user arg
-Overrides configuration parameter \fBconnection.username\fP\&.
+Overrides configuration parameter \fI\%connection.username\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-H, \-\-host arg
-Overrides configuration parameter \fBconnection.server\fP\&.
+Overrides configuration parameter \fI\%connection.server\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-t, \-\-timeout arg
-Overrides configuration parameter \fBconnection.timeout\fP\&.
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-g, \-\-primary\-group arg
-Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3919,7 +3919,7 @@ This option can be given more than once.
 .INDENT 0.0
 .TP
 .B \-\-content\-type arg
-Overrides configuration parameter \fBconnection.contentType\fP\&.
+Overrides configuration parameter \fI\%connection.contentType\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3937,8 +3937,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3967,9 +3967,9 @@ List all supported record stream drivers.
 .B \-I, \-\-record\-url arg
 The recordstream source URL, format:
 [\fI\%service://\fP]location[#type].
-"service" is the name of the recordstream driver
-which can be queried with "\-\-record\-driver\-list".
-If "service" is not given, "\fI\%file://\fP" is
+\(dqservice\(dq is the name of the recordstream driver
+which can be queried with \(dq\-\-record\-driver\-list\(dq.
+If \(dqservice\(dq is not given, \(dq\fI\%file://\fP\(dq is
 used.
 .UNINDENT
 .INDENT 0.0
@@ -3987,7 +3987,7 @@ Specify a type for the records being read.
 .TP
 .B \-\-city\-xml arg
 The path to the cities XML file. This overrides the default
-paths. Compare with the global parameter "citiesXML".
+paths. Compare with the global parameter \(dqcitiesXML\(dq.
 .UNINDENT
 .SS User interface
 .INDENT 0.0

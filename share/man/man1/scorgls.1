@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCORGLS" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scorgls \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,14 +27,17 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCORGLS" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scorgls \- SeisComP Documentation
 .sp
 \fBList origin IDs from database.\fP
 .SH DESCRIPTION
 .sp
 \fIscorgls\fP lists all available origin IDs within a given time range to stdout.
 .sp
-Use scevtls for listing all event IDs. In extension to scevtls
-and scorgls scquery can search for parameters based on complex custom
+Use \fI\%scevtls\fP for listing all event IDs. In extension to \fI\%scevtls\fP
+and scorgls \fI\%scquery\fP can search for parameters based on complex custom
 queries.
 .SH EXAMPLE
 .sp
@@ -48,8 +48,8 @@ Print all origin IDs for the complete year 2012.
 .nf
 .ft C
 scorgls \-d mysql://sysop:sysop@localhost/seiscomp \e
-        \-\-begin "2012\-01\-01 00:00:00" \e
-        \-\-end "2013\-01\-01 00:00:00"
+        \-\-begin \(dq2012\-01\-01 00:00:00\(dq \e
+        \-\-end \(dq2013\-01\-01 00:00:00\(dq
 .ft P
 .fi
 .UNINDENT
@@ -65,7 +65,7 @@ scorgls \-d mysql://sysop:sysop@localhost/seiscomp \e
 .fi
 .sp
 .sp
-scorgls inherits global options\&.
+scorgls inherits \fI\%global options\fP\&.
 .SH COMMAND-LINE OPTIONS
 .sp
 \fBscorgls [options]\fP
@@ -121,7 +121,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
@@ -185,8 +185,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -209,13 +209,13 @@ Do not use the database at all
 .TP
 .B \-\-begin time
 The lower bound of the time interval. Format:
-"2012\-01\-01 00:00:00".
+\(dq2012\-01\-01 00:00:00\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-end time
 The upper bound of the time interval. Format:
-"2012\-01\-01 00:00:00".
+\(dq2012\-01\-01 00:00:00\(dq.
 .UNINDENT
 .SS Output
 .INDENT 0.0

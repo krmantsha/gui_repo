@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCHELI" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scheli \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCHELI" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scheli \- SeisComP Documentation
 .sp
 \fBReal\-time helicorder view for one stream.\fP
 .SH DESCRIPTION
@@ -39,7 +39,7 @@ mimicking a drum\-recorder plot (see \fI\%scheli in GUI mode\fP):
 .INDENT 0.0
 .IP \(bu 2
 \fBscheli\fP plots one configurable trace in helicorder style in the
-GUI (\fI\%GUI mode\fP).
+\fI\%GUI\fP (\fI\%GUI mode\fP).
 .IP \(bu 2
 Configurable GUI: trace colors, visualized time spans, number of rows, data filtering,
 amplitude ranges and much more.
@@ -104,7 +104,7 @@ maximum amplitude per row:
 .sp
 .nf
 .ft C
-scheli \-\-stream IU.TSUM.00.BHZ \-\-end\-time "2021\-04\-22 14:00:00" \-\-time\-span 600 \-\-amp\-scaling row
+scheli \-\-stream IU.TSUM.00.BHZ \-\-end\-time \(dq2021\-04\-22 14:00:00\(dq \-\-time\-span 600 \-\-amp\-scaling row
 .ft P
 .fi
 .UNINDENT
@@ -124,7 +124,7 @@ of the requested stations. Command\-line parameters override the module configur
 .sp
 .nf
 .ft C
-scheli capture \-\-stream CX.PB01..HHZ \-\-stream CX.PB02..HHZ \-\-stream CX.PB04..HHZ \-\-interval 10 \-o "/tmp/heli_%N_%S_%L_%C.png" \-H localhost \-I slink://localhost
+scheli capture \-\-stream CX.PB01..HHZ \-\-stream CX.PB02..HHZ \-\-stream CX.PB04..HHZ \-\-interval 10 \-o \(dq/tmp/heli_%N_%S_%L_%C.png\(dq \-H localhost \-I slink://localhost
 .ft P
 .fi
 .UNINDENT
@@ -177,7 +177,7 @@ scheme.colors.records.alternateForeground = B72D0E
 .fi
 .sp
 .sp
-scheli inherits global options\&.
+scheli inherits \fI\%global options\fP\&.
 .INDENT 0.0
 .TP
 .B heli.streams
@@ -312,7 +312,7 @@ Type: \fIdouble\fP
 Unit: \fIunit of input data\fP
 .sp
 Minimum amplitude to show in trace. Requires
-amplitudeRange.scale = "minmax".
+amplitudeRange.scale = \(dqminmax\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -324,7 +324,7 @@ Type: \fIdouble\fP
 Unit: \fIunit of input data\fP
 .sp
 Minimum amplitude to show in trace. Requires
-amplitudeRange.scale = "minmax".
+amplitudeRange.scale = \(dqminmax\(dq.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -332,7 +332,7 @@ amplitudeRange.scale = "minmax".
 .INDENT 3.5
 \fBheli.dump.*\fP
 \fIControl dumping of PNG images.\fP
-\fIExecute "scheli capture" for image generation in\fP
+\fIExecute \(dqscheli capture\(dq for image generation in\fP
 \fIthe background without the graphics.\fP
 .UNINDENT
 .UNINDENT
@@ -469,7 +469,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
@@ -540,22 +540,22 @@ Equivalent to \-\-verbosity=4 \-\-console=1 \-\-print\-component=1
 .INDENT 0.0
 .TP
 .B \-u, \-\-user arg
-Overrides configuration parameter \fBconnection.username\fP\&.
+Overrides configuration parameter \fI\%connection.username\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-H, \-\-host arg
-Overrides configuration parameter \fBconnection.server\fP\&.
+Overrides configuration parameter \fI\%connection.server\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-t, \-\-timeout arg
-Overrides configuration parameter \fBconnection.timeout\fP\&.
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-g, \-\-primary\-group arg
-Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -566,7 +566,7 @@ This option can be given more than once.
 .INDENT 0.0
 .TP
 .B \-\-content\-type arg
-Overrides configuration parameter \fBconnection.contentType\fP\&.
+Overrides configuration parameter \fI\%connection.contentType\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -584,8 +584,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -615,9 +615,9 @@ List all supported record stream drivers.
 .B \-I, \-\-record\-url arg
 The recordstream source URL, format:
 [\fI\%service://\fP]location[#type].
-"service" is the name of the recordstream driver
-which can be queried with "\-\-record\-driver\-list".
-If "service" is not given, "\fI\%file://\fP" is
+\(dqservice\(dq is the name of the recordstream driver
+which can be queried with \(dq\-\-record\-driver\-list\(dq.
+If \(dqservice\(dq is not given, \(dq\fI\%file://\fP\(dq is
 used.
 .UNINDENT
 .INDENT 0.0

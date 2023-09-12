@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCMSSORT" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scmssort \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCMSSORT" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scmssort \- SeisComP Documentation
 .sp
 \fBRead and manipulate miniSEED records\fP
 .SH DESCRIPTION
@@ -56,7 +56,7 @@ Filter data records, i.e. keep or remove them, based on
 time windows,
 .IP \(bu 2
 stream lists where each line has the format NET.STA.LOC.CHA including regular
-expressions. Such stream lists can be generated, e.g., using scinv\&.
+expressions. Such stream lists can be generated, e.g., using \fI\%scinv\fP\&.
 .UNINDENT
 .UNINDENT
 .sp
@@ -65,11 +65,11 @@ expressions. Such stream lists can be generated, e.g., using scinv\&.
 .INDENT 3.5
 .INDENT 0.0
 .IP \(bu 2
-Combine with scart or msrtsimul to archive data or to make
+Combine with \fI\%scart\fP or \fI\%msrtsimul\fP to archive data or to make
 playbacks with real\-time simulations.
 .IP \(bu 2
 Filter data by stream IDs using NSLC lists which can be generated using
-scinv\&.
+\fI\%scinv\fP\&.
 .UNINDENT
 .UNINDENT
 .UNINDENT
@@ -89,7 +89,7 @@ scmssort \-vuE unsorted.mseed > sorted.mseed
 .UNINDENT
 .UNINDENT
 .IP 2. 3
-Read all files ending with ".mseed" at the same time. The data are trimmed
+Read all files ending with \(dq.mseed\(dq at the same time. The data are trimmed
 to a time window and duplicated or empty records are ignored.
 .INDENT 3.0
 .INDENT 3.5
@@ -103,7 +103,7 @@ cat *.mseed | scmssort \-vuiE \-t \(aq2020\-03\-28 15:48~2020\-03\-28 16:18\(aq 
 .UNINDENT
 .IP 3. 3
 Remove streams listed by stream code and sort records by end time. Also ignore
-duplicated or empty records. Stream lists can be generated, e.g., by scinv\&.
+duplicated or empty records. Stream lists can be generated, e.g., by \fI\%scinv\fP\&.
 .INDENT 3.0
 .INDENT 3.5
 .sp

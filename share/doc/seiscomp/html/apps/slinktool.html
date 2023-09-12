@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>slinktool &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../_static/seiscomp.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Inventory" href="../toc/inventory.html" />
@@ -25,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.3</span>
+          <span class="version">5.5.4</span>
         </div>
       </div>
     </div>
@@ -71,20 +72,20 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="slinktool">
-<span id="id1"></span><h1>slinktool<a class="headerlink" href="#slinktool" title="Permalink to this headline">¶</a></h1>
+  <section id="slinktool">
+<span id="id1"></span><h1>slinktool<a class="headerlink" href="#slinktool" title="Permalink to this heading">¶</a></h1>
 <p><strong>SeedLink query interface module</strong></p>
-<div class="section" id="description">
-<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
 <p>slinktool connects to a <a class="reference internal" href="seedlink.html#seedlink"><span class="std std-ref">seedlink</span></a> server and queries the server for information
 or requests data using uni-station or multi-station mode and prints information
 about the packets received. All received packets can optionally be dumped to a
 single file or saved in custom directory and file layouts.</p>
-</div>
-<div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="all-station-uni-station-mode">
-<h3>All-station/Uni-station mode<a class="headerlink" href="#all-station-uni-station-mode" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+<section id="all-station-uni-station-mode">
+<h3>All-station/Uni-station mode<a class="headerlink" href="#all-station-uni-station-mode" title="Permalink to this heading">¶</a></h3>
 <p>The following would connect to a SeedLink server at slink.host.com port 18000 and
 configure the link in all-station/uni-station mode, exactly which data are received
 depends on the data being served by the SeedLink server on that particular port.
@@ -102,9 +103,9 @@ from data records.</p>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>slinktool -vv -s 10BHZ.D -o data.mseed slink.host.com:18000
 </pre></div>
 </div>
-</div>
-<div class="section" id="multi-station-mode">
-<h3>Multi-station mode<a class="headerlink" href="#multi-station-mode" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="multi-station-mode">
+<h3>Multi-station mode<a class="headerlink" href="#multi-station-mode" title="Permalink to this heading">¶</a></h3>
 <p>The following example would connect to a SeedLink server on localhost port 18010
 and configure the link in multi-station mode. Each station specified with the ‘-S’
 argument will be requested, optionally specifying selectors for each station.</p>
@@ -128,9 +129,9 @@ A variety of different data selections can be made simultaneously.</p>
 </div>
 </li>
 </ul>
-</div>
-<div class="section" id="wildcarding-network-and-station-codes">
-<h3>Wildcarding network and station codes<a class="headerlink" href="#wildcarding-network-and-station-codes" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="wildcarding-network-and-station-codes">
+<h3>Wildcarding network and station codes<a class="headerlink" href="#wildcarding-network-and-station-codes" title="Permalink to this heading">¶</a></h3>
 <p>Some SeedLink implementations support wildcarding of the network and station codes.
 If this is the case, the only two wildcard characters recognized are ‘*’ for
 one or more characters and ‘?’ for any single character.</p>
@@ -138,10 +139,10 @@ one or more characters and ‘?’ for any single character.</p>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>-S &#39;US\_\*&#39;
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="seedlink-selectors">
-<h2>Seedlink Selectors<a class="headerlink" href="#seedlink-selectors" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="seedlink-selectors">
+<h2>Seedlink Selectors<a class="headerlink" href="#seedlink-selectors" title="Permalink to this heading">¶</a></h2>
 <p>SeedLink selectors are used to request specific types of data within a given data
 stream, in effect limiting the default action of sending all data types.
 A data packet is sent to the client if it matches any positive selector
@@ -160,9 +161,9 @@ BH? E        - BHZ, BHN, BHE &amp; detection records of all channels
 !L !T        - exclude log and timing records
 </pre></div>
 </div>
-</div>
-<div class="section" id="archiving-data">
-<h2>Archiving Data<a class="headerlink" href="#archiving-data" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="archiving-data">
+<h2>Archiving Data<a class="headerlink" href="#archiving-data" title="Permalink to this heading">¶</a></h2>
 <p>Using the ‘-A format’ option received data can be saved in a custom directory and
 file structure. The archive format argument is expanded for each packet processed
 using the following flags:</p>
@@ -214,9 +215,9 @@ resulting file name.</p>
 </pre></div>
 </div>
 <p>resulting in hour length files because the minute and second are specified with the non-defining modifier. The minute and second fields are from the first packet in the file.</p>
-</div>
-<div class="section" id="stream-list-file">
-<h2>Stream List File<a class="headerlink" href="#stream-list-file" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="stream-list-file">
+<h2>Stream List File<a class="headerlink" href="#stream-list-file" title="Permalink to this heading">¶</a></h2>
 <p>The stream list file used with the ‘-l’ option is expected to define a data stream
 on each line. The format of each line is:</p>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>Network Station [selectors]
@@ -245,16 +246,16 @@ Exceptions are when</p>
 <li><p>Printing the raw or formatted responses to INFO requests.</p></li>
 </ul>
 </div>
-</div>
-<div class="section" id="author-of-slinktool">
-<h2>Author of slinktool<a class="headerlink" href="#author-of-slinktool" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="author-of-slinktool">
+<h2>Author of slinktool<a class="headerlink" href="#author-of-slinktool" title="Permalink to this heading">¶</a></h2>
 <p>Chad Trabant</p>
 <p>ORFEUS Data Center/EC-Project MEREDIAN</p>
 <p>IRIS Data Management Center</p>
 <p>Original source code: <a class="reference external" href="https://github.com/iris-edu/slinktool/tree/master/doc">https://github.com/iris-edu/slinktool/tree/master/doc</a></p>
-</div>
-<div class="section" id="command-line-options">
-<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="command-line-options">
+<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this heading">¶</a></h2>
 <p><strong class="program">slinktool [OPTION]... [host][:][port]</strong></p>
 <p>Address ([host][:][port]) is a required argument. It specifies the address
 of the SeedLink server in host:port format. Either the host, port or both
@@ -262,77 +263,77 @@ can be omitted. If host is omitted then localhost is assumed,
 i.e. ‘:18000’ implies ‘localhost:18000’. If the port is omitted,
 then 18000 is assumed, i.e. ‘localhost’ implies ‘localhost:18000’.
 If only ‘:’ is specified, ‘localhost:18000’ is assumed.</p>
-<div class="section" id="general-program-options">
-<h3>General program options<a class="headerlink" href="#general-program-options" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-slinktool-v">
-<code class="sig-name descname">-V</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-slinktool-v" title="Permalink to this definition">¶</a></dt>
+<section id="general-program-options">
+<h3>General program options<a class="headerlink" href="#general-program-options" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-V">
+<span class="sig-name descname"><span class="pre">-V</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-slinktool-V" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print program version and exit.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-slinktool-h">
-<code class="sig-name descname">-h</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-slinktool-h" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-h">
+<span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-slinktool-h" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print program usage and exit.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="id2">
-<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Be more verbose. This flag can be used multiple times (“-v -v” or “-vv”)
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-v">
+<span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-slinktool-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Be more verbose. This flag can be used multiple times (&quot;-v -v&quot; or &quot;-vv&quot;)
 for more verbosity. One flag: report basic handshaking (link configuration) details and
 briefly report each packet received. Two flags: report the details of the handshaking,
 each packet received and detailed connection diagnostics.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-slinktool-p">
-<code class="sig-name descname">-P</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-slinktool-p" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-P">
+<span class="sig-name descname"><span class="pre">-P</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-slinktool-P" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ping the server, report the server ID and exit.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="id3">
-<code class="sig-name descname">-p</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-p">
+<span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-slinktool-p" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print details of received Mini-SEED data records. This flag can be used multiple times
-(“-p -p” or “-pp”) for more detail. One flag: a single summary line
+(&quot;-p -p&quot; or &quot;-pp&quot;) for more detail. One flag: a single summary line
 for each data packet received. Two flags: details of the Mini-SEED data records received,
 including information from fixed header and 100/1000/1001 blockettes.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-slinktool-u">
-<code class="sig-name descname">-u</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-slinktool-u" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-u">
+<span class="sig-name descname"><span class="pre">-u</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-slinktool-u" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print unpacked samples of data packets.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-slinktool-nd">
-<code class="sig-name descname">-nd</code><code class="sig-prename descclassname"> delay</code><a class="headerlink" href="#cmdoption-slinktool-nd" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-nd">
+<span class="sig-name descname"><span class="pre">-nd</span></span><span class="sig-prename descclassname"> <span class="pre">delay</span></span><a class="headerlink" href="#cmdoption-slinktool-nd" title="Permalink to this definition">¶</a></dt>
 <dd><p>The network reconnect delay for the connection to the SeedLink server.
 If the connection breaks for any reason this will govern how soon a reconnection should
 be attempted.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-slinktool-nt">
-<code class="sig-name descname">-nt</code><code class="sig-prename descclassname"> timeout</code><a class="headerlink" href="#cmdoption-slinktool-nt" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-nt">
+<span class="sig-name descname"><span class="pre">-nt</span></span><span class="sig-prename descclassname"> <span class="pre">timeout</span></span><a class="headerlink" href="#cmdoption-slinktool-nt" title="Permalink to this definition">¶</a></dt>
 <dd><p>The network timeout (in seconds) for the connection to the SeedLink server. If no data
 [or keep alive packets?] are received in this time range the connection is closed and
 re-established (after the reconnect delay has expired). The default value is 600 seconds.
 A value of 0 disables the timeout.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-slinktool-k">
-<code class="sig-name descname">-k</code><code class="sig-prename descclassname"> interval</code><a class="headerlink" href="#cmdoption-slinktool-k" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-k">
+<span class="sig-name descname"><span class="pre">-k</span></span><span class="sig-prename descclassname"> <span class="pre">interval</span></span><a class="headerlink" href="#cmdoption-slinktool-k" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interval at which keepalive (heartbeat) packets are sent to the server.
 Keepalive packets are only sent if nothing is received within the interval.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-slinktool-x">
-<code class="sig-name descname">-x</code><code class="sig-prename descclassname"> sfile[:interval]</code><a class="headerlink" href="#cmdoption-slinktool-x" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-x">
+<span class="sig-name descname"><span class="pre">-x</span></span><span class="sig-prename descclassname"> <span class="pre">sfile[:interval]</span></span><a class="headerlink" href="#cmdoption-slinktool-x" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save/restore stream state information to this file.</p>
 <p>During client shutdown the last received sequence numbers and time stamps (start times)
 for each data stream will be saved in this file. If this file exists upon startup the information
@@ -342,72 +343,72 @@ server. If an interval is specified the state will be saved every interval in th
 received. Otherwise the state will be saved only on normal program termination.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-slinktool-d">
-<code class="sig-name descname">-d</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-slinktool-d" title="Permalink to this definition">¶</a></dt>
-<dd><p>Configure the connection in “dial-up” mode. The remote server will close the connection when
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-d">
+<span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-slinktool-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure the connection in &quot;dial-up&quot; mode. The remote server will close the connection when
 it has sent all of the data in its buffers for the selected data streams. This is opposed to
 the normal behavior of waiting indefinitely for data.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-slinktool-b">
-<code class="sig-name descname">-b</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-slinktool-b" title="Permalink to this definition">¶</a></dt>
-<dd><p>Configure the connection in “batch” mode.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-b">
+<span class="sig-name descname"><span class="pre">-b</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-slinktool-b" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure the connection in &quot;batch&quot; mode.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="data-stream-selection">
-<h3>Data stream selection<a class="headerlink" href="#data-stream-selection" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-slinktool-s">
-<code class="sig-name descname">-s</code><code class="sig-prename descclassname"> selector</code><a class="headerlink" href="#cmdoption-slinktool-s" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="data-stream-selection">
+<h3>Data stream selection<a class="headerlink" href="#data-stream-selection" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-s">
+<span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"> <span class="pre">selector</span></span><a class="headerlink" href="#cmdoption-slinktool-s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Selectors for uni-station or default for multi-station mode</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-slinktool-l">
-<code class="sig-name descname">-l</code><code class="sig-prename descclassname"> listfile</code><a class="headerlink" href="#cmdoption-slinktool-l" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-l">
+<span class="sig-name descname"><span class="pre">-l</span></span><span class="sig-prename descclassname"> <span class="pre">listfile</span></span><a class="headerlink" href="#cmdoption-slinktool-l" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read a stream list from this file for multi-station mode</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="id4">
-<code class="sig-name descname">-S</code><code class="sig-prename descclassname"> streams</code><a class="headerlink" href="#id4" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-S">
+<span class="sig-name descname"><span class="pre">-S</span></span><span class="sig-prename descclassname"> <span class="pre">streams</span></span><a class="headerlink" href="#cmdoption-slinktool-S" title="Permalink to this definition">¶</a></dt>
 <dd><p>Define a stream list for multi-station mode.</p>
 <p>‘streams’ = ‘stream1[:selectors1],stream2[:selectors2],…’</p>
 <p>‘stream’ is in NET_STA format, for example:</p>
-<p>-S “IU_KONO:BHE BHN,GE_WLF,MN_AQU:HH?.D”</p>
+<p>-S &quot;IU_KONO:BHE BHN,GE_WLF,MN_AQU:HH?.D&quot;</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-slinktool-tw">
-<code class="sig-name descname">-tw</code><code class="sig-prename descclassname"> begin:[end]</code><a class="headerlink" href="#cmdoption-slinktool-tw" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-tw">
+<span class="sig-name descname"><span class="pre">-tw</span></span><span class="sig-prename descclassname"> <span class="pre">begin:[end]</span></span><a class="headerlink" href="#cmdoption-slinktool-tw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify a time window in year,month,day,hour,min,sec format.</p>
 <p>Example: -tw 2002,08,05,14,00,00:2002,08,05,14,15,00</p>
 <p>The end time is optional, but the colon must be present.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="data-saving-options">
-<h3>Data saving options<a class="headerlink" href="#data-saving-options" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-slinktool-o">
-<code class="sig-name descname">-o</code><code class="sig-prename descclassname"> dumpfile</code><a class="headerlink" href="#cmdoption-slinktool-o" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="data-saving-options">
+<h3>Data saving options<a class="headerlink" href="#data-saving-options" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-o">
+<span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"> <span class="pre">dumpfile</span></span><a class="headerlink" href="#cmdoption-slinktool-o" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write all received records to this file</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-slinktool-a">
-<code class="sig-name descname">-A</code><code class="sig-prename descclassname"> format</code><a class="headerlink" href="#cmdoption-slinktool-a" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-A">
+<span class="sig-name descname"><span class="pre">-A</span></span><span class="sig-prename descclassname"> <span class="pre">format</span></span><a class="headerlink" href="#cmdoption-slinktool-A" title="Permalink to this definition">¶</a></dt>
 <dd><p>If specified, all received packets (Mini-SEED records) will be appended to a directory/file
 structure defined by format. All directories implied in the format string will be created if
 necessary.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-slinktool-sds">
-<code class="sig-name descname">-SDS</code><code class="sig-prename descclassname"> SDSdir</code><a class="headerlink" href="#cmdoption-slinktool-sds" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-SDS">
+<span class="sig-name descname"><span class="pre">-SDS</span></span><span class="sig-prename descclassname"> <span class="pre">SDSdir</span></span><a class="headerlink" href="#cmdoption-slinktool-SDS" title="Permalink to this definition">¶</a></dt>
 <dd><p>If specified, all received packets (Mini-SEED records) will be saved into a Simple Data
 Structure (SDS) dir/file structure starting at the specified directory. This directory and
 all subdirectories will be created if necessary. This option is a preset of the ‘-A’ option.
@@ -415,9 +416,9 @@ The SDS dir/file structure is:</p>
 <p>&lt;SDSdir&gt;/&lt;YEAR&gt;/&lt;NET&gt;/&lt;STA&gt;/&lt;CHAN.TYPE&gt;/NET.STA.LOC.CHAN.TYPE.YEAR.DAY</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-slinktool-bud">
-<code class="sig-name descname">-BUD</code><code class="sig-prename descclassname"> BUDdir</code><a class="headerlink" href="#cmdoption-slinktool-bud" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-BUD">
+<span class="sig-name descname"><span class="pre">-BUD</span></span><span class="sig-prename descclassname"> <span class="pre">BUDdir</span></span><a class="headerlink" href="#cmdoption-slinktool-BUD" title="Permalink to this definition">¶</a></dt>
 <dd><p>If specified, all received waveform data packets (Mini-SEED data records) will be saved into
 a Buffer of Uniform Data (BUD) dir/file structure starting at the specified directory.
 This directory and all subdirectories will be created if necessary. This option is a preset
@@ -425,50 +426,50 @@ of the ‘-A’ option. The BUD dir/file structure is:</p>
 <p>&lt;BUDdir&gt;/&lt;NET&gt;/&lt;STA&gt;/STA.NET.LOC.CHAN.YEAR.DAY</p>
 </dd></dl>
 
-</div>
-<div class="section" id="data-server">
-<h3>Data server<a class="headerlink" href="#data-server" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-slinktool-i">
-<code class="sig-name descname">-i</code><code class="sig-prename descclassname"> type</code><a class="headerlink" href="#cmdoption-slinktool-i" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="data-server">
+<h3>Data server<a class="headerlink" href="#data-server" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-i">
+<span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"> <span class="pre">type</span></span><a class="headerlink" href="#cmdoption-slinktool-i" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send info request, type is one of the following:</p>
 <p>ID, CAPABILITIES, STATIONS, STREAMS, GAPS, CONNECTIONS, ALL</p>
 <p>The returned raw XML is displayed when using this option.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="id5">
-<code class="sig-name descname">-I</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id5" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-I">
+<span class="sig-name descname"><span class="pre">-I</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-slinktool-I" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print formatted server id and version</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="id6">
-<code class="sig-name descname">-L</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id6" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-L">
+<span class="sig-name descname"><span class="pre">-L</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-slinktool-L" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print formatted station list (if supported by server)</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-slinktool-q">
-<code class="sig-name descname">-Q</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-slinktool-q" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-Q">
+<span class="sig-name descname"><span class="pre">-Q</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-slinktool-Q" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print formatted stream list (if supported by server)</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-slinktool-g">
-<code class="sig-name descname">-G</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-slinktool-g" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-G">
+<span class="sig-name descname"><span class="pre">-G</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-slinktool-G" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print formatted gap list (if supported by server)</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-slinktool-c">
-<code class="sig-name descname">-C</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-slinktool-c" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-slinktool-C">
+<span class="sig-name descname"><span class="pre">-C</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-slinktool-C" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print formatted connection list (if supported by server)</p>
 </dd></dl>
 
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -481,14 +482,15 @@ of the ‘-A’ option. The BUD dir/file structure is:</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">slinktool</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
 <li><a class="reference internal" href="#examples">Examples</a><ul>
@@ -512,12 +514,17 @@ of the ‘-A’ option. The BUD dir/file structure is:</p>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="slarchive.html"
-                        title="previous chapter">slarchive</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="../toc/inventory.html"
-                        title="next chapter">Inventory</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="slarchive.html"
+                          title="previous chapter">slarchive</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../toc/inventory.html"
+                          title="next chapter">Inventory</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -537,7 +544,7 @@ of the ‘-A’ option. The BUD dir/file structure is:</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.3</b> Release
+		  Version <b>5.5.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

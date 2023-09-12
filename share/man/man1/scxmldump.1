@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCXMLDUMP" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scxmldump \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCXMLDUMP" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scxmldump \- SeisComP Documentation
 .sp
 \fBDump database objects to XML files.\fP
 .SH DESCRIPTION
@@ -50,30 +50,30 @@ Journal,
 Routing.
 .UNINDENT
 .sp
-The parameters are sent to stdout or written into an XML (SCML) file.
+The parameters are sent to stdout or written into an XML (\fI\%SCML\fP) file.
 .SS Event parameters
 .sp
 To get event or origin information from the database without using SQL is an
 important task for the user. \fI\%scxmldump\fP queries the database and
 transforms that information into XML. The event parameters can be treated
-further by scbulletin for generating bulletins or conversion into KML.
+further by \fI\%scbulletin\fP for generating bulletins or conversion into KML.
 .sp
-Many processing modules, e.g., scevent support the on\-demand processing
+Many processing modules, e.g., \fI\%scevent\fP support the on\-demand processing
 of dumped event parameters by the command\-line option \fB\-\-ep\fP\&.
-Importing event parameters into another database is possible with scdb
-and sending to a SeisComP messaging is provided by scdispatch\&.
+Importing event parameters into another database is possible with \fI\%scdb\fP
+and sending to a SeisComP messaging is provided by \fI\%scdispatch\fP\&.
 .sp
 \fBHINT:\fP
 .INDENT 0.0
 .INDENT 3.5
 Events and origins are referred to by their public IDs. These can be provided
-by scevtls and scorgls, respectively, from graphical tools like
-scolv or by database queries supported by scquery\&.
+by \fI\%scevtls\fP and \fI\%scorgls\fP, respectively, from graphical tools like
+\fI\%scolv\fP or by database queries supported by \fI\%scquery\fP\&.
 .UNINDENT
 .UNINDENT
 .SS Format conversion
 .sp
-Conversion of SCML into other formats is supported by sccnv\&.
+Conversion of \fI\%SCML\fP into other formats is supported by \fI\%sccnv\fP\&.
 An XSD schema of the XML output can be found under
 \fB$SEISCOMP_ROOT/share/xml/\fP\&.
 .SS Examples
@@ -179,7 +179,7 @@ scxmldump \-fJ \-o journal.xml \e
 .fi
 .sp
 .sp
-scxmldump inherits global options\&.
+scxmldump inherits \fI\%global options\fP\&.
 .SH COMMAND-LINE OPTIONS
 .sp
 \fBscxmldump [options]\fP
@@ -235,7 +235,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
@@ -292,22 +292,22 @@ Use alternative log file.
 .INDENT 0.0
 .TP
 .B \-u, \-\-user arg
-Overrides configuration parameter \fBconnection.username\fP\&.
+Overrides configuration parameter \fI\%connection.username\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-H, \-\-host arg
-Overrides configuration parameter \fBconnection.server\fP\&.
+Overrides configuration parameter \fI\%connection.server\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-t, \-\-timeout arg
-Overrides configuration parameter \fBconnection.timeout\fP\&.
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-g, \-\-primary\-group arg
-Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -318,7 +318,7 @@ This option can be given more than once.
 .INDENT 0.0
 .TP
 .B \-\-content\-type arg
-Overrides configuration parameter \fBconnection.contentType\fP\&.
+Overrides configuration parameter \fI\%connection.contentType\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -336,8 +336,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP

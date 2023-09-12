@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCQUERYQC" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scqueryqc \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,17 +27,20 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCQUERYQC" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scqueryqc \- SeisComP Documentation
 .sp
 \fBQuery waveform quality control (QC) parameters from database.\fP
 .SH DESCRIPTION
 .sp
 scqueryqc queries a database for waveform quality control (QC) parameters. The
-QC parameters must be provided, e.g. by scqc\&.
+QC parameters must be provided, e.g. by \fI\%scqc\fP\&.
 .sp
 \fBWARNING:\fP
 .INDENT 0.0
 .INDENT 3.5
-Writing QC parameters to the database by scqc will result in a rapidly
+Writing QC parameters to the database by \fI\%scqc\fP will result in a rapidly
 growing database and is therefore not recommended in permanent application!
 .UNINDENT
 .UNINDENT
@@ -72,7 +72,7 @@ You should minimize the impact of stored waveform QC parameters on the size of t
 database.
 .INDENT 0.0
 .IP 1. 3
-Compute the QC parameters in real time using scqc and save them in the
+Compute the QC parameters in real time using \fI\%scqc\fP and save them in the
 \fISeisComP\fP database. Saving the QC parameters in the database requires to
 adjust the scqc module configuration parameters
 \fBplugins.*.archive.interval\fP for each plugin.
@@ -96,7 +96,7 @@ scqueryqc \-d [host] \-e \(aq[end time]\(aq \-\-streams\-from\-inventory \-o [XM
 Clean the database from QC parameters.
 .INDENT 3.0
 .IP \(bu 2
-Either use scdispatch with the parameters saved in XML. You may need
+Either use \fI\%scdispatch\fP with the parameters saved in XML. You may need
 to set the routing table for sending the QualityControl parameters to the
 right message group, e.g., QC:
 .INDENT 3.0
@@ -110,7 +110,7 @@ scdispatch \-H [host] \-O remove \-\-routingtable QualityControl:QC \-i [XML fil
 .UNINDENT
 .UNINDENT
 .IP \(bu 2
-Alternatively, use scdbstrip with the command\-line option \fB\-Q\fP and
+Alternatively, use \fI\%scdbstrip\fP with the command\-line option \fB\-Q\fP and
 remove \fBall\fP QC parameters in the time span. Use the same period for
 which the QC parameters were retrieved:
 .INDENT 3.0
@@ -174,7 +174,7 @@ scqueryqc \-d localhost \-b \(aq2021\-11\-20 00:00:00\(aq \-\-streams\-from\-inv
 .fi
 .sp
 .sp
-scqueryqc inherits global options\&.
+scqueryqc inherits \fI\%global options\fP\&.
 .SH COMMAND-LINE OPTIONS
 .sp
 \fBscqueryqc [options]\fP
@@ -250,8 +250,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP

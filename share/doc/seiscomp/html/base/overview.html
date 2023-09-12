@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Overview &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../_static/seiscomp.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Historical Information" href="history.html" />
@@ -25,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.3</span>
+          <span class="version">5.5.4</span>
         </div>
       </div>
     </div>
@@ -65,12 +66,12 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="overview">
-<span id="id1"></span><h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+  <section id="overview">
+<span id="id1"></span><h1>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h1>
 <p>This overview section is intended to quickly introduce the reader into
 key aspect of <cite>SeisComP</cite> and to provide the access points for further reading.</p>
-<div class="section" id="modular-structure">
-<h2>Modular structure<a class="headerlink" href="#modular-structure" title="Permalink to this headline">¶</a></h2>
+<section id="modular-structure">
+<h2>Modular structure<a class="headerlink" href="#modular-structure" title="Permalink to this heading">¶</a></h2>
 <p>A <cite>SeisComP</cite> system is not a single piece of software but it involves automatic and
 interactive modules working
 separately to process data and to analyze seismicity.
@@ -84,23 +85,25 @@ Read the <a class="reference internal" href="concepts/modules.html#concepts-modu
 <li><p>Providing a user interface for manually reviewing events</p></li>
 </ul>
 <p>and many more. Key features are summarized in the <a class="reference internal" href="introduction.html#introduction"><span class="std std-ref">introduction</span></a>.</p>
-<div class="figure align-center" id="id9">
+<figure class="align-center" id="id9">
 <a class="reference internal image-reference" href="../_images/sc-interaction.png"><img alt="../_images/sc-interaction.png" src="../_images/sc-interaction.png" style="width: 16cm;" /></a>
-<p class="caption"><span class="caption-text">Real-time data acquisition, archiving and automatic processing combined with manual analysis.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
-</div>
-<div class="section" id="data-acquisition-modules">
-<h3>Data acquisition modules<a class="headerlink" href="#data-acquisition-modules" title="Permalink to this headline">¶</a></h3>
+<figcaption>
+<p><span class="caption-text">Real-time data acquisition, archiving and automatic processing combined with manual analysis.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<section id="data-acquisition-modules">
+<h3>Data acquisition modules<a class="headerlink" href="#data-acquisition-modules" title="Permalink to this heading">¶</a></h3>
 <p>Data acquisition modules allow to provide and store waveform data in real-time.
 They are described in the acquisition section of the modules documentation.</p>
-</div>
-<div class="section" id="automatic-processing-modules">
-<h3>Automatic processing modules<a class="headerlink" href="#automatic-processing-modules" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="automatic-processing-modules">
+<h3>Automatic processing modules<a class="headerlink" href="#automatic-processing-modules" title="Permalink to this heading">¶</a></h3>
 <p>Automatic processing modules allow real-time or offline processing of waveforms and event parameters.
 They are described in the processing section of the modules documentation.</p>
-</div>
-<div class="section" id="interactive-modules">
-<h3>Interactive modules<a class="headerlink" href="#interactive-modules" title="Permalink to this headline">¶</a></h3>
-<p>Interactive <a class="reference internal" href="glossary.html#term-gui"><span class="xref std std-term">GUI</span></a> modules show waveforms and processing results and allow user interactions:</p>
+</section>
+<section id="interactive-modules">
+<h3>Interactive modules<a class="headerlink" href="#interactive-modules" title="Permalink to this heading">¶</a></h3>
+<p>Interactive <a class="reference internal" href="glossary.html#term-GUI"><span class="xref std std-term">GUI</span></a> modules show waveforms and processing results and allow user interactions:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../apps/scolv.html#scolv"><span class="std std-ref">scolv</span></a>: processing waveforms, locating events and determining magnitudes and focal mechnisms</p></li>
 <li><dl class="simple">
@@ -119,21 +122,21 @@ They are described in the processing section of the modules documentation.</p>
 <li><p><a class="reference internal" href="../apps/scmm.html#scmm"><span class="std std-ref">scmm</span></a>: the messaging system monitor</p></li>
 </ul>
 <p>The GUI modules are described in the Interactive analysis section of this documentation.</p>
-</div>
-<div class="section" id="inventory-modules">
-<h3>Inventory modules<a class="headerlink" href="#inventory-modules" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="inventory-modules">
+<h3>Inventory modules<a class="headerlink" href="#inventory-modules" title="Permalink to this heading">¶</a></h3>
 <p>Inventory modules allow to manipulate inventories, e.g. to convert different formats
 or to write information to the database.
 They are described in the inventory section of the modules documentation.</p>
-</div>
-<div class="section" id="utility-modules">
-<h3>Utility modules<a class="headerlink" href="#utility-modules" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="utility-modules">
+<h3>Utility modules<a class="headerlink" href="#utility-modules" title="Permalink to this heading">¶</a></h3>
 <p>Utility modules provide access to waveforms, the data base and much more.
 They are described in the utilities section of the modules documentation.</p>
-</div>
-</div>
-<div class="section" id="communication-and-database-access">
-<h2>Communication and database access<a class="headerlink" href="#communication-and-database-access" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="communication-and-database-access">
+<h2>Communication and database access<a class="headerlink" href="#communication-and-database-access" title="Permalink to this heading">¶</a></h2>
 <p>As modules run, they produce objects corresponding to geophysical concepts
 such as <a class="reference internal" href="glossary.html#term-pick"><span class="xref std std-term">picks</span></a> and <a class="reference internal" href="glossary.html#term-origin"><span class="xref std std-term">origins</span></a>.
 These objects are exchanged with, and stored for later use by, other modules.
@@ -148,15 +151,17 @@ The messaging system is controlled by <a class="reference internal" href="../app
 and only the module <a class="reference internal" href="../apps/scmaster.html#scmaster"><span class="std std-ref">scmaster</span></a> is allowed
 write access to the database.
 Additional details are found under <a class="reference internal" href="concepts/messaging.html#concepts-messaging"><span class="std std-ref">Messaging system</span></a> in the <a class="reference internal" href="concepts.html#concepts"><span class="std std-ref">Concepts</span></a> chapter.</p>
-<div class="figure align-center" id="id10">
+<figure class="align-center" id="id10">
 <a class="reference internal image-reference" href="../_images/sc_system_standard.jpg"><img alt="../_images/sc_system_standard.jpg" src="../_images/sc_system_standard.jpg" style="width: 10cm;" /></a>
-<p class="caption"><span class="caption-text">Modular organization of <cite>SeisComP</cite> with messaging system, RecordStream interface and database.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-<div class="section" id="waveform-data">
-<h2>Waveform data<a class="headerlink" href="#waveform-data" title="Permalink to this headline">¶</a></h2>
-<p>Internally in <cite>SeisComP</cite>. most waveform data is currently handled as <a class="reference internal" href="glossary.html#term-miniseed"><span class="xref std std-term">miniSEED</span></a> data (Data Only
-<a class="reference internal" href="glossary.html#term-seed"><span class="xref std std-term">SEED</span></a> records).
+<figcaption>
+<p><span class="caption-text">Modular organization of <cite>SeisComP</cite> with messaging system, RecordStream interface and database.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="waveform-data">
+<h2>Waveform data<a class="headerlink" href="#waveform-data" title="Permalink to this heading">¶</a></h2>
+<p>Internally in <cite>SeisComP</cite>. most waveform data is currently handled as <a class="reference internal" href="glossary.html#term-miniSeed"><span class="xref std std-term">miniSEED</span></a> data (Data Only
+<a class="reference internal" href="glossary.html#term-SEED"><span class="xref std std-term">SEED</span></a> records).
 A time series of records is identified by its stream identifier,
 following the SEED naming convention,</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NET</span><span class="o">.</span><span class="n">STA</span><span class="o">.</span><span class="n">LOC</span><span class="o">.</span><span class="n">CHA</span>
@@ -181,7 +186,7 @@ You can configure <cite>SeisComP</cite> to obtain data for each station via <a c
 This configuration is described in the <a class="reference internal" href="tutorials/geofon_waveforms.html#tutorials-geofon-waveforms"><span class="std std-ref">tutorial on seedlink</span></a>.</p>
 <p>Waveform data can be saved locally, using <cite>SeisComP</cite>’s <a class="reference internal" href="../apps/slarchive.html#slarchive"><span class="std std-ref">slarchive</span></a> module.
 The waveform archive is organized in a structured way on your local file system,
-with one file for each channel and day, known as the <a class="reference internal" href="glossary.html#term-sds"><span class="xref std std-term">SDS</span></a> archive.
+with one file for each channel and day, known as the <a class="reference internal" href="glossary.html#term-SDS"><span class="xref std std-term">SDS</span></a> archive.
 Thanks to <cite>SeisComP</cite>’s <a class="reference internal" href="concepts/recordstream.html#concepts-recordstream"><span class="std std-ref">RecordStream</span></a> concept, its modules
 can be reconfigured to use the local data from an archive, a server or from files, allowing <em>playbacks</em>.
 This ability to replay old waveforms and re-analyze them, is very
@@ -190,32 +195,36 @@ important for exploring your system configuration, and developing
 <p>Finally, being both a collector and a server of waveform data,
 <a class="reference internal" href="../apps/seedlink.html#seedlink"><span class="std std-ref">seedlink</span></a> allows you to chain <cite>SeisComP</cite> installations together to
 obtain waveform data from upstream sources and relay it to other data users.</p>
-<div class="figure align-center" id="id11">
+<figure class="align-center" id="id11">
 <a class="reference internal image-reference" href="../_images/sc-acquisition-server.png"><img alt="../_images/sc-acquisition-server.png" src="../_images/sc-acquisition-server.png" style="width: 10cm;" /></a>
-<p class="caption"><span class="caption-text">Data flow from data centers and stations via plugins to seedlink and the waveform archive
+<figcaption>
+<p><span class="caption-text">Data flow from data centers and stations via plugins to seedlink and the waveform archive
 both providing the data to local or remote <cite>SeisComP</cite> modules or other clients.</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-<div class="section" id="access-to-waveform-data">
-<h2>Access to Waveform Data<a class="headerlink" href="#access-to-waveform-data" title="Permalink to this headline">¶</a></h2>
+</figcaption>
+</figure>
+</section>
+<section id="access-to-waveform-data">
+<h2>Access to Waveform Data<a class="headerlink" href="#access-to-waveform-data" title="Permalink to this heading">¶</a></h2>
 <p><cite>SeisComP</cite> modules can access waveform data from many difference sources,
 such as a Seedlink server or an FDSN web service.</p>
 <p>In <cite>SeisComP</cite> terminology, the data from these sources are <em>record streams</em>.
-Access to the waveform data can be configured by setting an appropriate <a class="reference internal" href="glossary.html#term-recordstream"><span class="xref std std-term">RecordStream</span></a>.
+Access to the waveform data can be configured by setting an appropriate <a class="reference internal" href="glossary.html#term-RecordStream"><span class="xref std std-term">RecordStream</span></a>.
 Read the <a class="reference internal" href="concepts/recordstream.html#concepts-recordstream"><span class="std std-ref">concept description of the RecordStream</span></a>
 and <a class="reference internal" href="../apps/global_recordstream.html#global-recordstream"><span class="std std-ref">technical documentation of the various implementations</span></a> for many more details.</p>
-<div class="figure align-center" id="id12">
+<figure class="align-center" id="id12">
 <a class="reference internal image-reference" href="../_images/recordstream.png"><img alt="../_images/recordstream.png" src="../_images/recordstream.png" style="width: 10cm;" /></a>
-<p class="caption"><span class="caption-text">The RecordStream interface provides flexible access to waveform data.</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">The RecordStream interface provides flexible access to waveform data.</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>Taken together, this design gives <cite>SeisComP</cite> operators much flexibility.
 Since messages can be exchanged between different computers, and
 waveform data can be obtained from many sources, the different modules
 do not all have to be on a single computer.
 Multiple operators can connect to a single <cite>SeisComP</cite> installation from their own computers.</p>
-</div>
-<div class="section" id="station-metadata">
-<h2>Station metadata<a class="headerlink" href="#station-metadata" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="station-metadata">
+<h2>Station metadata<a class="headerlink" href="#station-metadata" title="Permalink to this heading">¶</a></h2>
 <p>By <a class="reference internal" href="glossary.html#term-inventory"><span class="xref std std-term">inventory</span></a> we mean all information about seismic streams and stations
 that is needed for processing the raw data obtained from sensors.
 They are therefore also referred to as <em>station metadata</em>.
@@ -240,7 +249,7 @@ Today there are some common formats to store metadata:</p>
 <p>You can get inventory information from various public sources including
 <span id="id4"><em>EIDA</em> [<a class="reference internal" href="references.html#id99" title="EIDA. European Integrated Data Archive, Orfeus. URL: https://www.orfeus-eu.org/data/eida/.">4</a>]</span> or <span id="id5"><em>IRIS</em> [<a class="reference internal" href="references.html#id134" title="IRIS. Incorporated Research Institutions for Seismology. URL: https://www.iris.edu.">13</a>]</span> and many more. <span id="id6"><em>SMP</em> [<a class="reference internal" href="references.html#id262" title="SMP. Station Management Portal by gempa GmbH. URL: https://smp.gempa.de/.">21</a>]</span> allows you to
 create and share meta data from your own
-station network and to export an inventory in <a class="reference internal" href="glossary.html#term-scml"><span class="xref std std-term">SCML</span></a> format.</p>
+station network and to export an inventory in <a class="reference internal" href="glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> format.</p>
 <p>Inventories for all considered recording stations need to be imported
 into <cite>SeisComP</cite>. and loaded into its database, before data can be processed.
 There are various tools to do this.
@@ -250,17 +259,17 @@ The tools are described in the inventory section of this documentation.</p>
 <p>In order to process data streams, the inventory must provide complete response information
 for all the streams AND must match the <a class="reference internal" href="glossary.html#term-binding"><span class="xref std std-term">bindings</span></a> configuration.</p>
 </div>
-</div>
-<div class="section" id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
 <p>The basics of configuring a <cite>SeisComP</cite> system are described in the
 <a class="reference internal" href="concepts/configuration.html#concepts-configuration"><span class="std std-ref">concepts section</span></a>. The <a class="reference internal" href="tutorials.html#tutorials"><span class="std std-ref">Tutorials</span></a> of this
 documentation provide step-by-step recipes. The modules documentation explains
 the modules functioning, their configuration and command-line parameters and
 give additional examples and links to related topics.</p>
-</div>
-<div class="section" id="what-next">
-<h2>What next?<a class="headerlink" href="#what-next" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="what-next">
+<h2>What next?<a class="headerlink" href="#what-next" title="Permalink to this heading">¶</a></h2>
 <p>The following <a class="reference internal" href="installation.html#installation"><span class="std std-ref">SeisComP Installation</span></a> section of this manual will help you install <cite>SeisComP</cite>.
 You will then need to obtain some inventory and a source of waveform data.
 Configure bindings, enable the processing modules, and restart <cite>SeisComP</cite>.
@@ -271,9 +280,9 @@ and their traces in
 <p>Eventually, your new <cite>SeisComP</cite> system will pick and create origins,
 should a locatable <a class="reference internal" href="glossary.html#term-event"><span class="xref std std-term">seismic event</span></a> take place while it
 is running.</p>
-</div>
-<div class="section" id="where-to-go-for-more-help">
-<h2>Where to Go for More Help<a class="headerlink" href="#where-to-go-for-more-help" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="where-to-go-for-more-help">
+<h2>Where to Go for More Help<a class="headerlink" href="#where-to-go-for-more-help" title="Permalink to this heading">¶</a></h2>
 <p>The <a class="reference internal" href="tutorials/help.html#tutorials-help"><span class="std std-ref">tutorial on help</span></a> provides comprehensive list of options
 to get help on <cite>SeisComP</cite>.
 Most <cite>SeisComP</cite> modules have built-in help messages and descriptive HTML
@@ -288,8 +297,8 @@ module development and modification is provided world-wide by
 software company out-sourced from GFZ and founded by the main <cite>SeisComP</cite>
 developers.</p>
 <p>Enjoy <cite>SeisComP</cite>!</p>
-</div>
-</div>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -302,14 +311,15 @@ developers.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Overview</a><ul>
 <li><a class="reference internal" href="#modular-structure">Modular structure</a><ul>
 <li><a class="reference internal" href="#data-acquisition-modules">Data acquisition modules</a></li>
@@ -330,12 +340,17 @@ developers.</p>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="introduction.html"
-                        title="previous chapter">Introduction and Scope</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="history.html"
-                        title="next chapter">Historical Information</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="introduction.html"
+                          title="previous chapter">Introduction and Scope</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="history.html"
+                          title="next chapter">Historical Information</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -355,7 +370,7 @@ developers.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.3</b> Release
+		  Version <b>5.5.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

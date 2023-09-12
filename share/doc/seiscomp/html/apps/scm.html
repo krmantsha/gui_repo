@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>scm &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../_static/seiscomp.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="scmapcut" href="scmapcut.html" />
@@ -25,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.3</span>
+          <span class="version">5.5.4</span>
         </div>
       </div>
     </div>
@@ -71,19 +72,19 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="scm">
-<span id="id1"></span><h1>scm<a class="headerlink" href="#scm" title="Permalink to this headline">¶</a></h1>
+  <section id="scm">
+<span id="id1"></span><h1>scm<a class="headerlink" href="#scm" title="Permalink to this heading">¶</a></h1>
 <p><strong>Process monitor.</strong></p>
-<div class="section" id="description">
-<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
 <p>scm monitors client activity. scm connects to a certain master and periodically
 processes the status messages sent by the clients.</p>
 <p>Each client status if forwarded to the plugins loaded by scm. By default
 the <a class="reference internal" href="scm_ncurses.html#scm-ncurses"><span class="std std-ref">mncursesplugin</span></a> is loaded which presents an interface
 similar to the gnu program top.</p>
-</div>
-<div class="section" id="filters">
-<h2>Filters<a class="headerlink" href="#filters" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="filters">
+<h2>Filters<a class="headerlink" href="#filters" title="Permalink to this heading">¶</a></h2>
 <p>Plugins might support filtering client status information. To configure filters
 each plugin supports a configuration value <code class="xref std std-confval docutils literal notranslate"><span class="pre">$name.filter</span></code>. This filter
 is a string which can be constructed from available status info tags and logical
@@ -113,17 +114,13 @@ responsetime
 </pre></div>
 </div>
 <p>A filter might look like this:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>memailplugin.filter <span class="o">=</span> <span class="s2">&quot;(cpuusage&gt;100 || totalmemory&gt;1000) &amp;&amp; hostname==proc-machine&quot;</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>memailplugin.filter<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;(cpuusage&gt;100 || totalmemory&gt;1000) &amp;&amp; hostname==proc-machine&quot;</span>
 </pre></div>
 </div>
-<div class="section" id="numerical-operators">
-<h3>Numerical operators<a class="headerlink" href="#numerical-operators" title="Permalink to this headline">¶</a></h3>
+<section id="numerical-operators">
+<h3>Numerical operators<a class="headerlink" href="#numerical-operators" title="Permalink to this heading">¶</a></h3>
 <p>Numerical operators are applied to a tag name and a constant value.</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 32%" />
-<col style="width: 68%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Operator</p></th>
 <th class="head"><p>Description</p></th>
@@ -150,16 +147,12 @@ responsetime
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="logical-operators">
-<h3>Logical operators<a class="headerlink" href="#logical-operators" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="logical-operators">
+<h3>Logical operators<a class="headerlink" href="#logical-operators" title="Permalink to this heading">¶</a></h3>
 <p>Logical operators are applied to a group (might be enclosed in brackets) or
 numerical expressions.</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 32%" />
-<col style="width: 68%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Operator</p></th>
 <th class="head"><p>Description</p></th>
@@ -177,22 +170,22 @@ numerical expressions.</p>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="section" id="multiple-instances">
-<h2>Multiple instances<a class="headerlink" href="#multiple-instances" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="multiple-instances">
+<h2>Multiple instances<a class="headerlink" href="#multiple-instances" title="Permalink to this heading">¶</a></h2>
 <p>To monitor different clients sets with different criteria and different plugins
 it is common practice to create aliases of scm and to configure each instance
 separately</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp <span class="nb">alias</span> create scm_level1 scm
-seiscomp <span class="nb">alias</span> create scm_level2 scm
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span><span class="nb">alias</span><span class="w"> </span>create<span class="w"> </span>scm_level1<span class="w"> </span>scm
+seiscomp<span class="w"> </span><span class="nb">alias</span><span class="w"> </span>create<span class="w"> </span>scm_level2<span class="w"> </span>scm
 </pre></div>
 </div>
 <p>where <strong class="program">scm_level1</strong> could monitor all mandatory clients whereas
 <strong class="program">scm_level2</strong> monitors all clients which are not crucial for operation.</p>
-</div>
-<div class="section" id="plugins">
-<h2>Plugins<a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="plugins">
+<h2>Plugins<a class="headerlink" href="#plugins" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p><a class="reference internal" href="scm_text.html#scm-text"><span class="std std-ref">text</span></a></p>
 <p>Text output plugin for scm.</p>
@@ -204,9 +197,9 @@ seiscomp <span class="nb">alias</span> create scm_level2 scm
 <p>Ncurses output plugin for scm which presents an interactive table of processes.</p>
 </li>
 </ul>
-</div>
-<div class="section" id="module-configuration">
-<span id="scm-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-configuration">
+<span id="scm-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/global.cfg</span></code></div>
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/scm.cfg</span></code></div>
@@ -216,12 +209,12 @@ seiscomp <span class="nb">alias</span> create scm_level2 scm
 <div class="line"><code class="file docutils literal notranslate"><span class="pre">~/.seiscomp/scm.cfg</span></code></div>
 </div>
 <p>scm inherits <a class="reference internal" href="global.html#global-configuration"><span class="std std-ref">global options</span></a>.</p>
-<div class="section" id="text-extension">
-<span id="scm-text"></span><h3>text extension<a class="headerlink" href="#text-extension" title="Permalink to this headline">¶</a></h3>
+<section id="text-extension">
+<span id="scm-text"></span><h3>text extension<a class="headerlink" href="#text-extension" title="Permalink to this heading">¶</a></h3>
 <p>Text output plugin for scm.</p>
-<dl class="confval">
-<dt id="confval-mtextplugin.outputDir">
-<code class="sig-name descname">mtextplugin.outputDir</code><a class="headerlink" href="#confval-mtextplugin.outputDir" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-mtextplugin.outputDir">
+<span class="sig-name descname"><span class="pre">mtextplugin.outputDir</span></span><a class="headerlink" href="#confval-mtextplugin.outputDir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">&#64;LOGDIR&#64;/scm/</span></code></p>
 <p>Type: <em>string</em></p>
 <p>Output directory where [client].txt is written to. Additionally
@@ -229,107 +222,107 @@ an file description.txt will be created to show the order of
 tags used in the client status file.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="email-extension">
-<span id="scm-email"></span><h3>email extension<a class="headerlink" href="#email-extension" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="email-extension">
+<span id="scm-email"></span><h3>email extension<a class="headerlink" href="#email-extension" title="Permalink to this heading">¶</a></h3>
 <p>Email plugin for scm which sends emails based on client status.</p>
-<dl class="confval">
-<dt id="confval-memailplugin.recipients">
-<code class="sig-name descname">memailplugin.recipients</code><a class="headerlink" href="#confval-memailplugin.recipients" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-memailplugin.recipients">
+<span class="sig-name descname"><span class="pre">memailplugin.recipients</span></span><a class="headerlink" href="#confval-memailplugin.recipients" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p>Defines a comma separated list of email addresses to send
 notifications to.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-memailplugin.template">
-<code class="sig-name descname">memailplugin.template</code><a class="headerlink" href="#confval-memailplugin.template" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-memailplugin.template">
+<span class="sig-name descname"><span class="pre">memailplugin.template</span></span><a class="headerlink" href="#confval-memailplugin.template" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Configures a custom message text that is appended to each message
 when clients passed the filter.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-memailplugin.filter">
-<code class="sig-name descname">memailplugin.filter</code><a class="headerlink" href="#confval-memailplugin.filter" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-memailplugin.filter">
+<span class="sig-name descname"><span class="pre">memailplugin.filter</span></span><a class="headerlink" href="#confval-memailplugin.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Defines the filter for each client status. A filter is an expression
-that can be constructed with all available status tags (scm –print-tags)
+that can be constructed with all available status tags (scm --print-tags)
 and logical and numerical operators. See scm for more information.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-memailplugin.requiredClients">
-<code class="sig-name descname">memailplugin.requiredClients</code><a class="headerlink" href="#confval-memailplugin.requiredClients" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-memailplugin.requiredClients">
+<span class="sig-name descname"><span class="pre">memailplugin.requiredClients</span></span><a class="headerlink" href="#confval-memailplugin.requiredClients" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
 <p><em>No description available</em></p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-memailplugin.reportSilentClients">
-<code class="sig-name descname">memailplugin.reportSilentClients</code><a class="headerlink" href="#confval-memailplugin.reportSilentClients" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-memailplugin.reportSilentClients">
+<span class="sig-name descname"><span class="pre">memailplugin.reportSilentClients</span></span><a class="headerlink" href="#confval-memailplugin.reportSilentClients" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p><em>No description available</em></p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-memailplugin.reportSilentClientsTimeSpan">
-<code class="sig-name descname">memailplugin.reportSilentClientsTimeSpan</code><a class="headerlink" href="#confval-memailplugin.reportSilentClientsTimeSpan" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-memailplugin.reportSilentClientsTimeSpan">
+<span class="sig-name descname"><span class="pre">memailplugin.reportSilentClientsTimeSpan</span></span><a class="headerlink" href="#confval-memailplugin.reportSilentClientsTimeSpan" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Unit: <em>min</em></p>
 <p><em>No description available</em></p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-memailplugin.reportRequiredClients">
-<code class="sig-name descname">memailplugin.reportRequiredClients</code><a class="headerlink" href="#confval-memailplugin.reportRequiredClients" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-memailplugin.reportRequiredClients">
+<span class="sig-name descname"><span class="pre">memailplugin.reportRequiredClients</span></span><a class="headerlink" href="#confval-memailplugin.reportRequiredClients" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Unit: <em>min</em></p>
 <p><em>No description available</em></p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-memailplugin.filterMeanInterval">
-<code class="sig-name descname">memailplugin.filterMeanInterval</code><a class="headerlink" href="#confval-memailplugin.filterMeanInterval" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-memailplugin.filterMeanInterval">
+<span class="sig-name descname"><span class="pre">memailplugin.filterMeanInterval</span></span><a class="headerlink" href="#confval-memailplugin.filterMeanInterval" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Unit: <em>min</em></p>
 <p><em>No description available</em></p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-memailplugin.sendEmail">
-<code class="sig-name descname">memailplugin.sendEmail</code><a class="headerlink" href="#confval-memailplugin.sendEmail" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-memailplugin.sendEmail">
+<span class="sig-name descname"><span class="pre">memailplugin.sendEmail</span></span><a class="headerlink" href="#confval-memailplugin.sendEmail" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Enables sending of emails using mailx shell command.</p>
 </dd></dl>
 
-</div>
-</div>
-<div class="section" id="command-line-options">
-<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="command-line-options">
+<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this heading">¶</a></h2>
 <p><strong class="program">scm [options]</strong></p>
-<div class="section" id="generic">
-<h3>Generic<a class="headerlink" href="#generic" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scm-h">
-<code class="sig-name descname">-h</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--help</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scm-h" title="Permalink to this definition">¶</a></dt>
+<section id="generic">
+<h3>Generic<a class="headerlink" href="#generic" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-h">
+<span id="cmdoption-scm-help"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scm-h" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show help message.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-v">
-<code class="sig-name descname">-V</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--version</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scm-v" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-V">
+<span id="cmdoption-scm-version"></span><span class="sig-name descname"><span class="pre">-V</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--version</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scm-V" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show version information.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-config-file">
-<code class="sig-name descname">--config-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scm-config-file" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-config-file">
+<span class="sig-name descname"><span class="pre">--config-file</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scm-config-file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use alternative configuration file. When this option is
 used the loading of all stages is disabled. Only the
 given configuration file is parsed and used. To use
@@ -338,177 +331,177 @@ link of the application or copy it. Example:
 scautopick -&gt; scautopick2.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-plugins">
-<code class="sig-name descname">--plugins</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scm-plugins" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-plugins">
+<span class="sig-name descname"><span class="pre">--plugins</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scm-plugins" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load given plugins.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-d">
-<code class="sig-name descname">-D</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--daemon</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scm-d" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-D">
+<span id="cmdoption-scm-daemon"></span><span class="sig-name descname"><span class="pre">-D</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--daemon</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scm-D" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run as daemon. This means the application will fork itself
 and doesn’t need to be started with &amp;.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-auto-shutdown">
-<code class="sig-name descname">--auto-shutdown</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scm-auto-shutdown" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-auto-shutdown">
+<span class="sig-name descname"><span class="pre">--auto-shutdown</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scm-auto-shutdown" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable/disable self-shutdown because a master module shutdown.
 This only works when messaging is enabled and the master
-module sends a shutdown message (enabled with –start-stop-msg
+module sends a shutdown message (enabled with --start-stop-msg
 for the master module).</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-shutdown-master-module">
-<code class="sig-name descname">--shutdown-master-module</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scm-shutdown-master-module" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-shutdown-master-module">
+<span class="sig-name descname"><span class="pre">--shutdown-master-module</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scm-shutdown-master-module" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the name of the master-module used for auto-shutdown.
 This is the application name of the module actually
 started. If symlinks are used, then it is the name of
 the symlinked application.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-shutdown-master-username">
-<code class="sig-name descname">--shutdown-master-username</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scm-shutdown-master-username" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-shutdown-master-username">
+<span class="sig-name descname"><span class="pre">--shutdown-master-username</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scm-shutdown-master-username" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the name of the master-username of the messaging
-used for auto-shutdown. If “shutdown-master-module” is
+used for auto-shutdown. If &quot;shutdown-master-module&quot; is
 given as well, this parameter is ignored.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="verbosity">
-<h3>Verbosity<a class="headerlink" href="#verbosity" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scm-verbosity">
-<code class="sig-name descname">--verbosity</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scm-verbosity" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="verbosity">
+<h3>Verbosity<a class="headerlink" href="#verbosity" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-verbosity">
+<span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scm-verbosity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
 4:debug.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="id2">
-<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--v</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-v">
+<span id="cmdoption-scm-v"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--v</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scm-v" title="Permalink to this definition">¶</a></dt>
 <dd><p>Increase verbosity level (may be repeated, eg. -vv).</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-q">
-<code class="sig-name descname">-q</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--quiet</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scm-q" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-q">
+<span id="cmdoption-scm-quiet"></span><span class="sig-name descname"><span class="pre">-q</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--quiet</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scm-q" title="Permalink to this definition">¶</a></dt>
 <dd><p>Quiet mode: no logging output.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-component">
-<code class="sig-name descname">--component</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scm-component" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-component">
+<span class="sig-name descname"><span class="pre">--component</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scm-component" title="Permalink to this definition">¶</a></dt>
 <dd><p>Limit the logging to a certain component. This option can
 be given more than once.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-s">
-<code class="sig-name descname">-s</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--syslog</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scm-s" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-s">
+<span id="cmdoption-scm-syslog"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--syslog</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scm-s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use syslog logging backend. The output usually goes to
 /var/lib/messages.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-l">
-<code class="sig-name descname">-l</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--lockfile</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scm-l" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-l">
+<span id="cmdoption-scm-lockfile"></span><span class="sig-name descname"><span class="pre">-l</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--lockfile</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scm-l" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path to lock file.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-console">
-<code class="sig-name descname">--console</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scm-console" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-console">
+<span class="sig-name descname"><span class="pre">--console</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scm-console" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send log output to stdout.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-debug">
-<code class="sig-name descname">--debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scm-debug" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-debug">
+<span class="sig-name descname"><span class="pre">--debug</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scm-debug" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute in debug mode.
-Equivalent to –verbosity=4 –console=1 .</p>
+Equivalent to --verbosity=4 --console=1 .</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-log-file">
-<code class="sig-name descname">--log-file</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scm-log-file" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-log-file">
+<span class="sig-name descname"><span class="pre">--log-file</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scm-log-file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use alternative log file.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="messaging">
-<h3>Messaging<a class="headerlink" href="#messaging" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scm-u">
-<code class="sig-name descname">-u</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--user</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scm-u" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="messaging">
+<h3>Messaging<a class="headerlink" href="#messaging" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-u">
+<span id="cmdoption-scm-user"></span><span class="sig-name descname"><span class="pre">-u</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--user</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scm-u" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.username"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.username</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-host">
-<code class="sig-name descname">-H</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--host</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scm-host" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-H">
+<span id="cmdoption-scm-host"></span><span class="sig-name descname"><span class="pre">-H</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--host</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scm-H" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.server"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.server</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-t">
-<code class="sig-name descname">-t</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--timeout</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scm-t" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-t">
+<span id="cmdoption-scm-timeout"></span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--timeout</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scm-t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.timeout"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.timeout</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-g">
-<code class="sig-name descname">-g</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--primary-group</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scm-g" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-g">
+<span id="cmdoption-scm-primary-group"></span><span class="sig-name descname"><span class="pre">-g</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--primary-group</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scm-g" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.primaryGroup"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.primaryGroup</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-subscribe-group">
-<code class="sig-name descname">-S</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--subscribe-group</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scm-subscribe-group" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-S">
+<span id="cmdoption-scm-subscribe-group"></span><span class="sig-name descname"><span class="pre">-S</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--subscribe-group</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scm-S" title="Permalink to this definition">¶</a></dt>
 <dd><p>A group to subscribe to.
 This option can be given more than once.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-content-type">
-<code class="sig-name descname">--content-type</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scm-content-type" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-content-type">
+<span class="sig-name descname"><span class="pre">--content-type</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scm-content-type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.contentType"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.contentType</span></code></a>.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-start-stop-msg">
-<code class="sig-name descname">--start-stop-msg</code><code class="sig-prename descclassname"> arg</code><a class="headerlink" href="#cmdoption-scm-start-stop-msg" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-start-stop-msg">
+<span class="sig-name descname"><span class="pre">--start-stop-msg</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scm-start-stop-msg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set sending of a start and a stop message.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="monitor">
-<h3>Monitor<a class="headerlink" href="#monitor" title="Permalink to this headline">¶</a></h3>
-<dl class="option">
-<dt id="cmdoption-scm-c">
-<code class="sig-name descname">-c</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--clients</code><code class="sig-prename descclassname"> list</code><a class="headerlink" href="#cmdoption-scm-c" title="Permalink to this definition">¶</a></dt>
+</section>
+<section id="monitor">
+<h3>Monitor<a class="headerlink" href="#monitor" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-c">
+<span id="cmdoption-scm-clients"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--clients</span></span><span class="sig-prename descclassname"> <span class="pre">list</span></span><a class="headerlink" href="#cmdoption-scm-c" title="Permalink to this definition">¶</a></dt>
 <dd><p>Comma separated list of clients to monitor.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-print-tags">
-<code class="sig-name descname">--print-tags</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scm-print-tags" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-print-tags">
+<span class="sig-name descname"><span class="pre">--print-tags</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scm-print-tags" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print available keys for accessing client info data and to
 build filter configurations.</p>
 </dd></dl>
 
-<dl class="option">
-<dt id="cmdoption-scm-no-output-plugins">
-<code class="sig-name descname">--no-output-plugins</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-scm-no-output-plugins" title="Permalink to this definition">¶</a></dt>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scm-no-output-plugins">
+<span class="sig-name descname"><span class="pre">--no-output-plugins</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scm-no-output-plugins" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do not use output plugins such as mncursesplugin.</p>
 </dd></dl>
 
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -521,14 +514,15 @@ build filter configurations.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">scm</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
 <li><a class="reference internal" href="#filters">Filters</a><ul>
@@ -554,12 +548,17 @@ build filter configurations.</p>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="scimport.html"
-                        title="previous chapter">scimport</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="scmapcut.html"
-                        title="next chapter">scmapcut</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="scimport.html"
+                          title="previous chapter">scimport</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="scmapcut.html"
+                          title="next chapter">scmapcut</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -579,7 +578,7 @@ build filter configurations.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.3</b> Release
+		  Version <b>5.5.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

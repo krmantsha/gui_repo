@@ -17,5 +17,8 @@ sources.moab.port = 6330
 # If proc is not given, the streams are taken as provided by the DAS.
 sources.moab.proc = q330_sm
 
+# Q330 dataport number (1-4).
+sources.moab.slot = 1
+
 # Q330 serial number (with 0x prefix).
 sources.moab.serial = 0x03350020EDF1602E

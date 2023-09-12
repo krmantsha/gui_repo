@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "GLOBAL" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-global \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,14 +27,17 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "GLOBAL" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+global \- SeisComP Documentation
 .sp
 The SeisComP configuration uses a unified schema to configure modules.
 Modules which use the SeisComP libraries can read this configuration
 directly and share global configuration options like messaging connections,
 database configurations, logging and much more.
 There are still some modules that do not use the libraries and are called
-\fBstandalone\fP modules such as seedlink and
-slarchive\&.
+\fBstandalone\fP modules such as \fI\%seedlink\fP and
+\fI\%slarchive\fP\&.
 They need wrappers to generate their native configuration when
 \fBseiscomp update\-config\fP is run.
 .sp
@@ -52,14 +52,14 @@ The parameters are read from file in the following order:
 .sp
 Parameters from \fB@CONFIGDIR@\fP override parameters from \fB@SYSTEMCONFIGDIR@\fP\&.
 .sp
-Most trunk modules read the configuration from the global configuration which can be overridden
-by the module configuration. Read the concept section on modules
-and the concept section on the configuraion for
+Most \fI\%trunk\fP modules read the configuration from the global configuration which can be overridden
+by the module configuration. Read the \fI\%concept section on modules\fP
+and the \fI\%concept section on the configuraion\fP for
 more details.
 .sp
 Though it is easy to create the configuration by directly editing the configuration
 files, it is even more convenient to use a configurator.
-SeisComP ships with a graphical configurator and management tool (scconfig)
+SeisComP ships with a graphical configurator and management tool (\fI\%scconfig\fP)
 which makes it easy to maintain
 module configurations and station bindings even for large networks. It has built\-in
 functionality to check the state of all registered modules and to start and stop them.
@@ -69,22 +69,22 @@ The configuration is divided into three parts: \fI\%stations\fP,
 .SH STATION META DATA
 .sp
 Station meta\-data is a fundamental requirement for a seismic processing system and
-for SeisComP. Read the inventory section in concepts for
+for SeisComP. Read the \fI\%inventory section\fP in concepts for
 more details.
 .SH MODULES
 .sp
-The concepts of modules and
-their configuration is described in the
-concepts section\&.
+The concepts of \fI\%modules\fP and
+\fI\%their configuration\fP is described in the
+\fI\%concepts section\fP\&.
 .SH BINDINGS
 .sp
 Bindings provide specific configurations per
-module and station and even stream. Read the
-bindings section in concepts for more details on
+\fI\%module\fP and station and even stream. Read the
+\fI\%bindings section\fP in concepts for more details on
 bindings.
 .SH EXTENSIONS
 .sp
-Extensions add new configuration options to modules\&. It does
+Extensions add new configuration options to \fI\%modules\fP\&. It does
 not matter how those extensions are used. Commonly a module loads a plugin,
 which requires additional configuration parameters \- these are provided by an
 extension.
@@ -102,27 +102,27 @@ Plugin\(aqs
 T}
 _
 T{
-seedlink
+\fI\%seedlink\fP
 T}	T{
-caps mseedfifo q330 chain gdrt
+\fI\%caps\fP \fI\%mseedfifo\fP \fI\%q330\fP \fI\%chain\fP gdrt
 T}
 _
 T{
 \fI\%global\fP
 T}	T{
-NonLinLoc MLh Hypo71 Md MLr iLoc MN StdLoc LocExt GUI RecordStream FX\-DFX mB_BB mb mb_IDC Ms_20 MLc MLv ML ML_IDC homogeneous LOCSAT FixedHypocenter
+\fI\%NonLinLoc\fP \fI\%MLh\fP \fI\%Hypo71\fP \fI\%Md\fP \fI\%MLr\fP \fI\%iLoc\fP \fI\%MN\fP \fI\%StdLoc\fP \fI\%LocExt\fP \fI\%GUI\fP \fI\%RecordStream\fP \fI\%FX\-DFX\fP \fI\%mB_BB\fP \fI\%mb\fP \fI\%mb_IDC\fP \fI\%Ms_20\fP \fI\%MLc\fP \fI\%MLv\fP \fI\%ML\fP \fI\%ML_IDC\fP \fI\%homogeneous\fP \fI\%LOCSAT\fP \fI\%FixedHypocenter\fP
 T}
 _
 T{
-scm
+\fI\%scm\fP
 T}	T{
-text email ncurses
+\fI\%text\fP \fI\%email\fP \fI\%ncurses\fP
 T}
 _
 T{
-scevent
+\fI\%scevent\fP
 T}	T{
-RegionCheck
+\fI\%RegionCheck\fP
 T}
 _
 T{
@@ -138,95 +138,95 @@ extensions.
 .SH PLUGINS
 .INDENT 0.0
 .IP \(bu 2
-NonLinLoc
+\fI\%NonLinLoc\fP
 .sp
 NonLinLoc locator wrapper plugin for SeisComP. NonLinLoc was written by Anthony Lomax (\fI\%http://alomax.free.fr/nlloc\fP).
 .IP \(bu 2
-MLh
+\fI\%MLh\fP
 .sp
 The MLh plugin (previously MLsed) is designed to compute amplitudes and magnitudes according to the Swiss Seismological Service (SED) standards.
 .IP \(bu 2
-Hypo71
+\fI\%Hypo71\fP
 .sp
 The traditional Hypo71PC locator with SeisComP.
 .IP \(bu 2
-Md
+\fI\%Md\fP
 .sp
 Duration magnitude plugin
 .IP \(bu 2
-MLr
+\fI\%MLr\fP
 .sp
 The GNS/Geonet local magnitude
 .IP \(bu 2
-iLoc
+\fI\%iLoc\fP
 .sp
 Locator in SeisComP implemented by the plugin lociloc.
 .IP \(bu 2
-MN
+\fI\%MN\fP
 .sp
 Nuttli magnitude for Canada and other Cratonic regions
 .IP \(bu 2
-StdLoc
+\fI\%StdLoc\fP
 .sp
 Generic locator plugin for SeisComP.
 .IP \(bu 2
-LocExt
+\fI\%LocExt\fP
 .sp
 Locator which forwards the processing to external scripts
 .IP \(bu 2
-GUI
+\fI\%GUI\fP
 .sp
 The GUI configuration plugin extends the configuration of graphical user interfaces to various options to adjust the look and feel.
 .IP \(bu 2
-RecordStream
+\fI\%RecordStream\fP
 .sp
 RecordStream interface for SeisComP.
 .IP \(bu 2
-FX\-DFX
+\fI\%FX\-DFX\fP
 .sp
 Implementation of the CTBTO/IDC polarization analysis for three\-component stations.
 .IP \(bu 2
-mB_BB
+\fI\%mB_BB\fP
 .sp
 Body wave magnitude  at teleseismic distances similar to mb
 .IP \(bu 2
-mb
+\fI\%mb\fP
 .sp
 Body wave magnitude at teleseismic distances
 .IP \(bu 2
-mb_IDC
+\fI\%mb_IDC\fP
 .sp
 Body wave magnitude computed at CTBTO/IDC (mb) is calculated for seismic events from the time\-defining primary body waves recorded at seismic stations at an epicentral distance between 20 and 105 degrees from the event.
 .IP \(bu 2
-Ms_20
+\fI\%Ms_20\fP
 .sp
 Surface wave magnitude measured at around 20 s
 .IP \(bu 2
-MLc
+\fI\%MLc\fP
 .sp
 Custom magnitude for local events measured on horizontal components
 .IP \(bu 2
-MLv
+\fI\%MLv\fP
 .sp
 Local (Richter) magnitude measured on the vertical component
 .IP \(bu 2
-ML
+\fI\%ML\fP
 .sp
 Standard local (Richter) magnitude
 .IP \(bu 2
-ML_IDC
+\fI\%ML_IDC\fP
 .sp
 CTBTO/IDC local magnitude.
 .IP \(bu 2
-homogeneous
+\fI\%homogeneous\fP
 .sp
 Travel\-times for a homogeneous velocity model
 .IP \(bu 2
-LOCSAT
+\fI\%LOCSAT\fP
 .sp
 Locator in SeisComP for computing source time and hypocenter coordinates from phase picks.
 .IP \(bu 2
-FixedHypocenter
+\fI\%FixedHypocenter\fP
 .sp
 Locator for re\-computing source time with fixed hypocenter
 .UNINDENT
@@ -284,19 +284,19 @@ comma. Add ${plugins} to consider all previously read values.
 Type: \fIstring\fP
 .sp
 Path to the cities XML file. If undefined, the data is read
-from "@CONFIGDIR@/cities.xml" or
-"@DATADIR@/cities.xml".
-SeisComP ships with "@DATADIR@/cities.xml".
+from \(dq@CONFIGDIR@/cities.xml\(dq or
+\(dq@DATADIR@/cities.xml\(dq.
+SeisComP ships with \(dq@DATADIR@/cities.xml\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B loadCities
 Type: \fIboolean\fP
 .sp
-Load cities from file configured by the "cityXML"
+Load cities from file configured by the \(dqcityXML\(dq
 parameter. GUI and map applications enable loading of cities
 by default considering the parameter
-"scheme.map.showCities".
+\(dqscheme.map.showCities\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -304,7 +304,7 @@ by default considering the parameter
 Type: \fIboolean\fP
 .sp
 Load custom FEP (Flinn\-Engdahl polygon) regions from
-"@CONFIGDIR@/fep/" or @DATADIR@/fep/".
+\(dq@CONFIGDIR@/fep/\(dq or @DATADIR@/fep/\(dq.
 GUI and map applications and scevent enable FEP regions by
 default. Explicitly uncheck the option to disregard by these
 applications.
@@ -343,10 +343,10 @@ is established. Override these values only if you know what you
 are doing.
 .sp
 The format is: \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 IMPORTANT: This parameter replaces former
-"database.type" and "database.parameters"
+\(dqdatabase.type\(dq and \(dqdatabase.parameters\(dq
 which have been removed.
 .UNINDENT
 .INDENT 0.0
@@ -362,12 +362,12 @@ This parameter configures RecordStream source URL.
 .sp
 Format: [\fI\%service://\fP]location[#type]
 .sp
-"service": The name of the RecordStream implementation.
-If not given, "\fI\%file://\fP" is implied.
+\(dqservice\(dq: The name of the RecordStream implementation.
+If not given, \(dq\fI\%file://\fP\(dq is implied.
 .sp
 IMPORTANT: This parameter replaces former RecordStream
-configurations in "recordstream.service" and
-"recordstream.source" which have been removed.
+configurations in \(dqrecordstream.service\(dq and
+\(dqrecordstream.source\(dq which have been removed.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -526,7 +526,7 @@ let the system to generate one.
 Type: \fIstring\fP
 .sp
 Define the OpenSSL client certificate to be used. Path to
-OpenSSL certificate in PKCS 12 format or the prefix "data:"
+OpenSSL certificate in PKCS 12 format or the prefix \(dqdata:\(dq
 followed by the Base64 encoded certificate data.
 .UNINDENT
 .INDENT 0.0
@@ -560,7 +560,7 @@ Default: \fBbinary\fP
 Type: \fIstring\fP
 .sp
 Define the message encoding for sending. Allowed values
-are "binary", "json" or "xml".
+are \(dqbinary\(dq, \(dqjson\(dq or \(dqxml\(dq.
 XML has more overhead in processing but is more robust when
 schema versions between client and server are different.
 .UNINDENT
@@ -713,7 +713,7 @@ a command message usually send to the GUI messaging group.
 Currently this flag is only used by GUI applications to
 set an artificial origin and to tell other clients to
 show this origin. To let all connected clients handle the
-command, ".*$" can be used.
+command, \(dq.*$\(dq can be used.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -818,7 +818,7 @@ Each region allows further magnitude parametrization.
 The order of polygons/regions matters. The list is
 tested from front to back and the first hit wins.
 Magnitude\-region profiles refer to the polygons by the
-name of the profile. The special name "world"
+name of the profile. The special name \(dqworld\(dq
 must not be present in the geofeature file.
 .UNINDENT
 .sp
@@ -829,7 +829,7 @@ must not be present in the geofeature file.
 \fIAdd parameter profiles for regions defined in the\fP
 \fIgeofeature file. Profile names must match one polygon\fP
 \fIname. Otherwise, the profile is not considered.\fP
-\fIThe special name "world" corresponds to the\fP
+\fIThe special name \(dqworld\(dq corresponds to the\fP
 \fIregion of the entire planet as a fallback.\fP
 **
 \fIMagnitude\-specific parameters, e.g. calibration functions,\fP
@@ -1049,7 +1049,7 @@ Defines a list of active profiles to be used by the plugin.
 \fBNonLinLoc.profile.$name.*\fP
 \fIDefines a regional profile that is used if a prelocation falls\fP
 \fIinside the configured region.\fP
-$name is a placeholder for the name to be used and needs to be added to \fBNonLinLoc.profiles\fP to become active.
+$name is a placeholder for the name to be used and needs to be added to \fI\%NonLinLoc.profiles\fP to become active.
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -1256,7 +1256,7 @@ Specifies if the given publicD should be used for generating origin publicID
 .INDENT 0.0
 .INDENT 3.5
 \fBhypo71.profile.$name.*\fP
-$name is a placeholder for the name to be used and needs to be added to \fBhypo71.profiles\fP to become active.
+$name is a placeholder for the name to be used and needs to be added to \fI\%hypo71.profiles\fP to become active.
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -1361,7 +1361,7 @@ Each profile can have different velocity or parameters.
 .INDENT 0.0
 .INDENT 3.5
 \fBiLoc.profile.$name.*\fP
-$name is a placeholder for the name to be used and needs to be added to \fBiLoc.profiles\fP to become active.
+$name is a placeholder for the name to be used and needs to be added to \fI\%iLoc.profiles\fP to become active.
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -1715,7 +1715,7 @@ Default: \fBiasp91\fP
 Type: \fIstring\fP
 .sp
 The travel time table set compiled for LocSAT. The tables
-are located in "share/locsat/tables/[vmodel].*".
+are located in \(dqshare/locsat/tables/[vmodel].*\(dq.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -1760,7 +1760,7 @@ Defines a list of profiles to make available to the plugin.
 .INDENT 0.0
 .INDENT 3.5
 \fBStdLoc.profile.$name.*\fP
-$name is a placeholder for the name to be used and needs to be added to \fBStdLoc.profiles\fP to become active.
+$name is a placeholder for the name to be used and needs to be added to \fI\%StdLoc.profiles\fP to become active.
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -2181,8 +2181,8 @@ Type: \fIstring\fP
 Defines the order of all configured layers. This
 includes the standard layers (grid, cities) as
 well as custom layers. The name of the grid layer
-is "grid" and the name of the cities
-layer is "cities".
+is \(dqgrid\(dq and the name of the cities
+layer is \(dqcities\(dq.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -2236,7 +2236,7 @@ all cities are rendered ordered by population count,
 highest first.
 To show the N most populated places in the visible
 map region, set
-"scheme.map.cityPopulationWeight" to 0
+\(dqscheme.map.cityPopulationWeight\(dq to 0
 and set this parameter to N.
 .UNINDENT
 .INDENT 0.0
@@ -2262,7 +2262,7 @@ Zoom sensitivity of the map
 \fIkeyword names defined by W3C. If rgb or rgba is used, it must\fP
 \fIbe quoted because the comma is handled as list separator by\fP
 \fIthe configuration.\fP
-\fIExamples: "rgb(255,0,0)", FF00FF40, green.\fP
+\fIExamples: \(dqrgb(255,0,0)\(dq, FF00FF40, green.\fP
 **
 \fIGradients are configured as lists of tuples where each tuple\fP
 \fIis colon separated in the form value:color. Value is either\fP
@@ -2359,7 +2359,7 @@ Default: \fBtrue\fP
 .sp
 Type: \fIboolean\fP
 .sp
-Show cities defined in "citiesXML" on maps
+Show cities defined in \(dqcitiesXML\(dq on maps
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2440,7 +2440,7 @@ Sets desired colors for particular agencyIDs. It depends on the
 applications if they honor this setting or not. The event list
 will render the agencyID string with the defined colors.
 This is a list of tuples (AGENCY:COLOR),
-e.g. "GEOFON:black, USGS:blue".
+e.g. \(dqGEOFON:black, USGS:blue\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2490,7 +2490,7 @@ The color of a capital.
 .B scheme.colors.map.cityNormal
 Type: \fIcolor\fP
 .sp
-The color of a "normal" city.
+The color of a \(dqnormal\(dq city.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -3273,7 +3273,7 @@ a list of tuples separated by colon where the first item is
 the value and the second is the color. Colors can be given in
 rgb notation or hexadecimal. When rgb is used double quotes are needed to
 protect the comma inside the rgb definition, e.g.
-\-8:"rgb(0,0,100)", \-4:"rgb(0,0,255)", \-3:"rgb(100,100,255)", ...
+\-8:\(dqrgb(0,0,100)\(dq, \-4:\(dqrgb(0,0,255)\(dq, \-3:\(dqrgb(100,100,255)\(dq, ...
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3735,7 +3735,7 @@ Type: \fIstring\fP
 Mode for drawing record borders as box or line on top or
 bottom.
 .sp
-Supported values: "topline","box","bottomline"
+Supported values: \(dqtopline\(dq,\(dqbox\(dq,\(dqbottomline\(dq
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -4659,12 +4659,12 @@ mode hiding title bar, main menu and status bar.
 .INDENT 0.0
 .TP
 .B picker.filters
-Default: \fB"BP 0.1 \- 1 Hz  3rd order;RMHP(10)>>ITAPER(30)>>BW(3,0.1,1)",      "BP 0.1 \- 2 Hz  3rd order;RMHP(10)>>ITAPER(30)>>BW(3,0.1,2)",      "BP 1 \- 3 Hz  3rd order;RMHP(10)>>ITAPER(30)>>BW(3,1.0,3)",      "BP 0.4 \- 1 Hz  3rd order;RMHP(10)>>ITAPER(30)>>BW(3,0.4,1)",      "@BP 0.7 \- 2 Hz  3rd order;RMHP(10)>>ITAPER(30)>>BW(3,0.7,2)",      "BP 2 \- 4 Hz  3rd order;RMHP(5)>>ITAPER(10)>>BW(3,2.0,4)",      "BP 3 \- 6 Hz  3rd order;RMHP(5)>>ITAPER(10)>>BW(3,3.0,6)",      "BP 4 \- 8 Hz  3rd order;RMHP(5)>>ITAPER(10)>>BW(3,4.0,8)",      "BP 1 \- 5 Hz  3rd order;RMHP(5)>>ITAPER(10)>>BW(3,1.0,5)",      "HP 3 Hz  3rd order;RMHP(1)>>ITAPER(2)>>BW_HP(3,3)",      "BP 0.7 \- 2 Hz + STA/LTA(1,50);RMHP(10)\->ITAPER(30)\->BW(3,0.7,2)\->STALTA(1,50)"\fP
+Default: \fB\(dqBP 0.1 \- 1 Hz  3rd order;RMHP(10)>>ITAPER(30)>>BW(3,0.1,1)\(dq,      \(dqBP 0.1 \- 2 Hz  3rd order;RMHP(10)>>ITAPER(30)>>BW(3,0.1,2)\(dq,      \(dqBP 1 \- 3 Hz  3rd order;RMHP(10)>>ITAPER(30)>>BW(3,1.0,3)\(dq,      \(dqBP 0.4 \- 1 Hz  3rd order;RMHP(10)>>ITAPER(30)>>BW(3,0.4,1)\(dq,      \(dq@BP 0.7 \- 2 Hz  3rd order;RMHP(10)>>ITAPER(30)>>BW(3,0.7,2)\(dq,      \(dqBP 2 \- 4 Hz  3rd order;RMHP(5)>>ITAPER(10)>>BW(3,2.0,4)\(dq,      \(dqBP 3 \- 6 Hz  3rd order;RMHP(5)>>ITAPER(10)>>BW(3,3.0,6)\(dq,      \(dqBP 4 \- 8 Hz  3rd order;RMHP(5)>>ITAPER(10)>>BW(3,4.0,8)\(dq,      \(dqBP 1 \- 5 Hz  3rd order;RMHP(5)>>ITAPER(10)>>BW(3,1.0,5)\(dq,      \(dqHP 3 Hz  3rd order;RMHP(1)>>ITAPER(2)>>BW_HP(3,3)\(dq,      \(dqBP 0.7 \- 2 Hz + STA/LTA(1,50);RMHP(10)\->ITAPER(30)\->BW(3,0.7,2)\->STALTA(1,50)\(dq\fP
 .sp
 Type: \fIlist:string\fP
 .sp
 Configures the default filters selectable in manual picker.
-The entry with a leading "@" is selected as default filter.
+The entry with a leading \(dq@\(dq is selected as default filter.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -4748,7 +4748,7 @@ event comment id was not found.
 Type: \fIlist:string\fP
 .sp
 Mapping of comment values to colors used as text color.
-E.g. "foo:#000,bar:red".
+E.g. \(dqfoo:#000,bar:red\(dq.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -4851,8 +4851,8 @@ Default: \fBShow only own events\fP
 .sp
 Type: \fIstring\fP
 .sp
-Defines the text of the option "Show only own events".
-Use double quotes \(aq"\(aq around the string if it contains spaces.
+Defines the text of the option \(dqShow only own events\(dq.
+Use double quotes \(aq\(dq\(aq around the string if it contains spaces.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -4860,7 +4860,7 @@ Use double quotes \(aq"\(aq around the string if it contains spaces.
 Type: \fIlist:string\fP
 .sp
 Sets a list of preferred agencies. Events from preferred
-agencies are defined as "own" events.
+agencies are defined as \(dqown\(dq events.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -4869,9 +4869,9 @@ Default: \fBevents\fP
 .sp
 Type: \fIstring\fP
 .sp
-Sets the type of the filter. If type is "events" the agency
+Sets the type of the filter. If type is \(dqevents\(dq the agency
 of the preferred origin of the event is checked.
-If type is "origins" the agency of all origins of
+If type is \(dqorigins\(dq the agency of all origins of
 an event is checked and if at least one origins agency is part
 of the whitelist it will pass the filter. Or in other words,
 the event is hidden if no origin is from a preferred agency.
@@ -4883,7 +4883,7 @@ Default: \fBfalse\fP
 .sp
 Type: \fIboolean\fP
 .sp
-Sets the default state of the "Show only own events"
+Sets the default state of the \(dqShow only own events\(dq
 option.
 .UNINDENT
 .sp
@@ -4918,7 +4918,7 @@ Hide events by the defined region by default.
 .INDENT 3.5
 \fBeventlist.filter.regions.region.$name.*\fP
 \fIDefine a rectangular region to filter the loaded event list.\fP
-$name is a placeholder for the name to be used and needs to be added to \fBeventlist.filter.regions.profiles\fP to become active.
+$name is a placeholder for the name to be used and needs to be added to \fI\%eventlist.filter.regions.profiles\fP to become active.
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -4975,23 +4975,23 @@ the given name will be taken.
 .INDENT 0.0
 .TP
 .B eventlist.filter.types.label
-Default: \fB"Hide other/fake events"\fP
+Default: \fB\(dqHide other/fake events\(dq\fP
 .sp
 Type: \fIstring\fP
 .sp
-Defines the text of the option "Hide other/fake events".
-Use double quotes \(aq"\(aq around the string if it contains spaces.
+Defines the text of the option \(dqHide other/fake events\(dq.
+Use double quotes \(aq\(dq\(aq around the string if it contains spaces.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventlist.filter.types.blacklist
-Default: \fB"not existing"\fP
+Default: \fB\(dqnot existing\(dq\fP
 .sp
 Type: \fIlist:string\fP
 .sp
-List of event type to be hidden if the "Hide other/fake events"
+List of event type to be hidden if the \(dqHide other/fake events\(dq
 option is ticked.
-Use double quotes \(aq"\(aq around the string if it contains spaces.
+Use double quotes \(aq\(dq\(aq around the string if it contains spaces.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -5000,7 +5000,7 @@ Default: \fBtrue\fP
 .sp
 Type: \fIboolean\fP
 .sp
-Sets the default state of the "Hide other/fake events"
+Sets the default state of the \(dqHide other/fake events\(dq
 option.
 .UNINDENT
 .sp
@@ -5148,7 +5148,7 @@ Default value to display if the specified origin or event comment id was not fou
 .B eventedit.origin.customColumn.colors
 Type: \fIlist:string\fP
 .sp
-Mapping of comment values to colors used as text color. E.g. "foo:#000,bar:red".
+Mapping of comment values to colors used as text color. E.g. \(dqfoo:#000,bar:red\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -5177,18 +5177,18 @@ D1, R1, S2, D2, R2, Agency, Author
 Type: \fIstring\fP
 .sp
 Set an alert for every event comment that ID matches
-the specified regular expression, e.g. "
+the specified regular expression, e.g. \(dq
 .nf
 alert_
 .fi
-\&.*".
+\&.*\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B eventsummary.alertTimer.commentBlacklist
 Type: \fIlist:string\fP
 .sp
-List of comments to ignore, e.g. "nil".
+List of comments to ignore, e.g. \(dqnil\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -5198,7 +5198,7 @@ Type: \fIlist:string\fP
 Unit: \fIs:color\fP
 .sp
 Discrete mapping of time values in seconds to colors used as
-text color in case of an active alert. E.g. "0:00FF00,900:FF0000".
+text color in case of an active alert. E.g. \(dq0:00FF00,900:FF0000\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -5230,7 +5230,7 @@ Custom magnitude for local events measured on horizontal components
 \fIequals the name of a polygon configured in the BNA file\fP
 \fIof the Magnitude\-type profile. The Magnitude\-type profile\fP
 \fIand the polygon must exist.\fP
-\fIThe special name "world" corresponds to the\fP
+\fIThe special name \(dqworld\(dq corresponds to the\fP
 \fIregion of the entire planet as a fallback.\fP
 .UNINDENT
 .UNINDENT
@@ -5343,7 +5343,7 @@ Local (Richter) magnitude measured on the vertical component
 \fIequals the name of a polygon configured in the BNA file\fP
 \fIof the Magnitude\-type profile. The Magnitude\-type profile\fP
 \fIand the polygon must exist.\fP
-\fIThe special name "world" corresponds to the\fP
+\fIThe special name \(dqworld\(dq corresponds to the\fP
 \fIregion of the entire planet as a fallback.\fP
 .UNINDENT
 .UNINDENT
@@ -5385,7 +5385,7 @@ Standard local (Richter) magnitude
 \fIequals the name of a polygon configured in the BNA file\fP
 \fIof the Magnitude\-type profile. The Magnitude\-type profile\fP
 \fIand the polygon must exist.\fP
-\fIThe special name "world" corresponds to the\fP
+\fIThe special name \(dqworld\(dq corresponds to the\fP
 \fIregion of the entire planet as a fallback.\fP
 .UNINDENT
 .UNINDENT
@@ -5535,8 +5535,8 @@ Default: \fBLOCSAT/iasp91,LOCSAT/tab\fP
 Type: \fIlist:string\fP
 .sp
 Defines a list of available travel time tables. Each item
-is a tuple separated by a slash with format "[interface]/[model]".
-Built\-in interfaces are "LOCSAT" and "libtau".
+is a tuple separated by a slash with format \(dq[interface]/[model]\(dq.
+Built\-in interfaces are \(dqLOCSAT\(dq and \(dqlibtau\(dq.
 Other interfaces might be added via plugins. Please check their
 documentation for the required interface name.
 .UNINDENT
@@ -5606,9 +5606,9 @@ MLh clipping level, in raw counts, eg. 80% of 2^23 = 6710886.
 Type: \fIstring\fP
 .sp
 Defines attenuation parameters for MLh.
-Format: "UpToKilometers A B; UpToNextKilometers A B;".
-Example: "30 nomag; 60 0.018 2.17; 700 0.0038 3.02".
-The first parameter set "30 nomag" means that up to 30km
+Format: \(dqUpToKilometers A B; UpToNextKilometers A B;\(dq.
+Example: \(dq30 nomag; 60 0.018 2.17; 700 0.0038 3.02\(dq.
+The first parameter set \(dq30 nomag\(dq means that up to 30km
 from the sensor the magnitude should not be calculated.
 .sp
 Note: No MLh computation if params is empty.
@@ -5669,7 +5669,7 @@ signal length used to compute the duration magnitude
 .INDENT 0.0
 .TP
 .B magnitudes.md.butterworth
-Default: \fB"3,1.5"\fP
+Default: \fB\(dq3,1.5\(dq\fP
 .sp
 Type: \fIstring\fP
 .sp
@@ -5807,12 +5807,12 @@ Station correction
 Type: \fIstring\fP
 .sp
 Defines Stations Corrections parameters for MLr (GNS/Geonet Local magnitude).
-Format: "UpToKilometers A ; UpToNextKilometers A ;".
-Example: "30 nomag; 60 0.018 ; 700 0.0038 ".
-The first parameter set "30 nomag" means that up to 30km
+Format: \(dqUpToKilometers A ; UpToNextKilometers A ;\(dq.
+Example: \(dq30 nomag; 60 0.018 ; 700 0.0038 \(dq.
+The first parameter set \(dq30 nomag\(dq means that up to 30km
 from the sensor the magnitude should not be calculated.
 A is used as station correction.
-"nomag" is used to disable station magnitudes.
+\(dqnomag\(dq is used to disable station magnitudes.
 .sp
 Note: No MLr computation if params is empty.
 .UNINDENT
@@ -6056,13 +6056,13 @@ value above 0 will enable it. Waveforms that are saturated
 are not used for amplitude calculations.
 .sp
 This value can either be an absolute value of counts such
-as "100000" counts or a relative value
+as \(dq100000\(dq counts or a relative value
 (optionally in percent) with respect to the number of
-effective bits, e.g. "0.8@23" or "80%@23".
+effective bits, e.g. \(dq0.8@23\(dq or \(dq80%@23\(dq.
 The first version uses 1**23 * 0.8 whereas the latter
 uses 1**23 * 80/100.
 .sp
-The boolean value "false" explicitly disables
+The boolean value \(dqfalse\(dq explicitly disables
 the check.
 .UNINDENT
 .INDENT 0.0
@@ -6116,13 +6116,13 @@ Waveforms that are saturated are not used for amplitude
 calculations.
 .sp
 This value can either be an absolute value of counts such
-as "100000" counts or a relative value
+as \(dq100000\(dq counts or a relative value
 (optionally in percent) with respect to the number of
-effective bits, e.g. "0.8@23" or "80%@23".
+effective bits, e.g. \(dq0.8@23\(dq or \(dq80%@23\(dq.
 The first version uses 1**23 * 0.8 whereas the latter
 uses 1**23 * 80/100.
 .sp
-The boolean value "false" explicitly disables
+The boolean value \(dqfalse\(dq explicitly disables
 the check.
 .UNINDENT
 .INDENT 0.0
@@ -6142,7 +6142,7 @@ Default: \fBfalse\fP
 Type: \fIboolean\fP
 .sp
 Activate deconvolution for this amplitude type. If not
-set, the global flag "amplitudes.enableResponses"
+set, the global flag \(dqamplitudes.enableResponses\(dq
 will be used instead.
 .UNINDENT
 .INDENT 0.0
@@ -6451,7 +6451,7 @@ magnitude value is multiplier*M+offset. This value
 can be regionalized with name\-value pairs.
 The name is the name of the region. Without
 a name the value is the default without regionalization.
-Example: "1.0, regionA: 0.9, regionB: 1.1".
+Example: \(dq1.0, regionA: 0.9, regionB: 1.1\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -6465,7 +6465,7 @@ magnitude value is multiplier*M+offset. This value
 can be regionalized with name\-value pairs.
 The name is the name of the region. Without
 a name the value is the default without regionalization.
-Example: "0.0, regionA: \-0.1, regionB: 0.2".
+Example: \(dq0.0, regionA: \-0.1, regionB: 0.2\(dq.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -6485,7 +6485,7 @@ Example: "0.0, regionA: \-0.1, regionB: 0.2".
 \fIalgorithm of Maeda (1985),\fP
 \fIsee paper of Zhang et al. (2003) in BSSA. The picker\fP
 \fIinterface name to be used in configuration files, e.g. of\fP
-\fIscautopick, is "AIC".\fP
+\fIscautopick, is \(dqAIC\(dq.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -6533,7 +6533,7 @@ time) of the begin of the signal window used to pick.
 .B picker.AIC.filter
 Type: \fIstring\fP
 .sp
-Override the default filter which is "raw". The typical
+Override the default filter which is \(dqraw\(dq. The typical
 filter grammar can be used.
 .UNINDENT
 .INDENT 0.0
@@ -6555,7 +6555,7 @@ Mininum SNR as returned from AIC for accepting picks.
 \fIBaers from Fortran to C++ and inserting it as a replacement\fP
 \fIfor the picker algorithm. The picker interface name to be\fP
 \fIused in configuration files, e.g. of scautopick,is\fP
-\fI"BK".\fP
+\fI\(dqBK\(dq.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -6676,7 +6676,7 @@ Threshold for updating sigma  (c.f. paper), default 20
 \fIthe L2 trace to find the S pick. Finally AIC is applied\fP
 \fIaround the detected pick time to refine the detection.\fP
 \fIThe picker name to be used in configuration files is\fP
-\fI"S\-L2".\fP
+\fI\(dqS\-L2\(dq.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -6788,7 +6788,7 @@ Minimum SNR as returned from AIC for accepting picks.
 \fBspicker.V.*\fP
 \fIThis S\-picker works similarly to L2 but it only uses the\fP
 \fIvertical component to pick S\-phases. The picker name to be\fP
-\fIused in configuration files is "S\-V".\fP
+\fIused in configuration files is \(dqS\-V\(dq.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -7284,7 +7284,7 @@ The maximum depth up to which magnitudes are computed.
 .INDENT 0.0
 .TP
 .B magnitudes.MLc.calibrationType
-Default: \fB"parametric"\fP
+Default: \fB\(dqparametric\(dq\fP
 .sp
 Type: \fIstring\fP
 .sp
@@ -7292,10 +7292,10 @@ Type of magnitude calibration formula to be considered.
 The calibration parameters are considered accordingly.
 Currently supported are
 .sp
-"parametric": consider parameters of parametric
+\(dqparametric\(dq: consider parameters of parametric
 configuration in parametric section
 .sp
-"A0": consider parameters of non\-parametric
+\(dqA0\(dq: consider parameters of non\-parametric
 configuration in A0 section.
 .UNINDENT
 .sp
@@ -7304,7 +7304,7 @@ configuration in A0 section.
 .INDENT 3.5
 \fBmagnitudes.MLc.A0.*\fP
 \fIParameters for A0, non\-parametric magnitude calibration.\fP
-\fIConsidered if magnitude.MLc.calibrationType = "A0".\fP
+\fIConsidered if magnitude.MLc.calibrationType = \(dqA0\(dq.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -7319,7 +7319,7 @@ The non\-parametric calibration function log10(A0).
 Format: any list of distance\-value pairs separated by
 comma. Values within pairs are separated by colon.
 .sp
-Example: "0:\-1.3,60:\-2.8,100:\-3.0,400:\-4.5,1000:\-5.85"
+Example: \(dq0:\-1.3,60:\-2.8,100:\-3.0,400:\-4.5,1000:\-5.85\(dq
 specifies 4 distance intervals from
 0...60, 60...100, 100...400 and 400...1000 km distance.
 Within these intervals log10(A0) is interpolated linearly
@@ -7337,7 +7337,7 @@ maximum distance range for computing MLv.
 \fIParameters for parametric magnitude calibration:\fP
 \fIMLc = log10(A) + c3 * log10(r/c5) + c2 * (r + c4) + c1 + c0(station)\fP
 **
-\fIConsidered if magnitude.MLc.calibrationType = "parametric".\fP
+\fIConsidered if magnitude.MLc.calibrationType = \(dqparametric\(dq.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -7465,7 +7465,7 @@ The calibration function log10(A0).
 Format: any list of distance\-value pairs separated by
 comma. Values within pairs are separated by colon.
 .sp
-Example: "0:\-1.3,60:\-2.8,100:\-3.0,400:\-4.5,1000:\-5.85"
+Example: \(dq0:\-1.3,60:\-2.8,100:\-3.0,400:\-4.5,1000:\-5.85\(dq
 specifies 4 distance intervals from
 0...60, 60...100, 100...400 and 400...1000 km distance.
 Within these intervals log10(A0) is interpolated linearly
@@ -7529,9 +7529,9 @@ Type: \fIstring\fP
 .sp
 Defines the combiner operation for the amplitudes measured
 on either both horizontal component. The default is to
-use the average. Allowed values are: "average",
-"min", "max" and "geometric_mean".
-"geometric_mean" corresponds to averaging single\-trace
+use the average. Allowed values are: \(dqaverage\(dq,
+\(dqmin\(dq, \(dqmax\(dq and \(dqgeometric_mean\(dq.
+\(dqgeometric_mean\(dq corresponds to averaging single\-trace
 magnitudes instead of their amplitudes.
 .UNINDENT
 .sp
@@ -7554,7 +7554,7 @@ The calibration function log10(A0).
 Format: any list of distance\-value pairs separated by
 comma. Values within pairs are separated by colon.
 .sp
-Example: "0:\-1.3,60:\-2.8,100:\-3.0,400:\-4.5,1000:\-5.85"
+Example: \(dq0:\-1.3,60:\-2.8,100:\-3.0,400:\-4.5,1000:\-5.85\(dq
 specifies 4 distance intervals from
 0...60, 60...100, 100...400 and 400...1000 km distance.
 Within these intervals log10(A0) is interpolated linearly
@@ -7640,7 +7640,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbose
@@ -7761,8 +7761,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -7792,9 +7792,9 @@ List all supported record stream drivers.
 .B \-I, \-\-record\-url arg
 The recordstream source URL, format:
 [\fI\%service://\fP]location[#type].
-"service" is the name of the recordstream driver
-which can be queried with "\-\-record\-driver\-list".
-If "service" is not given, "\fI\%file://\fP" is
+\(dqservice\(dq is the name of the recordstream driver
+which can be queried with \(dq\-\-record\-driver\-list\(dq.
+If \(dqservice\(dq is not given, \(dq\fI\%file://\fP\(dq is
 used.
 .UNINDENT
 .INDENT 0.0
@@ -7812,7 +7812,7 @@ Specify a type for the records being read.
 .TP
 .B \-\-city\-xml arg
 The path to the cities XML file. This overrides the default
-paths. Compare with the global parameter "citiesXML".
+paths. Compare with the global parameter \(dqcitiesXML\(dq.
 .UNINDENT
 .SS User interface
 .INDENT 0.0

@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 
-<html >
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>LOCSAT &#8212; SeisComP Release documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
     <script type="text/javascript" src="../_static/seiscomp.js"></script>
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="FixedHypocenter" href="global_fixedhypocenter.html" />
@@ -25,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.3</span>
+          <span class="version">5.5.4</span>
         </div>
       </div>
     </div>
@@ -71,12 +72,12 @@
       <div class="fitted content" id="anchors-container">
         <div class="body" role="main">
           
-  <div class="section" id="locsat">
-<span id="global-locsat"></span><h1>LOCSAT<a class="headerlink" href="#locsat" title="Permalink to this headline">¶</a></h1>
+  <section id="locsat">
+<span id="global-locsat"></span><h1>LOCSAT<a class="headerlink" href="#locsat" title="Permalink to this heading">¶</a></h1>
 <p>Locator in SeisComP for computing source time and hypocenter
 coordinates from phase picks.</p>
-<div class="section" id="description">
-<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
 <p>LOCSAT is a locator with a travel-time interface in <cite>SeisComP</cite> for computing
 source time and hypocenter coordinates from phase picks considering:</p>
 <ul class="simple">
@@ -90,21 +91,21 @@ LocSAT locator by <span id="id1">Bratt and Nagy [<a class="reference internal" h
 with the LocSAT distribution) referred to as <strong>LOCSAT</strong> in <cite>SeisComP</cite>. The LOCSAT
 <a class="reference internal" href="#locsat-tti"><span class="std std-ref">travel-time interface</span></a> provides travel time for specfic
 phases, epicentral distance, soure depth and station elevation.</p>
-</div>
-<div class="section" id="locator-interface">
-<span id="locsat-li"></span><h2>Locator Interface<a class="headerlink" href="#locator-interface" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="locator-interface">
+<span id="locsat-li"></span><h2>Locator Interface<a class="headerlink" href="#locator-interface" title="Permalink to this heading">¶</a></h2>
 <p>LOCSAT provides the hypocenter parameters through the locator interface.</p>
-</div>
-<div class="section" id="travel-time-interface">
-<span id="locsat-tti"></span><h2>Travel-Time Interface<a class="headerlink" href="#travel-time-interface" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="travel-time-interface">
+<span id="locsat-tti"></span><h2>Travel-Time Interface<a class="headerlink" href="#travel-time-interface" title="Permalink to this heading">¶</a></h2>
 <p>LOCSAT provides an interface for computing travel times based on coordinates and
 depth. The times are plotted on waveforms, e.g., blue marks in
 <a class="reference internal" href="scolv.html#scolv-sec-waveform-review"><span class="std std-ref">scolv picker window</span></a>.</p>
 <p>Use “LOCSAT” as a value for the travel-time interface when configurable, e.g.,
 by <a class="reference internal" href="global_fixedhypocenter.html#global-fixedhypocenter"><span class="std std-ref">FixedHypocenter</span></a>.</p>
-</div>
-<div class="section" id="travel-time-tables">
-<span id="locsat-ttt"></span><h2>Travel-Time Tables<a class="headerlink" href="#travel-time-tables" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="travel-time-tables">
+<span id="locsat-ttt"></span><h2>Travel-Time Tables<a class="headerlink" href="#travel-time-tables" title="Permalink to this heading">¶</a></h2>
 <p><cite>SeisComP</cite> ships with two sets of predefined travel-time tables which are
 made available as the profiles tab and iasp91.</p>
 <p>The default profile is <em>iasp91</em>.</p>
@@ -117,8 +118,8 @@ phase. E.g. P-wave arrival times in the iasp91 model are found in
 for any available Earth model and seismic phase by adopting existing ones in new
 files which are added by <a class="reference internal" href="#locsat-station-application"><span class="std std-ref">configuration</span></a> to
 your <cite>SeisComP</cite> modules.</p>
-<div class="section" id="limitations">
-<h3>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h3>
+<section id="limitations">
+<h3>Limitations<a class="headerlink" href="#limitations" title="Permalink to this heading">¶</a></h3>
 <ol class="arabic">
 <li><p>Only phases for which a travel-time table exists can be considered.</p></li>
 <li><p>LOCSAT currently considers travel-time tables for phases which are hard-coded</p>
@@ -153,12 +154,12 @@ travel-time tables may lead to undesired behavior during location.</p></li>
 not natively considered. The effects of station elevation can be
 <a class="reference internal" href="#locsat-station-elevation"><span class="std std-ref">corrected for empirically</span></a>.</p></li>
 </ol>
-</div>
-<div class="section" id="station-elevations">
-<span id="locsat-station-elevation"></span><h3>Station elevations<a class="headerlink" href="#station-elevations" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="station-elevations">
+<span id="locsat-station-elevation"></span><h3>Station elevations<a class="headerlink" href="#station-elevations" title="Permalink to this heading">¶</a></h3>
 <p>LOCSAT does not natively support corrections of travel-time tables for station
 elevations. At least checking the code:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">sta_cor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>    <span class="cm">/* FIX !!!!!!*/</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">sta_cor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w">    </span><span class="cm">/* FIX !!!!!!*/</span>
 </pre></div>
 </div>
 <p>However, the <cite>SeisComP</cite> wrapper adds this feature. It allows to define a
@@ -188,15 +189,15 @@ phase statistics file)</p></li>
 <p>The fourth column (numReadings) is ignored and just provided for compatibility
 reasons with <a class="reference internal" href="global_nonlinloc.html#global-nonlinloc"><span class="std std-ref">NonLinLoc</span></a>.</p>
 </div>
-</div>
-</div>
-<div class="section" id="application-and-setup">
-<span id="locsat-station-application"></span><h2>Application and Setup<a class="headerlink" href="#application-and-setup" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="application-and-setup">
+<span id="locsat-station-application"></span><h2>Application and Setup<a class="headerlink" href="#application-and-setup" title="Permalink to this heading">¶</a></h2>
 <p>LOCSAT is the default and only locator for <a class="reference internal" href="scautoloc.html#scautoloc"><span class="std std-ref">scautoloc</span></a> with <em>iasp91</em> as the
 default profile. However, LOCSAT can be used optionally in other modules such as
 <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a> or <a class="reference internal" href="screloc.html#screloc"><span class="std std-ref">screloc</span></a>.</p>
-<div class="section" id="custom-travel-time-tables">
-<span id="locsat-custom-ttt"></span><h3>Custom travel-time tables<a class="headerlink" href="#custom-travel-time-tables" title="Permalink to this headline">¶</a></h3>
+<section id="custom-travel-time-tables">
+<span id="locsat-custom-ttt"></span><h3>Custom travel-time tables<a class="headerlink" href="#custom-travel-time-tables" title="Permalink to this heading">¶</a></h3>
 <ol class="arabic">
 <li><p>Generate your travel-time tables from a custom Earth model, depth and
 distance intervals. Use the same format as the defaults as the <em>iasp91</em>
@@ -216,9 +217,9 @@ e.g., to the list of tables of travel-time interfaces</p>
 <a class="reference internal" href="global_fixedhypocenter.html#global-fixedhypocenter"><span class="std std-ref">FixedHypocenter</span></a>.</p>
 </li>
 </ol>
-</div>
-<div class="section" id="application-with-modules">
-<h3>Application with modules<a class="headerlink" href="#application-with-modules" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="application-with-modules">
+<h3>Application with modules<a class="headerlink" href="#application-with-modules" title="Permalink to this heading">¶</a></h3>
 <p>Additional parameters of LOCSAT may be configured in global module configuration
 (<code class="xref std std-confval docutils literal notranslate"><span class="pre">LOCSAT.*</span></code>).</p>
 <ul class="simple">
@@ -241,39 +242,41 @@ interactive locations.</p></li>
 </ul>
 <p>When using LOCSAT in <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a> you may interactively some settings. The
 changes only apply during runtime.</p>
-<div class="figure align-center" id="id4">
+<figure class="align-center" id="id4">
 <a class="reference internal image-reference" href="../_images/scolv-locsat-settings.png"><img alt="../_images/scolv-locsat-settings.png" src="../_images/scolv-locsat-settings.png" style="width: 10cm;" /></a>
-<p class="caption"><span class="caption-text">scolv Location tab with LOCSAT selected and the settings menu.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-</div>
-<div class="section" id="module-configuration">
-<span id="global-locsat-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this headline">¶</a></h2>
+<figcaption>
+<p><span class="caption-text">scolv Location tab with LOCSAT selected and the settings menu.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="module-configuration">
+<span id="global-locsat-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>LOCSAT.*</strong>
 <em>Locator parameters: LOCSAT</em></p>
 </div>
-<dl class="confval">
-<dt id="confval-LOCSAT.profiles">
-<code class="sig-name descname">LOCSAT.profiles</code><a class="headerlink" href="#confval-LOCSAT.profiles" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-LOCSAT.profiles">
+<span class="sig-name descname"><span class="pre">LOCSAT.profiles</span></span><a class="headerlink" href="#confval-LOCSAT.profiles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">iasp91,</span> <span class="pre">tab</span></code></p>
 <p>Type: <em>list:string</em></p>
 <p>Defines a list of available LOCSAT travel-time tables.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-LOCSAT.depthInit">
-<code class="sig-name descname">LOCSAT.depthInit</code><a class="headerlink" href="#confval-LOCSAT.depthInit" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-LOCSAT.depthInit">
+<span class="sig-name descname"><span class="pre">LOCSAT.depthInit</span></span><a class="headerlink" href="#confval-LOCSAT.depthInit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">20.0</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Unit: <em>km</em></p>
 <p>The initial depth estimate for LOCSAT.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-LOCSAT.usePickUncertainties">
-<code class="sig-name descname">LOCSAT.usePickUncertainties</code><a class="headerlink" href="#confval-LOCSAT.usePickUncertainties" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-LOCSAT.usePickUncertainties">
+<span class="sig-name descname"><span class="pre">LOCSAT.usePickUncertainties</span></span><a class="headerlink" href="#confval-LOCSAT.usePickUncertainties" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Whether to use pick time untertainties for arrival deltim rather
@@ -283,9 +286,9 @@ defined then the default pick time uncertainty will be used
 as fallback.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-LOCSAT.defaultTimeError">
-<code class="sig-name descname">LOCSAT.defaultTimeError</code><a class="headerlink" href="#confval-LOCSAT.defaultTimeError" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-LOCSAT.defaultTimeError">
+<span class="sig-name descname"><span class="pre">LOCSAT.defaultTimeError</span></span><a class="headerlink" href="#confval-LOCSAT.defaultTimeError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">1.0</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
@@ -295,9 +298,9 @@ if they are absent. A time uncertainty of 0 s may result in
 errors of the SVD decomposition in LOCSAT.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-LOCSAT.usePickBackazimuth">
-<code class="sig-name descname">LOCSAT.usePickBackazimuth</code><a class="headerlink" href="#confval-LOCSAT.usePickBackazimuth" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-LOCSAT.usePickBackazimuth">
+<span class="sig-name descname"><span class="pre">LOCSAT.usePickBackazimuth</span></span><a class="headerlink" href="#confval-LOCSAT.usePickBackazimuth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Whether to forward pick backazimuth to LOCSAT or not. In an
@@ -306,9 +309,9 @@ and disabling their usage in LOCSAT can be controlled with
 this parameter.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-LOCSAT.usePickSlowness">
-<code class="sig-name descname">LOCSAT.usePickSlowness</code><a class="headerlink" href="#confval-LOCSAT.usePickSlowness" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-LOCSAT.usePickSlowness">
+<span class="sig-name descname"><span class="pre">LOCSAT.usePickSlowness</span></span><a class="headerlink" href="#confval-LOCSAT.usePickSlowness" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Whether to forward pick horizontal slowness to LOCSAT or not.
@@ -317,32 +320,32 @@ inaccurrate and disabling their usage in LOCSAT can be
 controlled with      this parameter.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-LOCSAT.degreesOfFreedom">
-<code class="sig-name descname">LOCSAT.degreesOfFreedom</code><a class="headerlink" href="#confval-LOCSAT.degreesOfFreedom" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-LOCSAT.degreesOfFreedom">
+<span class="sig-name descname"><span class="pre">LOCSAT.degreesOfFreedom</span></span><a class="headerlink" href="#confval-LOCSAT.degreesOfFreedom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">9999</span></code></p>
 <p>Type: <em>int</em></p>
 <p>Number of degrees of freedom.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-LOCSAT.confLevel">
-<code class="sig-name descname">LOCSAT.confLevel</code><a class="headerlink" href="#confval-LOCSAT.confLevel" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-LOCSAT.confLevel">
+<span class="sig-name descname"><span class="pre">LOCSAT.confLevel</span></span><a class="headerlink" href="#confval-LOCSAT.confLevel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.9</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Confidence level between 0.5 and 1.0.</p>
 </dd></dl>
 
-<dl class="confval">
-<dt id="confval-LOCSAT.enableConfidenceEllipsoid">
-<code class="sig-name descname">LOCSAT.enableConfidenceEllipsoid</code><a class="headerlink" href="#confval-LOCSAT.enableConfidenceEllipsoid" title="Permalink to this definition">¶</a></dt>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-LOCSAT.enableConfidenceEllipsoid">
+<span class="sig-name descname"><span class="pre">LOCSAT.enableConfidenceEllipsoid</span></span><a class="headerlink" href="#confval-LOCSAT.enableConfidenceEllipsoid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Compute the confidence ellipsoid from covariance matrix in 3D.</p>
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
           <div id="anchors-bottom"></div>
@@ -355,14 +358,15 @@ controlled with      this parameter.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">LOCSAT</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
 <li><a class="reference internal" href="#locator-interface">Locator Interface</a></li>
@@ -382,12 +386,17 @@ controlled with      this parameter.</p>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="global_homogeneous.html"
-                        title="previous chapter">homogeneous</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="global_fixedhypocenter.html"
-                        title="next chapter">FixedHypocenter</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="global_homogeneous.html"
+                          title="previous chapter">homogeneous</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="global_fixedhypocenter.html"
+                          title="next chapter">FixedHypocenter</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -407,7 +416,7 @@ controlled with      this parameter.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.3</b> Release
+		  Version <b>5.5.4</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCMASTER" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scmaster \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,15 +27,18 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCMASTER" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scmaster \- SeisComP Documentation
 .sp
 \fBThe messaging system\fP
 .SH DESCRIPTION
 .sp
-scmaster is the implementation of the messaging
+scmaster is the implementation of the \fI\%messaging\fP
 mediator.
 .SH MESSAGE GROUPS
 .sp
-scmaster provides the message groups\&. Configure
+scmaster provides the \fI\%message groups\fP\&. Configure
 .INDENT 0.0
 .IP \(bu 2
 \fI\%defaultGroups\fP: Add the groups which can be used by all queues.
@@ -79,14 +79,14 @@ Register the queue in \fI\%queues\fP\&.
 .SH SCHEME
 .sp
 scmaster provides unsecured and secured connection which is addressed by the
-scheme values \fIscmp\fP and \fIscmps\fP, respectively, in \fBconnection.server\fP
+scheme values \fIscmp\fP and \fIscmps\fP, respectively, in \fI\%connection.server\fP
 when connecting to the messaging.
-Read the concepts section for more details. \fIscmps\fP
+Read the \fI\%concepts section\fP for more details. \fIscmps\fP
 is in use when configuring \fI\%interface.ssl.bind\fP\&.
 .SH DATABASE ACCESS
 .sp
 scmaster reads from and writes to the database and reports the database connection
-to the clients of the messaging system (compare with the concepts section).
+to the clients of the messaging system (compare with the \fI\%concepts section\fP).
 .sp
 The database is configured per queue.
 .SS Single machine
@@ -115,7 +115,7 @@ connect to the host with its name. If the database is on the same machine as the
 messaging, the \fIhost name\fP of the write connection typically remains \fIlocalhost\fP\&.
 .sp
 Example for connecting clients on computerB to the messaging on computerA (compare
-with the concepts section).
+with the \fI\%concepts section\fP).
 .INDENT 0.0
 .IP \(bu 2
 Configuration of scmaster on computerA:
@@ -154,7 +154,7 @@ connection.server = computerA/production
 .fi
 .sp
 .sp
-scmaster inherits global options\&.
+scmaster inherits \fI\%global options\fP\&.
 .INDENT 0.0
 .TP
 .B defaultGroups
@@ -181,7 +181,7 @@ names are the final queue names.
 .INDENT 3.5
 \fBinterface.*\fP
 \fIControl the messaging interface. The default protocol is\fP
-\fI"scmp" but "scmps" (secure protocol) is\fP
+\fI\(dqscmp\(dq but \(dqscmps\(dq (secure protocol) is\fP
 \fIused when valid SSL certificate and key are configured.\fP
 .UNINDENT
 .UNINDENT
@@ -204,7 +204,7 @@ Type: \fIlist:ipmask\fP
 The IP access control list for clients which are allowed
 to connect to the interface. Separate each IP with a space
 and put the entire list in double quotes, e.g.
-"127.0.0.1 192.168.1.2 192.168.0.0/16".
+\(dq127.0.0.1 192.168.1.2 192.168.0.0/16\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -267,7 +267,7 @@ Type: \fIpath\fP
 .INDENT 3.5
 \fBqueues.*\fP
 \fISet the parameters for each messaging queue. The queues are used\fP
-\fIwhen listed in the "queues" parameter. Several queues\fP
+\fIwhen listed in the \(dqqueues\(dq parameter. Several queues\fP
 \fIcan be used in parallel. For queues with without databases leave\fP
 \fIthe processor parameters empty.\fP
 .UNINDENT
@@ -302,7 +302,7 @@ Type: \fIlist:string\fP
 .sp
 Define the list of message groups added to the queue.
 If unset, then the defaultGroups will be used.
-A queue will always add the default group "STATUS_GROUP".
+A queue will always add the default group \(dqSTATUS_GROUP\(dq.
 This parameter overrides defaultGroups.
 .UNINDENT
 .INDENT 0.0
@@ -345,7 +345,7 @@ Example: dbstore
 .B queues.$name.processors.messages
 Type: \fIstring\fP
 .sp
-Interface name. For now, use "dbstore"to
+Interface name. For now, use \(dqdbstore\(dqto
 use a database.
 .sp
 Use empty for testing or playbacks without a database.

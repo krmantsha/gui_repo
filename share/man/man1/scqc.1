@@ -1,8 +1,5 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SCQC" "1" "Aug 22, 2023" "5.5.3" "SeisComP"
-.SH NAME
-scqc \- SeisComP Documentation
 .
 .nr rst2man-indent-level 0
 .
@@ -30,6 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
+.TH "SCQC" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.SH NAME
+scqc \- SeisComP Documentation
 .sp
 \fBDerives quality control (QC) parameters from waveforms.\fP
 .SH DESCRIPTION
@@ -45,10 +45,10 @@ QC parameters into the database should be avoided by configuring, e.g.,
 \fI\%plugins.default.archive.interval\fP as otherwise the database grows
 quickly.
 .sp
-The QC parameters can be interactively observed using scqcv or scmm\&.
+The QC parameters can be interactively observed using \fI\%scqcv\fP or \fI\%scmm\fP\&.
 .SH TECHNOLOGY
 .sp
-scqc uses plugins to compute the waveform quality control (QC)
+scqc uses \fI\%plugins\fP to compute the waveform quality control (QC)
 parameters. The plugins can be found in @DATADIR@/plugins/qc. They are loaded
 by default or selected by \fI\%configuration setup\fP\&.
 .SH QC PARAMETERS
@@ -215,7 +215,7 @@ Consider BHZ streams from all networks, stations and locations:
 .sp
 .nf
 .ft C
-streamMask = ""(.+)\e.(.+)\e.(.*)\e.(BHZ)$"
+streamMask = \(dq\(dq(.+)\e.(.+)\e.(.*)\e.(BHZ)$\(dq
 .ft P
 .fi
 .UNINDENT
@@ -227,7 +227,7 @@ Consider any component from BH, LH and HH streams:
 .sp
 .nf
 .ft C
-streamMask = "(.+)\e.(.+)\e.(.*)\e.((BH)|(LH)|(HH))?$"
+streamMask = \(dq(.+)\e.(.+)\e.(.*)\e.((BH)|(LH)|(HH))?$\(dq
 .ft P
 .fi
 .UNINDENT
@@ -241,7 +241,7 @@ The QC plugins loaded by default are \fBqcplugin_availability\fP,
 \fBqcplugin_offset\fP, \fBqcplugin_outage\fP, \fBqcplugin_overlap\fP,
 \fBqcplugin_rms\fP, \fBqcplugin_spike\fP and \fBqcplugin_timing\fP\&.
 .sp
-Adjust \fBplugins\fP for setting plugins explicitly and to exclude the other
+Adjust \fI\%plugins\fP for setting plugins explicitly and to exclude the other
 ones, e.g.
 .INDENT 3.0
 .INDENT 3.5
@@ -254,7 +254,7 @@ plugins = qcplugin_availability, qcplugin_spike
 .UNINDENT
 .UNINDENT
 .sp
-Further RecordStream plugins for reading data may be considered.
+Further \fI\%RecordStream\fP plugins for reading data may be considered.
 .IP 3. 3
 Configure the plugin parameters: Each plugin considers specific parameters
 which can be configured separately or the default section.
@@ -270,7 +270,7 @@ which can be configured separately or the default section.
 .fi
 .sp
 .sp
-scqc inherits global options\&.
+scqc inherits \fI\%global options\fP\&.
 .INDENT 0.0
 .TP
 .B CreatorId
@@ -311,11 +311,11 @@ Type: \fIstring\fP
 If useConfiguredStreams is false, then
 load (from inventory) only those streams, matching the streamMask
 .sp
-RegEx e.g. "^(NET1|NET2)\e.(STA1|STA2|STA3)\e.(LOC)\e.((BH)|(LH)|(HH))Z$"
+RegEx e.g. \(dq^(NET1|NET2)\e.(STA1|STA2|STA3)\e.(LOC)\e.((BH)|(LH)|(HH))Z$\(dq
 .sp
-RegEx e.g. "^(.+)\e.(.+)\e.(.*)\e.(.+)Z$"
+RegEx e.g. \(dq^(.+)\e.(.+)\e.(.*)\e.(.+)Z$\(dq
 .sp
-streamMask = "^(.+)\e.(.+)\e.(.*)\e.(BHZ)$"
+streamMask = \(dq^(.+)\e.(.+)\e.(.*)\e.(BHZ)$\(dq
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2034,7 +2034,7 @@ the symlinked application.
 .TP
 .B \-\-shutdown\-master\-username arg
 Set the name of the master\-username of the messaging
-used for auto\-shutdown. If "shutdown\-master\-module" is
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
 given as well, this parameter is ignored.
 .UNINDENT
 .SS Verbosity
@@ -2091,22 +2091,22 @@ Use alternative log file.
 .INDENT 0.0
 .TP
 .B \-u, \-\-user arg
-Overrides configuration parameter \fBconnection.username\fP\&.
+Overrides configuration parameter \fI\%connection.username\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-H, \-\-host arg
-Overrides configuration parameter \fBconnection.server\fP\&.
+Overrides configuration parameter \fI\%connection.server\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-t, \-\-timeout arg
-Overrides configuration parameter \fBconnection.timeout\fP\&.
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-g, \-\-primary\-group arg
-Overrides configuration parameter \fBconnection.primaryGroup\fP\&.
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2117,7 +2117,7 @@ This option can be given more than once.
 .INDENT 0.0
 .TP
 .B \-\-content\-type arg
-Overrides configuration parameter \fBconnection.contentType\fP\&.
+Overrides configuration parameter \fI\%connection.contentType\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2135,8 +2135,8 @@ List all supported database drivers.
 .B \-d, \-\-database arg
 The database connection string, format:
 \fI\%service://user:pwd@host/database\fP\&.
-"service" is the name of the database driver which
-can be queried with "\-\-db\-driver\-list".
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2165,9 +2165,9 @@ List all supported record stream drivers.
 .B \-I, \-\-record\-url arg
 The recordstream source URL, format:
 [\fI\%service://\fP]location[#type].
-"service" is the name of the recordstream driver
-which can be queried with "\-\-record\-driver\-list".
-If "service" is not given, "\fI\%file://\fP" is
+\(dqservice\(dq is the name of the recordstream driver
+which can be queried with \(dq\-\-record\-driver\-list\(dq.
+If \(dqservice\(dq is not given, \(dq\fI\%file://\fP\(dq is
 used.
 .UNINDENT
 .INDENT 0.0
