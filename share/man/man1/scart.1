@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "SCART" "1" "Sep 08, 2023" "5.5.4" "SeisComP"
+.TH "SCART" "1" "Sep 13, 2023" "5.5.5" "SeisComP"
 .SH NAME
 scart \- SeisComP Documentation
 .sp
@@ -171,10 +171,10 @@ Sorting data is computational expensive but required for waveform playbacks.
 .UNINDENT
 .UNINDENT
 .IP 2. 3
-Push miniSEED data from file \fBfile.mseed\fP into a local \fI\%SDS\fP
-archive or a file. Additionally, you may check if the records of archived
-files are correctly ordered, filter by time and/or with NSLC list and print
-the output streams:
+Push miniSEED data from file \fBfile.mseed\fP or standard input
+(stdin) into a local \fI\%SDS\fP archive or a file. Additionally, you may
+check if the records of archived files are correctly ordered, filter by time
+and/or with NSLC list and print the output streams:
 .INDENT 3.0
 .INDENT 3.5
 .sp
@@ -184,6 +184,9 @@ scmssort \-u \-E [file.mseed] > sorted.mseed
 scart \-I sorted.mseed \-\-with\-filecheck [SDS archive]
 
 scart \-I [file.mseed] \-t \(aq[start\-time]~[end\-time]\(aq \-\-print\-streams \-\-nslc list.file \-o [out.mseed]
+
+cat sorted.mseed | scart \-I \- [SDS archive]
+cat sorted.mseed | scart [SDS archive]
 .ft P
 .fi
 .UNINDENT
@@ -296,9 +299,11 @@ written to standard output.
 .INDENT 0.0
 .TP
 .B \-I
-Import mode: Specify the recordstream URL when in import mode.
-When using another recordstream than a file (like ArcLink) a stream
-list file is required. Default: \fI\%file://\fP\- (stdin).
+Import mode (default): Specify the recordstream URL to read
+the data from for archiving. When using any other
+recordstream than file, a stream list file is needed.
+Specifying \- implies \fI\%file://\fP\- (stdin). If no mode is
+explicitly specified, \-I \fI\%file://\fP\- is assumed.
 .UNINDENT
 .SS Processing
 .INDENT 0.0

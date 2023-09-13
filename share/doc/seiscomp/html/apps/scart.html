@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.4</span>
+          <span class="version">5.5.5</span>
         </div>
       </div>
     </div>
@@ -167,14 +167,17 @@ not only an SDS archive:</p>
 <p>Sorting data is computational expensive but required for waveform playbacks.</p>
 </div>
 </li>
-<li><p>Push miniSEED data from file <code class="file docutils literal notranslate"><span class="pre">file.mseed</span></code> into a local <a class="reference internal" href="../base/glossary.html#term-SDS"><span class="xref std std-term">SDS</span></a>
-archive or a file. Additionally, you may check if the records of archived
-files are correctly ordered, filter by time and/or with NSLC list and print
-the output streams:</p>
+<li><p>Push miniSEED data from file <code class="file docutils literal notranslate"><span class="pre">file.mseed</span></code> or standard input
+(stdin) into a local <a class="reference internal" href="../base/glossary.html#term-SDS"><span class="xref std std-term">SDS</span></a> archive or a file. Additionally, you may
+check if the records of archived files are correctly ordered, filter by time
+and/or with NSLC list and print the output streams:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scmssort<span class="w"> </span>-u<span class="w"> </span>-E<span class="w"> </span><span class="o">[</span>file.mseed<span class="o">]</span><span class="w"> </span>&gt;<span class="w"> </span>sorted.mseed
 scart<span class="w"> </span>-I<span class="w"> </span>sorted.mseed<span class="w"> </span>--with-filecheck<span class="w"> </span><span class="o">[</span>SDS<span class="w"> </span>archive<span class="o">]</span>
 
 scart<span class="w"> </span>-I<span class="w"> </span><span class="o">[</span>file.mseed<span class="o">]</span><span class="w"> </span>-t<span class="w"> </span><span class="s1">&#39;[start-time]~[end-time]&#39;</span><span class="w"> </span>--print-streams<span class="w"> </span>--nslc<span class="w"> </span>list.file<span class="w"> </span>-o<span class="w"> </span><span class="o">[</span>out.mseed<span class="o">]</span>
+
+cat<span class="w"> </span>sorted.mseed<span class="w"> </span><span class="p">|</span><span class="w"> </span>scart<span class="w"> </span>-I<span class="w"> </span>-<span class="w"> </span><span class="o">[</span>SDS<span class="w"> </span>archive<span class="o">]</span>
+cat<span class="w"> </span>sorted.mseed<span class="w"> </span><span class="p">|</span><span class="w"> </span>scart<span class="w"> </span><span class="o">[</span>SDS<span class="w"> </span>archive<span class="o">]</span>
 </pre></div>
 </div>
 </li>
@@ -263,9 +266,11 @@ written to standard output.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-scart-I">
 <span class="sig-name descname"><span class="pre">-I</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scart-I" title="Permalink to this definition">¶</a></dt>
-<dd><p>Import mode: Specify the recordstream URL when in import mode.
-When using another recordstream than a file (like ArcLink) a stream
-list file is required. Default: <a class="reference external" href="file://">file://</a>- (stdin).</p>
+<dd><p>Import mode (default): Specify the recordstream URL to read
+the data from for archiving. When using any other
+recordstream than file, a stream list file is needed.
+Specifying - implies <a class="reference external" href="file://">file://</a>- (stdin). If no mode is
+explicitly specified, -I <a class="reference external" href="file://">file://</a>- is assumed.</p>
 </dd></dl>
 
 </section>
@@ -499,7 +504,7 @@ checks are made with scmssort.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.4</b> Release
+		  Version <b>5.5.5</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.
