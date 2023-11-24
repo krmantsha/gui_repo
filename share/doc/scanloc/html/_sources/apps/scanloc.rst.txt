@@ -295,7 +295,7 @@ cluster search.
 The DBSCAN algorithm can deliver multiple pick clusters. The cluster search can
 be disabled using :confval:`clusterSearch.maxPickDelay`:
 
-.. code-block:: params
+.. code-block:: properties
 
    # Maximum allowed difference between P pick and cluster reference time(latest pick time).
    # The cluster search ignores all picks which exceed the value. Using "-1" enables all picks
@@ -406,7 +406,7 @@ Phase Association
 -----------------
 
 When a cluster of P picks meeting :confval:`association.minPhase` is found
-or an :ref:`external origin <external-origin>` arrives, :program:`scanloc` tries
+or an :ref:`external origin <external-origins>` arrives, :program:`scanloc` tries
 to associates additional P- and S-type phase picks which are
 :ref:`buffered <scanloc-buffer>` and which meet the association criteria:
 
@@ -466,7 +466,8 @@ origin. Also after each S pick a relocation is done. In case the relocation
 fails or the event residual is larger than :confval:`maxRMS`,
 the S pick is associated with a weight of 0. The score of the resulting
 origin is compared with scores of origins belonging to the same event. In case
-the score is higher than the rest of the origins, the origin is send out.
+the score is higher than the rest of the origins, the origin is
+:ref:`sent out<scanloc-send>`.
 
 In addition to origins from the cluster search, *scanloc* can also treat external
 origins that are created by other associators, e.g., :cite:t:`scautoloc`.
@@ -484,7 +485,7 @@ station code. The switch causes the associator to consider (=1) or to ignore
 (=0) a network or a station.
 The last occurrence of an item in a table overrules previous ones, e.g.
 
-.. code-block:: params
+.. code-block:: properties
 
    * * 1 180
    GR * 1 60
@@ -504,7 +505,7 @@ The considered table must provide the time for all considered phases.
 
 Example configuration (:file:`scanloc.cfg`):
 
-.. code-block:: params
+.. code-block:: properties
 
    # Type of travel-time tables for phase association. May be different from locator.
    # Use e.g. libtau or LOCSAT.
@@ -554,7 +555,7 @@ Origins received from other modules through the messaging or provided by XML fil
 can be processed and :ref:`more phases can be associated <scanloc-assoc>`. In
 order to ignore such external origins set :confval:`buffer.ignoreOrigins`:
 
-.. code-block:: params
+.. code-block:: properties
 
    buffer.ignoreOrigins = false
 
@@ -567,7 +568,7 @@ Processing of external origins may be undesired when
 Configure :confval:`buffer.originAuthorWhiteList` with the author names of
 origins **which shall be processed**, e.g., :cite:t:`scautoloc`:
 
-.. code-block:: params
+.. code-block:: properties
 
    buffer.originAuthorWhiteList = scautoloc@localhost
 
@@ -634,10 +635,25 @@ Internal Origins and Events
 
 * **Internal origins** from the locations and the associated picks (arrivals) of
   new arrival sets,
-* **Internal events** are formed from the internal origins based on the
-  :confval:`eventAssociation.*` parameters. Only if the :ref:`score <scanloc_scoring>`
-  of a new origin exceeds the score of the last sent origin of the same internal
-  event, the new origin is :ref:`send out<scanloc-send>`.
+* **Internal events** from internal origins based on the
+  :confval:`eventAssociation.*` parameters. The procedure is similar to
+  :cite:t:`scevent`. An origin is compared to the preferred origin of an
+  existing internal event. It is associated to the existing internal event if
+  one of the criteria applies:
+
+  * the origins share a minimum of
+    :confval:`eventAssociation.minMatchingArrivals` :term:`arrivals <arrival>`.
+    Arrivals must be identical by the ID of the referenced :term:`pick` unless
+    :confval:`eventAssociation.compareAllArrivalTimes` = *true*. Then, a margin
+    of :confval:`eventAssociation.maxMatchingArrivalTimeDiff` applies for
+    considering different picks to be the same.
+  * the differences in origin time **AND** :term:`epicenter` is within
+    :confval:`eventAssociation.maxTimeSpan` **AND**
+    :confval:`eventAssociation.maxDist`, respectively.
+
+  Only if the :ref:`score <scanloc_scoring>` of a new origin exceeds the score
+  of the last sent origin of the same internal event, the new origin is
+  :ref:`sent out<scanloc-send>`.
 
 
 .. _scanloc-locator:
@@ -655,7 +671,7 @@ depth is fixed to :confval:`defaultDepth` and the origin is relocated.
 
 Example configuration (:file:`scanloc.cfg`):
 
-.. code-block:: params
+.. code-block:: properties
 
    # The locator type to use
    locator.type = LOCSAT
@@ -695,7 +711,7 @@ Higher weight is given to origins with shallower depth. Adjust
 :confval:`score.weights.depth` to form the score
 independent of depth, e.g., in regions with shallow and deep seismicity:
 
-.. code-block:: params
+.. code-block:: properties
 
    score.weights.depth = 0
 
@@ -815,7 +831,7 @@ Examples and Playbacks
 
      scanloc --debug
 
-.. note ::
+.. note::
 
    In playbacks of picks in XML files the performance of scanloc may differ
    from real-time operation based on messaging:
@@ -1617,8 +1633,8 @@ scanloc inherits :ref:`global options<global-configuration>`.
 
    Type: *double*
 
-   Allowed location difference between an incoming origin compared
-   with preferred origins to get associated.
+   Allowed difference in epicenter between an incoming origin
+   compared with preferred origins to get associated.
 
 
 .. confval:: eventAssociation.maxTimeSpan

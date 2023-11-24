@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "SCANLOC" "1" "Sep 01, 2023" "2023.217#192b88919" "scanloc: Phase Associator"
+.TH "SCANLOC" "1" "Nov 23, 2023" "2023.325#090ad6fc3" "scanloc: Phase Associator"
 .SH NAME
 scanloc \- scanloc: Phase Associator Documentation
 .sp
@@ -442,7 +442,7 @@ be located.
 .SS Phase Association
 .sp
 When a cluster of P picks meeting \fI\%association.minPhase\fP is found
-or an external origin arrives, \fBscanloc\fP tries
+or an \fI\%external origin\fP arrives, \fBscanloc\fP tries
 to associates additional P\- and S\-type phase picks which are
 \fI\%buffered\fP and which meet the association criteria:
 .INDENT 0.0
@@ -517,7 +517,8 @@ origin. Also after each S pick a relocation is done. In case the relocation
 fails or the event residual is larger than \fI\%maxRMS\fP,
 the S pick is associated with a weight of 0. The score of the resulting
 origin is compared with scores of origins belonging to the same event. In case
-the score is higher than the rest of the origins, the origin is send out.
+the score is higher than the rest of the origins, the origin is
+\fI\%sent out\fP\&.
 .sp
 In addition to origins from the cluster search, \fIscanloc\fP can also treat external
 origins that are created by other associators, e.g., \fIscautoloc\fP [\fI\%9\fP]\&.
@@ -729,10 +730,28 @@ are ignored and all origins are sent.
 \fBInternal origins\fP from the locations and the associated picks (arrivals) of
 new arrival sets,
 .IP \(bu 2
-\fBInternal events\fP are formed from the internal origins based on the
-\fBeventAssociation.*\fP parameters. Only if the \fI\%score\fP
-of a new origin exceeds the score of the last sent origin of the same internal
-event, the new origin is \fI\%send out\fP\&.
+\fBInternal events\fP from internal origins based on the
+\fBeventAssociation.*\fP parameters. The procedure is similar to
+\fIscevent\fP [\fI\%13\fP]\&. An origin is compared to the preferred origin of an
+existing internal event. It is associated to the existing internal event if
+one of the criteria applies:
+.INDENT 2.0
+.IP \(bu 2
+the origins share a minimum of
+\fI\%eventAssociation.minMatchingArrivals\fP \fI\%arrivals\fP\&.
+Arrivals must be identical by the ID of the referenced \fI\%pick\fP unless
+\fI\%eventAssociation.compareAllArrivalTimes\fP = \fItrue\fP\&. Then, a margin
+of \fI\%eventAssociation.maxMatchingArrivalTimeDiff\fP applies for
+considering different picks to be the same.
+.IP \(bu 2
+the differences in origin time \fBAND\fP \fI\%epicenter\fP is within
+\fI\%eventAssociation.maxTimeSpan\fP \fBAND\fP
+\fI\%eventAssociation.maxDist\fP, respectively.
+.UNINDENT
+.sp
+Only if the \fI\%score\fP of a new origin exceeds the score
+of the last sent origin of the same internal event, the new origin is
+\fI\%sent out\fP\&.
 .UNINDENT
 .SH LOCATING ORIGINS
 .sp
@@ -1826,8 +1845,8 @@ Unit: \fIkm\fP
 .sp
 Type: \fIdouble\fP
 .sp
-Allowed location difference between an incoming origin compared
-with preferred origins to get associated.
+Allowed difference in epicenter between an incoming origin
+compared with preferred origins to get associated.
 .UNINDENT
 .INDENT 0.0
 .TP

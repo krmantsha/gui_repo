@@ -26,7 +26,7 @@
         <img class="background" src="../_static/icon.png"/>
         <div class="content">
            <span class="title">scanloc: Phase Associator </span>
-           <span class="version">2023.217#192b88919</span></h1>
+           <span class="version">2023.325#090ad6fc3</span></h1>
         </div>
       </div>
     </div>
@@ -81,11 +81,11 @@ to existing internal solutions from cluster search or solutions incoming through
 system from external modules.</p>
 <p>Due to the clustering and subsequent phase association scanloc facilitates low-threshold
 monitoring of high- and low-rate seismicity with high accuracy.</p>
-<figure class="align-center" id="id31">
+<figure class="align-center" id="id32">
 <span id="fig-scolv-location-tab"></span><a class="reference internal image-reference" href="../_images/scolv-location-tab.png"><img alt="../_images/scolv-location-tab.png" src="../_images/scolv-location-tab.png" style="width: 16cm;" /></a>
 <figcaption>
 <p><span class="caption-text">Figure 1: scolv Location tab with an automatic earthquake solution from scanloc based on
-P and S phases.</span><a class="headerlink" href="#id31" title="Permalink to this image">¶</a></p>
+P and S phases.</span><a class="headerlink" href="#id32" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </section>
@@ -137,10 +137,10 @@ origins.</p></li>
 <a class="reference internal" href="#scanloc-internal"><span class="std std-ref">internal events</span></a>,</p></li>
 <li><p>Evaluation and <a class="reference internal" href="#scanloc-send"><span class="std std-ref">sending</span></a> of origins.</p></li>
 </ol>
-<figure class="align-center" id="id32">
+<figure class="align-center" id="id33">
 <span id="fig-scanloc-workflow"></span><a class="reference internal image-reference" href="../_images/workflow.png"><img alt="../_images/workflow.png" src="../_images/workflow.png" style="width: 16cm;" /></a>
 <figcaption>
-<p><span class="caption-text">Figure 2: Simplified work flow of scanloc.</span><a class="headerlink" href="#id32" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Figure 2: Simplified work flow of scanloc.</span><a class="headerlink" href="#id33" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <section id="pick-and-origin-buffering">
@@ -270,14 +270,14 @@ pick which updates the reference time (CRT2):</p>
 <p>The longer the time until the update, the
 more picks with larger delays can be considered for clustering, e.g., the delayed
 clustered pick in the figure below.</p>
-<figure class="align-center" id="id33">
+<figure class="align-center" id="id34">
 <a class="reference internal image-reference" href="../_images/cluster-reference.png"><img alt="../_images/cluster-reference.png" src="../_images/cluster-reference.png" style="width: 18cm;" /></a>
 <figcaption>
 <p><span class="caption-text">Figure 3: Pick time vs. pick delay time for of picks for clustering.
 The cluster reference time determines the trapezoid within which picks can be
 considered for clustering.
 Here, the delayed clustered pick only becomes part of the cluster with
-<a class="reference internal" href="#confval-clusterSearch.referenceTimeMode"><code class="xref std std-confval docutils literal notranslate"><span class="pre">clusterSearch.referenceTimeMode</span></code></a> = ‘MaxPickDelay’.</span><a class="headerlink" href="#id33" title="Permalink to this image">¶</a></p>
+<a class="reference internal" href="#confval-clusterSearch.referenceTimeMode"><code class="xref std std-confval docutils literal notranslate"><span class="pre">clusterSearch.referenceTimeMode</span></code></a> = ‘MaxPickDelay’.</span><a class="headerlink" href="#id34" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <div class="admonition note">
@@ -313,11 +313,11 @@ as small as possible will speed up scanloc and will reduce the complexity of the
 cluster search.</p>
 <p>The DBSCAN algorithm can deliver multiple pick clusters. The cluster search can
 be disabled using <a class="reference internal" href="#confval-clusterSearch.maxPickDelay"><code class="xref std std-confval docutils literal notranslate"><span class="pre">clusterSearch.maxPickDelay</span></code></a>:</p>
-<div class="highlight-params notranslate"><div class="highlight"><pre><span></span># Maximum allowed difference between P pick and cluster reference time(latest pick time).
-# The cluster search ignores all picks which exceed the value. Using &quot;-1&quot; enables all picks
-# regardless of the delay. Unit: seconds.
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># Maximum allowed difference between P pick and cluster reference time(latest pick time).</span>
+<span class="c1"># The cluster search ignores all picks which exceed the value. Using &quot;-1&quot; enables all picks</span>
+<span class="c1"># regardless of the delay. Unit: seconds.</span>
 
-clusterSearch.maxPickDelay = 0
+<span class="na">clusterSearch.maxPickDelay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0</span>
 </pre></div>
 </div>
 <p>Then, only <a class="reference internal" href="#external-origins"><span class="std std-ref">external origin</span></a> can be considered for
@@ -403,7 +403,7 @@ be located.</p>
 <section id="phase-association">
 <span id="scanloc-assoc"></span><h3>Phase Association<a class="headerlink" href="#phase-association" title="Permalink to this heading">¶</a></h3>
 <p>When a cluster of P picks meeting <a class="reference internal" href="#confval-association.minPhase"><code class="xref std std-confval docutils literal notranslate"><span class="pre">association.minPhase</span></code></a> is found
-or an <span class="xref std std-ref">external origin</span> arrives, <strong class="program">scanloc</strong> tries
+or an <a class="reference internal" href="#external-origins"><span class="std std-ref">external origin</span></a> arrives, <strong class="program">scanloc</strong> tries
 to associates additional P- and S-type phase picks which are
 <a class="reference internal" href="#scanloc-buffer"><span class="std std-ref">buffered</span></a> and which meet the association criteria:</p>
 <ul>
@@ -461,7 +461,8 @@ origin. Also after each S pick a relocation is done. In case the relocation
 fails or the event residual is larger than <a class="reference internal" href="#confval-maxRMS"><code class="xref std std-confval docutils literal notranslate"><span class="pre">maxRMS</span></code></a>,
 the S pick is associated with a weight of 0. The score of the resulting
 origin is compared with scores of origins belonging to the same event. In case
-the score is higher than the rest of the origins, the origin is send out.</p>
+the score is higher than the rest of the origins, the origin is
+<a class="reference internal" href="#scanloc-send"><span class="std std-ref">sent out</span></a>.</p>
 <p>In addition to origins from the cluster search, <em>scanloc</em> can also treat external
 origins that are created by other associators, e.g., <span id="id5"><em>scautoloc</em> [<a class="reference internal" href="../base/references.html#id197" title="scautoloc. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scautoloc.html.">9</a>]</span>.
 In case an such origin is received <em>scanloc</em> tries to associate all picks in the
@@ -476,10 +477,10 @@ epicentral distance in degrees. Wildcards can be used for the network and the
 station code. The switch causes the associator to consider (=1) or to ignore
 (=0) a network or a station.
 The last occurrence of an item in a table overrules previous ones, e.g.</p>
-<div class="highlight-params notranslate"><div class="highlight"><pre><span></span>* * 1 180
-GR * 1 60
-GR GRA1 1 20
-Z3 * 0 180
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">*</span><span class="w"> </span><span class="s">* 1 180</span>
+<span class="na">GR</span><span class="w"> </span><span class="s">* 1 60</span>
+<span class="na">GR</span><span class="w"> </span><span class="s">GRA1 1 20</span>
+<span class="na">Z3</span><span class="w"> </span><span class="s">* 0 180</span>
 </pre></div>
 </div>
 <p>For associating the picks, travel times from look-up tables are used. The
@@ -492,13 +493,13 @@ from LOCSAT and libtau are supported. scanloc provides
 the travel times to the travel-time interface.
 The considered table must provide the time for all considered phases.</p>
 <p>Example configuration (<code class="file docutils literal notranslate"><span class="pre">scanloc.cfg</span></code>):</p>
-<div class="highlight-params notranslate"><div class="highlight"><pre><span></span># Type of travel-time tables for phase association. May be different from locator.
-# Use e.g. libtau or LOCSAT.
-association.tableType = LOCSAT
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># Type of travel-time tables for phase association. May be different from locator.</span>
+<span class="c1"># Use e.g. libtau or LOCSAT.</span>
+<span class="na">association.tableType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">LOCSAT</span>
 
-# Name of travel-time table used for phase association. May be different from locator
-# profile.
-association.table = iasp91_scanloc
+<span class="c1"># Name of travel-time table used for phase association. May be different from locator</span>
+<span class="c1"># profile.</span>
+<span class="na">association.table</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">iasp91_scanloc</span>
 </pre></div>
 </div>
 <table class="docutils align-default">
@@ -545,7 +546,7 @@ along with the preferred locator and profile to relocate the origin. The loator
 <p>Origins received from other modules through the messaging or provided by XML files
 can be processed and <a class="reference internal" href="#scanloc-assoc"><span class="std std-ref">more phases can be associated</span></a>. In
 order to ignore such external origins set <a class="reference internal" href="#confval-buffer.ignoreOrigins"><code class="xref std std-confval docutils literal notranslate"><span class="pre">buffer.ignoreOrigins</span></code></a>:</p>
-<div class="highlight-params notranslate"><div class="highlight"><pre><span></span>buffer.ignoreOrigins = false
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">buffer.ignoreOrigins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">false</span>
 </pre></div>
 </div>
 <p>Processing of external origins may be undesired when</p>
@@ -556,7 +557,7 @@ order to ignore such external origins set <a class="reference internal" href="#c
 </ul>
 <p>Configure <a class="reference internal" href="#confval-buffer.originAuthorWhiteList"><code class="xref std std-confval docutils literal notranslate"><span class="pre">buffer.originAuthorWhiteList</span></code></a> with the author names of
 origins <strong>which shall be processed</strong>, e.g., <span id="id11"><em>scautoloc</em> [<a class="reference internal" href="../base/references.html#id197" title="scautoloc. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scautoloc.html.">9</a>]</span>:</p>
-<div class="highlight-params notranslate"><div class="highlight"><pre><span></span>buffer.originAuthorWhiteList = scautoloc@localhost
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">buffer.originAuthorWhiteList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">scautoloc@localhost</span>
 </pre></div>
 </div>
 <p>Automatic origins from all other authors will be ignored.</p>
@@ -607,30 +608,46 @@ are ignored and all origins are sent.</p>
 <section id="internal-origins-and-events">
 <span id="scanloc-internal"></span><h2>Internal Origins and Events<a class="headerlink" href="#internal-origins-and-events" title="Permalink to this heading">¶</a></h2>
 <p><em>scanloc</em> forms</p>
-<ul class="simple">
+<ul>
 <li><p><strong>Internal origins</strong> from the locations and the associated picks (arrivals) of
 new arrival sets,</p></li>
-<li><p><strong>Internal events</strong> are formed from the internal origins based on the
-<code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.*</span></code> parameters. Only if the <a class="reference internal" href="#scanloc-scoring"><span class="std std-ref">score</span></a>
-of a new origin exceeds the score of the last sent origin of the same internal
-event, the new origin is <a class="reference internal" href="#scanloc-send"><span class="std std-ref">send out</span></a>.</p></li>
+<li><p><strong>Internal events</strong> from internal origins based on the
+<code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.*</span></code> parameters. The procedure is similar to
+<span id="id13"><em>scevent</em> [<a class="reference internal" href="../base/references.html#id212" title="scevent. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scevent.html.">13</a>]</span>. An origin is compared to the preferred origin of an
+existing internal event. It is associated to the existing internal event if
+one of the criteria applies:</p>
+<ul class="simple">
+<li><p>the origins share a minimum of
+<a class="reference internal" href="#confval-eventAssociation.minMatchingArrivals"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.minMatchingArrivals</span></code></a> <a class="reference internal" href="../base/glossary.html#term-arrival"><span class="xref std std-term">arrivals</span></a>.
+Arrivals must be identical by the ID of the referenced <a class="reference internal" href="../base/glossary.html#term-pick"><span class="xref std std-term">pick</span></a> unless
+<a class="reference internal" href="#confval-eventAssociation.compareAllArrivalTimes"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.compareAllArrivalTimes</span></code></a> = <em>true</em>. Then, a margin
+of <a class="reference internal" href="#confval-eventAssociation.maxMatchingArrivalTimeDiff"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.maxMatchingArrivalTimeDiff</span></code></a> applies for
+considering different picks to be the same.</p></li>
+<li><p>the differences in origin time <strong>AND</strong> <a class="reference internal" href="../base/glossary.html#term-epicenter"><span class="xref std std-term">epicenter</span></a> is within
+<a class="reference internal" href="#confval-eventAssociation.maxTimeSpan"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.maxTimeSpan</span></code></a> <strong>AND</strong>
+<a class="reference internal" href="#confval-eventAssociation.maxDist"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.maxDist</span></code></a>, respectively.</p></li>
+</ul>
+<p>Only if the <a class="reference internal" href="#scanloc-scoring"><span class="std std-ref">score</span></a> of a new origin exceeds the score
+of the last sent origin of the same internal event, the new origin is
+<a class="reference internal" href="#scanloc-send"><span class="std std-ref">sent out</span></a>.</p>
+</li>
 </ul>
 </section>
 <section id="locating-origins">
 <span id="scanloc-locator"></span><h2>Locating Origins<a class="headerlink" href="#locating-origins" title="Permalink to this heading">¶</a></h2>
 <p>scanloc locates internal origins based on the configuration by the <code class="xref std std-confval docutils literal notranslate"><span class="pre">locator.*</span></code>
 parameters.
-Consider a fast locator (<a class="reference internal" href="#confval-locator.type"><code class="xref std std-confval docutils literal notranslate"><span class="pre">locator.type</span></code></a>), e.g., LOCSAT or <span id="id13"><em>Hypo71</em> [<a class="reference internal" href="../base/references.html#id128" title="Hypo71. SeisComP locator. URL: https://docs.gempa.de/seiscomp/current/apps/global_hypo71.html.">2</a>]</span>
+Consider a fast locator (<a class="reference internal" href="#confval-locator.type"><code class="xref std std-confval docutils literal notranslate"><span class="pre">locator.type</span></code></a>), e.g., LOCSAT or <span id="id14"><em>Hypo71</em> [<a class="reference internal" href="../base/references.html#id128" title="Hypo71. SeisComP locator. URL: https://docs.gempa.de/seiscomp/current/apps/global_hypo71.html.">2</a>]</span>
 and appropriate travel-time tables <a class="reference internal" href="#confval-locator.profile"><code class="xref std std-confval docutils literal notranslate"><span class="pre">locator.profile</span></code></a>,
 e.g., the provided <a class="reference internal" href="../base/locsat-tables.html#scanloc-ttt"><span class="std std-ref">dense travel-time tables</span></a>.
 If the location fails and <a class="reference internal" href="#confval-locator.fixDepth"><code class="xref std std-confval docutils literal notranslate"><span class="pre">locator.fixDepth</span></code></a> is active, the location
 depth is fixed to <a class="reference internal" href="#confval-defaultDepth"><code class="xref std std-confval docutils literal notranslate"><span class="pre">defaultDepth</span></code></a> and the origin is relocated.</p>
 <p>Example configuration (<code class="file docutils literal notranslate"><span class="pre">scanloc.cfg</span></code>):</p>
-<div class="highlight-params notranslate"><div class="highlight"><pre><span></span># The locator type to use
-locator.type = LOCSAT
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># The locator type to use</span>
+<span class="na">locator.type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">LOCSAT</span>
 
-# The locator profile to use
-locator.profile = iasp91_scanloc
+<span class="c1"># The locator profile to use</span>
+<span class="na">locator.profile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">iasp91_scanloc</span>
 </pre></div>
 </div>
 </section>
@@ -657,7 +674,7 @@ depth and residual and the configured values for
 Higher weight is given to origins with shallower depth. Adjust
 <a class="reference internal" href="#confval-score.weights.depth"><code class="xref std std-confval docutils literal notranslate"><span class="pre">score.weights.depth</span></code></a> to form the score
 independent of depth, e.g., in regions with shallow and deep seismicity:</p>
-<div class="highlight-params notranslate"><div class="highlight"><pre><span></span>score.weights.depth = 0
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">score.weights.depth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0</span>
 </pre></div>
 </div>
 </section>
@@ -680,7 +697,7 @@ are sometimes located as fake deep earthquakes below the network.
 <em>scanloc</em> can be used to suppress this type of fake events.</p>
 <p>In a 2-pipeline setup, <em>scanloc</em> can associcate such teleseismic phases recorded
 by the local network with origins that were found by the pipeline for
-monitoring teleseismic earthquakes. Then <span id="id14"><em>scevent</em> [<a class="reference internal" href="../base/references.html#id212" title="scevent. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scevent.html.">13</a>]</span>
+monitoring teleseismic earthquakes. Then <span id="id15"><em>scevent</em> [<a class="reference internal" href="../base/references.html#id212" title="scevent. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scevent.html.">13</a>]</span>
 will associate
 the origins from the teleseismic pipeline with the fake origins from the
 pipeline for local monitoring to the same event. The assumption is that the origins
@@ -690,8 +707,8 @@ for teleseismic monitoring that has most phases becomes the preferred origin for
 the event. This <a class="reference internal" href="#scanloc"><span class="std std-ref">scanloc</span></a> feature requires an extended license.</p>
 <p><em>Setup of a 2-pipeline system</em></p>
 <ol class="arabic">
-<li><p>Generate a 2-pipeline system involving at least <span id="id15"><em>scautopick</em> [<a class="reference internal" href="../base/references.html#id196" title="scautopick. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scautopick.html.">10</a>]</span>,
-<strong class="program">scanloc</strong> and <span id="id16"><em>scevent</em> [<a class="reference internal" href="../base/references.html#id212" title="scevent. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scevent.html.">13</a>]</span> :</p>
+<li><p>Generate a 2-pipeline system involving at least <span id="id16"><em>scautopick</em> [<a class="reference internal" href="../base/references.html#id196" title="scautopick. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scautopick.html.">10</a>]</span>,
+<strong class="program">scanloc</strong> and <span id="id17"><em>scevent</em> [<a class="reference internal" href="../base/references.html#id212" title="scevent. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scevent.html.">13</a>]</span> :</p>
 <ul class="simple">
 <li><p><strong>Pipeline 1</strong> monitors teleseismic earthquakes using <strong class="program">scautopick</strong>,
 <strong class="program">scautoloc</strong>, <strong class="program">scanloc</strong> and default message groups.</p></li>
@@ -714,33 +731,33 @@ part of the origin and can be considered by <em>scevent</em>.</p>
 <li><p>Configure <em>scevent</em> to listen to the message groups from both pipelines (e.g.
 LOCATION and L1LOCATION) and activate the <em>scevent</em> module parameter
 <em>eventAssociation.allowLooseAssociatedArrivals</em> (<code class="file docutils literal notranslate"><span class="pre">scevent.cfg</span></code>).</p>
-<figure class="align-center" id="id34">
+<figure class="align-center" id="id35">
 <a class="reference internal image-reference" href="../_images/zeroweight_pipeline.png"><img alt="../_images/zeroweight_pipeline.png" src="../_images/zeroweight_pipeline.png" style="width: 10cm;" /></a>
 <figcaption>
 <p><span class="caption-text">Figure 4: Parameter exchange in a 2-pipeline system. The messaging system, responsible
 for the parameter exchange, is representated by the circles, indicating the
 message groups. Teleseismic monitoring is configured with scautopick,
 scanloc, scautoloc and local monitoring with l1autopick,
-l1scanloc, l1autoloc.</span><a class="headerlink" href="#id34" title="Permalink to this image">¶</a></p>
+l1scanloc, l1autoloc.</span><a class="headerlink" href="#id35" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </li>
 </ol>
 <p><em>Playback using picks and amplitudes from 2-pipeline system (real-event examples)</em></p>
-<figure class="align-center" id="id35">
+<figure class="align-center" id="id36">
 <span id="fig-zeroweight1"></span><a class="reference internal image-reference" href="../_images/scolv_zeroweight1.png"><img alt="../_images/scolv_zeroweight1.png" src="../_images/scolv_zeroweight1.png" style="width: 10cm;" /></a>
 <figcaption>
-<p><span class="caption-text">Figure 5: Location tab in <em>scolv</em> with zero-weight picks associated by <em>scanloc</em> as PKP phases.</span><a class="headerlink" href="#id35" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Figure 5: Location tab in <em>scolv</em> with zero-weight picks associated by <em>scanloc</em> as PKP phases.</span><a class="headerlink" href="#id36" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-<figure class="align-center" id="id36">
+<figure class="align-center" id="id37">
 <span id="fig-zeroweight2"></span><a class="reference internal image-reference" href="../_images/scolv_zeroweight2.png"><img alt="../_images/scolv_zeroweight2.png" src="../_images/scolv_zeroweight2.png" style="width: 10cm;" /></a>
 <figcaption>
 <p><span class="caption-text">Figure 6: Event tab in <em>scolv</em> showing the origins from the pipelines for local and
 teleseseismic monitoring. The preferred origin located near the Solomon
 Islands is shown in bold on top. Fake origins in Europe located by pipeline
 for local monitoring based on PKP phases falsely considered P phases are
-associated to the event but do not form the preferred origin at any time.</span><a class="headerlink" href="#id36" title="Permalink to this image">¶</a></p>
+associated to the event but do not form the preferred origin at any time.</span><a class="headerlink" href="#id37" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </section>
@@ -827,14 +844,14 @@ playback_picks<span class="w"> </span>picks.xml
 </li>
 <li><p><strong>Picks from playbacks:</strong> Play back picks and amplitudes created by a
 non-real-time playback possibly in different
-<span id="id17"><em>pipeline</em> [<a class="reference internal" href="../base/references.html#id179" title="pipeline. SeisComP3 wiki. URL: https://www.SeisComP3.org/wiki/recipes/multiple-pick-loc-pipeline.">7</a>]</span> sending them to the SeisComP messaging.</p>
+<span id="id18"><em>pipeline</em> [<a class="reference internal" href="../base/references.html#id179" title="pipeline. SeisComP3 wiki. URL: https://www.SeisComP3.org/wiki/recipes/multiple-pick-loc-pipeline.">7</a>]</span> sending them to the SeisComP messaging.</p>
 <ul class="simple">
-<li><p>Picks and amplitudes are created in playbacks by <span id="id18"><em>scautoloc</em> [<a class="reference internal" href="../base/references.html#id197" title="scautoloc. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scautoloc.html.">9</a>]</span> and
+<li><p>Picks and amplitudes are created in playbacks by <span id="id19"><em>scautoloc</em> [<a class="reference internal" href="../base/references.html#id197" title="scautoloc. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scautoloc.html.">9</a>]</span> and
 stored in XML files (<a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> format).</p></li>
 <li><p>Picks and amplitudes are sent to the separate message groups PICK, L1PICK
 and AMPLITUDE.</p></li>
 <li><p>scanloc and l1scanloc listen to picks from PICK and L1PICKS, respectively.</p></li>
-<li><p><span id="id19"><em>scautoloc</em> [<a class="reference internal" href="../base/references.html#id197" title="scautoloc. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scautoloc.html.">9</a>]</span> additionally needs the pick amplitudes from the
+<li><p><span id="id20"><em>scautoloc</em> [<a class="reference internal" href="../base/references.html#id197" title="scautoloc. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scautoloc.html.">9</a>]</span> additionally needs the pick amplitudes from the
 subscribed amplitude groups.</p></li>
 </ul>
 <p><strong>Procedure:</strong></p>
@@ -874,7 +891,7 @@ The picks were generated before in</p>
 <ul class="simple">
 <li><p>Real time and read from the database e.g., by
 <a class="reference internal" href="../base/auxiliary.html#sec-scanloc-dump-picks"><span class="std std-ref">dump_picks</span></a> or</p></li>
-<li><p>By non-real-time playbacks, e.g., involving <span id="id20"><em>scautopick</em> [<a class="reference internal" href="../base/references.html#id196" title="scautopick. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scautopick.html.">10</a>]</span>.</p></li>
+<li><p>By non-real-time playbacks, e.g., involving <span id="id21"><em>scautopick</em> [<a class="reference internal" href="../base/references.html#id196" title="scautopick. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scautopick.html.">10</a>]</span>.</p></li>
 </ul>
 <p>In XML playbacks, the picks are provided to scanloc
 in a XML file (<a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> format) with the option <a class="reference internal" href="#cmdoption-ep"><code class="xref std std-option docutils literal notranslate"><span class="pre">--ep</span></code></a>.
@@ -908,7 +925,7 @@ scevent<span class="w"> </span>-d<span class="w"> </span><span class="o">[</span
 </li>
 <li><p>Enter the results into the SeisComP system. Either:</p>
 <ul>
-<li><p><strong>Events do not exist</strong> in the database, use <span id="id21"><em>scdb</em> [<a class="reference internal" href="../base/references.html#id205" title="scdb. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scdb.html.">11</a>]</span> to populate
+<li><p><strong>Events do not exist</strong> in the database, use <span id="id22"><em>scdb</em> [<a class="reference internal" href="../base/references.html#id205" title="scdb. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scdb.html.">11</a>]</span> to populate
 the database with all events in <code class="file docutils literal notranslate"><span class="pre">events.xml</span></code>.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdb<span class="w"> </span>-i<span class="w"> </span>events.xml<span class="w"> </span>-d<span class="w"> </span><span class="o">[</span>database<span class="o">]</span>
 </pre></div>
@@ -918,8 +935,8 @@ the database with all events in <code class="file docutils literal notranslate">
 Update existing events by associating new origins or create new events.
 Run the messaging system and all
 modules that shall process the new parameters, e.g.
-<span id="id22"><em>scamp</em> [<a class="reference internal" href="../base/references.html#id195" title="scamp. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scamp.html.">8</a>]</span>, <span id="id23"><em>scmag</em> [<a class="reference internal" href="../base/references.html#id221" title="scmag. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scmag.html.">14</a>]</span> , <span id="id24"><em>scevent</em> [<a class="reference internal" href="../base/references.html#id212" title="scevent. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scevent.html.">13</a>]</span>.
-Use <span id="id25"><em>scdispatch</em> [<a class="reference internal" href="../base/references.html#id207" title="scdispatch. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scdispatch.html.">12</a>]</span> to send the new objects to
+<span id="id23"><em>scamp</em> [<a class="reference internal" href="../base/references.html#id195" title="scamp. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scamp.html.">8</a>]</span>, <span id="id24"><em>scmag</em> [<a class="reference internal" href="../base/references.html#id221" title="scmag. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scmag.html.">14</a>]</span> , <span id="id25"><em>scevent</em> [<a class="reference internal" href="../base/references.html#id212" title="scevent. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scevent.html.">13</a>]</span>.
+Use <span id="id26"><em>scdispatch</em> [<a class="reference internal" href="../base/references.html#id207" title="scdispatch. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scdispatch.html.">12</a>]</span> to send the new objects to
 the messaging system.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>start<span class="w"> </span>scmaster<span class="w"> </span>scamp<span class="w"> </span>scmag<span class="w"> </span>scevent
 scdispatch<span class="w"> </span>-H<span class="w"> </span>host<span class="w"> </span>-i<span class="w"> </span>mags.xml
@@ -931,11 +948,11 @@ playback may be dispatched, e.g., from <code class="file docutils literal notran
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Using <span id="id26"><em>scdb</em> [<a class="reference internal" href="../base/references.html#id205" title="scdb. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scdb.html.">11</a>]</span> for writing event information to the database may
+<p>Using <span id="id27"><em>scdb</em> [<a class="reference internal" href="../base/references.html#id205" title="scdb. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scdb.html.">11</a>]</span> for writing event information to the database may
 result in duplicates if the provided parameters, e.g., events, exist already
-with another ID. In this case use <span id="id27"><em>scdispatch</em> [<a class="reference internal" href="../base/references.html#id207" title="scdispatch. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scdispatch.html.">12</a>]</span> with <code class="file docutils literal notranslate"><span class="pre">mags.xml</span></code>
-and running <span id="id28"><em>scmaster</em> [<a class="reference internal" href="../base/references.html#id222" title="scmaster. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scmaster.html.">15</a>]</span> and <span id="id29"><em>scevent</em> [<a class="reference internal" href="../base/references.html#id212" title="scevent. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scevent.html.">13</a>]</span>
-instead of <span id="id30"><em>scdb</em> [<a class="reference internal" href="../base/references.html#id205" title="scdb. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scdb.html.">11</a>]</span>. However, <em>scdispatch</em> in newer versions of
+with another ID. In this case use <span id="id28"><em>scdispatch</em> [<a class="reference internal" href="../base/references.html#id207" title="scdispatch. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scdispatch.html.">12</a>]</span> with <code class="file docutils literal notranslate"><span class="pre">mags.xml</span></code>
+and running <span id="id29"><em>scmaster</em> [<a class="reference internal" href="../base/references.html#id222" title="scmaster. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scmaster.html.">15</a>]</span> and <span id="id30"><em>scevent</em> [<a class="reference internal" href="../base/references.html#id212" title="scevent. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scevent.html.">13</a>]</span>
+instead of <span id="id31"><em>scdb</em> [<a class="reference internal" href="../base/references.html#id205" title="scdb. SeisComP module. URL: https://docs.gempa.de/seiscomp/current/apps/scdb.html.">11</a>]</span>. However, <em>scdispatch</em> in newer versions of
 SeisComP allows ignoring Event objects with the option <code class="docutils literal notranslate"><span class="pre">-e</span></code>. Then, also
 <code class="file docutils literal notranslate"><span class="pre">events.xml</span></code> can be dispatched.</p>
 </div>
@@ -1480,8 +1497,8 @@ of the pickID. Pass: |pick1.time - pick2.time| &lt;= threshold.</p>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">500.0</span></code></p>
 <p>Unit: <em>km</em></p>
 <p>Type: <em>double</em></p>
-<p>Allowed location difference between an incoming origin compared
-with preferred origins to get associated.</p>
+<p>Allowed difference in epicenter between an incoming origin
+compared with preferred origins to get associated.</p>
 </dd></dl>
 
 <dl class="std confval">
@@ -2012,7 +2029,7 @@ Useful for tuning.</p>
     <div class="footer">
       <div class="container">
         <div class="content">
-        Release <b></b> version <b>2023.217#192b88919</b>
+        Release <b></b> version <b>2023.325#090ad6fc3</b>
           <div class="copyright">
             &copy; Copyright <a href="https://www.gempa.de">2014, gempa GmbH.</a>
           </div>

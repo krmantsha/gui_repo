@@ -2,6 +2,34 @@
 
 All notable changes to scanloc will be documented in this file.
 
+## 2023.325
+
+### Changed
+
+-   Remove support for SeisComP3 C++ API since no packages will be provided
+    for SeisComP3 anymore.
+
+## 2023.317
+
+### Changed
+
+-   Remove support for SeisComP3 Python API since no packages will be provided
+    for SeisComP3 anymore.
+
+## 2023.305
+
+### Changed
+
+-   Update documentation of internal events.
+
+## 2023.300
+
+### Fixed
+
+-   Consider configuration parameter `eventAssociation.maxTimeSpan` with double
+    precision.
+-   Report more configuration parameters in summary debug output.
+
 ## 2023.218
 
 ### Added

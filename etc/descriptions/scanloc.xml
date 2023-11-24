@@ -356,8 +356,8 @@
 				</parameter>
 				<parameter name="maxDist" type="double" unit="km" default="500.0">
 					<description>
-					Allowed location difference between an incoming origin compared
-					with preferred origins to get associated.
+					Allowed difference in epicenter between an incoming origin
+					compared with preferred origins to get associated.
 					</description>
 				</parameter>
 				<parameter name="maxTimeSpan" type="double" unit="s" default="60.0">
