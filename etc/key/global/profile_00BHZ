@@ -1,0 +1,65 @@
+# The sensor location code of the preferred stream used e.g. by scautopick and
+# # scrttv.
+detecLocid = 00
+
+# The channel code of the preferred stream used by e.g. scautopick and scrttv.
+# If no component code is given, the vertical component will be fetched from
+# inventory considering the channel orientation (azimuth, dip). If that
+# approach fails, 'Z' will be appended and used as fallback. Do not use regular
+# expressions!
+detecStream = BHZ
+
+# The calibration function log10(A0).
+# Format: any list of distance-value pairs separated by comma. Values within
+# pairs are separated by colon.
+# Example: "0:-1.3,60:-2.8,100:-3.0,400:-4.5,1000:-5.85" specifies 4 distance
+# intervals from 0...60, 60...100, 100...400 and 400...1000 km distance. Within
+# these intervals log10(A0) is interpolated linearly between -1.3...-2.8,
+# -2.8...-3.0, -3.0...-4.5 and -4.5...-5.8, respectively.
+# Note: The first and last distance samples limit the maximum distance range
+# for computing MLv.
+magnitudes.MLv.logA0 = "0:-0.64,5:-1.45,10:-1.79,15:-2.00,20:-2.15,25:-2.26,30:-2.36,35:-2.44,40:-2.50,45:-2.57,50:-2.62,60:-2.72,70:-2.80,80:-2.88,90:-2.94,100:-3.00,120:-3.10,140:-3.19,160:-3.27,180:-3.34,200:-3.41,220:-3.47,240:-3.53,260:-3.58,280:-3.63,300:-3.67,350:-3.78,400:-3.88,450:-3.97,500:-4.06,550:-4.13,600:-4.21,650:-4.28,700:-4.35,750:-4.41,800:-4.48,900:-4.60,1000:-4.72"
+
+# This parameter allows to set how the amplitude is measured. Either by finding
+# the absolute maximum of the demeaned trace (AbsMax), the difference of
+# maximum and minimum of the signal window (MinMax) or the maximum peak-trough
+# of one cycle (PeakTrough).
+# Note that if absMax is already explicitly configured, this parameter has no
+# effect.
+amplitudes.MLv.measureType = AbsMax
+
+# The gain of the Wood-Anderson response.
+amplitudes.WoodAnderson.gain = 2080
+
+# The damping constant of the Wood-Anderson seismometer.
+amplitudes.WoodAnderson.h = 0.7
+
+# Start time of the signal processing relative to the triggering P pick. This
+# adds a margin to the actual processing and is useful to initialize the filter
+# (e.g. STALTA). The data is not used at all for detection until signalBegin is
+# reached.
+spicker.AIC.noiseBegin = -3
+
+# Start time of the S-phase detector relative to the triggering P pick.
+# Delaying the detector ignores P-coda and early signals, e.g. due to P-S phase
+# conversions at shallow depths.
+spicker.AIC.signalBegin = 0.15
+
+# End time of the S-phase detector relative to the triggering P pick.
+spicker.AIC.signalEnd = 5
+
+# Filter applied on the raw horizontal traces to compute the L2 trace. As a
+# minimum remove offsets. S-AIC-V, filters the raw vertical trace computing the
+# filtered vertical trace.
+spicker.AIC.filter = "RMHP(1)>>ITAPER(2)>>BW(3,3,15)"
+
+# The AIC time window stepping in seconds. For every step the window is
+# expanded by step and the AIC is computed.
+spicker.AIC.step = 0.1
+
+# Mininum SNR as returned from AIC for accepting a detection.
+spicker.AIC.minSNR = 3
+
+# Minimum number of hits for a particular pick time when the running AIC is
+# computed for accepting a detection.
+spicker.AIC.minCnt = 4

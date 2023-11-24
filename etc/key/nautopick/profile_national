@@ -1,0 +1,65 @@
+# Start time of the signal processing relative to the triggering P pick. This
+# adds a margin to the actual processing and is useful to initialize the filter
+# (e.g. STALTA). The data is not used at all for detection until signalBegin is
+# reached.
+spicker.AIC.noiseBegin = -10
+
+# Start time of the S-phase detector relative to the triggering P pick.
+# Delaying the detector ignores P-coda and early signals, e.g. due to P-S phase
+# conversions at shallow depths.
+spicker.AIC.signalBegin = 5
+
+# End time of the S-phase detector relative to the triggering P pick.
+spicker.AIC.signalEnd = 60
+
+# Filter applied on the raw horizontal traces to compute the L2 trace. As a
+# minimum remove offsets. S-AIC-V, filters the raw vertical trace computing the
+# filtered vertical trace.
+spicker.AIC.filter = "ITAPER(4)>>BW(3,3,8)"
+
+# Filter applied on the L2 trace before detection (S-AIC) or filtered vertical
+# trace (S-AIC-V). For S-AIC-V either configure filter or detecFilter.
+spicker.AIC.detecFilter = ""
+
+# The AIC time window stepping in seconds. For every step the window is
+# expanded by step and the AIC is computed.
+spicker.AIC.step = 1
+
+# Mininum SNR as returned from AIC for accepting a detection.
+spicker.AIC.minSNR = 5
+
+# Minimum number of hits for a particular pick time when the running AIC is
+# computed for accepting a detection.
+spicker.AIC.minCnt = 3
+
+# Defines the pick time uncertainty. Either a symmetric uncertainty as single
+# number or an asymmetric uncertainty in the following format: "(0.5,0.25)".
+# The first value: uncertainty befor the pick, second value: uncertainty after
+# the pick.
+spicker.AIC.uncertainty = ""
+
+# Override the relative data acquisition time (relative to the triggering
+# pick). This adds a margin to the actual processing and is useful to
+# initialize the filter (Example: bandpass). The data is not used at all until
+# signalBegin is reached. The data time window start is the minimum of
+# noiseBegin and signalBegin.
+picker.AIC.noiseBegin = -10
+
+# Override the default time (relative to the trigger time) of the begin of the
+# signal window used to pick.
+picker.AIC.signalBegin = -5
+
+# Override the default time (relative to the trigger time) of the begin of the
+# signal window used to pick.
+picker.AIC.signalEnd = 5
+
+# Override the default filter which is "raw". The typical filter grammar can be
+# used.
+picker.AIC.filter = "ITAPER(4)>>BW(3,3,8)"
+
+# Mininum SNR as returned from AIC for accepting picks.
+picker.AIC.minSNR = 4
+
+# Defines the filter to be used for picking.
+detecFilter = "RMHP(10)>>ITAPER(30)>>BW(4,3,8)>>STALTA(1,30)"
+
