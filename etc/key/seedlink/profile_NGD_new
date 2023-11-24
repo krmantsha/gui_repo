@@ -5,10 +5,7 @@ sources = NGD_new:q330
 sources.NGD_new.address = NGD
 
 # Source port to receive data packets.
-sources.NGD_new.port = 6330
-
-# Q330 dataport number (1-4).
-sources.NGD_new.slot = 4
+sources.NGD_new.port = 5330
 
 # Q330 serial number (with 0x prefix).
-sources.NGD_new.serial = 0x0335007560008066
+sources.NGD_new.serial = 0x0100000EBD6947D7

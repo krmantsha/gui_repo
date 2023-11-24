@@ -1,0 +1,8 @@
+# Activated plugins for category sources
+sources = MWC_old_Q330:q330
+
+# Hostname or IP.
+sources.MWC_old_Q330.address = MWC
+
+# Q330 serial number (with 0x prefix).
+sources.MWC_old_Q330.serial = 0x0100000EBD6947D7

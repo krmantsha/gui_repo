@@ -7,5 +7,8 @@ sources.CORB.address = CORB
 # Source port to receive data packets.
 sources.CORB.port = 6330
 
+# Q330 dataport number (1-4).
+sources.CORB.slot = 4
+
 # Q330 serial number (with 0x prefix).
 sources.CORB.serial = 0x0335007560008066

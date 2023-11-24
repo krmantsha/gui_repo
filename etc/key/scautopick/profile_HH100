@@ -1,0 +1,5 @@
+# Defines the filter to be used for picking.
+detecFilter = "RMHP(10)>>BW(4,3,40)>>STALTA(0.1,10)"
+
+# The time correction applied to a pick.
+timeCorr = 0

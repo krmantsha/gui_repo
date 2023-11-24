@@ -1,0 +1,8 @@
+# Defines the filter to be used for picking.
+detecFilter = "RMHP(10)>>BW(4,5,20)>>STALTA(0.2,10)"
+
+# For which value on the filtered waveform is a pick detected.
+trigOn = 3.5
+
+# The time correction applied to a pick.
+timeCorr = 0

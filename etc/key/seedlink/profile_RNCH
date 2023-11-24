@@ -1,8 +1,0 @@
-# Activated plugins for category sources
-sources = RNCH:q330
-
-# Hostname or IP.
-sources.RNCH.address = RNCH
-
-# Q330 serial number (with 0x prefix).
-sources.RNCH.serial = 0x010000044C8EBAF0
