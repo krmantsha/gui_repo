@@ -50,7 +50,7 @@ public:
     {
         if (CalculateAmplitudes->objectName().isEmpty())
             CalculateAmplitudes->setObjectName(QString::fromUtf8("CalculateAmplitudes"));
-        CalculateAmplitudes->resize(426, 450);
+        CalculateAmplitudes->resize(645, 624);
         vboxLayout = new QVBoxLayout(CalculateAmplitudes);
 #ifndef Q_OS_MAC
         vboxLayout->setSpacing(6);
@@ -69,7 +69,7 @@ public:
         hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
         label = new QLabel(CalculateAmplitudes);
         label->setObjectName(QString::fromUtf8("label"));
-        QSizePolicy sizePolicy(static_cast<QSizePolicy::Policy>(4), static_cast<QSizePolicy::Policy>(5));
+        QSizePolicy sizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
@@ -79,6 +79,11 @@ public:
 
         source = new QLabel(CalculateAmplitudes);
         source->setObjectName(QString::fromUtf8("source"));
+        QSizePolicy sizePolicy1(QSizePolicy::Ignored, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(source->sizePolicy().hasHeightForWidth());
+        source->setSizePolicy(sizePolicy1);
 
         hboxLayout->addWidget(source);
 
@@ -119,11 +124,11 @@ public:
 
         comboFilterType = new QComboBox(CalculateAmplitudes);
         comboFilterType->setObjectName(QString::fromUtf8("comboFilterType"));
-        QSizePolicy sizePolicy1(static_cast<QSizePolicy::Policy>(4), static_cast<QSizePolicy::Policy>(0));
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(comboFilterType->sizePolicy().hasHeightForWidth());
-        comboFilterType->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Maximum, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(comboFilterType->sizePolicy().hasHeightForWidth());
+        comboFilterType->setSizePolicy(sizePolicy2);
 
         hboxLayout1->addWidget(comboFilterType);
 
