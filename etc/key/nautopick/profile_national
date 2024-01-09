@@ -62,4 +62,3 @@ picker.AIC.minSNR = 4
 
 # Defines the filter to be used for picking.
 detecFilter = "RMHP(10)>>ITAPER(30)>>BW(4,3,8)>>STALTA(1,30)"
-

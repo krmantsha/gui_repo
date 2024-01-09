@@ -16,20 +16,6 @@ detecStream = HHZ
 # for computing MLv.
 magnitudes.MLv.logA0 = "0:-0.85,5:-1.46,10:-1.75,15:-1.94,20:-2.08,25:-2.20,30:-2.30,35:-2.39,40:-2.48,45:-2.56,50:-2.63,55:-2.71,60:-2.78,100:-3.0,400:-4.5,1000:-5.85"
 
-# This parameter allows to set how the amplitude is measured. Either by finding
-# the absolute maximum of the demeaned trace (AbsMax), the difference of
-# maximum and minimum of the signal window (MinMax) or the maximum peak-trough
-# of one cycle (PeakTrough).
-# Note that if absMax is already explicitly configured, this parameter has no
-# effect.
-amplitudes.MLv.measureType = AbsMax
-
-# The gain of the Wood-Anderson response.
-amplitudes.WoodAnderson.gain = 2080
-
-# The damping constant of the Wood-Anderson seismometer.
-amplitudes.WoodAnderson.h = 0.7
-
 # Start time of the signal processing relative to the triggering P pick. This
 # adds a margin to the actual processing and is useful to initialize the filter
 # (e.g. STALTA). The data is not used at all for detection until signalBegin is
@@ -59,3 +45,17 @@ spicker.AIC.minSNR = 3
 # Minimum number of hits for a particular pick time when the running AIC is
 # computed for accepting a detection.
 spicker.AIC.minCnt = 4
+
+# This parameter allows to set how the amplitude is measured. Either by finding
+# the absolute maximum of the demeaned trace (AbsMax), the difference of
+# maximum and minimum of the signal window (MinMax) or the maximum peak-trough
+# of one cycle (PeakTrough).
+# Note that if absMax is already explicitly configured, this parameter has no
+# effect.
+amplitudes.MLv.measureType = AbsMax
+
+# The gain of the Wood-Anderson response.
+amplitudes.WoodAnderson.gain = 2080
+
+# The damping constant of the Wood-Anderson seismometer.
+amplitudes.WoodAnderson.h = 0.7
