@@ -336,8 +336,11 @@ void NCompsOperator<T,N,PROC,BSIZE>::reset() {
 	// No reset while in processing
 	if ( _processing ) return;
 
-	for ( int i = 0; i < N; ++i )
+	for ( int i = 0; i < N; ++i ) {
 		_states[i] = State();
+	}
+
+	_proc.reset();
 }
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 

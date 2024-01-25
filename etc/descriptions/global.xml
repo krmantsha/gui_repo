@@ -23,7 +23,7 @@
 			<parameter name="author" type="string" default="@appname@@@@hostname@">
 				<description>
 				Author name used to set creationInfo.author in data model
-				objects. @appname@ is replace by the name of the
+				objects. @appname@ is replaced by the name of the
 				respective executable, @hostname@ by the name of the computer
 				on which it runs.
 				</description>
@@ -165,8 +165,8 @@
 						</parameter>
 						<parameter name="maxFileSize" type="int" default="104857600" unit="byte">
 							<description>
-							The maximum size of a logfile in byte. The default
-							value is 100 megabyte. If a logfile exceeds that
+							The maximum size of a log file in byte. The default
+							value is 100 megabyte. If a log file exceeds that
 							size, then it is rotated. To disable the size limit
 							give 0 or a negative value.
 							</description>
@@ -185,7 +185,7 @@
 						<description>
 						Define the syslog facility to be used according to the
 						defined facility names in syslog.h. The default is local0.
-						If the given name is invalid or not available, 
+						If the given name is invalid or not available,
 						initializing logging will fail and the application quits.
 						</description>
 					</parameter>
@@ -397,15 +397,36 @@
 			</group>
 			<group name="amplitudes">
 				<description>
-				Parameters of amplitude measurements.
+				Parameters for amplitude measurements.
 				</description>
+				<parameter name="iaspei" type="boolean" default="false">
+					<description>
+					Compute ML peak-to-trough and mb amplitudes according to
+					IASPEI recommendations.
+					</description>
+				</parameter>
+				<group name="ttt">
+					<description>
+					Travel time table specific parameters to be used for the
+					computation of travel times referred to in signal and
+					noise time window specifications,
+					e.g. &quot;signalBegin&quot;. This can be overridden per
+					station in its bindings.
+					</description>
+					<parameter name="interface" type="string" default="libtau">
+					</parameter>
+					<parameter name="model" type="string" default="iasp91">
+					</parameter>
+				</group>
 				<group name="WoodAnderson">
 					<description>
 					Parameters of the Wood-Anderson seismometer response used
-					for instrument simulation. The WA parameters can be overridden
-					per stream by global bindings.
+					for instrument simulation. The default values are according
+					to Uhrhammer and Collins (1990) and were part of the
+					IASPEI Magnitude Working Group recommendations of 2011
+					September 9.
 					</description>
-					<parameter name="gain" type="double" default="2800">
+					<parameter name="gain" type="double" default="2080">
 						<description>
 						The gain of the Wood-Anderson response.
 						</description>
@@ -415,7 +436,7 @@
 						The eigenperiod of the Wood-Anderson seismometer.
 						</description>
 					</parameter>
-					<parameter name="h" type="double" default="0.8">
+					<parameter name="h" type="double" default="0.7">
 						<description>
 						The damping constant of the Wood-Anderson seismometer.
 						</description>
@@ -424,11 +445,49 @@
 			</group>
 			<group name="magnitudes">
 				<description>
-				Magnitude configurations overriding global bindings.
-				Add regionalization by magnitude-type profiles. Profile
-				names correspond to magnitude types.
+				Parameters for computing magnitudes.
+				Add magnitude regionalization and mapping to Mw by magnitude-type profiles.
+				One profile corresponds to one magnitude type.
 				</description>
-				<struct type="Magnitude type profile">
+				<parameter name="aliases" type="list:string">
+					<description>
+					Definition of magnitude aliases for deriving new magnitude
+					types from existing magnitude and amplitude types. Separate
+					multiple entries by comma.
+
+					Format:
+
+					NewType:OriginalMagnitudeType[:OriginalAmplitudeType]
+
+					OriginalAmplitudeType is optional. The default amplitude
+					type applies if OriginalAmplitudeType is undefined.
+
+					Examples for deriving magnitude of new type ABC from MLv:
+
+					ABC:MLv:MLv
+
+					ABC:MLv
+
+					Alias magnitudes can be configured like any other magnitude.
+					</description>
+				</parameter>
+				<struct type="GlobalMagnitudeProfile" title="Magnitude-type profile for regionalization and Mw mapping" aliases="config:magnitudes.aliases">
+					<description>
+					Regionalization of magnitude configurations overriding global
+					bindings. For parameters which are not set, the values
+					defined in bindings apply.
+					</description>
+					<parameter name="MwMapping" type="list:string">
+						<description>
+						Mw magnitude mapping table for estimating Mw from network
+						magnitude M. Mw values are given at some M.
+
+						Format: &quot;M0:Mw0, M1:Mw1, ...&quot;.
+
+						Between two values of M, Mw values will be linearly
+						interpolated but not extrapolated.
+						</description>
+					</parameter>
 					<parameter name="regionFile" type="path">
 						<description>
 						Path to a geofeature file, e.g. in BNA or GeoJSON format,
@@ -443,17 +502,14 @@
 					</parameter>
 					<group name="region">
 						<description>
-						Add parameter profiles for regions defined in the
-						geofeature file. Profile names must match one polygon
-						name. Otherwise, the profile is not considered.
-						The special name &quot;world&quot; corresponds to the
-						region of the entire planet as a fallback.
-
-						Magnitude-specific parameters, e.g. calibration functions,
-						are adjusted in a separate section of  magnitudes with
-						the same name.
+						Add magnitude region profiles for regions defined by
+						polygons in the geofeature file of regionFile. Profile
+						names must match one polygon name. Otherwise, the
+						profile is not considered. The special name
+						&quot;world&quot; corresponds to the region of the
+						entire planet as a fallback.
 						</description>
-						<struct type="Magnitude region profile">
+						<struct type="GlobalMagnitudeRegionProfile" title="Magnitude region profile">
 							<parameter name="enable" type="boolean" default="false">
 								<description>
 								Enable the region or not.
@@ -481,7 +537,7 @@
 								<description>
 								The minimum depth required to compute a magnitude.
 								This settings has no effect with e.g. scautopick
-								as there is no information about the source of 
+								as there is no information about the source of
 								the event to retrieve the depth. The default
 								value is implementation specific.
 								</description>
@@ -490,7 +546,7 @@
 								<description>
 								The maximum depth allowed to compute a magnitude.
 								This settings has no effect with e.g. scautopick
-								as there is no information about the source of 
+								as there is no information about the source of
 								the event to retrieve the depth. The default
 								value is implementation specific.
 								</description>
@@ -501,7 +557,7 @@
 								a source receiver pair for further processing.
 								Allowed values are:
 
-								source: Only the source/origin must be within 
+								source: Only the source/origin must be within
 								the region.
 
 								source-receiver: Both source/origin and
@@ -511,13 +567,13 @@
 								and receiver/station must be withing the region.
 								</description>
 							</parameter>
-							<parameter name="multiplier" type="double" default="1">
+							<parameter name="multiplier" type="double">
 								<description>
 								Linear part of the default station correction
 								for this region.
 								</description>
 							</parameter>
-							<parameter name="offset" type="double" default="0">
+							<parameter name="offset" type="double">
 								<description>
 								Constant part of the default station correction
 								for this region.
@@ -560,7 +616,7 @@
 
 				<option flag="" long-flag="config-file" argument="arg" publicID="generic#config-file">
 					<description>
-					Use alternative configuration file. When this option is 
+					Use alternative configuration file. When this option is
 					used the loading of all stages is disabled. Only the
 					given configuration file is parsed and used. To use
 					another name for the configuration create a symbolic
@@ -651,7 +707,7 @@
 
 				<option flag="s" long-flag="syslog" argument="" publicID="verbosity#syslog">
 					<description>
-					Use syslog logging backend. The output usually goes to 
+					Use syslog logging backend. The output usually goes to
 					/var/lib/messages.
 					</description>
 				</option>
@@ -678,7 +734,7 @@
 				<option flag="" long-flag="trace" argument="" publicID="verbosity#trace">
 					<description>
 					Execute in trace mode.
-					Equivalent to --verbosity=4 --console=1 --print-component=1 
+					Equivalent to --verbosity=4 --console=1 --print-component=1
 					--print-context=1 .
 					</description>
 				</option>
@@ -734,7 +790,7 @@
 
 				<option flag="" long-flag="inventory-db" argument="arg" publicID="database#inventory-db">
 					<description>
-					Load the inventory from the given database or file, format: 
+					Load the inventory from the given database or file, format:
 					[service://]location .
 					</description>
 				</option>
@@ -861,14 +917,14 @@
 					Activate deconvolution for this station. If no responses are
 					configured, an error is raised and the data is not processed.
 					This flag will be overridden by the type specific flag
-					(see Amplitude type profile).
+					(see GlobalAmplitudeProfile).
 					</description>
 				</parameter>
 				<group name="resp">
 					<description>
 					Several parameters if usage of full responses is enabled.
 					The parameters of this group will be overridden by type
-					specific settings if given (see Amplitude type profile).
+					specific settings if given (see GlobalAmplitudeProfile).
 					</description>
 					<parameter name="taper" default="5" unit="s">
 						<description>
@@ -900,17 +956,27 @@
 						</description>
 					</parameter>
 				</group>
+				<group name="ttt">
+					<description>
+					Travel time table specific parameters to be used for the
+					computation of travel times referred to in signal and
+					noise time window specifications,
+					e.g. &quot;signalBegin&quot;.
+					</description>
+					<parameter name="interface" type="string" default="libtau">
+					</parameter>
+					<parameter name="model" type="string" default="iasp91">
+					</parameter>
+				</group>
 				<group name="WoodAnderson">
 					<description>
 					Parameters of the Wood-Anderson seismometer response used
-					for instrument simulation.
-					The default values are according to the version of
-					Gutenberg (1935). The newer version by Uhrhammer and
-					Collins (1990) is part of the IASPEI Magnitude
-					Working Group recommendations of 2011 September 9. This
-					version uses gain=2800, T0=0.8 s, h=0.8.
+					for instrument simulation. The default values are according
+					to Uhrhammer and Collins (1990) and were part of the
+					IASPEI Magnitude Working Group recommendations of 2011
+					September 9.
 					</description>
-					<parameter name="gain" type="double" default="2800">
+					<parameter name="gain" type="double" default="2080">
 						<description>
 						The gain of the Wood-Anderson response.
 						</description>
@@ -920,13 +986,13 @@
 						The eigenperiod of the Wood-Anderson seismometer.
 						</description>
 					</parameter>
-					<parameter name="h" type="double" default="0.8">
+					<parameter name="h" type="double" default="0.7">
 						<description>
 						The damping constant of the Wood-Anderson seismometer.
 						</description>
 					</parameter>
 				</group>
-				<struct type="Amplitude type profile">
+				<struct type="GlobalAmplitudeProfile" title="Amplitude type profile">
 					<description>
 					An amplitude profile configures global parameters for a
 					particular amplitude type. The available amplitude types
@@ -967,7 +1033,7 @@
 					</parameter>
 					<parameter name="minSNR" type="double">
 						<description>
-						Define the mininum SNR to be reached to compute the
+						Define the minimum SNR to be reached to compute the
 						amplitudes. This value is amplitude type specific and
 						has no global default value.
 						</description>
@@ -1094,10 +1160,10 @@
 			<group name="magnitudes">
 				<description>
 				Define magnitude parameters independent of amplitude-type profiles.
-				For magnitude correction parameters, e.g, network of station
+				For magnitude correction parameters, e.g., network of station
 				corrections, create a magnitude type profile.
 				</description>
-				<struct type="Magnitude type profile for corrections">
+				<struct type="GlobalBindingsMagnitudeTypeProfile" title="Magnitude type profile">
 					<description>
 					A magnitude profile configures global parameters for a
 					particular magnitude type. The available magnitude types
@@ -1178,7 +1244,7 @@
 					<description>
 					Bkpicker is an implementation of the Baer/Kradolfer picker
 					adapted to SeisComP. It was created by converting Manfred
-					Baers from Fortran to C++ and inserting it as a replacement
+					Baers from FORTRAN to C++ and inserting it as a replacement
 					for the picker algorithm. The picker interface name to be
 					used in configuration files, e.g. of scautopick,is
 					&quot;BK&quot;.
@@ -1207,7 +1273,7 @@
 					</parameter>
 					<parameter name="filterType" type="string" default="BP">
 						<description>
-						BP (Bandpass) is currently the only option.
+						BP (bandpass) is currently the only option.
 						</description>
 					</parameter>
 					<parameter name="filterPoles" type="int" default="2">
@@ -1252,7 +1318,7 @@
 					</description>
 					<parameter name="noiseBegin" type="double" default="-10" unit="s">
 						<description>
-						Override the relative data processing start time 
+						Override the relative data processing start time
 						(relative to the triggering pick). This adds a margin to
 						the actual processing and is useful to initialize the
 						filter (Example: bandpass). The data is not used at all

@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "SCAUTOLOC" "1" "Jan 18, 2024" "5.5.17" "SeisComP"
+.TH "SCAUTOLOC" "1" "Jan 18, 2024" "6.1.2" "SeisComP"
 .SH NAME
 scautoloc \- SeisComP Documentation
 .sp
@@ -35,33 +35,39 @@ scautoloc \- SeisComP Documentation
 .SH DESCRIPTION
 .sp
 scautoloc is the \fISeisComP\fP program responsible for automatically locating
-seismic events in near\-real time. It normally runs as a daemon continuously
-reading picks and amplitudes and processing them in real time. An offline
-mode is available as well. scautoloc reads automatic picks and several
-associated amplitudes. On that basis it tries to identify combinations of
-picks that correspond to a common seismic event. If the produced location
-meets certain consistency criteria, it is reported, i.e. passed on to other
-programs that take the origins as input.
+seismic events in near\-real time from \fI\%phase picks\fP considering
+\fI\%associated amplitudes\fP\&. It tries to identify combinations of
+picks that correspond to a common seismic or non\-seismic \fI\%event\fP\&. The
+picks are sent to \fI\%LOCSAT\fP for locating. If the
+produced location meets configurable consistency criteria, it is reported as an
+\fI\%origin\fP object , i.e. passed on to other programs that take the origins
+as input. Phase picks and amplitudes are usually created by \fI\%scautopick\fP
+but can also be provided by other means.
+.sp
+scautoloc normally runs as a \fI\%daemon\fP
+continuously reading picks and amplitudes and processing them in real time. An
+\fI\%offline mode\fP is available as well, e.g., for
+playbacks on demand.
 .SH LOCATION PROCEDURE
 .sp
 The procedure of scautoloc to identify and locate seismic events basically
 consists of the following steps:
 .SS Pick filtering
 .sp
-\fBscautoloc\fP receives and filters phase picks to generate
-\fI\%origins\fP\&. These phase picks are used by default if
+\fBscautoloc\fP receives and filters phase picks to
+generate \fI\%origins\fP\&. These phase picks are used by default if
 .INDENT 0.0
 .IP \(bu 2
 The phase hint is \(dqP\(dq,
 .IP \(bu 2
-\fBAnd\fP the evaluation mode is \(dqautomatic\(dq. The use of manual picks is controlled
-by \fI\%autoloc.useManualPicks\fP\&.
+\fBAnd\fP the evaluation mode is \(dqautomatic\(dq. The use of manual picks is
+controlled by \fI\%autoloc.useManualPicks\fP\&.
 .IP \(bu 2
 \fBAnd\fP the evaluation status is not \(dqrejected\(dq, can be overridden by
 \fB\-\-allow\-rejected\-picks\fP,
 .IP \(bu 2
-\fBAnd\fP \fI\%autoloc.authors\fP is empty or the author of the pick is listed in
-\fI\%autoloc.authors\fP
+\fBAnd\fP \fI\%autoloc.authors\fP is empty or the author of the pick is
+listed in \fI\%autoloc.authors\fP
 .IP \(bu 2
 \fBAnd\fP the picks are \fI\%accompanied by amplitudes\fP
 configured in \fI\%autoloc.amplTypeAbs\fP, \fI\%autoloc.amplTypeSNR\fP\&.
@@ -364,20 +370,35 @@ receives picks and amplitudes from there, but no results are sent back to
 the server. Log files are written as usual. This mode can be used to test
 new parameter settings before implementation in the real\-time system. It also
 provides a simple way to log picks from a real\-time system to the pick log.
+.SH DAEMON MODE
+.sp
+For running scautoloc continuously in the background as a daemon it must be
+enabled and started:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp enable scautoloc
+seiscomp start scautoloc
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
 .SH OFFLINE MODE
 .sp
 scautoloc normally runs as a daemon in the background, continuously reading
 picks and amplitudes and processing them in real time. However, scautoloc
 may also be operated in offline mode. This is useful for debugging. Offline
-mode is activated by adding the command\-line parameter  \-\e\-ep or \-\e\-offline.
-When operated in offline mode,
+mode is activated by adding the command\-line parameter  \fB\-\-ep\fP or
+\fB\-\-offline\fP\&. When operated in offline mode,
 scautoloc will not connect to the messaging. Instead, it reads picks from a
-\fI\%SCML\fP file provided with \-\e\-ep or from standard input in the pick file
+\fI\%SCML\fP file provided with \fB\-\-ep\fP or from standard input in the pick file
 format. The station coordinates are read from the inventory in the database or
 from the file either defined in \fI\%autoloc.stationLocations\fP or
 \-\e\-station\-locations .
 .sp
-Example for entries in a pick file:
+Example for entries in a pick file
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -412,7 +433,7 @@ time because of data latencies. In offline mode scautoloc will not connect to
 the database, in consequence the station coordinates cannot be read from the
 database and thus have to be supplied via a file. The station coordinates file
 has a simple format with one line per entry, consisting of 5 columns: network
-code, station code, latitude, longitude, elevation (in meters), e.g.,
+code, station code, latitude, longitude, elevation (in meters). Example:
 .INDENT 0.0
 .INDENT 3.5
 .sp

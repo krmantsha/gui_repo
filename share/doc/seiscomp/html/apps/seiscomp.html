@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+
+<html  lang="en">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>seiscomp &#8212; SeisComP Release documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+    <script type="text/javascript" src="../_static/seiscomp.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="sh2proc" href="sh2proc.html" />
+    <link rel="prev" title="sczip" href="sczip.html" /> 
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <div class="brand">
+          <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
+           <!-- span class="title">SeisComP Release</span -->
+          <span class="version">6.1.2</span>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <div class="container">
+        <div class="content"><a class="pull-right" id="sidebar-toggle">TOC</a>
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <ul>
+        <li class="right">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">
+            index
+          </a>
+        </li>
+        <li class="right">
+          <a href="sh2proc.html" title="sh2proc"
+             accesskey="N">
+            next
+          </a>
+        </li>
+        <li class="right">
+          <a href="sczip.html" title="sczip"
+             accesskey="P">
+            previous
+          </a>
+        </li>
+        <li class="nav-item nav-item-0">
+          <a href="../index.html">Home</a>
+        </li>
+        <li class="nav-item nav-item-1">
+          <a href="../modules.html" >Modules</a>
+        </li>
+        <li class="nav-item nav-item-2">
+          <a href="../toc/utilities.html" accesskey="U">Utilities</a>
+        </li> 
+      </ul>
+    </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="fitted content" id="anchors-container">
+        <div class="body" role="main">
+          
+  <section id="seiscomp">
+<span id="id1"></span><h1>seiscomp<a class="headerlink" href="#seiscomp" title="Permalink to this heading">¶</a></h1>
+<p><strong>SeisComP system control utility</strong></p>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
+<p>The tool <strong class="program">seiscomp</strong> allows controlling your <cite>SeisComP</cite> system on the
+command line. As other <cite>SeisComP</cite> modules it provides
+options and commands, e.g., the command <strong class="command">help</strong>. Apply
+<strong class="program">seiscomp</strong> to</p>
+<ul class="simple">
+<li><p>Install software dependencies,</p></li>
+<li><p>Print</p>
+<ul>
+<li><p>environment variables of the installed <cite>SeisComP</cite> system,</p></li>
+<li><p>internal <cite>SeisComP</cite> variables which can be used in configurations,</p></li>
+<li><p>suggestions for timed automatic actions, i.e. “<em>conjobs</em>”,</p></li>
+</ul>
+</li>
+<li><p>Make a basic setup including the <cite>SeisComP</cite> database,</p></li>
+<li><p>List daemon modules by categories,</p></li>
+<li><p>Enable or disable modules in order to start them by default,</p></li>
+<li><p>Start, stop, restart or reload single or multiple modules or all default
+modules,</p></li>
+<li><p>Check the status of module,</p></li>
+<li><p>Execute single or multiple modules or all default modules</p></li>
+<li><p>Print the run status of modules,</p></li>
+<li><p>Manage modules aliases,</p></li>
+<li><p>Update inventory or bindings configurations,</p></li>
+<li><p>Manage <span class="xref std std-ref">bindings</span> by a specific shell.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When executing <strong class="program">seiscomp</strong>, all actions refer to the <cite>SeisComP</cite>
+installation from within which <strong class="program">seiscomp</strong> is called. This allows
+to refer to a default but also to any other installed <cite>SeisComP</cite> system and to
+operate multiple <cite>SeisComP</cite> systems in parallel, e.g., for testing different
+versions or for running different projects. Then give the full path to the
+<strong class="program">seiscomp</strong> tools. Example:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">$HOME</span>/seiscomp-test/bin/seiscomp
+</pre></div>
+</div>
+</div>
+<p>Many of these actions are used by <a class="reference internal" href="scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a></p>
+</section>
+<section id="help">
+<span id="sec-seiscomp-help"></span><h2>Help<a class="headerlink" href="#help" title="Permalink to this heading">¶</a></h2>
+<p>Use the command <strong class="command">help</strong> for learning about the full set of options and
+other commands including examples:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span><span class="nb">help</span>
+</pre></div>
+</div>
+</section>
+<section id="applications">
+<span id="sec-seiscomp-applications"></span><h2>Applications<a class="headerlink" href="#applications" title="Permalink to this heading">¶</a></h2>
+<section id="software-dependencies">
+<span id="sec-seiscomp-sw-deps"></span><h3>Software dependencies<a class="headerlink" href="#software-dependencies" title="Permalink to this heading">¶</a></h3>
+<p>Software dependencies should be installed after installation or updates of
+<cite>SeisComP</cite>. You may install dependencies on different levels, e.g., <em>base</em>,
+<em>gui</em>, <em>fdswnws</em>, <em>[database]-server</em>. Examples:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>install-deps<span class="w"> </span>base
+seiscomp<span class="w"> </span>install-deps<span class="w"> </span>base<span class="w"> </span>gui<span class="w"> </span>mariadb-server
+</pre></div>
+</div>
+<p>Alternatively run the shell scripts for your Linux flavor and version located in
+<code class="file docutils literal notranslate"><span class="pre">seiscomp/share/deps/</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For making a full installation and setup follow the instructions starting
+with section <a class="reference internal" href="../base/installation.html#installation"><span class="std std-ref">SeisComP Installation</span></a>.</p>
+</div>
+</section>
+<section id="print">
+<span id="sec-seiscomp-print"></span><h3>Print<a class="headerlink" href="#print" title="Permalink to this heading">¶</a></h3>
+<p>You may print the environment variables related to your considered <cite>SeisComP</cite>
+installation, internal <cite>SeisComP</cite> variables or suggestions for timed automatic
+procedures. Examples:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>print<span class="w"> </span>env
+<span class="nv">$HOME</span>/seiscomp-test/bin/seiscomp<span class="w"> </span>print<span class="w"> </span>env
+seiscomp<span class="w"> </span>print<span class="w"> </span>variables
+seiscomp<span class="w"> </span>print<span class="w"> </span>crontab
+</pre></div>
+</div>
+<p>Add the environment variables to your shell configuration for making them known
+user wide. Internal variables are resolved when applying them in user
+configurations. For adjusting, adding or removing <strong class="program">crontab</strong> listings
+execute:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>man<span class="w"> </span>crontab
+crontab<span class="w"> </span>-e
+</pre></div>
+</div>
+</section>
+<section id="basic-setup">
+<span id="sec-seiscomp-setup"></span><h3>Basic setup<a class="headerlink" href="#basic-setup" title="Permalink to this heading">¶</a></h3>
+<p>Make a basic setup of your <cite>SeisComP</cite> system interactively after installation.
+This will also allow you to generate a database or to configure the connection
+to an existing one. Run, e.g.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>setup
+<span class="nv">$HOME</span>/seiscomp-test/bin/seiscomp<span class="w"> </span>setup
+</pre></div>
+</div>
+</section>
+<section id="list">
+<span id="sec-seiscomp-list"></span><h3>List<a class="headerlink" href="#list" title="Permalink to this heading">¶</a></h3>
+<p>List modules which can be started to run as background daemon modules by
+categories. Examples:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>list<span class="w"> </span>modules
+seiscomp<span class="w"> </span>list<span class="w"> </span>enabled
+seiscomp<span class="w"> </span>list<span class="w"> </span>started
+</pre></div>
+</div>
+</section>
+<section id="enable-disable">
+<span id="sec-seiscomp-enable"></span><h3>Enable/disable<a class="headerlink" href="#enable-disable" title="Permalink to this heading">¶</a></h3>
+<p>Enabled modules will be started to run as a background daemon module.
+You may enable or disable one or multiple modules. Examples:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>scautopick
+seiscomp<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>scautopick<span class="w"> </span>scautoloc
+seiscomp<span class="w"> </span>disable<span class="w"> </span>scautopick<span class="w"> </span>scautoloc
+</pre></div>
+</div>
+</section>
+<section id="start-stop-restart-reload">
+<span id="sec-seiscomp-start"></span><h3>Start/stop/restart/reload<a class="headerlink" href="#start-stop-restart-reload" title="Permalink to this heading">¶</a></h3>
+<p>Start all enabled modules:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>start
+</pre></div>
+</div>
+<p>Stop all modules and start all enabled modules:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>restart
+</pre></div>
+</div>
+<p>Start/stop/restart specific modules</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>start<span class="w"> </span>scautopick<span class="w"> </span>scautoloc
+seiscomp<span class="w"> </span>stop<span class="w"> </span>scautopick<span class="w"> </span>scautoloc
+seiscomp<span class="w"> </span>restart<span class="w"> </span>scautopick<span class="w"> </span>scautoloc
+</pre></div>
+</div>
+<p>In order to apply configurations, a module must be (re)started since it reads
+any configuration only during startup. Restarts will create downtimes and should
+be avoided as much as possible. In order to minimize downtimes, some modules
+may apply changes in configuration by reloading during runtime without
+restarting. For reloading you may use the command <strong class="command">seiscomp reload</strong>.
+The application of reloading is therefore restricted to a limited range of
+modules and parameters.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Graphical modules such as <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a> cannot be operated as background
+daemon modules. Therefore, they cannot be started but they can
+be <a class="reference internal" href="#sec-seiscomp-execute"><span class="std std-ref">executed</span></a>.</p>
+</div>
+</section>
+<section id="check">
+<span id="sec-seiscomp-check"></span><h3>Check<a class="headerlink" href="#check" title="Permalink to this heading">¶</a></h3>
+<p>When modules stop unexpectedly, they are not stopped in a clean way. Such
+stopped modules may be detected and started again in order to minimize
+downtimes. Apply the <strong class="command">check</strong> command to all or specific modules.
+Examples:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>check
+seiscomp<span class="w"> </span>check<span class="w"> </span>scautopick
+</pre></div>
+</div>
+</section>
+<section id="execute">
+<span id="sec-seiscomp-execute"></span><h3>Execute<a class="headerlink" href="#execute" title="Permalink to this heading">¶</a></h3>
+<p>Instead of running daemon modules you may execute modules in a terminal and
+observe the output, e.g., for debugging or for applying command-line options.
+Examples:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>scolv<span class="w"> </span>--debug
+seiscomp<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>scautopick<span class="w"> </span>--debug
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When all relevant system environment variables point to the same <cite>SeisComP</cite>
+installation from where seiscomp is executed, then it is enough to execute
+modules by their names replacing the above:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scolv<span class="w"> </span>--debug
+scautopick<span class="w"> </span>--debug
+</pre></div>
+</div>
+</div>
+</section>
+<section id="status">
+<span id="sec-seiscomp-status"></span><h3>Status<a class="headerlink" href="#status" title="Permalink to this heading">¶</a></h3>
+<p>List the status of all, enabled, disabled, started, or specific modules.
+Examples:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>status
+seiscomp<span class="w"> </span>status<span class="w"> </span>enabled
+seiscomp<span class="w"> </span>status<span class="w"> </span>disabled
+seiscomp<span class="w"> </span>status<span class="w"> </span>started
+seiscomp<span class="w"> </span>status<span class="w"> </span>scautopick
+</pre></div>
+</div>
+<p>:command:status` will report modules which terminated due to errors.</p>
+</section>
+<section id="module-aliases">
+<span id="sec-seiscomp-aliases"></span><h3>Module Aliases<a class="headerlink" href="#module-aliases" title="Permalink to this heading">¶</a></h3>
+<p>For some <cite>SeisComP</cite> modules aliases can be generated allowing the separate
+execution with specific configurations in parallel the original module
+and even in separate pipeline with specific message groups.
+Using the <strong class="command">alias</strong> command aliases modules can be created or removed.
+Examples for creating or removing the alias <strong class="program">l1autopick</strong> to
+<a class="reference internal" href="scautopick.html#scautopick"><span class="std std-ref">scautopick</span></a>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span><span class="nb">alias</span><span class="w"> </span>create<span class="w"> </span>l1autopick<span class="w"> </span>scautopick
+seiscomp<span class="w"> </span><span class="nb">alias</span><span class="w"> </span>remove<span class="w"> </span>l1autopick
+</pre></div>
+</div>
+<p>When creating aliases, soft links to the original module executable files, the
+default configuration and the init files are created. The alias itself is
+registered in <code class="file docutils literal notranslate"><span class="pre">SEISCOMP_ROOT/etc/descriptions/aliases</span></code>. If a module does
+not allow creating aliases a notification is printed. Example:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span><span class="nb">alias</span><span class="w"> </span>create<span class="w"> </span>scolv1<span class="w"> </span>scolv
+error:<span class="w"> </span>module<span class="w"> </span><span class="s1">&#39;scolv&#39;</span><span class="w"> </span>not<span class="w"> </span>found
+</pre></div>
+</div>
+<p>After creating aliases, they may be configured and operated in the same way as
+the original module.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The length of alias names for modules considering
+<a class="reference internal" href="../base/concepts/configuration.html#global-bindings-config"><span class="std std-ref">bindings</span></a> is strictly limited to 20 characters.</p>
+</div>
+<p>When removing aliases, all links and the alias registration are removed but
+possibly existing module or binding configurations remained unchanged. The
+option <code class="xref std std-option docutils literal notranslate"><span class="pre">--interactive</span></code> allows removing these configurations
+interactively.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>--interactive<span class="w"> </span><span class="nb">alias</span><span class="w"> </span>remove<span class="w"> </span>l1autopick
+</pre></div>
+</div>
+</section>
+<section id="update-configuration">
+<span id="sec-seiscomp-update"></span><h3>Update configuration<a class="headerlink" href="#update-configuration" title="Permalink to this heading">¶</a></h3>
+<p>The command <strong class="command">update-config</strong> allows reading bindings configurations from
+the standard <code class="file docutils literal notranslate"><span class="pre">&#64;KEYDIR&#64;</span></code> directory as well as inventory from
+<code class="file docutils literal notranslate"><span class="pre">&#64;SYSTEMCONFIGDIR&#64;/inventory</span></code> and sending them to the messaging for
+storing in the database or for generating the configuration of
+<a class="reference internal" href="../base/glossary.html#term-standalone-module"><span class="xref std std-term">standalone modules</span></a>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>update-config
+</pre></div>
+</div>
+<p>Executing <strong class="command">seiscomp update-config</strong> involves:</p>
+<ul class="simple">
+<li><p>Merging inventory,</p></li>
+<li><p>Sending inventory updates to the messaging,</p></li>
+<li><p>Synchronisation of inventory, key files and bindings,</p></li>
+<li><p>Sending any updates of bindings to the messaging,</p></li>
+<li><p>Generation of configuration for <a class="reference internal" href="../base/glossary.html#term-standalone-module"><span class="xref std std-term">standalone modules</span></a>.</p></li>
+</ul>
+<p>The command can therefore be rater time consuming. For speeding up you may be
+more specific:</p>
+<ul>
+<li><p>Only update global bindings and all <a class="reference internal" href="../base/glossary.html#term-trunk"><span class="xref std std-term">trunk</span></a> modules without inventory</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>update-config<span class="w"> </span>trunk
+</pre></div>
+</div>
+</li>
+<li><p>Update only inventory</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>update-config<span class="w"> </span>inventory
+</pre></div>
+</div>
+</li>
+<li><p>Update bindings of <a class="reference internal" href="scautopick.html#scautopick"><span class="std std-ref">scautopick</span></a> only</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>update-config<span class="w"> </span>scautopick
+</pre></div>
+</div>
+<p>The command may be similarly applied to any other  module considering
+bindings.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Instead of reading bindings configurations from the standard &#64;KEYDIR&#64;
+directory, the module <a class="reference internal" href="bindings2cfg.html#bindings2cfg"><span class="std std-ref">bindings2cfg</span></a> can read bindings from any key
+directory and write the Config parameters to <a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> or send them to
+the messaging.</p>
+</div>
+</section>
+</section>
+<section id="seiscomp-shell">
+<span id="sec-seiscomp-shell"></span><h2>seiscomp Shell<a class="headerlink" href="#seiscomp-shell" title="Permalink to this heading">¶</a></h2>
+<p>The seiscomp shell is a special environment, e.g., allowing to control
+<a class="reference internal" href="../base/glossary.html#term-binding"><span class="xref std std-term">bindings</span></a> of <a class="reference internal" href="../base/glossary.html#term-module"><span class="xref std std-term">modules</span></a> to stations.</p>
+<p>Applications are:</p>
+<ul class="simple">
+<li><p>Create or remove station bindings,</p></li>
+<li><p>Create or remove binding profiles,</p></li>
+<li><p>Remove binding profiles.</p></li>
+</ul>
+<p>Invoke <strong class="program">seiscomp</strong> along with the  <strong class="command">shell</strong> command to start the
+shell:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span><span class="nv">shell</span>
+
+
+<span class="w">  </span><span class="o">================================================================================</span>
+<span class="w">  </span>SeisComP<span class="w"> </span><span class="nv">shell</span>
+<span class="w">  </span><span class="o">================================================================================</span>
+
+<span class="w">  </span>Welcome<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>SeisComP<span class="w"> </span>interactive<span class="w"> </span>shell.<span class="w"> </span>You<span class="w"> </span>can<span class="w"> </span>get<span class="w"> </span><span class="nb">help</span><span class="w"> </span>about
+<span class="w">  </span>available<span class="w"> </span>commands<span class="w"> </span>with<span class="w"> </span><span class="s1">&#39;help&#39;</span>.<span class="w"> </span><span class="s1">&#39;exit&#39;</span><span class="w"> </span>leaves<span class="w"> </span>the<span class="w"> </span>shell.
+
+<span class="w">  </span>$
+</pre></div>
+</div>
+<p>The full list of shell control commands are printed along with the help of the
+seiscomp shell:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">================================================================================</span>
+SeisComP<span class="w"> </span><span class="nv">shell</span>
+<span class="o">================================================================================</span>
+
+Welcome<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>SeisComP<span class="w"> </span>interactive<span class="w"> </span>shell.<span class="w"> </span>You<span class="w"> </span>can<span class="w"> </span>get<span class="w"> </span><span class="nb">help</span><span class="w"> </span>about
+available<span class="w"> </span>commands<span class="w"> </span>with<span class="w"> </span><span class="s1">&#39;help&#39;</span>.<span class="w"> </span><span class="s1">&#39;exit&#39;</span><span class="w"> </span>leaves<span class="w"> </span>the<span class="w"> </span>shell.
+
+$<span class="w"> </span><span class="nb">help</span>
+Commands:
+<span class="w">  </span>list<span class="w"> </span>stations
+<span class="w">    </span>Lists<span class="w"> </span>all<span class="w"> </span>available<span class="w"> </span>stations<span class="w"> </span>keys.
+
+<span class="w">  </span>list<span class="w"> </span>profiles<span class="w"> </span><span class="o">{</span>mod<span class="o">}</span>
+<span class="w">    </span>Lists<span class="w"> </span>all<span class="w"> </span>available<span class="w"> </span>profiles<span class="w"> </span>of<span class="w"> </span>a<span class="w"> </span>module.
+
+...
+</pre></div>
+</div>
+</section>
+<section id="command-line-options">
+<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this heading">¶</a></h2>
+<p><strong class="program">seiscomp [flags] command(s) [argument(s)]</strong></p>
+<section id="flags">
+<h3>Flags<a class="headerlink" href="#flags" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-seiscomp-asroot">
+<span class="sig-name descname"><span class="pre">--asroot</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-seiscomp-asroot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allow running a command as root.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-seiscomp-csv">
+<span class="sig-name descname"><span class="pre">--csv</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-seiscomp-csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print output as CSV in machine-readable format.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-seiscomp-i">
+<span id="cmdoption-seiscomp-interactive"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--interactive</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-seiscomp-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interactive mode: Allow deleting files interactively when
+removing aliases.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-seiscomp-wait">
+<span class="sig-name descname"><span class="pre">--wait</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-seiscomp-wait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define a timeout in seconds for acquiring the seiscomp lock
+file, e.g., <cite>seiscomp --wait 10 update-config</cite>.</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+          <div id="anchors-bottom"></div>
+        </div>
+        
+      <div class="sidebar" role="navigation" aria-label="main navigation">
+        <div id="anchors-top"></div>
+        <div id="anchors" class="content">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">seiscomp</a><ul>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#help">Help</a></li>
+<li><a class="reference internal" href="#applications">Applications</a><ul>
+<li><a class="reference internal" href="#software-dependencies">Software dependencies</a></li>
+<li><a class="reference internal" href="#print">Print</a></li>
+<li><a class="reference internal" href="#basic-setup">Basic setup</a></li>
+<li><a class="reference internal" href="#list">List</a></li>
+<li><a class="reference internal" href="#enable-disable">Enable/disable</a></li>
+<li><a class="reference internal" href="#start-stop-restart-reload">Start/stop/restart/reload</a></li>
+<li><a class="reference internal" href="#check">Check</a></li>
+<li><a class="reference internal" href="#execute">Execute</a></li>
+<li><a class="reference internal" href="#status">Status</a></li>
+<li><a class="reference internal" href="#module-aliases">Module Aliases</a></li>
+<li><a class="reference internal" href="#update-configuration">Update configuration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#seiscomp-shell">seiscomp Shell</a></li>
+<li><a class="reference internal" href="#command-line-options">Command-Line Options</a><ul>
+<li><a class="reference internal" href="#flags">Flags</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="sczip.html"
+                          title="previous chapter">sczip</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="sh2proc.html"
+                          title="next chapter">sh2proc</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/apps/seiscomp.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <div class="horizontal layout content">
+        <a class="fade-in" href="https://www.gempa.de" target="_blank">
+          <img class="brand" src="../_static/brands/gempa.svg"/>
+        </a>
+        <div class="stretched align-center fitted content">
+          <div>
+		  Version <b>6.1.2</b> Release
+          </div>
+            <div class="copyright">
+              Copyright &copy; gempa GmbH, GFZ Potsdam.
+            </div>
+        </div>
+        <a class="fade-in" href="https://www.gfz-potsdam.de" target="_blank">
+          <img class="brand" src="../_static/brands/gfz.svg"/>
+        </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

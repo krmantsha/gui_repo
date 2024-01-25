@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "SCART" "1" "Jan 18, 2024" "5.5.17" "SeisComP"
+.TH "SCART" "1" "Jan 18, 2024" "6.1.2" "SeisComP"
 .SH NAME
 scart \- SeisComP Documentation
 .sp
@@ -84,7 +84,15 @@ In dump and import mode output streams may be filtered by
 Time windows (\fB\-t\fP),
 .IP \(bu 2
 Network\-station\-location\-channel (NSLC) lists (\fB\-\-nslc\fP) created,
-e.g., with \fI\%scinv\fP from inventories.
+e.g., with
+.INDENT 2.0
+.IP \(bu 2
+\fI\%scinv\fP from inventories,
+.IP \(bu 2
+\fI\%scdumpcfg\fP from bindings configuration,
+.IP \(bu 2
+scart itself from other miniSEED files or achives.
+.UNINDENT
 .UNINDENT
 .sp
 In dump mode output streams may also be filtered by
@@ -116,7 +124,8 @@ plugins = xyz
 .INDENT 0.0
 .INDENT 3.5
 The usage of wildcards in place of network, station, location or channel code
-is allowed in many options (\-n, \-c, \-l, \-\-list, \-\-nslc) and follows these rules:
+is allowed in many options (\fB\-n\fP, \fB\-c\fP, \fB\-l\fP,
+\fB\-\-list\fP, \fB\-\-nslc\fP) and follows these rules:
 .INDENT 0.0
 .IP \(bu 2
 Import mode: the wildcards are passed to the \fI\%RecordStream\fP interface,
@@ -390,11 +399,11 @@ or by providing multiple \-\-rename options.
 .TP
 .B \-s, \-\-sort
 Dump mode: Sort records by [start\-]time. To sort records by their
-endtime use \-E.
+end time use \-E.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-speed
+.B \-\-speed value
 Dump mode: Specify the speed to dump the records. A value of 0 means
 no delay otherwise speed is a multiplier of the real time difference
 between the records. When feeding the records directly into the replay
@@ -402,7 +411,7 @@ pipe a value of 1 (real time) is recommended.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-t timeWindow
+.B \-t, \-\-time\-window timeWindow
 Import, dump mode: Specify the time window (as one properly
 quoted string) to dump records for. Times are UTC and
 separated by a tilde \(dq~\(dq. To dump one hour of

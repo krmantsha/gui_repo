@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -89,7 +89,7 @@ is equal to the CLI (command line interface) applications.</p>
 <span id="sec-gui-styles"></span><h2>Styling<a class="headerlink" href="#styling" title="Permalink to this heading">¶</a></h2>
 <p>To adjust the look-and-feel to the host desktop system and the personal taste
 several styling options are available. Since all GUI applications are using the
-Qt4 or QT5 library, the tool “qtconfig-qt4” can used to adjust the widget theme and the
+Qt library, the tool “qtconfig” can used to adjust the widget theme and the
 colors. If KDE is used as desktop system, the same style is used since KDE
 bases on Qt as well.</p>
 <p>The style options supported by <cite>SeisComP</cite> (and not covered by the general Qt setup)
@@ -473,7 +473,7 @@ string and one point:</p>
 <section id="layer-configuration">
 <span id="sec-gui-layers-config"></span><h4>Layer configuration<a class="headerlink" href="#layer-configuration" title="Permalink to this heading">¶</a></h4>
 <p>Layers may be grouped into categories and form a hierarchy. The categories of the
-geo feature data are derived from the feature directory structure, i.e. the names
+geo feature data are derived from the feature directory structure, i.e., the names
 of the directories below the feature directory, e.g., <code class="file docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/spatial/vector</span></code>.
 Feature data directly located within the feature directory have no special category.
 The FEP data set is assigned to the fep category.</p>
@@ -620,8 +620,10 @@ sorted by their index in ascending order.</p>
 <span class="sig-name descname"><span class="pre">legendArea</span></span><a class="headerlink" href="#confval-legendArea" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>The area in the map where the legend will be displayed.
-Valid values are <em>topleft</em>, <em>topright</em>, <em>bottomleft</em> and
-<em>bottomright</em>.</p>
+Valid values are
+<em>topleft</em>, <em>topcenter</em>, <em>topright</em>,
+<em>centerleft</em>, <em>center</em>, <em>centerright</em>,
+<em>bottomleft</em>, <em>bottomcenter</em> and <em>bottomright</em>.</p>
 <p>Default is <code class="docutils literal notranslate"><span class="pre">topleft</span></code>.</p>
 </dd></dl>
 
@@ -653,19 +655,19 @@ Default is <code class="docutils literal notranslate"><span class="pre">1</span>
 <dt class="sig sig-object std" id="confval-roughness">
 <span class="sig-name descname"><span class="pre">roughness</span></span><a class="headerlink" href="#confval-roughness" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
-<p>Sets the roughness of a polyline or polygon while zooming. The roughness
-is somehow defined in pixels and removes successive vertices if the distance
-in pixel is less than roughness. The higher the value the less vertices
-a rendered polyline or polygon will finally have and the faster the rendering.
-If set to 0 then the feature is disabled.
-Default is <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p>
+<p>Sets the roughness of a polyline or polygon in pixels. The higher the value
+the less vertices are rendered. A vertex is skipped if its pixel distance to
+the previous vertex is less than roughness. In any case the first and last
+vertex of a feature or subfeaure is drawn.</p>
+<p>Default is <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p>
 </dd></dl>
 
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-symbol.size">
 <span class="sig-name descname"><span class="pre">symbol.size</span></span><a class="headerlink" href="#confval-symbol.size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>int</em></p>
-<p>In case of single points, this specifies the size of the symbol in pixels.</p>
+<p>The size of a symbol in pixels. Requires either <a class="reference internal" href="#confval-symbol.shape"><code class="xref std std-confval docutils literal notranslate"><span class="pre">symbol.shape</span></code></a> or
+<a class="reference internal" href="#confval-symbol.icon"><code class="xref std std-confval docutils literal notranslate"><span class="pre">symbol.icon</span></code></a> to be configured.</p>
 <p>Default is <code class="docutils literal notranslate"><span class="pre">8</span></code>.</p>
 </dd></dl>
 
@@ -673,18 +675,21 @@ Default is <code class="docutils literal notranslate"><span class="pre">3</span>
 <dt class="sig sig-object std" id="confval-symbol.shape">
 <span class="sig-name descname"><span class="pre">symbol.shape</span></span><a class="headerlink" href="#confval-symbol.shape" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
-<p>In case of single points, this specifies the shape of the symbol. Valid
-values are <em>circle</em> and <em>square</em>.</p>
-<p>Default is <code class="docutils literal notranslate"><span class="pre">circle</span></code>.</p>
+<p>Instead of drawing points, lines or polygons, the given shape is rendered
+for each vertex of a feature. Supported values are <em>circle</em>, <em>triangle</em>,
+<em>square</em>, <em>diamond</em> and <em>none</em>. The shape is scaled to
+<a class="reference internal" href="#confval-symbol.size"><code class="xref std std-confval docutils literal notranslate"><span class="pre">symbol.size</span></code></a>.</p>
 </dd></dl>
 
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-symbol.icon">
 <span class="sig-name descname"><span class="pre">symbol.icon</span></span><a class="headerlink" href="#confval-symbol.icon" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
-<p>In case of single points this specifies the path to an image used as
-icon to represent the map location. The image is scaled to <a class="reference internal" href="#confval-symbol.size"><code class="xref std std-confval docutils literal notranslate"><span class="pre">symbol.size</span></code></a>
-if it is larger than zero otherwise the origin size is being used.</p>
+<p>Instead of drawing points, lines or polygons, the given icon is rendered for
+each vertex of a feature. If the string starts on a <code class="docutils literal notranslate"><span class="pre">/</span></code> it is interpreted as
+an absolute path else it is resolved relative to the directory containing the
+vector data. The image is scaled to <a class="reference internal" href="#confval-symbol.size"><code class="xref std std-confval docutils literal notranslate"><span class="pre">symbol.size</span></code></a> if <code class="docutils literal notranslate"><span class="pre">size</span></code> is
+larger than zero otherwise the original image size is used.</p>
 </dd></dl>
 
 <dl class="std confval">
@@ -704,6 +709,26 @@ location longitude. This coordinate is in unscaled image space.</p>
 location latitude. This coordinate is in unscaled image space
 starting at top.</p>
 <p>Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-symbol.name.alignment">
+<span class="sig-name descname"><span class="pre">symbol.name.alignment</span></span><a class="headerlink" href="#confval-symbol.name.alignment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Alignment of the symbols name used in combination with <a class="reference internal" href="#confval-drawName"><code class="xref std std-confval docutils literal notranslate"><span class="pre">drawName</span></code></a>,
+<a class="reference internal" href="#confval-symbol.size"><code class="xref std std-confval docutils literal notranslate"><span class="pre">symbol.size</span></code></a> and <a class="reference internal" href="#confval-symbol.name.margin"><code class="xref std std-confval docutils literal notranslate"><span class="pre">symbol.name.margin</span></code></a>. Valid values are
+<em>topleft</em>, <em>topcenter</em>, <em>topright</em>,
+<em>centerleft</em>, <em>center</em>, <em>centerright</em>,
+<em>bottomleft</em>, <em>bottomcenter</em> and <em>bottomright</em>.</p>
+<p>Default is <code class="docutils literal notranslate"><span class="pre">topcenter</span></code>.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-symbol.name.margin">
+<span class="sig-name descname"><span class="pre">symbol.name.margin</span></span><a class="headerlink" href="#confval-symbol.name.margin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>int</em></p>
+<p>Margin in pixel between symbol and its name.</p>
+<p>Default is <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p>
 </dd></dl>
 
 <dl class="std confval">
@@ -1196,6 +1221,15 @@ e.g. &quot;GEOFON:black, USGS:blue&quot;.</p>
 </dd></dl>
 
 <dl class="std confval">
+<dt class="sig sig-object std" id="confval-scheme.colors.spectrogram">
+<span class="sig-name descname"><span class="pre">scheme.colors.spectrogram</span></span><a class="headerlink" href="#confval-scheme.colors.spectrogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>gradient</em></p>
+<p>The color gradient of the spectrogram amplitudes.
+The node values are not important as they will be
+projected onto the desired amplitude range.</p>
+</dd></dl>
+
+<dl class="std confval">
 <dt class="sig sig-object std" id="confval-scheme.colors.map.lines">
 <span class="sig-name descname"><span class="pre">scheme.colors.map.lines</span></span><a class="headerlink" href="#confval-scheme.colors.map.lines" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>color</em></p>
@@ -1243,6 +1277,37 @@ connecting the origin and a station).</p>
 <span class="sig-name descname"><span class="pre">scheme.colors.map.cityNormal</span></span><a class="headerlink" href="#confval-scheme.colors.map.cityNormal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>color</em></p>
 <p>The color of a &quot;normal&quot; city.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>scheme.colors.map.directivity.*</strong>
+<em>Defines the pen of the directivity information</em>
+<em>(backazimuth and slowness) in the map.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-scheme.colors.map.directivity.color">
+<span class="sig-name descname"><span class="pre">scheme.colors.map.directivity.color</span></span><a class="headerlink" href="#confval-scheme.colors.map.directivity.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">FFA000</span></code></p>
+<p>Type: <em>color</em></p>
+<p>The color of the pen.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-scheme.colors.map.directivity.style">
+<span class="sig-name descname"><span class="pre">scheme.colors.map.directivity.style</span></span><a class="headerlink" href="#confval-scheme.colors.map.directivity.style" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">DotLine</span></code></p>
+<p>Type: <em>string</em></p>
+<p>The style of the pen. Supported values are: NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-scheme.colors.map.directivity.width">
+<span class="sig-name descname"><span class="pre">scheme.colors.map.directivity.width</span></span><a class="headerlink" href="#confval-scheme.colors.map.directivity.width" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>px</em></p>
+<p>The width of the pen.</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -2326,7 +2391,7 @@ bottom.</p>
 <p class="admonition-title">Note</p>
 <p><strong>scheme.fonts.base.*</strong>
 <em>The general base font of an application. This overrides</em>
-<em>the default Qt4 application font.</em></p>
+<em>the default Qt application font.</em></p>
 </div>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-scheme.fonts.base.family">
@@ -3669,7 +3734,7 @@ text color in case of an active alert. E.g. &quot;0:00FF00,900:FF0000&quot;.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

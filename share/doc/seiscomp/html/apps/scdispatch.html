@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -79,43 +79,106 @@ to the messaging system.</strong></p>
 <section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
 <p>scdispatch reads an <a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> file and creates notifier objects for them that
-are sent to the corresponding messaging groups (see <a class="reference internal" href="scimport.html#confval-routingtable"><code class="xref std std-confval docutils literal notranslate"><span class="pre">routingtable</span></code></a>).
-In contrast to <a class="reference internal" href="scdb.html#scdb"><span class="std std-ref">scdb</span></a> which writes SCML files directly into the database
-scdispatch uses the messaging bus. If <a class="reference internal" href="scmaster.html#scmaster"><span class="std std-ref">scmaster</span></a> is configured with
-the database plugin messages will end up in the database as well.</p>
-<p>scdispatch can work in two modes. The first mode is used when a concrete
-operation is specified such as <em>add</em>, <em>update</em> or <em>remove</em>. In that case all
-objects in the SCML are encapsulated in a notifier with that specific operation
-and sent to the messaging. No check is performed if the object is already in
-the database or not.</p>
-<p>In the second mode scdispatch loads the corresponding objects from the database
-and calculates differences. It will then create corresponding notifiers with
-operations <em>add</em>, <em>update</em> or <em>remove</em> and sent them to the messaging. That mode
-is quite close to a sync operation with the exception that top level objects
-(such as origin or event) that are not part of the input SCML are left untouched
-in the database. It can be used to synchronize event information from one system
-with another.</p>
+are sent to the <a class="reference internal" href="../base/concepts/messaging.html#concepts-messaging"><span class="std std-ref">messaging</span></a> and the corresponding
+messaging groups (see <code class="xref std std-option docutils literal notranslate"><span class="pre">--routingtable</span></code>). In contrast to <a class="reference internal" href="scdb.html#scdb"><span class="std std-ref">scdb</span></a>
+which writes SCML files directly into the <a class="reference internal" href="../base/concepts/database.html#concepts-database"><span class="std std-ref">database</span></a>
+scdispatch uses the messaging bus. If <a class="reference internal" href="scmaster.html#scmaster"><span class="std std-ref">scmaster</span></a> is configured with the
+database plugin, messages will end up in the database as well.</p>
+<section id="modes">
+<h3>Modes<a class="headerlink" href="#modes" title="Permalink to this heading">¶</a></h3>
+<p>scdispatch can work in two modes applying different
+:ref:<a href="#id2"><span class="problematic" id="id3">`</span></a>operations &lt;scdispatch-operations&gt;:</p>
+<ul class="simple">
+<li><p><em>Without database check:</em> One of the <span class="xref std std-ref">operations</span>
+<em>add</em>, <em>update</em> or <em>remove</em> is selected along with the option <code class="xref std std-option docutils literal notranslate"><span class="pre">-O</span></code>. In
+that case all objects in the SCML are encapsulated in a notifier with that
+specific operation and sent to the messaging. No check is performed if the
+object is already in the database or not.</p></li>
+<li><p><em>With database check:</em> The option <code class="xref std std-option docutils literal notranslate"><span class="pre">-O</span></code> is not given or the
+option is used along with one of the <span class="xref std std-ref">operations</span>
+<em>merge</em> or <em>merge-without-remove</em>. scdispatch first tries to load the corresponding
+objects from the database and calculates differences. It will then create the
+corresponding notifiers with operations <em>add</em>, <em>update</em> or <em>remove</em> and sends
+them to the messaging. That mode is quite close to a sync operation with the
+exception that top level objects (such as origin or event) that are not part
+of the input SCML are left untouched in the database. It can be used to
+synchronize event information from one system with another.</p></li>
+</ul>
+</section>
+<section id="operations">
+<h3>Operations<a class="headerlink" href="#operations" title="Permalink to this heading">¶</a></h3>
+<p>Different operations can be chosen along with the option <code class="xref std std-option docutils literal notranslate"><span class="pre">-O</span></code>.
+If <code class="xref std std-option docutils literal notranslate"><span class="pre">-O</span></code> is not given, <em>merge</em> is assumed by default.</p>
+<ul class="simple">
+<li><p><em>Add</em>: All objects are sent trying to be added to the database. If they
+already exist in the database, they will be rejected and not spread through
+the messaging. Modules connected to the messaging will not receive rejected
+objects.</p></li>
+<li><p><em>Remove</em>: All sent objects with all their attributes and child objects are
+removed from the database. Modules connected to the messaging will not receive
+any sent object.</p></li>
+<li><p><em>Update</em>: All objects are sent trying to be updated to the database along with
+all of their child objects and attributes. Sent objects not existing in the
+database will be ignored and not received by any module connected to the
+messaging. Child objects and attributes existing in the database but not
+included in the sent object will be removed as well.</p></li>
+<li><p><em>Merge</em> (default): Applies <em>Add</em> and <em>Update</em> and requires a database
+connection.</p></li>
+<li><p><em>Merge-without-remove</em>: Applies <em>Add</em> and <em>Update</em> and requires a database
+connection. However, no objects are removed from the database.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All <cite>SeisComP</cite> objects along are listed and described along with their child
+objects and attributes in the <a class="reference internal" href="../base/api-python.html#api-datamodel-python"><span class="std std-ref">API documentation</span></a>.</p>
+</div>
 </section>
 <section id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h3>
 <ol class="arabic">
-<li><p>Send different objects from a <a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> file because the default behavior is to merge:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdispatch<span class="w"> </span>-i<span class="w"> </span>test.xml
+<li><p>Send different objects from a <a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> file for merging (adding or
+updating). The option <code class="xref std std-option docutils literal notranslate"><span class="pre">-O</span></code> can be ommitted because the default
+behavior is to merge:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdispatch<span class="w"> </span>-i<span class="w"> </span>test.xml<span class="w"> </span>-O<span class="w"> </span>merge
+scdispatch<span class="w"> </span>-i<span class="w"> </span>test.xml
 </pre></div>
 </div>
 </li>
-<li><p>Send new objects:</p>
+<li><p>Send all objects by ignoring events. When <a class="reference internal" href="scevent.html#scevent"><span class="std std-ref">scevent</span></a> receives origins it
+will create new events or associate the origins to existing ones. The ignored
+events may be already existing with different IDs. Hence, event duplication
+is avoided by ignoring them.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdispatch<span class="w"> </span>-i<span class="w"> </span>test.xml<span class="w"> </span>-e
+</pre></div>
+</div>
+</li>
+<li><p>Send new objects to be added:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdispatch<span class="w"> </span>-i<span class="w"> </span>test.xml<span class="w"> </span>-O<span class="w"> </span>add
 </pre></div>
 </div>
 </li>
-<li><p>Send an update:</p>
+<li><p>Send an update of objects:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdispatch<span class="w"> </span>-i<span class="w"> </span>test.xml<span class="w"> </span>-O<span class="w"> </span>update
 </pre></div>
 </div>
 </li>
-<li><p>Remove the objects:</p>
+<li><p>Send objects to be removed:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdispatch<span class="w"> </span>-i<span class="w"> </span>test.xml<span class="w"> </span>-O<span class="w"> </span>remove
+</pre></div>
+</div>
+</li>
+<li><p>Compare new objects with the database content and send the difference (optionally without removing objects):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdispatch<span class="w"> </span>-i<span class="w"> </span>test.xml<span class="w"> </span>-O<span class="w"> </span>merge
+scdispatch<span class="w"> </span>-i<span class="w"> </span>test.xml<span class="w"> </span>-O<span class="w"> </span>merge-without-remove
+</pre></div>
+</div>
+</li>
+<li><p>Offline mode: all operations can be performed without the messaging system using xml files:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdispatch<span class="w"> </span>-i<span class="w"> </span>test.xml<span class="w"> </span>-O<span class="w"> </span>operation<span class="w"> </span>--create-notifier<span class="w"> </span>&gt;<span class="w"> </span>notifier.xml
+</pre></div>
+</div>
+<p>then:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdb<span class="w"> </span>-i<span class="w"> </span>notifier.xml
 </pre></div>
 </div>
 </li>
@@ -139,7 +202,7 @@ and all the remaining objects in the file added:</p>
 </div>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>The option <code class="docutils literal notranslate"><span class="pre">--no-event</span></code> is a wrapper for removing Event:EVENT from
+<p>The option <code class="xref std std-option docutils literal notranslate"><span class="pre">--no-event</span></code> is a wrapper for removing Event:EVENT from
 the routing table. With this option no event objects will be sent which may
 be useful if just the origins with magnitudes, amplitudes, arrivals, picks, etc.
 shall be integrated, e.g. after XML-based playbacks.</p>
@@ -164,6 +227,7 @@ seiscomp<span class="w"> </span>start
 </div>
 </li>
 </ol>
+</section>
 </section>
 <section id="module-configuration">
 <span id="scdispatch-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
@@ -392,30 +456,49 @@ can be queried with &quot;--db-driver-list&quot;.</p>
 <section id="dispatch">
 <h3>Dispatch<a class="headerlink" href="#dispatch" title="Permalink to this heading">¶</a></h3>
 <dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scdispatch-e">
+<span id="cmdoption-scdispatch-no-events"></span><span class="sig-name descname"><span class="pre">-e</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-events</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scdispatch-e" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not send any event object. This is a wrapper to setting a
+routing table without EVENT objects.</p>
+</dd></dl>
+
+<dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-scdispatch-i">
-<span id="cmdoption-scdispatch-input"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--input</span></span><span class="sig-prename descclassname"> <span class="pre">flag</span></span><a class="headerlink" href="#cmdoption-scdispatch-i" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-scdispatch-input"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--input</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scdispatch-i" title="Permalink to this definition">¶</a></dt>
 <dd><p>File to dispatch to messaging.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-scdispatch-O">
-<span id="cmdoption-scdispatch-operation"></span><span class="sig-name descname"><span class="pre">-O</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--operation</span></span><span class="sig-prename descclassname"> <span class="pre">flag</span></span><a class="headerlink" href="#cmdoption-scdispatch-O" title="Permalink to this definition">¶</a></dt>
-<dd><p>Operation to use: add, update, remove, merge or
-merge-without-remove.
-Merge and merge-without-remove are special operations and
-require a database connection. Both will read a corresponding
-object from the database and calculate the differences which
-will be sent to the messaging. Merge-no-remove behaves like
-merge with the exception that remove operations will be
-filtered out that no objects in the database will be removed.</p>
-<p>If add, update or remove is specified then all objects in
+<span id="cmdoption-scdispatch-operation"></span><span class="sig-name descname"><span class="pre">-O</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--operation</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scdispatch-O" title="Permalink to this definition">¶</a></dt>
+<dd><p>Operation to use: add, update, remove, merge (default) or
+merge-without-remove.</p>
+<p>Merge and merge-without-remove require a database
+connection. Both will read the object corresponding to the
+sent object from the database and calculate the differences.
+Merge-without-remove behaves like merge with the exception
+that remove operations will be filtered out and no objects
+in the database will be removed.</p>
+<p>If add, update or remove is specified, then all objects in
 XML are sent with the given operation regardless of their
-existence in the database or not.</p>
+existence in the database.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scdispatch-print-objects">
+<span class="sig-name descname"><span class="pre">--print-objects</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scdispatch-print-objects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print names of routable objects.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scdispatch-print-routingtable">
+<span class="sig-name descname"><span class="pre">--print-routingtable</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scdispatch-print-routingtable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print routing table.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-scdispatch-routingtable">
-<span class="sig-name descname"><span class="pre">--routingtable</span></span><span class="sig-prename descclassname"> <span class="pre">flag</span></span><a class="headerlink" href="#cmdoption-scdispatch-routingtable" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">--routingtable</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scdispatch-routingtable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify routing table as comma separated list of object:group
 pairs, e.g. &quot;Origin:LOCATION,Event:EVENT&quot;. When an
 object should be routed to a group and no table entry for
@@ -429,22 +512,16 @@ Arrival.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-scdispatch-print-objects">
-<span class="sig-name descname"><span class="pre">--print-objects</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scdispatch-print-objects" title="Permalink to this definition">¶</a></dt>
-<dd><p>Print names of routable objects.</p>
-</dd></dl>
-
-<dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-scdispatch-test">
 <span class="sig-name descname"><span class="pre">--test</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scdispatch-test" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test mode. Does not send any object.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-scdispatch-e">
-<span id="cmdoption-scdispatch-no-events"></span><span class="sig-name descname"><span class="pre">-e</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-events</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scdispatch-e" title="Permalink to this definition">¶</a></dt>
-<dd><p>Do not send any event object. This is a wrapper to setting a
-routing table without EVENT objects</p>
+<dt class="sig sig-object std" id="cmdoption-scdispatch-create-notifier">
+<span class="sig-name descname"><span class="pre">--create-notifier</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scdispatch-create-notifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not send any object. All notifiers will be written to
+standard output in XML format.</p>
 </dd></dl>
 
 </section>
@@ -472,8 +549,12 @@ routing table without EVENT objects</p>
     <h3><a href="../index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">scdispatch</a><ul>
-<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#description">Description</a><ul>
+<li><a class="reference internal" href="#modes">Modes</a></li>
+<li><a class="reference internal" href="#operations">Operations</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
 <li><a class="reference internal" href="#command-line-options">Command-Line Options</a><ul>
 <li><a class="reference internal" href="#generic">Generic</a></li>
@@ -517,7 +598,7 @@ routing table without EVENT objects</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

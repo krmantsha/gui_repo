@@ -1,0 +1,595 @@
+.\" Man page generated from reStructuredText.
+.
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.TH "SEISCOMP" "1" "Jan 18, 2024" "6.1.2" "SeisComP"
+.SH NAME
+seiscomp \- SeisComP Documentation
+.sp
+\fBSeisComP system control utility\fP
+.SH DESCRIPTION
+.sp
+The tool \fBseiscomp\fP allows controlling your \fISeisComP\fP system on the
+command line. As other \fISeisComP\fP modules it provides
+options and commands, e.g., the command \fBhelp\fP\&. Apply
+\fBseiscomp\fP to
+.INDENT 0.0
+.IP \(bu 2
+Install software dependencies,
+.IP \(bu 2
+Print
+.INDENT 2.0
+.IP \(bu 2
+environment variables of the installed \fISeisComP\fP system,
+.IP \(bu 2
+internal \fISeisComP\fP variables which can be used in configurations,
+.IP \(bu 2
+suggestions for timed automatic actions, i.e. \(dq\fIconjobs\fP\(dq,
+.UNINDENT
+.IP \(bu 2
+Make a basic setup including the \fISeisComP\fP database,
+.IP \(bu 2
+List daemon modules by categories,
+.IP \(bu 2
+Enable or disable modules in order to start them by default,
+.IP \(bu 2
+Start, stop, restart or reload single or multiple modules or all default
+modules,
+.IP \(bu 2
+Check the status of module,
+.IP \(bu 2
+Execute single or multiple modules or all default modules
+.IP \(bu 2
+Print the run status of modules,
+.IP \(bu 2
+Manage modules aliases,
+.IP \(bu 2
+Update inventory or bindings configurations,
+.IP \(bu 2
+Manage bindings by a specific shell.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+When executing \fBseiscomp\fP, all actions refer to the \fISeisComP\fP
+installation from within which \fBseiscomp\fP is called. This allows
+to refer to a default but also to any other installed \fISeisComP\fP system and to
+operate multiple \fISeisComP\fP systems in parallel, e.g., for testing different
+versions or for running different projects. Then give the full path to the
+\fBseiscomp\fP tools. Example:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+$HOME/seiscomp\-test/bin/seiscomp
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.sp
+Many of these actions are used by \fI\%scconfig\fP
+.SH HELP
+.sp
+Use the command \fBhelp\fP for learning about the full set of options and
+other commands including examples:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp help
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SH APPLICATIONS
+.SS Software dependencies
+.sp
+Software dependencies should be installed after installation or updates of
+\fISeisComP\fP\&. You may install dependencies on different levels, e.g., \fIbase\fP,
+\fIgui\fP, \fIfdswnws\fP, \fI[database]\-server\fP\&. Examples:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp install\-deps base
+seiscomp install\-deps base gui mariadb\-server
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Alternatively run the shell scripts for your Linux flavor and version located in
+\fBseiscomp/share/deps/\fP\&.
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+For making a full installation and setup follow the instructions starting
+with section \fI\%SeisComP Installation\fP\&.
+.UNINDENT
+.UNINDENT
+.SS Print
+.sp
+You may print the environment variables related to your considered \fISeisComP\fP
+installation, internal \fISeisComP\fP variables or suggestions for timed automatic
+procedures. Examples:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp print env
+$HOME/seiscomp\-test/bin/seiscomp print env
+seiscomp print variables
+seiscomp print crontab
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Add the environment variables to your shell configuration for making them known
+user wide. Internal variables are resolved when applying them in user
+configurations. For adjusting, adding or removing \fBcrontab\fP listings
+execute:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+man crontab
+crontab \-e
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Basic setup
+.sp
+Make a basic setup of your \fISeisComP\fP system interactively after installation.
+This will also allow you to generate a database or to configure the connection
+to an existing one. Run, e.g.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp setup
+$HOME/seiscomp\-test/bin/seiscomp setup
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS List
+.sp
+List modules which can be started to run as background daemon modules by
+categories. Examples:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp list modules
+seiscomp list enabled
+seiscomp list started
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Enable/disable
+.sp
+Enabled modules will be started to run as a background daemon module.
+You may enable or disable one or multiple modules. Examples:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp enable scautopick
+seiscomp enable scautopick scautoloc
+seiscomp disable scautopick scautoloc
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Start/stop/restart/reload
+.sp
+Start all enabled modules:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp start
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Stop all modules and start all enabled modules:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp restart
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Start/stop/restart specific modules
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp start scautopick scautoloc
+seiscomp stop scautopick scautoloc
+seiscomp restart scautopick scautoloc
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+In order to apply configurations, a module must be (re)started since it reads
+any configuration only during startup. Restarts will create downtimes and should
+be avoided as much as possible. In order to minimize downtimes, some modules
+may apply changes in configuration by reloading during runtime without
+restarting. For reloading you may use the command \fBseiscomp reload\fP\&.
+The application of reloading is therefore restricted to a limited range of
+modules and parameters.
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+Graphical modules such as \fI\%scolv\fP cannot be operated as background
+daemon modules. Therefore, they cannot be started but they can
+be \fI\%executed\fP\&.
+.UNINDENT
+.UNINDENT
+.SS Check
+.sp
+When modules stop unexpectedly, they are not stopped in a clean way. Such
+stopped modules may be detected and started again in order to minimize
+downtimes. Apply the \fBcheck\fP command to all or specific modules.
+Examples:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp check
+seiscomp check scautopick
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Execute
+.sp
+Instead of running daemon modules you may execute modules in a terminal and
+observe the output, e.g., for debugging or for applying command\-line options.
+Examples:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp exec scolv \-\-debug
+seiscomp exec scautopick \-\-debug
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+When all relevant system environment variables point to the same \fISeisComP\fP
+installation from where seiscomp is executed, then it is enough to execute
+modules by their names replacing the above:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scolv \-\-debug
+scautopick \-\-debug
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.SS Status
+.sp
+List the status of all, enabled, disabled, started, or specific modules.
+Examples:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp status
+seiscomp status enabled
+seiscomp status disabled
+seiscomp status started
+seiscomp status scautopick
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+:command:status\(ga will report modules which terminated due to errors.
+.SS Module Aliases
+.sp
+For some \fISeisComP\fP modules aliases can be generated allowing the separate
+execution with specific configurations in parallel the original module
+and even in separate pipeline with specific message groups.
+Using the \fBalias\fP command aliases modules can be created or removed.
+Examples for creating or removing the alias \fBl1autopick\fP to
+\fI\%scautopick\fP:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp alias create l1autopick scautopick
+seiscomp alias remove l1autopick
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+When creating aliases, soft links to the original module executable files, the
+default configuration and the init files are created. The alias itself is
+registered in \fBSEISCOMP_ROOT/etc/descriptions/aliases\fP\&. If a module does
+not allow creating aliases a notification is printed. Example:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp alias create scolv1 scolv
+error: module \(aqscolv\(aq not found
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+After creating aliases, they may be configured and operated in the same way as
+the original module.
+.sp
+\fBWARNING:\fP
+.INDENT 0.0
+.INDENT 3.5
+The length of alias names for modules considering
+\fI\%bindings\fP is strictly limited to 20 characters.
+.UNINDENT
+.UNINDENT
+.sp
+When removing aliases, all links and the alias registration are removed but
+possibly existing module or binding configurations remained unchanged. The
+option \fB\-\-interactive\fP allows removing these configurations
+interactively.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp \-\-interactive alias remove l1autopick
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Update configuration
+.sp
+The command \fBupdate\-config\fP allows reading bindings configurations from
+the standard \fB@KEYDIR@\fP directory as well as inventory from
+\fB@SYSTEMCONFIGDIR@/inventory\fP and sending them to the messaging for
+storing in the database or for generating the configuration of
+\fI\%standalone modules\fP:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp update\-config
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Executing \fBseiscomp update\-config\fP involves:
+.INDENT 0.0
+.IP \(bu 2
+Merging inventory,
+.IP \(bu 2
+Sending inventory updates to the messaging,
+.IP \(bu 2
+Synchronisation of inventory, key files and bindings,
+.IP \(bu 2
+Sending any updates of bindings to the messaging,
+.IP \(bu 2
+Generation of configuration for \fI\%standalone modules\fP\&.
+.UNINDENT
+.sp
+The command can therefore be rater time consuming. For speeding up you may be
+more specific:
+.INDENT 0.0
+.IP \(bu 2
+Only update global bindings and all \fI\%trunk\fP modules without inventory
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp update\-config trunk
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Update only inventory
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp update\-config inventory
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Update bindings of \fI\%scautopick\fP only
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp update\-config scautopick
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+The command may be similarly applied to any other  module considering
+bindings.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+Instead of reading bindings configurations from the standard @KEYDIR@
+directory, the module \fI\%bindings2cfg\fP can read bindings from any key
+directory and write the Config parameters to \fI\%SCML\fP or send them to
+the messaging.
+.UNINDENT
+.UNINDENT
+.SH SEISCOMP SHELL
+.sp
+The seiscomp shell is a special environment, e.g., allowing to control
+\fI\%bindings\fP of \fI\%modules\fP to stations.
+.sp
+Applications are:
+.INDENT 0.0
+.IP \(bu 2
+Create or remove station bindings,
+.IP \(bu 2
+Create or remove binding profiles,
+.IP \(bu 2
+Remove binding profiles.
+.UNINDENT
+.sp
+Invoke \fBseiscomp\fP along with the  \fBshell\fP command to start the
+shell:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp shell
+
+
+  ================================================================================
+  SeisComP shell
+  ================================================================================
+
+  Welcome to the SeisComP interactive shell. You can get help about
+  available commands with \(aqhelp\(aq. \(aqexit\(aq leaves the shell.
+
+  $
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+The full list of shell control commands are printed along with the help of the
+seiscomp shell:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+================================================================================
+SeisComP shell
+================================================================================
+
+Welcome to the SeisComP interactive shell. You can get help about
+available commands with \(aqhelp\(aq. \(aqexit\(aq leaves the shell.
+
+$ help
+Commands:
+  list stations
+    Lists all available stations keys.
+
+  list profiles {mod}
+    Lists all available profiles of a module.
+
+\&...
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SH COMMAND-LINE OPTIONS
+.sp
+\fBseiscomp [flags] command(s) [argument(s)]\fP
+.SS Flags
+.INDENT 0.0
+.TP
+.B \-\-asroot
+Allow running a command as root.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-csv
+Print output as CSV in machine\-readable format.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-i, \-\-interactive
+Interactive mode: Allow deleting files interactively when
+removing aliases.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-wait arg
+Define a timeout in seconds for acquiring the seiscomp lock
+file, e.g., \fIseiscomp \-\-wait 10 update\-config\fP\&.
+.UNINDENT
+.SH AUTHOR
+gempa GmbH, GFZ Potsdam
+.SH COPYRIGHT
+gempa GmbH, GFZ Potsdam
+.\" Generated by docutils manpage writer.
+.

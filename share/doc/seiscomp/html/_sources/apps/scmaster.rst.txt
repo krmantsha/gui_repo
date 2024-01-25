@@ -65,7 +65,7 @@ to the clients of the messaging system (compare with the :ref:`concepts section 
 The database is configured per queue.
 
 
-Single machine
+Single Machine
 --------------
 
 When running all |scname| modules on a single machine, the read and write
@@ -77,7 +77,7 @@ Example: ::
    queues.production.processors.messages.dbstore.write = sysop:sysop@localhost/seiscomp
 
 
-Multiple machines
+Multiple Machines
 -----------------
 
 If the clients are located on machines different from the messaging, the
@@ -97,6 +97,41 @@ with the :ref:`concepts section <messaging-distribution>`).
 * Global configuration of client on computerB: ::
 
      connection.server = computerA/production
+
+Database Proxy
+--------------
+
+scmaster can accept database requests and forward results to clients without
+exposing the underlying database. That allows clients to connect to the database
+of a particular queue via the Websocket HTTP protocol. No specific database
+plugin is required at the client which reduces the complexity of configuration.
+
+Be aware that due to the nature of a proxy which is another layer on top of the
+actual database connection the performance is not as high as direct database
+access.
+
+To let scmaster return the proxy address of the database connection, set
+
+.. code::
+
+   queues.production.processors.messages.dbstore.proxy = true
+
+in the configuration file.
+
+
+Access Control
+==============
+
+scmaster does not provide any built-in access control to connecting clients.
+The only exception is the possibility to verify client certificates against
+the server certificate if SSL is enabled.
+
+.. code::
+
+   interface.ssl.verifyPeer = true
+
+It is required that the client certificate is signed by the server certificate
+otherwise the client connection will be rejected.
 
 
 .. _scmaster_configuration:
@@ -221,6 +256,18 @@ scmaster inherits :ref:`global options<global-configuration>`.
    
 
 
+.. confval:: interface.ssl.verifyPeer
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   If enabled then the certificate of a connecting client
+   is verified against the servers certificate. It is
+   required that the client certificate is signed by the
+   server certificate otherwise the connection is refused.
+
+
 .. note::
    **queues.\***
    *Set the parameters for each messaging queue. The queues are used*
@@ -337,6 +384,22 @@ scmaster inherits :ref:`global options<global-configuration>`.
    A separate write connection enables different
    permissions on the database level for scmaster
    and clients.
+
+
+.. confval:: queues.$name.processors.messages.dbstore.proxy
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   If enabled then the database connection as configured
+   in 'read' is not being returned to the client
+   but the URL \"proxy:\/\/\". This URL
+   tells the client to open the database via the
+   websocket proxy at the messaging address,
+   e.g. http:\/\/localhost\/production\/db. The same
+   hostname and queue must be used as for the
+   initial messaging connection.
 
 
 .. confval:: queues.$name.processors.messages.dbstore.strictVersionMatch

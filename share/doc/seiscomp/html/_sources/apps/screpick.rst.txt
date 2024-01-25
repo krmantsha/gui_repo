@@ -1,0 +1,210 @@
+.. highlight:: rst
+
+.. _screpick:
+
+########
+screpick
+########
+
+**Reads an XML file of picks and repicks them using a post picker. The
+picks will be modified in place and written to another XML file.**
+
+.. _screpick_configuration:
+
+Module Configuration
+====================
+
+| :file:`etc/defaults/global.cfg`
+| :file:`etc/defaults/screpick.cfg`
+| :file:`etc/global.cfg`
+| :file:`etc/screpick.cfg`
+| :file:`~/.seiscomp/global.cfg`
+| :file:`~/.seiscomp/screpick.cfg`
+
+screpick inherits :ref:`global options<global-configuration>`.
+
+
+
+.. confval:: picker
+
+   Type: *string*
+
+   Picker interface to be used for repicking.
+
+
+.. confval:: anyPhase
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   If enabled then all picks will be processed. Otherwise only
+   P phases or picks without a phase hint will be considered.
+
+
+
+Command-Line Options
+====================
+
+.. program:: screpick
+
+
+Generic
+-------
+
+.. option:: -h, --help
+
+   Show help message.
+
+.. option:: -V, --version
+
+   Show version information.
+
+.. option:: --config-file arg
+
+   Use alternative configuration file. When this option is
+   used the loading of all stages is disabled. Only the
+   given configuration file is parsed and used. To use
+   another name for the configuration create a symbolic
+   link of the application or copy it. Example:
+   scautopick \-> scautopick2.
+
+.. option:: --plugins arg
+
+   Load given plugins.
+
+.. option:: -D, --daemon
+
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
+
+.. option:: --auto-shutdown arg
+
+   Enable\/disable self\-shutdown because a master module shutdown.
+   This only works when messaging is enabled and the master
+   module sends a shutdown message \(enabled with \-\-start\-stop\-msg
+   for the master module\).
+
+.. option:: --shutdown-master-module arg
+
+   Set the name of the master\-module used for auto\-shutdown.
+   This is the application name of the module actually
+   started. If symlinks are used, then it is the name of
+   the symlinked application.
+
+.. option:: --shutdown-master-username arg
+
+   Set the name of the master\-username of the messaging
+   used for auto\-shutdown. If \"shutdown\-master\-module\" is
+   given as well, this parameter is ignored.
+
+
+Verbosity
+---------
+
+.. option:: --verbosity arg
+
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
+
+.. option:: -v, --v
+
+   Increase verbosity level \(may be repeated, eg. \-vv\).
+
+.. option:: -q, --quiet
+
+   Quiet mode: no logging output.
+
+.. option:: --component arg
+
+   Limit the logging to a certain component. This option can
+   be given more than once.
+
+.. option:: -s, --syslog
+
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
+
+.. option:: -l, --lockfile arg
+
+   Path to lock file.
+
+.. option:: --console arg
+
+   Send log output to stdout.
+
+.. option:: --debug
+
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
+
+.. option:: --log-file arg
+
+   Use alternative log file.
+
+
+Database
+--------
+
+.. option:: --db-driver-list
+
+   List all supported database drivers.
+
+.. option:: -d, --database arg
+
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
+
+.. option:: --config-module arg
+
+   The config module to use.
+
+.. option:: --inventory-db arg
+
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
+
+.. option:: --db-disable
+
+   Do not use the database at all
+
+
+Records
+-------
+
+.. option:: --record-driver-list
+
+   List all supported record stream drivers.
+
+.. option:: -I, --record-url arg
+
+   The recordstream source URL, format:
+   [service:\/\/]location[#type].
+   \"service\" is the name of the recordstream driver
+   which can be queried with \"\-\-record\-driver\-list\".
+   If \"service\" is not given, \"file:\/\/\" is
+   used.
+
+.. option:: --record-file arg
+
+   Specify a file as record source.
+
+.. option:: --record-type arg
+
+   Specify a type for the records being read.
+
+
+Picker
+------
+
+.. option:: -P, --picker interface
+
+   Defines the picker interface to be used. It must be part of
+   the common libraries or loaded as plugin.
+
+.. option:: -A, --any-phase
+
+   Accept any pick regardless of its phase hint.
+

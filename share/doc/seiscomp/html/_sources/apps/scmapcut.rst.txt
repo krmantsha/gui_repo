@@ -228,7 +228,11 @@ Options
 
    Event ID of the event to plot on map.
 
-.. option:: --html-area arg
+.. option:: --html-area
 
    Print html\/area section.
+
+.. option:: --without-arrivals
+
+   Do not render arrivals \(stations\).
 

@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -140,16 +140,16 @@ module configurations.</em></p>
 </ul>
 <p>Whether or not a module considers bindings configurations can be read in the
 module configuration panel of <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a>.</p>
-<div class="two column layout"><figure class="align-default" id="id2">
+<div class="two column layout"><figure class="align-default" id="id3">
 <img alt="scconfig: no bindings configurations" src="../../_images/scconfig_no_bindings.png" />
 <figcaption>
-<p><span class="caption-text">scconfig modules panel indicating that no bindings can be configured.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">scconfig modules panel indicating that no bindings can be configured.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-<figure class="align-default" id="id3">
+<figure class="align-default" id="id4">
 <img alt="scconfig: no bindings configurations" src="../../_images/scconfig_has_bindings.png" />
 <figcaption>
-<p><span class="caption-text">scconfig modules panel indicating that bindings can be configured.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">scconfig modules panel indicating that bindings can be configured.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><section id="module-configuration">
@@ -190,10 +190,10 @@ parameter takes priority such as  configurations in <code class="file docutils l
 <h4>Adjusting<a class="headerlink" href="#adjusting" title="Permalink to this heading">¶</a></h4>
 <p><a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> provides a user-friendly graphical interface to adjust the
 global and the module configuration parameters.</p>
-<figure class="align-center" id="id4">
+<figure class="align-center" id="id5">
 <a class="reference internal image-reference" href="../../_images/scconfig_config_modules.png"><img alt="scconfig: module configuration" src="../../_images/scconfig_config_modules.png" style="width: 18cm;" /></a>
 <figcaption>
-<p><span class="caption-text">scconfig modules module configuration panel.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">scconfig modules module configuration panel.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Alternatively, you may adjust the module configuration files corresponding to
@@ -240,10 +240,10 @@ to all modules running locally or on remote computers.</p>
 <p>Bindings can be conveniently configured in the Bindings panel of <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a>.
 Read the section <a class="reference internal" href="../../apps/scconfig.html#scconfig-bindings"><span class="std std-ref">Bindings panel</span></a> for instructions.</p>
 </div>
-<figure class="align-center" id="id5">
+<figure class="align-center" id="id6">
 <span id="config-fig-binding"></span><img alt="../../_images/binding.png" src="../../_images/binding.png" />
 <figcaption>
-<p><span class="caption-text">Binding</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Binding</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 <div class="legend">
 <p>A binding holds the configuration how a station is used in a module.</p>
 </div>
@@ -312,10 +312,10 @@ Therefore,  the bindings are stored in the database when executing</p>
 </div>
 <p>The database tables involved are <code class="docutils literal notranslate"><span class="pre">ConfigModule</span></code>, <code class="docutils literal notranslate"><span class="pre">ConfigStation</span></code>, <code class="docutils literal notranslate"><span class="pre">Setup</span></code>,
 <code class="docutils literal notranslate"><span class="pre">ParameterSet</span></code> and <code class="docutils literal notranslate"><span class="pre">Parameter</span></code>.</p>
-<figure class="align-center" id="id6">
+<figure class="align-center" id="id7">
 <span id="config-fig-configdb-schema"></span><img alt="../../_images/configdb-schema.png" src="../../_images/configdb-schema.png" />
 <figcaption>
-<p><span class="caption-text">Configuration database schema</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Configuration database schema</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>To illustrate the contents of the objects, the XML representation
@@ -451,16 +451,73 @@ and <code class="file docutils literal notranslate"><span class="pre">etc/key/sc
 They are finally transferred to the database or converted to other
 representations a module might require to access them. The  directory <code class="file docutils literal notranslate"><span class="pre">etc/key</span></code> is meant
 for backup and used for copying bindings from one computer to another.</p>
+<section id="id1">
+<h4>Adjusting<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h4>
 <p><a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> provides a graphical interface to adjust the global and the module
 bindings parameters and to create the bindings. It populates the <code class="file docutils literal notranslate"><span class="pre">etc/key</span></code>
 directory and it takes care that they synchronize with the database when processing
 <em>Update configuration</em> in the <em>System</em> panel.</p>
-<figure class="align-center" id="id7">
+<figure class="align-center" id="id8">
 <a class="reference internal image-reference" href="../../_images/scconfig_config_bindings.png"><img alt="scconfig: bindings configuration" src="../../_images/scconfig_config_bindings.png" style="width: 18cm;" /></a>
 <figcaption>
-<p><span class="caption-text">scconfig modules bindings configuration panel.</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">scconfig modules bindings configuration panel.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
+<p>Alternatively, you may manually generate the binding parameter file
+<code class="file docutils literal notranslate"><span class="pre">etc/key/global/station_GE_UGM</span></code> and
+<code class="file docutils literal notranslate"><span class="pre">etc/key/scautopick/station_GE_UGM</span></code> and add the binding to the key file
+corresponding to the station, e.g.,
+<code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/etc/key/station_GE_UGM</span></code>.´</p>
+</section>
+<section id="seiscomp-shell">
+<h4>SeisComP shell<a class="headerlink" href="#seiscomp-shell" title="Permalink to this heading">¶</a></h4>
+<p>Instead of creating bindings in <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> or by adjusting key files
+manually you may assign binding profiles to stations or networks or remove them
+using the <cite>SeisComP</cite> shell which is a specific shell:</p>
+<ol class="arabic">
+<li><p>Start the <cite>SeisComP</cite> shell:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>shell
+</pre></div>
+</div>
+</li>
+<li><p>Issue a shell command. Examples:</p>
+<ul>
+<li><p>Read the help of the new shell:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">================================================================================</span>
+SeisComP<span class="w"> </span><span class="nv">shell</span>
+<span class="o">================================================================================</span>
+
+Welcome<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>SeisComP<span class="w"> </span>interactive<span class="w"> </span>shell.<span class="w"> </span>You<span class="w"> </span>can<span class="w"> </span>get<span class="w"> </span><span class="nb">help</span><span class="w"> </span>about
+available<span class="w"> </span>commands<span class="w"> </span>with<span class="w"> </span><span class="s1">&#39;help&#39;</span>.<span class="w"> </span><span class="s1">&#39;exit&#39;</span><span class="w"> </span>leaves<span class="w"> </span>the<span class="w"> </span>shell.
+
+$<span class="w"> </span><span class="nb">help</span>
+</pre></div>
+</div>
+</li>
+<li><p>add the existing scautopick binding profile, <em>default</em>, to the station
+<em>GE.UGM</em>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">set</span><span class="w"> </span>profile<span class="w"> </span>scautopick<span class="w"> </span>default<span class="w"> </span>GE.UGM
+</pre></div>
+</div>
+<p>or to all stations of the network <em>GE</em>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">set</span><span class="w"> </span>profile<span class="w"> </span>scautopick<span class="w"> </span>default<span class="w"> </span>GE.UGM
+</pre></div>
+</div>
+</li>
+<li><p>remove the scautopick binding profile, <em>default</em>, from the station <em>GE.UGM</em>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>remove<span class="w"> </span>profile<span class="w"> </span>scautopick<span class="w"> </span>default<span class="w"> </span>GE.UGM
+</pre></div>
+</div>
+</li>
+<li><p>exit the shell and get back to the Linux shell:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">exit</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ol>
+</section>
 <section id="example-global-bindings">
 <h4>Example: global bindings<a class="headerlink" href="#example-global-bindings" title="Permalink to this heading">¶</a></h4>
 <p>A binding is a set of name value pairs just like a configuration file but for
@@ -532,8 +589,8 @@ can be specified with <code class="docutils literal notranslate"><span class="pr
 </pre></div>
 </div>
 </section>
-<section id="id1">
-<h4>Application<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h4>
+<section id="id2">
+<h4>Application<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h4>
 <p>Binding configurations are read when starting a module and cannot be
 changed during runtime. For applying any change on binding configurations</p>
 <ol class="arabic">
@@ -557,6 +614,12 @@ information from <code class="file docutils literal notranslate"><span class="pr
 <li><p>Bindings are being read from the database or an XML file.</p></li>
 </ul>
 </section>
+</section>
+<section id="validation">
+<h3>Validation<a class="headerlink" href="#validation" title="Permalink to this heading">¶</a></h3>
+<p>After changing configuration the affected modules should be tested, e.g. by
+running with informative debug logging output. You may use <a class="reference internal" href="../../apps/scdumpcfg.html#scdumpcfg"><span class="std std-ref">scdumpcfg</span></a> for
+dumping the module an binding parameters into a summary file.</p>
 </section>
 </section>
 <section id="format-of-parameters">
@@ -586,8 +649,13 @@ format is a simple as:</p>
 <span class="na">recordstream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">slink://localhost:18000</span>
 </pre></div>
 </div>
-<p>In parameter groups indicated by a separating dot (“.”) the dot separates the group
-from the parameter name.</p>
+<p>Spaces in string parameters must be protected by quotes:</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">eventlist.filter.types.blacklist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;not existing&quot;</span>
+</pre></div>
+</div>
+<p>Parameter groups are indicated by a separating dot (“.”). The dot separates the
+group from the parameter name or other groups. The item after the last dot is
+the parameter.</p>
 <p>Later assignments of parameters override previous ones so the order of lines in the
 configuration file is important. The file is parsed top-down.</p>
 <div class="admonition note">
@@ -652,6 +720,31 @@ quotes (“). Whitespaces are removed in unquoted and unescaped values.</p>
 <span class="w">                </span><span class="s">indigo, violet</span>
 </pre></div>
 </div>
+</section>
+<section id="control-characters">
+<h3>Control characters<a class="headerlink" href="#control-characters" title="Permalink to this heading">¶</a></h3>
+<p>A limited set of control characters is allowed within strings.</p>
+<table class="docutils align-left">
+<colgroup>
+<col style="width: 10.0%" />
+<col style="width: 90.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>\n</p></td>
+<td><p>new line</p></td>
+</tr>
+<tr class="row-even"><td><p>\t</p></td>
+<td><p>tab</p></td>
+</tr>
+</tbody>
+</table>
+<p>Example of a string consisting of two lines:</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;123 456&quot;</span><span class="se">\n</span><span class="s">&quot;This is a new line with text&quot;</span>
+</pre></div>
+</div>
+<p>The control characters must be outside of double quotes. Everything <strong>within</strong>
+double quotes will <strong>not</strong> be decoded. Hence, “n” will end up as the string
+“n” and not a new line character.</p>
 </section>
 <section id="namespaces">
 <h3>Namespaces<a class="headerlink" href="#namespaces" title="Permalink to this heading">¶</a></h3>
@@ -738,10 +831,10 @@ with <cite>&#64;var&#64;</cite>, e.g.</p>
 </table>
 <p>The list of internal <cite>SeisComP</cite> variables can also be read in the information
 panel of <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a>.</p>
-<figure class="align-center" id="id8">
+<figure class="align-center" id="id9">
 <a class="reference internal image-reference" href="../../_images/scconfig_information.png"><img alt="scconfig: information panel" src="../../_images/scconfig_information.png" style="width: 18cm;" /></a>
 <figcaption>
-<p><span class="caption-text">scconfig information panel indicating the internal <cite>SeisComP</cite> variables.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">scconfig information panel indicating the internal <cite>SeisComP</cite> variables.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>The internal <cite>SeisComP</cite> variable CONFIGDIR can be re-defined by the SHELL
@@ -795,12 +888,15 @@ Example:</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#bindings-configuration">Bindings configuration</a><ul>
+<li><a class="reference internal" href="#id1">Adjusting</a></li>
+<li><a class="reference internal" href="#seiscomp-shell">SeisComP shell</a></li>
 <li><a class="reference internal" href="#example-global-bindings">Example: global bindings</a></li>
 <li><a class="reference internal" href="#reading-bindings">Reading bindings</a></li>
-<li><a class="reference internal" href="#id1">Application</a></li>
+<li><a class="reference internal" href="#id2">Application</a></li>
 <li><a class="reference internal" href="#summary">Summary</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#validation">Validation</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#format-of-parameters">Format of Parameters</a><ul>
@@ -808,6 +904,7 @@ Example:</p>
 <li><a class="reference internal" href="#comments">Comments</a></li>
 <li><a class="reference internal" href="#lists">Lists</a></li>
 <li><a class="reference internal" href="#multi-line">Multi-line</a></li>
+<li><a class="reference internal" href="#control-characters">Control characters</a></li>
 <li><a class="reference internal" href="#namespaces">Namespaces</a></li>
 </ul>
 </li>
@@ -847,7 +944,7 @@ Example:</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

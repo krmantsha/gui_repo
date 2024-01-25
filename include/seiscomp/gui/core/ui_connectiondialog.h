@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'connectiondialog.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.7
+** Created by: Qt User Interface Compiler version 5.9.7
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,23 +10,24 @@
 #define UI_CONNECTIONDIALOG_H
 
 #include <QtCore/QVariant>
-#include <QtGui/QAction>
-#include <QtGui/QApplication>
-#include <QtGui/QButtonGroup>
-#include <QtGui/QComboBox>
-#include <QtGui/QDialog>
-#include <QtGui/QGridLayout>
-#include <QtGui/QGroupBox>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QHeaderView>
-#include <QtGui/QLabel>
-#include <QtGui/QLineEdit>
-#include <QtGui/QListWidget>
-#include <QtGui/QPushButton>
-#include <QtGui/QSpacerItem>
-#include <QtGui/QSpinBox>
-#include <QtGui/QSplitter>
-#include <QtGui/QVBoxLayout>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QListWidget>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QSpinBox>
+#include <QtWidgets/QSplitter>
+#include <QtWidgets/QToolButton>
+#include <QtWidgets/QVBoxLayout>
 
 QT_BEGIN_NAMESPACE
 
@@ -52,7 +53,6 @@ public:
     QSplitter *splitter;
     QGroupBox *groupMessaging;
     QGridLayout *gridLayout2;
-    QLabel *label_3;
     QLabel *label_4;
     QSpinBox *timeoutSpinBox;
     QHBoxLayout *hboxLayout2;
@@ -64,6 +64,11 @@ public:
     QLineEdit *editServer;
     QLineEdit *editUser;
     QLabel *label;
+    QSpacerItem *verticalSpacer;
+    QLabel *label_3;
+    QHBoxLayout *horizontalLayout;
+    QLineEdit *editPeerCertificate;
+    QToolButton *btnPeerCertificateOpen;
     QGroupBox *groupSubscriptions;
     QVBoxLayout *vboxLayout;
     QListWidget *listSubscriptions;
@@ -75,8 +80,8 @@ public:
     void setupUi(QDialog *ConnectionDialog)
     {
         if (ConnectionDialog->objectName().isEmpty())
-            ConnectionDialog->setObjectName(QString::fromUtf8("ConnectionDialog"));
-        ConnectionDialog->resize(847, 638);
+            ConnectionDialog->setObjectName(QStringLiteral("ConnectionDialog"));
+        ConnectionDialog->resize(868, 652);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -85,7 +90,7 @@ public:
         gridLayout = new QGridLayout(ConnectionDialog);
         gridLayout->setSpacing(4);
         gridLayout->setContentsMargins(4, 4, 4, 4);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
         hboxLayout = new QHBoxLayout();
 #ifndef Q_OS_MAC
         hboxLayout->setSpacing(6);
@@ -93,13 +98,13 @@ public:
 #ifndef Q_OS_MAC
         hboxLayout->setContentsMargins(0, 0, 0, 0);
 #endif
-        hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
+        hboxLayout->setObjectName(QStringLiteral("hboxLayout"));
         spacerItem = new QSpacerItem(261, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         hboxLayout->addItem(spacerItem);
 
         btnClose = new QPushButton(ConnectionDialog);
-        btnClose->setObjectName(QString::fromUtf8("btnClose"));
+        btnClose->setObjectName(QStringLiteral("btnClose"));
 
         hboxLayout->addWidget(btnClose);
 
@@ -107,7 +112,7 @@ public:
         gridLayout->addLayout(hboxLayout, 2, 0, 1, 1);
 
         groupDatabase = new QGroupBox(ConnectionDialog);
-        groupDatabase->setObjectName(QString::fromUtf8("groupDatabase"));
+        groupDatabase->setObjectName(QStringLiteral("groupDatabase"));
         QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Maximum);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
@@ -120,7 +125,7 @@ public:
 #ifndef Q_OS_MAC
         gridLayout1->setContentsMargins(9, 9, 9, 9);
 #endif
-        gridLayout1->setObjectName(QString::fromUtf8("gridLayout1"));
+        gridLayout1->setObjectName(QStringLiteral("gridLayout1"));
         hboxLayout1 = new QHBoxLayout();
 #ifndef Q_OS_MAC
         hboxLayout1->setSpacing(6);
@@ -128,9 +133,9 @@ public:
 #ifndef Q_OS_MAC
         hboxLayout1->setContentsMargins(0, 0, 0, 0);
 #endif
-        hboxLayout1->setObjectName(QString::fromUtf8("hboxLayout1"));
+        hboxLayout1->setObjectName(QStringLiteral("hboxLayout1"));
         btnDbSwitchToReported = new QPushButton(groupDatabase);
-        btnDbSwitchToReported->setObjectName(QString::fromUtf8("btnDbSwitchToReported"));
+        btnDbSwitchToReported->setObjectName(QStringLiteral("btnDbSwitchToReported"));
         btnDbSwitchToReported->setEnabled(false);
 
         hboxLayout1->addWidget(btnDbSwitchToReported);
@@ -140,7 +145,7 @@ public:
         hboxLayout1->addItem(spacerItem1);
 
         btnDbConnect = new QPushButton(groupDatabase);
-        btnDbConnect->setObjectName(QString::fromUtf8("btnDbConnect"));
+        btnDbConnect->setObjectName(QStringLiteral("btnDbConnect"));
 
         hboxLayout1->addWidget(btnDbConnect);
 
@@ -148,33 +153,33 @@ public:
         gridLayout1->addLayout(hboxLayout1, 3, 1, 1, 1);
 
         comboDbType = new QComboBox(groupDatabase);
-        comboDbType->setObjectName(QString::fromUtf8("comboDbType"));
+        comboDbType->setObjectName(QStringLiteral("comboDbType"));
         comboDbType->setModelColumn(0);
 
         gridLayout1->addWidget(comboDbType, 0, 1, 1, 1);
 
         editDbConnection = new QLineEdit(groupDatabase);
-        editDbConnection->setObjectName(QString::fromUtf8("editDbConnection"));
+        editDbConnection->setObjectName(QStringLiteral("editDbConnection"));
 
         gridLayout1->addWidget(editDbConnection, 1, 1, 1, 1);
 
         labelDbType = new QLabel(groupDatabase);
-        labelDbType->setObjectName(QString::fromUtf8("labelDbType"));
+        labelDbType->setObjectName(QStringLiteral("labelDbType"));
 
         gridLayout1->addWidget(labelDbType, 0, 0, 1, 1);
 
         labelDbConnection = new QLabel(groupDatabase);
-        labelDbConnection->setObjectName(QString::fromUtf8("labelDbConnection"));
+        labelDbConnection->setObjectName(QStringLiteral("labelDbConnection"));
 
         gridLayout1->addWidget(labelDbConnection, 1, 0, 1, 1);
 
         label_7 = new QLabel(groupDatabase);
-        label_7->setObjectName(QString::fromUtf8("label_7"));
+        label_7->setObjectName(QStringLiteral("label_7"));
 
         gridLayout1->addWidget(label_7, 2, 0, 1, 1);
 
         labelDbReported = new QLineEdit(groupDatabase);
-        labelDbReported->setObjectName(QString::fromUtf8("labelDbReported"));
+        labelDbReported->setObjectName(QStringLiteral("labelDbReported"));
         labelDbReported->setReadOnly(true);
 
         gridLayout1->addWidget(labelDbReported, 2, 1, 1, 1);
@@ -183,10 +188,10 @@ public:
         gridLayout->addWidget(groupDatabase, 1, 0, 1, 1);
 
         splitter = new QSplitter(ConnectionDialog);
-        splitter->setObjectName(QString::fromUtf8("splitter"));
+        splitter->setObjectName(QStringLiteral("splitter"));
         splitter->setOrientation(Qt::Horizontal);
         groupMessaging = new QGroupBox(splitter);
-        groupMessaging->setObjectName(QString::fromUtf8("groupMessaging"));
+        groupMessaging->setObjectName(QStringLiteral("groupMessaging"));
         QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Minimum);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
@@ -199,23 +204,14 @@ public:
 #ifndef Q_OS_MAC
         gridLayout2->setContentsMargins(9, 9, 9, 9);
 #endif
-        gridLayout2->setObjectName(QString::fromUtf8("gridLayout2"));
-        label_3 = new QLabel(groupMessaging);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-        sizePolicy.setHeightForWidth(label_3->sizePolicy().hasHeightForWidth());
-        label_3->setSizePolicy(sizePolicy);
-        label_3->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
-        label_3->setWordWrap(true);
-
-        gridLayout2->addWidget(label_3, 4, 0, 1, 2);
-
+        gridLayout2->setObjectName(QStringLiteral("gridLayout2"));
         label_4 = new QLabel(groupMessaging);
-        label_4->setObjectName(QString::fromUtf8("label_4"));
+        label_4->setObjectName(QStringLiteral("label_4"));
 
         gridLayout2->addWidget(label_4, 2, 0, 1, 1);
 
         timeoutSpinBox = new QSpinBox(groupMessaging);
-        timeoutSpinBox->setObjectName(QString::fromUtf8("timeoutSpinBox"));
+        timeoutSpinBox->setObjectName(QStringLiteral("timeoutSpinBox"));
 
         gridLayout2->addWidget(timeoutSpinBox, 2, 1, 1, 1);
 
@@ -224,52 +220,78 @@ public:
         hboxLayout2->setSpacing(6);
 #endif
         hboxLayout2->setContentsMargins(0, 0, 0, 0);
-        hboxLayout2->setObjectName(QString::fromUtf8("hboxLayout2"));
+        hboxLayout2->setObjectName(QStringLiteral("hboxLayout2"));
         spacerItem2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         hboxLayout2->addItem(spacerItem2);
 
         btnConnect = new QPushButton(groupMessaging);
-        btnConnect->setObjectName(QString::fromUtf8("btnConnect"));
+        btnConnect->setObjectName(QStringLiteral("btnConnect"));
 
         hboxLayout2->addWidget(btnConnect);
 
 
-        gridLayout2->addLayout(hboxLayout2, 5, 0, 1, 2);
+        gridLayout2->addLayout(hboxLayout2, 6, 0, 1, 2);
 
         editPrimaryGroup = new QLineEdit(groupMessaging);
-        editPrimaryGroup->setObjectName(QString::fromUtf8("editPrimaryGroup"));
+        editPrimaryGroup->setObjectName(QStringLiteral("editPrimaryGroup"));
 
         gridLayout2->addWidget(editPrimaryGroup, 3, 1, 1, 1);
 
         label_5 = new QLabel(groupMessaging);
-        label_5->setObjectName(QString::fromUtf8("label_5"));
+        label_5->setObjectName(QStringLiteral("label_5"));
 
         gridLayout2->addWidget(label_5, 3, 0, 1, 1);
 
         label_2 = new QLabel(groupMessaging);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setObjectName(QStringLiteral("label_2"));
 
         gridLayout2->addWidget(label_2, 1, 0, 1, 1);
 
         editServer = new QLineEdit(groupMessaging);
-        editServer->setObjectName(QString::fromUtf8("editServer"));
+        editServer->setObjectName(QStringLiteral("editServer"));
 
         gridLayout2->addWidget(editServer, 1, 1, 1, 1);
 
         editUser = new QLineEdit(groupMessaging);
-        editUser->setObjectName(QString::fromUtf8("editUser"));
+        editUser->setObjectName(QStringLiteral("editUser"));
 
         gridLayout2->addWidget(editUser, 0, 1, 1, 1);
 
         label = new QLabel(groupMessaging);
-        label->setObjectName(QString::fromUtf8("label"));
+        label->setObjectName(QStringLiteral("label"));
 
         gridLayout2->addWidget(label, 0, 0, 1, 1);
 
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout2->addItem(verticalSpacer, 5, 1, 1, 1);
+
+        label_3 = new QLabel(groupMessaging);
+        label_3->setObjectName(QStringLiteral("label_3"));
+
+        gridLayout2->addWidget(label_3, 4, 0, 1, 1);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        editPeerCertificate = new QLineEdit(groupMessaging);
+        editPeerCertificate->setObjectName(QStringLiteral("editPeerCertificate"));
+        sizePolicy2.setHeightForWidth(editPeerCertificate->sizePolicy().hasHeightForWidth());
+        editPeerCertificate->setSizePolicy(sizePolicy2);
+
+        horizontalLayout->addWidget(editPeerCertificate);
+
+        btnPeerCertificateOpen = new QToolButton(groupMessaging);
+        btnPeerCertificateOpen->setObjectName(QStringLiteral("btnPeerCertificateOpen"));
+
+        horizontalLayout->addWidget(btnPeerCertificateOpen);
+
+
+        gridLayout2->addLayout(horizontalLayout, 4, 1, 1, 1);
+
         splitter->addWidget(groupMessaging);
         groupSubscriptions = new QGroupBox(splitter);
-        groupSubscriptions->setObjectName(QString::fromUtf8("groupSubscriptions"));
+        groupSubscriptions->setObjectName(QStringLiteral("groupSubscriptions"));
         groupSubscriptions->setEnabled(false);
         sizePolicy2.setHeightForWidth(groupSubscriptions->sizePolicy().hasHeightForWidth());
         groupSubscriptions->setSizePolicy(sizePolicy2);
@@ -280,9 +302,9 @@ public:
 #ifndef Q_OS_MAC
         vboxLayout->setContentsMargins(9, 9, 9, 9);
 #endif
-        vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
+        vboxLayout->setObjectName(QStringLiteral("vboxLayout"));
         listSubscriptions = new QListWidget(groupSubscriptions);
-        listSubscriptions->setObjectName(QString::fromUtf8("listSubscriptions"));
+        listSubscriptions->setObjectName(QStringLiteral("listSubscriptions"));
         QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding);
         sizePolicy3.setHorizontalStretch(0);
         sizePolicy3.setVerticalStretch(0);
@@ -296,9 +318,9 @@ public:
         hboxLayout3->setSpacing(6);
 #endif
         hboxLayout3->setContentsMargins(0, 0, 0, 0);
-        hboxLayout3->setObjectName(QString::fromUtf8("hboxLayout3"));
+        hboxLayout3->setObjectName(QStringLiteral("hboxLayout3"));
         btnSelectAll = new QPushButton(groupSubscriptions);
-        btnSelectAll->setObjectName(QString::fromUtf8("btnSelectAll"));
+        btnSelectAll->setObjectName(QStringLiteral("btnSelectAll"));
 
         hboxLayout3->addWidget(btnSelectAll);
 
@@ -307,7 +329,7 @@ public:
         hboxLayout3->addItem(spacerItem3);
 
         btnDeselectAll = new QPushButton(groupSubscriptions);
-        btnDeselectAll->setObjectName(QString::fromUtf8("btnDeselectAll"));
+        btnDeselectAll->setObjectName(QStringLiteral("btnDeselectAll"));
 
         hboxLayout3->addWidget(btnDeselectAll);
 
@@ -337,26 +359,30 @@ public:
 
     void retranslateUi(QDialog *ConnectionDialog)
     {
-        ConnectionDialog->setWindowTitle(QApplication::translate("ConnectionDialog", "Setup connection", 0, QApplication::UnicodeUTF8));
-        btnClose->setText(QApplication::translate("ConnectionDialog", "Continue", 0, QApplication::UnicodeUTF8));
-        groupDatabase->setTitle(QApplication::translate("ConnectionDialog", "Database", 0, QApplication::UnicodeUTF8));
-        btnDbSwitchToReported->setText(QApplication::translate("ConnectionDialog", "Switch to reported", 0, QApplication::UnicodeUTF8));
-        btnDbConnect->setText(QApplication::translate("ConnectionDialog", "Connect", 0, QApplication::UnicodeUTF8));
-        labelDbType->setText(QApplication::translate("ConnectionDialog", "Type:", 0, QApplication::UnicodeUTF8));
-        labelDbConnection->setText(QApplication::translate("ConnectionDialog", "Connection:", 0, QApplication::UnicodeUTF8));
-        label_7->setText(QApplication::translate("ConnectionDialog", "Reported:", 0, QApplication::UnicodeUTF8));
-        groupMessaging->setTitle(QApplication::translate("ConnectionDialog", "Messaging", 0, QApplication::UnicodeUTF8));
-        label_3->setText(QApplication::translate("ConnectionDialog", "Enter one group defined in the master config file. This group is used for sending messages only.", 0, QApplication::UnicodeUTF8));
-        label_4->setText(QApplication::translate("ConnectionDialog", "Timeout in sec.:", 0, QApplication::UnicodeUTF8));
-        btnConnect->setText(QApplication::translate("ConnectionDialog", "Connect", 0, QApplication::UnicodeUTF8));
-        label_5->setText(QApplication::translate("ConnectionDialog", "Primary group:", 0, QApplication::UnicodeUTF8));
-        label_2->setText(QApplication::translate("ConnectionDialog", "Server:", 0, QApplication::UnicodeUTF8));
-        editServer->setText(QApplication::translate("ConnectionDialog", "localhost", 0, QApplication::UnicodeUTF8));
-        editUser->setText(QApplication::translate("ConnectionDialog", "user", 0, QApplication::UnicodeUTF8));
-        label->setText(QApplication::translate("ConnectionDialog", "User:", 0, QApplication::UnicodeUTF8));
-        groupSubscriptions->setTitle(QApplication::translate("ConnectionDialog", "Subscriptions", 0, QApplication::UnicodeUTF8));
-        btnSelectAll->setText(QApplication::translate("ConnectionDialog", "Select All", 0, QApplication::UnicodeUTF8));
-        btnDeselectAll->setText(QApplication::translate("ConnectionDialog", "Deselect All", 0, QApplication::UnicodeUTF8));
+        ConnectionDialog->setWindowTitle(QApplication::translate("ConnectionDialog", "Setup connection", Q_NULLPTR));
+        btnClose->setText(QApplication::translate("ConnectionDialog", "Continue", Q_NULLPTR));
+        groupDatabase->setTitle(QApplication::translate("ConnectionDialog", "Database", Q_NULLPTR));
+        btnDbSwitchToReported->setText(QApplication::translate("ConnectionDialog", "Switch to reported", Q_NULLPTR));
+        btnDbConnect->setText(QApplication::translate("ConnectionDialog", "Connect", Q_NULLPTR));
+        labelDbType->setText(QApplication::translate("ConnectionDialog", "Type:", Q_NULLPTR));
+        labelDbConnection->setText(QApplication::translate("ConnectionDialog", "Connection:", Q_NULLPTR));
+        label_7->setText(QApplication::translate("ConnectionDialog", "Reported:", Q_NULLPTR));
+        groupMessaging->setTitle(QApplication::translate("ConnectionDialog", "Messaging", Q_NULLPTR));
+        label_4->setText(QApplication::translate("ConnectionDialog", "Timeout in sec.:", Q_NULLPTR));
+        btnConnect->setText(QApplication::translate("ConnectionDialog", "Connect", Q_NULLPTR));
+        label_5->setText(QApplication::translate("ConnectionDialog", "Primary group:", Q_NULLPTR));
+        label_2->setText(QApplication::translate("ConnectionDialog", "Server:", Q_NULLPTR));
+        editServer->setText(QApplication::translate("ConnectionDialog", "localhost", Q_NULLPTR));
+        editUser->setText(QApplication::translate("ConnectionDialog", "user", Q_NULLPTR));
+        label->setText(QApplication::translate("ConnectionDialog", "User:", Q_NULLPTR));
+        label_3->setText(QApplication::translate("ConnectionDialog", "Peer certificate:", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        btnPeerCertificateOpen->setToolTip(QApplication::translate("ConnectionDialog", "Select peer certificate file", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+        btnPeerCertificateOpen->setText(QApplication::translate("ConnectionDialog", "...", Q_NULLPTR));
+        groupSubscriptions->setTitle(QApplication::translate("ConnectionDialog", "Subscriptions", Q_NULLPTR));
+        btnSelectAll->setText(QApplication::translate("ConnectionDialog", "Select All", Q_NULLPTR));
+        btnDeselectAll->setText(QApplication::translate("ConnectionDialog", "Deselect All", Q_NULLPTR));
     } // retranslateUi
 
 };

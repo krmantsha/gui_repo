@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'inspector.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.7
+** Created by: Qt User Interface Compiler version 5.9.7
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,17 +10,17 @@
 #define UI_INSPECTOR_H
 
 #include <QtCore/QVariant>
-#include <QtGui/QAction>
-#include <QtGui/QApplication>
-#include <QtGui/QButtonGroup>
-#include <QtGui/QHeaderView>
-#include <QtGui/QLineEdit>
-#include <QtGui/QSplitter>
-#include <QtGui/QTableWidget>
-#include <QtGui/QToolButton>
-#include <QtGui/QTreeWidget>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QWidget>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QSplitter>
+#include <QtWidgets/QTableWidget>
+#include <QtWidgets/QToolButton>
+#include <QtWidgets/QTreeWidget>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
@@ -37,16 +37,16 @@ public:
     void setupUi(QWidget *Inspector)
     {
         if (Inspector->objectName().isEmpty())
-            Inspector->setObjectName(QString::fromUtf8("Inspector"));
+            Inspector->setObjectName(QStringLiteral("Inspector"));
         Inspector->resize(657, 498);
         vboxLayout = new QVBoxLayout(Inspector);
         vboxLayout->setSpacing(4);
 #ifndef Q_OS_MAC
         vboxLayout->setContentsMargins(9, 9, 9, 9);
 #endif
-        vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
+        vboxLayout->setObjectName(QStringLiteral("vboxLayout"));
         buttonBack = new QToolButton(Inspector);
-        buttonBack->setObjectName(QString::fromUtf8("buttonBack"));
+        buttonBack->setObjectName(QStringLiteral("buttonBack"));
         buttonBack->setEnabled(false);
         const QIcon icon = QIcon(QString::fromUtf8(":/icons/icons/undo.png"));
         buttonBack->setIcon(icon);
@@ -54,18 +54,18 @@ public:
         vboxLayout->addWidget(buttonBack);
 
         editFilter = new QLineEdit(Inspector);
-        editFilter->setObjectName(QString::fromUtf8("editFilter"));
+        editFilter->setObjectName(QStringLiteral("editFilter"));
 
         vboxLayout->addWidget(editFilter);
 
         splitter = new QSplitter(Inspector);
-        splitter->setObjectName(QString::fromUtf8("splitter"));
+        splitter->setObjectName(QStringLiteral("splitter"));
         splitter->setOrientation(Qt::Horizontal);
         treeWidget = new QTreeWidget(splitter);
-        treeWidget->setObjectName(QString::fromUtf8("treeWidget"));
+        treeWidget->setObjectName(QStringLiteral("treeWidget"));
         splitter->addWidget(treeWidget);
         tableWidget = new QTableWidget(splitter);
-        tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
+        tableWidget->setObjectName(QStringLiteral("tableWidget"));
         tableWidget->setAlternatingRowColors(true);
         splitter->addWidget(tableWidget);
 
@@ -79,14 +79,16 @@ public:
 
     void retranslateUi(QWidget *Inspector)
     {
-        Inspector->setWindowTitle(QApplication::translate("Inspector", "Inspector", 0, QApplication::UnicodeUTF8));
+        Inspector->setWindowTitle(QApplication::translate("Inspector", "Inspector", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
         buttonBack->setToolTip(QString());
 #endif // QT_NO_TOOLTIP
-        buttonBack->setText(QApplication::translate("Inspector", "...", 0, QApplication::UnicodeUTF8));
-        buttonBack->setShortcut(QApplication::translate("Inspector", "Backspace", 0, QApplication::UnicodeUTF8));
+        buttonBack->setText(QApplication::translate("Inspector", "...", Q_NULLPTR));
+#ifndef QT_NO_SHORTCUT
+        buttonBack->setShortcut(QApplication::translate("Inspector", "Backspace", Q_NULLPTR));
+#endif // QT_NO_SHORTCUT
 #ifndef QT_NO_TOOLTIP
-        editFilter->setToolTip(QApplication::translate("Inspector", "Define an object filter, e.g. 'Network.code=GE'. Wildcards are allowed to match a value.", 0, QApplication::UnicodeUTF8));
+        editFilter->setToolTip(QApplication::translate("Inspector", "Define an object filter, e.g. 'Network.code=GE'. Wildcards are allowed to match a value.", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
     } // retranslateUi
 

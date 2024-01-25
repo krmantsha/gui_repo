@@ -18,12 +18,16 @@
  ***************************************************************************/
 
 
-
 #ifndef SC_LOGGING_PUBLISHLOC_H
 #define SC_LOGGING_PUBLISHLOC_H
 
-#include <seiscomp/logging/common.h>
-#include <stdarg.h>
+
+#include <seiscomp/core.h>
+
+#include <fmt/format.h>
+#include <fmt/printf.h>
+
+#include <cstdarg>
 
 
 namespace Seiscomp {
@@ -47,19 +51,12 @@ struct SC_SYSTEM_CORE_API PublishLoc {
     to be initialized at run-time which adds extra code and a guard variable
     for the struct.
  */
+	PublishLoc(bool *enabled, const char *component,
+	           const char *fileName, const char *functionName,
+	           int lineNum, Channel *channel);
 	~PublishLoc();
 
 	bool *enabled;
-
-	// If the compiler supports printf attribute specification on function
-	// pointers, we'll use it here so that the compiler knows to check for
-	// proper printf formatting.  If it doesn't support it, then we'll
-	// force the check by inserting a bogus inline function..
-	//! function to call when we reach the log statement.
-	void (*publish)(PublishLoc *, Channel *, const char *format, ...)
-	    PRINTF_FP(3,4);
-
-	void (*publishVA)(PublishLoc *, Channel *, const char *format, va_list args);
 
 	Node *pub;
 	const char *component;
@@ -74,26 +71,44 @@ struct SC_SYSTEM_CORE_API PublishLoc {
 };
 
 
-SC_SYSTEM_CORE_API void Register(PublishLoc *loc, Channel *, const char *format, ... ) PRINTF(3,4);
-SC_SYSTEM_CORE_API void RegisterVA(PublishLoc *loc, Channel *, const char *format, va_list args );
+void Publish(PublishLoc *, Channel *, const char *msg);
+void Publish(PublishLoc *, Channel *, const std::string &msg);
+
+template <typename S, typename... Args>
+void PublishF(PublishLoc *, Channel *,
+              const S &format, Args &&...args);
+
+template <typename S, typename... Args>
+void PublishP(PublishLoc *, Channel *,
+              const S &format, Args &&...args);
+
+void VPublish(PublishLoc *, Channel *,
+              const char *format,
+              va_list args);
+void VPublish(PublishLoc *, Channel *,
+              fmt::string_view format,
+              fmt::format_args args);
+void VPublish(PublishLoc *, Channel *,
+              fmt::string_view format,
+              fmt::printf_args args);
 
 
-/* @def LOG_NO_COPY
-   @brief Disables class copy constructor and operator =.
+template <typename S, typename... Args>
+inline void PublishF(PublishLoc *loc, Channel *channel,
+                     const S &format, Args &&...args) {
+	VPublish(loc, channel, format, fmt::make_format_args(args...));
+}
 
-   This macro declares a private copy constructor and assignment operator
-   which prevents automatic generation of these operation by the compiler.
 
-   Attention, it switches access to private, so use it only at the end of the
-   class declaration.
- */
-#define LOG_NO_COPY(CNAME) \
-	private: \
-		CNAME(const CNAME&); \
-		CNAME & operator = (const CNAME &)
+template <typename S, typename... Args>
+inline void PublishP(PublishLoc *loc, Channel *channel,
+                     const S &format, Args &&...args) {
+	VPublish(loc, channel, format, fmt::make_printf_args(args...));
+}
 
 
 }
 }
+
 
 #endif

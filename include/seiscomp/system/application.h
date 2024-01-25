@@ -21,8 +21,6 @@
 #ifndef SEISCOMP_SYSTEM_APPLICATION_H
 #define SEISCOMP_SYSTEM_APPLICATION_H
 
-#include <boost/shared_ptr.hpp>
-
 #include <seiscomp/core/exceptions.h>
 #include <seiscomp/core/interruptible.h>
 #include <seiscomp/config/config.h>
@@ -30,6 +28,9 @@
 #include <seiscomp/system/settings.h>
 #include <seiscomp/system/environment.h>
 #include <seiscomp/system/schema.h>
+
+#include <memory>
+#include <type_traits>
 
 
 namespace Seiscomp {
@@ -501,7 +502,8 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 				IsKey           = 0x01,
 				InterpretAsPath = 0x02,
 				CLIPrintDefault = 0x04,
-				CLIIsSwitch     = 0x08
+				CLIIsSwitch     = 0x08,
+				IsInverseSwitch = 0x10
 			};
 
 			OptionBinding(T &value,
@@ -520,6 +522,7 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 			bool isKey() { return flags & IsKey; }
 			bool printDefault() { return flags & CLIPrintDefault; }
 			bool isSwitch() { return flags & CLIIsSwitch; }
+			bool isInverseSwitch() { return flags & IsInverseSwitch; }
 
 			T            &value;
 			int           flags;
@@ -626,18 +629,26 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 						case PutCfg:
 							break;
 						case Print:
-							if ( visitedItem.configFileRelativeSymbol )
+						{
+							bool inverse = false;
+							if ( visitedItem.configFileRelativeSymbol ) {
 								*_external.os << Detail::join(visitor.configPrefix, visitedItem.configFileRelativeSymbol);
-							else if ( visitedItem.cliAbsoluteSymbol )
+							}
+							else if ( visitedItem.cliAbsoluteSymbol ) {
 								*_external.os << "--" << visitedItem.cliAbsoluteSymbol;
-							else if ( visitedItem.isKey() )
+								inverse = visitedItem.isInverseSwitch();
+							}
+							else if ( visitedItem.isKey() ) {
 								*_external.os << "*KEY*";
-							else
+							}
+							else {
 								return;
+							}
 							*_external.os << ": ";
-							PrintHelper<T, IsNativelySupported<T>::value>::process(*_external.os, visitedItem.value);
+							PrintHelper<T, IsNativelySupported<T>::value>::process(*_external.os, visitedItem.value, inverse);
 							*_external.os << std::endl;
 							break;
+						}
 					}
 				}
 
@@ -776,7 +787,7 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 					enum {
 						value = Generic::Detail::IsClassType<T>::value  ?
 						(
-							boost::is_same<std::string,T>::value ?
+							std::is_same<std::string,T>::value ?
 							1
 							:
 							0
@@ -885,11 +896,11 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 								s = visitedItem.cliAbsoluteSymbol;
 								Core::trim(s, len);
 								if ( proc._external.constCli->hasOption(std::string(s, len)) ) {
-									visitedItem.value = true;
+									visitedItem.value = !visitedItem.isInverseSwitch();
 								}
 							}
 							else if ( proc._external.constCli->hasOption(visitedItem.cliAbsoluteSymbol) ) {
-								visitedItem.value = true;
+								visitedItem.value = !visitedItem.isInverseSwitch();
 							}
 						}
 
@@ -988,7 +999,7 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 
 				template <typename T>
 				struct PrintHelper<T,0> {
-					static void process(std::ostream &os, const T &value) {
+					static void process(std::ostream &os, const T &value, bool) {
 						os << toString(value);
 					}
 				};
@@ -1003,15 +1014,37 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 
 						for ( size_t i = 0; i < value.size(); ++i ) {
 							if ( i ) os << ", ";
-							PrintHelper<T,0>::process(os, value[i]);
+							PrintHelper<T,0>::process(os, value[i], false);
+						}
+					}
+				};
+
+				template <typename T, int IS_CLASS>
+				struct PrintNativeHelper {};
+
+				template <typename T>
+				struct PrintNativeHelper<T,0> {
+					static void process(std::ostream &os, const T &value, bool inverse) {
+						if ( inverse ) {
+							os << !value;
+						}
+						else {
+							os << value;
 						}
 					}
 				};
 
 				template <typename T>
-				struct PrintHelper<T,1> {
-					static void process(std::ostream &os, const T &value) {
+				struct PrintNativeHelper<T,1> {
+					static void process(std::ostream &os, const T &value, bool) {
 						os << value;
+					}
+				};
+
+				template <typename T>
+				struct PrintHelper<T,1> {
+					static void process(std::ostream &os, const T &value, bool inverse) {
+						return PrintNativeHelper<T,Generic::Detail::IsClassType<T>::value>::process(os, value, inverse);
 					}
 				};
 
@@ -1109,6 +1142,11 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 				                                     const char *desc) {
 					return OptionBinding<bool>(boundValue, OptionBinding<bool>::CLIIsSwitch, nullptr, group, option, desc);
 				}
+
+				static OptionBinding<bool> cliInverseSwitch(bool &boundValue, const char *group, const char *option,
+				                                            const char *desc) {
+					return OptionBinding<bool>(boundValue, OptionBinding<bool>::CLIIsSwitch | OptionBinding<bool>::IsInverseSwitch, nullptr, group, option, desc);
+				}
 		};
 
 
@@ -1147,7 +1185,7 @@ class SC_SYSTEM_CORE_API Application : public Core::InterruptibleObject {
 		std::string                    _name;
 
 		Arguments                      _arguments;
-		boost::shared_ptr<CommandLine> _commandline;
+		std::shared_ptr<CommandLine>   _commandline;
 
 		Logging::Output               *_logger;
 

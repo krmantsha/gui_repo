@@ -17,7 +17,7 @@
     <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Software Development Kit" href="sdk.html" />
+    <link rel="next" title="Time grammar" href="time-grammar.html" />
     <link rel="prev" title="ncurses" href="../apps/scm_ncurses.html" /> 
   </head>
   <body>
@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -43,7 +43,7 @@
           </a>
         </li>
         <li class="right">
-          <a href="sdk.html" title="Software Development Kit"
+          <a href="time-grammar.html" title="Time grammar"
              accesskey="N">
             next
           </a>
@@ -75,7 +75,7 @@ building filter chains (operator &gt;&gt; or -&gt;) as well as combining them wi
 <ul class="simple">
 <li><p>+ : addition</p></li>
 <li><p>- : subtraction</p></li>
-<li><p>* : multiplitation</p></li>
+<li><p>* : multiplication</p></li>
 <li><p>/ : division</p></li>
 <li><p>^ : power / exponentiation</p></li>
 <li><p>|. | : absolute value.</p></li>
@@ -388,10 +388,11 @@ long-time window provides information about the actual seismic noise at the stat
 
 <dl class="py function">
 <dt class="sig sig-object py" id="WA">
-<span class="sig-name descname"><span class="pre">WA</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="n"><span class="pre">type</span> <span class="pre">=</span> <span class="pre">1</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">gain=2800</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">T0=0.8</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">h=0.8</span></span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#WA" title="Permalink to this definition">¶</a></dt>
-<dd><p>The simulation filter of a Wood-Anderson seismometer. The data format of the waveforms has
-to be given for applying the simulation filter (displacement = 0, velocity = 1, acceleration = 2),
-e.g. WA(1) is the simulation on velocity data.</p>
+<span class="sig-name descname"><span class="pre">WA</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="n"><span class="pre">type</span> <span class="pre">=</span> <span class="pre">1</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">gain=2080</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">T0=0.8</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">h=0.7</span></span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#WA" title="Permalink to this definition">¶</a></dt>
+<dd><p>The simulation filter of a <a class="reference internal" href="glossary.html#term-Wood-Anderson-seismometer"><span class="xref std std-term">Wood-Anderson seismometer</span></a>. The data format
+of the waveforms has to be given for applying the simulation filter
+(displacement = 0, velocity = 1, acceleration = 2), e.g., WA(1) is the
+simulation on velocity data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -407,7 +408,8 @@ e.g. WA(1) is the simulation on velocity data.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="WWSSN_LP">
 <span class="sig-name descname"><span class="pre">WWSSN_LP</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="n"><span class="pre">type</span> <span class="pre">=</span> <span class="pre">1</span></span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#WWSSN_LP" title="Permalink to this definition">¶</a></dt>
-<dd><p>The instrument simulation filter of a World-Wide Standard Seismograph Network (WWSSN) long-period seismometer.</p>
+<dd><p>The instrument simulation filter of a
+<a class="reference internal" href="glossary.html#term-WWSSN_LP"><span class="xref std std-term">World-Wide Standard Seismograph Network (WWSSN) long-period seismometer</span></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>type</strong> – The data type: 0 (displacement), 1 (velocity) or 2 (acceleration)</p>
@@ -418,7 +420,8 @@ e.g. WA(1) is the simulation on velocity data.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="WWSSN_SP">
 <span class="sig-name descname"><span class="pre">WWSSN_SP</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="n"><span class="pre">type</span> <span class="pre">=</span> <span class="pre">1</span></span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#WWSSN_SP" title="Permalink to this definition">¶</a></dt>
-<dd><p>Analog to the WWSSN_LP, the simulation filter of the short-period seismometer of the WWSSN.</p>
+<dd><p>Analog to the <a class="reference internal" href="#WWSSN_LP" title="WWSSN_LP"><code class="xref py py-func docutils literal notranslate"><span class="pre">WWSSN_LP()</span></code></a>, the simulation filter of the
+<a class="reference internal" href="glossary.html#term-WWSSN_SP"><span class="xref std std-term">short-period seismometer of the WWSSN</span></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>type</strong> – The data type: 0 (displacement), 1 (velocity) or 2 (acceleration)</p>
@@ -488,8 +491,8 @@ e.g. WA(1) is the simulation on velocity data.</p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="sdk.html"
-                          title="next chapter">Software Development Kit</a></p>
+    <p class="topless"><a href="time-grammar.html"
+                          title="next chapter">Time grammar</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -510,7 +513,7 @@ e.g. WA(1) is the simulation on velocity data.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

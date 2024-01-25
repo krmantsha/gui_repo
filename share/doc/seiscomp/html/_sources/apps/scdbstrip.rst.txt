@@ -34,7 +34,7 @@ the database again. The timing and the parameters to be removed is controlled
 by module configuration or command-line options.
 
 
-.. hint ::
+.. hint::
 
    For removing specific parameters and not all in a time range, use
    :ref:`scdispatch` along with XML files created by :ref:`scxmldump` and
@@ -79,10 +79,16 @@ There are two solutions to this:
 
    .. code-block:: sh
 
-      $ scdbstrip -d seis:mypass@localhost/seiscomp --days 1000
-      $ scdbstrip -d seis:mypass@localhost/seiscomp --days 900
+      $ scdbstrip -d mysql://sysop:sysop@localhost/seiscomp --days 1000
+      $ scdbstrip -d mysql://sysop:sysop@localhost/seiscomp --days 900
       ...
-      $ scdbstrip -d seis:mypass@localhost/seiscomp --days 100
+      $ scdbstrip -d mysql://sysop:sysop@localhost/seiscomp --days 100
+
+.. hint::
+
+   In the examples, database connection parameters correspond to default values.
+   You may thus replace ``-d mysql://sysop:sysop@localhost/seiscomp`` by
+   ``-d localhost`` or ``-d mysql://``.
 
 
 Examples
@@ -94,11 +100,43 @@ Examples
 
      scdbstrip -d mysql://sysop:sysop@localhost/seiscomp --days 30
 
+* Remove event and waveform quality parameters newer than 30 days
+
+  .. code-block:: sh
+
+     scdbstrip -d mysql://sysop:sysop@localhost/seiscomp --days 30 -i
+
 * Only remove waveform QC parameters older than 30 days but no others
 
   .. code-block:: sh
 
      scdbstrip -d mysql://sysop:sysop@localhost/seiscomp --days 30 --qc-only
+
+* Remove event and waveform quality parameters before 2000-01-01 12:00:00
+
+  .. code-block:: sh
+
+     scdbstrip -d mysql://sysop:sysop@localhost/seiscomp --datetime "2000-01-01 12:00:00"
+
+* Remove event and waveform quality parameters after 2000-01-01 12:00:00
+
+  .. code-block:: sh
+
+     scdbstrip -d mysql://sysop:sysop@localhost/seiscomp --datetime "2000-01-01 12:00:00" -i
+
+* Remove event and waveform quality parameters between 2000-01-01 12:00:00 ~ 2000-01-01 14:00:00
+
+  .. code-block:: sh
+
+     scdbstrip -d mysql://sysop:sysop@localhost/seiscomp --time-window "2000-01-01 12:00:00~2000-01-01 14:00:00"
+
+* Remove event and waveform quality parameters before 2000-01-01 12:00:00 and after 2000-01-01 14:00:00
+
+  .. code-block:: sh
+
+     scdbstrip -d mysql://sysop:sysop@localhost/seiscomp --time-window "2000-01-01 12:00:00~2000-01-01 14:00:00" -i
+
+
 
 
 .. _scdbstrip_configuration:
@@ -123,8 +161,10 @@ scdbstrip inherits :ref:`global options<global-configuration>`.
 
    Type: *boolean*
 
-   Delete all parameters after the specified time period,
-   not before.
+   Invert the selection of the specified time period, that is
+   delete all parameters after the specified time period,
+   not before. When a date range is specified, then delete all
+   parameters before and after the time range, not in between.
 
 
 .. confval:: database.cleanup.eventParameters
@@ -343,8 +383,15 @@ Timespan
 .. option:: --datetime arg
 
    Replaces the days:hours:minutes timespan definition by an
-   aribtrary absolute timestamp in UTC. The format is
+   arbitrary absolute timestamp in UTC. The format is
    %Y\-%m\-%d %H:%M:%S.
+
+.. option:: -t, --time-window arg
+
+   Delete objects in the specified time window.
+   Replaces the days:hours:minutes timespan definition by an
+   arbitrary absolute time range in UTC. The format is
+   startTime\~endTime that is %Y\-%m\-%d %H:%M:%S\~%Y\-%m\-%d %H:%M:%S
 
 .. option:: -i, --invert
 

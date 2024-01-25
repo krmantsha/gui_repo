@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "SCRTTV" "1" "Jan 18, 2024" "5.5.17" "SeisComP"
+.TH "SCRTTV" "1" "Jan 18, 2024" "6.1.2" "SeisComP"
 .SH NAME
 scrttv \- SeisComP Documentation
 .sp
@@ -1469,6 +1469,121 @@ Unit: \fIkm\fP
 .sp
 A list of depths used to populate the locator depth selection
 dropdown list.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBspectrogram.*\fP
+\fIDefine parameters for spectrogram representation.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B spectrogram.smoothing
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Whether to plot the spectrogram filtered bilinearily.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B spectrogram.logScale
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Whether to use logarithmic frequency scale.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B spectrogram.normalization
+Default: \fBfixed\fP
+.sp
+Type: \fIstring\fP
+.sp
+Which amplitude normalization mode to use: \(dqfixed\(dq,
+\(dqfrequency\(dq or \(dqtime\(dq.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B spectrogram.axis
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Whether to show the frequency axis.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B spectrogram.minimumAmplitude
+Default: \fB\-15\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIlog(ps)\fP
+.sp
+The lower bound of the static amplitude range give as logarithm of
+the power spectrum (log(real**2 + imag**2)).
+.UNINDENT
+.INDENT 0.0
+.TP
+.B spectrogram.maximumAmplitude
+Default: \fB\-5\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIlog(ps)\fP
+.sp
+The upper bound of the static amplitude range give as logarithm of
+the power spectrum (log(real**2 + imag**2)).
+.UNINDENT
+.INDENT 0.0
+.TP
+.B spectrogram.minimumFrequency
+Default: \fB0\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIHz\fP
+.sp
+The lower bound of the frequency to be shown.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B spectrogram.maximumFrequency
+Default: \fB0\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIHz\fP
+.sp
+The upper bound of the frequency to be shown. Zero is a special
+value and means \(dqauto\(dq and sets the maximum
+frequency from the spectra.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B spectrogram.timeSpan
+Default: \fB20\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIs\fP
+.sp
+The time span of each data slice used to compute the
+frequency spectrum.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B spectrogram.overlap
+Default: \fB0.5\fP
+.sp
+Type: \fIdouble\fP
+.sp
+The overlap of the data time window between zero and one
+(exclusive).
 .UNINDENT
 .SH COMMAND-LINE OPTIONS
 .sp

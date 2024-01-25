@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -122,7 +122,7 @@ is in use when configuring <a class="reference internal" href="#confval-interfac
 to the clients of the messaging system (compare with the <a class="reference internal" href="../base/concepts/messaging.html#messaging-db"><span class="std std-ref">concepts section</span></a>).</p>
 <p>The database is configured per queue.</p>
 <section id="single-machine">
-<h3>Single machine<a class="headerlink" href="#single-machine" title="Permalink to this heading">¶</a></h3>
+<h3>Single Machine<a class="headerlink" href="#single-machine" title="Permalink to this heading">¶</a></h3>
 <p>When running all <cite>SeisComP</cite> modules on a single machine, the read and write
 parameters are typically configured with <em>localhost</em> as a <em>host name</em>.</p>
 <p>Example:</p>
@@ -132,7 +132,7 @@ queues.production.processors.messages.dbstore.write = sysop:sysop@localhost/seis
 </div>
 </section>
 <section id="multiple-machines">
-<h3>Multiple machines<a class="headerlink" href="#multiple-machines" title="Permalink to this heading">¶</a></h3>
+<h3>Multiple Machines<a class="headerlink" href="#multiple-machines" title="Permalink to this heading">¶</a></h3>
 <p>If the clients are located on machines different from the messaging, the
 <em>host name</em> of the read parameter
 must be available on the client machine and the client machine must be able to
@@ -154,6 +154,32 @@ queues.production.processors.messages.dbstore.write = sysop:sysop@localhost/seis
 </li>
 </ul>
 </section>
+<section id="database-proxy">
+<h3>Database Proxy<a class="headerlink" href="#database-proxy" title="Permalink to this heading">¶</a></h3>
+<p>scmaster can accept database requests and forward results to clients without
+exposing the underlying database. That allows clients to connect to the database
+of a particular queue via the Websocket HTTP protocol. No specific database
+plugin is required at the client which reduces the complexity of configuration.</p>
+<p>Be aware that due to the nature of a proxy which is another layer on top of the
+actual database connection the performance is not as high as direct database
+access.</p>
+<p>To let scmaster return the proxy address of the database connection, set</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>queues.production.processors.messages.dbstore.proxy = true
+</pre></div>
+</div>
+<p>in the configuration file.</p>
+</section>
+</section>
+<section id="access-control">
+<h2>Access Control<a class="headerlink" href="#access-control" title="Permalink to this heading">¶</a></h2>
+<p>scmaster does not provide any built-in access control to connecting clients.
+The only exception is the possibility to verify client certificates against
+the server certificate if SSL is enabled.</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>interface.ssl.verifyPeer = true
+</pre></div>
+</div>
+<p>It is required that the client certificate is signed by the server certificate
+otherwise the client connection will be rejected.</p>
 </section>
 <section id="module-configuration">
 <span id="scmaster-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
@@ -260,6 +286,17 @@ further details.</p>
 <dt class="sig sig-object std" id="confval-interface.ssl.certificate">
 <span class="sig-name descname"><span class="pre">interface.ssl.certificate</span></span><a class="headerlink" href="#confval-interface.ssl.certificate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>path</em></p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-interface.ssl.verifyPeer">
+<span class="sig-name descname"><span class="pre">interface.ssl.verifyPeer</span></span><a class="headerlink" href="#confval-interface.ssl.verifyPeer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>If enabled then the certificate of a connecting client
+is verified against the servers certificate. It is
+required that the client certificate is signed by the
+server certificate otherwise the connection is refused.</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -369,6 +406,21 @@ private to scmaster.
 A separate write connection enables different
 permissions on the database level for scmaster
 and clients.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-queues.-name.processors.messages.dbstore.proxy">
+<span class="sig-name descname"><span class="pre">queues.$name.processors.messages.dbstore.proxy</span></span><a class="headerlink" href="#confval-queues.-name.processors.messages.dbstore.proxy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>If enabled then the database connection as configured
+in ‘read’ is not being returned to the client
+but the URL &quot;proxy://&quot;. This URL
+tells the client to open the database via the
+websocket proxy at the messaging address,
+e.g. http://localhost/production/db. The same
+hostname and queue must be used as for the
+initial messaging connection.</p>
 </dd></dl>
 
 <dl class="std confval">
@@ -576,10 +628,12 @@ Equivalent to --verbosity=4 --console=1 --print-component=1
 <li><a class="reference internal" href="#queues">Queues</a></li>
 <li><a class="reference internal" href="#scheme">Scheme</a></li>
 <li><a class="reference internal" href="#database-access">Database Access</a><ul>
-<li><a class="reference internal" href="#single-machine">Single machine</a></li>
-<li><a class="reference internal" href="#multiple-machines">Multiple machines</a></li>
+<li><a class="reference internal" href="#single-machine">Single Machine</a></li>
+<li><a class="reference internal" href="#multiple-machines">Multiple Machines</a></li>
+<li><a class="reference internal" href="#database-proxy">Database Proxy</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#access-control">Access Control</a></li>
 <li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
 <li><a class="reference internal" href="#command-line-options">Command-Line Options</a><ul>
 <li><a class="reference internal" href="#generic">Generic</a></li>
@@ -621,7 +675,7 @@ Equivalent to --verbosity=4 --console=1 --print-component=1
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

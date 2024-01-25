@@ -80,7 +80,7 @@ MessageIterator::Impl* GenericMessage<T>::iterImpl() const {
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 template <typename T>
-inline bool GenericMessage<T>::attach(AttachementType* attachment) {
+inline bool GenericMessage<T>::attach(AttachmentType* attachment) {
 	// When the object can be found in the objectlist
 	// no double insertion will be done
 	iterator it = std::find(_attachments.begin(), _attachments.end(), attachment);
@@ -98,7 +98,7 @@ inline bool GenericMessage<T>::attach(AttachementType* attachment) {
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 template <typename T>
-inline bool GenericMessage<T>::attach(typename Seiscomp::Core::SmartPointer<AttachementType>::Impl& attachment) {
+inline bool GenericMessage<T>::attach(typename Seiscomp::Core::SmartPointer<AttachmentType>::Impl& attachment) {
 	return attach(attachment.get());
 	
 }
@@ -109,7 +109,7 @@ inline bool GenericMessage<T>::attach(typename Seiscomp::Core::SmartPointer<Atta
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 template <typename T>
-inline bool GenericMessage<T>::detach(AttachementType* attachment) {
+inline bool GenericMessage<T>::detach(AttachmentType* attachment) {
 	iterator it = std::find(_attachments.begin(), _attachments.end(), attachment);
 	if ( it == _attachments.end() )
 		return false;
@@ -124,7 +124,7 @@ inline bool GenericMessage<T>::detach(AttachementType* attachment) {
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 template <typename T>
-inline bool GenericMessage<T>::detach(typename Seiscomp::Core::SmartPointer<AttachementType>::Impl& attachment) {
+inline bool GenericMessage<T>::detach(typename Seiscomp::Core::SmartPointer<AttachmentType>::Impl& attachment) {
 	return detach(attachment.get());
 }
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

@@ -36,6 +36,13 @@ namespace Geo
 
 /**
  * For two points (lat1, lon1) and (lat2, lon2),
+ * the angular distance in degrees is returned.
+ */
+SC_SYSTEM_CORE_API
+double delta(double lat1, double lon1, double lat2, double lon2);
+
+/**
+ * For two points (lat1, lon1) and (lat2, lon2),
  * the angular distance 'dist' in degrees,
  * the azimuth 'azi1' (azimuth of point 2 seen from point 1) and
  * the azimuth 'azi2' (azimuth of point 1 seen from point 2)
@@ -43,7 +50,8 @@ namespace Geo
  */
 SC_SYSTEM_CORE_API
 void delazi(double lat1, double lon1, double lat2, double lon2,
-            double *out_dist, double *out_azi1, double *out_azi2);
+            double *out_dist = nullptr, double *out_azi1 = nullptr,
+            double *out_azi2 = nullptr);
 
 
 /**
@@ -97,7 +105,26 @@ SC_SYSTEM_CORE_API
 int scdraw(double lat0, double lon0, double radius,
 	   int n, double *lat, double *lon);
 
-#define KM_OF_DEGREE 111.1329149013519096
+/**
+ * Definition of degree to km conversion constant is based on the
+ * Mean Radius of the Three Semi-Axes as defined by WGS84
+ * (https://nsgreg.nga.mil/doc/view?i=4085)
+ *
+ *   - Semi-major Axis (Equatorial Radius of the Earth) [a] : 6378137.0m
+ *   - Flattening Factor of the Earth                 [1/f] : 298.257223563
+ *   - Semi-major Axis (Polar Radius of the Earth)      [b] : 6356752.314245179m
+ *       b = a * (1 - f)
+ *   - Mean Radius of the Three Semi-Axes             [r_1] : 6371008.77141506m
+ *       r_1 = a * (1 - f/3) = (2a + b) / 3
+ *   - Kilometer per Degree                        [km_deg] : 111.195079734632km
+ *       km_deg = r_1 * Pi / (180 * 1000)
+ *
+ *  Note:
+ *    Prior to SeisComP 6 (API 16.0.0) this constant was set to
+ *    111.1329149013519096
+ */
+#define KM_OF_DEGREE 111.195079734632
+
 
 template<typename T>
 T deg2km(T deg) { return deg * (T)KM_OF_DEGREE; }

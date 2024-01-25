@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -70,7 +70,7 @@
         <div class="body" role="main">
           
   <section id="magnitudes">
-<h1>Magnitudes<a class="headerlink" href="#magnitudes" title="Permalink to this heading">¶</a></h1>
+<span id="concepts-magnitudes"></span><h1>Magnitudes<a class="headerlink" href="#magnitudes" title="Permalink to this heading">¶</a></h1>
 <p>Magnitudes are computed based on amplitudes measured from waveforms. Different
 types of amplitudes and magnitudes are available which are listed in
 <a class="reference internal" href="../../apps/scamp.html#scamp"><span class="std std-ref">scamp</span></a> and <a class="reference internal" href="../../apps/scmag.html#scmag"><span class="std std-ref">scmag</span></a>.</p>
@@ -88,13 +88,13 @@ on the magnitude type, fixed or distance-dependent time windows apply.</p></li>
 <h3>Instrument simulation<a class="headerlink" href="#instrument-simulation" title="Permalink to this heading">¶</a></h3>
 <p>Amplitude measurements for some magnitude types require or allow the simulation
 of instruments such as <a class="reference internal" href="../filter-grammar.html#WA" title="WA"><code class="xref py py-func docutils literal notranslate"><span class="pre">Wood-Anderson</span> <span class="pre">torsion</span> <span class="pre">seismometers</span></code></a>
-(<span id="id1">Richter [<a class="reference internal" href="../references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">53</a>], Uhrhammer and Collins [<a class="reference internal" href="../references.html#id78" title="R.A. Uhrhammer and E.R. Collins. Synthesis of Wood-Anderson seismograms from broadband digital records. Bull. Seismol. Soc. Am., 80(3):702–716, 1990. doi:10.1785/BSSA0800030702.">59</a>]</span>), <a class="reference internal" href="../filter-grammar.html#WWSSN_SP" title="WWSSN_SP"><code class="xref py py-func docutils literal notranslate"><span class="pre">WWSSN_SP()</span></code></a> or <a class="reference internal" href="../filter-grammar.html#WWSSN_LP" title="WWSSN_LP"><code class="xref py py-func docutils literal notranslate"><span class="pre">WWSSN_LP()</span></code></a>.
+(<span id="id1">Richter [<a class="reference internal" href="../references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">57</a>], Uhrhammer and Collins [<a class="reference internal" href="../references.html#id79" title="R.A. Uhrhammer and E.R. Collins. Synthesis of Wood-Anderson seismograms from broadband digital records. Bull. Seismol. Soc. Am., 80(3):702–716, 1990. doi:10.1785/BSSA0800030702.">63</a>]</span>), <a class="reference internal" href="../filter-grammar.html#WWSSN_SP" title="WWSSN_SP"><code class="xref py py-func docutils literal notranslate"><span class="pre">WWSSN_SP()</span></code></a> or <a class="reference internal" href="../filter-grammar.html#WWSSN_LP" title="WWSSN_LP"><code class="xref py py-func docutils literal notranslate"><span class="pre">WWSSN_LP()</span></code></a>.
 The calibration parameters describing the Wood-Anderson seismometer are
 configurable in global bindings or global module configuration:
-<a class="reference internal" href="../../apps/global.html#confval-0"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.WoodAnderson.gain</span></code></a>, <a class="reference internal" href="../../apps/global.html#confval-1"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.WoodAnderson.T0</span></code></a>,
-<a class="reference internal" href="../../apps/global.html#confval-2"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.WoodAnderson.h</span></code></a>. Specifically, the difference in magnitude
+<a class="reference internal" href="../../apps/global.html#confval-2"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.WoodAnderson.gain</span></code></a>, <a class="reference internal" href="../../apps/global.html#confval-3"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.WoodAnderson.T0</span></code></a>,
+<a class="reference internal" href="../../apps/global.html#confval-4"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.WoodAnderson.h</span></code></a>. Specifically, the difference in magnitude
 due to configuration using original values listed in
-<span id="id2">Richter [<a class="reference internal" href="../references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">53</a>]</span> and updated ones given in <span id="id3">Uhrhammer and Collins [<a class="reference internal" href="../references.html#id78" title="R.A. Uhrhammer and E.R. Collins. Synthesis of Wood-Anderson seismograms from broadband digital records. Bull. Seismol. Soc. Am., 80(3):702–716, 1990. doi:10.1785/BSSA0800030702.">59</a>]</span>
+<span id="id2">Richter [<a class="reference internal" href="../references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">57</a>]</span> and updated ones given in <span id="id3">Uhrhammer and Collins [<a class="reference internal" href="../references.html#id79" title="R.A. Uhrhammer and E.R. Collins. Synthesis of Wood-Anderson seismograms from broadband digital records. Bull. Seismol. Soc. Am., 80(3):702–716, 1990. doi:10.1785/BSSA0800030702.">63</a>]</span>
 result in a constant offset of 0.13 in those magnitudes which apply
 Wood-Anderson simulation, e.g. <a class="reference internal" href="../glossary.html#term-magnitude-local-ML"><span class="xref std std-term">ML</span></a>,
 <a class="reference internal" href="../glossary.html#term-magnitude-local-vertical-MLv"><span class="xref std std-term">MLv</span></a>, <a class="reference internal" href="../glossary.html#term-magnitude-local-custom-MLc"><span class="xref std std-term">MLc</span></a>.</p>
@@ -104,29 +104,101 @@ Wood-Anderson simulation, e.g. <a class="reference internal" href="../glossary.h
 <h2>Station Magnitudes<a class="headerlink" href="#station-magnitudes" title="Permalink to this heading">¶</a></h2>
 <p>Station magnitudes are computed automatically by <a class="reference internal" href="../../apps/scmag.html#scmag"><span class="std std-ref">scmag</span></a> or interactively
 by <a class="reference internal" href="../../apps/scolv.html#scolv"><span class="std std-ref">scolv</span></a> from measured amplitudes based on distance-dependent
-calibration curves which depend on magnitude type.</p>
-<section id="regionalization">
-<h3>Regionalization<a class="headerlink" href="#regionalization" title="Permalink to this heading">¶</a></h3>
-<p>The computation of station magnitudes can be regionalized. This means that for a
-specific region different conditions apply for computing magnitudes. The conditions
-include calibration curves, distance and depth ranges, etc. Regionalization
-is achieved by adding magnitude-type profiles in the magnitudes section of
-global module configuration parameters.</p>
+calibration curves which depend on magnitude type. When computing a set of
+magnitudes in <a class="reference internal" href="../../apps/scolv.html#scolv"><span class="std std-ref">scolv</span></a> which is different from the set configured in
+<a class="reference internal" href="../../apps/scmag.html#scmag"><span class="std std-ref">scmag</span></a>, then scmag may later add the missing magnitudes automatically.
+Magnitude types for which the evaluation status is set to “rejected”, e.g., in
+scolv, will not be recomputed by scmag.</p>
+<section id="station-corrections">
+<span id="concepts-magnitudes-correction"></span><h3>Station corrections<a class="headerlink" href="#station-corrections" title="Permalink to this heading">¶</a></h3>
+<p>Linear station corrections applied to station magnitudes can be configured by
+global <a class="reference internal" href="configuration.html#global-bindings-config"><span class="std std-ref">binding parameters</span></a>:</p>
+<ol class="arabic simple">
+<li><p>Add a magnitude type profile where the name of the profile is the name of the
+magnitude itself,</p></li>
+<li><p>Configure the correction parameters.</p></li>
+</ol>
+<p>When using binding profiles, all referencing stations will be affected equally
+which is typically not intended. In contrast, applying station bindings requires
+to set up many bindings which may not be intended either.</p>
+<p>Therefore, you may add lines to the global module configuration in
+<code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code> where one line corresponds to one station with one magnitude
+and the corresponding correction parameter. The groups and the name of the
+parameters are identical to the global bindings parameters. All lines start with
+“<em>module.trunk</em>”. Example for an offset correction of
+<a class="reference internal" href="../glossary.html#term-magnitude-local-vertical-MLv"><span class="xref std std-term">MLv</span></a> measured station GE.UGM:</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">module.trunk.GE.UGM.magnitudes.MLv.offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0.1</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The configuration of parameters starting with <em>module.trunk.</em> is not
+supported by <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a>. All corresponding configurations must be done
+by direclty editing the configuration file, e.g.,
+<code class="file docutils literal notranslate"><span class="pre">seiscomp/etc/global.cfg</span></code>.</p>
+</div>
 </section>
 </section>
 <section id="network-magnitudes">
-<h2>Network magnitudes<a class="headerlink" href="#network-magnitudes" title="Permalink to this heading">¶</a></h2>
+<h2>Network Magnitudes<a class="headerlink" href="#network-magnitudes" title="Permalink to this heading">¶</a></h2>
 <p>Network magnitudes are computed automatically by <a class="reference internal" href="../../apps/scmag.html#scmag"><span class="std std-ref">scmag</span></a> or interactively
 by <a class="reference internal" href="../../apps/scolv.html#scolv"><span class="std std-ref">scolv</span></a> from station magnitudes based on averaging station magnitudes.
 The averaging methods applied by <a class="reference internal" href="../../apps/scmag.html#scmag"><span class="std std-ref">scmag</span></a> are configurable by
-<span class="xref std std-ref">magnitudes.average</span>.</p>
+<a class="reference internal" href="../../apps/scmag.html#confval-magnitudes.average"><code class="xref std std-confval docutils literal notranslate"><span class="pre">magnitudes.average</span></code></a>.</p>
+</section>
+<section id="aliases">
+<h2>Aliases<a class="headerlink" href="#aliases" title="Permalink to this heading">¶</a></h2>
+<p>New magnitude types (aliases) can be created based on existing magnitude and
+amplitude types but configured specifically.
+The setup procedure is outlined in the
+<a class="reference internal" href="../tutorials/magnitude-regionalization.html#tutorials-magnitude-aliases"><span class="std std-ref">tutorial on magnitude aliases</span></a>.</p>
+</section>
+<section id="regionalization">
+<span id="concepts-magnitudes-regionalization"></span><h2>Regionalization<a class="headerlink" href="#regionalization" title="Permalink to this heading">¶</a></h2>
+<p>The computation of station magnitudes can be regionalized. This means that for
+a specific region specific conditions apply when computing magnitudes. The
+conditions include any parameter available for configuring a magnitude
+including global binding parameters such as magnitude calibration, distance
+and depth ranges, etc. As an example you may wish to apply different
+attenuation curves for computing MLv magnitudes to earthquakes in Eastern and
+in Western Canada.</p>
+<p>Regionalization is achieved by adding magnitude-type profiles in the magnitudes
+section of global module configuration parameters. Regionalization assumes
+defaults from global bindings but overrides the values when configured. The
+setup procedure including
+<a class="reference internal" href="#concepts-magnitudes-correction"><span class="std std-ref">station corrections</span></a> is outlined in the
+<a class="reference internal" href="../tutorials/magnitude-regionalization.html#tutorials-magnitude-region-aliases"><span class="std std-ref">tutorial on regionalization</span></a>.</p>
+</section>
+<section id="moment-magnitudes">
+<h2>Moment Magnitudes<a class="headerlink" href="#moment-magnitudes" title="Permalink to this heading">¶</a></h2>
+<p>Moment magnitudes can be derived from all other network magnitudes by mapping of
+the original network magnitude, e.g., <em>Mx</em>, to a new moment magnitude <em>Mw(Mx)</em>.</p>
+<p>The mapping function can be configured for all original magnitude types except
+<a class="reference internal" href="../glossary.html#term-magnitude-derived-mB-Mw-mB"><span class="xref std std-term">mB</span></a> and
+<a class="reference internal" href="../glossary.html#term-magnitude-derived-Mwp-Mw-Mwp"><span class="xref std std-term">Mwp</span></a> where the mapping is hardcoded.
+Read the <a class="reference internal" href="../tutorials/magnitude-regionalization.html#tutorials-mags-moment"><span class="std std-ref">tutorial on moment magnitudes</span></a> for the
+configuration.</p>
 </section>
 <section id="summary-magnitude">
-<h2>Summary magnitude<a class="headerlink" href="#summary-magnitude" title="Permalink to this heading">¶</a></h2>
+<span id="concepts-magnitudes-summary"></span><h2>Summary Magnitude<a class="headerlink" href="#summary-magnitude" title="Permalink to this heading">¶</a></h2>
 <p>In order to account for different phenomena related to magnitude computation
 including magnitude saturation and application of different magnitude types at
 specific distance and depth ranges of the sources a summary magnitude can be
-computed by <a class="reference internal" href="../../apps/scmag.html#scmag"><span class="std std-ref">scmag</span></a> from network magnitudes.</p>
+computed from network magnitudes by <a class="reference internal" href="../../apps/scmag.html#scmag"><span class="std std-ref">scmag</span></a>. The summary magnitude is
+usually referred to as <em>M</em>. The name is configurable.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Station, network and summary magnitudes are contained uniquely in one
+<a class="reference internal" href="../glossary.html#term-origin"><span class="xref std std-term">origin</span></a>.</p>
+</div>
+</section>
+<section id="preferred-magnitude">
+<h2>Preferred Magnitude<a class="headerlink" href="#preferred-magnitude" title="Permalink to this heading">¶</a></h2>
+<p>From the list of computed network magnitudes and the summary magnitude,
+<a class="reference internal" href="../../apps/scevent.html#scevent"><span class="std std-ref">scevent</span></a> can automatically determine the preferred magnitude of the
+<a class="reference internal" href="../glossary.html#term-event"><span class="xref std std-term">event</span></a>. This may also be done interactively by operators in the
+<a class="reference internal" href="../../apps/scolv.html#scolv-sec-event-tab"><span class="std std-ref">Event tab of scolv</span></a> or by
+<a class="reference internal" href="../../apps/scolv.html#sec-scolv-custom-commit"><span class="std std-ref">custom commit buttons in scolv</span></a>.</p>
 </section>
 </section>
 
@@ -156,11 +228,15 @@ computed by <a class="reference internal" href="../../apps/scmag.html#scmag"><sp
 </ul>
 </li>
 <li><a class="reference internal" href="#station-magnitudes">Station Magnitudes</a><ul>
-<li><a class="reference internal" href="#regionalization">Regionalization</a></li>
+<li><a class="reference internal" href="#station-corrections">Station corrections</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#network-magnitudes">Network magnitudes</a></li>
-<li><a class="reference internal" href="#summary-magnitude">Summary magnitude</a></li>
+<li><a class="reference internal" href="#network-magnitudes">Network Magnitudes</a></li>
+<li><a class="reference internal" href="#aliases">Aliases</a></li>
+<li><a class="reference internal" href="#regionalization">Regionalization</a></li>
+<li><a class="reference internal" href="#moment-magnitudes">Moment Magnitudes</a></li>
+<li><a class="reference internal" href="#summary-magnitude">Summary Magnitude</a></li>
+<li><a class="reference internal" href="#preferred-magnitude">Preferred Magnitude</a></li>
 </ul>
 </li>
 </ul>
@@ -195,7 +271,7 @@ computed by <a class="reference internal" href="../../apps/scmag.html#scmag"><sp
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

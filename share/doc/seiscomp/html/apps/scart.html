@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -111,7 +111,13 @@ with <a class="reference internal" href="scmssort.html#scmssort"><span class="st
 <ul class="simple">
 <li><p>Time windows (<code class="xref std std-option docutils literal notranslate"><span class="pre">-t</span></code>),</p></li>
 <li><p>Network-station-location-channel (NSLC) lists (<code class="xref std std-option docutils literal notranslate"><span class="pre">--nslc</span></code>) created,
-e.g., with <a class="reference internal" href="scinv.html#scinv"><span class="std std-ref">scinv</span></a> from inventories.</p></li>
+e.g., with</p>
+<ul>
+<li><p><a class="reference internal" href="scinv.html#scinv"><span class="std std-ref">scinv</span></a> from inventories,</p></li>
+<li><p><a class="reference internal" href="scdumpcfg.html#scdumpcfg"><span class="std std-ref">scdumpcfg</span></a> from bindings configuration,</p></li>
+<li><p>scart itself from other miniSEED files or achives.</p></li>
+</ul>
+</li>
 </ul>
 <p>In dump mode output streams may also be filtered by</p>
 <ul class="simple">
@@ -134,7 +140,8 @@ plugin create and configure <code class="file docutils literal notranslate"><spa
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>The usage of wildcards in place of network, station, location or channel code
-is allowed in many options (-n, -c, -l, –list, –nslc) and follows these rules:</p>
+is allowed in many options (<code class="xref std std-option docutils literal notranslate"><span class="pre">-n</span></code>, <code class="xref std std-option docutils literal notranslate"><span class="pre">-c</span></code>, <code class="xref std std-option docutils literal notranslate"><span class="pre">-l</span></code>,
+<code class="xref std std-option docutils literal notranslate"><span class="pre">--list</span></code>, <code class="xref std std-option docutils literal notranslate"><span class="pre">--nslc</span></code>) and follows these rules:</p>
 <ul class="simple">
 <li><p>Import mode: the wildcards are passed to the <a class="reference internal" href="global_recordstream.html#global-recordstream"><span class="std std-ref">RecordStream</span></a> interface,
 that interprets them. Normally both “*” and “?” are supported by RecordStreams.</p></li>
@@ -365,12 +372,12 @@ or by providing multiple --rename options.</p>
 <dt class="sig sig-object std" id="cmdoption-scart-s">
 <span id="cmdoption-scart-sort"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--sort</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scart-s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dump mode: Sort records by [start-]time. To sort records by their
-endtime use -E.</p>
+end time use -E.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-scart-speed">
-<span class="sig-name descname"><span class="pre">--speed</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scart-speed" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">--speed</span></span><span class="sig-prename descclassname"> <span class="pre">value</span></span><a class="headerlink" href="#cmdoption-scart-speed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dump mode: Specify the speed to dump the records. A value of 0 means
 no delay otherwise speed is a multiplier of the real time difference
 between the records. When feeding the records directly into the replay
@@ -379,7 +386,7 @@ pipe a value of 1 (real time) is recommended.</p>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-scart-t">
-<span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"> <span class="pre">timeWindow</span></span><a class="headerlink" href="#cmdoption-scart-t" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-scart-time-window"></span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--time-window</span></span><span class="sig-prename descclassname"> <span class="pre">timeWindow</span></span><a class="headerlink" href="#cmdoption-scart-t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Import, dump mode: Specify the time window (as one properly
 quoted string) to dump records for. Times are UTC and
 separated by a tilde &quot;~&quot;. To dump one hour of
@@ -504,7 +511,7 @@ checks are made with scmssort.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

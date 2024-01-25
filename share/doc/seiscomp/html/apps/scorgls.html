@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -77,19 +77,28 @@
 <p><strong>List origin IDs from database.</strong></p>
 <section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
-<p><em>scorgls</em> lists all available origin IDs within a given time range to stdout.</p>
-<p>Use <a class="reference internal" href="scevtls.html#scevtls"><span class="std std-ref">scevtls</span></a> for listing all event IDs. In extension to <a class="reference internal" href="scevtls.html#scevtls"><span class="std std-ref">scevtls</span></a>
-and scorgls <a class="reference internal" href="scquery.html#scquery"><span class="std std-ref">scquery</span></a> can search for parameters based on complex custom
-queries.</p>
+<p><em>scorgls</em> lists all available origin IDs within a given time range to stdout.
+Origins are fetched from database or read from a <a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> file.</p>
+<p>Similarly, use <a class="reference internal" href="scevtls.html#scevtls"><span class="std std-ref">scevtls</span></a> for listing all event IDs. In extension to
+<em>scorgls</em> and <a class="reference internal" href="scevtls.html#scevtls"><span class="std std-ref">scevtls</span></a> <a class="reference internal" href="scquery.html#scquery"><span class="std std-ref">scquery</span></a> can search for parameters based on
+complex custom queries.</p>
 </section>
-<section id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h2>
-<p>Print all origin IDs for the complete year 2012.</p>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p>Print all origin IDs for the complete year 2012.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scorgls<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@localhost/seiscomp<span class="w"> </span><span class="se">\</span>
 <span class="w">        </span>--begin<span class="w"> </span><span class="s2">&quot;2012-01-01 00:00:00&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">        </span>--end<span class="w"> </span><span class="s2">&quot;2013-01-01 00:00:00&quot;</span>
 </pre></div>
 </div>
+</li>
+<li><p>Print the IDs of all origins provided with the XML file:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scevtls<span class="w"> </span>-i<span class="w"> </span>origins.xml
+</pre></div>
+</div>
+</li>
+</ul>
 </section>
 <section id="module-configuration">
 <span id="scorgls-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
@@ -269,6 +278,16 @@ can be queried with &quot;--db-driver-list&quot;.</p>
 </dd></dl>
 
 </section>
+<section id="input">
+<h3>Input<a class="headerlink" href="#input" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scorgls-i">
+<span id="cmdoption-scorgls-input"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--input</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scorgls-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of input XML file. Read from stdin if ‘-’ is given.
+Deactivates reading origins from database.</p>
+</dd></dl>
+
+</section>
 <section id="origins">
 <h3>Origins<a class="headerlink" href="#origins" title="Permalink to this heading">¶</a></h3>
 <dl class="std option">
@@ -320,12 +339,13 @@ can be queried with &quot;--db-driver-list&quot;.</p>
     <ul>
 <li><a class="reference internal" href="#">scorgls</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
-<li><a class="reference internal" href="#example">Example</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
 <li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
 <li><a class="reference internal" href="#command-line-options">Command-Line Options</a><ul>
 <li><a class="reference internal" href="#generic">Generic</a></li>
 <li><a class="reference internal" href="#verbosity">Verbosity</a></li>
 <li><a class="reference internal" href="#database">Database</a></li>
+<li><a class="reference internal" href="#input">Input</a></li>
 <li><a class="reference internal" href="#origins">Origins</a></li>
 <li><a class="reference internal" href="#output">Output</a></li>
 </ul>
@@ -364,7 +384,7 @@ can be queried with &quot;--db-driver-list&quot;.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

@@ -234,6 +234,11 @@ Extract
    
    Example: invextr \-\-chans \"GE.\*.\*.BHZ,GE.MORC.\*.\*\" inv.xml
 
+.. option:: --nslc arg
+
+   Stream list file to be used for extracting inventory.
+   Wildcards can be used. \-\-chans is ignored.
+
 .. option:: -r, --region arg
 
    Filter streams by geographic region given as

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'origindialog.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.7
+** Created by: Qt User Interface Compiler version 5.9.7
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,21 +10,21 @@
 #define UI_ORIGINDIALOG_H
 
 #include <QtCore/QVariant>
-#include <QtGui/QAction>
-#include <QtGui/QApplication>
-#include <QtGui/QButtonGroup>
-#include <QtGui/QComboBox>
-#include <QtGui/QDateTimeEdit>
-#include <QtGui/QDialog>
-#include <QtGui/QDoubleSpinBox>
-#include <QtGui/QGridLayout>
-#include <QtGui/QGroupBox>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QHeaderView>
-#include <QtGui/QLabel>
-#include <QtGui/QPushButton>
-#include <QtGui/QSpacerItem>
-#include <QtGui/QVBoxLayout>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QDateTimeEdit>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QVBoxLayout>
 
 QT_BEGIN_NAMESPACE
 
@@ -34,22 +34,25 @@ public:
     QVBoxLayout *vboxLayout;
     QGroupBox *groupBox;
     QGridLayout *gridLayout;
-    QLabel *label_2;
-    QDoubleSpinBox *depthDoubleSpinBox;
+    QLabel *depthLabel;
     QLabel *lonLabel;
-    QDoubleSpinBox *lonDoubleSpinBox;
     QLabel *latLabel;
-    QLabel *label;
-    QDoubleSpinBox *latDoubleSpinBox;
+    QLabel *timeLabel;
     QDateTimeEdit *dateTimeEdit;
-    QGroupBox *advancedGB;
+    QLineEdit *latLineEdit;
+    QLabel *latUnitLabel;
+    QLabel *lonUnitLabel;
+    QLabel *depthUnitLabel;
+    QLineEdit *lonLineEdit;
+    QLineEdit *depthLineEdit;
+    QGroupBox *advancedGroupBox;
     QGridLayout *gridLayout1;
-    QDoubleSpinBox *magSB;
     QLabel *magTypeLabel;
-    QComboBox *magTypeCB;
     QLabel *magLabel;
     QLabel *phaseCountLabel;
-    QDoubleSpinBox *phaseCountSB;
+    QLineEdit *phaseCountLineEdit;
+    QLineEdit *magLineEdit;
+    QComboBox *magTypeComboBox;
     QSpacerItem *spacerItem;
     QHBoxLayout *hboxLayout;
     QSpacerItem *spacerItem1;
@@ -59,9 +62,9 @@ public:
     void setupUi(QDialog *OriginDialog)
     {
         if (OriginDialog->objectName().isEmpty())
-            OriginDialog->setObjectName(QString::fromUtf8("OriginDialog"));
-        OriginDialog->resize(238, 122);
-        QSizePolicy sizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(1));
+            OriginDialog->setObjectName(QStringLiteral("OriginDialog"));
+        OriginDialog->resize(284, 346);
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(OriginDialog->sizePolicy().hasHeightForWidth());
@@ -73,9 +76,9 @@ public:
 #ifndef Q_OS_MAC
         vboxLayout->setContentsMargins(9, 9, 9, 9);
 #endif
-        vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
+        vboxLayout->setObjectName(QStringLiteral("vboxLayout"));
         groupBox = new QGroupBox(OriginDialog);
-        groupBox->setObjectName(QString::fromUtf8("groupBox"));
+        groupBox->setObjectName(QStringLiteral("groupBox"));
         gridLayout = new QGridLayout(groupBox);
 #ifndef Q_OS_MAC
         gridLayout->setSpacing(6);
@@ -83,135 +86,125 @@ public:
 #ifndef Q_OS_MAC
         gridLayout->setContentsMargins(9, 9, 9, 9);
 #endif
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        label_2 = new QLabel(groupBox);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        depthLabel = new QLabel(groupBox);
+        depthLabel->setObjectName(QStringLiteral("depthLabel"));
 
-        gridLayout->addWidget(label_2, 3, 0, 1, 1);
-
-        depthDoubleSpinBox = new QDoubleSpinBox(groupBox);
-        depthDoubleSpinBox->setObjectName(QString::fromUtf8("depthDoubleSpinBox"));
-        depthDoubleSpinBox->setAlignment(Qt::AlignRight);
-        depthDoubleSpinBox->setDecimals(3);
-        depthDoubleSpinBox->setMaximum(1000);
-        depthDoubleSpinBox->setMinimum(-100);
-        depthDoubleSpinBox->setSingleStep(10);
-        depthDoubleSpinBox->setValue(10);
-
-        gridLayout->addWidget(depthDoubleSpinBox, 3, 1, 1, 1);
+        gridLayout->addWidget(depthLabel, 3, 0, 1, 1);
 
         lonLabel = new QLabel(groupBox);
-        lonLabel->setObjectName(QString::fromUtf8("lonLabel"));
+        lonLabel->setObjectName(QStringLiteral("lonLabel"));
 
         gridLayout->addWidget(lonLabel, 2, 0, 1, 1);
 
-        lonDoubleSpinBox = new QDoubleSpinBox(groupBox);
-        lonDoubleSpinBox->setObjectName(QString::fromUtf8("lonDoubleSpinBox"));
-        lonDoubleSpinBox->setMinimumSize(QSize(130, 0));
-        lonDoubleSpinBox->setAlignment(Qt::AlignRight);
-        lonDoubleSpinBox->setDecimals(4);
-        lonDoubleSpinBox->setMaximum(180);
-        lonDoubleSpinBox->setMinimum(-180);
-        lonDoubleSpinBox->setValue(0);
-
-        gridLayout->addWidget(lonDoubleSpinBox, 2, 1, 1, 1);
-
         latLabel = new QLabel(groupBox);
-        latLabel->setObjectName(QString::fromUtf8("latLabel"));
+        latLabel->setObjectName(QStringLiteral("latLabel"));
 
         gridLayout->addWidget(latLabel, 1, 0, 1, 1);
 
-        label = new QLabel(groupBox);
-        label->setObjectName(QString::fromUtf8("label"));
-        QSizePolicy sizePolicy1(static_cast<QSizePolicy::Policy>(4), static_cast<QSizePolicy::Policy>(5));
+        timeLabel = new QLabel(groupBox);
+        timeLabel->setObjectName(QStringLiteral("timeLabel"));
+        QSizePolicy sizePolicy1(QSizePolicy::Maximum, QSizePolicy::Preferred);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
-        label->setSizePolicy(sizePolicy1);
+        sizePolicy1.setHeightForWidth(timeLabel->sizePolicy().hasHeightForWidth());
+        timeLabel->setSizePolicy(sizePolicy1);
 
-        gridLayout->addWidget(label, 0, 0, 1, 1);
-
-        latDoubleSpinBox = new QDoubleSpinBox(groupBox);
-        latDoubleSpinBox->setObjectName(QString::fromUtf8("latDoubleSpinBox"));
-        latDoubleSpinBox->setMinimumSize(QSize(130, 0));
-        latDoubleSpinBox->setAlignment(Qt::AlignRight);
-        latDoubleSpinBox->setDecimals(4);
-        latDoubleSpinBox->setMaximum(90);
-        latDoubleSpinBox->setMinimum(-90);
-
-        gridLayout->addWidget(latDoubleSpinBox, 1, 1, 1, 1);
+        gridLayout->addWidget(timeLabel, 0, 0, 1, 1);
 
         dateTimeEdit = new QDateTimeEdit(groupBox);
-        dateTimeEdit->setObjectName(QString::fromUtf8("dateTimeEdit"));
+        dateTimeEdit->setObjectName(QStringLiteral("dateTimeEdit"));
         dateTimeEdit->setAlignment(Qt::AlignRight);
         dateTimeEdit->setCurrentSection(QDateTimeEdit::YearSection);
 
         gridLayout->addWidget(dateTimeEdit, 0, 1, 1, 1);
 
+        latLineEdit = new QLineEdit(groupBox);
+        latLineEdit->setObjectName(QStringLiteral("latLineEdit"));
+
+        gridLayout->addWidget(latLineEdit, 1, 1, 1, 1);
+
+        latUnitLabel = new QLabel(groupBox);
+        latUnitLabel->setObjectName(QStringLiteral("latUnitLabel"));
+
+        gridLayout->addWidget(latUnitLabel, 1, 2, 1, 1);
+
+        lonUnitLabel = new QLabel(groupBox);
+        lonUnitLabel->setObjectName(QStringLiteral("lonUnitLabel"));
+
+        gridLayout->addWidget(lonUnitLabel, 2, 2, 1, 1);
+
+        depthUnitLabel = new QLabel(groupBox);
+        depthUnitLabel->setObjectName(QStringLiteral("depthUnitLabel"));
+
+        gridLayout->addWidget(depthUnitLabel, 3, 2, 1, 1);
+
+        lonLineEdit = new QLineEdit(groupBox);
+        lonLineEdit->setObjectName(QStringLiteral("lonLineEdit"));
+
+        gridLayout->addWidget(lonLineEdit, 2, 1, 1, 1);
+
+        depthLineEdit = new QLineEdit(groupBox);
+        depthLineEdit->setObjectName(QStringLiteral("depthLineEdit"));
+
+        gridLayout->addWidget(depthLineEdit, 3, 1, 1, 1);
+
 
         vboxLayout->addWidget(groupBox);
 
-        advancedGB = new QGroupBox(OriginDialog);
-        advancedGB->setObjectName(QString::fromUtf8("advancedGB"));
-        advancedGB->setEnabled(true);
-        advancedGB->setCheckable(true);
-        advancedGB->setChecked(false);
-        gridLayout1 = new QGridLayout(advancedGB);
+        advancedGroupBox = new QGroupBox(OriginDialog);
+        advancedGroupBox->setObjectName(QStringLiteral("advancedGroupBox"));
+        advancedGroupBox->setEnabled(true);
+        advancedGroupBox->setCheckable(true);
+        advancedGroupBox->setChecked(false);
+        gridLayout1 = new QGridLayout(advancedGroupBox);
 #ifndef Q_OS_MAC
         gridLayout1->setSpacing(6);
 #endif
 #ifndef Q_OS_MAC
         gridLayout1->setContentsMargins(9, 9, 9, 9);
 #endif
-        gridLayout1->setObjectName(QString::fromUtf8("gridLayout1"));
-        magSB = new QDoubleSpinBox(advancedGB);
-        magSB->setObjectName(QString::fromUtf8("magSB"));
-        magSB->setAlignment(Qt::AlignRight);
-        magSB->setMaximum(10);
-        magSB->setSingleStep(0.2);
-        magSB->setValue(5);
-
-        gridLayout1->addWidget(magSB, 1, 1, 1, 1);
-
-        magTypeLabel = new QLabel(advancedGB);
-        magTypeLabel->setObjectName(QString::fromUtf8("magTypeLabel"));
+        gridLayout1->setObjectName(QStringLiteral("gridLayout1"));
+        magTypeLabel = new QLabel(advancedGroupBox);
+        magTypeLabel->setObjectName(QStringLiteral("magTypeLabel"));
         sizePolicy1.setHeightForWidth(magTypeLabel->sizePolicy().hasHeightForWidth());
         magTypeLabel->setSizePolicy(sizePolicy1);
 
         gridLayout1->addWidget(magTypeLabel, 2, 0, 1, 1);
 
-        magTypeCB = new QComboBox(advancedGB);
-        magTypeCB->setObjectName(QString::fromUtf8("magTypeCB"));
-        magTypeCB->setEditable(true);
-        magTypeCB->setMaxVisibleItems(30);
-
-        gridLayout1->addWidget(magTypeCB, 2, 1, 1, 1);
-
-        magLabel = new QLabel(advancedGB);
-        magLabel->setObjectName(QString::fromUtf8("magLabel"));
+        magLabel = new QLabel(advancedGroupBox);
+        magLabel->setObjectName(QStringLiteral("magLabel"));
         sizePolicy1.setHeightForWidth(magLabel->sizePolicy().hasHeightForWidth());
         magLabel->setSizePolicy(sizePolicy1);
 
         gridLayout1->addWidget(magLabel, 1, 0, 1, 1);
 
-        phaseCountLabel = new QLabel(advancedGB);
-        phaseCountLabel->setObjectName(QString::fromUtf8("phaseCountLabel"));
+        phaseCountLabel = new QLabel(advancedGroupBox);
+        phaseCountLabel->setObjectName(QStringLiteral("phaseCountLabel"));
         sizePolicy1.setHeightForWidth(phaseCountLabel->sizePolicy().hasHeightForWidth());
         phaseCountLabel->setSizePolicy(sizePolicy1);
 
         gridLayout1->addWidget(phaseCountLabel, 0, 0, 1, 1);
 
-        phaseCountSB = new QDoubleSpinBox(advancedGB);
-        phaseCountSB->setObjectName(QString::fromUtf8("phaseCountSB"));
-        phaseCountSB->setAlignment(Qt::AlignRight);
-        phaseCountSB->setDecimals(0);
-        phaseCountSB->setMaximum(10000);
-        phaseCountSB->setValue(10);
+        phaseCountLineEdit = new QLineEdit(advancedGroupBox);
+        phaseCountLineEdit->setObjectName(QStringLiteral("phaseCountLineEdit"));
 
-        gridLayout1->addWidget(phaseCountSB, 0, 1, 1, 1);
+        gridLayout1->addWidget(phaseCountLineEdit, 0, 1, 1, 1);
+
+        magLineEdit = new QLineEdit(advancedGroupBox);
+        magLineEdit->setObjectName(QStringLiteral("magLineEdit"));
+
+        gridLayout1->addWidget(magLineEdit, 1, 1, 1, 1);
+
+        magTypeComboBox = new QComboBox(advancedGroupBox);
+        magTypeComboBox->setObjectName(QStringLiteral("magTypeComboBox"));
+        magTypeComboBox->setEditable(true);
+        magTypeComboBox->setMaxVisibleItems(30);
+
+        gridLayout1->addWidget(magTypeComboBox, 2, 1, 1, 1);
 
 
-        vboxLayout->addWidget(advancedGB);
+        vboxLayout->addWidget(advancedGroupBox);
 
         spacerItem = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
@@ -222,81 +215,109 @@ public:
         hboxLayout->setSpacing(6);
 #endif
         hboxLayout->setContentsMargins(0, 0, 0, 0);
-        hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
+        hboxLayout->setObjectName(QStringLiteral("hboxLayout"));
         spacerItem1 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         hboxLayout->addItem(spacerItem1);
 
         sendButton = new QPushButton(OriginDialog);
-        sendButton->setObjectName(QString::fromUtf8("sendButton"));
+        sendButton->setObjectName(QStringLiteral("sendButton"));
         QPalette palette;
-        palette.setColor(QPalette::Active, static_cast<QPalette::ColorRole>(0), QColor(0, 0, 0));
-        palette.setColor(QPalette::Active, static_cast<QPalette::ColorRole>(1), QColor(221, 223, 228));
-        palette.setColor(QPalette::Active, static_cast<QPalette::ColorRole>(2), QColor(255, 255, 255));
-        palette.setColor(QPalette::Active, static_cast<QPalette::ColorRole>(3), QColor(255, 255, 255));
-        palette.setColor(QPalette::Active, static_cast<QPalette::ColorRole>(4), QColor(85, 85, 85));
-        palette.setColor(QPalette::Active, static_cast<QPalette::ColorRole>(5), QColor(199, 199, 199));
-        palette.setColor(QPalette::Active, static_cast<QPalette::ColorRole>(6), QColor(0, 0, 0));
-        palette.setColor(QPalette::Active, static_cast<QPalette::ColorRole>(7), QColor(255, 255, 255));
-        palette.setColor(QPalette::Active, static_cast<QPalette::ColorRole>(8), QColor(0, 0, 0));
-        palette.setColor(QPalette::Active, static_cast<QPalette::ColorRole>(9), QColor(255, 255, 255));
-        palette.setColor(QPalette::Active, static_cast<QPalette::ColorRole>(10), QColor(239, 239, 239));
-        palette.setColor(QPalette::Active, static_cast<QPalette::ColorRole>(11), QColor(0, 0, 0));
-        palette.setColor(QPalette::Active, static_cast<QPalette::ColorRole>(12), QColor(103, 141, 178));
-        palette.setColor(QPalette::Active, static_cast<QPalette::ColorRole>(13), QColor(255, 255, 255));
-        palette.setColor(QPalette::Active, static_cast<QPalette::ColorRole>(14), QColor(0, 0, 238));
-        palette.setColor(QPalette::Active, static_cast<QPalette::ColorRole>(15), QColor(82, 24, 139));
-        palette.setColor(QPalette::Active, static_cast<QPalette::ColorRole>(16), QColor(232, 232, 232));
-        palette.setColor(QPalette::Inactive, static_cast<QPalette::ColorRole>(0), QColor(0, 0, 0));
-        palette.setColor(QPalette::Inactive, static_cast<QPalette::ColorRole>(1), QColor(221, 223, 228));
-        palette.setColor(QPalette::Inactive, static_cast<QPalette::ColorRole>(2), QColor(255, 255, 255));
-        palette.setColor(QPalette::Inactive, static_cast<QPalette::ColorRole>(3), QColor(255, 255, 255));
-        palette.setColor(QPalette::Inactive, static_cast<QPalette::ColorRole>(4), QColor(85, 85, 85));
-        palette.setColor(QPalette::Inactive, static_cast<QPalette::ColorRole>(5), QColor(199, 199, 199));
-        palette.setColor(QPalette::Inactive, static_cast<QPalette::ColorRole>(6), QColor(0, 0, 0));
-        palette.setColor(QPalette::Inactive, static_cast<QPalette::ColorRole>(7), QColor(255, 255, 255));
-        palette.setColor(QPalette::Inactive, static_cast<QPalette::ColorRole>(8), QColor(0, 0, 0));
-        palette.setColor(QPalette::Inactive, static_cast<QPalette::ColorRole>(9), QColor(255, 255, 255));
-        palette.setColor(QPalette::Inactive, static_cast<QPalette::ColorRole>(10), QColor(239, 239, 239));
-        palette.setColor(QPalette::Inactive, static_cast<QPalette::ColorRole>(11), QColor(0, 0, 0));
-        palette.setColor(QPalette::Inactive, static_cast<QPalette::ColorRole>(12), QColor(103, 141, 178));
-        palette.setColor(QPalette::Inactive, static_cast<QPalette::ColorRole>(13), QColor(255, 255, 255));
-        palette.setColor(QPalette::Inactive, static_cast<QPalette::ColorRole>(14), QColor(0, 0, 238));
-        palette.setColor(QPalette::Inactive, static_cast<QPalette::ColorRole>(15), QColor(82, 24, 139));
-        palette.setColor(QPalette::Inactive, static_cast<QPalette::ColorRole>(16), QColor(232, 232, 232));
-        palette.setColor(QPalette::Disabled, static_cast<QPalette::ColorRole>(0), QColor(128, 128, 128));
-        palette.setColor(QPalette::Disabled, static_cast<QPalette::ColorRole>(1), QColor(221, 223, 228));
-        palette.setColor(QPalette::Disabled, static_cast<QPalette::ColorRole>(2), QColor(255, 255, 255));
-        palette.setColor(QPalette::Disabled, static_cast<QPalette::ColorRole>(3), QColor(255, 255, 255));
-        palette.setColor(QPalette::Disabled, static_cast<QPalette::ColorRole>(4), QColor(85, 85, 85));
-        palette.setColor(QPalette::Disabled, static_cast<QPalette::ColorRole>(5), QColor(199, 199, 199));
-        palette.setColor(QPalette::Disabled, static_cast<QPalette::ColorRole>(6), QColor(199, 199, 199));
-        palette.setColor(QPalette::Disabled, static_cast<QPalette::ColorRole>(7), QColor(255, 255, 255));
-        palette.setColor(QPalette::Disabled, static_cast<QPalette::ColorRole>(8), QColor(128, 128, 128));
-        palette.setColor(QPalette::Disabled, static_cast<QPalette::ColorRole>(9), QColor(239, 239, 239));
-        palette.setColor(QPalette::Disabled, static_cast<QPalette::ColorRole>(10), QColor(239, 239, 239));
-        palette.setColor(QPalette::Disabled, static_cast<QPalette::ColorRole>(11), QColor(0, 0, 0));
-        palette.setColor(QPalette::Disabled, static_cast<QPalette::ColorRole>(12), QColor(86, 117, 148));
-        palette.setColor(QPalette::Disabled, static_cast<QPalette::ColorRole>(13), QColor(255, 255, 255));
-        palette.setColor(QPalette::Disabled, static_cast<QPalette::ColorRole>(14), QColor(0, 0, 238));
-        palette.setColor(QPalette::Disabled, static_cast<QPalette::ColorRole>(15), QColor(82, 24, 139));
-        palette.setColor(QPalette::Disabled, static_cast<QPalette::ColorRole>(16), QColor(232, 232, 232));
+        QBrush brush(QColor(0, 0, 0, 255));
+        brush.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::WindowText, brush);
+        QBrush brush1(QColor(221, 223, 228, 255));
+        brush1.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Button, brush1);
+        QBrush brush2(QColor(255, 255, 255, 255));
+        brush2.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Light, brush2);
+        palette.setBrush(QPalette::Active, QPalette::Midlight, brush2);
+        QBrush brush3(QColor(85, 85, 85, 255));
+        brush3.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Dark, brush3);
+        QBrush brush4(QColor(199, 199, 199, 255));
+        brush4.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Mid, brush4);
+        palette.setBrush(QPalette::Active, QPalette::Text, brush);
+        palette.setBrush(QPalette::Active, QPalette::BrightText, brush2);
+        palette.setBrush(QPalette::Active, QPalette::ButtonText, brush);
+        palette.setBrush(QPalette::Active, QPalette::Base, brush2);
+        QBrush brush5(QColor(239, 239, 239, 255));
+        brush5.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Window, brush5);
+        palette.setBrush(QPalette::Active, QPalette::Shadow, brush);
+        QBrush brush6(QColor(103, 141, 178, 255));
+        brush6.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Highlight, brush6);
+        palette.setBrush(QPalette::Active, QPalette::HighlightedText, brush2);
+        QBrush brush7(QColor(0, 0, 238, 255));
+        brush7.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Link, brush7);
+        QBrush brush8(QColor(82, 24, 139, 255));
+        brush8.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::LinkVisited, brush8);
+        QBrush brush9(QColor(232, 232, 232, 255));
+        brush9.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::AlternateBase, brush9);
+        palette.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
+        palette.setBrush(QPalette::Inactive, QPalette::Button, brush1);
+        palette.setBrush(QPalette::Inactive, QPalette::Light, brush2);
+        palette.setBrush(QPalette::Inactive, QPalette::Midlight, brush2);
+        palette.setBrush(QPalette::Inactive, QPalette::Dark, brush3);
+        palette.setBrush(QPalette::Inactive, QPalette::Mid, brush4);
+        palette.setBrush(QPalette::Inactive, QPalette::Text, brush);
+        palette.setBrush(QPalette::Inactive, QPalette::BrightText, brush2);
+        palette.setBrush(QPalette::Inactive, QPalette::ButtonText, brush);
+        palette.setBrush(QPalette::Inactive, QPalette::Base, brush2);
+        palette.setBrush(QPalette::Inactive, QPalette::Window, brush5);
+        palette.setBrush(QPalette::Inactive, QPalette::Shadow, brush);
+        palette.setBrush(QPalette::Inactive, QPalette::Highlight, brush6);
+        palette.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush2);
+        palette.setBrush(QPalette::Inactive, QPalette::Link, brush7);
+        palette.setBrush(QPalette::Inactive, QPalette::LinkVisited, brush8);
+        palette.setBrush(QPalette::Inactive, QPalette::AlternateBase, brush9);
+        QBrush brush10(QColor(128, 128, 128, 255));
+        brush10.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Disabled, QPalette::WindowText, brush10);
+        palette.setBrush(QPalette::Disabled, QPalette::Button, brush1);
+        palette.setBrush(QPalette::Disabled, QPalette::Light, brush2);
+        palette.setBrush(QPalette::Disabled, QPalette::Midlight, brush2);
+        palette.setBrush(QPalette::Disabled, QPalette::Dark, brush3);
+        palette.setBrush(QPalette::Disabled, QPalette::Mid, brush4);
+        palette.setBrush(QPalette::Disabled, QPalette::Text, brush4);
+        palette.setBrush(QPalette::Disabled, QPalette::BrightText, brush2);
+        palette.setBrush(QPalette::Disabled, QPalette::ButtonText, brush10);
+        palette.setBrush(QPalette::Disabled, QPalette::Base, brush5);
+        palette.setBrush(QPalette::Disabled, QPalette::Window, brush5);
+        palette.setBrush(QPalette::Disabled, QPalette::Shadow, brush);
+        QBrush brush11(QColor(86, 117, 148, 255));
+        brush11.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Disabled, QPalette::Highlight, brush11);
+        palette.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush2);
+        palette.setBrush(QPalette::Disabled, QPalette::Link, brush7);
+        palette.setBrush(QPalette::Disabled, QPalette::LinkVisited, brush8);
+        palette.setBrush(QPalette::Disabled, QPalette::AlternateBase, brush9);
         sendButton->setPalette(palette);
 
         hboxLayout->addWidget(sendButton);
 
         cancelButton = new QPushButton(OriginDialog);
-        cancelButton->setObjectName(QString::fromUtf8("cancelButton"));
+        cancelButton->setObjectName(QStringLiteral("cancelButton"));
 
         hboxLayout->addWidget(cancelButton);
 
 
         vboxLayout->addLayout(hboxLayout);
 
-        QWidget::setTabOrder(dateTimeEdit, latDoubleSpinBox);
-        QWidget::setTabOrder(latDoubleSpinBox, lonDoubleSpinBox);
-        QWidget::setTabOrder(lonDoubleSpinBox, depthDoubleSpinBox);
-        QWidget::setTabOrder(depthDoubleSpinBox, sendButton);
+        QWidget::setTabOrder(dateTimeEdit, latLineEdit);
+        QWidget::setTabOrder(latLineEdit, lonLineEdit);
+        QWidget::setTabOrder(lonLineEdit, depthLineEdit);
+        QWidget::setTabOrder(depthLineEdit, advancedGroupBox);
+        QWidget::setTabOrder(advancedGroupBox, phaseCountLineEdit);
+        QWidget::setTabOrder(phaseCountLineEdit, magLineEdit);
+        QWidget::setTabOrder(magLineEdit, magTypeComboBox);
+        QWidget::setTabOrder(magTypeComboBox, sendButton);
         QWidget::setTabOrder(sendButton, cancelButton);
 
         retranslateUi(OriginDialog);
@@ -308,22 +329,31 @@ public:
 
     void retranslateUi(QDialog *OriginDialog)
     {
-        OriginDialog->setWindowTitle(QApplication::translate("OriginDialog", "Artificial Origin", 0, QApplication::UnicodeUTF8));
-        groupBox->setTitle(QApplication::translate("OriginDialog", "Origin", 0, QApplication::UnicodeUTF8));
-        label_2->setText(QApplication::translate("OriginDialog", "Depth:", 0, QApplication::UnicodeUTF8));
-        depthDoubleSpinBox->setSuffix(QApplication::translate("OriginDialog", " km", 0, QApplication::UnicodeUTF8));
-        lonLabel->setText(QApplication::translate("OriginDialog", "Lon:", 0, QApplication::UnicodeUTF8));
-        lonDoubleSpinBox->setSuffix(QApplication::translate("OriginDialog", " deg", 0, QApplication::UnicodeUTF8));
-        latLabel->setText(QApplication::translate("OriginDialog", "Lat:", 0, QApplication::UnicodeUTF8));
-        label->setText(QApplication::translate("OriginDialog", "Time:", 0, QApplication::UnicodeUTF8));
-        latDoubleSpinBox->setSuffix(QApplication::translate("OriginDialog", " deg", 0, QApplication::UnicodeUTF8));
-        dateTimeEdit->setDisplayFormat(QApplication::translate("OriginDialog", "yyyy-MM-dd hh:mm:ss", 0, QApplication::UnicodeUTF8));
-        advancedGB->setTitle(QApplication::translate("OriginDialog", "Advanced", 0, QApplication::UnicodeUTF8));
-        magTypeLabel->setText(QApplication::translate("OriginDialog", "Magnitude Type", 0, QApplication::UnicodeUTF8));
-        magLabel->setText(QApplication::translate("OriginDialog", "Magnitude", 0, QApplication::UnicodeUTF8));
-        phaseCountLabel->setText(QApplication::translate("OriginDialog", "PhaseCount", 0, QApplication::UnicodeUTF8));
-        sendButton->setText(QApplication::translate("OriginDialog", "Create", 0, QApplication::UnicodeUTF8));
-        cancelButton->setText(QApplication::translate("OriginDialog", "Cancel", 0, QApplication::UnicodeUTF8));
+        OriginDialog->setWindowTitle(QApplication::translate("OriginDialog", "Artificial Origin", Q_NULLPTR));
+        groupBox->setTitle(QApplication::translate("OriginDialog", "Origin", Q_NULLPTR));
+        depthLabel->setText(QApplication::translate("OriginDialog", "Depth:", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        lonLabel->setToolTip(QApplication::translate("OriginDialog", "Longitude", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+        lonLabel->setText(QApplication::translate("OriginDialog", "Lon:", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        latLabel->setToolTip(QApplication::translate("OriginDialog", "Latitude", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+        latLabel->setText(QApplication::translate("OriginDialog", "Lat:", Q_NULLPTR));
+        timeLabel->setText(QApplication::translate("OriginDialog", "Time:", Q_NULLPTR));
+        dateTimeEdit->setDisplayFormat(QApplication::translate("OriginDialog", "yyyy-MM-dd hh:mm:ss", Q_NULLPTR));
+        latUnitLabel->setText(QApplication::translate("OriginDialog", "deg", Q_NULLPTR));
+        lonUnitLabel->setText(QApplication::translate("OriginDialog", "deg", Q_NULLPTR));
+        depthUnitLabel->setText(QApplication::translate("OriginDialog", "km", Q_NULLPTR));
+        advancedGroupBox->setTitle(QApplication::translate("OriginDialog", "Advanced", Q_NULLPTR));
+        magTypeLabel->setText(QApplication::translate("OriginDialog", "Magnitude Type", Q_NULLPTR));
+        magLabel->setText(QApplication::translate("OriginDialog", "Magnitude", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        phaseCountLabel->setToolTip(QString());
+#endif // QT_NO_TOOLTIP
+        phaseCountLabel->setText(QApplication::translate("OriginDialog", "PhaseCount", Q_NULLPTR));
+        sendButton->setText(QApplication::translate("OriginDialog", "Create", Q_NULLPTR));
+        cancelButton->setText(QApplication::translate("OriginDialog", "Cancel", Q_NULLPTR));
     } // retranslateUi
 
 };

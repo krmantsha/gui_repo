@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "SCAUTOPICK" "1" "Jan 18, 2024" "5.5.17" "SeisComP"
+.TH "SCAUTOPICK" "1" "Jan 18, 2024" "6.1.2" "SeisComP"
 .SH NAME
 scautopick \- SeisComP Documentation
 .sp
@@ -35,9 +35,11 @@ scautopick \- SeisComP Documentation
 .SH DESCRIPTION
 .sp
 scautopick applies threshold monitoring by searching for waveform anomalies in
-form of changes in amplitudes. It is applied for detecting phase arrivals and
-and for measuring related features and amplitudes. The phase arrivals are
-typically associated by modules like \fI\%scautoloc\fP for locating the source.
+form of changes in amplitudes. It is applied for detecting phase arrivals
+creating \fI\%phase picks\fP and for measuring related features and
+\fI\%amplitudes\fP\&. The picks and associated amplitudes and
+features are typically provided to modules like \fI\%scautoloc\fP for locating
+the source.
 .sp
 \fBNOTE:\fP
 .INDENT 0.0
@@ -192,7 +194,7 @@ corresponding magnitude type (see \fI\%scamp\fP for a list of amplitude types an
 .IP \(bu 2
 \fI\%scautoloc\fP for associating phase picks and generating a source location
 .IP \(bu 2
-EEW (earthquake early warning) systems in order to provide raüid amplitudes for
+EEW (earthquake early warning) systems in order to provide rapid amplitudes for
 magnitudes as soon as source locations are available.
 .UNINDENT
 .sp
@@ -267,9 +269,9 @@ $ seiscomp exec scautopick \-h
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
-Due to code changes in the file data source, the command line option \fB\-\-playback\fP
-is essential for non\-real\-time operation. Otherwise a real\-time time window
-is set and all records are most likely filtered out.
+Due to code changes in the file data source, the command line option
+\fB\-\-playback\fP is essential for non\-real\-time operation. Otherwise a
+real\-time time window is set and all records are most likely filtered out.
 .UNINDENT
 .UNINDENT
 .sp
@@ -279,7 +281,7 @@ volume. scautopick will apply the same workflow as in online mode but the
 acquisition of data records has to change. If the input data (file) has been
 read, scautopick will exit and furthermore it must not ask for a particular
 time window, especially not for a real\-time time window. To accomplish that
-the command\-line parameter \fB\(ga\-\-playback\(ga\fP has to be used. Example:
+the command\-line parameter \fB\-\-playback\fP has to be used. Example:
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -295,7 +297,7 @@ This call will process all records in \fBdata.mseed\fP for which bindings
 exist and \fBsend the results to the messaging\fP\&. If all data records are processed,
 scautopick will exit. The processing steps are similar to the online mode.
 .sp
-Use the \fB\(ga\-\-ep\(ga\fP for offline processing \fBwithout messaging\fP\&. The results are
+Use the \fB\-\-ep\fP for offline processing \fBwithout messaging\fP\&. The results are
 printed in \fI\%SCML\fP format. Example:
 .INDENT 0.0
 .INDENT 3.5
@@ -502,7 +504,7 @@ available: \(dqDFX\(dq. Configure related parameters
 in global bindings.
 .sp
 When configured, the usability of the features for locating
-depends on the used locator, e.g. LOCSAT. Read the
+events depends on the used locator, e.g. LOCSAT. Read the
 locator\(aqs documentation and configuration parameters.
 .UNINDENT
 .INDENT 0.0

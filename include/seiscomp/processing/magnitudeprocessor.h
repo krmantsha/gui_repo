@@ -137,11 +137,11 @@ class SC_SYSTEM_CLIENT_API MagnitudeProcessor : public Processor {
 	// ----------------------------------------------------------------------
 	//  X'truction
 	// ----------------------------------------------------------------------
-	public:
+	protected:
 		//! C'tor
-		MagnitudeProcessor();
-		MagnitudeProcessor(const std::string& type);
+		MagnitudeProcessor(const std::string &type);
 
+	public:
 		//! D'tor
 		~MagnitudeProcessor();
 
@@ -214,12 +214,14 @@ class SC_SYSTEM_CLIENT_API MagnitudeProcessor : public Processor {
 		/**
 		 * @brief Estimates the Mw magnitude from a given magnitude. The
 		 *        default implementation returns MwEstimationNotSupported.
+		 * @param config Optional configuration
 		 * @param magnitude Input magnitude value.
 		 * @param estimation Resulting Mw estimation.
 		 * @param stdError Resulting standard error.
 		 * @return The status of the computation.
 		 */
-		virtual Status estimateMw(double magnitude, double &estimation,
+		virtual Status estimateMw(const Config::Config *config,
+		                          double magnitude, double &estimation,
 		                          double &stdError);
 
 		void setCorrectionCoefficients(double a, double b);
@@ -235,6 +237,12 @@ class SC_SYSTEM_CLIENT_API MagnitudeProcessor : public Processor {
 		 * @param magnitude The magnitude to be finalized
 		 */
 		virtual void finalizeMagnitude(DataModel::StationMagnitude *magnitude) const;
+
+		static bool CreateAlias(const std::string &aliasType,
+		                        const std::string &sourceType,
+		                        const std::string &sourceAmpType);
+		static bool RemoveAlias(const std::string &aliasType);
+		static void RemoveAllAliases();
 
 
 	protected:
@@ -305,10 +313,13 @@ class SC_SYSTEM_CLIENT_API MagnitudeProcessor : public Processor {
 		};
 
 		std::string   _type;
+		std::string   _amplitudeType;
 		std::string   _networkCode;
 		std::string   _stationCode;
 		Correction    _corrections;
 		Correction::A _defaultCorrection;
+
+		friend class MagnitudeProcessorAliasFactory;
 };
 
 

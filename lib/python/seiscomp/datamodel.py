@@ -146,14 +146,14 @@ class NotifierMessageBase(seiscomp.core.Message):
     def attach(self, *args):
         r"""
         attach(NotifierMessageBase self, Notifier attachment) -> bool
-        attach(NotifierMessageBase self, Seiscomp::Core::SmartPointer< Seiscomp::Core::GenericMessage< Seiscomp::DataModel::Notifier >::AttachementType >::Impl & attachment) -> bool
+        attach(NotifierMessageBase self, Seiscomp::Core::SmartPointer< Seiscomp::Core::GenericMessage< Seiscomp::DataModel::Notifier >::AttachmentType >::Impl & attachment) -> bool
         """
         return _datamodel.NotifierMessageBase_attach(self, *args)
 
     def detach(self, *args):
         r"""
         detach(NotifierMessageBase self, Notifier attachment) -> bool
-        detach(NotifierMessageBase self, Seiscomp::Core::SmartPointer< Seiscomp::Core::GenericMessage< Seiscomp::DataModel::Notifier >::AttachementType >::Impl & attachment) -> bool
+        detach(NotifierMessageBase self, Seiscomp::Core::SmartPointer< Seiscomp::Core::GenericMessage< Seiscomp::DataModel::Notifier >::AttachmentType >::Impl & attachment) -> bool
         detach(NotifierMessageBase self, Seiscomp::Core::GenericMessage< Seiscomp::DataModel::Notifier >::iterator it) -> Seiscomp::Core::GenericMessage< Seiscomp::DataModel::Notifier >::iterator
         """
         return _datamodel.NotifierMessageBase_detach(self, *args)
@@ -757,9 +757,9 @@ class DatabaseObjectWriter(object):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, archive, addToDatabase=True, batchSize=1):
-        r"""__init__(DatabaseObjectWriter self, DatabaseArchive archive, bool addToDatabase=True, int batchSize=1) -> DatabaseObjectWriter"""
-        _datamodel.DatabaseObjectWriter_swiginit(self, _datamodel.new_DatabaseObjectWriter(archive, addToDatabase, batchSize))
+    def __init__(self, archive, addToDatabase=True):
+        r"""__init__(DatabaseObjectWriter self, DatabaseArchive archive, bool addToDatabase=True) -> DatabaseObjectWriter"""
+        _datamodel.DatabaseObjectWriter_swiginit(self, _datamodel.new_DatabaseObjectWriter(archive, addToDatabase))
 
     def __call__(self, *args):
         r"""
@@ -845,9 +845,9 @@ class DatabaseArchive(Observer):
         r"""parentPublicID(DatabaseArchive self, PublicObject object) -> std::string"""
         return _datamodel.DatabaseArchive_parentPublicID(self, object)
 
-    def write(self, *args):
-        r"""write(DatabaseArchive self, Object object, std::string const & parentID="") -> bool"""
-        return _datamodel.DatabaseArchive_write(self, *args)
+    def insert(self, *args):
+        r"""insert(DatabaseArchive self, Object object, std::string const & parentID="") -> bool"""
+        return _datamodel.DatabaseArchive_insert(self, *args)
 
     def update(self, *args):
         r"""update(DatabaseArchive self, Object object, std::string const & parentID="") -> bool"""
@@ -856,14 +856,6 @@ class DatabaseArchive(Observer):
     def remove(self, *args):
         r"""remove(DatabaseArchive self, Object object, std::string const & parentID="") -> bool"""
         return _datamodel.DatabaseArchive_remove(self, *args)
-
-    def addTree(self, *args):
-        r"""addTree(DatabaseArchive self, Object object, std::string const & parentID="", int * objectsHandled=None) -> bool"""
-        return _datamodel.DatabaseArchive_addTree(self, *args)
-
-    def removeTree(self, *args):
-        r"""removeTree(DatabaseArchive self, Object object, std::string const & parentID="", int * objectsHandled=None) -> bool"""
-        return _datamodel.DatabaseArchive_removeTree(self, *args)
 
     def getObjectIterator(self, *args):
         r"""
@@ -946,9 +938,12 @@ class PublicObjectCache(seiscomp.core.BaseObject):
         r"""clear(PublicObjectCache self)"""
         return _datamodel.PublicObjectCache_clear(self)
 
-    def typeInfo(self, publicID):
-        r"""typeInfo(PublicObjectCache self, std::string const & publicID) -> RTTI"""
-        return _datamodel.PublicObjectCache_typeInfo(self, publicID)
+    def typeInfo(self, *args):
+        r"""
+        typeInfo(PublicObjectCache self)
+        typeInfo(PublicObjectCache self, std::string const & publicID) -> RTTI
+        """
+        return _datamodel.PublicObjectCache_typeInfo(self, *args)
 
     def find(self, classType, publicID):
         r"""find(PublicObjectCache self, RTTI classType, std::string const & publicID) -> PublicObject"""
@@ -1468,6 +1463,10 @@ def getVerticalComponent(loc, streamCode, time):
 def getThreeComponents(res, loc, streamCode, time):
     r"""getThreeComponents(ThreeComponents res, SensorLocation loc, char const * streamCode, Time time) -> bool"""
     return _datamodel.getThreeComponents(res, loc, streamCode, time)
+
+def numberOfComponents(loc, streamCode, time):
+    r"""numberOfComponents(SensorLocation loc, char const * streamCode, Time time) -> int"""
+    return _datamodel.numberOfComponents(loc, streamCode, time)
 
 def findSetup(configStation, setupName, allowGlobal=True):
     r"""findSetup(ConfigStation configStation, std::string const & setupName, bool allowGlobal=True) -> Setup"""
@@ -2082,6 +2081,22 @@ BOMB_DETONATION = _datamodel.BOMB_DETONATION
 MOVING_AIRCRAFT = _datamodel.MOVING_AIRCRAFT
 
 ATMOSPHERIC_METEOR_EXPLOSION = _datamodel.ATMOSPHERIC_METEOR_EXPLOSION
+
+VOLCANO_TECTONIC = _datamodel.VOLCANO_TECTONIC
+
+VOLCANIC_LONG_PERIOD = _datamodel.VOLCANIC_LONG_PERIOD
+
+VOLCANIC_VERY_LONG_PERIOD = _datamodel.VOLCANIC_VERY_LONG_PERIOD
+
+VOLCANIC_HYBRID = _datamodel.VOLCANIC_HYBRID
+
+VOLCANIC_ROCKFALL = _datamodel.VOLCANIC_ROCKFALL
+
+VOLCANIC_TREMOR = _datamodel.VOLCANIC_TREMOR
+
+PYROCLASTIC_FLOW = _datamodel.PYROCLASTIC_FLOW
+
+LAHAR = _datamodel.LAHAR
 
 EEventTypeQuantity = _datamodel.EEventTypeQuantity
 
@@ -23335,6 +23350,8 @@ class Version(object):
     Major = _datamodel.Version_Major
     
     Minor = _datamodel.Version_Minor
+    
+    Revision = _datamodel.Version_Revision
     
 
     def __init__(self):

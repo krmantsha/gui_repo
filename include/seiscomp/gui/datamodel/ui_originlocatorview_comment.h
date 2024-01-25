@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'originlocatorview_comment.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.7
+** Created by: Qt User Interface Compiler version 5.9.7
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,18 +10,18 @@
 #define UI_ORIGINLOCATORVIEW_COMMENT_H
 
 #include <QtCore/QVariant>
-#include <QtGui/QAction>
-#include <QtGui/QApplication>
-#include <QtGui/QButtonGroup>
-#include <QtGui/QDialog>
-#include <QtGui/QFrame>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QHeaderView>
-#include <QtGui/QLabel>
-#include <QtGui/QPushButton>
-#include <QtGui/QSpacerItem>
-#include <QtGui/QTextEdit>
-#include <QtGui/QVBoxLayout>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QFrame>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QTextEdit>
+#include <QtWidgets/QVBoxLayout>
 
 QT_BEGIN_NAMESPACE
 
@@ -50,7 +50,7 @@ public:
     void setupUi(QDialog *OriginCommentOptions)
     {
         if (OriginCommentOptions->objectName().isEmpty())
-            OriginCommentOptions->setObjectName(QString::fromUtf8("OriginCommentOptions"));
+            OriginCommentOptions->setObjectName(QStringLiteral("OriginCommentOptions"));
         OriginCommentOptions->resize(380, 231);
         vboxLayout = new QVBoxLayout(OriginCommentOptions);
 #ifndef Q_OS_MAC
@@ -59,13 +59,13 @@ public:
 #ifndef Q_OS_MAC
         vboxLayout->setContentsMargins(9, 9, 9, 9);
 #endif
-        vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
+        vboxLayout->setObjectName(QStringLiteral("vboxLayout"));
         hboxLayout = new QHBoxLayout();
         hboxLayout->setSpacing(12);
 #ifndef Q_OS_MAC
         hboxLayout->setContentsMargins(0, 0, 0, 0);
 #endif
-        hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
+        hboxLayout->setObjectName(QStringLiteral("hboxLayout"));
         vboxLayout1 = new QVBoxLayout();
 #ifndef Q_OS_MAC
         vboxLayout1->setSpacing(6);
@@ -73,9 +73,9 @@ public:
 #ifndef Q_OS_MAC
         vboxLayout1->setContentsMargins(0, 0, 0, 0);
 #endif
-        vboxLayout1->setObjectName(QString::fromUtf8("vboxLayout1"));
+        vboxLayout1->setObjectName(QStringLiteral("vboxLayout1"));
         labelHeadline = new QLabel(OriginCommentOptions);
-        labelHeadline->setObjectName(QString::fromUtf8("labelHeadline"));
+        labelHeadline->setObjectName(QStringLiteral("labelHeadline"));
         labelHeadline->setEnabled(false);
         QSizePolicy sizePolicy(static_cast<QSizePolicy::Policy>(4), static_cast<QSizePolicy::Policy>(5));
         sizePolicy.setHorizontalStretch(0);
@@ -99,7 +99,7 @@ public:
         vboxLayout2->setSpacing(6);
 #endif
         vboxLayout2->setContentsMargins(0, 0, 0, 0);
-        vboxLayout2->setObjectName(QString::fromUtf8("vboxLayout2"));
+        vboxLayout2->setObjectName(QStringLiteral("vboxLayout2"));
         hboxLayout1 = new QHBoxLayout();
 #ifndef Q_OS_MAC
         hboxLayout1->setSpacing(6);
@@ -107,9 +107,9 @@ public:
 #ifndef Q_OS_MAC
         hboxLayout1->setContentsMargins(0, 0, 0, 0);
 #endif
-        hboxLayout1->setObjectName(QString::fromUtf8("hboxLayout1"));
+        hboxLayout1->setObjectName(QStringLiteral("hboxLayout1"));
         labelAuthor = new QLabel(OriginCommentOptions);
-        labelAuthor->setObjectName(QString::fromUtf8("labelAuthor"));
+        labelAuthor->setObjectName(QStringLiteral("labelAuthor"));
 
         hboxLayout1->addWidget(labelAuthor);
 
@@ -118,7 +118,7 @@ public:
         hboxLayout1->addItem(spacerItem1);
 
         labelDate = new QLabel(OriginCommentOptions);
-        labelDate->setObjectName(QString::fromUtf8("labelDate"));
+        labelDate->setObjectName(QStringLiteral("labelDate"));
 
         hboxLayout1->addWidget(labelDate);
 
@@ -126,7 +126,7 @@ public:
         vboxLayout2->addLayout(hboxLayout1);
 
         labelComment = new QLabel(OriginCommentOptions);
-        labelComment->setObjectName(QString::fromUtf8("labelComment"));
+        labelComment->setObjectName(QStringLiteral("labelComment"));
         QSizePolicy sizePolicy1(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5));
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
@@ -147,14 +147,14 @@ public:
         vboxLayout->addLayout(hboxLayout);
 
         frame = new QFrame(OriginCommentOptions);
-        frame->setObjectName(QString::fromUtf8("frame"));
+        frame->setObjectName(QStringLiteral("frame"));
         frame->setFrameShape(QFrame::HLine);
         frame->setFrameShadow(QFrame::Plain);
 
         vboxLayout->addWidget(frame);
 
         editComment = new QTextEdit(OriginCommentOptions);
-        editComment->setObjectName(QString::fromUtf8("editComment"));
+        editComment->setObjectName(QStringLiteral("editComment"));
         QSizePolicy sizePolicy2(static_cast<QSizePolicy::Policy>(7), static_cast<QSizePolicy::Policy>(7));
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(1);
@@ -170,18 +170,18 @@ public:
         hboxLayout2->setSpacing(6);
 #endif
         hboxLayout2->setContentsMargins(0, 0, 0, 0);
-        hboxLayout2->setObjectName(QString::fromUtf8("hboxLayout2"));
+        hboxLayout2->setObjectName(QStringLiteral("hboxLayout2"));
         spacerItem3 = new QSpacerItem(131, 31, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         hboxLayout2->addItem(spacerItem3);
 
         okButton = new QPushButton(OriginCommentOptions);
-        okButton->setObjectName(QString::fromUtf8("okButton"));
+        okButton->setObjectName(QStringLiteral("okButton"));
 
         hboxLayout2->addWidget(okButton);
 
         cancelButton = new QPushButton(OriginCommentOptions);
-        cancelButton->setObjectName(QString::fromUtf8("cancelButton"));
+        cancelButton->setObjectName(QStringLiteral("cancelButton"));
 
         hboxLayout2->addWidget(cancelButton);
 
@@ -198,13 +198,13 @@ public:
 
     void retranslateUi(QDialog *OriginCommentOptions)
     {
-        OriginCommentOptions->setWindowTitle(QApplication::translate("OriginCommentOptions", "Edit comment", 0, QApplication::UnicodeUTF8));
+        OriginCommentOptions->setWindowTitle(QApplication::translate("OriginCommentOptions", "Edit comment", Q_NULLPTR));
         labelHeadline->setText(QString());
         labelAuthor->setText(QString());
         labelDate->setText(QString());
-        labelComment->setText(QApplication::translate("OriginCommentOptions", "...", 0, QApplication::UnicodeUTF8));
-        okButton->setText(QApplication::translate("OriginCommentOptions", "OK", 0, QApplication::UnicodeUTF8));
-        cancelButton->setText(QApplication::translate("OriginCommentOptions", "Cancel", 0, QApplication::UnicodeUTF8));
+        labelComment->setText(QApplication::translate("OriginCommentOptions", "...", Q_NULLPTR));
+        okButton->setText(QApplication::translate("OriginCommentOptions", "OK", Q_NULLPTR));
+        cancelButton->setText(QApplication::translate("OriginCommentOptions", "Cancel", Q_NULLPTR));
     } // retranslateUi
 
 };

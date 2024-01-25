@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -1183,6 +1183,103 @@ the default locator.</p>
 dropdown list.</p>
 </dd></dl>
 
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>spectrogram.*</strong>
+<em>Define parameters for spectrogram representation.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-spectrogram.smoothing">
+<span class="sig-name descname"><span class="pre">spectrogram.smoothing</span></span><a class="headerlink" href="#confval-spectrogram.smoothing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Whether to plot the spectrogram filtered bilinearily.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-spectrogram.logScale">
+<span class="sig-name descname"><span class="pre">spectrogram.logScale</span></span><a class="headerlink" href="#confval-spectrogram.logScale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Whether to use logarithmic frequency scale.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-spectrogram.normalization">
+<span class="sig-name descname"><span class="pre">spectrogram.normalization</span></span><a class="headerlink" href="#confval-spectrogram.normalization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">fixed</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Which amplitude normalization mode to use: &quot;fixed&quot;,
+&quot;frequency&quot; or &quot;time&quot;.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-spectrogram.axis">
+<span class="sig-name descname"><span class="pre">spectrogram.axis</span></span><a class="headerlink" href="#confval-spectrogram.axis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Whether to show the frequency axis.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-spectrogram.minimumAmplitude">
+<span class="sig-name descname"><span class="pre">spectrogram.minimumAmplitude</span></span><a class="headerlink" href="#confval-spectrogram.minimumAmplitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">-15</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>log(ps)</em></p>
+<p>The lower bound of the static amplitude range give as logarithm of
+the power spectrum (log(real**2 + imag**2)).</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-spectrogram.maximumAmplitude">
+<span class="sig-name descname"><span class="pre">spectrogram.maximumAmplitude</span></span><a class="headerlink" href="#confval-spectrogram.maximumAmplitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">-5</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>log(ps)</em></p>
+<p>The upper bound of the static amplitude range give as logarithm of
+the power spectrum (log(real**2 + imag**2)).</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-spectrogram.minimumFrequency">
+<span class="sig-name descname"><span class="pre">spectrogram.minimumFrequency</span></span><a class="headerlink" href="#confval-spectrogram.minimumFrequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>Hz</em></p>
+<p>The lower bound of the frequency to be shown.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-spectrogram.maximumFrequency">
+<span class="sig-name descname"><span class="pre">spectrogram.maximumFrequency</span></span><a class="headerlink" href="#confval-spectrogram.maximumFrequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>Hz</em></p>
+<p>The upper bound of the frequency to be shown. Zero is a special
+value and means &quot;auto&quot; and sets the maximum
+frequency from the spectra.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-spectrogram.timeSpan">
+<span class="sig-name descname"><span class="pre">spectrogram.timeSpan</span></span><a class="headerlink" href="#confval-spectrogram.timeSpan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">20</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>s</em></p>
+<p>The time span of each data slice used to compute the
+frequency spectrum.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-spectrogram.overlap">
+<span class="sig-name descname"><span class="pre">spectrogram.overlap</span></span><a class="headerlink" href="#confval-spectrogram.overlap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.5</span></code></p>
+<p>Type: <em>double</em></p>
+<p>The overlap of the data time window between zero and one
+(exclusive).</p>
+</dd></dl>
+
 </section>
 <section id="command-line-options">
 <h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this heading">¶</a></h2>
@@ -1651,7 +1748,7 @@ GUI applications.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'infotext.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.7
+** Created by: Qt User Interface Compiler version 5.9.7
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,16 +10,16 @@
 #define UI_INFOTEXT_H
 
 #include <QtCore/QVariant>
-#include <QtGui/QAction>
-#include <QtGui/QApplication>
-#include <QtGui/QButtonGroup>
-#include <QtGui/QDialog>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QHeaderView>
-#include <QtGui/QPushButton>
-#include <QtGui/QSpacerItem>
-#include <QtGui/QTextEdit>
-#include <QtGui/QVBoxLayout>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QTextEdit>
+#include <QtWidgets/QVBoxLayout>
 
 QT_BEGIN_NAMESPACE
 
@@ -35,14 +35,14 @@ public:
     void setupUi(QDialog *InfoText)
     {
         if (InfoText->objectName().isEmpty())
-            InfoText->setObjectName(QString::fromUtf8("InfoText"));
+            InfoText->setObjectName(QStringLiteral("InfoText"));
         InfoText->resize(319, 336);
         vboxLayout = new QVBoxLayout(InfoText);
         vboxLayout->setSpacing(4);
         vboxLayout->setContentsMargins(6, 6, 6, 6);
-        vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
+        vboxLayout->setObjectName(QStringLiteral("vboxLayout"));
         textEdit = new QTextEdit(InfoText);
-        textEdit->setObjectName(QString::fromUtf8("textEdit"));
+        textEdit->setObjectName(QStringLiteral("textEdit"));
         textEdit->setReadOnly(true);
 
         vboxLayout->addWidget(textEdit);
@@ -52,13 +52,13 @@ public:
         hboxLayout->setSpacing(6);
 #endif
         hboxLayout->setContentsMargins(0, 0, 0, 0);
-        hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
+        hboxLayout->setObjectName(QStringLiteral("hboxLayout"));
         spacerItem = new QSpacerItem(131, 31, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         hboxLayout->addItem(spacerItem);
 
         closeButton = new QPushButton(InfoText);
-        closeButton->setObjectName(QString::fromUtf8("closeButton"));
+        closeButton->setObjectName(QStringLiteral("closeButton"));
 
         hboxLayout->addWidget(closeButton);
 
@@ -74,8 +74,8 @@ public:
 
     void retranslateUi(QDialog *InfoText)
     {
-        InfoText->setWindowTitle(QApplication::translate("InfoText", "Information", 0, QApplication::UnicodeUTF8));
-        closeButton->setText(QApplication::translate("InfoText", "Close", 0, QApplication::UnicodeUTF8));
+        InfoText->setWindowTitle(QApplication::translate("InfoText", "Information", Q_NULLPTR));
+        closeButton->setText(QApplication::translate("InfoText", "Close", Q_NULLPTR));
     } // retranslateUi
 
 };

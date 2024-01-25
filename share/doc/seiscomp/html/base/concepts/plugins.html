@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -82,11 +82,13 @@ They are C++ shared object libraries which are dynamically loaded at runtime
 into an application.</p>
 <p>Typical plugins provide access to:</p>
 <ul class="simple">
-<li><p>Databases</p></li>
+<li><p><a class="reference internal" href="database.html#concepts-database"><span class="std std-ref">Databases</span></a></p></li>
 <li><p><a class="reference internal" href="../../apps/global_recordstream.html#global-recordstream"><span class="std std-ref">Recordstream implementations</span></a></p></li>
 <li><p><a class="reference internal" href="../../index.html#sec-index-extensions"><span class="std std-ref">Locator routines</span></a></p></li>
-<li><p><a class="reference internal" href="../../index.html#sec-index-extensions"><span class="std std-ref">Magnitude types</span></a>.</p></li>
+<li><p><a class="reference internal" href="../../index.html#sec-index-extensions"><span class="std std-ref">Amplitude and magnitude types</span></a></p></li>
+<li><p><a class="reference internal" href="../../apps/scqc.html#scqc"><span class="std std-ref">Waveform quality</span></a>.</p></li>
 </ul>
+<p>The plugin files themselves are located in <code class="file docutils literal notranslate"><span class="pre">share/plugins</span></code>.</p>
 <p>By just loading a plugin an application does not change
 it’s way to function magically. Common plugins just implement a certain
 interface (see e.g. messaging or RecordStream) and exhibit that functionality
@@ -201,7 +203,7 @@ by the global configuration, load these</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

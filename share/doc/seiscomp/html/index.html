@@ -25,7 +25,7 @@
         <div class="brand">
           <img class="logo" src="_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -61,7 +61,7 @@
           
   <section id="welcome">
 <h1>Welcome<a class="headerlink" href="#welcome" title="Permalink to this heading">¶</a></h1>
-<p>This is the documentation for the <cite>SeisComP</cite> version 5.5.17 Release.</p>
+<p>This is the documentation for the <cite>SeisComP</cite> version 6.1.2 Release.</p>
 <p>Please consider <a class="reference internal" href="base/contributing-docs.html"><span class="doc">contributing</span></a> to this documentation.</p>
 <div class="four column layout"><figure class="align-default" id="id1">
 <img alt="scmv" src="_images/scmv.png" />
@@ -132,6 +132,7 @@
 <li class="toctree-l2"><a class="reference internal" href="base/tutorials/processing.html">Configure real-time processing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="base/tutorials/geofon_waveforms.html">Add real-time stations from GEOFON</a></li>
 <li class="toctree-l2"><a class="reference internal" href="base/tutorials/servefdsnws.html">Enable local FDSNWS server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base/tutorials/magnitude-regionalization.html">Magnitudes: Regionalization, Aliases, Mw</a></li>
 <li class="toctree-l2"><a class="reference internal" href="base/tutorials/waveformplayback.html">Play back archived waveforms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="base/tutorials/help.html">Help! I’m stuck! Now what?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="base/tutorials/template.html">Create a new tutorial</a></li>
@@ -145,6 +146,7 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="gui.html">Graphical User Interfaces</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="apps/scconfig.html">scconfig</a></li>
 <li class="toctree-l2"><a class="reference internal" href="apps/scesv.html">scesv</a></li>
 <li class="toctree-l2"><a class="reference internal" href="apps/scheli.html">scheli</a></li>
 <li class="toctree-l2"><a class="reference internal" href="apps/scmm.html">scmm</a></li>
@@ -167,6 +169,7 @@
 <li class="toctree-l2"><a class="reference internal" href="toc/inventory.html">Inventory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="toc/messaging.html">Messaging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="toc/processing.html">Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="toc/system.html">System</a></li>
 <li class="toctree-l2"><a class="reference internal" href="toc/utilities.html">Utilities</a></li>
 </ul>
 </li>
@@ -178,9 +181,6 @@
 </li>
 </ul>
 </div>
-</section>
-<section id="extensions-and-filters">
-<span id="sec-index-extensions"></span><h2>Extensions and Filters<a class="headerlink" href="#extensions-and-filters" title="Permalink to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="toc/extensions.html">Extensions</a><ul>
@@ -222,7 +222,15 @@
 </li>
 </ul>
 </li>
+</ul>
+</div>
+</section>
+<section id="filter-and-time-grammar">
+<span id="sec-index-extensions"></span><h2>Filter and Time Grammar<a class="headerlink" href="#filter-and-time-grammar" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="base/filter-grammar.html">Filter grammar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base/time-grammar.html">Time grammar</a></li>
 </ul>
 </div>
 </section>
@@ -277,8 +285,10 @@
 <li><a class="reference internal" href="#understanding-scname">Understanding <cite>SeisComP</cite></a></li>
 <li><a class="reference internal" href="#operating-scname">Operating <cite>SeisComP</cite></a></li>
 <li><a class="reference internal" href="#interactive-analysis">Interactive Analysis</a></li>
-<li><a class="reference internal" href="#modules-and-tools">Modules and Tools</a></li>
-<li><a class="reference internal" href="#extensions-and-filters">Extensions and Filters</a></li>
+<li><a class="reference internal" href="#modules-and-tools">Modules and Tools</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#filter-and-time-grammar">Filter and Time Grammar</a></li>
 <li><a class="reference internal" href="#for-developers">For Developers</a></li>
 </ul>
 </li>
@@ -309,7 +319,7 @@
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

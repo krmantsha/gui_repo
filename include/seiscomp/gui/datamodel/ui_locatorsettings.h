@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'locatorsettings.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.7
+** Created by: Qt User Interface Compiler version 5.9.7
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,16 +10,16 @@
 #define UI_LOCATORSETTINGS_H
 
 #include <QtCore/QVariant>
-#include <QtGui/QAction>
-#include <QtGui/QApplication>
-#include <QtGui/QButtonGroup>
-#include <QtGui/QDialog>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QHeaderView>
-#include <QtGui/QPushButton>
-#include <QtGui/QSpacerItem>
-#include <QtGui/QTableWidget>
-#include <QtGui/QVBoxLayout>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QTableWidget>
+#include <QtWidgets/QVBoxLayout>
 
 QT_BEGIN_NAMESPACE
 
@@ -36,14 +36,14 @@ public:
     void setupUi(QDialog *LocatorSettings)
     {
         if (LocatorSettings->objectName().isEmpty())
-            LocatorSettings->setObjectName(QString::fromUtf8("LocatorSettings"));
+            LocatorSettings->setObjectName(QStringLiteral("LocatorSettings"));
         LocatorSettings->resize(453, 455);
         vboxLayout = new QVBoxLayout(LocatorSettings);
         vboxLayout->setSpacing(4);
         vboxLayout->setContentsMargins(6, 6, 6, 6);
-        vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
+        vboxLayout->setObjectName(QStringLiteral("vboxLayout"));
         tableParameters = new QTableWidget(LocatorSettings);
-        tableParameters->setObjectName(QString::fromUtf8("tableParameters"));
+        tableParameters->setObjectName(QStringLiteral("tableParameters"));
         tableParameters->setAlternatingRowColors(true);
         tableParameters->setSelectionMode(QAbstractItemView::SingleSelection);
         tableParameters->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -56,18 +56,18 @@ public:
         hboxLayout->setSpacing(6);
 #endif
         hboxLayout->setContentsMargins(0, 0, 0, 0);
-        hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
+        hboxLayout->setObjectName(QStringLiteral("hboxLayout"));
         spacerItem = new QSpacerItem(131, 31, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         hboxLayout->addItem(spacerItem);
 
         okButton = new QPushButton(LocatorSettings);
-        okButton->setObjectName(QString::fromUtf8("okButton"));
+        okButton->setObjectName(QStringLiteral("okButton"));
 
         hboxLayout->addWidget(okButton);
 
         cancelButton = new QPushButton(LocatorSettings);
-        cancelButton->setObjectName(QString::fromUtf8("cancelButton"));
+        cancelButton->setObjectName(QStringLiteral("cancelButton"));
 
         hboxLayout->addWidget(cancelButton);
 
@@ -84,9 +84,9 @@ public:
 
     void retranslateUi(QDialog *LocatorSettings)
     {
-        LocatorSettings->setWindowTitle(QApplication::translate("LocatorSettings", "Dialog", 0, QApplication::UnicodeUTF8));
-        okButton->setText(QApplication::translate("LocatorSettings", "OK", 0, QApplication::UnicodeUTF8));
-        cancelButton->setText(QApplication::translate("LocatorSettings", "Cancel", 0, QApplication::UnicodeUTF8));
+        LocatorSettings->setWindowTitle(QApplication::translate("LocatorSettings", "Dialog", Q_NULLPTR));
+        okButton->setText(QApplication::translate("LocatorSettings", "OK", Q_NULLPTR));
+        cancelButton->setText(QApplication::translate("LocatorSettings", "Cancel", Q_NULLPTR));
     } // retranslateUi
 
 };

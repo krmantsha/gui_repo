@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -73,7 +73,7 @@
 <span id="concepts-database"></span><h1>Database<a class="headerlink" href="#database" title="Permalink to this heading">¶</a></h1>
 <section id="scope">
 <h2>Scope<a class="headerlink" href="#scope" title="Permalink to this heading">¶</a></h2>
-<p>This chapter provides an overview over supported databases.</p>
+<p>This chapter provides an overview over databases supported by <cite>SeisComP</cite>.</p>
 </section>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
@@ -99,17 +99,36 @@ provided for</p>
 <td><p><em>dbpostgresql</em></p></td>
 </tr>
 <tr class="row-even"><td><p>SQLite3</p></td>
-<td><p><em>dbsqlite</em></p></td>
+<td><p><em>dbsqlite3</em></p></td>
 </tr>
 </tbody>
 </table>
-<p>The database used by the messaging for reading and writing is configured with
-<a class="reference internal" href="../../apps/scmaster.html#scmaster"><span class="std std-ref">scmaster</span></a>. The read connection by <a class="reference internal" href="modules.html#concepts-modules"><span class="std std-ref">modules</span></a> may be
-additionally set with <a class="reference internal" href="../../apps/global.html#confval-database"><code class="xref std std-confval docutils literal notranslate"><span class="pre">database</span></code></a> in
-<a class="reference internal" href="../../apps/global.html#global-configuration"><span class="std std-ref">global configuration</span></a>.
+<section id="database-access">
+<h3>Database access<a class="headerlink" href="#database-access" title="Permalink to this heading">¶</a></h3>
+<p>Typically, the database is accessed by the messaging (<a class="reference internal" href="../../apps/scmaster.html#scmaster"><span class="std std-ref">scmaster</span></a>) for
+reading and writing.
+Most other modules can only read from the database but do not write into it.
+Among the few exceptions which can also directly write to the database are
+<a class="reference internal" href="../../apps/scdb.html#scdb"><span class="std std-ref">scdb</span></a> and <a class="reference internal" href="../../apps/scardac.html#scardac"><span class="std std-ref">scardac</span></a>.</p>
+<p>The database connection provided by the messaging is configured by the
+<a class="reference internal" href="../../apps/scmaster.html#scmaster"><span class="std std-ref">scmaster module configuration</span></a>. <a class="reference internal" href="modules.html#concepts-modules"><span class="std std-ref">Modules</span></a>
+connected to the messaging receive the read connection parameters through the
+messaging connection. However, the default read connection by these and all
+other modules may be set with <a class="reference internal" href="../../apps/global.html#confval-database"><code class="xref std std-confval docutils literal notranslate"><span class="pre">database</span></code></a> in
+<a class="reference internal" href="../../apps/global.html#global-configuration"><span class="std std-ref">global configuration</span></a> or set on the command line
+using <code class="xref std std-option docutils literal notranslate"><span class="pre">--database</span></code> or simply <code class="xref std std-option docutils literal notranslate"><span class="pre">-d</span></code>.
 Read the sections <a class="reference internal" href="../installation.html#installation"><span class="std std-ref">SeisComP Installation</span></a> and <a class="reference internal" href="../getting-started.html#getting-started"><span class="std std-ref">Getting Started with SeisComP</span></a> on the
 installation and the configuration of the database backend and the initial setup
 of the database itself, respectively.</p>
+<p>The database connection may be used together with the <em>debug</em> option to print
+the database commands along with debug log output. Example for using
+<a class="reference internal" href="../../apps/scolv.html#scolv"><span class="std std-ref">scolv</span></a> in offline mode with database debug output:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scolv<span class="w"> </span>-d<span class="w"> </span>localhost?debug<span class="w"> </span>--offline<span class="w"> </span>--debug
+</pre></div>
+</div>
+</section>
+<section id="database-schema">
+<h3>Database schema<a class="headerlink" href="#database-schema" title="Permalink to this heading">¶</a></h3>
 <p>The used database schema is well defined and respected by all modules which
 access the database. It is similar to the SeisComML schema (<a class="reference internal" href="../glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a>,
 a version of XML) and the C++ / Python class hierarchy of the datamodel
@@ -130,19 +149,19 @@ the <a class="reference internal" href="../api-python.html#api-datamodel-python"
 <tr class="row-even"><td><p><a class="reference internal" href="configuration.html#concepts-configuration"><span class="std std-ref">Config</span></a></p></td>
 <td><p>station bindings</p></td>
 </tr>
-<tr class="row-odd"><td><p>DataAvailability</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api-python.html#api-datamodel-python"><span class="std std-ref">DataAvailability</span></a></p></td>
 <td><p>information on continuous data records</p></td>
 </tr>
-<tr class="row-even"><td><p>EventParameters</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../api-python.html#api-datamodel-python"><span class="std std-ref">EventParameters</span></a></p></td>
 <td><p>derived objects like picks, amplitudes, magnitudes origins, events, etc.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="inventory.html#concepts-inventory"><span class="std std-ref">Inventory</span></a></p></td>
 <td><p>station meta data</p></td>
 </tr>
-<tr class="row-even"><td><p>Journaling</p></td>
-<td><p>information on commands and actions e.g. by <a class="reference internal" href="../../apps/scevent.html#scevent-journals"><span class="std std-ref">scevent</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../api-python.html#api-datamodel-python"><span class="std std-ref">Journaling</span></a></p></td>
+<td><p>information on commands and actions, e.g., by <a class="reference internal" href="../../apps/scevent.html#scevent-journals"><span class="std std-ref">scevent</span></a></p></td>
 </tr>
-<tr class="row-odd"><td><p>QualityControl</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api-python.html#api-datamodel-python"><span class="std std-ref">QualityControl</span></a></p></td>
 <td><p>waveform quality control parameters</p></td>
 </tr>
 </tbody>
@@ -154,18 +173,20 @@ configurations (all .cfg files) are not stored in the database and only kept
 in files.</p>
 </div>
 <p>The currently supported version of the database schema can be queried by any
-module connecting to the data base using the option <code class="docutils literal notranslate"><span class="pre">-V</span></code>, e.g.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ scolv -V
+module connecting to the data base using the option <code class="xref std std-option docutils literal notranslate"><span class="pre">-V</span></code>. Example:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>scm<span class="w"> </span>-V
 
-  Framework: 5.0.0 Development
-  API version: 15.0.0
-  Data schema version: 0.12
-  GIT HEAD: 9f5c26cc4
-  Compiler: c++ (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
-  Build system: Linux 4.15.0-163-generic
-  OS: Ubuntu 18.04.6 LTS / Linux
+<span class="w">  </span>scm
+<span class="w">  </span>Framework:<span class="w"> </span><span class="m">6</span>.0.0<span class="w"> </span>Development
+<span class="w">  </span>API<span class="w"> </span>version:<span class="w"> </span><span class="m">16</span>.0.0
+<span class="w">  </span>Data<span class="w"> </span>schema<span class="w"> </span>version:<span class="w"> </span><span class="m">0</span>.12
+<span class="w">  </span>GIT<span class="w"> </span>HEAD:<span class="w"> </span>5e16580cc
+<span class="w">  </span>Compiler:<span class="w"> </span>c++<span class="w"> </span><span class="o">(</span>Ubuntu<span class="w"> </span><span class="m">11</span>.4.0-1ubuntu1~22.04<span class="o">)</span><span class="w"> </span><span class="m">11</span>.4.0
+<span class="w">  </span>Build<span class="w"> </span>system:<span class="w"> </span>Linux<span class="w"> </span><span class="m">6</span>.2.0-26-generic
+<span class="w">  </span>OS:<span class="w"> </span>Ubuntu<span class="w"> </span><span class="m">22</span>.04.3<span class="w"> </span>LTS<span class="w"> </span>/<span class="w"> </span>Linux
 </pre></div>
 </div>
+</section>
 </section>
 <section id="related-modules">
 <h2>Related Modules<a class="headerlink" href="#related-modules" title="Permalink to this heading">¶</a></h2>
@@ -203,7 +224,11 @@ module connecting to the data base using the option <code class="docutils litera
     <ul>
 <li><a class="reference internal" href="#">Database</a><ul>
 <li><a class="reference internal" href="#scope">Scope</a></li>
-<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#overview">Overview</a><ul>
+<li><a class="reference internal" href="#database-access">Database access</a></li>
+<li><a class="reference internal" href="#database-schema">Database schema</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#related-modules">Related Modules</a></li>
 </ul>
 </li>
@@ -239,7 +264,7 @@ module connecting to the data base using the option <code class="docutils litera
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

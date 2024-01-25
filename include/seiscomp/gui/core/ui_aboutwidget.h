@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'aboutwidget.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.7
+** Created by: Qt User Interface Compiler version 5.9.7
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,19 +10,19 @@
 #define UI_ABOUTWIDGET_H
 
 #include <QtCore/QVariant>
-#include <QtGui/QAction>
-#include <QtGui/QApplication>
-#include <QtGui/QButtonGroup>
-#include <QtGui/QGridLayout>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QHeaderView>
-#include <QtGui/QLabel>
-#include <QtGui/QPushButton>
-#include <QtGui/QSpacerItem>
-#include <QtGui/QTabWidget>
-#include <QtGui/QTextEdit>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QWidget>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QTabWidget>
+#include <QtWidgets/QTextEdit>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
@@ -52,7 +52,7 @@ public:
     void setupUi(QWidget *AboutWidget)
     {
         if (AboutWidget->objectName().isEmpty())
-            AboutWidget->setObjectName(QString::fromUtf8("AboutWidget"));
+            AboutWidget->setObjectName(QStringLiteral("AboutWidget"));
         AboutWidget->resize(357, 292);
         vboxLayout = new QVBoxLayout(AboutWidget);
 #ifndef Q_OS_MAC
@@ -61,11 +61,11 @@ public:
 #ifndef Q_OS_MAC
         vboxLayout->setContentsMargins(9, 9, 9, 9);
 #endif
-        vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
+        vboxLayout->setObjectName(QStringLiteral("vboxLayout"));
         tabWidget = new QTabWidget(AboutWidget);
-        tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
+        tabWidget->setObjectName(QStringLiteral("tabWidget"));
         tab = new QWidget();
-        tab->setObjectName(QString::fromUtf8("tab"));
+        tab->setObjectName(QStringLiteral("tab"));
         gridLayout = new QGridLayout(tab);
 #ifndef Q_OS_MAC
         gridLayout->setSpacing(6);
@@ -73,29 +73,29 @@ public:
 #ifndef Q_OS_MAC
         gridLayout->setContentsMargins(9, 9, 9, 9);
 #endif
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
         label_3 = new QLabel(tab);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_3->setObjectName(QStringLiteral("label_3"));
 
         gridLayout->addWidget(label_3, 1, 1, 1, 1);
 
         labelVersion = new QLabel(tab);
-        labelVersion->setObjectName(QString::fromUtf8("labelVersion"));
+        labelVersion->setObjectName(QStringLiteral("labelVersion"));
 
         gridLayout->addWidget(labelVersion, 0, 1, 1, 1);
 
         label_6 = new QLabel(tab);
-        label_6->setObjectName(QString::fromUtf8("label_6"));
+        label_6->setObjectName(QStringLiteral("label_6"));
 
         gridLayout->addWidget(label_6, 2, 1, 1, 1);
 
         label_7 = new QLabel(tab);
-        label_7->setObjectName(QString::fromUtf8("label_7"));
+        label_7->setObjectName(QStringLiteral("label_7"));
 
         gridLayout->addWidget(label_7, 4, 1, 1, 1);
 
         label = new QLabel(tab);
-        label->setObjectName(QString::fromUtf8("label"));
+        label->setObjectName(QStringLiteral("label"));
         QSizePolicy sizePolicy(static_cast<QSizePolicy::Policy>(4), static_cast<QSizePolicy::Policy>(5));
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -105,12 +105,12 @@ public:
         gridLayout->addWidget(label, 0, 0, 1, 1);
 
         label_5 = new QLabel(tab);
-        label_5->setObjectName(QString::fromUtf8("label_5"));
+        label_5->setObjectName(QStringLiteral("label_5"));
 
         gridLayout->addWidget(label_5, 5, 1, 1, 1);
 
         label_4 = new QLabel(tab);
-        label_4->setObjectName(QString::fromUtf8("label_4"));
+        label_4->setObjectName(QStringLiteral("label_4"));
 
         gridLayout->addWidget(label_4, 5, 0, 1, 1);
 
@@ -119,13 +119,13 @@ public:
         gridLayout->addItem(spacerItem, 6, 0, 1, 2);
 
         label_2 = new QLabel(tab);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setObjectName(QStringLiteral("label_2"));
 
         gridLayout->addWidget(label_2, 1, 0, 1, 1);
 
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
-        tab_2->setObjectName(QString::fromUtf8("tab_2"));
+        tab_2->setObjectName(QStringLiteral("tab_2"));
         vboxLayout1 = new QVBoxLayout(tab_2);
 #ifndef Q_OS_MAC
         vboxLayout1->setSpacing(6);
@@ -133,9 +133,9 @@ public:
 #ifndef Q_OS_MAC
         vboxLayout1->setContentsMargins(9, 9, 9, 9);
 #endif
-        vboxLayout1->setObjectName(QString::fromUtf8("vboxLayout1"));
+        vboxLayout1->setObjectName(QStringLiteral("vboxLayout1"));
         textLicense = new QTextEdit(tab_2);
-        textLicense->setObjectName(QString::fromUtf8("textLicense"));
+        textLicense->setObjectName(QStringLiteral("textLicense"));
         textLicense->setReadOnly(true);
 
         vboxLayout1->addWidget(textLicense);
@@ -149,13 +149,13 @@ public:
         hboxLayout->setSpacing(6);
 #endif
         hboxLayout->setContentsMargins(0, 0, 0, 0);
-        hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
+        hboxLayout->setObjectName(QStringLiteral("hboxLayout"));
         spacerItem1 = new QSpacerItem(271, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         hboxLayout->addItem(spacerItem1);
 
         buttonOk = new QPushButton(AboutWidget);
-        buttonOk->setObjectName(QString::fromUtf8("buttonOk"));
+        buttonOk->setObjectName(QStringLiteral("buttonOk"));
 
         hboxLayout->addWidget(buttonOk);
 
@@ -171,18 +171,18 @@ public:
 
     void retranslateUi(QWidget *AboutWidget)
     {
-        AboutWidget->setWindowTitle(QApplication::translate("AboutWidget", "About SeisComP::GUI", 0, QApplication::UnicodeUTF8));
-        label_3->setText(QApplication::translate("AboutWidget", "GFZ Potsdam", 0, QApplication::UnicodeUTF8));
-        labelVersion->setText(QApplication::translate("AboutWidget", "-", 0, QApplication::UnicodeUTF8));
-        label_6->setText(QApplication::translate("AboutWidget", "German Research Centre for Geosciences", 0, QApplication::UnicodeUTF8));
-        label_7->setText(QApplication::translate("AboutWidget", "gempa GmbH (http://www.gempa.de)", 0, QApplication::UnicodeUTF8));
-        label->setText(QApplication::translate("AboutWidget", "Version:", 0, QApplication::UnicodeUTF8));
-        label_5->setText(QApplication::translate("AboutWidget", "geofon_dc@gfz-potsdam.de", 0, QApplication::UnicodeUTF8));
-        label_4->setText(QApplication::translate("AboutWidget", "Contact:", 0, QApplication::UnicodeUTF8));
-        label_2->setText(QApplication::translate("AboutWidget", "Authors:", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("AboutWidget", "About", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("AboutWidget", "License", 0, QApplication::UnicodeUTF8));
-        buttonOk->setText(QApplication::translate("AboutWidget", "Ok", 0, QApplication::UnicodeUTF8));
+        AboutWidget->setWindowTitle(QApplication::translate("AboutWidget", "About SeisComP::GUI", Q_NULLPTR));
+        label_3->setText(QApplication::translate("AboutWidget", "GFZ Potsdam", Q_NULLPTR));
+        labelVersion->setText(QApplication::translate("AboutWidget", "-", Q_NULLPTR));
+        label_6->setText(QApplication::translate("AboutWidget", "German Research Centre for Geosciences", Q_NULLPTR));
+        label_7->setText(QApplication::translate("AboutWidget", "gempa GmbH (http://www.gempa.de)", Q_NULLPTR));
+        label->setText(QApplication::translate("AboutWidget", "Version:", Q_NULLPTR));
+        label_5->setText(QApplication::translate("AboutWidget", "geofon_dc@gfz-potsdam.de", Q_NULLPTR));
+        label_4->setText(QApplication::translate("AboutWidget", "Contact:", Q_NULLPTR));
+        label_2->setText(QApplication::translate("AboutWidget", "Authors:", Q_NULLPTR));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("AboutWidget", "About", Q_NULLPTR));
+        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("AboutWidget", "License", Q_NULLPTR));
+        buttonOk->setText(QApplication::translate("AboutWidget", "Ok", Q_NULLPTR));
     } // retranslateUi
 
 };

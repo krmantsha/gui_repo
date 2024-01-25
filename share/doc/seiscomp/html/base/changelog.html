@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -70,8 +70,22 @@
 <span id="sc-changelog"></span><h1>Change Log<a class="headerlink" href="#change-log" title="Permalink to this heading">¶</a></h1>
 <p>All notable changes to SeisComP are documented here.</p>
 <section id="id1">
-<h2>5.5.17<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<h2>6.1.2<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
+<li><p>trunk</p>
+<ul>
+<li><p>Populate SNR value of ML and MLc amplitudes.</p></li>
+<li><p>Fix reading amplitude regionalization regions,
+use <code class="docutils literal notranslate"><span class="pre">magnitudes.[type].regionFile</span></code> instead of
+<code class="docutils literal notranslate"><span class="pre">magnitudes.[type].regions</span></code> as in v4.</p></li>
+</ul>
+</li>
+<li><p>scolv</p>
+<ul>
+<li><p>Preselect measure type and combiner dropdown based on
+station bindings.</p></li>
+</ul>
+</li>
 <li><p>scesv</p>
 <ul>
 <li><p>Fix regression which prevented showing the current
@@ -81,7 +95,7 @@ magnitudes when <code class="docutils literal notranslate"><span class="pre">sho
 </ul>
 </section>
 <section id="id2">
-<h2>5.5.16<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<h2>6.1.1<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>scolv</p>
 <ul>
@@ -94,8 +108,22 @@ of stations.</p></li>
 </ul>
 </section>
 <section id="id3">
-<h2>5.5.15<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<h2>6.1.0<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">SC_API_VERSION</span> <span class="pre">16.1.0</span></code></p>
 <ul class="simple">
+<li><p>ql2sc</p>
+<ul>
+<li><p>Add configurable event synchronization delay parameter to avoid
+race conditions in cross connected setups.</p></li>
+</ul>
+</li>
+<li><p>scautoloc</p>
+<ul>
+<li><p>Consider configuration of LOCSAT locator interface, supporting
+deactivation of slowness, backazimuth parameters which may be obtained
+during phase picking.</p></li>
+</ul>
+</li>
 <li><p>seedlink</p>
 <ul>
 <li><p>Fix crash in chain plugin if mseed records with
@@ -110,17 +138,384 @@ invalid header data are transmitted.</p></li>
 origin display.</p></li>
 </ul>
 </li>
-<li><p>scautoloc</p>
+<li><p>scdispatch</p>
 <ul>
-<li><p>Consider configuration of LOCSAT locator interface, supporting
-deactivation of slowness, backazimuth parameters which may be obtained
-during phase picking.</p></li>
+<li><p>Log if an object already exists in database so that
+a user can understand why nothing was dispatched.</p></li>
+<li><p>Remove all event objects from the list of objects when applying
+<code class="docutils literal notranslate"><span class="pre">--no-events</span></code> instead of removing the routing.</p></li>
+</ul>
+</li>
+<li><p>scardac</p>
+<ul>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">--nslc</span></code> option allowing to skip initial archive scan for
+available waveform stream IDs.</p></li>
+</ul>
+</li>
+<li><p>scinv</p>
+<ul>
+<li><p>Add test for stream orthogonality to the check command:</p>
+<ul>
+<li><p>The test is limited to streams with sensor type code G, H, L or N
+(second letter of channel code).</p></li>
+<li><p>Any 3-component stream group of the same epoch stream code being not
+orthogonal is reported. Deviations of up to 1 degree are tolerated.
+The test is diagnostic since data processing made on horizontal or 3
+components, e.g., for picking S phases or measuring ML amplitudes
+will rely on orthogonality and will deny any streams groups
+violating orthogonality.</p></li>
+<li><p>If 3-component streams exist for a sensor location, any epoch
+having 2 or more than 3 components for the same sensor location will
+be reported.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>trunk</p>
+<ul>
+<li><p>Prevent RMHP() from crashing when time span is below sample interval.</p></li>
+<li><p>Magnitude regionalization for profile “world” can work without
+specifying a region file.</p></li>
+<li><p>Magnitude region check also includes minimum and maximum depth,
+transforming the 2D region test into a 3D region test.</p></li>
+<li><p>Expose parameter <code class="docutils literal notranslate"><span class="pre">amplitudes.iaspei</span></code> in global module configuration of
+scconfig.</p></li>
+</ul>
+</li>
+<li><p>magnitudes</p>
+<ul>
+<li><p>Add depth check to regionalization.</p></li>
+<li><p>Update documentation of concepts and tutorial.</p></li>
+<li><p>Update MLc documentation.</p></li>
+<li><p>MLv, ML, MLc: Test regionalized <code class="docutils literal notranslate"><span class="pre">logA0</span></code> parameters for old-style values.</p></li>
+</ul>
+</li>
+<li><p>seiscomp</p>
+<ul>
+<li><p>Remove support for Ubuntu 18.04 with <code class="docutils literal notranslate"><span class="pre">install-deps</span></code>.</p></li>
+<li><p>Switch <code class="docutils literal notranslate"><span class="pre">install-deps</span></code> to Qt5 with RHEL7.</p></li>
+<li><p>Resolve fifo path in <code class="docutils literal notranslate"><span class="pre">mseedfifo</span></code> plugin configuration to support
+<code class="docutils literal notranslate"><span class="pre">&#64;ROOTDIR&#64;</span></code> and other SeisComP directories.</p></li>
 </ul>
 </li>
 </ul>
 </section>
 <section id="id4">
-<h2>5.5.14<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<h2>6.0.5<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>seedlink</p>
+<ul>
+<li><p>Revert previous fix as it fixes one configuration but breaks
+another. Future versions will address this issue.</p></li>
+<li><p>Fix mseedfifo plugin setup that it can be used as regular plugin.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id5">
+<h2>6.0.4<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>seiscomp</p>
+<ul>
+<li><p>Fix an issue with special characters in db password, etc.</p></li>
+</ul>
+</li>
+<li><p>scconfig</p>
+<ul>
+<li><p>Set red background also for checkboxes if the parameter
+is overridden.</p></li>
+</ul>
+</li>
+<li><p>GUI</p>
+<ul>
+<li><p>Fix spectrogram rendering with time normalization.</p></li>
+</ul>
+</li>
+<li><p>trunk</p>
+<ul>
+<li><p>Fix internal timer exceptions in combination with OSX.</p></li>
+<li><p>Remove duplicate CLI parameter <code class="docutils literal notranslate"><span class="pre">--shutdown-master-username</span></code>.</p></li>
+</ul>
+</li>
+<li><p>seedlink</p>
+<ul>
+<li><p>Add more channels and increase sample rate to 1Hz for vaisala
+protocol.</p></li>
+<li><p>Fix plugin update-config if global parameters are modified,
+e.g. mseeedfifo plugin.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id6">
+<h2>6.0.3<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>GUI</p>
+<ul>
+<li><p>Fix spectrogram update rendering w.r.t. time
+normalization.</p></li>
+<li><p>Fix zoom record time range display in amplitude view.
+When a new time range has been selected, e.g. via
+the time scale, then not the full time range has been
+set but only &lt; 100% depending on the window size and
+screen resolution.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id7">
+<h2>6.0.2<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>trunk</p>
+<ul>
+<li><p>Remove logging of database connection to not expose user
+accounts in log files.</p></li>
+</ul>
+</li>
+<li><p>scmaster</p>
+<ul>
+<li><p>Remove logging of of database connection in dbstore plugin
+to not expose user accounts in log files.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id8">
+<h2>6.0.1<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>scmaster</p>
+<ul>
+<li><p>Fix database migration detection</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id9">
+<h2>6.0.0<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">SC_API_VERSION</span> <span class="pre">16.0.0</span></code></p>
+<p>With this version we drop Qt 4 support for all GUI applications.</p>
+<p>The database schema receives a small update and will increase the schema version
+to 0.13. In particular some new event types have been introduced:</p>
+<ul class="simple">
+<li><p>volcano tectonic</p></li>
+<li><p>volcanic long period</p></li>
+<li><p>volcanic very long period</p></li>
+<li><p>volcanic hybrid</p></li>
+<li><p>volcanic rockfall</p></li>
+<li><p>volcanic tremor</p></li>
+<li><p>pyroclastic flow</p></li>
+<li><p>lahar</p></li>
+</ul>
+<p>SeisComP3 API support is deprecated and will be removed in the next
+major version of SeisComP. This affects C++ includes like</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;seiscomp3/core/datetime.h&gt;</span>
+</pre></div>
+</div>
+<p>and Python imports like</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seiscomp3.Core</span>
+</pre></div>
+</div>
+<p>They must be replaced with their SeisComP counterparts:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;seiscomp/core/datetime.h&gt;</span>
+</pre></div>
+</div>
+<p>and</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seiscomp.core</span>
+</pre></div>
+</div>
+<p>Changes:</p>
+<ul>
+<li><p>trunk</p>
+<ul>
+<li><p>Configuration schema files (<code class="docutils literal notranslate"><span class="pre">&#64;SYSTEMCONFIGDIR&#64;/descriptions/[module].xml</span></code>)
+support extending available structures with plugins including selective
+name matching:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;extend-struct</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;Amplitude&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;parameter</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;param1&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;string&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/extent-struct&gt;</span>
+</pre></div>
+</div>
+<p>or with matching structure names (here ML* including regular expressions):</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;extend-struct</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;Amplitude&quot;</span><span class="w"> </span><span class="na">match-name=</span><span class="s">&quot;ML.*&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;parameter</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;param1&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;string&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/extent-struct&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Artificial origins: Allow pasting of hypocenter coordinates with high
+precision.</p></li>
+<li><p>Changed KM_OF_DEGREE constant according to WGS84 mean radius definition.</p></li>
+<li><p>Changed default values of Wood-Anderson instrument filter to
+recommendations by IASPEI magnitude group, 2011 and Uhrhammer et al., 1990.
+The change systematically reduces magnitudes by 0.13 when making
+use of amplitudes measured on waveforms corrected for Wood-Anderson
+seismometers with default.</p></li>
+<li><p>Remove <code class="docutils literal notranslate"><span class="pre">MYSQL_OPT_RECONNECT</span></code> option from MYSQL database driver to get
+rid of the deprecation warning by newer MYSQL client library versions.
+The automatic reconnect has been added to the driver code instead.</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">cities.xml</span></code>.</p></li>
+</ul>
+</li>
+<li><p>amplitudes</p>
+<ul class="simple">
+<li><p>Compute ML peak-to-trough and mb amplitudes according to IASPEI
+recommendations if configured with <code class="docutils literal notranslate"><span class="pre">amplitudes.iaspei</span> <span class="pre">=</span> <span class="pre">true</span></code>.</p></li>
+<li><p>Allow configuration of time windows based on time grammar.</p></li>
+</ul>
+</li>
+<li><p>magnitudes</p>
+<ul class="simple">
+<li><p>Simplify configuration of magnitude regionalization by global
+module configuration in scconfig.</p></li>
+<li><p>Allow creating magnitude aliases by configuration of <code class="docutils literal notranslate"><span class="pre">magnitudes.aliases</span></code>
+in global module configuration and magnitude type profiles in global
+bindings.</p></li>
+<li><p>Add a Magnitudes section to the documentation of concepts.</p></li>
+</ul>
+</li>
+<li><p>documentation</p>
+<ul class="simple">
+<li><p>Add subsection on locators to Concepts section.</p></li>
+<li><p>Add a tutorial on regionalization of magnitudes and aliases.</p></li>
+<li><p>Add section on time grammar for configuring time windows, e.g. for
+measuring amplitudes for magnitudes.</p></li>
+</ul>
+</li>
+<li><p>scesv</p>
+<ul class="simple">
+<li><p>Show event type information.</p></li>
+</ul>
+</li>
+<li><p>scquery</p>
+<ul class="simple">
+<li><p>Add option <code class="docutils literal notranslate"><span class="pre">--print-query-only</span></code>.</p></li>
+</ul>
+</li>
+<li><p>scdumpcfg</p>
+<ul class="simple">
+<li><p>Fix reading bindings from database without requiring a messaging system.</p></li>
+</ul>
+</li>
+<li><p>scevtstreams</p>
+<ul class="simple">
+<li><p>Add option <code class="docutils literal notranslate"><span class="pre">--nslc</span></code> for filtering the read phase picks by stream IDs.</p></li>
+</ul>
+</li>
+<li><p>Hypo71</p>
+<ul class="simple">
+<li><p>Add file rotator for log file defined by global parameter
+<code class="docutils literal notranslate"><span class="pre">hypo71.logFile</span></code>.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">hypo71.logFile</span></code> consistently with &#64;LOGDIR&#64;/HYPO71.LOG.</p></li>
+</ul>
+</li>
+<li><p>seiscomp tool</p>
+<ul class="simple">
+<li><p>Add command <code class="docutils literal notranslate"><span class="pre">print</span> <span class="pre">variables</span></code> for printing internal SeisComP variables.</p></li>
+<li><p>Add documentation in section Utilities.</p></li>
+</ul>
+</li>
+<li><p>scolv</p>
+<ul class="simple">
+<li><p>Add restoring default amplitude-time windows in amplitude picker
+(Shift + W).</p></li>
+<li><p>Add resetting the length of the zoom window to the trace overview in
+amplitude picker.</p></li>
+<li><p>Preserve arrival definition flags (backazimuth, h-slowness) when committing
+from picker if a pick is not enabled.</p></li>
+</ul>
+</li>
+<li><p>scrttv</p>
+<ul class="simple">
+<li><p>Add spectrogram view</p></li>
+</ul>
+</li>
+<li><p>scmapcut</p>
+<ul class="simple">
+<li><p>Plot multiple events if given.</p></li>
+</ul>
+</li>
+<li><p>scart</p>
+<ul class="simple">
+<li><p>Fix reading miniSEED from stdin without -I as default.</p></li>
+</ul>
+</li>
+<li><p>scconfig</p>
+<ul class="simple">
+<li><p>Fix rendering of parameter tooltips and evaluation info boxes. This bug
+prevented special strings, e.g. “A &lt; 12”, to be displayed correctly.</p></li>
+</ul>
+</li>
+<li><p>scdbstrip</p>
+<ul class="simple">
+<li><p>Add option <code class="docutils literal notranslate"><span class="pre">--time-window</span></code>.</p></li>
+<li><p>Do not delete anything by default.</p></li>
+<li><p>Add daterange option <code class="docutils literal notranslate"><span class="pre">--daterange</span></code>.</p></li>
+</ul>
+</li>
+<li><p>scdispatch</p>
+<ul class="simple">
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">--create-notifier</span></code> option.</p></li>
+</ul>
+</li>
+<li><p>GUI</p>
+<ul class="simple">
+<li><p>Fix removal of map legend</p></li>
+<li><p>Reset legends if geo feature layer is reloaded</p></li>
+<li><p>Add additional legend alignment options</p></li>
+<li><p>Support rendering of geo feature name next to symbols</p></li>
+<li><p>Drop Qt4 support</p></li>
+</ul>
+</li>
+<li><p>invextr</p>
+<ul class="simple">
+<li><p>Add option <code class="docutils literal notranslate"><span class="pre">--nslc</span></code>.</p></li>
+</ul>
+</li>
+<li><p>scevtls</p>
+<ul class="simple">
+<li><p>Add option <code class="docutils literal notranslate"><span class="pre">--input</span></code> loading XML and printing IDs of contained events.</p></li>
+</ul>
+</li>
+<li><p>scorgls</p>
+<ul class="simple">
+<li><p>Add option <code class="docutils literal notranslate"><span class="pre">--input</span></code> loading XML and printing IDs of contained origins.</p></li>
+</ul>
+</li>
+<li><p>scardac</p>
+<ul class="simple">
+<li><p>Rescan only those chunks modified since last scan.</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">--deep-scan</span></code> paramater to force rescan.</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">--to</span></code> and <code class="docutils literal notranslate"><span class="pre">--from</span></code> parameter to limit scan by record time.</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">--modified-since</span></code> and <code class="docutils literal notranslate"><span class="pre">--modified-until</span></code> parameter to rescan
+chunks modified in particular time window.</p></li>
+<li><p>Add options <code class="docutils literal notranslate"><span class="pre">--include</span></code> and <code class="docutils literal notranslate"><span class="pre">--exclude</span></code> for filtering waveforms by ID.</p></li>
+<li><p>Modernize code.</p></li>
+<li><p>Add test cases.</p></li>
+<li><p>Increase collector API version to 2.</p></li>
+</ul>
+</li>
+<li><p>screpick</p>
+<ul class="simple">
+<li><p>Add as new module.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id10">
+<h2>5.5.15<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>seedlink</p>
+<ul>
+<li><p>Fix crash in chain plugin if mseed records with
+invalid header data are transmitted.</p></li>
+<li><p>Fix network code mapping in <code class="docutils literal notranslate"><span class="pre">sock_plugin</span></code>.</p></li>
+<li><p>Fix fifo path resolve in <code class="docutils literal notranslate"><span class="pre">mseedfifo_plugin</span></code>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id11">
+<h2>5.5.14<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>seedlink</p>
 <ul>
@@ -131,8 +526,8 @@ another.</p></li>
 </li>
 </ul>
 </section>
-<section id="id5">
-<h2>5.5.13<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<section id="id12">
+<h2>5.5.13<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>seedlink</p>
 <ul>
@@ -142,8 +537,8 @@ e.g. mseeedfifo plugin.</p></li>
 </li>
 </ul>
 </section>
-<section id="id6">
-<h2>5.5.12<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<section id="id13">
+<h2>5.5.12<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>seiscomp</p>
 <ul>
@@ -157,8 +552,8 @@ e.g. mseeedfifo plugin.</p></li>
 </li>
 </ul>
 </section>
-<section id="id7">
-<h2>5.5.11<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
+<section id="id14">
+<h2>5.5.11<a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>scmapcut</p>
 <ul>
@@ -167,8 +562,8 @@ e.g. mseeedfifo plugin.</p></li>
 </li>
 </ul>
 </section>
-<section id="id8">
-<h2>5.5.10<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
+<section id="id15">
+<h2>5.5.10<a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>scrttv</p>
 <ul>
@@ -179,8 +574,8 @@ which are using Qt4 are affected as well.</p></li>
 </li>
 </ul>
 </section>
-<section id="id9">
-<h2>5.5.9<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
+<section id="id16">
+<h2>5.5.9<a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>scconfig</p>
 <ul>
@@ -197,8 +592,8 @@ expected with some database backends.</p></li>
 </li>
 </ul>
 </section>
-<section id="id10">
-<h2>5.5.8<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h2>
+<section id="id17">
+<h2>5.5.8<a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>GUI</p>
 <ul>
@@ -215,8 +610,8 @@ from picker if a pick is not enabled.</p></li>
 </li>
 </ul>
 </section>
-<section id="id11">
-<h2>5.5.7<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h2>
+<section id="id18">
+<h2>5.5.7<a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>scolv</p>
 <ul>
@@ -232,8 +627,8 @@ large recordstream URIs.</p></li>
 </li>
 </ul>
 </section>
-<section id="id12">
-<h2>5.5.6<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h2>
+<section id="id19">
+<h2>5.5.6<a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>scbulletin</p>
 <ul>
@@ -242,8 +637,8 @@ large recordstream URIs.</p></li>
 </li>
 </ul>
 </section>
-<section id="id13">
-<h2>5.5.5<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h2>
+<section id="id20">
+<h2>5.5.5<a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h2>
 <dl class="simple">
 <dt><strong>IMPORTANT</strong><span class="classifier">This fixes a regression of scamp introduced with version 5.5.0 which</span></dt><dd><p>caused scamp to always compute new amplitudes for origin and their
 arrivals.</p>
@@ -288,21 +683,24 @@ with <code class="docutils literal notranslate"><span class="pre">--event-id</sp
 </ul>
 </li>
 <li><p>trunk</p>
-<ul class="simple">
+<ul>
 <li><p>Fix computation of stdloc residuals.</p></li>
 <li><p>Allow stdloc LeastSquares to locate even with less iterations.</p></li>
-<li><p>Fix regression in MLc magnitude to correctly compute the hypocentral
-distance taking the sensor location elevation into account and also
-supporting negative source depths. In versions &lt; 5.5.3 the source depth was
-clipped to 0 and the sensor location elevation did not contribute. In
-version 5.5.3 and 5.5.4 all depths were considered but without the
-sensor location elevation.</p></li>
+<li><p>Fix regression in MLc magnitude to correctly compute the hypocentral</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">distance</span> <span class="n">taking</span> <span class="n">the</span> <span class="n">sensor</span> <span class="n">location</span> <span class="n">elevation</span> <span class="n">into</span> <span class="n">account</span> <span class="ow">and</span> <span class="n">also</span>
+<span class="n">supporting</span> <span class="n">negative</span> <span class="n">source</span> <span class="n">depths</span><span class="o">.</span> <span class="n">In</span> <span class="n">versions</span> <span class="o">&lt;</span> <span class="mf">5.5.3</span> <span class="n">the</span> <span class="n">source</span>
+<span class="n">depth</span> <span class="n">was</span> <span class="n">clipped</span> <span class="n">to</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">sensor</span> <span class="n">location</span> <span class="n">elevation</span> <span class="n">did</span> <span class="ow">not</span>
+<span class="n">contribute</span><span class="o">.</span> <span class="n">In</span> <span class="n">version</span> <span class="mf">5.5.3</span> <span class="ow">and</span> <span class="mf">5.5.4</span> <span class="nb">all</span> <span class="n">depths</span> <span class="n">were</span> <span class="n">considered</span>
+<span class="n">but</span> <span class="n">without</span> <span class="n">the</span> <span class="n">sensor</span> <span class="n">location</span> <span class="n">elevation</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
 </ul>
 </li>
 </ul>
 </section>
-<section id="id14">
-<h2>5.5.4<a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h2>
+<section id="id21">
+<h2>5.5.4<a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>scamp</p>
 <ul>
@@ -330,15 +728,15 @@ times, usually in code implementing tests.</p></li>
 </li>
 </ul>
 </section>
-<section id="id15">
-<h2>5.5.3<a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h2>
+<section id="id22">
+<h2>5.5.3<a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>trunk</p>
 <ul>
-<li><p>Add more debug output to magnitudes ML, MLv and MLc</p></li>
-<li><p>Fix crash if distance for MLv.logA0 is out of range</p></li>
+<li><p>Add more debug output to magnitudes ML, MLv and MLc.</p></li>
+<li><p>Fix crash if distance for MLv.logA0 is out of range.</p></li>
 <li><p>Fix reading of MLc magnitude correction factors of
-regionalization profiles</p></li>
+regionalization profiles.</p></li>
 <li><p>Fix messaging re-connection deadlock that causes applications
 to hang forever after the messaging connection has been
 re-established.</p></li>
@@ -346,12 +744,12 @@ re-established.</p></li>
 </li>
 <li><p>GUI</p>
 <ul>
-<li><p>Show surface wave onsets in amplitude view</p></li>
+<li><p>Show surface wave onsets in amplitude view.</p></li>
 </ul>
 </li>
 <li><p>scmag</p>
 <ul>
-<li><p>Fix description of <code class="docutils literal notranslate"><span class="pre">minimumArrivalWeight</span></code> for scconfig</p></li>
+<li><p>Fix description of <code class="docutils literal notranslate"><span class="pre">minimumArrivalWeight</span></code> for scconfig.</p></li>
 </ul>
 </li>
 <li><p>scdumpcfg</p>
@@ -362,7 +760,7 @@ caused issues when loading application specific plugins.</p></li>
 </li>
 <li><p>bindings2cfg</p>
 <ul>
-<li><p>Fix help text</p></li>
+<li><p>Fix help text.</p></li>
 <li><p>Add commandline option <code class="docutils literal notranslate"><span class="pre">--create-notifier</span></code>. The notifiers can be added
 to the database using scdb allowing to import bindings while bypassing
 the messaging system.</p></li>
@@ -370,8 +768,8 @@ the messaging system.</p></li>
 </li>
 </ul>
 </section>
-<section id="id16">
-<h2>5.5.2<a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h2>
+<section id="id23">
+<h2>5.5.2<a class="headerlink" href="#id23" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">SC_API_VERSION</span> <span class="pre">15.6.0</span></code></p>
 <ul class="simple">
 <li><p>documentation</p>
@@ -382,8 +780,8 @@ the messaging system.</p></li>
 </li>
 <li><p>trunk</p>
 <ul>
-<li><p>Fix concurrent recordstream termination when data still available</p></li>
-<li><p>Fix invalid ResourceUri for QuakeML arrival export</p></li>
+<li><p>Fix concurrent recordstream termination when data still available.</p></li>
+<li><p>Fix invalid ResourceUri for QuakeML arrival export.</p></li>
 </ul>
 </li>
 <li><p>scolv</p>
@@ -397,13 +795,13 @@ and selecting the event previous or next to the current event.</p></li>
 </li>
 <li><p>screloc</p>
 <ul>
-<li><p>Be more informative at INFO log level (<code class="docutils literal notranslate"><span class="pre">--ep</span></code> option)</p></li>
+<li><p>Be more informative at INFO log level (<code class="docutils literal notranslate"><span class="pre">--ep</span></code> option).</p></li>
 </ul>
 </li>
 </ul>
 </section>
-<section id="id17">
-<h2>5.5.1<a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h2>
+<section id="id24">
+<h2>5.5.1<a class="headerlink" href="#id24" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>scxmldump</p>
 <ul>
@@ -418,8 +816,8 @@ and selecting the event previous or next to the current event.</p></li>
 </li>
 </ul>
 </section>
-<section id="id18">
-<h2>5.5.0<a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h2>
+<section id="id25">
+<h2>5.5.0<a class="headerlink" href="#id25" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">SC_API_VERSION</span> <span class="pre">15.5.0</span></code></p>
 <ul>
 <li><p>deps</p>
@@ -430,8 +828,8 @@ and selecting the event previous or next to the current event.</p></li>
 <li><p>seedlink</p>
 <ul class="simple">
 <li><p>Fix bug of win plugin which caused log entries ‘invalid time’ and did
-not forward data</p></li>
-<li><p>Update libq330 for the q330 plugin</p></li>
+not forward data.</p></li>
+<li><p>Update libq330 for the q330 plugin.</p></li>
 </ul>
 </li>
 <li><p>trunk</p>
@@ -449,7 +847,7 @@ with Qt4.</p></li>
 </li>
 <li><p>scautoloc</p>
 <ul class="simple">
-<li><p>Do not consider picks with <code class="docutils literal notranslate"><span class="pre">evaluationMode</span> <span class="pre">=</span> <span class="pre">rejected</span></code>. Can be overruled
+<li><p>Do not consider picks with evaluationMode = rejected. Can be overruled
 by <code class="docutils literal notranslate"><span class="pre">--allow-rejected-picks</span></code>.</p></li>
 </ul>
 </li>
@@ -473,12 +871,12 @@ ignoring origins.</p></li>
 </li>
 <li><p>scolv</p>
 <ul>
-<li><p>Add notion of auxiliary channels (configurable). Auxiliary channels can
+<li><p>Add notion of auxilliary channels (configurable). Auxilliary channels can
 be skipped while adding stations in range because a minimum or maximum
 distance has not been reached.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">picker</span><span class="o">.</span><span class="n">auxiliary</span><span class="o">.</span><span class="n">channels</span> <span class="o">=</span> <span class="n">AB</span><span class="o">.*.*.*</span>
-<span class="n">picker</span><span class="o">.</span><span class="n">auxiliary</span><span class="o">.</span><span class="n">minimumDistance</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Optional, default 0</span>
-<span class="n">picker</span><span class="o">.</span><span class="n">auxiliary</span><span class="o">.</span><span class="n">maximumDistance</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># Optional, default 1000</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">picker</span><span class="o">.</span><span class="n">auxilliary</span><span class="o">.</span><span class="n">channels</span> <span class="o">=</span> <span class="n">AB</span><span class="o">.*.*.*</span>
+<span class="n">picker</span><span class="o">.</span><span class="n">auxilliary</span><span class="o">.</span><span class="n">minimumDistance</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Optional, default 0</span>
+<span class="n">picker</span><span class="o">.</span><span class="n">auxilliary</span><span class="o">.</span><span class="n">maximumDistance</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># Optional, default 1000</span>
 </pre></div>
 </div>
 </li>
@@ -505,8 +903,8 @@ was used.</p></li>
 </li>
 </ul>
 </section>
-<section id="id19">
-<h2>5.4.0<a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h2>
+<section id="id26">
+<h2>5.4.0<a class="headerlink" href="#id26" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">SC_API_VERSION</span> <span class="pre">15.4.0</span></code></p>
 <ul>
 <li><p>deps</p>
@@ -539,7 +937,7 @@ Scarabello (SED/ETHZ))</p></li>
 <li><p>Revert resolving all path variables with configuration files introduced
 with version 5.3. It caused to much conflicts and inconsistencies that we
 have decided to revert the “feature”.</p></li>
-<li><p>Simplify the configuation of the travel-time interface homogeneous:
+<li><p>Simplify the configuration of the travel-time interface homogeneous:
 Deprecated global configuration parameter -&gt; new parameter, dropped
 ‘.profile’:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ttt</span><span class="o">.</span><span class="n">homogeneous</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="p">[</span><span class="n">profile</span><span class="p">]</span><span class="o">.</span><span class="p">[</span><span class="n">parameters</span><span class="p">]</span>  <span class="o">-&gt;</span> <span class="n">ttt</span><span class="o">.</span><span class="n">homogeneous</span><span class="o">.</span><span class="p">[</span><span class="n">profile</span><span class="p">]</span><span class="o">.</span><span class="p">[</span><span class="n">parameters</span><span class="p">]</span>
@@ -594,8 +992,8 @@ overall component. The old behaviour can be restored with
 <ul class="simple">
 <li><p>Allow to rename net, sta, loc, ch codes in dump and import modes,
 thanks to Luca Scarabello (SED/ETHZ).</p></li>
-<li><p>Unify -t -n -c –list –nscl options for Dump and Import mode, thanks
-to Luca Scarabello (SED/ETHZ).</p></li>
+<li><p>Unify <code class="docutils literal notranslate"><span class="pre">-t</span></code>, <code class="docutils literal notranslate"><span class="pre">-n</span></code>, <code class="docutils literal notranslate"><span class="pre">-c</span></code>, <code class="docutils literal notranslate"><span class="pre">--list</span></code>, <code class="docutils literal notranslate"><span class="pre">--nscl</span></code> options for Dump and Import
+mode, thanks to Luca Scarabello (SED/ETHZ).</p></li>
 <li><p>Add command-line option <code class="docutils literal notranslate"><span class="pre">--ignore</span></code> for ignoring empty records.</p></li>
 <li><p>Add command-line option <code class="docutils literal notranslate"><span class="pre">-o</span></code> for writing miniSEED records to file in
 import mode.</p></li>
@@ -609,6 +1007,7 @@ mode.</p></li>
 is written instead of just printing information. This has
 been fixed (Luca Scarabello (SED/ETHZ)) and can be deactivated with
 <code class="docutils literal notranslate"><span class="pre">--test</span></code>.</p></li>
+<li><p>Add summary for <code class="docutils literal notranslate"><span class="pre">--print-streams</span></code>.</p></li>
 <li><p>Update documentation.</p></li>
 </ul>
 </li>
@@ -619,11 +1018,13 @@ recent code changes.</p></li>
 <li><p>Add command-line option <code class="docutils literal notranslate"><span class="pre">--ignore</span></code> for ignoring empty records.</p></li>
 <li><p>Report empty records whenever found.</p></li>
 <li><p>Support verbosity at different levels using <code class="docutils literal notranslate"><span class="pre">-v</span></code>, <code class="docutils literal notranslate"><span class="pre">-vv</span></code>, <code class="docutils literal notranslate"><span class="pre">-vvv</span></code>.</p></li>
+<li><p>Add command-line option <code class="docutils literal notranslate"><span class="pre">-o</span></code> for explicitely writing miniSEED records to
+file instead of stdout.</p></li>
 </ul>
 </li>
 <li><p>scsendjournal</p>
 <ul class="simple">
-<li><p>Add <code class="docutils literal notranslate"><span class="pre">-i</span></code> to read journal parameter data from file</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">-i</span></code> to read journal parameter data from file.</p></li>
 </ul>
 </li>
 <li><p>scbulletin</p>
@@ -635,7 +1036,7 @@ corresponding picks.</p></li>
 </li>
 <li><p>ql2sc</p>
 <ul class="simple">
-<li><p>Update filter documentation</p></li>
+<li><p>Update filter documentation.</p></li>
 </ul>
 </li>
 <li><p>scautopick</p>
@@ -654,22 +1055,23 @@ created for each detection, e.g., if configured with <code class="docutils liter
 <li><p>scrttv</p>
 <ul class="simple">
 <li><p>Update documentation.</p></li>
-<li><p>Show different colour scheme for picks and arrivals (associated with a non-rejected
-origin)</p></li>
-<li><p>Allow to collect picks to create a preliminary location which can be sent to the
-messaging as regular origin object</p></li>
-<li><p>Add reload action which reloads data and picks at the current visible time range</p></li>
-<li><p>Add action to switch to real-time with configured buffer size</p></li>
-<li><p>Re-organize menus and actions</p></li>
+<li><p>Show different colour scheme for picks and arrivals (associated with a
+non-rejected origin).</p></li>
+<li><p>Allow to collect picks to create a preliminary location which can be
+sent to the messaging as regular origin object.</p></li>
+<li><p>Add reload action which reloads data and picks at the current visible
+time range.</p></li>
+<li><p>Add action to switch to real-time with configured buffer size.</p></li>
+<li><p>Re-organize menus and actions.</p></li>
 <li><p>New option <code class="docutils literal notranslate"><span class="pre">--map-picks</span></code> allows to show picks on visible streams even
 when they were created on invisible streams, e.g., S picks created on
 horizontal components are shown verticals.</p></li>
-<li><p>Add –input-file to load an XML pick file at startup</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">--input-file</span></code> to load an XML pick file at startup.</p></li>
 </ul>
 </li>
 <li><p>scmapcut</p>
 <ul class="simple">
-<li><p>Fix segmentation fault at exit if a tilestore plugin is used</p></li>
+<li><p>Fix segmentation fault at exit if a tilestore plugin is used.</p></li>
 </ul>
 </li>
 <li><p>scqc</p>
@@ -682,12 +1084,12 @@ defined for this QcPlugin”.</p></li>
 </li>
 <li><p>scinv</p>
 <ul class="simple">
-<li><p>Add gain=0 check to documentation</p></li>
+<li><p>Add gain=0 check to documentation.</p></li>
 </ul>
 </li>
-<li><p>scinvextr</p>
+<li><p>invextr</p>
 <ul class="simple">
-<li><p>Correct command-line help</p></li>
+<li><p>Correct command-line help.</p></li>
 </ul>
 </li>
 <li><p>scwfparam</p>
@@ -699,7 +1101,7 @@ defined for this QcPlugin”.</p></li>
 </li>
 <li><p>LOCSAT</p>
 <ul class="simple">
-<li><p>Add Iw phase</p></li>
+<li><p>Add Iw phase.</p></li>
 <li><p>Apply strict limit of 210 distance samples to travel time tables.</p></li>
 <li><p>Reduce memory consumption to the bare minimum required by the
 provided travel-time tables.</p></li>
@@ -727,8 +1129,8 @@ of 0.</p></li>
 </li>
 </ul>
 </section>
-<section id="id20">
-<h2>5.3.0<a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h2>
+<section id="id27">
+<h2>5.3.0<a class="headerlink" href="#id27" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">SC_API_VERSION</span> <span class="pre">15.3.0</span></code></p>
 <ul class="simple">
 <li><p>trunk</p>
@@ -813,8 +1215,8 @@ the pick ID.</p></li>
 </li>
 </ul>
 </section>
-<section id="id21">
-<h2>5.2.2<a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h2>
+<section id="id28">
+<h2>5.2.2<a class="headerlink" href="#id28" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>scevtlog</p>
 <ul>
@@ -823,8 +1225,8 @@ the pick ID.</p></li>
 </li>
 </ul>
 </section>
-<section id="id22">
-<h2>5.2.1<a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h2>
+<section id="id29">
+<h2>5.2.1<a class="headerlink" href="#id29" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Amplitudes ML*</p>
 <ul>
@@ -834,8 +1236,8 @@ configurable</p></li>
 </li>
 </ul>
 </section>
-<section id="id23">
-<h2>5.2.0<a class="headerlink" href="#id23" title="Permalink to this heading">¶</a></h2>
+<section id="id30">
+<h2>5.2.0<a class="headerlink" href="#id30" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">SC_API_VERSION</span> <span class="pre">15.2.0</span></code></p>
 <ul class="simple">
 <li><p>fdsnxml2inv</p>
@@ -944,15 +1346,15 @@ contribution).</p></li>
 </li>
 </ul>
 </section>
-<section id="id24">
-<h2>5.1.1<a class="headerlink" href="#id24" title="Permalink to this heading">¶</a></h2>
+<section id="id31">
+<h2>5.1.1<a class="headerlink" href="#id31" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>The release did not contain the latest advertised changes of the main
 repository. This version does not introduce any new features or bugfixes.</p></li>
 </ul>
 </section>
-<section id="id25">
-<h2>5.1.0<a class="headerlink" href="#id25" title="Permalink to this heading">¶</a></h2>
+<section id="id32">
+<h2>5.1.0<a class="headerlink" href="#id32" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">SC_API_VERSION</span> <span class="pre">15.1.0</span></code></p>
 <ul class="simple">
 <li><p>scbulletin</p>
@@ -1011,8 +1413,8 @@ on cross connected systems tremendously (note: it does not prevent that!).</p></
 </li>
 </ul>
 </section>
-<section id="id26">
-<h2>5.0.1<a class="headerlink" href="#id26" title="Permalink to this heading">¶</a></h2>
+<section id="id33">
+<h2>5.0.1<a class="headerlink" href="#id33" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>trunk</p>
 <ul>
@@ -1022,8 +1424,8 @@ and <code class="docutils literal notranslate"><span class="pre">processing.whit
 </li>
 </ul>
 </section>
-<section id="id27">
-<h2>5.0.0<a class="headerlink" href="#id27" title="Permalink to this heading">¶</a></h2>
+<section id="id34">
+<h2>5.0.0<a class="headerlink" href="#id34" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">SC_API_VERSION</span> <span class="pre">15.0.0</span></code></p>
 <p>With this version we drop Python 2 support for the maintained Python wrappers
 as well as for all modules. Most of the modules are still Python 2 compatible
@@ -1215,7 +1617,7 @@ leading character.</p></li>
 “submarine landslide”, “rocket launch”, “rocket”, “rocket impact”,
 “artillery strike”, “bomb detonation”, “moving aircraft”,
 “atmospheric meteor explosion”.</p></li>
-<li><p>Add new routing recordstream which allows to route specific network,
+<li><p>Add new routing RecordStream which allows to route specific network,
 station, location or channel codes to fixed proxy streams (thanks to
 Luca Scarabello / ETH for this contribution)</p></li>
 <li><p>Add usage and examples to command-line help for many Python utilities.</p></li>
@@ -1233,8 +1635,8 @@ Luca Scarabello / ETH for this contribution)</p></li>
 </li>
 </ul>
 </section>
-<section id="id28">
-<h2>4.10.1<a class="headerlink" href="#id28" title="Permalink to this heading">¶</a></h2>
+<section id="id35">
+<h2>4.10.1<a class="headerlink" href="#id35" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>trunk</p>
 <ul>
@@ -1244,8 +1646,8 @@ This is a backport from version 5 and is not fixed in version &lt;= 5.2.2.</p></
 </li>
 </ul>
 </section>
-<section id="id29">
-<h2>4.10.0<a class="headerlink" href="#id29" title="Permalink to this heading">¶</a></h2>
+<section id="id36">
+<h2>4.10.0<a class="headerlink" href="#id36" title="Permalink to this heading">¶</a></h2>
 <dl class="simple">
 <dt><strong>IMPORTANT</strong><span class="classifier">Please check if your are affected by the bug concerning the scmaster</span></dt><dd><p>configuration (see below).</p>
 </dd>
@@ -1268,18 +1670,19 @@ the picker.</p></li>
 </li>
 <li><p>scmaster</p>
 <ul>
-<li><p>Fix saving location of the generated configuration file with <code class="docutils literal notranslate"><span class="pre">seiscomp</span> <span class="pre">setup</span></code>.
-Due to a bug the file was generated in <code class="docutils literal notranslate"><span class="pre">~/.seiscomp/scmaster.cfg</span></code> whereas it
-should have been generated in <code class="docutils literal notranslate"><span class="pre">etc/scmaster.cfg</span></code>. As this is fixed now, please
-remove <code class="docutils literal notranslate"><span class="pre">~/.seiscomp/scmaster.cfg</span></code> if you were affected by the bug otherwise
-this old configuration will take precedence and new configurations will not
-have any effect. This bug has been introduced with version 4.9.0.</p></li>
+<li><p>Fix saving location of the generated configuration file with
+<code class="docutils literal notranslate"><span class="pre">seiscomp</span> <span class="pre">setup</span></code>. Due to a bug the file was generated in
+<code class="docutils literal notranslate"><span class="pre">~/.seiscomp/scmaster.cfg</span></code> whereas it should have been generated in
+<code class="docutils literal notranslate"><span class="pre">etc/scmaster.cfg</span></code>. As this is fixed now, please remove
+<code class="docutils literal notranslate"><span class="pre">~/.seiscomp/scmaster.cfg</span></code> if you were affected by the bug otherwise
+this old configuration will take precedence and new configurations will
+not have any effect. This bug has been introduced with version 4.9.0.</p></li>
 </ul>
 </li>
 </ul>
 </section>
-<section id="id30">
-<h2>4.9.3<a class="headerlink" href="#id30" title="Permalink to this heading">¶</a></h2>
+<section id="id37">
+<h2>4.9.3<a class="headerlink" href="#id37" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>trunk</p>
 <ul>
@@ -1289,8 +1692,8 @@ have any effect. This bug has been introduced with version 4.9.0.</p></li>
 </li>
 </ul>
 </section>
-<section id="id31">
-<h2>4.9.2<a class="headerlink" href="#id31" title="Permalink to this heading">¶</a></h2>
+<section id="id38">
+<h2>4.9.2<a class="headerlink" href="#id38" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>scolv</p>
 <ul>
@@ -1316,8 +1719,8 @@ it as comment in the relocated origin.</p></li>
 </li>
 </ul>
 </section>
-<section id="id32">
-<h2>4.9.1<a class="headerlink" href="#id32" title="Permalink to this heading">¶</a></h2>
+<section id="id39">
+<h2>4.9.1<a class="headerlink" href="#id39" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>scmaster</p>
 <ul>
@@ -1326,8 +1729,8 @@ it as comment in the relocated origin.</p></li>
 </li>
 </ul>
 </section>
-<section id="id33">
-<h2>4.9.0<a class="headerlink" href="#id33" title="Permalink to this heading">¶</a></h2>
+<section id="id40">
+<h2>4.9.0<a class="headerlink" href="#id40" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Documentation</p>
 <ul>
@@ -1368,8 +1771,8 @@ wants to show a legend</p></li>
 </li>
 </ul>
 </section>
-<section id="id34">
-<h2>4.8.4<a class="headerlink" href="#id34" title="Permalink to this heading">¶</a></h2>
+<section id="id41">
+<h2>4.8.4<a class="headerlink" href="#id41" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>scautoloc</p>
 <ul>
@@ -1378,8 +1781,8 @@ wants to show a legend</p></li>
 </li>
 </ul>
 </section>
-<section id="id35">
-<h2>4.8.3<a class="headerlink" href="#id35" title="Permalink to this heading">¶</a></h2>
+<section id="id42">
+<h2>4.8.3<a class="headerlink" href="#id42" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>seiscomp shell</p>
 <ul>
@@ -1420,8 +1823,8 @@ Previous versions only reported <code class="docutils literal notranslate"><span
 </li>
 </ul>
 </section>
-<section id="id36">
-<h2>4.8.2<a class="headerlink" href="#id36" title="Permalink to this heading">¶</a></h2>
+<section id="id43">
+<h2>4.8.2<a class="headerlink" href="#id43" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>scart</p>
 <ul>
@@ -1430,8 +1833,8 @@ Previous versions only reported <code class="docutils literal notranslate"><span
 </li>
 </ul>
 </section>
-<section id="id37">
-<h2>4.8.1<a class="headerlink" href="#id37" title="Permalink to this heading">¶</a></h2>
+<section id="id44">
+<h2>4.8.1<a class="headerlink" href="#id44" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>fdsnws</p>
 <ul>
@@ -1441,8 +1844,8 @@ PostgreSQL database is being used</p></li>
 </li>
 </ul>
 </section>
-<section id="id38">
-<h2>4.8.0<a class="headerlink" href="#id38" title="Permalink to this heading">¶</a></h2>
+<section id="id45">
+<h2>4.8.0<a class="headerlink" href="#id45" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">SC_API_VERSION</span> <span class="pre">14.4.0</span></code></p>
 <ul class="simple">
 <li><p>scolv</p>
@@ -1454,51 +1857,54 @@ PostgreSQL database is being used</p></li>
 <li><p>Fix Mw -&gt; Fix Mw type</p></li>
 </ul>
 </li>
-<li><p>Use configured magnitude digits to display Mw magnitude value</p></li>
+<li><p>Use configured magnitude digits to display Mw magnitude value.</p></li>
 <li><p>Only enable creation of artificial origin in zoom trace if picking
-is disabled</p></li>
-<li><p>Fix committing of manual amplitudes in the amplitude picker</p></li>
+is disabled.</p></li>
+<li><p>Fix committing of manual amplitudes in the amplitude picker.</p></li>
 </ul>
 </li>
 <li><p>scmag</p>
 <ul>
 <li><p>Fix bug that caused multiple occurrences of magnitudes of the same
-type when a new set of manually computed amplitudes has been received</p></li>
+type when a new set of manually computed amplitudes has been received.</p></li>
 </ul>
 </li>
 <li><p>trunk</p>
 <ul>
-<li><p>Fix segmentation fault when reading malformed GeoJSON features</p></li>
+<li><p>Fix segmentation fault when reading malformed GeoJSON features.</p></li>
 </ul>
 </li>
 <li><p>scorgls</p>
 <ul>
-<li><p>Add option to filter for author (thanks to Fred Massin / ETHZ)</p></li>
+<li><p>Add option to filter for author (thanks to Fred Massin / ETHZ).</p></li>
 </ul>
 </li>
-<li><p>sdmssort</p></li>
-<li><p>Fix error when two or more files are passed</p></li>
+<li><p>scmssort</p>
+<ul>
+<li><p>Fix error when two or more files are passed.</p></li>
+</ul>
+</li>
 <li><p>seedlink</p>
 <ul>
-<li><p>Fix typo in setup script</p></li>
-<li><p>Add misc plugin</p></li>
+<li><p>Fix typo in setup script.</p></li>
+<li><p>Add misc plugin.</p></li>
 </ul>
 </li>
 </ul>
 </section>
-<section id="id39">
-<h2>4.7.3<a class="headerlink" href="#id39" title="Permalink to this heading">¶</a></h2>
+<section id="id46">
+<h2>4.7.3<a class="headerlink" href="#id46" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>trunk</p>
 <ul>
 <li><p>Fix MYSQL database setup script to create
-ro and rw user accounts correctly</p></li>
+ro and rw user accounts correctly.</p></li>
 </ul>
 </li>
 </ul>
 </section>
-<section id="id40">
-<h2>4.7.2<a class="headerlink" href="#id40" title="Permalink to this heading">¶</a></h2>
+<section id="id47">
+<h2>4.7.2<a class="headerlink" href="#id47" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>trunk</p>
 <ul>
@@ -1520,8 +1926,8 @@ in SeisComP</p></li>
 </li>
 </ul>
 </section>
-<section id="id41">
-<h2>4.7.1<a class="headerlink" href="#id41" title="Permalink to this heading">¶</a></h2>
+<section id="id48">
+<h2>4.7.1<a class="headerlink" href="#id48" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>trunk</p>
 <ul>
@@ -1531,8 +1937,8 @@ in SeisComP</p></li>
 </li>
 </ul>
 </section>
-<section id="id42">
-<h2>4.7.0<a class="headerlink" href="#id42" title="Permalink to this heading">¶</a></h2>
+<section id="id49">
+<h2>4.7.0<a class="headerlink" href="#id49" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">SC_API_VERSION</span> <span class="pre">14.3.0</span></code></p>
 <ul class="simple">
 <li><p>Documentation</p>
@@ -1542,7 +1948,7 @@ in SeisComP</p></li>
 </li>
 <li><p>seiscomp</p>
 <ul>
-<li><p>Add –wait parameter to set the timeout when acquiring
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">--wait</span></code> parameter to set the timeout when acquiring
 the seiscomp lock</p></li>
 <li><p>Add dialog for removing obsolete configuration after
 removing alias modules</p></li>
@@ -1560,7 +1966,7 @@ currently.</p></li>
 <code class="docutils literal notranslate"><span class="pre">&#64;CONFIGDIR&#64;/spatial/vector</span></code>. Load  BNA files from new geo
 feature directory. The old BNA directories are still
 supported but cause a warning which is logged.</p></li>
-<li><p>Add support for GeoJSON files (<a href="#id43"><span class="problematic" id="id44">*</span></a>.geojson) in the new geo
+<li><p>Add support for GeoJSON files (<a href="#id50"><span class="problematic" id="id51">*</span></a>.geojson) in the new geo
 feature directory.</p></li>
 <li><p>Add data scheme version information to output when starting
 a module with the option <code class="docutils literal notranslate"><span class="pre">-V</span></code></p></li>
@@ -1626,8 +2032,8 @@ routing table</p></li>
 </li>
 </ul>
 </section>
-<section id="id45">
-<h2>4.6.1<a class="headerlink" href="#id45" title="Permalink to this heading">¶</a></h2>
+<section id="id52">
+<h2>4.6.1<a class="headerlink" href="#id52" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>scolv</p>
 <ul>
@@ -1637,8 +2043,8 @@ from 4.6.0)</p></li>
 </li>
 </ul>
 </section>
-<section id="id46">
-<h2>4.6.0<a class="headerlink" href="#id46" title="Permalink to this heading">¶</a></h2>
+<section id="id53">
+<h2>4.6.0<a class="headerlink" href="#id53" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Dependencies</p>
 <ul>
@@ -1654,7 +2060,7 @@ magnitude, update the region, call processors loaded with plugins.</p></li>
 </li>
 <li><p>scmssort</p>
 <ul>
-<li><p>Add new <code class="docutils literal notranslate"><span class="pre">list</span></code> option to filter miniSEED data by stream lists</p></li>
+<li><p>Add new <code class="docutils literal notranslate"><span class="pre">--list</span></code> option to filter miniSEED data by stream lists</p></li>
 <li><p>Add some statistics to stderr output in verbosity mode</p></li>
 </ul>
 </li>
@@ -1715,13 +2121,13 @@ QuakeML 1.2</p></li>
 </li>
 <li><p>scxmldump</p>
 <ul>
-<li><p>Add -J, –journal option allowing to export the journal</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">-J</span></code>, <code class="docutils literal notranslate"><span class="pre">--journal</span></code> option allowing to export the journal</p></li>
 </ul>
 </li>
 </ul>
 </section>
-<section id="id47">
-<h2>4.5.0<a class="headerlink" href="#id47" title="Permalink to this heading">¶</a></h2>
+<section id="id54">
+<h2>4.5.0<a class="headerlink" href="#id54" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">SC_API_VERSION</span> <span class="pre">14.2.0</span></code></p>
 <ul>
 <li><p>Magnitudes</p>
@@ -1813,8 +2219,8 @@ eventedit.fm.visibleColumns = Depth, M, Count, Misfit, STDR, Azi.\
 </li>
 </ul>
 </section>
-<section id="id48">
-<h2>4.4.0<a class="headerlink" href="#id48" title="Permalink to this heading">¶</a></h2>
+<section id="id55">
+<h2>4.4.0<a class="headerlink" href="#id55" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>hypo71</p>
 <ul>
@@ -1843,8 +2249,8 @@ with encrypted connections.</p></li>
 </li>
 </ul>
 </section>
-<section id="id49">
-<h2>4.3.0<a class="headerlink" href="#id49" title="Permalink to this heading">¶</a></h2>
+<section id="id56">
+<h2>4.3.0<a class="headerlink" href="#id56" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>scheli</p>
 <ul class="simple">
@@ -1914,8 +2320,8 @@ via messaging</p></li>
 </li>
 </ul>
 </section>
-<section id="id50">
-<h2>4.2.1<a class="headerlink" href="#id50" title="Permalink to this heading">¶</a></h2>
+<section id="id57">
+<h2>4.2.1<a class="headerlink" href="#id57" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Documentation</p>
 <ul>
@@ -1947,8 +2353,8 @@ and resize content after loading</p></li>
 </li>
 </ul>
 </section>
-<section id="id51">
-<h2>4.2.0<a class="headerlink" href="#id51" title="Permalink to this heading">¶</a></h2>
+<section id="id58">
+<h2>4.2.0<a class="headerlink" href="#id58" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>scalert</p>
 <ul>
@@ -1980,8 +2386,8 @@ and resize content after loading</p></li>
 </li>
 </ul>
 </section>
-<section id="id52">
-<h2>4.1.2<a class="headerlink" href="#id52" title="Permalink to this heading">¶</a></h2>
+<section id="id59">
+<h2>4.1.2<a class="headerlink" href="#id59" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Processing</p>
 <ul>
@@ -1991,8 +2397,8 @@ parameters are out of range</p></li>
 </li>
 </ul>
 </section>
-<section id="id53">
-<h2>4.1.1<a class="headerlink" href="#id53" title="Permalink to this heading">¶</a></h2>
+<section id="id60">
+<h2>4.1.1<a class="headerlink" href="#id60" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>scmaster</p>
 <ul>
@@ -2014,8 +2420,8 @@ mechanism table</p></li>
 </li>
 </ul>
 </section>
-<section id="id54">
-<h2>4.1.0<a class="headerlink" href="#id54" title="Permalink to this heading">¶</a></h2>
+<section id="id61">
+<h2>4.1.0<a class="headerlink" href="#id61" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">SC_API_VERSION</span> <span class="pre">14.1.0</span></code></p>
 <ul class="simple">
 <li><p>scmaster</p>
@@ -2026,8 +2432,8 @@ mechanism table</p></li>
 <li><p>screloc</p>
 <ul>
 <li><p>Add option to allow processing of origins with mode MANUAL in daemon mode</p></li>
-<li><p>When using <code class="docutils literal notranslate"><span class="pre">--ep</span></code> playbacks with origins defined by -O, then the processing
-is limited to the defined origins.</p></li>
+<li><p>When using <code class="docutils literal notranslate"><span class="pre">--ep</span></code> playbacks with origins defined by <code class="docutils literal notranslate"><span class="pre">-O</span></code>, then the
+processing is limited to the defined origins.</p></li>
 </ul>
 </li>
 <li><p>scevent</p>
@@ -2044,7 +2450,7 @@ state at exit. Not doing so could have caused encoding
 errors with init scripts</p></li>
 <li><p>Add fixed hypocenter locator</p></li>
 <li><p>Add external locator plugin (locext)</p></li>
-<li><p>Fix combined recordstream for slinkMax|rtMax|1stMax units <code class="docutils literal notranslate"><span class="pre">s</span></code> and <code class="docutils literal notranslate"><span class="pre">h</span></code></p></li>
+<li><p>Fix combined RecordStream for slinkMax|rtMax|1stMax units <code class="docutils literal notranslate"><span class="pre">s</span></code> and <code class="docutils literal notranslate"><span class="pre">h</span></code></p></li>
 <li><p>Fix LOCSAT travel time computation for phases which do not provide
 a table file or with zero depth layers. Sometimes LOCSAT produced
 fake travel times for non existing phases after switching tables.</p></li>
@@ -2080,8 +2486,8 @@ next event of the event list from within the locator view</p></li>
 </li>
 </ul>
 </section>
-<section id="id55">
-<h2>4.0.4<a class="headerlink" href="#id55" title="Permalink to this heading">¶</a></h2>
+<section id="id62">
+<h2>4.0.4<a class="headerlink" href="#id62" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>trunk</p>
 <ul>
@@ -2109,8 +2515,8 @@ but print a warning</p></li>
 </li>
 </ul>
 </section>
-<section id="id56">
-<h2>4.0.3<a class="headerlink" href="#id56" title="Permalink to this heading">¶</a></h2>
+<section id="id63">
+<h2>4.0.3<a class="headerlink" href="#id63" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>slmod</p>
 <ul>
@@ -2138,8 +2544,8 @@ just a subset of input data was forwarded to the client</p></li>
 </li>
 </ul>
 </section>
-<section id="id57">
-<h2>4.0.2<a class="headerlink" href="#id57" title="Permalink to this heading">¶</a></h2>
+<section id="id64">
+<h2>4.0.2<a class="headerlink" href="#id64" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>scautoloc</p>
 <ul>
@@ -2159,8 +2565,8 @@ e.g. empty end time</p></li>
 </li>
 </ul>
 </section>
-<section id="id58">
-<h2>4.0.1<a class="headerlink" href="#id58" title="Permalink to this heading">¶</a></h2>
+<section id="id65">
+<h2>4.0.1<a class="headerlink" href="#id65" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>LOCSAT</p>
 <ul>
@@ -2187,8 +2593,8 @@ Armbruster for providing the patch.</p></li>
 </li>
 </ul>
 </section>
-<section id="id59">
-<h2>4.0.0<a class="headerlink" href="#id59" title="Permalink to this heading">¶</a></h2>
+<section id="id66">
+<h2>4.0.0<a class="headerlink" href="#id66" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">SC_API_VERSION</span> <span class="pre">14.0.0</span></code></p>
 <p>This is the initial release of SeisComP under a new license and with a new
 versioning scheme. Instead of using a release name and a time based version
@@ -2244,63 +2650,70 @@ standard.</p></li>
     <h3><a href="../index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">Change Log</a><ul>
-<li><a class="reference internal" href="#id1">5.5.17</a></li>
-<li><a class="reference internal" href="#id2">5.5.16</a></li>
-<li><a class="reference internal" href="#id3">5.5.15</a></li>
-<li><a class="reference internal" href="#id4">5.5.14</a></li>
-<li><a class="reference internal" href="#id5">5.5.13</a></li>
-<li><a class="reference internal" href="#id6">5.5.12</a></li>
-<li><a class="reference internal" href="#id7">5.5.11</a></li>
-<li><a class="reference internal" href="#id8">5.5.10</a></li>
-<li><a class="reference internal" href="#id9">5.5.9</a></li>
-<li><a class="reference internal" href="#id10">5.5.8</a></li>
-<li><a class="reference internal" href="#id11">5.5.7</a></li>
-<li><a class="reference internal" href="#id12">5.5.6</a></li>
-<li><a class="reference internal" href="#id13">5.5.5</a></li>
-<li><a class="reference internal" href="#id14">5.5.4</a></li>
-<li><a class="reference internal" href="#id15">5.5.3</a></li>
-<li><a class="reference internal" href="#id16">5.5.2</a></li>
-<li><a class="reference internal" href="#id17">5.5.1</a></li>
-<li><a class="reference internal" href="#id18">5.5.0</a></li>
-<li><a class="reference internal" href="#id19">5.4.0</a></li>
-<li><a class="reference internal" href="#id20">5.3.0</a></li>
-<li><a class="reference internal" href="#id21">5.2.2</a></li>
-<li><a class="reference internal" href="#id22">5.2.1</a></li>
-<li><a class="reference internal" href="#id23">5.2.0</a></li>
-<li><a class="reference internal" href="#id24">5.1.1</a></li>
-<li><a class="reference internal" href="#id25">5.1.0</a></li>
-<li><a class="reference internal" href="#id26">5.0.1</a></li>
-<li><a class="reference internal" href="#id27">5.0.0</a></li>
-<li><a class="reference internal" href="#id28">4.10.1</a></li>
-<li><a class="reference internal" href="#id29">4.10.0</a></li>
-<li><a class="reference internal" href="#id30">4.9.3</a></li>
-<li><a class="reference internal" href="#id31">4.9.2</a></li>
-<li><a class="reference internal" href="#id32">4.9.1</a></li>
-<li><a class="reference internal" href="#id33">4.9.0</a></li>
-<li><a class="reference internal" href="#id34">4.8.4</a></li>
-<li><a class="reference internal" href="#id35">4.8.3</a></li>
-<li><a class="reference internal" href="#id36">4.8.2</a></li>
-<li><a class="reference internal" href="#id37">4.8.1</a></li>
-<li><a class="reference internal" href="#id38">4.8.0</a></li>
-<li><a class="reference internal" href="#id39">4.7.3</a></li>
-<li><a class="reference internal" href="#id40">4.7.2</a></li>
-<li><a class="reference internal" href="#id41">4.7.1</a></li>
-<li><a class="reference internal" href="#id42">4.7.0</a></li>
-<li><a class="reference internal" href="#id45">4.6.1</a></li>
-<li><a class="reference internal" href="#id46">4.6.0</a></li>
-<li><a class="reference internal" href="#id47">4.5.0</a></li>
-<li><a class="reference internal" href="#id48">4.4.0</a></li>
-<li><a class="reference internal" href="#id49">4.3.0</a></li>
-<li><a class="reference internal" href="#id50">4.2.1</a></li>
-<li><a class="reference internal" href="#id51">4.2.0</a></li>
-<li><a class="reference internal" href="#id52">4.1.2</a></li>
-<li><a class="reference internal" href="#id53">4.1.1</a></li>
-<li><a class="reference internal" href="#id54">4.1.0</a></li>
-<li><a class="reference internal" href="#id55">4.0.4</a></li>
-<li><a class="reference internal" href="#id56">4.0.3</a></li>
-<li><a class="reference internal" href="#id57">4.0.2</a></li>
-<li><a class="reference internal" href="#id58">4.0.1</a></li>
-<li><a class="reference internal" href="#id59">4.0.0</a></li>
+<li><a class="reference internal" href="#id1">6.1.2</a></li>
+<li><a class="reference internal" href="#id2">6.1.1</a></li>
+<li><a class="reference internal" href="#id3">6.1.0</a></li>
+<li><a class="reference internal" href="#id4">6.0.5</a></li>
+<li><a class="reference internal" href="#id5">6.0.4</a></li>
+<li><a class="reference internal" href="#id6">6.0.3</a></li>
+<li><a class="reference internal" href="#id7">6.0.2</a></li>
+<li><a class="reference internal" href="#id8">6.0.1</a></li>
+<li><a class="reference internal" href="#id9">6.0.0</a></li>
+<li><a class="reference internal" href="#id10">5.5.15</a></li>
+<li><a class="reference internal" href="#id11">5.5.14</a></li>
+<li><a class="reference internal" href="#id12">5.5.13</a></li>
+<li><a class="reference internal" href="#id13">5.5.12</a></li>
+<li><a class="reference internal" href="#id14">5.5.11</a></li>
+<li><a class="reference internal" href="#id15">5.5.10</a></li>
+<li><a class="reference internal" href="#id16">5.5.9</a></li>
+<li><a class="reference internal" href="#id17">5.5.8</a></li>
+<li><a class="reference internal" href="#id18">5.5.7</a></li>
+<li><a class="reference internal" href="#id19">5.5.6</a></li>
+<li><a class="reference internal" href="#id20">5.5.5</a></li>
+<li><a class="reference internal" href="#id21">5.5.4</a></li>
+<li><a class="reference internal" href="#id22">5.5.3</a></li>
+<li><a class="reference internal" href="#id23">5.5.2</a></li>
+<li><a class="reference internal" href="#id24">5.5.1</a></li>
+<li><a class="reference internal" href="#id25">5.5.0</a></li>
+<li><a class="reference internal" href="#id26">5.4.0</a></li>
+<li><a class="reference internal" href="#id27">5.3.0</a></li>
+<li><a class="reference internal" href="#id28">5.2.2</a></li>
+<li><a class="reference internal" href="#id29">5.2.1</a></li>
+<li><a class="reference internal" href="#id30">5.2.0</a></li>
+<li><a class="reference internal" href="#id31">5.1.1</a></li>
+<li><a class="reference internal" href="#id32">5.1.0</a></li>
+<li><a class="reference internal" href="#id33">5.0.1</a></li>
+<li><a class="reference internal" href="#id34">5.0.0</a></li>
+<li><a class="reference internal" href="#id35">4.10.1</a></li>
+<li><a class="reference internal" href="#id36">4.10.0</a></li>
+<li><a class="reference internal" href="#id37">4.9.3</a></li>
+<li><a class="reference internal" href="#id38">4.9.2</a></li>
+<li><a class="reference internal" href="#id39">4.9.1</a></li>
+<li><a class="reference internal" href="#id40">4.9.0</a></li>
+<li><a class="reference internal" href="#id41">4.8.4</a></li>
+<li><a class="reference internal" href="#id42">4.8.3</a></li>
+<li><a class="reference internal" href="#id43">4.8.2</a></li>
+<li><a class="reference internal" href="#id44">4.8.1</a></li>
+<li><a class="reference internal" href="#id45">4.8.0</a></li>
+<li><a class="reference internal" href="#id46">4.7.3</a></li>
+<li><a class="reference internal" href="#id47">4.7.2</a></li>
+<li><a class="reference internal" href="#id48">4.7.1</a></li>
+<li><a class="reference internal" href="#id49">4.7.0</a></li>
+<li><a class="reference internal" href="#id52">4.6.1</a></li>
+<li><a class="reference internal" href="#id53">4.6.0</a></li>
+<li><a class="reference internal" href="#id54">4.5.0</a></li>
+<li><a class="reference internal" href="#id55">4.4.0</a></li>
+<li><a class="reference internal" href="#id56">4.3.0</a></li>
+<li><a class="reference internal" href="#id57">4.2.1</a></li>
+<li><a class="reference internal" href="#id58">4.2.0</a></li>
+<li><a class="reference internal" href="#id59">4.1.2</a></li>
+<li><a class="reference internal" href="#id60">4.1.1</a></li>
+<li><a class="reference internal" href="#id61">4.1.0</a></li>
+<li><a class="reference internal" href="#id62">4.0.4</a></li>
+<li><a class="reference internal" href="#id63">4.0.3</a></li>
+<li><a class="reference internal" href="#id64">4.0.2</a></li>
+<li><a class="reference internal" href="#id65">4.0.1</a></li>
+<li><a class="reference internal" href="#id66">4.0.0</a></li>
 </ul>
 </li>
 </ul>
@@ -2335,7 +2748,7 @@ standard.</p></li>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

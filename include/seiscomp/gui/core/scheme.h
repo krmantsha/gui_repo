@@ -47,6 +47,8 @@ class SC_GUI_API Scheme {
 		void applyTabPosition(QTabWidget *tab);
 
 		struct Colors {
+			Colors();
+
 			struct Splash {
 				Splash();
 				QColor version;
@@ -188,6 +190,7 @@ class SC_GUI_API Scheme {
 				Map();
 				QColor lines;
 				QColor outlines;
+				QPen   directivity;
 				QPen   grid;
 				QColor stationAnnotations;
 				QColor cityLabels;
@@ -220,6 +223,7 @@ class SC_GUI_API Scheme {
 				QColor                    background;
 				Splash                    splash;
 				Records                   records;
+				Gradient                  spectrogram;
 				Picks                     picks;
 				Arrivals                  arrivals;
 				Magnitudes                magnitudes;

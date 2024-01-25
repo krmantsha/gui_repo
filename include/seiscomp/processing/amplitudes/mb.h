@@ -35,10 +35,11 @@ class SC_SYSTEM_CLIENT_API AmplitudeProcessor_mb : public AmplitudeProcessor {
 
 	public:
 		AmplitudeProcessor_mb();
-		AmplitudeProcessor_mb(const Seiscomp::Core::Time& trigger);
 
 	public:
 		void initFilter(double fsamp) override;
+
+		void finalizeAmplitude(DataModel::Amplitude *amplitude) const override;
 
 	protected:
 		bool computeAmplitude(const DoubleArray &data,

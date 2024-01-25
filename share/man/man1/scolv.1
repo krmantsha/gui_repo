@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "SCOLV" "1" "Jan 18, 2024" "5.5.17" "SeisComP"
+.TH "SCOLV" "1" "Jan 18, 2024" "6.1.2" "SeisComP"
 .SH NAME
 scolv \- SeisComP Documentation
 .sp
@@ -730,21 +730,19 @@ The locators available by default in \fISeisComP\fP are
 .UNINDENT
 .sp
 Additional locator routines are available by \fI\%SeisComP plugins\fP which
-provide their own specific global configuration, e.g.
-.INDENT 0.0
-.IP \(bu 2
-\fI\%Hypo71\fP,
-.IP \(bu 2
-\fI\%NonLinLoc\fP,
-.IP \(bu 2
-iLoc (currently only on when \fI\%building SeisComP from source\fP).
-.UNINDENT
-.sp
-Any other custom locator can be intergrated through configuration of
-\fI\%LocExt\fP\&.
+provide their own specific global configuration. Read the
+\fI\%concepts section on locators\fP for an introduction.
 .sp
 Pressing \fIRelocate\fP creates a new origin and updates the arrival table and the
 parameters displayed in the Location tab.
+.sp
+Undoing and redoing actions is availalbe by buttons and
+\fI\%hot keys\fP\&.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+.UNINDENT
+.UNINDENT
 .sp
 \fBHINT:\fP
 .INDENT 0.0
@@ -759,19 +757,30 @@ and new magnitudes can be calculated by using the
 \(dqCompute Magnitudes\(dq button. The advantage of calculating the magnitudes before
 committing the new origin, is the possibility to check the resulting magnitudes
 before they are computed manually by \fI\%scmag\fP\&.
+.sp
+\fI\%An amplitudes status window\fP will pop up showing the progress
+information of measurements. The amplitudes are either measured or fetched from
+database if the pick is unchanged and the amplitude is already in the system.
+For new manual picks, waveforms are requested to measured the amplitudes. The
+popup window contains information about the progress, limitations and possible
+errors.
 .INDENT 0.0
 .INDENT 2.5
 [image]
-Compute magnitudes status window.UNINDENT
+Measure amplitudes status window..UNINDENT
 .UNINDENT
 .sp
-\fI\%A window\fP will pop up showing the progress
-information of computation. The amplitudes are either fetched from database if
-the pick is unchanged and already in the system. For new manual picks,
-waveforms are requested to compute the amplitudes. The popup window contains
-information about the progress and possible errors. After closing this windows
-all available magnitudes are shown and can be interactively re\-processed
-in the \fI\%magnitudes tab\fP\&.
+After closing the amplitude status window magnitudes are computed and
+possible limitations are shown, if applicable, in the magnitudes status window.
+Confirm this window in order to proceed.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Compute magnitudes status window..UNINDENT
+.UNINDENT
+.sp
+All available magnitudes are then shown and can be interactively re\-processed in
+the \fI\%Magnitudes tab\fP\&.
 .SS Commit a solution
 .sp
 Committing a solution means to send the location (including optional magnitudes)
@@ -786,41 +795,57 @@ Review solution
 .IP 3. 3
 Commit solution
 .IP 4. 3
-Change to event tab
+\fIOptional:\fP Change to Event tab for setting
+.INDENT 3.0
+.IP \(bu 2
+This solution preferred
+.IP \(bu 2
+Event type
+.IP \(bu 2
+Event certainty
+.IP \(bu 2
+Preferred magnitude
+.IP \(bu 2
+Preferred focal mechanism
+.UNINDENT
 .IP 5. 3
-Set this solution preferred
+Change to Events tab
 .IP 6. 3
-Set event type
-.IP 7. 3
-Change to events tab
-.IP 8. 3
 Goto 1.
 .UNINDENT
 .sp
-This may be replaced by
+Instead of selecting events from the Events tab, the previous or the next event
+can be conveniently selected from the edit buttons above the Location tab.
 .INDENT 0.0
-.IP 1. 3
-Select an event
-.IP 2. 3
-Review solution
-.IP 3. 3
-Commit solution
-.IP 4. 3
-Change to events tab
-.IP 5. 3
-Goto 1.
+.INDENT 2.5
+[image]
+.UNINDENT
+.UNINDENT
+.SS Additional options
+.sp
+Instead of optionally setting parameters in the Event tab an additional commit
+mode allows to directly set certain parameters such as
+.INDENT 0.0
+.IP \(bu 2
+Event type
+.IP \(bu 2
+Ovent certainty
+.IP \(bu 2
+Origin
+.IP \(bu 2
+Event comment
 .UNINDENT
 .sp
-An additional commit mode was added which allows to set certain parameters and
-options along with the location and its magnitudes.
+and to choose options along with the location and its magnitudes. After pressing
+and holding the Commit button down for a little while, a menu pops up which
+allows to select \fIWith additional options\fP\&.
 .INDENT 0.0
 .INDENT 2.5
 [image]
 .UNINDENT
 .UNINDENT
 .sp
-After pressing and holding the Commit button down for a little while, a menu
-pops up which allows to select \fIWith additional options\fP\&. Selecting this entry
+Selecting this entry
 brings up another window where the different options can be set.
 .INDENT 0.0
 .INDENT 2.5
@@ -838,8 +863,12 @@ Contains the event description \fIearthquake name\fP\&. If this field is empty, 
 description will be removed from the event otherwise it will be added.
 .TP
 .B \fIComment\fP
-contains an optional event comment added as comment with ID \fIOperator\fP\&.
+Contains an optional event comment added as comment with ID \fIOperator\fP\&. The
+comment text can be visualized in event lists
+(\fI\%Events tab\fP) by configuration of the global parameters
+\fI\%eventlist.customColumn.eventCommentID\fP or \fBeventlist.scripts.*\fP\&.
 .UNINDENT
+.SS Custom commits
 .sp
 As a shortcut for committing with additional options,
 \fI\%custom commit buttons\fP can be added by
@@ -1264,7 +1293,7 @@ Author : author
 \fBID\fP : ID of the show element, e.g. event or origin
 .UNINDENT
 .sp
-The bold identifiers are visible initially.
+The bold identifiers are visible initially by default.
 To show or hide columns interactively click with the right mouse button on the
 table header and check or uncheck the corresponding column.
 .sp
@@ -1272,17 +1301,16 @@ Sorting and re\-ordering is available by clicking on the header of the columns a
 by dragging the header fields, respectively. Right\-click on cells to copy individual
 cells values or entire rows.
 .sp
-This list can also be customized
-with \fI\%eventlist.visibleColumns\fP in the global configuration
-(\fBscolv.cfg\fP or \fBglobal.cfg\fP):
+The initial list can configured with the global module parameter
+\fI\%eventlist.visibleColumns\fP in \fBglobal.cfg\fP or \fBscolv.cfg\fP,
+e.g.:
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .nf
 .ft C
 # Remove Type and Author from column list that is initially active
-eventlist.visibleColumns = OT(GMT), Type, M, MType Phases, RMS, Lat, Lon,\e
-                           Depth, DType, Stat, FM, Author, Agency, Region, ID
+eventlist.visibleColumns = Type, M, MType Phases, RMS, Lat, Lon, Depth, DType, Stat, FM, Author, Agency, Region, ID
 .ft P
 .fi
 .UNINDENT
@@ -1291,6 +1319,8 @@ eventlist.visibleColumns = OT(GMT), Type, M, MType Phases, RMS, Lat, Lon,\e
 .sp
 Database request filters can be applied interactively or automatically by
 .INDENT 0.0
+.IP \(bu 2
+\fBTime:\fP Select a time period or a number of days before current time.
 .IP \(bu 2
 \fBInteractive custom request filters\fP: You may set and adjust a custom request
 filter** in the filter parameter window which opens when pressing the Filter
@@ -1309,18 +1339,21 @@ eventlist.filter.database.minlat = 51.0
 .fi
 .UNINDENT
 .UNINDENT
-.IP \(bu 2
-\fBPreset filters\fP based on
-.INDENT 2.0
+.UNINDENT
+.sp
+Event lists already loaded from from the database can be filtered by
+.INDENT 0.0
 .IP \(bu 2
 \fBEvent type:\fP Activate by check box \fIHide other/fake events\fP\&. If checked, all
+.UNINDENT
+.sp
 events with the configured types are hidden from the list. The default event types
 to hide are \fInot existing\fP and \fIother\fP are hidden. If unchecked, the filtering
 is inactive and the events are shown. \fBPressing the Hide button only affects
 the currently loaded list.\fP Configure the event types used for this filter as well
 as the label text for the checkbox.
 Use the \fI\%Global parameters\fP for presetting the values s (\fBscolv.cfg\fP or \fBglobal.cfg\fP):
-.INDENT 2.0
+.INDENT 0.0
 .INDENT 3.5
 .sp
 .nf
@@ -1338,6 +1371,7 @@ eventlist.filter.types.enabled = true
 .fi
 .UNINDENT
 .UNINDENT
+.INDENT 0.0
 .IP \(bu 2
 \fBAgency\fP: Activate by check boxes \fIShow only own origin\fP and/or \(dqShow only
 latest/preferred origin per agency\(dq. The button \fIShow only own events\fP
@@ -1372,8 +1406,9 @@ eventlist.filter.agencies.enabled = true
 \fBSource region:\fP Select a source region, activate \(dqHide events\(dq and choose to
 hide events inside or outside the region.
 \fBPressing the Hide button only affects the currently loaded list.\fP
-Pre\-defined regions can be configured in the global configuration
-(\fBscolv.cfg\fP, \fBglobal.cfg\fP):
+Pre\-defined regions can be configured in the global configuration per bounding
+box or region defined by a BNA or GeoJSON polygon
+(\fBglobal.cfg\fP, \fBscolv.cfg\fP):
 .INDENT 2.0
 .INDENT 3.5
 .sp
@@ -1387,10 +1422,15 @@ eventlist.filter.regions.region.chile.name = Chile
 
 # Defines a rectangular region with a list of 4 values: latmin, lonmin, latmax,
 # lonmax.
-eventlist.filter.regions.region.chile.rect = \-40, \-80, \-10, \-60
+# eventlist.filter.regions.region.chile.rect = \-40, \-80, \-10, \-60
+
+# Defines the name of the polygon for the region check. If defined then the
+# rect region has no effect. The configured polygon name is being search for in
+# the global FEP regions and the spatial vector layer. The first polygon found
+# with the given name will be taken.
+eventlist.filter.regions.region.chile.poly = chile
 .ft P
 .fi
-.UNINDENT
 .UNINDENT
 .UNINDENT
 .UNINDENT
@@ -1500,6 +1540,25 @@ eventlist.customColumn.colors = \(dqA:00FF00\(dq,\(dqB:rgb(64,192,0)\(dq,\e
 .sp
 The last three examples are used to show the \fISED.quality\fP comment value which
 is set by the \fI\%NonLinLoc locator plugin\fP\&.
+.sp
+In order to show event comments, e.g.,
+\fI\%set during committing\fP replace
+\fI\%eventlist.customColumn.originCommentID\fP by
+\fI\%eventlist.customColumn.eventCommentID\fP:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+# Define the comment id to be used
+eventlist.customColumn.eventCommentID = \(dqOperator\(dq
+
+# Define the column header label
+eventlist.customColumn.name = \(dqOperator\(dq
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
 .SS External scripts
 .sp
 User\-defined scripts may generated and executed
@@ -1519,13 +1578,20 @@ When pressing the custom buttons, user\-defined external scripts are executed.
 Configuration (\fBscolv.cfg\fP):
 .INDENT 0.0
 .IP \(bu 2
-Button in Summary window: \fI\%scripts.export\fP\&. Read \fI\%scripts.export\fP
-for the description of the parameters passed to the script.
+Button in Summary window. Configure: \fI\%scripts.export\fP and read
+\fI\%scripts.export\fP for the description of the parameters passed to the
+script.
 .IP \(bu 2
-Up to 2 buttons in Location tab: \fI\%button0\fP, \fI\%scripts.script0\fP,
-\fI\%button1\fP,  \fI\%scripts.script1\fP Read \fI\%scripts.script0\fP
-and \fI\%scripts.script1\fP for the description of the parameters passed to
-the scripts.
+Up to 2 buttons in Location tab. Configure:
+.INDENT 2.0
+.IP \(bu 2
+button1: \fI\%button0\fP, \fI\%scripts.script0\fP,
+.IP \(bu 2
+button2: \fI\%button1\fP,  \fI\%scripts.script1\fP\&.
+.UNINDENT
+.sp
+Read \fI\%scripts.script0\fP and \fI\%scripts.script1\fP for the
+description of the parameters passed to the scripts.
 .UNINDENT
 .SS Custom information in tabs
 .sp
@@ -2343,6 +2409,46 @@ T}	T{
 T}
 _
 T{
+\fIZoom trace\fP
+T}	T{
+T}
+_
+T{
+Ctrl+Down
+T}	T{
+Scale amplitudes down
+T}
+_
+T{
+Ctrl+Up
+T}	T{
+Scale amplitudes up
+T}
+_
+T{
+Ctrl+Right
+T}	T{
+Decrease visible time span (zoom in)
+T}
+_
+T{
+Ctrl+Left
+T}	T{
+Increase visible time span (zoom out)
+T}
+_
+T{
+W
+T}	T{
+Reset zoom window to the length of the picking overview
+T}
+_
+T{
+\fITrace overview\fP
+T}	T{
+T}
+_
+T{
 F5
 T}	T{
 Compute network magnitudes and return to Magnitudes tab
@@ -2400,6 +2506,12 @@ T{
 R
 T}	T{
 Recompute amplitude of selected station
+T}
+_
+T{
+Shift+W
+T}	T{
+Reset all noise and signal time windows as configured
 T}
 _
 T{
@@ -2511,10 +2623,13 @@ Default: \fBMLv,mb,mB,Mwp\fP
 .sp
 Type: \fIlist:string\fP
 .sp
-List of magnitude types to be calculated when
-computing magnitudes. This list can be altered interactively so
-this reflects only the default unless computeMagnitudesSilently
-is set to true.
+List of magnitude types to be calculated when computing
+magnitudes. This list can be altered interactively so it
+reflects only the default unless computeMagnitudesSilently
+is set to true. The configured types should include all
+types which are also computed by scmag in order to allow
+their processing in scolv. Otherwise scmag may add
+magnitudes to origins without interaction in scolv.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2750,8 +2865,7 @@ Default: \fBtrue\fP
 Type: \fIboolean\fP
 .sp
 Adds an icon to the system tray and displays a message
-when a new event was received. Note that this feature
-requires libQt4 version 4.3 or higher.
+when a new event was received.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -3361,8 +3475,6 @@ side of the trace window.
 .INDENT 0.0
 .TP
 .B picker.repickerStart
-Default: \fB\-10\fP
-.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
@@ -3372,8 +3484,6 @@ Start of the re\-picker time window relative the cursor position on the trace.
 .INDENT 0.0
 .TP
 .B picker.repickerEnd
-Default: \fB30\fP
-.sp
 Type: \fIdouble\fP
 .sp
 Unit: \fIs\fP
@@ -3707,7 +3817,9 @@ A list of filters used for the amplitude picker. Format:
 .INDENT 0.0
 .INDENT 3.5
 \fBdisplay.origin.*\fP
-\fIOrigin information\fP
+\fIOrigin information to show. Event comments can be\fP
+\fIprocessed by addons or shown in the event list as\fP
+\fIconfigured by global parameters.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -3725,7 +3837,7 @@ provides an example script.
 .INDENT 0.0
 .INDENT 3.5
 \fBdisplay.origin.comment.*\fP
-\fIDisplay origin comments.\fP
+\fIOrigin comment value to be shown based on its comment ID.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0

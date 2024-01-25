@@ -27,31 +27,33 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "SCARDAC" "1" "Jan 18, 2024" "5.5.17" "SeisComP"
+.TH "SCARDAC" "1" "Jan 18, 2024" "6.1.2" "SeisComP"
 .SH NAME
 scardac \- SeisComP Documentation
 .sp
 \fBWaveform archive data availability collector.\fP
 .SH DESCRIPTION
 .sp
-scardac scans an \fI\%SDS waveform archive\fP , e.g.,
-created by \fI\%slarchive\fP or \fI\%scart\fP for
-available \fI\%miniSEED\fP data. It will
-collect information about
+scardac scans an \fI\%SDS waveform archive\fP, e.g.,
+created by \fI\%slarchive\fP or \fI\%scart\fP for available
+\fI\%miniSEED\fP data. It will collect information about
 .INDENT 0.0
 .IP \(bu 2
-Data extents \- the absolute earliest and latest times data is available of a
-particular channel,
+\fBDataExtents\fP \-\- the earliest and latest times data is available
+for a particular channel,
 .IP \(bu 2
-Data segments \- continuous data segments sharing the same quality and sampling
-rate attributes.
+\fBDataAttributeExtents\fP \-\- the earliest and latest times data is available
+for a particular channel, quality and sampling rate combination,
+.IP \(bu 2
+\fBDataSegments\fP \-\- continuous data segments sharing the same quality and
+sampling rate attributes.
 .UNINDENT
 .sp
 scardac is intended to be executed periodically, e.g., as a cronjob.
 .sp
-The data availability information is stored in the SeisComP database under the
-root element \fI\%DataAvailability\fP\&. Access to the data
-availability is provided by the \fI\%fdsnws\fP module via the services:
+The availability data information is stored in the SeisComP database under the
+root element \fI\%DataAvailability\fP\&. Access to the
+availability data is provided by the \fI\%fdsnws\fP module via the services:
 .INDENT 0.0
 .IP \(bu 2
 \fI\%/fdsnws/station\fP (extent information only, see
@@ -63,54 +65,148 @@ provided in different formats)
 .SS Non\-SDS archives
 .sp
 scardac can be extended by plugins to scan non\-SDS archives. For example the
-\fIdaccaps\fP plugin provided by \fICAPS\fP [\fI\%3\fP] allows scanning archives generated
-by a CAPS server. Plugins are added to global module configuration, e.g.:
+\fBdaccaps\fP plugin provided by \fICAPS\fP [\fI\%3\fP] allows scanning archives generated
+by a CAPS server. Plugins are added to the global module configuration, e.g.:
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .nf
 .ft C
-plugin = xyz
+plugins = ${plugins}, daccaps
 .ft P
 .fi
 .UNINDENT
 .UNINDENT
+.SS Definitions
+.INDENT 0.0
+.IP \(bu 2
+\fBRecord\fP \-\- continuous waveform data of same sampling rate and quality bound
+by a start and end time. scardac will only read the record\(aqs meta data and not
+the actual samples.
+.IP \(bu 2
+\fBChunk\fP \-\- container for records, e.g., a \fI\%miniSEED\fP file,
+with the following properties:
+.INDENT 2.0
+.IP \(bu 2
+overall, theoretical time range of records it may contain
+.IP \(bu 2
+contains at least one record, otherwise it must be absent
+.IP \(bu 2
+each record of a chunk must fulfill the following conditions:
+.INDENT 2.0
+.IP \(bu 2
+\fIchunk start <= record start < chunk end\fP
+.IP \(bu 2
+\fIchunk start < record end < next chunk end\fP
+.UNINDENT
+.IP \(bu 2
+chunks do not overlap, end time of current chunk equals start time of
+successive chunk, otherwise a \fBchunk gap\fP is declared
+.IP \(bu 2
+records may occur unordered within a chunk or across chunk boundaries,
+resulting in \fIDataSegments\fP marked as \fBoutOfOrder\fP
+.UNINDENT
+.IP \(bu 2
+\fBJitter\fP \-\- maximum allowed deviation between the end time of the current
+record and the start time of the next record in multiples of the current\(aqs
+record sampling rate. E.g., assuming a sampling rate of 100Hz and a jitter
+of 0.5 will allow for a maximum end to start time difference of 50ms. If
+exceeded a new \fIDataSegment\fP is created.
+.IP \(bu 2
+\fBMtime\fP \-\- time the content of a chunk was last modified. It is used to
+.INDENT 2.0
+.IP \(bu 2
+decided whether a chunk needs to be read in a secondary application run
+.IP \(bu 2
+calculate the \fBupdated\fP time stamp of a \fIDataSegment\fP,
+\fIDataAttributeExtent\fP and \fIDataExtent\fP
+.UNINDENT
+.IP \(bu 2
+\fBScan window\fP \-\- time window limiting the synchronization of the archive
+with the database configured via \fI\%filter.time.start\fP and
+\fI\%filter.time.end\fP respectively \fB\-\-start\fP and \fB\-\-end\fP\&.
+The scan window is useful to
+.INDENT 2.0
+.IP \(bu 2
+reduce the scan time of larger archives. Depending on the size and storage
+type of the archive it may take some time to just list available chunks and
+their mtime.
+.IP \(bu 2
+prevent deletion of availability information even though parts of the
+archive have been deleted or moved to a different location
+.UNINDENT
+.IP \(bu 2
+\fBModification window\fP \-\- the mtime of a chunk is compared with this time
+window to decide whether it needs to be read or not. It is configured via
+\fI\%mtime.start\fP and \fI\%mtime.end\fP repectively
+\fB\-\-modified\-since\fP and \fB\-\-modified\-until\fP\&. If no lower bound
+is defined then the \fBlastScan\fP time stored in the \fIDataExtent\fP is used
+instead.  The mtime check may be disabled using \fI\%mtime.ignore\fP or
+\fB\-\-deep\-scan\fP\&.
+\fBNote:\fP Chunks in front or right after a chunk gap are read in any case
+regardless of the mtime settings.
+.UNINDENT
 .SS Workflow
 .INDENT 0.0
 .IP 1. 3
-Read existing \fBExtents\fP from database
+Read existing \fIDataExtents\fP from database.
 .IP 2. 3
-Scan the SDS archive for new channel IDs and create new \fBExtents\fP
+Collect a list of available stream IDs either by
+.INDENT 3.0
+.IP \(bu 2
+scanning the archive for available IDs or
+.IP \(bu 2
+reading an ID file defined by \fI\%nslcFile\fP\&.
+.UNINDENT
 .IP 3. 3
-Subsequently process the \fBExtents\fP using \fBthreads\fP number of parallel
-threads. For each \fBExtent\fP:
+Identify extents to add, update or remove respecting \fIscan window\fP,
+\fI\%filter.nslc.include\fP and \fI\%filter.nslc.exclude\fP\&.
+.IP 4. 3
+Subsequently process the \fIDataExtents\fP using \fI\%threads\fP number of
+parallel threads. For each \fIDataExtent\fP:
 .INDENT 3.0
 .IP 1. 3
-Find all available daily data files
+Collect all available chunks within \fIscan window\fP\&.
 .IP 2. 3
-Sort the file list according date
+If the \fIDataExtent\fP is new (no database entry yet), store a new and
+empty \fIDataExtent\fP to database, else query existing \fIDataSegments\fP from
+the database:
+.INDENT 3.0
+.IP \(bu 2
+count segments outside \fIscan window\fP
+.IP \(bu 2
+create a database iterator for extents within \fIscan window\fP
+.UNINDENT
 .IP 3. 3
-For each data file
+Create two in\-memory segment lists which collect segments to remove and
+segments to add/update
+.IP 4. 3
+For each chunk
 .INDENT 3.0
 .IP \(bu 2
-remove \fBDataSegments\fP that do longer exists
+determine the \fIchunk window\fP and \fImtime\fP
 .IP \(bu 2
-update or create \fBDataSegments\fP that changed or are new
-.IP \(bu 2
-a segment is split if
+decide whether the chunk needs to be read depending on the \fImtime\fP
+and a possible \fIchunk gap\fP\&. If necessary, read the chunk and
 .INDENT 3.0
 .IP \(bu 2
-the \fBjitter\fP (difference between previous records end time and
-current records start time) is exceeded
+create chunk segments by analyzing the chunk records for
+gaps/overlaps defined by \fI\%jitter\fP, sampling rate or quality
+changes
 .IP \(bu 2
-the quality or sampling rate changed
+merge chunk segments with database segments and update the in\-memory
+segment lists.
 .UNINDENT
-.IP \(bu 2
-merge segment information into \fBDataAttributeExtents\fP (\fBExtents\fP
-sharing the same quality and sample rate information)
-.IP \(bu 2
-merge segment start and end time into overall \fBExtent\fP
+.sp
+If not necessary, advance the database segment iterator to the end
+of the chunk window.
 .UNINDENT
+.IP 5. 3
+Remove and then add/update the collected segments.
+.IP 6. 3
+Merge segment information into \fIDataAttributeExtents\fP
+.IP 7. 3
+Merge \fIDataAttributeExtents\fP into overall \fIDataExtent\fP
 .UNINDENT
 .UNINDENT
 .SS Examples
@@ -130,8 +226,8 @@ scardac \-\-debug
 .UNINDENT
 .UNINDENT
 .IP 2. 3
-Update the availability of waveform data files existing in the standard
-\fI\%SDS\fP archive to the seiscomp database and create an XML file using
+Synchronize the availability of waveform data files existing in the standard
+\fI\%SDS\fP archive with the seiscomp database and create an XML file using
 \fI\%scxmldump\fP:
 .INDENT 3.0
 .INDENT 3.5
@@ -145,8 +241,8 @@ scxmldump \-Yf \-d mysql://sysop:sysop@localhost/seiscomp \-o availability.xml
 .UNINDENT
 .UNINDENT
 .IP 3. 3
-Update the availability of waveform data files existing in the standard
-\fI\%SDS\fP archive to the seiscomp database. Use \fI\%fdsnws\fP to fetch a flat file containing a list
+Synchronize the availability of waveform data files existing in the standard
+\fI\%SDS\fP archive with the seiscomp database. Use \fI\%fdsnws\fP to fetch a flat file containing a list
 of periods of available data from stations of the CX network sharing the same
 quality and sampling rate attributes:
 .INDENT 3.0
@@ -188,10 +284,17 @@ Default: \fB@SEISCOMP_ROOT@/var/lib/archive\fP
 .sp
 Type: \fIstring\fP
 .sp
-Path to MiniSeed waveform archive where all data is stored. The SDS archive
-structure is defined as
-YEAR/NET/STA/CHA/NET.STA.LOC.CHA.YEAR.DATEOFYEAR, e.g.
+The URL to the waveform archive where all data is stored.
+.sp
+Format: [\fI\%service://\fP]location[#type]
+.sp
+\(dqservice\(dq: The type of the archive. If not given,
+\(dqsds://\(dq is implied assuming an SDS archive. The SDS
+archive structure is defined as
+YEAR/NET/STA/CHA/NET.STA.LOC.CHA.YEAR.DAYFYEAR, e.g.
 2018/GE/APE/BHZ.D/GE.APE..BHZ.D.2018.125
+.sp
+Other archive types may be considered by plugins.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -201,16 +304,6 @@ Default: \fB1\fP
 Type: \fIint\fP
 .sp
 Number of threads scanning the archive in parallel.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B batchSize
-Default: \fB100\fP
-.sp
-Type: \fIint\fP
-.sp
-Batch size of database transactions used when updating data
-availability segments. Allowed range: [1,1000].
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -231,8 +324,121 @@ Type: \fIint\fP
 .sp
 Maximum number of segments per stream. If the limit is reached
 no more segments are added to the database and the corresponding
-extent is flagged as to fragmented. Use a negative value to
+extent is flagged as too fragmented. Use a negative value to
 disable any limit.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B nslcFile
+Type: \fIstring\fP
+.sp
+Line\-based text file of form NET.STA.LOC.CHA defining available
+stream IDs. Depending on the archive type, size and storage
+media used this file may offer a significant performance
+improvement compared to collecting the available streams on each
+startup. Filters defined under \fIfilter.nslc\fP still apply.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBfilter.*\fP
+\fIParameters of this section limit the data processing to either\fP
+**
+\fIreduce the scan time of larger archives or to\fP
+**
+\fIprevent deletion of availability information even though parts\fP
+\fIof the archive have been deleted or moved to a different\fP
+\fIlocation.\fP
+.UNINDENT
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBfilter.time.*\fP
+\fILimit the processing by record time.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B filter.time.start
+Type: \fIstring\fP
+.sp
+Start of data availability check given as date string or
+as number of days before now.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B filter.time.end
+Type: \fIstring\fP
+.sp
+End of data availability check given as date string or
+as number of days before now.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBfilter.nslc.*\fP
+\fILimit the processing by stream IDs.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B filter.nslc.include
+Type: \fIlist:string\fP
+.sp
+Comma\-separated list of stream IDs to process. If
+empty all streams are accepted unless an exclude filter
+is defined. The following wildcards are supported: \(aq*\(aq
+and \(aq?\(aq.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B filter.nslc.exclude
+Type: \fIlist:string\fP
+.sp
+Comma\-separated list of stream IDs to exclude from
+processing. Excludes take precedence over includes. The
+following wildcards are supported: \(aq*\(aq and \(aq?\(aq.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBmtime.*\fP
+\fIParameters of this section control the rescan of data chunks.\fP
+\fIBy default the last update time of the extent is compared with\fP
+\fIthe record file modification time to read only files modified\fP
+\fIsince the list run.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B mtime.ignore
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+If set to true all data chunks are read independent of their
+mtime.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B mtime.start
+Type: \fIstring\fP
+.sp
+Only read chunks modified after specific date given as date
+string or as number of days before now.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B mtime.end
+Type: \fIstring\fP
+.sp
+Only read chunks modified before specific date given as date
+string or as number of days before now.
 .UNINDENT
 .SH COMMAND-LINE OPTIONS
 .sp
@@ -340,20 +546,55 @@ Overrides configuration parameter \fI\%threads\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-b, \-\-batch\-size arg
-Overrides configuration parameter \fBbatchsize\fP\&.
+.B \-j, \-\-jitter arg
+Overrides configuration parameter \fI\%jitter\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-j, \-\-jitter arg
-Overrides configuration parameter \fI\%jitter\fP\&.
+.B \-\-nslc arg
+Overrides configuration parameter \fI\%nslcFile\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-start arg
+Overrides configuration parameter \fI\%filter.time.start\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-end arg
+Overrides configuration parameter \fI\%filter.time.end\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-include arg
+Overrides configuration parameter \fI\%filter.nslc.include\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-exclude arg
+Overrides configuration parameter \fI\%filter.nslc.exclude\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-deep\-scan
+Overrides configuration parameter \fI\%mtime.ignore\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-modified\-since arg
+Overrides configuration parameter \fI\%mtime.start\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-modified\-until arg
+Overrides configuration parameter \fI\%mtime.end\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-generate\-test\-data arg
 Do not scan the archive but generate test data for each
 stream in the inventory. Format:
-days,gaps,gapslen,overlaps,overlaplen. E.g. the following
+days,gaps,gapslen,overlaps,overlaplen. E.g., the following
 parameter list would generate test data for 100 days
 (starting from now()\-100) which includes 150 gaps with a
 length of 2.5s followed by 50 overlaps with an overlap of

@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -91,10 +91,11 @@ and associate origins from other agencies.</p>
 <li><p>Set the <a class="reference internal" href="#scevent-preforg"><span class="std std-ref">preferred origin</span></a> from all available origins.</p></li>
 <li><p>Set the <a class="reference internal" href="#scevent-prefmag"><span class="std std-ref">preferred magnitude</span></a> from all available magnitudes.</p></li>
 <li><p>Set the <a class="reference internal" href="#scevent-preffm"><span class="std std-ref">preferred focal mechanism</span></a> from all available focal mechanisms.</p></li>
-<li><p><em>Optional:</em> Set the event type of automatic origins based on the plugin
-<a class="reference internal" href="scevent_regioncheck.html#scevent-regioncheck"><span class="std std-ref">evrc</span></a> and the hypocenter location of the preferred
-origin. This requires the configuration of the <a class="reference internal" href="scevent_regioncheck.html#scevent-regioncheck"><span class="std std-ref">evrc</span></a>
-plugin and of regions by <a class="reference internal" href="global_gui.html#sec-gui-layers"><span class="std std-ref">BNA polygons</span></a>.</p></li>
+<li><p><em>Optional:</em> Set the event type of automatic origins based by the plugin
+<a class="reference internal" href="scevent_regioncheck.html#scevent-regioncheck"><span class="std std-ref">evrc</span></a> based on the hypocenter location of the
+preferred origin. This requires the configuration of the
+<a class="reference internal" href="scevent_regioncheck.html#scevent-regioncheck"><span class="std std-ref">evrc</span></a> plugin and of geographic regions by
+<a class="reference internal" href="global_gui.html#sec-gui-layers"><span class="std std-ref">polygons in BNA or GeoJSON format</span></a>.</p></li>
 </ul>
 </section>
 <section id="origin-association">
@@ -107,7 +108,16 @@ to the same event object in <cite>SeisComP</cite>.</p></li>
 <li><p>Associate origins belonging to <strong>different seismic events</strong>
 to different event objects in <cite>SeisComP</cite>.</p></li>
 </ul>
-<p>If a match is not found, a new event can be formed.</p>
+<p>If no match can be found, a new event can be formed.</p>
+<p>Origins can be filtered/ignored based on</p>
+<ul class="simple">
+<li><p>ID of agency which has created the origin:
+<a class="reference internal" href="global.html#confval-processing.blacklist.agencies"><code class="xref std std-confval docutils literal notranslate"><span class="pre">processing.blacklist.agencies</span></code></a>,
+<a class="reference internal" href="global.html#confval-processing.whitelist.agencies"><code class="xref std std-confval docutils literal notranslate"><span class="pre">processing.whitelist.agencies</span></code></a> (global parameters),</p></li>
+<li><p>Hypocenter parameters: <a class="reference internal" href="#confval-eventAssociation.region.rect"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.region.rect</span></code></a>,
+<a class="reference internal" href="#confval-eventAssociation.region.minDepth"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.region.minDepth</span></code></a>,
+<a class="reference internal" href="#confval-eventAssociation.region.maxDepth"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.region.maxDepth</span></code></a>.</p></li>
+</ul>
 <section id="origin-match">
 <h3>Origin match<a class="headerlink" href="#origin-match" title="Permalink to this heading">¶</a></h3>
 <p>The new origin is matched to existing origins by comparing differences in epicenter,
@@ -493,7 +503,7 @@ the given time ranges for event association.</p>
 <span class="sig-name descname"><span class="pre">populateFERegion</span></span><a class="headerlink" href="#confval-populateFERegion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
-<p>If enabled then the EventDescription with type
+<p>If enabled, then the EventDescription with type
 ‘Flinn-Engdahl region’ will be populated with the
 Flinn-Engdahl region name.</p>
 </dd></dl>
@@ -502,12 +512,12 @@ Flinn-Engdahl region name.</p>
 <dt class="sig sig-object std" id="confval-processing.blacklist.eventIDs">
 <span class="sig-name descname"><span class="pre">processing.blacklist.eventIDs</span></span><a class="headerlink" href="#confval-processing.blacklist.eventIDs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
-<p>Defines a blacklist of event ids. The items of this list
-are only matches against %c, %C, %d, %x and %X of the
-eventIDPattern description. Year (%Y) and prefix (%p) are
-not matched. The match is case-sensitive, so blacklisting
-e.g. abcd would only match in combination with %c. If %C
-is used ABCD has to be blacklisted.</p>
+<p>Defines a list of event ID patterns to be blocked. The
+items of this list are only matched against %c, %C, %d,
+%x and %X of the eventIDPattern description. Year (%Y)
+and prefix (%p) are not matched. The match is
+case-sensitive, so ‘abcd’ would only by blocked in
+combination with %c. If %C is used, ‘ABCD’ is matched.</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -1281,7 +1291,7 @@ can be queried with &quot;--db-driver-list&quot;.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

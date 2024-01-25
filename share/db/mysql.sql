@@ -85,7 +85,7 @@ CREATE TABLE PublicObject (
 		ON DELETE CASCADE
 ) ENGINE=INNODB;
 
-INSERT INTO Meta(name,value) VALUES ('Schema-Version', '0.12');
+INSERT INTO Meta(name,value) VALUES ('Schema-Version', '0.13.0');
 INSERT INTO Meta(name,value) VALUES ('Creation-Time', CURRENT_TIMESTAMP);
 
 INSERT INTO Object(_oid) VALUES (NULL);
@@ -1663,7 +1663,7 @@ CREATE TABLE JournalEntry (
 	objectID VARCHAR(255) NOT NULL,
 	sender VARCHAR(80) NOT NULL,
 	action VARCHAR(160) NOT NULL,
-	parameters VARCHAR(160),
+	parameters BLOB,
 	PRIMARY KEY(_oid),
 	INDEX(_parent_oid),
 	INDEX(objectID),

@@ -25,7 +25,7 @@
  * ================
  *
  * This stylesheet converts a SC3ML to a QuakeML-RT document. It may be
- * invoked e.g. using xalan or xsltproc:
+ * invoked, e.g., using xalan or xsltproc:
  *
  *   xalan -in sc3ml.xml -xsl sc3ml_0.12__quakeml_1.2-RT.xsl -out quakeml.xml
  *   xsltproc -o quakeml.xml sc3ml_0.12__quakeml_1.2-RT.xsl sc3ml.xml
@@ -183,6 +183,16 @@
  *                the confidenceLevel parameter in the OriginUncertainty
  *                element.
  *
+ *  * 01.11.2023:
+ *    - Map additional SC event types 'calving', 'frost quake', 'tremor pulse'
+ *      and 'submarine landslide', 'rocket impact', 'artillery strike',
+ *      'bomb detonation', 'moving aircraft' and
+ *      'atmospheric meteor explosion' to QuakeML 'other event'.
+ *    - Skip eventTypeCertainty if value is set to 'damaging' or 'felt'
+ *      both unsupported by QuakeML.
+ *    - Skip originUncertaintyDescription if value is set to
+ *      'probability density function' not supported by QuakeML.
+ *
  ********************************************************************** -->
 <xsl:stylesheet version="1.0"
         xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -310,9 +320,30 @@
                 <xsl:when test="$v='outside of network interest'">other event</xsl:when>
                 <xsl:when test="$v='duplicate'">other event</xsl:when>
                 <xsl:when test="$v='other'">other event</xsl:when>
+                <xsl:when test="$v='calving'">other event</xsl:when>
+                <xsl:when test="$v='frost quake'">other event</xsl:when>
+                <xsl:when test="$v='tremor pulse'">other event</xsl:when>
+                <xsl:when test="$v='submarine landslide'">other event</xsl:when>
+                <xsl:when test="$v='rocket'">other event</xsl:when>
+                <xsl:when test="$v='rocket impact'">other event</xsl:when>
+                <xsl:when test="$v='artillery strike'">other event</xsl:when>
+                <xsl:when test="$v='bomb detonation'">other event</xsl:when>
+                <xsl:when test="$v='moving aircraft'">other event</xsl:when>
+                <xsl:when test="$v='atmospheric meteor explosion'">other event</xsl:when>
                 <xsl:otherwise><xsl:value-of select="$v"/></xsl:otherwise>
             </xsl:choose>
         </xsl:element>
+    </xsl:template>
+
+    <!-- event type certainty, enumeration of QML only includes
+         'known' and 'suspected' but not 'damaging' nor 'felt' -->
+    <xsl:template match="scs:eventTypeCertainty">
+        <xsl:variable name="v" select="current()"/>
+        <xsl:if test="$v='known' or $v='suspected'">
+            <xsl:element name="{local-name()}">
+                <xsl:value-of select="$v"/>
+            </xsl:element>
+        </xsl:if>
     </xsl:template>
 
     <!-- origin depth, SC3ML uses kilometer, QML meter -->
@@ -481,6 +512,17 @@
         <xsl:call-template name="genericNode">
             <xsl:with-param name="name" select="'originUncertainty'"/>
         </xsl:call-template>
+    </xsl:template>
+
+    <!-- originUncertaintyDescription, enumeration of QML does not
+         include 'probability density function' -->
+    <xsl:template match="scs:originUncertaintyDescription">
+        <xsl:variable name="v" select="current()"/>
+        <xsl:if test="$v!='probability density function'">
+            <xsl:element name="{local-name()}">
+                <xsl:value-of select="$v"/>
+            </xsl:element>
+        </xsl:if>
     </xsl:template>
 
     <!-- waveformID: SCS uses a child element 'resourceURI', QML

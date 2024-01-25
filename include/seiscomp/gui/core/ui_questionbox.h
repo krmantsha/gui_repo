@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'questionbox.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.7
+** Created by: Qt User Interface Compiler version 5.9.7
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,17 +10,17 @@
 #define UI_QUESTIONBOX_H
 
 #include <QtCore/QVariant>
-#include <QtGui/QAction>
-#include <QtGui/QApplication>
-#include <QtGui/QButtonGroup>
-#include <QtGui/QCheckBox>
-#include <QtGui/QDialog>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QHeaderView>
-#include <QtGui/QLabel>
-#include <QtGui/QPushButton>
-#include <QtGui/QSpacerItem>
-#include <QtGui/QVBoxLayout>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QVBoxLayout>
 
 QT_BEGIN_NAMESPACE
 
@@ -46,7 +46,7 @@ public:
     void setupUi(QDialog *QuestionBox)
     {
         if (QuestionBox->objectName().isEmpty())
-            QuestionBox->setObjectName(QString::fromUtf8("QuestionBox"));
+            QuestionBox->setObjectName(QStringLiteral("QuestionBox"));
         QuestionBox->resize(231, 131);
         QSizePolicy sizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(4));
         sizePolicy.setHorizontalStretch(0);
@@ -62,7 +62,7 @@ public:
 #ifndef Q_OS_MAC
         vboxLayout->setContentsMargins(9, 9, 9, 9);
 #endif
-        vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
+        vboxLayout->setObjectName(QStringLiteral("vboxLayout"));
         hboxLayout = new QHBoxLayout();
 #ifndef Q_OS_MAC
         hboxLayout->setSpacing(6);
@@ -70,7 +70,7 @@ public:
 #ifndef Q_OS_MAC
         hboxLayout->setContentsMargins(0, 0, 0, 0);
 #endif
-        hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
+        hboxLayout->setObjectName(QStringLiteral("hboxLayout"));
         vboxLayout1 = new QVBoxLayout();
 #ifndef Q_OS_MAC
         vboxLayout1->setSpacing(6);
@@ -78,9 +78,9 @@ public:
 #ifndef Q_OS_MAC
         vboxLayout1->setContentsMargins(0, 0, 0, 0);
 #endif
-        vboxLayout1->setObjectName(QString::fromUtf8("vboxLayout1"));
+        vboxLayout1->setObjectName(QStringLiteral("vboxLayout1"));
         labelIcon = new QLabel(QuestionBox);
-        labelIcon->setObjectName(QString::fromUtf8("labelIcon"));
+        labelIcon->setObjectName(QStringLiteral("labelIcon"));
         QSizePolicy sizePolicy1(static_cast<QSizePolicy::Policy>(4), static_cast<QSizePolicy::Policy>(4));
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
@@ -102,9 +102,9 @@ public:
         vboxLayout2->setSpacing(6);
 #endif
         vboxLayout2->setContentsMargins(0, 0, 0, 0);
-        vboxLayout2->setObjectName(QString::fromUtf8("vboxLayout2"));
+        vboxLayout2->setObjectName(QStringLiteral("vboxLayout2"));
         labelMessage = new QLabel(QuestionBox);
-        labelMessage->setObjectName(QString::fromUtf8("labelMessage"));
+        labelMessage->setObjectName(QStringLiteral("labelMessage"));
         sizePolicy.setHeightForWidth(labelMessage->sizePolicy().hasHeightForWidth());
         labelMessage->setSizePolicy(sizePolicy);
         labelMessage->setFrameShape(QFrame::NoFrame);
@@ -112,7 +112,7 @@ public:
         vboxLayout2->addWidget(labelMessage);
 
         labelInfo = new QLabel(QuestionBox);
-        labelInfo->setObjectName(QString::fromUtf8("labelInfo"));
+        labelInfo->setObjectName(QStringLiteral("labelInfo"));
         sizePolicy.setHeightForWidth(labelInfo->sizePolicy().hasHeightForWidth());
         labelInfo->setSizePolicy(sizePolicy);
         labelInfo->setMinimumSize(QSize(0, 0));
@@ -135,9 +135,9 @@ public:
         vboxLayout3->setSpacing(6);
 #endif
         vboxLayout3->setContentsMargins(0, 0, 0, 0);
-        vboxLayout3->setObjectName(QString::fromUtf8("vboxLayout3"));
+        vboxLayout3->setObjectName(QStringLiteral("vboxLayout3"));
         checkBox = new QCheckBox(QuestionBox);
-        checkBox->setObjectName(QString::fromUtf8("checkBox"));
+        checkBox->setObjectName(QStringLiteral("checkBox"));
 
         vboxLayout3->addWidget(checkBox);
 
@@ -146,9 +146,9 @@ public:
         hboxLayout1->setSpacing(6);
 #endif
         hboxLayout1->setContentsMargins(0, 0, 0, 0);
-        hboxLayout1->setObjectName(QString::fromUtf8("hboxLayout1"));
+        hboxLayout1->setObjectName(QStringLiteral("hboxLayout1"));
         yesButton = new QPushButton(QuestionBox);
-        yesButton->setObjectName(QString::fromUtf8("yesButton"));
+        yesButton->setObjectName(QStringLiteral("yesButton"));
 
         hboxLayout1->addWidget(yesButton);
 
@@ -157,7 +157,7 @@ public:
         hboxLayout1->addItem(spacerItem2);
 
         noButton = new QPushButton(QuestionBox);
-        noButton->setObjectName(QString::fromUtf8("noButton"));
+        noButton->setObjectName(QStringLiteral("noButton"));
 
         hboxLayout1->addWidget(noButton);
 
@@ -177,13 +177,13 @@ public:
 
     void retranslateUi(QDialog *QuestionBox)
     {
-        QuestionBox->setWindowTitle(QApplication::translate("QuestionBox", "Question", 0, QApplication::UnicodeUTF8));
+        QuestionBox->setWindowTitle(QApplication::translate("QuestionBox", "Question", Q_NULLPTR));
         labelIcon->setText(QString());
         labelMessage->setText(QString());
         labelInfo->setText(QString());
-        checkBox->setText(QApplication::translate("QuestionBox", "Do not show this message again", 0, QApplication::UnicodeUTF8));
-        yesButton->setText(QApplication::translate("QuestionBox", "Yes", 0, QApplication::UnicodeUTF8));
-        noButton->setText(QApplication::translate("QuestionBox", "No", 0, QApplication::UnicodeUTF8));
+        checkBox->setText(QApplication::translate("QuestionBox", "Do not show this message again", Q_NULLPTR));
+        yesButton->setText(QApplication::translate("QuestionBox", "Yes", Q_NULLPTR));
+        noButton->setText(QApplication::translate("QuestionBox", "No", Q_NULLPTR));
     } // retranslateUi
 
 };

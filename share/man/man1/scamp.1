@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "SCAMP" "1" "Jan 18, 2024" "5.5.17" "SeisComP"
+.TH "SCAMP" "1" "Jan 18, 2024" "6.1.2" "SeisComP"
 .SH NAME
 scamp \- SeisComP Documentation
 .sp
@@ -76,18 +76,18 @@ various magnitude types must typically match exactly. Exceptions:
 .INDENT 0.0
 .TP
 .B \fI\%Md\fP
-Duration magnitude as described in HYPOINVERSE (Klein [\fI\%47\fP]).
+Duration magnitude as described in HYPOINVERSE (Klein [\fI\%50\fP]).
 .TP
 .B \fI\%Mjma\fP
 Mjma is computed on displacement data using body waves of period < 30s.
 .TP
 .B \fI\%ML\fP
 Local (Richter) magnitude calculated on the horizontal components using a
-correction term to fit with the standard ML (Richter [\fI\%53\fP]).
+correction term to fit with the standard ML (Richter [\fI\%57\fP]).
 .TP
 .B \fI\%MLc\fP
 Local custom magnitude calculated on the horizontal components according to
-Hessian Earthquake Service and Stange [\fI\%57\fP]
+Hessian Earthquake Service and Stange [\fI\%61\fP]
 .TP
 .B \fI\%MLh\fP
 Local magnitude calculated on the horizontal components according to SED
@@ -98,7 +98,7 @@ Local magnitude calculated on the vertical component using a correction term
 to fit with the standard ML.
 .TP
 .B AMN for \fI\%MN\fP
-Nuttli magnitude for Canada and other Cratonic regions (Nuttli [\fI\%50\fP]).
+Nuttli magnitude for Canada and other Cratonic regions (Nuttli [\fI\%53\fP]).
 .UNINDENT
 .SS Teleseismic distances
 .INDENT 0.0
@@ -110,10 +110,10 @@ Narrow band body wave magnitude measured on a WWSSN\-SP filtered trace
 Cumulative body wave magnitude
 .TP
 .B \fI\%mB\fP
-Broad band body wave magnitude after Bormann and Saul [\fI\%35\fP]
+Broad band body wave magnitude after Bormann and Saul [\fI\%38\fP]
 .TP
 .B \fI\%Mwp\fP
-The body wave magnitude of Tsuboi \fIet al.\fP [\fI\%58\fP]
+The body wave magnitude of Tsuboi \fIet al.\fP [\fI\%62\fP]
 .TP
 .B \fI\%Ms_20\fP
 Surface\-wave magnitude at 20 s period

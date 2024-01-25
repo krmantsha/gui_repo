@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -875,6 +875,8 @@
 </li>
         <li><a href="apps/scautopick.html#confval-amplitudes.enableUpdate">amplitudes.enableUpdate</a>
 </li>
+        <li><a href="apps/global.html#confval-amplitudes.iaspei">amplitudes.iaspei</a>
+</li>
         <li><a href="apps/global.html#confval-amplitudes.ML.combiner">amplitudes.ML.combiner</a>
 </li>
         <li><a href="apps/global.html#confval-amplitudes.ML.measureType">amplitudes.ML.measureType</a>
@@ -917,6 +919,10 @@
 </li>
         <li><a href="apps/global.html#confval-amplitudes.MN.Vmin">amplitudes.MN.Vmin</a>
 </li>
+        <li><a href="apps/global.html#confval-amplitudes.Ms_20.maxVelocity">amplitudes.Ms_20.maxVelocity</a>
+</li>
+        <li><a href="apps/global.html#confval-amplitudes.Ms_20.minVelocity">amplitudes.Ms_20.minVelocity</a>
+</li>
         <li><a href="apps/scwfparam.html#confval-amplitudes.PGAV.saturationThreshold">amplitudes.PGAV.saturationThreshold</a>
 </li>
         <li><a href="apps/global.html#confval-amplitudes.resp.maxFreq">amplitudes.resp.maxFreq</a>
@@ -927,11 +933,15 @@
 </li>
         <li><a href="apps/global.html#confval-amplitudes.saturationThreshold">amplitudes.saturationThreshold</a>
 </li>
-        <li><a href="apps/global.html#confval-0">amplitudes.WoodAnderson.gain</a>, <a href="apps/global.html#confval-amplitudes.WoodAnderson.gain">[1]</a>
+        <li><a href="apps/global.html#confval-0">amplitudes.ttt.interface</a>, <a href="apps/global.html#confval-amplitudes.ttt.interface">[1]</a>
 </li>
-        <li><a href="apps/global.html#confval-2">amplitudes.WoodAnderson.h</a>, <a href="apps/global.html#confval-amplitudes.WoodAnderson.h">[1]</a>
+        <li><a href="apps/global.html#confval-1">amplitudes.ttt.model</a>, <a href="apps/global.html#confval-amplitudes.ttt.model">[1]</a>
 </li>
-        <li><a href="apps/global.html#confval-1">amplitudes.WoodAnderson.T0</a>, <a href="apps/global.html#confval-amplitudes.WoodAnderson.T0">[1]</a>
+        <li><a href="apps/global.html#confval-2">amplitudes.WoodAnderson.gain</a>, <a href="apps/global.html#confval-amplitudes.WoodAnderson.gain">[1]</a>
+</li>
+        <li><a href="apps/global.html#confval-4">amplitudes.WoodAnderson.h</a>, <a href="apps/global.html#confval-amplitudes.WoodAnderson.h">[1]</a>
+</li>
+        <li><a href="apps/global.html#confval-3">amplitudes.WoodAnderson.T0</a>, <a href="apps/global.html#confval-amplitudes.WoodAnderson.T0">[1]</a>
 </li>
         <li><a href="apps/scamp.html#confval-amptool.initialAcquisitionTimeout">amptool.initialAcquisitionTimeout</a>
 </li>
@@ -942,6 +952,8 @@
         <li><a href="apps/scmv.html#confval-annotations">annotations</a>
 </li>
         <li><a href="apps/scmv.html#confval-annotationsWithChannels">annotationsWithChannels</a>
+</li>
+        <li><a href="apps/screpick.html#confval-anyPhase">anyPhase</a>
 </li>
         <li><a href="apps/scardac.html#confval-archive">archive</a>, <a href="apps/slarchive.html#confval-archive">[1]</a>
 </li>
@@ -1047,7 +1059,7 @@
 </li>
         <li><a href="apps/ql2sc.html#confval-backLog">backLog</a>
 </li>
-        <li><a href="apps/ql2sc.html#confval-batchSize">batchSize</a>, <a href="apps/scardac.html#confval-batchSize">[1]</a>
+        <li><a href="apps/ql2sc.html#confval-batchSize">batchSize</a>
 </li>
         <li><a href="apps/seedlink.html#confval-4">blanks</a>, <a href="apps/seedlink.html#confval-blanks">[1]</a>
 </li>
@@ -1319,6 +1331,8 @@
 </li>
         <li><a href="apps/slmon.html#confval-email">email</a>
 </li>
+        <li><a href="apps/diskmon.html#confval-emails">emails</a>
+</li>
         <li><a href="apps/scesv.html#confval-enableFixAutomaticSolutions">enableFixAutomaticSolutions</a>
 </li>
         <li><a href="apps/seedlink.html#confval-5">encoding</a>, <a href="apps/seedlink.html#confval-encoding">[1]</a>
@@ -1571,6 +1585,10 @@
 </li>
         <li><a href="apps/scimport.html#confval-filter.magnitude.type">filter.magnitude.type</a>
 </li>
+        <li><a href="apps/scardac.html#confval-filter.nslc.exclude">filter.nslc.exclude</a>
+</li>
+        <li><a href="apps/scardac.html#confval-filter.nslc.include">filter.nslc.include</a>
+</li>
         <li><a href="apps/scimport.html#confval-filter.origin.agencyIDs">filter.origin.agencyIDs</a>
 </li>
         <li><a href="apps/scimport.html#confval-filter.origin.arrivalcount">filter.origin.arrivalcount</a>
@@ -1598,6 +1616,10 @@
         <li><a href="apps/scimport.html#confval-filter.qc.type">filter.qc.type</a>
 </li>
         <li><a href="apps/scimport.html#confval-filter.stationMagnitude.type">filter.stationMagnitude.type</a>
+</li>
+        <li><a href="apps/scardac.html#confval-filter.time.end">filter.time.end</a>
+</li>
+        <li><a href="apps/scardac.html#confval-filter.time.start">filter.time.start</a>
 </li>
         <li><a href="apps/scrttv.html#confval-filters">filters</a>
 </li>
@@ -1811,6 +1833,8 @@
 </li>
         <li><a href="apps/ql2sc.html#confval-host.-name.syncEventAttributes">host.$name.syncEventAttributes</a>
 </li>
+        <li><a href="apps/ql2sc.html#confval-host.-name.syncEventDelay">host.$name.syncEventDelay</a>
+</li>
         <li><a href="apps/ql2sc.html#confval-host.-name.syncPreferred">host.$name.syncPreferred</a>
 </li>
         <li><a href="apps/ql2sc.html#confval-host.-name.url">host.$name.url</a>
@@ -1961,6 +1985,8 @@
 </li>
         <li><a href="apps/scmaster.html#confval-interface.ssl.socketPortReuse">interface.ssl.socketPortReuse</a>
 </li>
+        <li><a href="apps/scmaster.html#confval-interface.ssl.verifyPeer">interface.ssl.verifyPeer</a>
+</li>
         <li><a href="apps/global.html#confval-inventory.blacklist.nettype">inventory.blacklist.nettype</a>
 </li>
         <li><a href="apps/global.html#confval-inventory.blacklist.statype">inventory.blacklist.statype</a>
@@ -2077,6 +2103,8 @@
 </li>
         <li><a href="apps/global.html#confval-magnitudes.-name.multiplier">magnitudes.$name.multiplier</a>
 </li>
+        <li><a href="apps/global.html#confval-magnitudes.-name.MwMapping">magnitudes.$name.MwMapping</a>
+</li>
         <li><a href="apps/global.html#confval-magnitudes.-name.offset">magnitudes.$name.offset</a>
 </li>
         <li><a href="apps/global.html#confval-magnitudes.-name.region.-name.check">magnitudes.$name.region.$name.check</a>
@@ -2096,6 +2124,8 @@
         <li><a href="apps/global.html#confval-magnitudes.-name.region.-name.offset">magnitudes.$name.region.$name.offset</a>
 </li>
         <li><a href="apps/global.html#confval-magnitudes.-name.regionFile">magnitudes.$name.regionFile</a>
+</li>
+        <li><a href="apps/global.html#confval-magnitudes.aliases">magnitudes.aliases</a>
 </li>
         <li><a href="apps/scmag.html#confval-magnitudes.average">magnitudes.average</a>
 </li>
@@ -2147,8 +2177,6 @@
 </li>
         <li><a href="apps/global.html#confval-magnitudes.ML.maxDistanceKm">magnitudes.ML.maxDistanceKm</a>
 </li>
-        <li><a href="apps/global.html#confval-magnitudes.ML.region.-name.logA0">magnitudes.ML.region.$name.logA0</a>, <a href="apps/global_ml.html#confval-magnitudes.ML.region.-name.logA0">[1]</a>
-</li>
         <li><a href="apps/global.html#confval-magnitudes.MLc.A0.logA0">magnitudes.MLc.A0.logA0</a>
 </li>
         <li><a href="apps/global.html#confval-magnitudes.MLc.calibrationType">magnitudes.MLc.calibrationType</a>
@@ -2173,20 +2201,6 @@
 </li>
         <li><a href="apps/global.html#confval-magnitudes.MLc.parametric.c5">magnitudes.MLc.parametric.c5</a>
 </li>
-        <li><a href="apps/global.html#confval-magnitudes.MLc.region.-name.A0.logA0">magnitudes.MLc.region.$name.A0.logA0</a>, <a href="apps/global_mlc.html#confval-magnitudes.MLc.region.-name.A0.logA0">[1]</a>
-</li>
-        <li><a href="apps/global.html#confval-magnitudes.MLc.region.-name.parametric.c0">magnitudes.MLc.region.$name.parametric.c0</a>, <a href="apps/global_mlc.html#confval-magnitudes.MLc.region.-name.parametric.c0">[1]</a>
-</li>
-        <li><a href="apps/global.html#confval-magnitudes.MLc.region.-name.parametric.c1">magnitudes.MLc.region.$name.parametric.c1</a>, <a href="apps/global_mlc.html#confval-magnitudes.MLc.region.-name.parametric.c1">[1]</a>
-</li>
-        <li><a href="apps/global.html#confval-magnitudes.MLc.region.-name.parametric.c2">magnitudes.MLc.region.$name.parametric.c2</a>, <a href="apps/global_mlc.html#confval-magnitudes.MLc.region.-name.parametric.c2">[1]</a>
-</li>
-        <li><a href="apps/global.html#confval-magnitudes.MLc.region.-name.parametric.c3">magnitudes.MLc.region.$name.parametric.c3</a>, <a href="apps/global_mlc.html#confval-magnitudes.MLc.region.-name.parametric.c3">[1]</a>
-</li>
-        <li><a href="apps/global.html#confval-magnitudes.MLc.region.-name.parametric.c4">magnitudes.MLc.region.$name.parametric.c4</a>, <a href="apps/global_mlc.html#confval-magnitudes.MLc.region.-name.parametric.c4">[1]</a>
-</li>
-        <li><a href="apps/global.html#confval-magnitudes.MLc.region.-name.parametric.c5">magnitudes.MLc.region.$name.parametric.c5</a>, <a href="apps/global_mlc.html#confval-magnitudes.MLc.region.-name.parametric.c5">[1]</a>
-</li>
         <li><a href="apps/global.html#confval-magnitudes.MLh.maxDepth">magnitudes.MLh.maxDepth</a>
 </li>
         <li><a href="apps/global.html#confval-magnitudes.MLh.params">magnitudes.MLh.params</a>
@@ -2196,8 +2210,6 @@
         <li><a href="apps/global.html#confval-magnitudes.MLv.logA0">magnitudes.MLv.logA0</a>
 </li>
         <li><a href="apps/global.html#confval-magnitudes.MLv.maxDistanceKm">magnitudes.MLv.maxDistanceKm</a>
-</li>
-        <li><a href="apps/global.html#confval-magnitudes.MLv.region.-name.logA0">magnitudes.MLv.region.$name.logA0</a>, <a href="apps/global_mlv.html#confval-magnitudes.MLv.region.-name.logA0">[1]</a>
 </li>
         <li><a href="apps/global.html#confval-magnitudes.MN.maxDist">magnitudes.MN.maxDist</a>
 </li>
@@ -2269,6 +2281,10 @@
 </li>
         <li><a href="apps/scm.html#confval-memailplugin.template">memailplugin.template</a>, <a href="apps/scm_email.html#confval-memailplugin.template">[1]</a>
 </li>
+        <li><a href="apps/kernel.html#confval-messaging.bind">messaging.bind</a>
+</li>
+        <li><a href="apps/kernel.html#confval-messaging.enable">messaging.enable</a>
+</li>
         <li><a href="apps/scrttv.html#confval-messaging.groups.config">messaging.groups.config</a>
 </li>
         <li><a href="apps/scrttv.html#confval-messaging.groups.location">messaging.groups.location</a>
@@ -2292,6 +2308,12 @@
         <li><a href="apps/seedlink.html#confval-msrtsimul">msrtsimul</a>
 </li>
         <li><a href="apps/scm.html#confval-mtextplugin.outputDir">mtextplugin.outputDir</a>, <a href="apps/scm_text.html#confval-mtextplugin.outputDir">[1]</a>
+</li>
+        <li><a href="apps/scardac.html#confval-mtime.end">mtime.end</a>
+</li>
+        <li><a href="apps/scardac.html#confval-mtime.ignore">mtime.ignore</a>
+</li>
+        <li><a href="apps/scardac.html#confval-mtime.start">mtime.start</a>
 </li>
         <li><a href="apps/seedlink.html#confval-network">network</a>
 </li>
@@ -2332,6 +2354,8 @@
         <li><a href="apps/global.html#confval-NonLinLoc.saveInput">NonLinLoc.saveInput</a>, <a href="apps/global_nonlinloc.html#confval-NonLinLoc.saveInput">[1]</a>
 </li>
         <li><a href="apps/global.html#confval-NonLinLoc.saveIntermediateOutput">NonLinLoc.saveIntermediateOutput</a>, <a href="apps/global_nonlinloc.html#confval-NonLinLoc.saveIntermediateOutput">[1]</a>
+</li>
+        <li><a href="apps/scardac.html#confval-nslcFile">nslcFile</a>
 </li>
         <li><a href="apps/scqcv.html#confval-offset.action">offset.action</a>
 </li>
@@ -2553,7 +2577,7 @@
 </li>
         <li><a href="apps/scautopick.html#confval-phaseHint">phaseHint</a>
 </li>
-        <li><a href="apps/scautopick.html#confval-picker">picker</a>
+        <li><a href="apps/scautopick.html#confval-picker">picker</a>, <a href="apps/screpick.html#confval-picker">[1]</a>
 </li>
         <li><a href="apps/scolv.html#confval-picker.accelerationChannelCodes">picker.accelerationChannelCodes</a>
 </li>
@@ -2945,6 +2969,8 @@
 </li>
         <li><a href="apps/scmaster.html#confval-queues.-name.processors.messages.dbstore.driver">queues.$name.processors.messages.dbstore.driver</a>
 </li>
+        <li><a href="apps/scmaster.html#confval-queues.-name.processors.messages.dbstore.proxy">queues.$name.processors.messages.dbstore.proxy</a>
+</li>
         <li><a href="apps/scmaster.html#confval-queues.-name.processors.messages.dbstore.read">queues.$name.processors.messages.dbstore.read</a>
 </li>
         <li><a href="apps/scmaster.html#confval-queues.-name.processors.messages.dbstore.strictVersionMatch">queues.$name.processors.messages.dbstore.strictVersionMatch</a>
@@ -3177,6 +3203,12 @@
 </li>
         <li><a href="apps/global.html#confval-scheme.colors.map.cityOutlines">scheme.colors.map.cityOutlines</a>, <a href="apps/global_gui.html#confval-scheme.colors.map.cityOutlines">[1]</a>
 </li>
+        <li><a href="apps/global.html#confval-scheme.colors.map.directivity.color">scheme.colors.map.directivity.color</a>, <a href="apps/global_gui.html#confval-scheme.colors.map.directivity.color">[1]</a>
+</li>
+        <li><a href="apps/global.html#confval-scheme.colors.map.directivity.style">scheme.colors.map.directivity.style</a>, <a href="apps/global_gui.html#confval-scheme.colors.map.directivity.style">[1]</a>
+</li>
+        <li><a href="apps/global.html#confval-scheme.colors.map.directivity.width">scheme.colors.map.directivity.width</a>, <a href="apps/global_gui.html#confval-scheme.colors.map.directivity.width">[1]</a>
+</li>
         <li><a href="apps/global.html#confval-scheme.colors.map.grid.color">scheme.colors.map.grid.color</a>, <a href="apps/global_gui.html#confval-scheme.colors.map.grid.color">[1]</a>
 </li>
         <li><a href="apps/global.html#confval-scheme.colors.map.grid.style">scheme.colors.map.grid.style</a>, <a href="apps/global_gui.html#confval-scheme.colors.map.grid.style">[1]</a>
@@ -3304,6 +3336,8 @@
         <li><a href="apps/global.html#confval-scheme.colors.records.subGridPen.width">scheme.colors.records.subGridPen.width</a>, <a href="apps/global_gui.html#confval-scheme.colors.records.subGridPen.width">[1]</a>
 </li>
         <li><a href="apps/global.html#confval-scheme.colors.recordView.selectedTraceZoom">scheme.colors.recordView.selectedTraceZoom</a>, <a href="apps/global_gui.html#confval-scheme.colors.recordView.selectedTraceZoom">[1]</a>
+</li>
+        <li><a href="apps/global.html#confval-scheme.colors.spectrogram">scheme.colors.spectrogram</a>, <a href="apps/global_gui.html#confval-scheme.colors.spectrogram">[1]</a>
 </li>
         <li><a href="apps/global.html#confval-scheme.colors.splash.message">scheme.colors.splash.message</a>, <a href="apps/global_gui.html#confval-scheme.colors.splash.message">[1]</a>
 </li>
@@ -3929,6 +3963,26 @@
 </li>
         <li><a href="apps/seedlink.html#confval-sources.win.udpport">sources.win.udpport</a>
 </li>
+        <li><a href="apps/scrttv.html#confval-spectrogram.axis">spectrogram.axis</a>
+</li>
+        <li><a href="apps/scrttv.html#confval-spectrogram.logScale">spectrogram.logScale</a>
+</li>
+        <li><a href="apps/scrttv.html#confval-spectrogram.maximumAmplitude">spectrogram.maximumAmplitude</a>
+</li>
+        <li><a href="apps/scrttv.html#confval-spectrogram.maximumFrequency">spectrogram.maximumFrequency</a>
+</li>
+        <li><a href="apps/scrttv.html#confval-spectrogram.minimumAmplitude">spectrogram.minimumAmplitude</a>
+</li>
+        <li><a href="apps/scrttv.html#confval-spectrogram.minimumFrequency">spectrogram.minimumFrequency</a>
+</li>
+        <li><a href="apps/scrttv.html#confval-spectrogram.normalization">spectrogram.normalization</a>
+</li>
+        <li><a href="apps/scrttv.html#confval-spectrogram.overlap">spectrogram.overlap</a>
+</li>
+        <li><a href="apps/scrttv.html#confval-spectrogram.smoothing">spectrogram.smoothing</a>
+</li>
+        <li><a href="apps/scrttv.html#confval-spectrogram.timeSpan">spectrogram.timeSpan</a>
+</li>
         <li><a href="apps/scautopick.html#confval-spicker">spicker</a>
 </li>
         <li><a href="apps/global.html#confval-spicker.L2.detecFilter">spicker.L2.detecFilter</a>
@@ -4187,13 +4241,21 @@
 </li>
         <li><a href="apps/global_gui.html#confval-symbol.icon.hotspot.y">symbol.icon.hotspot.y</a>
 </li>
+        <li><a href="apps/global_gui.html#confval-symbol.name.alignment">symbol.name.alignment</a>
+</li>
+        <li><a href="apps/global_gui.html#confval-symbol.name.margin">symbol.name.margin</a>
+</li>
         <li><a href="apps/global_gui.html#confval-symbol.shape">symbol.shape</a>
 </li>
         <li><a href="apps/global_gui.html#confval-symbol.size">symbol.size</a>
 </li>
         <li><a href="apps/scinv.html#confval-syncKeys">syncKeys</a>
 </li>
+        <li><a href="apps/kernel.html#confval-syslog">syslog</a>
+</li>
         <li><a href="apps/scardac.html#confval-threads">threads</a>
+</li>
+        <li><a href="apps/diskmon.html#confval-threshold">threshold</a>
 </li>
         <li><a href="apps/scautopick.html#confval-thresholds.amplMaxTimeWindow">thresholds.amplMaxTimeWindow</a>
 </li>
@@ -4768,7 +4830,7 @@
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

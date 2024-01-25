@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "INVEXTR" "1" "Jan 18, 2024" "5.5.17" "SeisComP"
+.TH "INVEXTR" "1" "Jan 18, 2024" "6.1.2" "SeisComP"
 .SH NAME
 invextr \- SeisComP Documentation
 .sp
@@ -310,6 +310,12 @@ which can contain wildcards. Default: *.*.*.* meaning
 all streams.
 .sp
 Example: invextr \-\-chans \(dqGE.*.*.BHZ,GE.MORC.*.*\(dq inv.xml
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-nslc arg
+Stream list file to be used for extracting inventory.
+Wildcards can be used. \-\-chans is ignored.
 .UNINDENT
 .INDENT 0.0
 .TP

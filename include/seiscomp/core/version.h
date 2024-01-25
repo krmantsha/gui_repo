@@ -31,12 +31,12 @@ namespace Seiscomp {
 namespace Core {
 
 
-/* #if (SC_API_VERSION >= SC_API_VERSION_CHECK(15, 6, 0)) */
+/* #if (SC_API_VERSION >= SC_API_VERSION_CHECK(16, 1, 0)) */
 #define SC_API_VERSION_CHECK(major, minor, patch) ((major<<16)|(minor<<8)|(patch))
 
 
 /* SC_API_VERSION is (major << 16) + (minor << 8) + patch. */
-#define SC_API_VERSION 0x0F0600
+#define SC_API_VERSION 0x100100
 
 #define SC_API_VERSION_MAJOR(v) (v >> 16)
 #define SC_API_VERSION_MINOR(v) ((v >> 8) & 0xff)
@@ -46,6 +46,51 @@ namespace Core {
 /******************************************************************************
  API Changelog
  ******************************************************************************
+ "16.1.0"   0x100100
+   - Added Seiscomp::DataModel::numberOfComponents
+
+ "16.0.0"   0x100000
+   - Added Seiscomp::Core::digits10
+   - Added Seiscomp::Client::Application::setDatabaseURI
+   - Added Seiscomp::Client::Application::setRecordStreamURL
+   - Removed Seiscomp::Math::round
+   - Renamed GenericMessage::AttachementType to GenericMessage::AttachmentType
+   - Renamed GenericMessage::AttachementList to GenericMessage::AttachmentList
+   - Made Seiscomp::Gui::Ruler::rulerWidth() public
+   - Made Seiscomp::Gui::Ruler::rulerHeight() public
+   - Made Seiscomp::Gui::Ruler::isBottom() public
+   - Made Seiscomp::Gui::Ruler::isTop() public
+   - Made Seiscomp::Gui::Ruler::isLeft() public
+   - Made Seiscomp::Gui::Ruler::isRight() public
+   - Made Seiscomp::Gui::Ruler::isHorizontal() public
+   - Made Seiscomp::Gui::Ruler::isVertical() public
+   - Add second parameter to Seiscomp::Gui::Ruler::setPosition(pos, allowRotation)
+   - Add Seiscomp::Gui::Ruler::setReverseDirection(bool)
+   - Changed KM_OF_DEGREE constant according to WGS84 mean radius definition
+   - Removed Seiscomp::Gui::Application::setDatabaseSOHInterval
+   - Added Seiscomp::Client::Application::stateOfHealth
+   - Removed virtual from Seiscomp::Core::BaseObject::operator=
+   - Removed virtual from Seiscomp::Gui::Map::Layer::operator=
+   - Changed signature of Seiscomp::Processing::MagnitudeProcessor::estimateMw
+   - Removed Seiscomp::DataModel::DatabaseArchive::write(object, parentID)
+   - Added Seiscomp::DataModel::DatabaseArchive::insert(object, parentID)
+   - Added Seiscomp::Processing::NCompsOperator<>::buffer()
+   - Added Seiscomp::Processing::NCompsOperator<>::proc()
+   - Added Seiscomp::Processing::NCompsOperator<>::reset()
+   - Added Seiscomp::Processing::CodeWrapper<>::reset()
+   - Added Seiscomp::Processing::StreamConfigWrapper<>::proc()
+   - Added Seiscomp::Processing::StreamConfigWrapper<>::reset()
+   - Added Seiscomp::Processing::NoOpWrapper<>::reset()
+   - Added Seiscomp::Processing::FilterWrapper<>::proc()
+   - Added Seiscomp::Processing::FilterWrapper<>::reset()
+   - Seiscomp::Geo::GeoCoordinate::ValueType = double
+   - Added Seiscomp::TravelTimeTableInterface::computeTime()
+   - Added Seiscomp::TravelTime::azi field
+   - Seiscomp::Math::Geo::delazi() allows null arguments
+   - Added Seiscomp::Math::Geo::delta()
+   - Added Seiscomp::Util::StopWatch::microseconds()
+   - Added Seiscomp::Util::StopWatch::nanoseconds()
+
  "15.6.0"   0x0F0600
    - Added Seiscomp::Gui::PickerView::setAuxiliaryChannels
 
@@ -67,6 +112,7 @@ namespace Core {
 
  "15.3.0"   0x0F0300
    - Added Seiscomp::Client::ThreadedQueue::isClosed
+   - Added Seiscomp::Client::ThreadedQueue::reset
 
  "15.2.0"   0x0F0200
    - Added Seiscomp::Wired::peerCertificate

@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -77,42 +77,25 @@
 </section>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
-<p>SeisComP is not a single executable but it provides a set of modules which
+<p>SeisComP is not a single executable but it provides a set of <a class="reference internal" href="../glossary.html#term-trunk"><span class="xref std std-term">trunk</span></a> and
+<a class="reference internal" href="../glossary.html#term-standalone-module"><span class="xref std std-term">standalone</span></a> <a class="reference internal" href="../glossary.html#term-module"><span class="xref std std-term">modules</span></a>. Trunk modules
 can be</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#concepts-modules-commandline"><span class="std std-ref">Command-line modules</span></a></p></li>
+<li><p><a class="reference internal" href="#concepts-modules-commandline"><span class="std std-ref">Command-line modules</span></a>,</p></li>
 <li><p><a class="reference internal" href="#concepts-modules-daemon"><span class="std std-ref">Daemon modules</span></a>.</p></li>
 </ul>
-<p>A <a class="reference internal" href="../glossary.html#term-module"><span class="xref std std-term">module</span></a> is <a class="reference internal" href="#concepts-modules-config"><span class="std std-ref">configured by its configuration files</span></a> either to be used directly or to
-generate its native configuration. Modules that need to convert the configuration or do not
-use the default configuration options (see below) are called <a class="reference internal" href="../glossary.html#term-standalone-module"><span class="xref std std-term">standalone modules</span></a>.
+<p>Modules are <a class="reference internal" href="#concepts-modules-config"><span class="std std-ref">configured by configuration files</span></a>
+either to be used directly or to generate its native configuration. Modules that
+need to convert the configuration or do not use the default configuration
+options (see below) are called <a class="reference internal" href="../glossary.html#term-standalone-module"><span class="xref std std-term">standalone modules</span></a>.
 All other modules are called <a class="reference internal" href="../glossary.html#term-trunk"><span class="xref std std-term">trunk</span></a> modules.</p>
 <p>Examples for standalone modules are <a class="reference internal" href="../../apps/seedlink.html#seedlink"><span class="std std-ref">seedlink</span></a>, <a class="reference internal" href="../../apps/slarchive.html#slarchive"><span class="std std-ref">slarchive</span></a> and <a class="reference internal" href="../../apps/slmon.html#slmon"><span class="std std-ref">slmon</span></a>.</p>
-</section>
-<section id="command-line-tools">
-<span id="concepts-modules-commandline"></span><h2>Command-Line Tools<a class="headerlink" href="#command-line-tools" title="Permalink to this heading">¶</a></h2>
-<p>Command-line modules can be executed on demand from the SHELL command-line. These
-modules can be utilities or <a class="reference internal" href="../glossary.html#term-GUI"><span class="xref std std-term">GUIs</span></a>, e.g.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>scolv<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
-scolv<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
-</pre></div>
-</div>
-<p>Command-line modules are found in $SEISCOMP_ROOT/bin but they are <strong>NOT</strong> listed
-when executing</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>list<span class="w"> </span>modules
-</pre></div>
-</div>
-<p>Using options like <em>-h</em> the list of available command-line options can be learned.
-Debugging information can be obtained during runtime using the –debug option:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scbulletin<span class="w"> </span>-h
-scbulletin<span class="w"> </span>--debug<span class="w"> </span><span class="o">[</span>more<span class="w"> </span>options<span class="o">]</span>
-</pre></div>
-</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In order to execute modules without <em>seiscomp exec</em>, the SeisComP environment
-variable must be known to the system. The environment variables and their values
-can be printed giving the full path to the <em>seiscomp</em> script:, e.g.</p>
+<p>In order to start or execute modules without <strong class="command">seiscomp exec</strong>
+(see below), the <cite>SeisComP</cite> SHELL environment variables must be known to the
+system. The variables and their values can be printed giving the full path to
+the <a class="reference internal" href="../../apps/seiscomp.html#seiscomp"><span class="std std-ref">seiscomp</span></a> tool. Example:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>/home/sysop/seiscomp/bin/seiscomp<span class="w"> </span>print<span class="w"> </span>env
 </pre></div>
 </div>
@@ -120,8 +103,10 @@ can be printed giving the full path to the <em>seiscomp</em> script:, e.g.</p>
 </section>
 <section id="daemon-tools">
 <span id="concepts-modules-daemon"></span><h2>Daemon Tools<a class="headerlink" href="#daemon-tools" title="Permalink to this heading">¶</a></h2>
-<p>Daemon tools can run in the background, e.g. for automatic data acquisition or
-processing. The names of all daemon modules are listed when executing</p>
+<p>Daemon tools are <cite>SeisComP</cite> modules that can run automatically in the background
+without user interaction, e.g., for automatic data acquisition or data
+processing. The names of all daemon modules are listed when executing the
+<a class="reference internal" href="../../apps/seiscomp.html#seiscomp"><span class="std std-ref">seiscomp</span></a> tool with <strong class="command">list modules</strong>:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>list<span class="w"> </span>modules
 </pre></div>
 </div>
@@ -129,15 +114,62 @@ processing. The names of all daemon modules are listed when executing</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>start<span class="w"> </span>scautopick
 </pre></div>
 </div>
-<p>When starting a daemon module all verbosity output is stored in &#64;LOGDIR&#64; or
-$SEISCOMP_ROOT/var/log. Daemon modules can also be executed as
+<p>When starting a daemon module, all verbosity output is logged to
+<a class="reference internal" href="#concepts-modules-logging"><span class="std std-ref">log files</span></a>. Daemon modules can also be executed
+as <a class="reference internal" href="#concepts-modules-commandline"><span class="std std-ref">command-line tools</span></a>.</p>
+</section>
+<section id="command-line-tools">
+<span id="concepts-modules-commandline"></span><h2>Command-Line Tools<a class="headerlink" href="#command-line-tools" title="Permalink to this heading">¶</a></h2>
+<p>All non-daemon modules are command-line modules. These command-line modules
+and most <a class="reference internal" href="#concepts-modules-daemon"><span class="std std-ref">daemon modules</span></a> can be executed on
+demand from the SHELL command-line. These modules can also be
+utilities or <a class="reference internal" href="../glossary.html#term-GUI"><span class="xref std std-term">graphical user interfaces (GUIs)</span></a>.
+For executing use the full path to the <a class="reference internal" href="../../apps/seiscomp.html#seiscomp"><span class="std std-ref">seiscomp</span></a> tool or, when the
+<cite>SeisComP</cite> environment is known, just call the module name along with command-line
+options, e.g.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>scolv<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
+scolv<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
+</pre></div>
+</div>
+<p>Command-line modules are found in <code class="file docutils literal notranslate"><span class="pre">&#64;ROOTDIR&#64;/bin/</span></code> but they are <strong>NOT</strong>
+listed when executing</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>list<span class="w"> </span>modules
+</pre></div>
+</div>
+<p>Using options like <code class="xref std std-option docutils literal notranslate"><span class="pre">-h</span></code> the list of available command-line options can
+be learned.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scbulletin<span class="w"> </span>-h
+</pre></div>
+</div>
+<p>In addition, any module configuration parameter can be specified on
+the command line overriding the configured parameter. For indicating that a
+module configuration parameter is set on the command line separate the value
+from the parameter by ‘=’ and provide the full set of sections separated by ‘.’.
+Example:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scolv<span class="w"> </span>--picker.loadAllPicks<span class="o">=</span><span class="nb">true</span>
+</pre></div>
+</div>
+<p>When executing a module, all verbosity output is logged to
+<a class="reference internal" href="#concepts-modules-logging"><span class="std std-ref">log files</span></a>. The logging level can be controlled
+by configuration or by the command-line option <code class="xref std std-option docutils literal notranslate"><span class="pre">-v</span></code>.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scbulletin<span class="w"> </span>-vvvv
+</pre></div>
+</div>
+<p>Detailed debugging information can also be printed on the command line during
+runtime using the <code class="xref std std-option docutils literal notranslate"><span class="pre">--debug</span></code> option:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scbulletin<span class="w"> </span>--debug
+</pre></div>
+</div>
+<p>When starting a daemon module all verbosity output is stored in <code class="file docutils literal notranslate"><span class="pre">&#64;LOGDIR&#64;</span></code>
+or <code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/var/log</span></code>. Daemon modules can also be executed as
 <a class="reference internal" href="#concepts-modules-commandline"><span class="std std-ref">command-line tools</span></a>.</p>
 </section>
 <section id="configuration">
 <span id="concepts-modules-config"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
-<p>Each <a class="reference internal" href="../glossary.html#term-standalone-module"><span class="xref std std-term">standalone module</span></a> tries to read from three configuration files
-whereas <a class="reference internal" href="../glossary.html#term-trunk"><span class="xref std std-term">trunk</span></a> modules try to read the six files. Note that configuration
-parameters defined earlier are overwritten if defined in files read in later:</p>
+<p>Each <a class="reference internal" href="../glossary.html#term-standalone-module"><span class="xref std std-term">standalone module</span></a> tries to read from three module configuration
+files whereas <a class="reference internal" href="../glossary.html#term-trunk"><span class="xref std std-term">trunk</span></a> modules try to read the six files. Note that
+configuration parameters defined earlier are overwritten if defined in files
+read in later:</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>File</p></th>
@@ -172,45 +204,38 @@ parameters defined earlier are overwritten if defined in files read in later:</p
 </tr>
 </tbody>
 </table>
-<p>The <a class="reference internal" href="../../apps/global.html#global-configuration"><span class="std std-ref">configuration section</span></a> describes all available
-configuration parameters for a trunk module. Not all modules make use of all
-available parameters because they may be disabled, e.g., the messaging component.
-So the configuration of the messaging server is disabled too.</p>
+<p>In addition to the module configuration files some modules such as
+<a class="reference internal" href="../../apps/seedlink.html#seedlink"><span class="std std-ref">seedlink</span></a> or <a class="reference internal" href="../../apps/scautopick.html#scautopick"><span class="std std-ref">scautopick</span></a> consider <a class="reference internal" href="../glossary.html#term-binding"><span class="xref std std-term">bindings</span></a>.
+Bindings provide parameters specific to stations. They are configured as
+per-station bindings or profiles used for multiple stations.</p>
+<p>The <a class="reference internal" href="../../apps/global.html#global-configuration"><span class="std std-ref">global configuration section</span></a> describes all
+available global configuration parameters for a trunk module. Modules typically
+do not make use of all available global parameters because they may be disabled,
+e.g., the messaging component. So the configuration of the messaging server is
+disabled, too.</p>
 <p>The concept section <a class="reference internal" href="configuration.html#concepts-configuration"><span class="std std-ref">Configuration</span></a> provides more
 details about configurations.</p>
 </section>
+<section id="logging">
+<span id="concepts-modules-logging"></span><h2>Logging<a class="headerlink" href="#logging" title="Permalink to this heading">¶</a></h2>
+<p>Whenever operated, modules report the state of operation to log files. Trunk
+modules report the module and the start up log to <code class="file docutils literal notranslate"><span class="pre">&#64;LOGDIR&#64;/[module].log</span></code> and
+<code class="file docutils literal notranslate"><span class="pre">&#64;ROOTDIR&#64;/var/log/[module].log</span></code>, respectively. Standalone modules log to
+<code class="file docutils literal notranslate"><span class="pre">&#64;ROOTDIR&#64;/var/log/[module].log</span></code> only. The log files are rotated and the
+level of detail can be configured by <a class="reference internal" href="../../apps/global.html#confval-logging.level"><code class="xref std std-confval docutils literal notranslate"><span class="pre">logging.level</span></code></a>. More parameters
+in <code class="xref std std-confval docutils literal notranslate"><span class="pre">logging.*</span></code> provide more control over logging, e.g., the log file
+rotation.</p>
+</section>
 <section id="alias-modules">
 <span id="concepts-modules-aliaes"></span><h2>Alias Modules<a class="headerlink" href="#alias-modules" title="Permalink to this heading">¶</a></h2>
-<p>Many <a class="reference internal" href="../glossary.html#term-trunk"><span class="xref std std-term">trunk</span></a> and <span class="xref std std-term">standalone modules</span> allow generating aliases as
-symbolic links to another module.
+<p>Many <a class="reference internal" href="../glossary.html#term-trunk"><span class="xref std std-term">trunk</span></a> and <a class="reference internal" href="../glossary.html#term-standalone-module"><span class="xref std std-term">standalone modules</span></a> allow
+generating aliases as symbolic links to another module.
 These aliases are useful for running multiple instances of the same module with
 different configuration.</p>
-<p>Alias modules can be created using the <span class="xref std std-ref">seiscomp</span> script by providing the
-options <code class="xref std std-option docutils literal notranslate"><span class="pre">alias</span> <span class="pre">create</span></code> along with the name of the alias and the
-corresponding module. Example:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span><span class="nb">alias</span><span class="w"> </span>create<span class="w"> </span>l1autopick<span class="w"> </span>scautopick
-</pre></div>
-</div>
-<p>where <em>l1autopick</em> is the alias name and <a class="reference internal" href="../../apps/scautopick.html#scautopick"><span class="std std-ref">scautopick</span></a> is the name of the
-corresponding linked module.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The length of alias names for modules considering
-<a class="reference internal" href="configuration.html#global-bindings-config"><span class="std std-ref">bindings</span></a> is strictly limited to 20 characters.</p>
-</div>
-<p>Alias modules provide the same
-<a class="reference internal" href="configuration.html#concepts-configuration-configs"><span class="std std-ref">module and bindings configuration</span></a>
-parameters as the linked module and they must be configured separately.</p>
-<p>Alias modules can be removed along with generated links. Example:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span><span class="nb">alias</span><span class="w"> </span>remove<span class="w"> </span>l1autopick
-</pre></div>
-</div>
-<p>Without further options, module and bindings configurations will be preserved.
-These configurations can be interactively removed using <code class="xref std std-option docutils literal notranslate"><span class="pre">--interactive</span></code>.
-Example:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>--interactive<span class="w"> </span><span class="nb">alias</span><span class="w"> </span>remove<span class="w"> </span>l1autopick
-</pre></div>
-</div>
+<p>Alias modules can be created or removed using the <a class="reference internal" href="../../apps/seiscomp.html#seiscomp"><span class="std std-ref">seiscomp</span></a> tool by
+providing the commands <strong class="command">alias create</strong> or <strong class="command">alias remove</strong>,
+respectively. Read the documentation of <a class="reference internal" href="../../apps/seiscomp.html#sec-seiscomp-aliases"><span class="std std-ref">seiscomp</span></a>
+for the details.</p>
 </section>
 </section>
 
@@ -237,9 +262,10 @@ Example:</p>
 <li><a class="reference internal" href="#">SeisComP modules</a><ul>
 <li><a class="reference internal" href="#scope">Scope</a></li>
 <li><a class="reference internal" href="#overview">Overview</a></li>
-<li><a class="reference internal" href="#command-line-tools">Command-Line Tools</a></li>
 <li><a class="reference internal" href="#daemon-tools">Daemon Tools</a></li>
+<li><a class="reference internal" href="#command-line-tools">Command-Line Tools</a></li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#logging">Logging</a></li>
 <li><a class="reference internal" href="#alias-modules">Alias Modules</a></li>
 </ul>
 </li>
@@ -275,7 +301,7 @@ Example:</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

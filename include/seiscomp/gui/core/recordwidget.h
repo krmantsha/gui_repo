@@ -726,8 +726,9 @@ class SC_GUI_API RecordWidget : public QWidget {
 		bool createFilter(int slot);
 		void filterRecords(Stream *s);
 		bool setFilteredRecords(int slot, RecordSequence* seq, bool owner);
-		Record* filteredRecord(Filter *filter,
-		                       const Record*, const Record* = nullptr) const;
+		Record* filteredRecord(Filter *&filter,
+		                       const Record*, const Record*,
+		                       double tolerance) const;
 
 		void prepareRecords(Stream *s);
 		void drawRecords(Stream *s, int slot);
@@ -737,6 +738,7 @@ class SC_GUI_API RecordWidget : public QWidget {
 		               const QPen &pen,
 		               const QPoint &paintOffset) const;
 		void drawRecordBorders(QPainter &painter, const RecordSequence *seq) const;
+		void drawMarkers(QPainter &painter, QFont &font, const QColor &fg);
 
 		void drawAxis(QPainter &painter, const QPen &p);
 

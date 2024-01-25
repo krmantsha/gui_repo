@@ -14,25 +14,27 @@ There are still some modules that do not use the libraries and are called
 They need wrappers to generate their native configuration when
 :command:`seiscomp update-config` is run.
 
-Global parameters can be used by many modules. Thus multiple configuration can be avoided.
-The parameters are read from file in the following order:
+Global parameters can be used by many modules. Thus multiple configuration can
+be avoided. The parameters are read from file in the following order:
 
 #. :file:`@SYSTEMCONFIGDIR@/global.cfg`
 #. :file:`@CONFIGDIR@/global.cfg`
 
-Parameters from :file:`@CONFIGDIR@` override parameters from :file:`@SYSTEMCONFIGDIR@`.
+Parameters from :file:`@CONFIGDIR@` override parameters from
+:file:`@SYSTEMCONFIGDIR@`.
 
-Most :term:`trunk` modules read the configuration from the global configuration which can be overridden
-by the module configuration. Read the :ref:`concept section on modules <concepts_modules>`
-and the :ref:`concept section on the configuraion <concepts_configuration>` for
-more details.
+Most :term:`trunk` modules read the configuration from the global configuration
+which can be overridden by the module configuration. Read the
+:ref:`concept section on modules <concepts_modules>` and the
+:ref:`concept section on the configuration <concepts_configuration>` for more
+details.
 
-Though it is easy to create the configuration by directly editing the configuration
-files, it is even more convenient to use a configurator.
-SeisComP ships with a graphical configurator and management tool (:ref:`scconfig`)
-which makes it easy to maintain
-module configurations and station bindings even for large networks. It has built-in
-functionality to check the state of all registered modules and to start and stop them.
+Though it is easy to create the configuration by directly editing the
+configuration files, it is even more convenient to use a graphical configuration
+tool. SeisComP ships with :ref:`scconfig`, a graphical configuration and
+management tool which makes it easy to maintain module configurations and
+station bindings even for large networks. It has built-in functionality to check
+the state of all registered modules and to start and stop them.
 
 The configuration is divided into three parts: :ref:`stations <global-stations>`,
 :ref:`modules <global_modules>` and :ref:`bindings <global_bindings>`.
@@ -43,9 +45,9 @@ The configuration is divided into three parts: :ref:`stations <global-stations>`
 Station meta data
 =================
 
-Station meta-data is a fundamental requirement for a seismic processing system and
-for SeisComP. Read the :ref:`inventory section<concepts_inventory>` in concepts for
-more details.
+Station meta-data is a fundamental requirement for a seismic processing system
+and for SeisComP. Read the :ref:`inventory section<concepts_inventory>` in
+concepts for more details.
 
 
 .. _global_modules:
@@ -84,7 +86,6 @@ plugins shown:
 
 See the documentation for each module for further information about its
 extensions.
-
 
 
 .. _global-configuration:
@@ -130,7 +131,7 @@ Module Configuration
    Type: *string*
 
    Author name used to set creationInfo.author in data model
-   objects. \@appname\@ is replace by the name of the
+   objects. \@appname\@ is replaced by the name of the
    respective executable, \@hostname\@ by the name of the computer
    on which it runs.
 
@@ -324,8 +325,8 @@ Module Configuration
 
    Type: *int*
 
-   The maximum size of a logfile in byte. The default
-   value is 100 megabyte. If a logfile exceeds that
+   The maximum size of a log file in byte. The default
+   value is 100 megabyte. If a log file exceeds that
    size, then it is rotated. To disable the size limit
    give 0 or a negative value.
 
@@ -604,20 +605,58 @@ Module Configuration
 .. note::
 
    **amplitudes.\***
-   *Parameters of amplitude measurements.*
+   *Parameters for amplitude measurements.*
 
+
+.. confval:: amplitudes.iaspei
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Compute ML peak\-to\-trough and mb amplitudes according to
+   IASPEI recommendations.
+
+
+.. note::
+
+   **amplitudes.ttt.\***
+   *Travel time table specific parameters to be used for the*
+   *computation of travel times referred to in signal and*
+   *noise time window specifications,*
+   *e.g. "signalBegin". This can be overridden per*
+   *station in its bindings.*
+
+
+.. confval:: amplitudes.ttt.interface
+
+   Default: ``libtau``
+
+   Type: *string*
+
+   *No description available*
+
+.. confval:: amplitudes.ttt.model
+
+   Default: ``iasp91``
+
+   Type: *string*
+
+   *No description available*
 
 .. note::
 
    **amplitudes.WoodAnderson.\***
    *Parameters of the Wood-Anderson seismometer response used*
-   *for instrument simulation. The WA parameters can be overridden*
-   *per stream by global bindings.*
+   *for instrument simulation. The default values are according*
+   *to Uhrhammer and Collins (1990) and were part of the*
+   *IASPEI Magnitude Working Group recommendations of 2011*
+   *September 9.*
 
 
 .. confval:: amplitudes.WoodAnderson.gain
 
-   Default: ``2800``
+   Default: ``2080``
 
    Type: *double*
 
@@ -637,7 +676,7 @@ Module Configuration
 
 .. confval:: amplitudes.WoodAnderson.h
 
-   Default: ``0.8``
+   Default: ``0.7``
 
    Type: *double*
 
@@ -647,15 +686,55 @@ Module Configuration
 .. note::
 
    **magnitudes.\***
-   *Magnitude configurations overriding global bindings.*
-   *Add regionalization by magnitude-type profiles. Profile*
-   *names correspond to magnitude types.*
+   *Parameters for computing magnitudes.*
+   *Add magnitude regionalization and mapping to Mw by magnitude-type profiles.*
+   *One profile corresponds to one magnitude type.*
+
+
+.. confval:: magnitudes.aliases
+
+   Type: *list:string*
+
+   Definition of magnitude aliases for deriving new magnitude
+   types from existing magnitude and amplitude types. Separate
+   multiple entries by comma.
+   
+   Format:
+   
+   NewType:OriginalMagnitudeType[:OriginalAmplitudeType]
+   
+   OriginalAmplitudeType is optional. The default amplitude
+   type applies if OriginalAmplitudeType is undefined.
+   
+   Examples for deriving magnitude of new type ABC from MLv:
+   
+   ABC:MLv:MLv
+   
+   ABC:MLv
+   
+   Alias magnitudes can be configured like any other magnitude.
 
 
 .. note::
 
    **magnitudes.$name.\***
+   *Regionalization of magnitude configurations overriding global*
+   *bindings. For parameters which are not set, the values*
+   *defined in bindings apply.*
    $name is a placeholder for the name to be used.
+
+
+.. confval:: magnitudes.$name.MwMapping
+
+   Type: *list:string*
+
+   Mw magnitude mapping table for estimating Mw from network
+   magnitude M. Mw values are given at some M.
+   
+   Format: \"M0:Mw0, M1:Mw1, ...\".
+   
+   Between two values of M, Mw values will be linearly
+   interpolated but not extrapolated.
 
 
 .. confval:: magnitudes.$name.regionFile
@@ -675,16 +754,12 @@ Module Configuration
 .. note::
 
    **magnitudes.$name.region.\***
-   *Add parameter profiles for regions defined in the*
-   *geofeature file. Profile names must match one polygon*
-   *name. Otherwise, the profile is not considered.*
-   *The special name "world" corresponds to the*
-   *region of the entire planet as a fallback.*
-
-
-   *Magnitude-specific parameters, e.g. calibration functions,*
-   *are adjusted in a separate section of  magnitudes with*
-   *the same name.*
+   *Add magnitude region profiles for regions defined by*
+   *polygons in the geofeature file of regionFile. Profile*
+   *names must match one polygon name. Otherwise, the*
+   *profile is not considered. The special name*
+   *"world" corresponds to the region of the*
+   *entire planet as a fallback.*
 
 
 .. note::
@@ -776,8 +851,6 @@ Module Configuration
 
 .. confval:: magnitudes.$name.region.$name.multiplier
 
-   Default: ``1``
-
    Type: *double*
 
    Linear part of the default station correction
@@ -785,8 +858,6 @@ Module Configuration
 
 
 .. confval:: magnitudes.$name.region.$name.offset
-
-   Default: ``0``
 
    Type: *double*
 
@@ -872,7 +943,7 @@ Bindings Parameters
    Activate deconvolution for this station. If no responses are
    configured, an error is raised and the data is not processed.
    This flag will be overridden by the type specific flag
-   \(see Amplitude type profile\).
+   \(see GlobalAmplitudeProfile\).
 
 
 .. note::
@@ -935,7 +1006,7 @@ Bindings Parameters
 
    Type: *double*
 
-   Define the mininum SNR to be reached to compute the
+   Define the minimum SNR to be reached to compute the
    amplitudes. This value is amplitude type specific and
    has no global default value.
 
@@ -1111,7 +1182,7 @@ Bindings Parameters
    **amplitudes.resp.\***
    *Several parameters if usage of full responses is enabled.*
    *The parameters of this group will be overridden by type*
-   *specific settings if given (see Amplitude type profile).*
+   *specific settings if given (see GlobalAmplitudeProfile).*
 
 
 .. confval:: amplitudes.resp.taper
@@ -1157,19 +1228,42 @@ Bindings Parameters
 
 .. note::
 
+   **amplitudes.ttt.\***
+   *Travel time table specific parameters to be used for the*
+   *computation of travel times referred to in signal and*
+   *noise time window specifications,*
+   *e.g. "signalBegin".*
+
+
+.. confval:: amplitudes.ttt.interface
+
+   Default: ``libtau``
+
+   Type: *string*
+
+   *No description available*
+
+.. confval:: amplitudes.ttt.model
+
+   Default: ``iasp91``
+
+   Type: *string*
+
+   *No description available*
+
+.. note::
+
    **amplitudes.WoodAnderson.\***
    *Parameters of the Wood-Anderson seismometer response used*
-   *for instrument simulation.*
-   *The default values are according to the version of*
-   *Gutenberg (1935). The newer version by Uhrhammer and*
-   *Collins (1990) is part of the IASPEI Magnitude*
-   *Working Group recommendations of 2011 September 9. This*
-   *version uses gain=2800, T0=0.8 s, h=0.8.*
+   *for instrument simulation. The default values are according*
+   *to Uhrhammer and Collins (1990) and were part of the*
+   *IASPEI Magnitude Working Group recommendations of 2011*
+   *September 9.*
 
 
 .. confval:: amplitudes.WoodAnderson.gain
 
-   Default: ``2800``
+   Default: ``2080``
 
    Type: *double*
 
@@ -1189,7 +1283,7 @@ Bindings Parameters
 
 .. confval:: amplitudes.WoodAnderson.h
 
-   Default: ``0.8``
+   Default: ``0.7``
 
    Type: *double*
 
@@ -1200,7 +1294,7 @@ Bindings Parameters
 
    **magnitudes.\***
    *Define magnitude parameters independent of amplitude-type profiles.*
-   *For magnitude correction parameters, e.g, network of station*
+   *For magnitude correction parameters, e.g., network of station*
    *corrections, create a magnitude type profile.*
 
 
@@ -1322,7 +1416,7 @@ Bindings Parameters
    **picker.BK.\***
    *Bkpicker is an implementation of the Baer/Kradolfer picker*
    *adapted to SeisComP. It was created by converting Manfred*
-   *Baers from Fortran to C++ and inserting it as a replacement*
+   *Baers from FORTRAN to C++ and inserting it as a replacement*
    *for the picker algorithm. The picker interface name to be*
    *used in configuration files, e.g. of scautopick,is*
    *"BK".*
@@ -1374,7 +1468,7 @@ Bindings Parameters
 
    Type: *string*
 
-   BP \(Bandpass\) is currently the only option.
+   BP \(bandpass\) is currently the only option.
 
 
 .. confval:: picker.BK.filterPoles
@@ -1729,7 +1823,7 @@ Bindings Parameters
    Activate deconvolution for this station. If no responses are
    configured, an error is raised and the data is not processed.
    This flag will be overridden by the type specific flag
-   \(see Amplitude type profile\).
+   \(see GlobalAmplitudeProfile\).
 
 
 .. note::
@@ -1792,7 +1886,7 @@ Bindings Parameters
 
    Type: *double*
 
-   Define the mininum SNR to be reached to compute the
+   Define the minimum SNR to be reached to compute the
    amplitudes. This value is amplitude type specific and
    has no global default value.
 
@@ -1968,7 +2062,7 @@ Bindings Parameters
    **amplitudes.resp.\***
    *Several parameters if usage of full responses is enabled.*
    *The parameters of this group will be overridden by type*
-   *specific settings if given (see Amplitude type profile).*
+   *specific settings if given (see GlobalAmplitudeProfile).*
 
 
 .. confval:: amplitudes.resp.taper
@@ -2014,19 +2108,42 @@ Bindings Parameters
 
 .. note::
 
+   **amplitudes.ttt.\***
+   *Travel time table specific parameters to be used for the*
+   *computation of travel times referred to in signal and*
+   *noise time window specifications,*
+   *e.g. "signalBegin".*
+
+
+.. confval:: amplitudes.ttt.interface
+
+   Default: ``libtau``
+
+   Type: *string*
+
+   *No description available*
+
+.. confval:: amplitudes.ttt.model
+
+   Default: ``iasp91``
+
+   Type: *string*
+
+   *No description available*
+
+.. note::
+
    **amplitudes.WoodAnderson.\***
    *Parameters of the Wood-Anderson seismometer response used*
-   *for instrument simulation.*
-   *The default values are according to the version of*
-   *Gutenberg (1935). The newer version by Uhrhammer and*
-   *Collins (1990) is part of the IASPEI Magnitude*
-   *Working Group recommendations of 2011 September 9. This*
-   *version uses gain=2800, T0=0.8 s, h=0.8.*
+   *for instrument simulation. The default values are according*
+   *to Uhrhammer and Collins (1990) and were part of the*
+   *IASPEI Magnitude Working Group recommendations of 2011*
+   *September 9.*
 
 
 .. confval:: amplitudes.WoodAnderson.gain
 
-   Default: ``2800``
+   Default: ``2080``
 
    Type: *double*
 
@@ -2046,7 +2163,7 @@ Bindings Parameters
 
 .. confval:: amplitudes.WoodAnderson.h
 
-   Default: ``0.8``
+   Default: ``0.7``
 
    Type: *double*
 
@@ -2057,7 +2174,7 @@ Bindings Parameters
 
    **magnitudes.\***
    *Define magnitude parameters independent of amplitude-type profiles.*
-   *For magnitude correction parameters, e.g, network of station*
+   *For magnitude correction parameters, e.g., network of station*
    *corrections, create a magnitude type profile.*
 
 
@@ -2179,7 +2296,7 @@ Bindings Parameters
    **picker.BK.\***
    *Bkpicker is an implementation of the Baer/Kradolfer picker*
    *adapted to SeisComP. It was created by converting Manfred*
-   *Baers from Fortran to C++ and inserting it as a replacement*
+   *Baers from FORTRAN to C++ and inserting it as a replacement*
    *for the picker algorithm. The picker interface name to be*
    *used in configuration files, e.g. of scautopick,is*
    *"BK".*
@@ -2231,7 +2348,7 @@ Bindings Parameters
 
    Type: *string*
 
-   BP \(Bandpass\) is currently the only option.
+   BP \(bandpass\) is currently the only option.
 
 
 .. confval:: picker.BK.filterPoles

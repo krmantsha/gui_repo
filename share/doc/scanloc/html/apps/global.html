@@ -63,30 +63,32 @@ There are still some modules that do not use the libraries and are called
 <span class="xref std std-ref">slarchive</span>.
 They need wrappers to generate their native configuration when
 <strong class="command">seiscomp update-config</strong> is run.</p>
-<p>Global parameters can be used by many modules. Thus multiple configuration can be avoided.
-The parameters are read from file in the following order:</p>
+<p>Global parameters can be used by many modules. Thus multiple configuration can
+be avoided. The parameters are read from file in the following order:</p>
 <ol class="arabic simple">
 <li><p><code class="file docutils literal notranslate"><span class="pre">&#64;SYSTEMCONFIGDIR&#64;/global.cfg</span></code></p></li>
 <li><p><code class="file docutils literal notranslate"><span class="pre">&#64;CONFIGDIR&#64;/global.cfg</span></code></p></li>
 </ol>
-<p>Parameters from <code class="file docutils literal notranslate"><span class="pre">&#64;CONFIGDIR&#64;</span></code> override parameters from <code class="file docutils literal notranslate"><span class="pre">&#64;SYSTEMCONFIGDIR&#64;</span></code>.</p>
-<p>Most <a class="reference internal" href="../base/glossary.html#term-trunk"><span class="xref std std-term">trunk</span></a> modules read the configuration from the global configuration which can be overridden
-by the module configuration. Read the <span class="xref std std-ref">concept section on modules</span>
-and the <span class="xref std std-ref">concept section on the configuraion</span> for
-more details.</p>
-<p>Though it is easy to create the configuration by directly editing the configuration
-files, it is even more convenient to use a configurator.
-SeisComP ships with a graphical configurator and management tool (<span class="xref std std-ref">scconfig</span>)
-which makes it easy to maintain
-module configurations and station bindings even for large networks. It has built-in
-functionality to check the state of all registered modules and to start and stop them.</p>
+<p>Parameters from <code class="file docutils literal notranslate"><span class="pre">&#64;CONFIGDIR&#64;</span></code> override parameters from
+<code class="file docutils literal notranslate"><span class="pre">&#64;SYSTEMCONFIGDIR&#64;</span></code>.</p>
+<p>Most <a class="reference internal" href="../base/glossary.html#term-trunk"><span class="xref std std-term">trunk</span></a> modules read the configuration from the global configuration
+which can be overridden by the module configuration. Read the
+<span class="xref std std-ref">concept section on modules</span> and the
+<span class="xref std std-ref">concept section on the configuration</span> for more
+details.</p>
+<p>Though it is easy to create the configuration by directly editing the
+configuration files, it is even more convenient to use a graphical configuration
+tool. SeisComP ships with <span class="xref std std-ref">scconfig</span>, a graphical configuration and
+management tool which makes it easy to maintain module configurations and
+station bindings even for large networks. It has built-in functionality to check
+the state of all registered modules and to start and stop them.</p>
 <p>The configuration is divided into three parts: <a class="reference internal" href="#global-stations"><span class="std std-ref">stations</span></a>,
 <a class="reference internal" href="#global-modules"><span class="std std-ref">modules</span></a> and <a class="reference internal" href="#global-bindings"><span class="std std-ref">bindings</span></a>.</p>
 <section id="station-meta-data">
 <span id="global-stations"></span><h2>Station meta data<a class="headerlink" href="#station-meta-data" title="Permalink to this heading">¶</a></h2>
-<p>Station meta-data is a fundamental requirement for a seismic processing system and
-for SeisComP. Read the <span class="xref std std-ref">inventory section</span> in concepts for
-more details.</p>
+<p>Station meta-data is a fundamental requirement for a seismic processing system
+and for SeisComP. Read the <span class="xref std std-ref">inventory section</span> in
+concepts for more details.</p>
 </section>
 <section id="modules">
 <span id="global-modules"></span><h2>Modules<a class="headerlink" href="#modules" title="Permalink to this heading">¶</a></h2>
@@ -145,7 +147,7 @@ its tools. Should not contain spaces.</p>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">&#64;appname&#64;&#64;&#64;&#64;hostname&#64;</span></code></p>
 <p>Type: <em>string</em></p>
 <p>Author name used to set creationInfo.author in data model
-objects. &#64;appname&#64; is replace by the name of the
+objects. &#64;appname&#64; is replaced by the name of the
 respective executable, &#64;hostname&#64; by the name of the computer
 on which it runs.</p>
 </dd></dl>
@@ -324,8 +326,8 @@ number.</p>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">104857600</span></code></p>
 <p>Unit: <em>byte</em></p>
 <p>Type: <em>int</em></p>
-<p>The maximum size of a logfile in byte. The default
-value is 100 megabyte. If a logfile exceeds that
+<p>The maximum size of a log file in byte. The default
+value is 100 megabyte. If a log file exceeds that
 size, then it is rotated. To disable the size limit
 give 0 or a negative value.</p>
 </dd></dl>
@@ -588,19 +590,55 @@ $name is a placeholder for the name to be used.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>amplitudes.*</strong>
-<em>Parameters of amplitude measurements.</em></p>
+<em>Parameters for amplitude measurements.</em></p>
 </div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.iaspei">
+<span class="sig-name descname"><span class="pre">amplitudes.iaspei</span></span><a class="headerlink" href="#confval-amplitudes.iaspei" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Compute ML peak-to-trough and mb amplitudes according to
+IASPEI recommendations.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>amplitudes.ttt.*</strong>
+<em>Travel time table specific parameters to be used for the</em>
+<em>computation of travel times referred to in signal and</em>
+<em>noise time window specifications,</em>
+<em>e.g. “signalBegin”. This can be overridden per</em>
+<em>station in its bindings.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.ttt.interface">
+<span class="sig-name descname"><span class="pre">amplitudes.ttt.interface</span></span><a class="headerlink" href="#confval-amplitudes.ttt.interface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">libtau</span></code></p>
+<p>Type: <em>string</em></p>
+<p><em>No description available</em></p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.ttt.model">
+<span class="sig-name descname"><span class="pre">amplitudes.ttt.model</span></span><a class="headerlink" href="#confval-amplitudes.ttt.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">iasp91</span></code></p>
+<p>Type: <em>string</em></p>
+<p><em>No description available</em></p>
+</dd></dl>
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>amplitudes.WoodAnderson.*</strong>
 <em>Parameters of the Wood-Anderson seismometer response used</em>
-<em>for instrument simulation. The WA parameters can be overridden</em>
-<em>per stream by global bindings.</em></p>
+<em>for instrument simulation. The default values are according</em>
+<em>to Uhrhammer and Collins (1990) and were part of the</em>
+<em>IASPEI Magnitude Working Group recommendations of 2011</em>
+<em>September 9.</em></p>
 </div>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-amplitudes.WoodAnderson.gain">
 <span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.gain</span></span><a class="headerlink" href="#confval-amplitudes.WoodAnderson.gain" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">2800</span></code></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">2080</span></code></p>
 <p>Type: <em>double</em></p>
 <p>The gain of the Wood-Anderson response.</p>
 </dd></dl>
@@ -617,7 +655,7 @@ $name is a placeholder for the name to be used.</p>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-amplitudes.WoodAnderson.h">
 <span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.h</span></span><a class="headerlink" href="#confval-amplitudes.WoodAnderson.h" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.8</span></code></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.7</span></code></p>
 <p>Type: <em>double</em></p>
 <p>The damping constant of the Wood-Anderson seismometer.</p>
 </dd></dl>
@@ -625,15 +663,46 @@ $name is a placeholder for the name to be used.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>magnitudes.*</strong>
-<em>Magnitude configurations overriding global bindings.</em>
-<em>Add regionalization by magnitude-type profiles. Profile</em>
-<em>names correspond to magnitude types.</em></p>
+<em>Parameters for computing magnitudes.</em>
+<em>Add magnitude regionalization and mapping to Mw by magnitude-type profiles.</em>
+<em>One profile corresponds to one magnitude type.</em></p>
 </div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-magnitudes.aliases">
+<span class="sig-name descname"><span class="pre">magnitudes.aliases</span></span><a class="headerlink" href="#confval-magnitudes.aliases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:string</em></p>
+<p>Definition of magnitude aliases for deriving new magnitude
+types from existing magnitude and amplitude types. Separate
+multiple entries by comma.</p>
+<p>Format:</p>
+<p>NewType:OriginalMagnitudeType[:OriginalAmplitudeType]</p>
+<p>OriginalAmplitudeType is optional. The default amplitude
+type applies if OriginalAmplitudeType is undefined.</p>
+<p>Examples for deriving magnitude of new type ABC from MLv:</p>
+<p>ABC:MLv:MLv</p>
+<p>ABC:MLv</p>
+<p>Alias magnitudes can be configured like any other magnitude.</p>
+</dd></dl>
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>magnitudes.$name.*</strong>
+<em>Regionalization of magnitude configurations overriding global</em>
+<em>bindings. For parameters which are not set, the values</em>
+<em>defined in bindings apply.</em>
 $name is a placeholder for the name to be used.</p>
 </div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-magnitudes.-name.MwMapping">
+<span class="sig-name descname"><span class="pre">magnitudes.$name.MwMapping</span></span><a class="headerlink" href="#confval-magnitudes.-name.MwMapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:string</em></p>
+<p>Mw magnitude mapping table for estimating Mw from network
+magnitude M. Mw values are given at some M.</p>
+<p>Format: &quot;M0:Mw0, M1:Mw1, …&quot;.</p>
+<p>Between two values of M, Mw values will be linearly
+interpolated but not extrapolated.</p>
+</dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-magnitudes.-name.regionFile">
 <span class="sig-name descname"><span class="pre">magnitudes.$name.regionFile</span></span><a class="headerlink" href="#confval-magnitudes.-name.regionFile" title="Permalink to this definition">¶</a></dt>
@@ -651,14 +720,12 @@ must not be present in the geofeature file.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>magnitudes.$name.region.*</strong>
-<em>Add parameter profiles for regions defined in the</em>
-<em>geofeature file. Profile names must match one polygon</em>
-<em>name. Otherwise, the profile is not considered.</em>
-<em>The special name “world” corresponds to the</em>
-<em>region of the entire planet as a fallback.</em></p>
-<p><em>Magnitude-specific parameters, e.g. calibration functions,</em>
-<em>are adjusted in a separate section of  magnitudes with</em>
-<em>the same name.</em></p>
+<em>Add magnitude region profiles for regions defined by</em>
+<em>polygons in the geofeature file of regionFile. Profile</em>
+<em>names must match one polygon name. Otherwise, the</em>
+<em>profile is not considered. The special name</em>
+<em>“world” corresponds to the region of the</em>
+<em>entire planet as a fallback.</em></p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -740,8 +807,7 @@ and receiver/station must be withing the region.</p>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-magnitudes.-name.region.-name.multiplier">
 <span class="sig-name descname"><span class="pre">magnitudes.$name.region.$name.multiplier</span></span><a class="headerlink" href="#confval-magnitudes.-name.region.-name.multiplier" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
-<p>Type: <em>double</em></p>
+<dd><p>Type: <em>double</em></p>
 <p>Linear part of the default station correction
 for this region.</p>
 </dd></dl>
@@ -749,8 +815,7 @@ for this region.</p>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-magnitudes.-name.region.-name.offset">
 <span class="sig-name descname"><span class="pre">magnitudes.$name.region.$name.offset</span></span><a class="headerlink" href="#confval-magnitudes.-name.region.-name.offset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
-<p>Type: <em>double</em></p>
+<dd><p>Type: <em>double</em></p>
 <p>Constant part of the default station correction
 for this region.</p>
 </dd></dl>
@@ -824,7 +889,7 @@ this station will be skipped for amplitudes and magnitudes.</p>
 <p>Activate deconvolution for this station. If no responses are
 configured, an error is raised and the data is not processed.
 This flag will be overridden by the type specific flag
-(see Amplitude type profile).</p>
+(see GlobalAmplitudeProfile).</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -880,7 +945,7 @@ will be used instead.</p>
 <dt class="sig sig-object std" id="confval-amplitudes.-name.minSNR">
 <span class="sig-name descname"><span class="pre">amplitudes.$name.minSNR</span></span><a class="headerlink" href="#confval-amplitudes.-name.minSNR" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
-<p>Define the mininum SNR to be reached to compute the
+<p>Define the minimum SNR to be reached to compute the
 amplitudes. This value is amplitude type specific and
 has no global default value.</p>
 </dd></dl>
@@ -1042,7 +1107,7 @@ A value of 0 or lower disables that taper.</p>
 <p><strong>amplitudes.resp.*</strong>
 <em>Several parameters if usage of full responses is enabled.</em>
 <em>The parameters of this group will be overridden by type</em>
-<em>specific settings if given (see Amplitude type profile).</em></p>
+<em>specific settings if given (see GlobalAmplitudeProfile).</em></p>
 </div>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-amplitudes.resp.taper">
@@ -1082,26 +1147,48 @@ A value of 0 or lower disables that taper.</p>
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><strong>amplitudes.WoodAnderson.*</strong>
-<em>Parameters of the Wood-Anderson seismometer response used</em>
-<em>for instrument simulation.</em>
-<em>The default values are according to the version of</em>
-<em>Gutenberg (1935). The newer version by Uhrhammer and</em>
-<em>Collins (1990) is part of the IASPEI Magnitude</em>
-<em>Working Group recommendations of 2011 September 9. This</em>
-<em>version uses gain=2800, T0=0.8 s, h=0.8.</em></p>
+<p><strong>amplitudes.ttt.*</strong>
+<em>Travel time table specific parameters to be used for the</em>
+<em>computation of travel times referred to in signal and</em>
+<em>noise time window specifications,</em>
+<em>e.g. “signalBegin”.</em></p>
 </div>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-0">
-<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.gain</span></span><a class="headerlink" href="#confval-0" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">2800</span></code></p>
+<span class="sig-name descname"><span class="pre">amplitudes.ttt.interface</span></span><a class="headerlink" href="#confval-0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">libtau</span></code></p>
+<p>Type: <em>string</em></p>
+<p><em>No description available</em></p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-1">
+<span class="sig-name descname"><span class="pre">amplitudes.ttt.model</span></span><a class="headerlink" href="#confval-1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">iasp91</span></code></p>
+<p>Type: <em>string</em></p>
+<p><em>No description available</em></p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>amplitudes.WoodAnderson.*</strong>
+<em>Parameters of the Wood-Anderson seismometer response used</em>
+<em>for instrument simulation. The default values are according</em>
+<em>to Uhrhammer and Collins (1990) and were part of the</em>
+<em>IASPEI Magnitude Working Group recommendations of 2011</em>
+<em>September 9.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-2">
+<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.gain</span></span><a class="headerlink" href="#confval-2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">2080</span></code></p>
 <p>Type: <em>double</em></p>
 <p>The gain of the Wood-Anderson response.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-1">
-<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.T0</span></span><a class="headerlink" href="#confval-1" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-3">
+<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.T0</span></span><a class="headerlink" href="#confval-3" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.8</span></code></p>
 <p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
@@ -1109,9 +1196,9 @@ A value of 0 or lower disables that taper.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-2">
-<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.h</span></span><a class="headerlink" href="#confval-2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.8</span></code></p>
+<dt class="sig sig-object std" id="confval-4">
+<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.h</span></span><a class="headerlink" href="#confval-4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.7</span></code></p>
 <p>Type: <em>double</em></p>
 <p>The damping constant of the Wood-Anderson seismometer.</p>
 </dd></dl>
@@ -1120,7 +1207,7 @@ A value of 0 or lower disables that taper.</p>
 <p class="admonition-title">Note</p>
 <p><strong>magnitudes.*</strong>
 <em>Define magnitude parameters independent of amplitude-type profiles.</em>
-<em>For magnitude correction parameters, e.g, network of station</em>
+<em>For magnitude correction parameters, e.g., network of station</em>
 <em>corrections, create a magnitude type profile.</em></p>
 </div>
 <div class="admonition note">
@@ -1229,7 +1316,7 @@ filter grammar can be used.</p>
 <p><strong>picker.BK.*</strong>
 <em>Bkpicker is an implementation of the Baer/Kradolfer picker</em>
 <em>adapted to SeisComP. It was created by converting Manfred</em>
-<em>Baers from Fortran to C++ and inserting it as a replacement</em>
+<em>Baers from FORTRAN to C++ and inserting it as a replacement</em>
 <em>for the picker algorithm. The picker interface name to be</em>
 <em>used in configuration files, e.g. of scautopick,is</em>
 <em>“BK”.</em></p>
@@ -1273,7 +1360,7 @@ time) of the begin of the signal window used to pick.</p>
 <span class="sig-name descname"><span class="pre">picker.BK.filterType</span></span><a class="headerlink" href="#confval-picker.BK.filterType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">BP</span></code></p>
 <p>Type: <em>string</em></p>
-<p>BP (Bandpass) is currently the only option.</p>
+<p>BP (bandpass) is currently the only option.</p>
 </dd></dl>
 
 <dl class="std confval">
@@ -1518,16 +1605,16 @@ If 0, AIC is not used.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-3">
-<span class="sig-name descname"><span class="pre">detecLocid</span></span><a class="headerlink" href="#confval-3" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-5">
+<span class="sig-name descname"><span class="pre">detecLocid</span></span><a class="headerlink" href="#confval-5" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>The sensor location code of the preferred stream used e.g.
 by scautopick and scrttv.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-4">
-<span class="sig-name descname"><span class="pre">detecStream</span></span><a class="headerlink" href="#confval-4" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-6">
+<span class="sig-name descname"><span class="pre">detecStream</span></span><a class="headerlink" href="#confval-6" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>The channel code of the preferred stream used by
 e.g. scautopick and scrttv. If no component code is given,
@@ -1546,8 +1633,8 @@ fallback. Do not use regular expressions!</p>
 <em>restitution for measuring amplitudes of a certain type.</em></p>
 </div>
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-5">
-<span class="sig-name descname"><span class="pre">amplitudes.saturationThreshold</span></span><a class="headerlink" href="#confval-5" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-7">
+<span class="sig-name descname"><span class="pre">amplitudes.saturationThreshold</span></span><a class="headerlink" href="#confval-7" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Unit: <em>counts; %</em></p>
 <p>Type: <em>string</em></p>
@@ -1567,8 +1654,8 @@ the check.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-6">
-<span class="sig-name descname"><span class="pre">amplitudes.enable</span></span><a class="headerlink" href="#confval-6" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-8">
+<span class="sig-name descname"><span class="pre">amplitudes.enable</span></span><a class="headerlink" href="#confval-8" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Define if amplitude calculation is enabled. If disabled,
@@ -1576,14 +1663,14 @@ this station will be skipped for amplitudes and magnitudes.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-7">
-<span class="sig-name descname"><span class="pre">amplitudes.enableResponses</span></span><a class="headerlink" href="#confval-7" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-9">
+<span class="sig-name descname"><span class="pre">amplitudes.enableResponses</span></span><a class="headerlink" href="#confval-9" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Activate deconvolution for this station. If no responses are
 configured, an error is raised and the data is not processed.
 This flag will be overridden by the type specific flag
-(see Amplitude type profile).</p>
+(see GlobalAmplitudeProfile).</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -1597,8 +1684,8 @@ This flag will be overridden by the type specific flag
 $name is a placeholder for the name to be used.</p>
 </div>
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-8">
-<span class="sig-name descname"><span class="pre">amplitudes.$name.saturationThreshold</span></span><a class="headerlink" href="#confval-8" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-10">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.saturationThreshold</span></span><a class="headerlink" href="#confval-10" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Unit: <em>counts; %</em></p>
 <p>Type: <em>string</em></p>
@@ -1618,16 +1705,16 @@ the check.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-9">
-<span class="sig-name descname"><span class="pre">amplitudes.$name.enable</span></span><a class="headerlink" href="#confval-9" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-11">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.enable</span></span><a class="headerlink" href="#confval-11" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Define if amplitude calculation of certain type is enabled.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-10">
-<span class="sig-name descname"><span class="pre">amplitudes.$name.enableResponses</span></span><a class="headerlink" href="#confval-10" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-12">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.enableResponses</span></span><a class="headerlink" href="#confval-12" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Activate deconvolution for this amplitude type. If not
@@ -1636,17 +1723,17 @@ will be used instead.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-11">
-<span class="sig-name descname"><span class="pre">amplitudes.$name.minSNR</span></span><a class="headerlink" href="#confval-11" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-13">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.minSNR</span></span><a class="headerlink" href="#confval-13" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
-<p>Define the mininum SNR to be reached to compute the
+<p>Define the minimum SNR to be reached to compute the
 amplitudes. This value is amplitude type specific and
 has no global default value.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-12">
-<span class="sig-name descname"><span class="pre">amplitudes.$name.noiseBegin</span></span><a class="headerlink" href="#confval-12" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-14">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.noiseBegin</span></span><a class="headerlink" href="#confval-14" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
 <p>Override the default time (relative to the trigger
@@ -1657,8 +1744,8 @@ should only be changed if you know what you are doing.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-13">
-<span class="sig-name descname"><span class="pre">amplitudes.$name.noiseEnd</span></span><a class="headerlink" href="#confval-13" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-15">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.noiseEnd</span></span><a class="headerlink" href="#confval-15" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
 <p>Override the default time (relative to the trigger
@@ -1669,8 +1756,8 @@ should only be changed if you know what you are doing.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-14">
-<span class="sig-name descname"><span class="pre">amplitudes.$name.signalBegin</span></span><a class="headerlink" href="#confval-14" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-16">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.signalBegin</span></span><a class="headerlink" href="#confval-16" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
 <p>Override the default time (relative to the trigger
@@ -1681,8 +1768,8 @@ changed if you know what you are doing.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-15">
-<span class="sig-name descname"><span class="pre">amplitudes.$name.signalEnd</span></span><a class="headerlink" href="#confval-15" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-17">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.signalEnd</span></span><a class="headerlink" href="#confval-17" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
 <p>Override the default time (relative to the trigger
@@ -1693,8 +1780,8 @@ changed if you know what you are doing.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-16">
-<span class="sig-name descname"><span class="pre">amplitudes.$name.minDist</span></span><a class="headerlink" href="#confval-16" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-18">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.minDist</span></span><a class="headerlink" href="#confval-18" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unit: <em>deg</em></p>
 <p>Type: <em>double</em></p>
 <p>The minimum distance required to compute an amplitude.
@@ -1705,8 +1792,8 @@ specific.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-17">
-<span class="sig-name descname"><span class="pre">amplitudes.$name.maxDist</span></span><a class="headerlink" href="#confval-17" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-19">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.maxDist</span></span><a class="headerlink" href="#confval-19" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unit: <em>deg</em></p>
 <p>Type: <em>double</em></p>
 <p>The maximum distance allowed to compute an amplitude.
@@ -1717,8 +1804,8 @@ specific.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-18">
-<span class="sig-name descname"><span class="pre">amplitudes.$name.minDepth</span></span><a class="headerlink" href="#confval-18" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-20">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.minDepth</span></span><a class="headerlink" href="#confval-20" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unit: <em>km</em></p>
 <p>Type: <em>double</em></p>
 <p>The minimum depth required to compute an amplitude.
@@ -1729,8 +1816,8 @@ specific.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-19">
-<span class="sig-name descname"><span class="pre">amplitudes.$name.maxDepth</span></span><a class="headerlink" href="#confval-19" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-21">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.maxDepth</span></span><a class="headerlink" href="#confval-21" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unit: <em>km</em></p>
 <p>Type: <em>double</em></p>
 <p>The maximum depth allowed to compute an amplitude.
@@ -1741,8 +1828,8 @@ specific.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-20">
-<span class="sig-name descname"><span class="pre">amplitudes.$name.regionalize</span></span><a class="headerlink" href="#confval-20" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-22">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.regionalize</span></span><a class="headerlink" href="#confval-22" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Control if the amplitude calculation should be
@@ -1763,8 +1850,8 @@ false.</p>
 <em>Several parameters if usage of full responses is enabled.</em></p>
 </div>
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-21">
-<span class="sig-name descname"><span class="pre">amplitudes.$name.resp.taper</span></span><a class="headerlink" href="#confval-21" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-23">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.resp.taper</span></span><a class="headerlink" href="#confval-23" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
 <p>Unit: <em>s</em></p>
 <p>Define the length of the taper at either side of the
@@ -1773,8 +1860,8 @@ request: start - taper and end + taper.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-22">
-<span class="sig-name descname"><span class="pre">amplitudes.$name.resp.minFreq</span></span><a class="headerlink" href="#confval-22" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-24">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.resp.minFreq</span></span><a class="headerlink" href="#confval-24" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.00833333</span></code></p>
 <p>Unit: <em>Hz</em></p>
 <p>After data are converted in to the frequency domain
@@ -1785,8 +1872,8 @@ A value of 0 or lower disables that taper.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-23">
-<span class="sig-name descname"><span class="pre">amplitudes.$name.resp.maxFreq</span></span><a class="headerlink" href="#confval-23" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-25">
+<span class="sig-name descname"><span class="pre">amplitudes.$name.resp.maxFreq</span></span><a class="headerlink" href="#confval-25" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
 <p>Unit: <em>Hz</em></p>
 <p>After data are converted in to the frequency domain
@@ -1801,11 +1888,11 @@ A value of 0 or lower disables that taper.</p>
 <p><strong>amplitudes.resp.*</strong>
 <em>Several parameters if usage of full responses is enabled.</em>
 <em>The parameters of this group will be overridden by type</em>
-<em>specific settings if given (see Amplitude type profile).</em></p>
+<em>specific settings if given (see GlobalAmplitudeProfile).</em></p>
 </div>
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-24">
-<span class="sig-name descname"><span class="pre">amplitudes.resp.taper</span></span><a class="headerlink" href="#confval-24" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-26">
+<span class="sig-name descname"><span class="pre">amplitudes.resp.taper</span></span><a class="headerlink" href="#confval-26" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
 <p>Unit: <em>s</em></p>
 <p>Define the length of the taper at either side of the
@@ -1814,8 +1901,8 @@ request: start - taper and end + taper.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-25">
-<span class="sig-name descname"><span class="pre">amplitudes.resp.minFreq</span></span><a class="headerlink" href="#confval-25" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-27">
+<span class="sig-name descname"><span class="pre">amplitudes.resp.minFreq</span></span><a class="headerlink" href="#confval-27" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.00833333</span></code></p>
 <p>Unit: <em>Hz</em></p>
 <p>The minimum frequency of the considered spectrum.</p>
@@ -1827,8 +1914,8 @@ that taper.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-26">
-<span class="sig-name descname"><span class="pre">amplitudes.resp.maxFreq</span></span><a class="headerlink" href="#confval-26" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-28">
+<span class="sig-name descname"><span class="pre">amplitudes.resp.maxFreq</span></span><a class="headerlink" href="#confval-28" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
 <p>Unit: <em>Hz</em></p>
 <p>The maximum frequency of the considered spectrum.</p>
@@ -1841,26 +1928,48 @@ A value of 0 or lower disables that taper.</p>
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><strong>amplitudes.WoodAnderson.*</strong>
-<em>Parameters of the Wood-Anderson seismometer response used</em>
-<em>for instrument simulation.</em>
-<em>The default values are according to the version of</em>
-<em>Gutenberg (1935). The newer version by Uhrhammer and</em>
-<em>Collins (1990) is part of the IASPEI Magnitude</em>
-<em>Working Group recommendations of 2011 September 9. This</em>
-<em>version uses gain=2800, T0=0.8 s, h=0.8.</em></p>
+<p><strong>amplitudes.ttt.*</strong>
+<em>Travel time table specific parameters to be used for the</em>
+<em>computation of travel times referred to in signal and</em>
+<em>noise time window specifications,</em>
+<em>e.g. “signalBegin”.</em></p>
 </div>
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-27">
-<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.gain</span></span><a class="headerlink" href="#confval-27" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">2800</span></code></p>
+<dt class="sig sig-object std" id="confval-29">
+<span class="sig-name descname"><span class="pre">amplitudes.ttt.interface</span></span><a class="headerlink" href="#confval-29" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">libtau</span></code></p>
+<p>Type: <em>string</em></p>
+<p><em>No description available</em></p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-30">
+<span class="sig-name descname"><span class="pre">amplitudes.ttt.model</span></span><a class="headerlink" href="#confval-30" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">iasp91</span></code></p>
+<p>Type: <em>string</em></p>
+<p><em>No description available</em></p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>amplitudes.WoodAnderson.*</strong>
+<em>Parameters of the Wood-Anderson seismometer response used</em>
+<em>for instrument simulation. The default values are according</em>
+<em>to Uhrhammer and Collins (1990) and were part of the</em>
+<em>IASPEI Magnitude Working Group recommendations of 2011</em>
+<em>September 9.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-31">
+<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.gain</span></span><a class="headerlink" href="#confval-31" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">2080</span></code></p>
 <p>Type: <em>double</em></p>
 <p>The gain of the Wood-Anderson response.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-28">
-<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.T0</span></span><a class="headerlink" href="#confval-28" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-32">
+<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.T0</span></span><a class="headerlink" href="#confval-32" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.8</span></code></p>
 <p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
@@ -1868,9 +1977,9 @@ A value of 0 or lower disables that taper.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-29">
-<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.h</span></span><a class="headerlink" href="#confval-29" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.8</span></code></p>
+<dt class="sig sig-object std" id="confval-33">
+<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.h</span></span><a class="headerlink" href="#confval-33" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.7</span></code></p>
 <p>Type: <em>double</em></p>
 <p>The damping constant of the Wood-Anderson seismometer.</p>
 </dd></dl>
@@ -1879,7 +1988,7 @@ A value of 0 or lower disables that taper.</p>
 <p class="admonition-title">Note</p>
 <p><strong>magnitudes.*</strong>
 <em>Define magnitude parameters independent of amplitude-type profiles.</em>
-<em>For magnitude correction parameters, e.g, network of station</em>
+<em>For magnitude correction parameters, e.g., network of station</em>
 <em>corrections, create a magnitude type profile.</em></p>
 </div>
 <div class="admonition note">
@@ -1893,8 +2002,8 @@ A value of 0 or lower disables that taper.</p>
 $name is a placeholder for the name to be used.</p>
 </div>
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-30">
-<span class="sig-name descname"><span class="pre">magnitudes.$name.multiplier</span></span><a class="headerlink" href="#confval-30" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-34">
+<span class="sig-name descname"><span class="pre">magnitudes.$name.multiplier</span></span><a class="headerlink" href="#confval-34" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
 <p>Type: <em>list:string</em></p>
 <p>Part of the magnitude station correction. The final
@@ -1906,8 +2015,8 @@ Example: &quot;1.0, regionA: 0.9, regionB: 1.1&quot;.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-31">
-<span class="sig-name descname"><span class="pre">magnitudes.$name.offset</span></span><a class="headerlink" href="#confval-31" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-35">
+<span class="sig-name descname"><span class="pre">magnitudes.$name.offset</span></span><a class="headerlink" href="#confval-35" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
 <p>Type: <em>list:string</em></p>
 <p>Part of the magnitude station correction. The final
@@ -1934,8 +2043,8 @@ Example: &quot;0.0, regionA: -0.1, regionB: 0.2&quot;.</p>
 <em>scautopick, is “AIC”.</em></p>
 </div>
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-32">
-<span class="sig-name descname"><span class="pre">picker.AIC.noiseBegin</span></span><a class="headerlink" href="#confval-32" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-36">
+<span class="sig-name descname"><span class="pre">picker.AIC.noiseBegin</span></span><a class="headerlink" href="#confval-36" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
 <p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
@@ -1948,8 +2057,8 @@ noiseBegin and signalBegin.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-33">
-<span class="sig-name descname"><span class="pre">picker.AIC.signalBegin</span></span><a class="headerlink" href="#confval-33" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-37">
+<span class="sig-name descname"><span class="pre">picker.AIC.signalBegin</span></span><a class="headerlink" href="#confval-37" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">-30</span></code></p>
 <p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
@@ -1958,8 +2067,8 @@ time) of the begin of the signal window used to pick.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-34">
-<span class="sig-name descname"><span class="pre">picker.AIC.signalEnd</span></span><a class="headerlink" href="#confval-34" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-38">
+<span class="sig-name descname"><span class="pre">picker.AIC.signalEnd</span></span><a class="headerlink" href="#confval-38" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code></p>
 <p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
@@ -1968,16 +2077,16 @@ time) of the begin of the signal window used to pick.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-35">
-<span class="sig-name descname"><span class="pre">picker.AIC.filter</span></span><a class="headerlink" href="#confval-35" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-39">
+<span class="sig-name descname"><span class="pre">picker.AIC.filter</span></span><a class="headerlink" href="#confval-39" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>string</em></p>
 <p>Override the default filter which is &quot;raw&quot;. The typical
 filter grammar can be used.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-36">
-<span class="sig-name descname"><span class="pre">picker.AIC.minSNR</span></span><a class="headerlink" href="#confval-36" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-40">
+<span class="sig-name descname"><span class="pre">picker.AIC.minSNR</span></span><a class="headerlink" href="#confval-40" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Mininum SNR as returned from AIC for accepting picks.</p>
@@ -1988,14 +2097,14 @@ filter grammar can be used.</p>
 <p><strong>picker.BK.*</strong>
 <em>Bkpicker is an implementation of the Baer/Kradolfer picker</em>
 <em>adapted to SeisComP. It was created by converting Manfred</em>
-<em>Baers from Fortran to C++ and inserting it as a replacement</em>
+<em>Baers from FORTRAN to C++ and inserting it as a replacement</em>
 <em>for the picker algorithm. The picker interface name to be</em>
 <em>used in configuration files, e.g. of scautopick,is</em>
 <em>“BK”.</em></p>
 </div>
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-37">
-<span class="sig-name descname"><span class="pre">picker.BK.noiseBegin</span></span><a class="headerlink" href="#confval-37" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-41">
+<span class="sig-name descname"><span class="pre">picker.BK.noiseBegin</span></span><a class="headerlink" href="#confval-41" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
 <p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
@@ -2008,8 +2117,8 @@ noiseBegin and signalBegin.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-38">
-<span class="sig-name descname"><span class="pre">picker.BK.signalBegin</span></span><a class="headerlink" href="#confval-38" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-42">
+<span class="sig-name descname"><span class="pre">picker.BK.signalBegin</span></span><a class="headerlink" href="#confval-42" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">-20</span></code></p>
 <p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
@@ -2018,8 +2127,8 @@ time) of the begin of the signal window used to pick.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-39">
-<span class="sig-name descname"><span class="pre">picker.BK.signalEnd</span></span><a class="headerlink" href="#confval-39" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-43">
+<span class="sig-name descname"><span class="pre">picker.BK.signalEnd</span></span><a class="headerlink" href="#confval-43" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">80</span></code></p>
 <p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
@@ -2028,24 +2137,24 @@ time) of the begin of the signal window used to pick.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-40">
-<span class="sig-name descname"><span class="pre">picker.BK.filterType</span></span><a class="headerlink" href="#confval-40" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-44">
+<span class="sig-name descname"><span class="pre">picker.BK.filterType</span></span><a class="headerlink" href="#confval-44" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">BP</span></code></p>
 <p>Type: <em>string</em></p>
-<p>BP (Bandpass) is currently the only option.</p>
+<p>BP (bandpass) is currently the only option.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-41">
-<span class="sig-name descname"><span class="pre">picker.BK.filterPoles</span></span><a class="headerlink" href="#confval-41" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-45">
+<span class="sig-name descname"><span class="pre">picker.BK.filterPoles</span></span><a class="headerlink" href="#confval-45" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">2</span></code></p>
 <p>Type: <em>int</em></p>
 <p>Number of poles.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-42">
-<span class="sig-name descname"><span class="pre">picker.BK.f1</span></span><a class="headerlink" href="#confval-42" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-46">
+<span class="sig-name descname"><span class="pre">picker.BK.f1</span></span><a class="headerlink" href="#confval-46" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
 <p>Unit: <em>Hz</em></p>
 <p>Type: <em>double</em></p>
@@ -2053,8 +2162,8 @@ time) of the begin of the signal window used to pick.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-43">
-<span class="sig-name descname"><span class="pre">picker.BK.f2</span></span><a class="headerlink" href="#confval-43" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-47">
+<span class="sig-name descname"><span class="pre">picker.BK.f2</span></span><a class="headerlink" href="#confval-47" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">20</span></code></p>
 <p>Unit: <em>Hz</em></p>
 <p>Type: <em>double</em></p>
@@ -2062,16 +2171,16 @@ time) of the begin of the signal window used to pick.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-44">
-<span class="sig-name descname"><span class="pre">picker.BK.thrshl1</span></span><a class="headerlink" href="#confval-44" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-48">
+<span class="sig-name descname"><span class="pre">picker.BK.thrshl1</span></span><a class="headerlink" href="#confval-48" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Threshold to trigger for pick (c.f. paper), default 10</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-45">
-<span class="sig-name descname"><span class="pre">picker.BK.thrshl2</span></span><a class="headerlink" href="#confval-45" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-49">
+<span class="sig-name descname"><span class="pre">picker.BK.thrshl2</span></span><a class="headerlink" href="#confval-49" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">20</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Threshold for updating sigma  (c.f. paper), default 20</p>
@@ -2095,8 +2204,8 @@ time) of the begin of the signal window used to pick.</p>
 <em>“S-L2”.</em></p>
 </div>
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-46">
-<span class="sig-name descname"><span class="pre">spicker.L2.noiseBegin</span></span><a class="headerlink" href="#confval-46" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-50">
+<span class="sig-name descname"><span class="pre">spicker.L2.noiseBegin</span></span><a class="headerlink" href="#confval-50" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">-10</span></code></p>
 <p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
@@ -2109,8 +2218,8 @@ is the minimum of noiseBegin and signalBegin.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-47">
-<span class="sig-name descname"><span class="pre">spicker.L2.signalBegin</span></span><a class="headerlink" href="#confval-47" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-51">
+<span class="sig-name descname"><span class="pre">spicker.L2.signalBegin</span></span><a class="headerlink" href="#confval-51" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
 <p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
@@ -2119,8 +2228,8 @@ triggering pick) of the begin of the signal processing.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-48">
-<span class="sig-name descname"><span class="pre">spicker.L2.signalEnd</span></span><a class="headerlink" href="#confval-48" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-52">
+<span class="sig-name descname"><span class="pre">spicker.L2.signalEnd</span></span><a class="headerlink" href="#confval-52" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">60</span></code></p>
 <p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
@@ -2129,8 +2238,8 @@ pick) of the end of the signal window used to pick.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-49">
-<span class="sig-name descname"><span class="pre">spicker.L2.filter</span></span><a class="headerlink" href="#confval-49" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-53">
+<span class="sig-name descname"><span class="pre">spicker.L2.filter</span></span><a class="headerlink" href="#confval-53" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">BW(4,0.3,1.0)</span></code></p>
 <p>Type: <em>string</em></p>
 <p>Configure the filter used to process the horizontal
@@ -2138,8 +2247,8 @@ components traces before computing the L2-norm.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-50">
-<span class="sig-name descname"><span class="pre">spicker.L2.detecFilter</span></span><a class="headerlink" href="#confval-50" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-54">
+<span class="sig-name descname"><span class="pre">spicker.L2.detecFilter</span></span><a class="headerlink" href="#confval-54" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">STALTA(1,10)</span></code></p>
 <p>Type: <em>string</em></p>
 <p>Configure the detector filter applied on the filtered
@@ -2147,16 +2256,16 @@ L2 trace.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-51">
-<span class="sig-name descname"><span class="pre">spicker.L2.threshold</span></span><a class="headerlink" href="#confval-51" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-55">
+<span class="sig-name descname"><span class="pre">spicker.L2.threshold</span></span><a class="headerlink" href="#confval-55" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
 <p>Type: <em>double</em></p>
 <p>The detector threshold that triggers the AIC picker.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-52">
-<span class="sig-name descname"><span class="pre">spicker.L2.timeCorr</span></span><a class="headerlink" href="#confval-52" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-56">
+<span class="sig-name descname"><span class="pre">spicker.L2.timeCorr</span></span><a class="headerlink" href="#confval-56" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
 <p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
@@ -2165,8 +2274,8 @@ time before AIC time window is computed.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-53">
-<span class="sig-name descname"><span class="pre">spicker.L2.marginAIC</span></span><a class="headerlink" href="#confval-53" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-57">
+<span class="sig-name descname"><span class="pre">spicker.L2.marginAIC</span></span><a class="headerlink" href="#confval-57" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
 <p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
@@ -2175,8 +2284,8 @@ If 0, AIC is not used.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-54">
-<span class="sig-name descname"><span class="pre">spicker.L2.minSNR</span></span><a class="headerlink" href="#confval-54" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-58">
+<span class="sig-name descname"><span class="pre">spicker.L2.minSNR</span></span><a class="headerlink" href="#confval-58" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">15</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Minimum SNR as returned from AIC for accepting picks.</p>
@@ -2190,8 +2299,8 @@ If 0, AIC is not used.</p>
 <em>used in configuration files is “S-V”.</em></p>
 </div>
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-55">
-<span class="sig-name descname"><span class="pre">spicker.V.noiseBegin</span></span><a class="headerlink" href="#confval-55" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-59">
+<span class="sig-name descname"><span class="pre">spicker.V.noiseBegin</span></span><a class="headerlink" href="#confval-59" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">-10</span></code></p>
 <p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
@@ -2204,8 +2313,8 @@ is the minimum of noiseBegin and signalBegin.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-56">
-<span class="sig-name descname"><span class="pre">spicker.V.signalBegin</span></span><a class="headerlink" href="#confval-56" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-60">
+<span class="sig-name descname"><span class="pre">spicker.V.signalBegin</span></span><a class="headerlink" href="#confval-60" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
 <p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
@@ -2214,8 +2323,8 @@ triggering pick) of the begin of the signal processing.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-57">
-<span class="sig-name descname"><span class="pre">spicker.V.signalEnd</span></span><a class="headerlink" href="#confval-57" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-61">
+<span class="sig-name descname"><span class="pre">spicker.V.signalEnd</span></span><a class="headerlink" href="#confval-61" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">60</span></code></p>
 <p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
@@ -2224,8 +2333,8 @@ pick) of the end of the signal window used to pick.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-58">
-<span class="sig-name descname"><span class="pre">spicker.V.filter</span></span><a class="headerlink" href="#confval-58" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-62">
+<span class="sig-name descname"><span class="pre">spicker.V.filter</span></span><a class="headerlink" href="#confval-62" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">BW(4,0.3,1.0)</span></code></p>
 <p>Type: <em>string</em></p>
 <p>Configure the filter used to process the raw vertical
@@ -2233,24 +2342,24 @@ component data.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-59">
-<span class="sig-name descname"><span class="pre">spicker.V.detecFilter</span></span><a class="headerlink" href="#confval-59" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-63">
+<span class="sig-name descname"><span class="pre">spicker.V.detecFilter</span></span><a class="headerlink" href="#confval-63" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">STALTA(1,10)</span></code></p>
 <p>Type: <em>string</em></p>
 <p>Configure the detector filter applied on filtered data.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-60">
-<span class="sig-name descname"><span class="pre">spicker.V.threshold</span></span><a class="headerlink" href="#confval-60" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-64">
+<span class="sig-name descname"><span class="pre">spicker.V.threshold</span></span><a class="headerlink" href="#confval-64" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
 <p>Type: <em>double</em></p>
 <p>The detector threshold that triggers the AIC picker.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-61">
-<span class="sig-name descname"><span class="pre">spicker.V.timeCorr</span></span><a class="headerlink" href="#confval-61" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-65">
+<span class="sig-name descname"><span class="pre">spicker.V.timeCorr</span></span><a class="headerlink" href="#confval-65" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
 <p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
@@ -2259,8 +2368,8 @@ before AIC time window is computed.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-62">
-<span class="sig-name descname"><span class="pre">spicker.V.marginAIC</span></span><a class="headerlink" href="#confval-62" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-66">
+<span class="sig-name descname"><span class="pre">spicker.V.marginAIC</span></span><a class="headerlink" href="#confval-66" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
 <p>Unit: <em>s</em></p>
 <p>Type: <em>double</em></p>
@@ -2269,8 +2378,8 @@ If 0, AIC is not used.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-63">
-<span class="sig-name descname"><span class="pre">spicker.V.minSNR</span></span><a class="headerlink" href="#confval-63" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-67">
+<span class="sig-name descname"><span class="pre">spicker.V.minSNR</span></span><a class="headerlink" href="#confval-67" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">15</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Define the mininum SNR as returned from AIC.</p>

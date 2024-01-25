@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "QL2SC" "1" "Jan 18, 2024" "5.5.17" "SeisComP"
+.TH "QL2SC" "1" "Jan 18, 2024" "6.1.2" "SeisComP"
 .SH NAME
 ql2sc \- SeisComP Documentation
 .sp
@@ -43,6 +43,15 @@ The user may control at various levels which information to import. Whenever
 possible server\-side filters should be preferred to reduce both the network
 bandwidth consumption as well as the CPU and memory utilization on the local
 machine.
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+ql2sc does not delete events at the import system although quakelink
+allows the deletion of events. Deleted events are ignored by ql2sc and kept
+in the SeisComP database.
+.UNINDENT
+.UNINDENT
 .SH SERVER-SIDE EVENT FILTER
 .sp
 QuakeLink provides a filter syntax similar to SQL\-WHERE clauses which may be
@@ -555,6 +564,16 @@ a particular magnitude type.
 .UNINDENT
 .INDENT 0.0
 .TP
+.B host.$name.syncEventDelay
+Default: \fB0\fP
+.sp
+Type: \fIint\fP
+.sp
+Delays the synchronization of event attributes in seconds
+if set to a value greater than zero.
+.UNINDENT
+.INDENT 0.0
+.TP
 .B host.$name.keepAlive
 Default: \fBfalse\fP
 .sp
@@ -656,16 +675,16 @@ Include only preferred origin and magnitude information
 .B processing.blacklist.publicIDs
 Type: \fIlist:string\fP
 .sp
-Defines a whitelist of publicID prefixes that are
-allowed for processing. Separate items by comma.
+Defines a blacklist of publicID prefixes that are
+not allowed for processing. Separate items by comma.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B processing.whitelist.publicIDs
 Type: \fIlist:string\fP
 .sp
-Defines a blacklist of publicID prefixes that are
-not allowed for processing. Separate items by comma.
+Defines a whitelist of publicID prefixes that are
+allowed for processing. Separate items by comma.
 .UNINDENT
 .SH COMMAND-LINE OPTIONS
 .sp

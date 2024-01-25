@@ -22,6 +22,12 @@ possible server-side filters should be preferred to reduce both the network
 bandwidth consumption as well as the CPU and memory utilization on the local
 machine.
 
+.. note::
+
+   ql2sc does not delete events at the import system although quakelink
+   allows the deletion of events. Deleted events are ignored by ql2sc and kept
+   in the SeisComP database.
+
 
 .. _ql2sc_event_filter:
 
@@ -470,6 +476,16 @@ ql2sc inherits :ref:`global options<global-configuration>`.
    a particular magnitude type.
 
 
+.. confval:: host.$name.syncEventDelay
+
+   Default: ``0``
+
+   Type: *int*
+
+   Delays the synchronization of event attributes in seconds
+   if set to a value greater than zero.
+
+
 .. confval:: host.$name.keepAlive
 
    Default: ``false``
@@ -570,16 +586,16 @@ ql2sc inherits :ref:`global options<global-configuration>`.
 
    Type: *list:string*
 
-   Defines a whitelist of publicID prefixes that are
-   allowed for processing. Separate items by comma.
+   Defines a blacklist of publicID prefixes that are
+   not allowed for processing. Separate items by comma.
 
 
 .. confval:: processing.whitelist.publicIDs
 
    Type: *list:string*
 
-   Defines a blacklist of publicID prefixes that are
-   not allowed for processing. Separate items by comma.
+   Defines a whitelist of publicID prefixes that are
+   allowed for processing. Separate items by comma.
 
 
 

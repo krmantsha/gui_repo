@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "SCORGLS" "1" "Jan 18, 2024" "5.5.17" "SeisComP"
+.TH "SCORGLS" "1" "Jan 18, 2024" "6.1.2" "SeisComP"
 .SH NAME
 scorgls \- SeisComP Documentation
 .sp
@@ -35,14 +35,16 @@ scorgls \- SeisComP Documentation
 .SH DESCRIPTION
 .sp
 \fIscorgls\fP lists all available origin IDs within a given time range to stdout.
+Origins are fetched from database or read from a \fI\%SCML\fP file.
 .sp
-Use \fI\%scevtls\fP for listing all event IDs. In extension to \fI\%scevtls\fP
-and scorgls \fI\%scquery\fP can search for parameters based on complex custom
-queries.
-.SH EXAMPLE
-.sp
-Print all origin IDs for the complete year 2012.
+Similarly, use \fI\%scevtls\fP for listing all event IDs. In extension to
+\fIscorgls\fP and \fI\%scevtls\fP \fI\%scquery\fP can search for parameters based on
+complex custom queries.
+.SH EXAMPLES
 .INDENT 0.0
+.IP \(bu 2
+Print all origin IDs for the complete year 2012.
+.INDENT 2.0
 .INDENT 3.5
 .sp
 .nf
@@ -52,6 +54,19 @@ scorgls \-d mysql://sysop:sysop@localhost/seiscomp \e
         \-\-end \(dq2013\-01\-01 00:00:00\(dq
 .ft P
 .fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Print the IDs of all origins provided with the XML file:
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scevtls \-i origins.xml
+.ft P
+.fi
+.UNINDENT
 .UNINDENT
 .UNINDENT
 .SH MODULE CONFIGURATION
@@ -203,6 +218,13 @@ Load the inventory from the given database or file, format:
 .TP
 .B \-\-db\-disable
 Do not use the database at all
+.UNINDENT
+.SS Input
+.INDENT 0.0
+.TP
+.B \-i, \-\-input arg
+Name of input XML file. Read from stdin if \(aq\-\(aq is given.
+Deactivates reading origins from database.
 .UNINDENT
 .SS Origins
 .INDENT 0.0

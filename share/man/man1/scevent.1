@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "SCEVENT" "1" "Jan 18, 2024" "5.5.17" "SeisComP"
+.TH "SCEVENT" "1" "Jan 18, 2024" "6.1.2" "SeisComP"
 .SH NAME
 scevent \- SeisComP Documentation
 .sp
@@ -55,10 +55,11 @@ Set the \fI\%preferred magnitude\fP from all available magnitudes.
 .IP \(bu 2
 Set the \fI\%preferred focal mechanism\fP from all available focal mechanisms.
 .IP \(bu 2
-\fIOptional:\fP Set the event type of automatic origins based on the plugin
-\fI\%evrc\fP and the hypocenter location of the preferred
-origin. This requires the configuration of the \fI\%evrc\fP
-plugin and of regions by \fI\%BNA polygons\fP\&.
+\fIOptional:\fP Set the event type of automatic origins based by the plugin
+\fI\%evrc\fP based on the hypocenter location of the
+preferred origin. This requires the configuration of the
+\fI\%evrc\fP plugin and of geographic regions by
+\fI\%polygons in BNA or GeoJSON format\fP\&.
 .UNINDENT
 .SH ORIGIN ASSOCIATION
 .sp
@@ -73,7 +74,19 @@ Associate origins belonging to \fBdifferent seismic events\fP
 to different event objects in \fISeisComP\fP\&.
 .UNINDENT
 .sp
-If a match is not found, a new event can be formed.
+If no match can be found, a new event can be formed.
+.sp
+Origins can be filtered/ignored based on
+.INDENT 0.0
+.IP \(bu 2
+ID of agency which has created the origin:
+\fI\%processing.blacklist.agencies\fP,
+\fI\%processing.whitelist.agencies\fP (global parameters),
+.IP \(bu 2
+Hypocenter parameters: \fI\%eventAssociation.region.rect\fP,
+\fI\%eventAssociation.region.minDepth\fP,
+\fI\%eventAssociation.region.maxDepth\fP\&.
+.UNINDENT
 .SS Origin match
 .sp
 The new origin is matched to existing origins by comparing differences in epicenter,
@@ -491,7 +504,7 @@ Default: \fBfalse\fP
 .sp
 Type: \fIboolean\fP
 .sp
-If enabled then the EventDescription with type
+If enabled, then the EventDescription with type
 \(aqFlinn\-Engdahl region\(aq will be populated with the
 Flinn\-Engdahl region name.
 .UNINDENT
@@ -500,12 +513,12 @@ Flinn\-Engdahl region name.
 .B processing.blacklist.eventIDs
 Type: \fIlist:string\fP
 .sp
-Defines a blacklist of event ids. The items of this list
-are only matches against %c, %C, %d, %x and %X of the
-eventIDPattern description. Year (%Y) and prefix (%p) are
-not matched. The match is case\-sensitive, so blacklisting
-e.g. abcd would only match in combination with %c. If %C
-is used ABCD has to be blacklisted.
+Defines a list of event ID patterns to be blocked. The
+items of this list are only matched against %c, %C, %d,
+%x and %X of the eventIDPattern description. Year (%Y)
+and prefix (%p) are not matched. The match is
+case\-sensitive, so \(aqabcd\(aq would only by blocked in
+combination with %c. If %C is used, \(aqABCD\(aq is matched.
 .UNINDENT
 .sp
 \fBNOTE:\fP

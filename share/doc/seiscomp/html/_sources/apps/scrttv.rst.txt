@@ -1195,6 +1195,119 @@ scrttv inherits :ref:`global options<global-configuration>`.
    dropdown list.
 
 
+.. note::
+   **spectrogram.\***
+   *Define parameters for spectrogram representation.*
+
+
+
+.. confval:: spectrogram.smoothing
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Whether to plot the spectrogram filtered bilinearily.
+
+
+.. confval:: spectrogram.logScale
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Whether to use logarithmic frequency scale.
+
+
+.. confval:: spectrogram.normalization
+
+   Default: ``fixed``
+
+   Type: *string*
+
+   Which amplitude normalization mode to use: \"fixed\",
+   \"frequency\" or \"time\".
+
+
+.. confval:: spectrogram.axis
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Whether to show the frequency axis.
+
+
+.. confval:: spectrogram.minimumAmplitude
+
+   Default: ``-15``
+
+   Type: *double*
+
+   Unit: *log(ps)*
+
+   The lower bound of the static amplitude range give as logarithm of
+   the power spectrum \(log\(real\*\*2 + imag\*\*2\)\).
+
+
+.. confval:: spectrogram.maximumAmplitude
+
+   Default: ``-5``
+
+   Type: *double*
+
+   Unit: *log(ps)*
+
+   The upper bound of the static amplitude range give as logarithm of
+   the power spectrum \(log\(real\*\*2 + imag\*\*2\)\).
+
+
+.. confval:: spectrogram.minimumFrequency
+
+   Default: ``0``
+
+   Type: *double*
+
+   Unit: *Hz*
+
+   The lower bound of the frequency to be shown.
+
+
+.. confval:: spectrogram.maximumFrequency
+
+   Default: ``0``
+
+   Type: *double*
+
+   Unit: *Hz*
+
+   The upper bound of the frequency to be shown. Zero is a special
+   value and means \"auto\" and sets the maximum
+   frequency from the spectra.
+
+
+.. confval:: spectrogram.timeSpan
+
+   Default: ``20``
+
+   Type: *double*
+
+   Unit: *s*
+
+   The time span of each data slice used to compute the
+   frequency spectrum.
+
+
+.. confval:: spectrogram.overlap
+
+   Default: ``0.5``
+
+   Type: *double*
+
+   The overlap of the data time window between zero and one
+   \(exclusive\).
+
+
 
 Command-Line Options
 ====================

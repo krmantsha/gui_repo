@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'xmlview.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.7
+** Created by: Qt User Interface Compiler version 5.9.7
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,13 +10,13 @@
 #define UI_XMLVIEW_H
 
 #include <QtCore/QVariant>
-#include <QtGui/QAction>
-#include <QtGui/QApplication>
-#include <QtGui/QButtonGroup>
-#include <QtGui/QGridLayout>
-#include <QtGui/QHeaderView>
-#include <QtGui/QTreeWidget>
-#include <QtGui/QWidget>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QTreeWidget>
+#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
@@ -29,7 +29,7 @@ public:
     void setupUi(QWidget *XMLViewDialog)
     {
         if (XMLViewDialog->objectName().isEmpty())
-            XMLViewDialog->setObjectName(QString::fromUtf8("XMLViewDialog"));
+            XMLViewDialog->setObjectName(QStringLiteral("XMLViewDialog"));
         XMLViewDialog->resize(336, 330);
         gridLayout = new QGridLayout(XMLViewDialog);
 #ifndef Q_OS_MAC
@@ -38,9 +38,9 @@ public:
 #ifndef Q_OS_MAC
         gridLayout->setContentsMargins(9, 9, 9, 9);
 #endif
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
         treeWidget = new QTreeWidget(XMLViewDialog);
-        treeWidget->setObjectName(QString::fromUtf8("treeWidget"));
+        treeWidget->setObjectName(QStringLiteral("treeWidget"));
         treeWidget->setAlternatingRowColors(true);
         treeWidget->setIndentation(10);
 
@@ -54,7 +54,7 @@ public:
 
     void retranslateUi(QWidget *XMLViewDialog)
     {
-        XMLViewDialog->setWindowTitle(QApplication::translate("XMLViewDialog", "XMLView", 0, QApplication::UnicodeUTF8));
+        XMLViewDialog->setWindowTitle(QApplication::translate("XMLViewDialog", "XMLView", Q_NULLPTR));
     } // retranslateUi
 
 };

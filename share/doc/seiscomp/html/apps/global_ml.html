@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -78,11 +78,11 @@
 <section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
 <p>ML is the standard local (Richter) magnitude originally designed for
-Southern California by <span id="id1">Richter [<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">53</a>]</span>.</p>
+Southern California by <span id="id1">Richter [<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">57</a>]</span>.</p>
 <p>General (default) conditions apply:</p>
 <ul class="simple">
-<li><p>Amplitude unit in SeisComP: <strong>millimeter</strong> (mm) by Wood-Anderson simulation.</p></li>
-<li><p>Time window, configurable: 150 s by <a class="reference internal" href="scautopick.html#scautopick"><span class="std std-ref">scautopick</span></a> or distance dependent.</p></li>
+<li><p>Amplitude unit in SeisComP: <strong>millimeter</strong> (mm) by simulation of a <a class="reference internal" href="../base/glossary.html#term-Wood-Anderson-seismometer"><span class="xref std std-term">Wood-Anderson seismometer</span></a>.</p></li>
+<li><p>Time window, configurable: 150 s by <a class="reference internal" href="scautopick.html#scautopick"><span class="std std-ref">scautopick</span></a> or distance dependent, configurable.</p></li>
 <li><p>Distance type: epicentral distance.</p></li>
 <li><p>Distance range: 0 - 8 deg,  maximum is configurable:
 <a class="reference internal" href="global.html#confval-magnitudes.ML.maxDistanceKm"><code class="xref std std-confval docutils literal notranslate"><span class="pre">magnitudes.ML.maxDistanceKm</span></code></a>,
@@ -104,12 +104,12 @@ amplitudes are configurable in the global bindings.</p>
 <p><img src="../_images/math/2ac00af8e0cff8bc51992386e723083d633de181.png" alt="ML = \log10(A) - \log10(A0)"/></p>
 </div><p><em>A</em> is the measured ML Wood-Anderson amplitude in millimeters. The second term
 is the empirical calibration function, which in turn is a function
-of the epicentral distance (<span id="id2">Richter [<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">53</a>]</span>). This calibration
+of the epicentral distance (<span id="id2">Richter [<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">57</a>]</span>). This calibration
 function and distance range can be configured globally or per station using
 global bindings or the global module configuration variable
 module.trunk.global.magnitudes.ML.logA0 in <code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code>, e.g.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module</span><span class="o">.</span><span class="n">trunk</span><span class="o">.</span><span class="k">global</span><span class="o">.</span><span class="n">magnitudes</span><span class="o">.</span><span class="n">ML</span><span class="o">.</span><span class="n">logA0</span> <span class="o">=</span> <span class="s2">&quot;0:-1.3,60:-2.8,100:-3.0,400:-4.5,1000:-5.85&quot;</span>
-<span class="n">module</span><span class="o">.</span><span class="n">trunk</span><span class="o">.</span><span class="k">global</span><span class="o">.</span><span class="n">magnitudes</span><span class="o">.</span><span class="n">ML</span><span class="o">.</span><span class="n">maxDistanceKm</span> <span class="o">=</span> <span class="s2">&quot;-1&quot;</span>
+<div class="highlight-params notranslate"><div class="highlight"><pre><span></span>module.trunk.global.magnitudes.ML.logA0 = &quot;0:-1.3,60:-2.8,100:-3.0,400:-4.5,1000:-5.85&quot;
+module.trunk.global.magnitudes.ML.maxDistanceKm = &quot;-1&quot;
 </pre></div>
 </div>
 <p>The <em>logA0</em> configuration string consists of an arbitrary number of
@@ -126,7 +126,7 @@ distance of 80 km the <em>log10(A0)</em> value would be</p>
 <div class="math">
 <p><img src="../_images/math/d201277e64aa494949afae6e3509d37320084dc7.png" alt="ML &amp;= \log10(A) - (-2.9) \\
    &amp;= \log10(A) + 2.9"/></p>
-</div><p>which is according to the original Richter formula <span id="id3">[<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">53</a>]</span> if the
+</div><p>which is according to the original Richter formula <span id="id3">[<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">57</a>]</span> if the
 amplitude is measured in millimeters.</p>
 <p>Several distance-value pairs can be configured for different ranges of
 epicenter distance.</p>
@@ -146,39 +146,6 @@ line per parameter can be added to the global module configuration
 <p>Add ML to the list of computed amplitudes and magnitudes in the configuration of
 <a class="reference internal" href="scamp.html#scamp"><span class="std std-ref">scamp</span></a> and <a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a> and in <a class="reference internal" href="scesv.html#scesv"><span class="std std-ref">scesv</span></a> or <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a> for visibility.</p>
 </section>
-</section>
-<section id="module-configuration">
-<span id="global-ml-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>magnitudes.ML.*</strong>
-<em>Regionalized calibration parameters for ML. The region itself is defined</em>
-<em>by another magnitude-type ML profile.</em></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>magnitudes.ML.region.*</strong>
-<em>Add one profile for every region. The profile name</em>
-<em>equals the name of a polygon configured in the BNA file</em>
-<em>of the Magnitude-type profile. The Magnitude-type profile</em>
-<em>and the polygon must exist.</em>
-<em>The special name “world” corresponds to the</em>
-<em>region of the entire planet as a fallback.</em></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>magnitudes.ML.region.$name.*</strong>
-$name is a placeholder for the name to be used.</p>
-</div>
-<dl class="std confval">
-<dt class="sig sig-object std" id="confval-magnitudes.ML.region.-name.logA0">
-<span class="sig-name descname"><span class="pre">magnitudes.ML.region.$name.logA0</span></span><a class="headerlink" href="#confval-magnitudes.ML.region.-name.logA0" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
-<p>Overrides the calibration function log10(A0)
-for computing ML per region. See logA0
-description in the bindings.</p>
-</dd></dl>
-
 </section>
 </section>
 
@@ -210,7 +177,6 @@ description in the bindings.</p>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
 </ul>
 </li>
 </ul>
@@ -245,7 +211,7 @@ description in the bindings.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -77,11 +77,11 @@
 <p>Local (Richter) magnitude measured on the vertical component</p>
 <section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
-<p>MLv is the local (Richter) magnitude (<span id="id1">Richter [<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">53</a>]</span>) computed from amplitudes measured on the
+<p>MLv is the local (Richter) magnitude (<span id="id1">Richter [<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">57</a>]</span>) computed from amplitudes measured on the
 vertical component.</p>
 <p>General (default) conditions apply:</p>
 <ul class="simple">
-<li><p>Amplitude unit in SeisComP: <strong>millimeter</strong> (mm) by Wood-Anderson simulation.</p></li>
+<li><p>Amplitude unit in SeisComP: <strong>millimeter</strong> (mm) by simulation of a <a class="reference internal" href="../base/glossary.html#term-Wood-Anderson-seismometer"><span class="xref std std-term">Wood-Anderson seismometer</span></a>.</p></li>
 <li><p>Time window: 150 s by <a class="reference internal" href="scautopick.html#scautopick"><span class="std std-ref">scautopick</span></a> or distance dependent, configurable.</p></li>
 <li><p>Default distance range: 0 - 8 deg,  maximum is configurable
 <a class="reference internal" href="global.html#confval-magnitudes.MLv.maxDistanceKm"><code class="xref std std-confval docutils literal notranslate"><span class="pre">magnitudes.MLv.maxDistanceKm</span></code></a>, measurements beyond 8 deg will be
@@ -102,7 +102,7 @@ for measuring amplitudes are configurable in the global bindings.</p>
 <p><img src="../_images/math/f73f0c80f57e4c0aa9f75af47267f7aa55522b40.png" alt="MLv = \log10(A) - \log10(A0)"/></p>
 </div><p>A is the MLv Wood-Anderson amplitude in millimeters. The second term
 is the empirical calibration function, which in turn is a function
-of the epicentral distance (see <span id="id2">Richter [<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">53</a>]</span>). This calibration
+of the epicentral distance (see <span id="id2">Richter [<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">57</a>]</span>). This calibration
 function can be configured globally or per station using global
 bindings or the global module configuration variable
 module.trunk.global.magnitudes.MLv.logA0 in <code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code>, e.g.</p>
@@ -123,7 +123,7 @@ distance of 80 km the <em>log10(A0)</em> value would be</p>
 <div class="math">
 <p><img src="../_images/math/e43775c444e67a786957a45f52e1b6a4b4d757a8.png" alt="MLv &amp;= \log10(A) - (-2.9) \\
     &amp;= \log10(A) + 2.9"/></p>
-</div><p>which is according to the original Richter formula <span id="id3">[<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">53</a>]</span> if the
+</div><p>which is according to the original Richter formula <span id="id3">[<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">57</a>]</span> if the
 amplitude is measured in millimeters.</p>
 </section>
 <section id="network-magnitude">
@@ -141,56 +141,23 @@ per network or per station using the configuration variables. Instead configurin
 lots of global bindings profiles or station bindings one line per parameter can be
 added to the global module configuration (<code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code>), e.g.</p>
 <p>global:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>module.trunk.global.magnitudes.MLv.logA0<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;0:-1.3,60:-2.8,100:-3.0,400:-4.5,1000:-5.85&quot;</span>
-module.trunk.global.magnitudes.MLv.maxDistanceKm<span class="w"> </span><span class="o">=</span><span class="w"> </span>-1
+<div class="highlight-params notranslate"><div class="highlight"><pre><span></span>module.trunk.global.magnitudes.MLv.logA0 = &quot;0:-1.3,60:-2.8,100:-3.0,400:-4.5,1000:-5.85&quot;
+module.trunk.global.magnitudes.MLv.maxDistanceKm = -1
 </pre></div>
 </div>
 <p>or per network:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>module.trunk.GR.magnitudes.MLv.logA0<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;0:-1.3,60:-2.8,100:-3.0,400:-4.5,1000:-5.85&quot;</span>
-module.trunk.GR.magnitudes.MLv.maxDistanceKm<span class="w"> </span><span class="o">=</span><span class="w"> </span>-1
+<div class="highlight-params notranslate"><div class="highlight"><pre><span></span>module.trunk.GR.magnitudes.MLv.logA0 = &quot;0:-1.3,60:-2.8,100:-3.0,400:-4.5,1000:-5.85&quot;
+module.trunk.GR.magnitudes.MLv.maxDistanceKm = -1
 </pre></div>
 </div>
 <p>or per station:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>module.trunk.GR.MOX.magnitudes.MLv.logA0<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;0:-1.3,60:-2.8,100:-3.0,400:-4.5,1000:-5.85&quot;</span>
-module.trunk.GR.MOX.magnitudes.MLv.maxDistanceKm<span class="w"> </span><span class="o">=</span><span class="w"> </span>-1
+<div class="highlight-params notranslate"><div class="highlight"><pre><span></span>module.trunk.GR.MOX.magnitudes.MLv.logA0 = &quot;0:-1.3,60:-2.8,100:-3.0,400:-4.5,1000:-5.85&quot;
+module.trunk.GR.MOX.magnitudes.MLv.maxDistanceKm = -1
 </pre></div>
 </div>
 <p>Set the configuration and calibration parameters in the global bindings. By
 default MLv is computed by <a class="reference internal" href="scautopick.html#scautopick"><span class="std std-ref">scautopick</span></a> and is visible in GUIs.</p>
 </section>
-</section>
-<section id="module-configuration">
-<span id="global-mlv-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>magnitudes.MLv.*</strong>
-<em>Regional calibration parameters for MLv. The region itself is defined</em>
-<em>by another magnitude-type MLv profile.</em></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>magnitudes.MLv.region.*</strong>
-<em>Add one profile for every region. The profile name</em>
-<em>equals the name of a polygon configured in the BNA file</em>
-<em>of the Magnitude-type profile. The Magnitude-type profile</em>
-<em>and the polygon must exist.</em>
-<em>The special name “world” corresponds to the</em>
-<em>region of the entire planet as a fallback.</em></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>magnitudes.MLv.region.$name.*</strong>
-$name is a placeholder for the name to be used.</p>
-</div>
-<dl class="std confval">
-<dt class="sig sig-object std" id="confval-magnitudes.MLv.region.-name.logA0">
-<span class="sig-name descname"><span class="pre">magnitudes.MLv.region.$name.logA0</span></span><a class="headerlink" href="#confval-magnitudes.MLv.region.-name.logA0" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
-<p>Overrides the calibration function log10(A0)
-for computing MLv per region. See logA0
-description in the bindings.</p>
-</dd></dl>
-
 </section>
 </section>
 
@@ -222,7 +189,6 @@ description in the bindings.</p>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
 </ul>
 </li>
 </ul>
@@ -257,7 +223,7 @@ description in the bindings.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

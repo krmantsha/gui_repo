@@ -43,6 +43,8 @@ class Proc {
 
 	// Returns the component index of a given channel code
 	int compIndex(const std::string &code) const;
+
+	void reset();
 };
 */
 
@@ -54,6 +56,15 @@ class NCompsOperator : public WaveformOperator {
 
 		WaveformProcessor::Status feed(const Record *record);
 		void reset();
+
+		// Returns the RingBuffer of each component.
+		const Seiscomp::RingBuffer &buffer(int i) const {
+			return this->_states[i].buffer;
+		}
+
+		const PROC &proc() const {
+			return this->_proc;
+		}
 
 	protected:
 		WaveformProcessor::Status process(int comp, const Record *rec);
@@ -92,6 +103,10 @@ class CodeWrapper<T,2,PROC> {
 
 		const std::string &translateChannelCode(int c, const std::string &code) { return code; }
 
+		void reset() {
+			_proc.reset();
+		}
+
 	private:
 		PROC<T,2>   _proc;
 		std::string _code1;
@@ -118,6 +133,9 @@ class CodeWrapper<T,3,PROC> {
 
 		const std::string &translateChannelCode(int c, const std::string &code) { return code; }
 
+		void reset() {
+			_proc.reset();
+		}
 
 	private:
 		PROC<T,3>   _proc;
@@ -158,6 +176,13 @@ class StreamConfigWrapper {
 
 		const std::string &translateChannelCode(int c, const std::string &code) { return code; }
 
+		const PROC<T,N> &proc() const {
+			return _proc;
+		}
+
+		void reset() {
+			_proc.reset();
+		}
 
 	private:
 		PROC<T,N>     _proc;
@@ -183,8 +208,10 @@ class NoOpWrapper {
 			return -1;
 		}
 
+		void reset() {}
+
 	private:
-			const Stream *_configs;
+		const Stream *_configs;
 };
 
 
@@ -227,6 +254,12 @@ class FilterWrapper {
 		const std::string &translateChannelCode(int, const std::string &code) {
 			return code;
 		}
+
+		const PROC &proc() const {
+			return _proc;
+		}
+
+		void reset() {}
 
 
 	private:

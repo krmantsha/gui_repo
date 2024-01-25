@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -298,12 +298,21 @@ the file name can also be passed without the URL scheme, e.g.</p>
 <p>The default path is set to <cite>$SEISCOMP_ROOT/var/lib/archive</cite>.</p>
 <p>In contrast to a formal URL definition, the URL path is interpreted as a directory path list
 separated by commas.</p>
-<p>Different SDS are not merged, but are read sequentially depending on data existence.
-If a requested file is missing in the current SDS, it is searched for in the archive
-next in the list. On success it will deliver all the rest of files for the current channel
-from this SDS archive. On failure the next SDS archive is searched.</p>
-<p>This process is repeated for each requested channel individually. It always starts to
-search data from the first given SDS to the last one, for each data channel.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When defining multiple directories separated by comma in a configuration
+file, please enclose the entire definition (including <code class="docutils literal notranslate"><span class="pre">sdsarchive://</span></code> with
+double quotes. Otherwise the configuration parser will interpret it as a list
+and will only return the first part up to the first comma.</p>
+</div>
+<p>Different SDS archives are not merged, but are read sequentially depending on
+data existence. If a requested file is missing in the current SDS archive, it is
+searched for in the archive next in the list. On success it will deliver all
+the rest of files for the current channel from this SDS archive. On failure the
+next SDS archive is searched.</p>
+<p>This process is repeated for each requested channel individually. It always
+starts to search data from the first given SDS to the last one, for each data
+channel.</p>
 </section>
 <section id="id8">
 <h4>Examples<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h4>
@@ -724,7 +733,7 @@ stream scheme.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

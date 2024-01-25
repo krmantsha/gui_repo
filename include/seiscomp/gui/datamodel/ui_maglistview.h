@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'maglistview.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.7
+** Created by: Qt User Interface Compiler version 5.9.7
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,16 +10,16 @@
 #define UI_MAGLISTVIEW_H
 
 #include <QtCore/QVariant>
-#include <QtGui/QAction>
-#include <QtGui/QApplication>
-#include <QtGui/QButtonGroup>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QHeaderView>
-#include <QtGui/QPushButton>
-#include <QtGui/QSpacerItem>
-#include <QtGui/QTreeWidget>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QWidget>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QTreeWidget>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
@@ -36,7 +36,7 @@ public:
     void setupUi(QWidget *OriginListView)
     {
         if (OriginListView->objectName().isEmpty())
-            OriginListView->setObjectName(QString::fromUtf8("OriginListView"));
+            OriginListView->setObjectName(QStringLiteral("OriginListView"));
         OriginListView->resize(448, 649);
         vboxLayout = new QVBoxLayout(OriginListView);
 #ifndef Q_OS_MAC
@@ -45,9 +45,9 @@ public:
 #ifndef Q_OS_MAC
         vboxLayout->setContentsMargins(9, 9, 9, 9);
 #endif
-        vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
+        vboxLayout->setObjectName(QStringLiteral("vboxLayout"));
         treeWidget = new QTreeWidget(OriginListView);
-        treeWidget->setObjectName(QString::fromUtf8("treeWidget"));
+        treeWidget->setObjectName(QStringLiteral("treeWidget"));
 
         vboxLayout->addWidget(treeWidget);
 
@@ -56,9 +56,9 @@ public:
         hboxLayout->setSpacing(6);
 #endif
         hboxLayout->setContentsMargins(0, 0, 0, 0);
-        hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
+        hboxLayout->setObjectName(QStringLiteral("hboxLayout"));
         btnClear = new QPushButton(OriginListView);
-        btnClear->setObjectName(QString::fromUtf8("btnClear"));
+        btnClear->setObjectName(QStringLiteral("btnClear"));
         btnClear->setEnabled(false);
 
         hboxLayout->addWidget(btnClear);
@@ -68,7 +68,7 @@ public:
         hboxLayout->addItem(spacerItem);
 
         btnDbRead = new QPushButton(OriginListView);
-        btnDbRead->setObjectName(QString::fromUtf8("btnDbRead"));
+        btnDbRead->setObjectName(QStringLiteral("btnDbRead"));
         btnDbRead->setEnabled(false);
 
         hboxLayout->addWidget(btnDbRead);
@@ -84,9 +84,9 @@ public:
 
     void retranslateUi(QWidget *OriginListView)
     {
-        OriginListView->setWindowTitle(QApplication::translate("OriginListView", "OriginList", 0, QApplication::UnicodeUTF8));
-        btnClear->setText(QApplication::translate("OriginListView", "Clear", 0, QApplication::UnicodeUTF8));
-        btnDbRead->setText(QApplication::translate("OriginListView", "Read from DB", 0, QApplication::UnicodeUTF8));
+        OriginListView->setWindowTitle(QApplication::translate("OriginListView", "OriginList", Q_NULLPTR));
+        btnClear->setText(QApplication::translate("OriginListView", "Clear", Q_NULLPTR));
+        btnDbRead->setText(QApplication::translate("OriginListView", "Read from DB", Q_NULLPTR));
     } // retranslateUi
 
 };

@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "SCDBSTRIP" "1" "Jan 18, 2024" "5.5.17" "SeisComP"
+.TH "SCDBSTRIP" "1" "Jan 18, 2024" "6.1.2" "SeisComP"
 .SH NAME
 scdbstrip \- SeisComP Documentation
 .sp
@@ -117,13 +117,22 @@ Run scdbstrip on smaller batches for the first time:
 .sp
 .nf
 .ft C
-$ scdbstrip \-d seis:mypass@localhost/seiscomp \-\-days 1000
-$ scdbstrip \-d seis:mypass@localhost/seiscomp \-\-days 900
+$ scdbstrip \-d mysql://sysop:sysop@localhost/seiscomp \-\-days 1000
+$ scdbstrip \-d mysql://sysop:sysop@localhost/seiscomp \-\-days 900
 \&...
-$ scdbstrip \-d seis:mypass@localhost/seiscomp \-\-days 100
+$ scdbstrip \-d mysql://sysop:sysop@localhost/seiscomp \-\-days 100
 .ft P
 .fi
 .UNINDENT
+.UNINDENT
+.UNINDENT
+.sp
+\fBHINT:\fP
+.INDENT 0.0
+.INDENT 3.5
+In the examples, database connection parameters correspond to default values.
+You may thus replace \fB\-d mysql://sysop:sysop@localhost/seiscomp\fP by
+\fB\-d localhost\fP or \fB\-d mysql://\fP\&.
 .UNINDENT
 .UNINDENT
 .SH EXAMPLES
@@ -141,6 +150,18 @@ scdbstrip \-d mysql://sysop:sysop@localhost/seiscomp \-\-days 30
 .UNINDENT
 .UNINDENT
 .IP \(bu 2
+Remove event and waveform quality parameters newer than 30 days
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scdbstrip \-d mysql://sysop:sysop@localhost/seiscomp \-\-days 30 \-i
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
 Only remove waveform QC parameters older than 30 days but no others
 .INDENT 2.0
 .INDENT 3.5
@@ -148,6 +169,54 @@ Only remove waveform QC parameters older than 30 days but no others
 .nf
 .ft C
 scdbstrip \-d mysql://sysop:sysop@localhost/seiscomp \-\-days 30 \-\-qc\-only
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Remove event and waveform quality parameters before 2000\-01\-01 12:00:00
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scdbstrip \-d mysql://sysop:sysop@localhost/seiscomp \-\-datetime \(dq2000\-01\-01 12:00:00\(dq
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Remove event and waveform quality parameters after 2000\-01\-01 12:00:00
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scdbstrip \-d mysql://sysop:sysop@localhost/seiscomp \-\-datetime \(dq2000\-01\-01 12:00:00\(dq \-i
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Remove event and waveform quality parameters between 2000\-01\-01 12:00:00 ~ 2000\-01\-01 14:00:00
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scdbstrip \-d mysql://sysop:sysop@localhost/seiscomp \-\-time\-window \(dq2000\-01\-01 12:00:00~2000\-01\-01 14:00:00\(dq
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Remove event and waveform quality parameters before 2000\-01\-01 12:00:00 and after 2000\-01\-01 14:00:00
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scdbstrip \-d mysql://sysop:sysop@localhost/seiscomp \-\-time\-window \(dq2000\-01\-01 12:00:00~2000\-01\-01 14:00:00\(dq \-i
 .ft P
 .fi
 .UNINDENT
@@ -172,8 +241,10 @@ Default: \fBfalse\fP
 .sp
 Type: \fIboolean\fP
 .sp
-Delete all parameters after the specified time period,
-not before.
+Invert the selection of the specified time period, that is
+delete all parameters after the specified time period,
+not before. When a date range is specified, then delete all
+parameters before and after the time range, not in between.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -397,8 +468,16 @@ Overrides configuration parameter \fI\%database.cleanup.keep.minutes\fP\&.
 .TP
 .B \-\-datetime arg
 Replaces the days:hours:minutes timespan definition by an
-aribtrary absolute timestamp in UTC. The format is
+arbitrary absolute timestamp in UTC. The format is
 %Y\-%m\-%d %H:%M:%S.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-t, \-\-time\-window arg
+Delete objects in the specified time window.
+Replaces the days:hours:minutes timespan definition by an
+arbitrary absolute time range in UTC. The format is
+startTime~endTime that is %Y\-%m\-%d %H:%M:%S~%Y\-%m\-%d %H:%M:%S
 .UNINDENT
 .INDENT 0.0
 .TP

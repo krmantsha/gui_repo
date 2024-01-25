@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -334,8 +334,6 @@
       <ul>
         <li><a href="apps/scardac.html#cmdoption-scardac-a">--archive</a>
 </li>
-        <li><a href="apps/scardac.html#cmdoption-scardac-b">--batch-size</a>
-</li>
         <li><a href="apps/scardac.html#cmdoption-scardac-component">--component</a>
 </li>
         <li><a href="apps/scardac.html#cmdoption-scardac-config-file">--config-file</a>
@@ -344,9 +342,17 @@
 </li>
         <li><a href="apps/scardac.html#cmdoption-scardac-debug">--debug</a>
 </li>
+        <li><a href="apps/scardac.html#cmdoption-scardac-deep-scan">--deep-scan</a>
+</li>
+        <li><a href="apps/scardac.html#cmdoption-scardac-end">--end</a>
+</li>
+        <li><a href="apps/scardac.html#cmdoption-scardac-exclude">--exclude</a>
+</li>
         <li><a href="apps/scardac.html#cmdoption-scardac-generate-test-data">--generate-test-data</a>
 </li>
         <li><a href="apps/scardac.html#cmdoption-scardac-h">--help</a>
+</li>
+        <li><a href="apps/scardac.html#cmdoption-scardac-include">--include</a>
 </li>
         <li><a href="apps/scardac.html#cmdoption-scardac-j">--jitter</a>
 </li>
@@ -354,11 +360,19 @@
 </li>
         <li><a href="apps/scardac.html#cmdoption-scardac-log-file">--log-file</a>
 </li>
+        <li><a href="apps/scardac.html#cmdoption-scardac-modified-since">--modified-since</a>
+</li>
+        <li><a href="apps/scardac.html#cmdoption-scardac-modified-until">--modified-until</a>
+</li>
+        <li><a href="apps/scardac.html#cmdoption-scardac-nslc">--nslc</a>
+</li>
         <li><a href="apps/scardac.html#cmdoption-scardac-plugins">--plugins</a>
 </li>
         <li><a href="apps/scardac.html#cmdoption-scardac-print-component">--print-component</a>
 </li>
         <li><a href="apps/scardac.html#cmdoption-scardac-q">--quiet</a>
+</li>
+        <li><a href="apps/scardac.html#cmdoption-scardac-start">--start</a>
 </li>
         <li><a href="apps/scardac.html#cmdoption-scardac-s">--syslog</a>
 </li>
@@ -373,8 +387,6 @@
         <li><a href="apps/scardac.html#cmdoption-scardac-V">--version</a>
 </li>
         <li><a href="apps/scardac.html#cmdoption-scardac-a">-a</a>
-</li>
-        <li><a href="apps/scardac.html#cmdoption-scardac-b">-b</a>
 </li>
         <li><a href="apps/scardac.html#cmdoption-scardac-h">-h</a>
 </li>
@@ -422,6 +434,8 @@
         <li><a href="apps/scart.html#cmdoption-scart-stdout">--stdout</a>
 </li>
         <li><a href="apps/scart.html#cmdoption-scart-test">--test</a>
+</li>
+        <li><a href="apps/scart.html#cmdoption-scart-t">--time-window</a>
 </li>
         <li><a href="apps/scart.html#cmdoption-scart-v">--verbose</a>
 </li>
@@ -912,8 +926,6 @@
       <ul>
         <li><a href="apps/scdb.html#cmdoption-scdb-auto-shutdown">--auto-shutdown</a>
 </li>
-        <li><a href="apps/scdb.html#cmdoption-scdb-b">--batchsize</a>
-</li>
         <li><a href="apps/scdb.html#cmdoption-scdb-component">--component</a>
 </li>
         <li><a href="apps/scdb.html#cmdoption-scdb-config-db">--config-db</a>
@@ -979,8 +991,6 @@
         <li><a href="apps/scdb.html#cmdoption-scdb-verbosity">--verbosity</a>
 </li>
         <li><a href="apps/scdb.html#cmdoption-scdb-V">--version</a>
-</li>
-        <li><a href="apps/scdb.html#cmdoption-scdb-b">-b</a>
 </li>
         <li><a href="apps/scdb.html#cmdoption-scdb-D">-D</a>
 </li>
@@ -1067,6 +1077,8 @@
 </li>
         <li><a href="apps/scdbstrip.html#cmdoption-scdbstrip-s">--syslog</a>
 </li>
+        <li><a href="apps/scdbstrip.html#cmdoption-scdbstrip-t">--time-window</a>
+</li>
         <li><a href="apps/scdbstrip.html#cmdoption-scdbstrip-v">--v</a>
 </li>
         <li><a href="apps/scdbstrip.html#cmdoption-scdbstrip-verbosity">--verbosity</a>
@@ -1089,6 +1101,8 @@
 </li>
         <li><a href="apps/scdbstrip.html#cmdoption-scdbstrip-s">-s</a>
 </li>
+        <li><a href="apps/scdbstrip.html#cmdoption-scdbstrip-t">-t</a>
+</li>
         <li><a href="apps/scdbstrip.html#cmdoption-scdbstrip-V">-V</a>
 </li>
         <li><a href="apps/scdbstrip.html#cmdoption-scdbstrip-v">-v</a>
@@ -1109,6 +1123,8 @@
         <li><a href="apps/scdispatch.html#cmdoption-scdispatch-console">--console</a>
 </li>
         <li><a href="apps/scdispatch.html#cmdoption-scdispatch-content-type">--content-type</a>
+</li>
+        <li><a href="apps/scdispatch.html#cmdoption-scdispatch-create-notifier">--create-notifier</a>
 </li>
         <li><a href="apps/scdispatch.html#cmdoption-scdispatch-D">--daemon</a>
 </li>
@@ -1141,6 +1157,8 @@
         <li><a href="apps/scdispatch.html#cmdoption-scdispatch-g">--primary-group</a>
 </li>
         <li><a href="apps/scdispatch.html#cmdoption-scdispatch-print-objects">--print-objects</a>
+</li>
+        <li><a href="apps/scdispatch.html#cmdoption-scdispatch-print-routingtable">--print-routingtable</a>
 </li>
         <li><a href="apps/scdispatch.html#cmdoption-scdispatch-q">--quiet</a>
 </li>
@@ -1238,6 +1256,8 @@
         <li><a href="apps/scdumpcfg.html#cmdoption-scdumpcfg-l">--lockfile</a>
 </li>
         <li><a href="apps/scdumpcfg.html#cmdoption-scdumpcfg-log-file">--log-file</a>
+</li>
+        <li><a href="apps/scdumpcfg.html#cmdoption-scdumpcfg-nslc">--nslc</a>
 </li>
         <li><a href="apps/scdumpcfg.html#cmdoption-scdumpcfg-P">--param</a>
 </li>
@@ -1617,6 +1637,8 @@
 </li>
         <li><a href="apps/scevtls.html#cmdoption-scevtls-hours">--hours</a>
 </li>
+        <li><a href="apps/scevtls.html#cmdoption-scevtls-i">--input</a>
+</li>
         <li><a href="apps/scevtls.html#cmdoption-scevtls-inventory-db">--inventory-db</a>
 </li>
         <li><a href="apps/scevtls.html#cmdoption-scevtls-l">--lockfile</a>
@@ -1642,6 +1664,8 @@
         <li><a href="apps/scevtls.html#cmdoption-scevtls-D">-D</a>
 </li>
         <li><a href="apps/scevtls.html#cmdoption-scevtls-h">-h</a>
+</li>
+        <li><a href="apps/scevtls.html#cmdoption-scevtls-i">-i</a>
 </li>
         <li><a href="apps/scevtls.html#cmdoption-scevtls-l">-l</a>
 </li>
@@ -1709,6 +1733,8 @@
         <li><a href="apps/scevtstreams.html#cmdoption-scevtstreams-m">--margin</a>
 </li>
         <li><a href="apps/scevtstreams.html#cmdoption-scevtstreams-net-sta">--net-sta</a>
+</li>
+        <li><a href="apps/scevtstreams.html#cmdoption-scevtstreams-nslc">--nslc</a>
 </li>
         <li><a href="apps/scevtstreams.html#cmdoption-scevtstreams-plugins">--plugins</a>
 </li>
@@ -2249,6 +2275,27 @@
 </li>
       </ul></li>
       <li>
+    scheme.colors.map.directivity.color
+
+      <ul>
+        <li><a href="apps/global.html#confval-scheme.colors.map.directivity.color">configuration value</a>, <a href="apps/global_gui.html#confval-scheme.colors.map.directivity.color">[1]</a>
+</li>
+      </ul></li>
+      <li>
+    scheme.colors.map.directivity.style
+
+      <ul>
+        <li><a href="apps/global.html#confval-scheme.colors.map.directivity.style">configuration value</a>, <a href="apps/global_gui.html#confval-scheme.colors.map.directivity.style">[1]</a>
+</li>
+      </ul></li>
+      <li>
+    scheme.colors.map.directivity.width
+
+      <ul>
+        <li><a href="apps/global.html#confval-scheme.colors.map.directivity.width">configuration value</a>, <a href="apps/global_gui.html#confval-scheme.colors.map.directivity.width">[1]</a>
+</li>
+      </ul></li>
+      <li>
     scheme.colors.map.grid.color
 
       <ul>
@@ -2694,6 +2741,13 @@
 
       <ul>
         <li><a href="apps/global.html#confval-scheme.colors.recordView.selectedTraceZoom">configuration value</a>, <a href="apps/global_gui.html#confval-scheme.colors.recordView.selectedTraceZoom">[1]</a>
+</li>
+      </ul></li>
+      <li>
+    scheme.colors.spectrogram
+
+      <ul>
+        <li><a href="apps/global.html#confval-scheme.colors.spectrogram">configuration value</a>, <a href="apps/global_gui.html#confval-scheme.colors.spectrogram">[1]</a>
 </li>
       </ul></li>
       <li>
@@ -4038,6 +4092,8 @@
 </li>
         <li><a href="apps/scmapcut.html#cmdoption-scmapcut-V">--version</a>
 </li>
+        <li><a href="apps/scmapcut.html#cmdoption-scmapcut-without-arrivals">--without-arrivals</a>
+</li>
         <li><a href="apps/scmapcut.html#cmdoption-scmapcut-D">-D</a>
 </li>
         <li><a href="apps/scmapcut.html#cmdoption-scmapcut-d">-d</a>
@@ -4541,6 +4597,8 @@
 </li>
         <li><a href="apps/scorgls.html#cmdoption-scorgls-h">--help</a>
 </li>
+        <li><a href="apps/scorgls.html#cmdoption-scorgls-i">--input</a>
+</li>
         <li><a href="apps/scorgls.html#cmdoption-scorgls-inventory-db">--inventory-db</a>
 </li>
         <li><a href="apps/scorgls.html#cmdoption-scorgls-l">--lockfile</a>
@@ -4568,6 +4626,8 @@
         <li><a href="apps/scorgls.html#cmdoption-scorgls-d">-d</a>
 </li>
         <li><a href="apps/scorgls.html#cmdoption-scorgls-h">-h</a>
+</li>
+        <li><a href="apps/scorgls.html#cmdoption-scorgls-i">-i</a>
 </li>
         <li><a href="apps/scorgls.html#cmdoption-scorgls-l">-l</a>
 </li>
@@ -4818,6 +4878,8 @@
 </li>
         <li><a href="apps/scquery.html#cmdoption-scquery-print-header">--print-header</a>
 </li>
+        <li><a href="apps/scquery.html#cmdoption-scquery-print-query-only">--print-query-only</a>
+</li>
         <li><a href="apps/scquery.html#cmdoption-scquery-Q">--query</a>
 </li>
         <li><a href="apps/scquery.html#cmdoption-scquery-q">--quiet</a>
@@ -5029,6 +5091,89 @@
         <li><a href="apps/screloc.html#cmdoption-screloc-V">-V</a>
 </li>
         <li><a href="apps/screloc.html#cmdoption-screloc-v">-v</a>
+</li>
+      </ul></li>
+      <li>
+    screpick command line option
+
+      <ul>
+        <li><a href="apps/screpick.html#cmdoption-screpick-A">--any-phase</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-auto-shutdown">--auto-shutdown</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-component">--component</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-config-file">--config-file</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-config-module">--config-module</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-console">--console</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-D">--daemon</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-d">--database</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-db-disable">--db-disable</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-db-driver-list">--db-driver-list</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-debug">--debug</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-h">--help</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-inventory-db">--inventory-db</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-l">--lockfile</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-log-file">--log-file</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-P">--picker</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-plugins">--plugins</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-q">--quiet</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-record-driver-list">--record-driver-list</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-record-file">--record-file</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-record-type">--record-type</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-I">--record-url</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-shutdown-master-module">--shutdown-master-module</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-shutdown-master-username">--shutdown-master-username</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-s">--syslog</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-v">--v</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-verbosity">--verbosity</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-V">--version</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-A">-A</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-D">-D</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-d">-d</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-h">-h</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-I">-I</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-l">-l</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-P">-P</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-q">-q</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-s">-s</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-V">-V</a>
+</li>
+        <li><a href="apps/screpick.html#cmdoption-screpick-v">-v</a>
 </li>
       </ul></li>
       <li>
@@ -6118,6 +6263,21 @@
       <li><a href="base/glossary.html#term-SeisComP"><strong>SeisComP</strong></a>
 </li>
       <li>
+    seiscomp command line option
+
+      <ul>
+        <li><a href="apps/seiscomp.html#cmdoption-seiscomp-asroot">--asroot</a>
+</li>
+        <li><a href="apps/seiscomp.html#cmdoption-seiscomp-csv">--csv</a>
+</li>
+        <li><a href="apps/seiscomp.html#cmdoption-seiscomp-i">--interactive</a>
+</li>
+        <li><a href="apps/seiscomp.html#cmdoption-seiscomp-wait">--wait</a>
+</li>
+        <li><a href="apps/seiscomp.html#cmdoption-seiscomp-i">-i</a>
+</li>
+      </ul></li>
+      <li>
     seiscomp.client
 
       <ul>
@@ -6966,8 +7126,6 @@
 </li>
       <li><a href="base/api-python.html#seiscomp.datamodel.ResponsePAZ.setNormalizationFrequency">setNormalizationFrequency() (seiscomp.datamodel.ResponsePAZ method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="base/api-python.html#seiscomp.datamodel.ResponseFIR.setNumberOfCoefficients">setNumberOfCoefficients() (seiscomp.datamodel.ResponseFIR method)</a>
 
       <ul>
@@ -6978,6 +7136,8 @@
 </li>
       <li><a href="base/api-python.html#seiscomp.datamodel.ResponseIIR.setNumberOfNumerators">setNumberOfNumerators() (seiscomp.datamodel.ResponseIIR method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="base/api-python.html#seiscomp.datamodel.ResponsePAZ.setNumberOfPoles">setNumberOfPoles() (seiscomp.datamodel.ResponsePAZ method)</a>
 </li>
       <li><a href="base/api-python.html#seiscomp.datamodel.ResponseFAP.setNumberOfTuples">setNumberOfTuples() (seiscomp.datamodel.ResponseFAP method)</a>
@@ -8980,6 +9140,76 @@
       <li><a href="base/glossary.html#term-sP-phase"><strong>sP phase</strong></a>
 </li>
       <li>
+    spectrogram.axis
+
+      <ul>
+        <li><a href="apps/scrttv.html#confval-spectrogram.axis">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    spectrogram.logScale
+
+      <ul>
+        <li><a href="apps/scrttv.html#confval-spectrogram.logScale">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    spectrogram.maximumAmplitude
+
+      <ul>
+        <li><a href="apps/scrttv.html#confval-spectrogram.maximumAmplitude">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    spectrogram.maximumFrequency
+
+      <ul>
+        <li><a href="apps/scrttv.html#confval-spectrogram.maximumFrequency">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    spectrogram.minimumAmplitude
+
+      <ul>
+        <li><a href="apps/scrttv.html#confval-spectrogram.minimumAmplitude">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    spectrogram.minimumFrequency
+
+      <ul>
+        <li><a href="apps/scrttv.html#confval-spectrogram.minimumFrequency">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    spectrogram.normalization
+
+      <ul>
+        <li><a href="apps/scrttv.html#confval-spectrogram.normalization">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    spectrogram.overlap
+
+      <ul>
+        <li><a href="apps/scrttv.html#confval-spectrogram.overlap">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    spectrogram.smoothing
+
+      <ul>
+        <li><a href="apps/scrttv.html#confval-spectrogram.smoothing">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    spectrogram.timeSpan
+
+      <ul>
+        <li><a href="apps/scrttv.html#confval-spectrogram.timeSpan">configuration value</a>
+</li>
+      </ul></li>
+      <li>
     spicker
 
       <ul>
@@ -10050,6 +10280,20 @@
 </li>
       </ul></li>
       <li>
+    symbol.name.alignment
+
+      <ul>
+        <li><a href="apps/global_gui.html#confval-symbol.name.alignment">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    symbol.name.margin
+
+      <ul>
+        <li><a href="apps/global_gui.html#confval-symbol.name.margin">configuration value</a>
+</li>
+      </ul></li>
+      <li>
     symbol.shape
 
       <ul>
@@ -10070,6 +10314,13 @@
 
       <ul>
         <li><a href="apps/scinv.html#confval-syncKeys">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    syslog
+
+      <ul>
+        <li><a href="apps/kernel.html#confval-syslog">configuration value</a>
 </li>
       </ul></li>
   </ul></td>
@@ -10104,7 +10355,7 @@
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

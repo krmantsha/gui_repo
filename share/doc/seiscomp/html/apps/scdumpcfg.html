@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -80,43 +80,55 @@ for particular stations.</strong></p>
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
 <p>scdumpcfg reads and prints the
 <a class="reference internal" href="../base/concepts/configuration.html#concepts-configuration"><span class="std std-ref">module or bindings configuration</span></a>
-for a specific module or for global. This command-line utility is useful for
-debugging of configuration parameters.</p>
+for a specific module or for global. It even prints the global bindings for modules
+which do not have module bindings, such as <a class="reference internal" href="scmv.html#scmv"><span class="std std-ref">scmv</span></a>.</p>
+<p>This command-line utility is therefore useful for debugging configuration parameters.</p>
+<p>Instead of printing parameters and values for stations, the option <code class="xref std std-option docutils literal notranslate"><span class="pre">--nlsc</span></code>
+allows printing a list of the channel considering bindings. The output may be
+used, e.g., for</p>
+<ul class="simple">
+<li><p>filtering inventory by <a class="reference internal" href="invextr.html#invextr"><span class="std std-ref">invextr</span></a></p></li>
+<li><p>miniSEED records by <a class="reference internal" href="scart.html#scart"><span class="std std-ref">scart</span></a> or <a class="reference internal" href="scmssort.html#scmssort"><span class="std std-ref">scmssort</span></a></p></li>
+<li><p>event information by <a class="reference internal" href="scevtstreams.html#scevtstreams"><span class="std std-ref">scevtstreams</span></a>.</p></li>
+</ul>
 <p>Related to <strong class="program">scdumpcfg</strong> is <a class="reference internal" href="bindings2cfg.html#bindings2cfg"><span class="std std-ref">bindings2cfg</span></a> which dumps the bindings
 configuration to <a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a>.</p>
-<p>Instead of printing parameters and values for stations, the option <code class="docutils literal notranslate"><span class="pre">--nlsc</span></code>
-allows printing the stream codes considered by the bindings. The output may be
-used e.g. for filtering dumped streams in <a class="reference internal" href="scart.html#scart"><span class="std std-ref">scart</span></a>.</p>
 </section>
 <section id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic">
-<li><p>Dump the global bindings configuration for all stations which have global bindings.</p>
+<li><p>Dump the global bindings configuration for all stations which have global bindings:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdumpcfg<span class="w"> </span>global<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@localhost/seiscomp<span class="w"> </span>-B
 </pre></div>
 </div>
 </li>
 <li><p>Dump the bindings configuration for all stations which have bindings to a
-<a class="reference internal" href="scautopick.html#scautopick"><span class="std std-ref">scautopick</span></a> profile. Additionally use <em>-G</em> as <a class="reference internal" href="scautopick.html#scautopick"><span class="std std-ref">scautopick</span></a> inherits global bindings.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdumpcfg<span class="w"> </span>scautopick<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@localhost/seiscomp<span class="w"> </span>-GB
+<a class="reference internal" href="scautopick.html#scautopick"><span class="std std-ref">scautopick</span></a> profile. Additionally use <em>-G</em> as <a class="reference internal" href="scautopick.html#scautopick"><span class="std std-ref">scautopick</span></a> inherits global
+bindings:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdumpcfg<span class="w"> </span>scautopick<span class="w"> </span>-d<span class="w"> </span>localhost<span class="w"> </span>-GB
 </pre></div>
 </div>
 </li>
 <li><p>Dump the module global module configuration specifcally searching for the map
 zoom sensitivity and output the result in the format of the <cite>SeisComP</cite> module
-configuration.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdumpcfg<span class="w"> </span>global<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@localhost/seiscomp<span class="w"> </span>--cfg<span class="w"> </span>-P<span class="w"> </span>map.zoom.sensitivity
+configuration:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdumpcfg<span class="w"> </span>global<span class="w"> </span>-d<span class="w"> </span>localhost<span class="w"> </span>--cfg<span class="w"> </span>-P<span class="w"> </span>map.zoom.sensitivity
 </pre></div>
 </div>
 </li>
 <li><p>Dump the module configuration of scautopick and output in the format of the
-<cite>SeisComP</cite> module configuration.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdumpcfg<span class="w"> </span>scautopick<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@localhost/seiscomp<span class="w"> </span>--cfg
+<cite>SeisComP</cite> module configuration:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdumpcfg<span class="w"> </span>scautopick<span class="w"> </span>-d<span class="w"> </span>localhost<span class="w"> </span>--cfg
 </pre></div>
 </div>
 </li>
-<li><p>Dump the stream codes defined by global binding as a list of NET.STA.LOC.CHA:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdumpcfg<span class="w"> </span>-d<span class="w"> </span>localhost<span class="w"> </span>-BG<span class="w"> </span>--nslc
+<li><p>Dump global bindings configuration considerd by scmv:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdumpcfg<span class="w"> </span>scmv<span class="w"> </span>-d<span class="w"> </span>localhost<span class="w"> </span>-BG
+</pre></div>
+</div>
+</li>
+<li><p>Dump the channel codes defined by scautopick binding as a list of NET.STA.LOC.CHA:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdumpcfg<span class="w"> </span>scautopick<span class="w"> </span>-d<span class="w"> </span>localhost<span class="w"> </span>-B<span class="w"> </span>--nslc
 </pre></div>
 </div>
 </li>
@@ -324,7 +336,15 @@ format: [<a class="reference external" href="service://]location">service://]loc
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-scdumpcfg-cfg">
 <span class="sig-name descname"><span class="pre">--cfg</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scdumpcfg-cfg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Print output in .cfg format.</p>
+<dd><p>Print output in .cfg format. Does not work along with -B.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scdumpcfg-nslc">
+<span class="sig-name descname"><span class="pre">--nslc</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scdumpcfg-nslc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the list of channels which have bindings of the given module.
+Requires to set -B. Can be used by other modules, e.g., invextr,
+scart, scmssort, scevtstreams.</p>
 </dd></dl>
 
 </section>
@@ -396,7 +416,7 @@ format: [<a class="reference external" href="service://]location">service://]loc
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

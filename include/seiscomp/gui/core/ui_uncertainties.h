@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'uncertainties.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.7
+** Created by: Qt User Interface Compiler version 5.9.7
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,20 +10,20 @@
 #define UI_UNCERTAINTIES_H
 
 #include <QtCore/QVariant>
-#include <QtGui/QAction>
-#include <QtGui/QApplication>
-#include <QtGui/QButtonGroup>
-#include <QtGui/QCheckBox>
-#include <QtGui/QDialog>
-#include <QtGui/QDoubleSpinBox>
-#include <QtGui/QFrame>
-#include <QtGui/QGridLayout>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QHeaderView>
-#include <QtGui/QLabel>
-#include <QtGui/QPushButton>
-#include <QtGui/QSpacerItem>
-#include <QtGui/QVBoxLayout>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QDoubleSpinBox>
+#include <QtWidgets/QFrame>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QVBoxLayout>
 
 QT_BEGIN_NAMESPACE
 
@@ -47,7 +47,7 @@ public:
     void setupUi(QDialog *Uncertainties)
     {
         if (Uncertainties->objectName().isEmpty())
-            Uncertainties->setObjectName(QString::fromUtf8("Uncertainties"));
+            Uncertainties->setObjectName(QStringLiteral("Uncertainties"));
         Uncertainties->resize(212, 151);
         vboxLayout = new QVBoxLayout(Uncertainties);
 #ifndef Q_OS_MAC
@@ -56,14 +56,14 @@ public:
 #ifndef Q_OS_MAC
         vboxLayout->setContentsMargins(9, 9, 9, 9);
 #endif
-        vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
+        vboxLayout->setObjectName(QStringLiteral("vboxLayout"));
         cbAsymmetric = new QCheckBox(Uncertainties);
-        cbAsymmetric->setObjectName(QString::fromUtf8("cbAsymmetric"));
+        cbAsymmetric->setObjectName(QStringLiteral("cbAsymmetric"));
 
         vboxLayout->addWidget(cbAsymmetric);
 
         line = new QFrame(Uncertainties);
-        line->setObjectName(QString::fromUtf8("line"));
+        line->setObjectName(QStringLiteral("line"));
         line->setFrameShape(QFrame::HLine);
         line->setFrameShadow(QFrame::Sunken);
 
@@ -74,22 +74,22 @@ public:
         gridLayout->setSpacing(6);
 #endif
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
         spinLowerUncertainty = new QDoubleSpinBox(Uncertainties);
-        spinLowerUncertainty->setObjectName(QString::fromUtf8("spinLowerUncertainty"));
+        spinLowerUncertainty->setObjectName(QStringLiteral("spinLowerUncertainty"));
         spinLowerUncertainty->setDecimals(4);
         spinLowerUncertainty->setSingleStep(0.5);
 
         gridLayout->addWidget(spinLowerUncertainty, 0, 1, 1, 1);
 
         labelUpperUncertainty = new QLabel(Uncertainties);
-        labelUpperUncertainty->setObjectName(QString::fromUtf8("labelUpperUncertainty"));
+        labelUpperUncertainty->setObjectName(QStringLiteral("labelUpperUncertainty"));
         labelUpperUncertainty->setEnabled(false);
 
         gridLayout->addWidget(labelUpperUncertainty, 1, 0, 1, 1);
 
         spinUpperUncertainty = new QDoubleSpinBox(Uncertainties);
-        spinUpperUncertainty->setObjectName(QString::fromUtf8("spinUpperUncertainty"));
+        spinUpperUncertainty->setObjectName(QStringLiteral("spinUpperUncertainty"));
         spinUpperUncertainty->setEnabled(false);
         spinUpperUncertainty->setDecimals(4);
         spinUpperUncertainty->setSingleStep(0.5);
@@ -97,7 +97,7 @@ public:
         gridLayout->addWidget(spinUpperUncertainty, 1, 1, 1, 1);
 
         labelLowerUncertainty = new QLabel(Uncertainties);
-        labelLowerUncertainty->setObjectName(QString::fromUtf8("labelLowerUncertainty"));
+        labelLowerUncertainty->setObjectName(QStringLiteral("labelLowerUncertainty"));
 
         gridLayout->addWidget(labelLowerUncertainty, 0, 0, 1, 1);
 
@@ -113,18 +113,18 @@ public:
         hboxLayout->setSpacing(6);
 #endif
         hboxLayout->setContentsMargins(0, 0, 0, 0);
-        hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
+        hboxLayout->setObjectName(QStringLiteral("hboxLayout"));
         spacerItem1 = new QSpacerItem(131, 31, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         hboxLayout->addItem(spacerItem1);
 
         okButton = new QPushButton(Uncertainties);
-        okButton->setObjectName(QString::fromUtf8("okButton"));
+        okButton->setObjectName(QStringLiteral("okButton"));
 
         hboxLayout->addWidget(okButton);
 
         cancelButton = new QPushButton(Uncertainties);
-        cancelButton->setObjectName(QString::fromUtf8("cancelButton"));
+        cancelButton->setObjectName(QStringLiteral("cancelButton"));
 
         hboxLayout->addWidget(cancelButton);
 
@@ -141,12 +141,12 @@ public:
 
     void retranslateUi(QDialog *Uncertainties)
     {
-        Uncertainties->setWindowTitle(QApplication::translate("Uncertainties", "Uncertainty", 0, QApplication::UnicodeUTF8));
-        cbAsymmetric->setText(QApplication::translate("Uncertainties", "Asymmetric uncertainty", 0, QApplication::UnicodeUTF8));
-        labelUpperUncertainty->setText(QApplication::translate("Uncertainties", "Upper uncertainty:", 0, QApplication::UnicodeUTF8));
-        labelLowerUncertainty->setText(QApplication::translate("Uncertainties", "Lower uncertainty:", 0, QApplication::UnicodeUTF8));
-        okButton->setText(QApplication::translate("Uncertainties", "OK", 0, QApplication::UnicodeUTF8));
-        cancelButton->setText(QApplication::translate("Uncertainties", "Cancel", 0, QApplication::UnicodeUTF8));
+        Uncertainties->setWindowTitle(QApplication::translate("Uncertainties", "Uncertainty", Q_NULLPTR));
+        cbAsymmetric->setText(QApplication::translate("Uncertainties", "Asymmetric uncertainty", Q_NULLPTR));
+        labelUpperUncertainty->setText(QApplication::translate("Uncertainties", "Upper uncertainty:", Q_NULLPTR));
+        labelLowerUncertainty->setText(QApplication::translate("Uncertainties", "Lower uncertainty:", Q_NULLPTR));
+        okButton->setText(QApplication::translate("Uncertainties", "OK", Q_NULLPTR));
+        cancelButton->setText(QApplication::translate("Uncertainties", "Cancel", Q_NULLPTR));
     } // retranslateUi
 
 };

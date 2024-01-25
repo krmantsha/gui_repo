@@ -408,6 +408,68 @@
 					</description>
 				</parameter>
 			</group>
+			<group name="spectrogram">
+				<description>
+				Define parameters for spectrogram representation.
+				</description>
+				<parameter name="smoothing" type="boolean" default="false">
+					<description>
+					Whether to plot the spectrogram filtered bilinearily.
+					</description>
+				</parameter>
+				<parameter name="logScale" type="boolean" default="false">
+					<description>
+					Whether to use logarithmic frequency scale.
+					</description>
+				</parameter>
+				<parameter name="normalization" type="string" default="fixed">
+					<description>
+					Which amplitude normalization mode to use: &quot;fixed&quot;,
+					&quot;frequency&quot; or &quot;time&quot;.
+					</description>
+				</parameter>
+				<parameter name="axis" type="boolean" default="false">
+					<description>
+					Whether to show the frequency axis.
+					</description>
+				</parameter>
+				<parameter name="minimumAmplitude" type="double" default="-15" unit="log(ps)">
+					<description>
+					The lower bound of the static amplitude range give as logarithm of
+					the power spectrum (log(real**2 + imag**2)).
+					</description>
+				</parameter>
+				<parameter name="maximumAmplitude" type="double" default="-5" unit="log(ps)">
+					<description>
+					The upper bound of the static amplitude range give as logarithm of
+					the power spectrum (log(real**2 + imag**2)).
+					</description>
+				</parameter>
+				<parameter name="minimumFrequency" type="double" default="0" unit="Hz">
+					<description>
+					The lower bound of the frequency to be shown.
+					</description>
+				</parameter>
+				<parameter name="maximumFrequency" type="double" default="0" unit="Hz">
+					<description>
+					The upper bound of the frequency to be shown. Zero is a special
+					value and means &quot;auto&quot; and sets the maximum
+					frequency from the spectra.
+					</description>
+				</parameter>
+				<parameter name="timeSpan" type="double" default="20" unit="s">
+					<description>
+					The time span of each data slice used to compute the
+					frequency spectrum.
+					</description>
+				</parameter>
+				<parameter name="overlap" type="double" default="0.5">
+					<description>
+					The overlap of the data time window between zero and one
+					(exclusive).
+					</description>
+				</parameter>
+			</group>
 		</configuration>
 		<command-line>
 			<synopsis>

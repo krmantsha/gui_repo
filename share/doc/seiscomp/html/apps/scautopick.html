@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -78,9 +78,11 @@
 <section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
 <p>scautopick applies threshold monitoring by searching for waveform anomalies in
-form of changes in amplitudes. It is applied for detecting phase arrivals and
-and for measuring related features and amplitudes. The phase arrivals are
-typically associated by modules like <a class="reference internal" href="scautoloc.html#scautoloc"><span class="std std-ref">scautoloc</span></a> for locating the source.</p>
+form of changes in amplitudes. It is applied for detecting phase arrivals
+creating <a class="reference internal" href="../base/glossary.html#term-pick"><span class="xref std std-term">phase picks</span></a> and for measuring related features and
+<a class="reference internal" href="../base/glossary.html#term-amplitude"><span class="xref std std-term">amplitudes</span></a>. The picks and associated amplitudes and
+features are typically provided to modules like <a class="reference internal" href="scautoloc.html#scautoloc"><span class="std std-ref">scautoloc</span></a> for locating
+the source.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Instead of detecting phase arrivals for source location, scautopick
@@ -121,7 +123,7 @@ reactivated for this stream once the STA/LTA ratio falls to the value of 1.5 (de
 binding configuration.</p></li>
 </ul>
 <p>Initial detections can be further adjusted by a second-stage phase re-picker
-(post picker) as defined by <a class="reference internal" href="#confval-picker"><code class="xref std std-confval docutils literal notranslate"><span class="pre">picker</span></code></a>. The re-picker should be tuned
+(post picker) as defined by <a class="reference internal" href="screpick.html#confval-picker"><code class="xref std std-confval docutils literal notranslate"><span class="pre">picker</span></code></a>. The re-picker should be tuned
 carefully and global bindings parameters <code class="xref std std-confval docutils literal notranslate"><span class="pre">picker.*</span></code> should be
 configured accordingly.</p>
 <p>After having detected a phase, the re-picker will be inactive and accept no further
@@ -156,7 +158,7 @@ is inactive.</p>
 <p>As for the re-picker also the spicker should be tuned carefully and global
 bindings parameters <code class="xref std std-confval docutils literal notranslate"><span class="pre">spicker.*</span></code> should be set.</p>
 <table class="docutils align-center" id="id2">
-<caption><span class="caption-text">Second-stage pickers available by configuration of <a class="reference internal" href="#confval-picker"><code class="xref std std-confval docutils literal notranslate"><span class="pre">picker</span></code></a> or <a class="reference internal" href="#confval-spicker"><code class="xref std std-confval docutils literal notranslate"><span class="pre">spicker</span></code></a></span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<caption><span class="caption-text">Second-stage pickers available by configuration of <a class="reference internal" href="screpick.html#confval-picker"><code class="xref std std-confval docutils literal notranslate"><span class="pre">picker</span></code></a> or <a class="reference internal" href="#confval-spicker"><code class="xref std std-confval docutils literal notranslate"><span class="pre">spicker</span></code></a></span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 11.1%" />
 <col style="width: 33.3%" />
@@ -207,7 +209,7 @@ corresponding magnitude type (see <a class="reference internal" href="scamp.html
 <a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a> for the magnitude types). Such amplitudes are required by:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="scautoloc.html#scautoloc"><span class="std std-ref">scautoloc</span></a> for associating phase picks and generating a source location</p></li>
-<li><p>EEW (earthquake early warning) systems in order to provide raüid amplitudes for
+<li><p>EEW (earthquake early warning) systems in order to provide rapid amplitudes for
 magnitudes as soon as source locations are available.</p></li>
 </ul>
 <p>The time window for measuring amplitudes starts at the pick time. The window
@@ -237,7 +239,7 @@ meaning an open end time that causes <a class="reference internal" href="seedlin
 real-time data if no more data are in the buffers.</p></li>
 <li><p>Each incoming record is filtered according to <a class="reference internal" href="#confval-detecFilter"><code class="xref std std-confval docutils literal notranslate"><span class="pre">detecFilter</span></code></a>.</p></li>
 <li><p>The samples are checked for exceedance of <a class="reference internal" href="#confval-trigOn"><code class="xref std std-confval docutils literal notranslate"><span class="pre">trigOn</span></code></a> and in the positive
-case either a post picker (<a class="reference internal" href="#confval-picker"><code class="xref std std-confval docutils literal notranslate"><span class="pre">picker</span></code></a>) is launched or a <a class="reference internal" href="../base/glossary.html#term-pick"><span class="xref std std-term">Pick</span></a>
+case either a post picker (<a class="reference internal" href="screpick.html#confval-picker"><code class="xref std std-confval docutils literal notranslate"><span class="pre">picker</span></code></a>) is launched or a <a class="reference internal" href="../base/glossary.html#term-pick"><span class="xref std std-term">Pick</span></a>
 object will be sent.</p></li>
 <li><p>If <a class="reference internal" href="#confval-sendDetections"><code class="xref std std-confval docutils literal notranslate"><span class="pre">sendDetections</span></code></a> is set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, a trigger will be sent in any
 case for e.g. debugging.</p></li>
@@ -259,9 +261,9 @@ $ seiscomp start scautopick
 <h3>Non-real-time<a class="headerlink" href="#non-real-time" title="Permalink to this heading">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Due to code changes in the file data source, the command line option <strong>–playback</strong>
-is essential for non-real-time operation. Otherwise a real-time time window
-is set and all records are most likely filtered out.</p>
+<p>Due to code changes in the file data source, the command line option
+<code class="xref std std-option docutils literal notranslate"><span class="pre">--playback</span></code> is essential for non-real-time operation. Otherwise a
+real-time time window is set and all records are most likely filtered out.</p>
 </div>
 <p>To tune scautopick or to do playbacks it is helpful to run scautopick not with
 a real-time data source but on a defined data set, e.g. a multiplexed sorted miniSEED
@@ -269,14 +271,14 @@ volume. scautopick will apply the same workflow as in online mode but the
 acquisition of data records has to change. If the input data (file) has been
 read, scautopick will exit and furthermore it must not ask for a particular
 time window, especially not for a real-time time window. To accomplish that
-the command-line parameter <code class="docutils literal notranslate"><span class="pre">`--playback`</span></code> has to be used. Example:</p>
+the command-line parameter <code class="xref std std-option docutils literal notranslate"><span class="pre">--playback</span></code> has to be used. Example:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>scautopick<span class="w"> </span>--playback<span class="w"> </span>-I<span class="w"> </span>data.mseed
 </pre></div>
 </div>
 <p>This call will process all records in <code class="file docutils literal notranslate"><span class="pre">data.mseed</span></code> for which bindings
 exist and <strong>send the results to the messaging</strong>. If all data records are processed,
 scautopick will exit. The processing steps are similar to the online mode.</p>
-<p>Use the <code class="docutils literal notranslate"><span class="pre">`--ep`</span></code> for offline processing <strong>without messaging</strong>. The results are
+<p>Use the <code class="xref std std-option docutils literal notranslate"><span class="pre">--ep</span></code> for offline processing <strong>without messaging</strong>. The results are
 printed in <a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> format. Example:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>scautopick<span class="w"> </span>--playback<span class="w"> </span>-I<span class="w"> </span>data.mseed<span class="w"> </span>--ep<span class="w"> </span>-d<span class="w"> </span><span class="o">[</span>type<span class="o">]</span>://<span class="o">[</span>host<span class="o">]</span>/<span class="o">[</span>database<span class="o">]</span><span class="w"> </span>&gt;<span class="w"> </span>picks.xml
 </pre></div>
@@ -455,7 +457,7 @@ configured, extra comments will be added to the resulting pick.</p>
 available: &quot;DFX&quot;. Configure related parameters
 in global bindings.</p>
 <p>When configured, the usability of the features for locating
-depends on the used locator, e.g. LOCSAT. Read the
+events depends on the used locator, e.g. LOCSAT. Read the
 locator’s documentation and configuration parameters.</p>
 </dd></dl>
 
@@ -1084,7 +1086,7 @@ and a new amplitude is available. The output format is a simple ASCII format.</p
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

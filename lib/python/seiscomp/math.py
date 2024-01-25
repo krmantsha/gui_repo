@@ -459,10 +459,6 @@ class vectord(object):
 # Register vectord in _math:
 _math.vectord_swigregister(vectord)
 
-
-def round(val):
-    r"""round(double val) -> double"""
-    return _math.round(val)
 class CoordF(seiscomp.core.BaseObject):
     r"""Proxy of C++ Seiscomp::Math::Geo::Coord< float > class."""
 
@@ -2789,6 +2785,10 @@ class GenericSeismometerFilterD(SeismometerFilterD):
 # Register GenericSeismometerFilterD in _math:
 _math.GenericSeismometerFilterD_swigregister(GenericSeismometerFilterD)
 
+
+def delta(lat1, lon1, lat2, lon2):
+    r"""delta(double lat1, double lon1, double lat2, double lon2) -> double"""
+    return _math.delta(lat1, lon1, lat2, lon2)
 
 def delazi(lat1, lon1, lat2, lon2):
     r"""delazi(double lat1, double lon1, double lat2, double lon2)"""

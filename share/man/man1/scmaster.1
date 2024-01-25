@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "SCMASTER" "1" "Jan 18, 2024" "5.5.17" "SeisComP"
+.TH "SCMASTER" "1" "Jan 18, 2024" "6.1.2" "SeisComP"
 .SH NAME
 scmaster \- SeisComP Documentation
 .sp
@@ -89,7 +89,7 @@ scmaster reads from and writes to the database and reports the database connecti
 to the clients of the messaging system (compare with the \fI\%concepts section\fP).
 .sp
 The database is configured per queue.
-.SS Single machine
+.SS Single Machine
 .sp
 When running all \fISeisComP\fP modules on a single machine, the read and write
 parameters are typically configured with \fIlocalhost\fP as a \fIhost name\fP\&.
@@ -106,7 +106,7 @@ queues.production.processors.messages.dbstore.write = sysop:sysop@localhost/seis
 .fi
 .UNINDENT
 .UNINDENT
-.SS Multiple machines
+.SS Multiple Machines
 .sp
 If the clients are located on machines different from the messaging, the
 \fIhost name\fP of the read parameter
@@ -143,6 +143,48 @@ connection.server = computerA/production
 .UNINDENT
 .UNINDENT
 .UNINDENT
+.SS Database Proxy
+.sp
+scmaster can accept database requests and forward results to clients without
+exposing the underlying database. That allows clients to connect to the database
+of a particular queue via the Websocket HTTP protocol. No specific database
+plugin is required at the client which reduces the complexity of configuration.
+.sp
+Be aware that due to the nature of a proxy which is another layer on top of the
+actual database connection the performance is not as high as direct database
+access.
+.sp
+To let scmaster return the proxy address of the database connection, set
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+queues.production.processors.messages.dbstore.proxy = true
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+in the configuration file.
+.SH ACCESS CONTROL
+.sp
+scmaster does not provide any built\-in access control to connecting clients.
+The only exception is the possibility to verify client certificates against
+the server certificate if SSL is enabled.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+interface.ssl.verifyPeer = true
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+It is required that the client certificate is signed by the server certificate
+otherwise the client connection will be rejected.
 .SH MODULE CONFIGURATION
 .nf
 \fBetc/defaults/global.cfg\fP
@@ -260,6 +302,18 @@ Type: \fIpath\fP
 .TP
 .B interface.ssl.certificate
 Type: \fIpath\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B interface.ssl.verifyPeer
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+If enabled then the certificate of a connecting client
+is verified against the servers certificate. It is
+required that the client certificate is signed by the
+server certificate otherwise the connection is refused.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -390,6 +444,22 @@ private to scmaster.
 A separate write connection enables different
 permissions on the database level for scmaster
 and clients.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B queues.$name.processors.messages.dbstore.proxy
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+If enabled then the database connection as configured
+in \(aqread\(aq is not being returned to the client
+but the URL \(dqproxy://\(dq. This URL
+tells the client to open the database via the
+websocket proxy at the messaging address,
+e.g. http://localhost/production/db. The same
+hostname and queue must be used as for the
+initial messaging connection.
 .UNINDENT
 .INDENT 0.0
 .TP

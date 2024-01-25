@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "SCEVTLS" "1" "Jan 18, 2024" "5.5.17" "SeisComP"
+.TH "SCEVTLS" "1" "Jan 18, 2024" "6.1.2" "SeisComP"
 .SH NAME
 scevtls \- SeisComP Documentation
 .sp
@@ -35,10 +35,11 @@ scevtls \- SeisComP Documentation
 .SH DESCRIPTION
 .sp
 \fIscevtls\fP lists all available event IDs within a given time range to stdout.
+Event information are fetched from database or read from a \fI\%SCML\fP file.
 .sp
-Use \fI\%scorgls\fP for listing all origin IDs. In extension to \fIscevtls\fP and
-\fI\%scorgls\fP \fI\%scquery\fP can search for parameters based on complex
-custom queries.
+Similarly, use \fI\%scorgls\fP for listing all origin IDs. In extension to
+\fIscevtls\fP and \fI\%scorgls\fP \fI\%scquery\fP can search for parameters based on
+complex custom queries.
 .SH EXAMPLES
 .INDENT 0.0
 .IP \(bu 2
@@ -51,6 +52,18 @@ Print all event IDs for the complete year 2012:
 scevtls \-d mysql://sysop:sysop@localhost/seiscomp \e
         \-\-begin \(dq2012\-01\-01 00:00:00\(dq \e
         \-\-end \(dq2013\-01\-01 00:00:00\(dq
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Print the IDs of all events provided with the XML file:
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scevtls \-i events.xml
 .ft P
 .fi
 .UNINDENT
@@ -183,6 +196,13 @@ Load the inventory from the given database or file, format:
 .TP
 .B \-\-db\-disable
 Do not use the database at all
+.UNINDENT
+.SS Input
+.INDENT 0.0
+.TP
+.B \-i, \-\-input arg
+Name of input XML file. Read from stdin if \(aq\-\(aq is given.
+Deactivates reading events from database.
 .UNINDENT
 .SS Events
 .INDENT 0.0

@@ -17,8 +17,8 @@
     <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="scdb" href="scdb.html" />
-    <link rel="prev" title="sccnv" href="sccnv.html" /> 
+    <link rel="next" title="scesv" href="scesv.html" />
+    <link rel="prev" title="Graphical User Interfaces" href="../gui.html" /> 
   </head>
   <body>
     <div class="header">
@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -43,13 +43,13 @@
           </a>
         </li>
         <li class="right">
-          <a href="scdb.html" title="scdb"
+          <a href="scesv.html" title="scesv"
              accesskey="N">
             next
           </a>
         </li>
         <li class="right">
-          <a href="sccnv.html" title="sccnv"
+          <a href="../gui.html" title="Graphical User Interfaces"
              accesskey="P">
             previous
           </a>
@@ -58,10 +58,7 @@
           <a href="../index.html">Home</a>
         </li>
         <li class="nav-item nav-item-1">
-          <a href="../modules.html" >Modules</a>
-        </li>
-        <li class="nav-item nav-item-2">
-          <a href="../toc/utilities.html" accesskey="U">Utilities</a>
+          <a href="../gui.html" accesskey="U">Graphical User Interfaces</a>
         </li> 
       </ul>
     </div>
@@ -74,36 +71,41 @@
           
   <section id="scconfig">
 <span id="id1"></span><h1>scconfig<a class="headerlink" href="#scconfig" title="Permalink to this heading">¶</a></h1>
-<p><strong>Configuration and system managment frontend.</strong></p>
+<p><strong>Configuration and system management frontend.</strong></p>
 <section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
-<p>scconfig is a graphical user interface which allows to configure all SeisComP
-modules for which descriptions are provided.</p>
+<p>scconfig is a graphical user interface which allows to</p>
+<ul class="simple">
+<li><p>Retrieve <a class="reference internal" href="#scconfig-information"><span class="std std-ref">information</span></a> about the installed <cite>SeisComP</cite>
+system,</p></li>
+<li><p><a class="reference internal" href="#scconfig-system"><span class="std std-ref">Control modules</span></a> (start/stop/check/enable/disable) and
+access logging file,</p></li>
+<li><p><a class="reference internal" href="#scconfig-inventory"><span class="std std-ref">Import, check, synchronize and remove</span></a> station meta
+data/inventory,</p></li>
+<li><p>Configure the <a class="reference internal" href="#scconfig-modules"><span class="std std-ref">module configuration</span></a> and
+<a class="reference internal" href="#scconfig-bindings"><span class="std std-ref">bindings</span></a> all SeisComP modules for which descriptions
+are provided,</p></li>
+<li><p>Access the <a class="reference internal" href="#scconfig-documentation"><span class="std std-ref">documentation and the changelog</span></a>.</p></li>
+</ul>
 <p>The modules are usually programs part of the SeisComP system and have two
 distinct types of configuration:</p>
-<ol class="arabic simple">
-<li><p>Modules configuration, or just program configuration (like the <code class="file docutils literal notranslate"><span class="pre">scautopick.cfg</span></code> file).</p></li>
-<li><p>Station bindings, that are set of parameters to configure how the module will treat a certain station. I.e. Station specific configurations per module.</p></li>
-</ol>
-<p>The bindings configuration can be done using profiles, or directly per station.</p>
-<p>A profile is a named set of parameters for a certain module that can be
-attributed for more than one station. Using profiles makes it easiear to
-maintain large number of station configuration. When two stations are configured
-by the same profile, both will have the same parameter set for a certain module.</p>
-<p>scconfig does not know anything about the SeisComP database, the only thing it
-can do is actually read and write the content of files from <code class="file docutils literal notranslate"><span class="pre">etc/</span></code> and
-<code class="file docutils literal notranslate"><span class="pre">~/.seiscomp</span></code> folder and allow you to manage this information in organized
-and friendly manner. Also, it relies on other application (like the proper
-<strong class="program">seiscomp</strong> command) to complete the system configuration. The main
-tasks that it can handle today are:</p>
 <ul class="simple">
-<li><p>start/stop/check all registered modules</p></li>
-<li><p>import station metadata from various sources</p></li>
-<li><p>configure modules</p></li>
-<li><p>configure module bindings</p></li>
+<li><p><a class="reference internal" href="#scconfig-modules"><span class="std std-ref">Modules configuration</span></a>, or just program
+configuration stored in file like <code class="file docutils literal notranslate"><span class="pre">scautopick.cfg</span></code>.</p></li>
+<li><p><a class="reference internal" href="#scconfig-modules"><span class="std std-ref">Bindings</span></a>, that are set of parameters to configure
+how the module will treat a certain station. I.e. station-specific
+configurations per module. Bindings can be configured using profiles, or
+directly per station. A profile is a named set of parameters for a certain
+module that can be attributed for more than one station. Using profiles makes
+it easiear to maintain large number of station configuration. When two stations
+are configured by the same profile, both will have the same parameter set for
+a certain module.</p></li>
 </ul>
-<p>In the future, it could accumulate more tasks like inventory editor and even
-more advanced system monitoring and log inspection.</p>
+<p>scconfig does not know anything about the SeisComP database, the only thing it
+can do is to actually read and write the content of files from <code class="file docutils literal notranslate"><span class="pre">etc/</span></code> and
+<code class="file docutils literal notranslate"><span class="pre">~/.seiscomp</span></code> folder. It allows you to manage this information in an
+organized and friendly manner. Also, it relies on other applications like the
+proper <a class="reference internal" href="seiscomp.html#seiscomp"><span class="std std-ref">seiscomp</span></a> tool to complete the system configuration.</p>
 <section id="first-start">
 <span id="scconfig-first-start"></span><h3>First start<a class="headerlink" href="#first-start" title="Permalink to this heading">¶</a></h3>
 <p>If scconfig is started for the first time it will ask the user to setup
@@ -111,8 +113,8 @@ its new installation.</p>
 <figure class="align-center">
 <img alt="../_images/first-start.png" src="../_images/first-start.png" />
 </figure>
-<p>If done already with the <a class="reference internal" href="../base/getting-started.html#getting-started"><span class="std std-ref">command line interface</span></a>
-this step can be skipped. If the setup has been run already is indicated by
+<p>If done already with the <a class="reference internal" href="../base/getting-started.html#getting-started"><span class="std std-ref">command line interface</span></a>,
+this step can be skipped. If the setup has been run already, is indicated by
 the presence of the file <code class="file docutils literal notranslate"><span class="pre">var/run/seiscomp.init</span></code>.</p>
 <p>If pressing yes, the setup wizard will be started and will configure exactly
 the same parameters as described in <a class="reference internal" href="../base/getting-started.html#getting-started"><span class="std std-ref">Getting Started with SeisComP</span></a>.</p>
@@ -132,12 +134,12 @@ the same parameters as described in <a class="reference internal" href="../base/
 <span id="scconfig-mainwindow"></span><h3>Main Window<a class="headerlink" href="#main-window" title="Permalink to this heading">¶</a></h3>
 <p>The layout of the main window is always the same regardless of what panel
 is selected.</p>
-<figure class="align-center" id="id2">
-<span id="fig-scconfig-mainwindow"></span><img alt="../_images/mainwindow.png" src="../_images/mainwindow.png" />
+<figure class="align-center" id="id6">
+<span id="fig-scconfig-mainwindow"></span><a class="reference internal image-reference" href="../_images/mainwindow.png"><img alt="../_images/mainwindow.png" src="../_images/mainwindow.png" style="width: 18cm;" /></a>
 <figcaption>
 <p><span class="caption-text">Main window of scconfig: mode switch (red), panel selection (yellow),
 panel title and description (green),
-panel content (blue)</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+panel content (blue)</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>It is divided into 4 areas:</p>
@@ -147,19 +149,19 @@ panel content (blue)</span><a class="headerlink" href="#id2" title="Permalink to
 <li><p>green: title and description of current panel</p></li>
 <li><p>blue: the content and interactive screen of the current panel</p></li>
 </ul>
-<p>The main menu contains two entries: <span class="guilabel">File</span> and <span class="guilabel">Edit</span>.</p>
+<p>The Main menu contains two entries: <span class="guilabel">File</span> and <span class="guilabel">Edit</span>.</p>
 <p>The file menu allows to run the setup wizard (<span class="guilabel">Wizard</span>), to reload
 the configuration (<span class="guilabel">Reload</span>), to save the
 configuration (<span class="guilabel">Save</span>) and to close the configuration (<span class="guilabel">Quit</span>).</p>
-<p>The edit menu allows to switch the current configuration mode. Pressing the
+<p>The Edit menu allows to switch the current configuration mode. Pressing the
 switch button in the upper left corner (red box) is a shortcut for this operation.</p>
 </section>
 <section id="information-panel">
 <span id="scconfig-information"></span><h3>Information panel<a class="headerlink" href="#information-panel" title="Permalink to this heading">¶</a></h3>
-<p>This panel shows information about the SeisComP environment
-(see figure <a class="reference internal" href="#fig-scconfig-mainwindow"><span class="std std-ref">main window</span></a>). All variables (except PATH) can
-be used as placeholders in most of the configuration parameters which define
-directories or files, e.g.:</p>
+<p>This panel shows information about the <cite>SeisComP</cite> environment
+(see figure <a class="reference internal" href="#fig-scconfig-mainwindow"><span class="std std-ref">main window</span></a>). All variables
+(except PATH) can be used as placeholders in most of the configuration
+parameters which define directories or files, e.g.:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>autoloc.grid<span class="w"> </span><span class="o">=</span><span class="w"> </span>@CONFIGDIR@/autoloc/local.grid
 </pre></div>
 </div>
@@ -168,7 +170,7 @@ directories or files, e.g.:</p>
 <span id="scconfig-system"></span><h3>System panel<a class="headerlink" href="#system-panel" title="Permalink to this heading">¶</a></h3>
 <p>The system panel is a graphical frontend for the <a class="reference internal" href="../base/management.html#system-management"><span class="std std-ref">seiscomp</span></a> script.</p>
 <figure class="align-center">
-<img alt="../_images/system-overview.png" src="../_images/system-overview.png" />
+<a class="reference internal image-reference" href="../_images/system-overview.png"><img alt="../_images/system-overview.png" src="../_images/system-overview.png" style="width: 18cm;" /></a>
 </figure>
 <p>It is divided into 3 parts: the toolbar on the top (red), the module list (green)
 and the log window (blue).
@@ -205,17 +207,28 @@ module configuration or bindings have changed and before restarting the
 affected modules.</p>
 </dd>
 </dl>
+<p>For applying an action to all modules deselect any modules selection pressing
+<kbd class="kbd docutils literal notranslate">ESC</kbd> and press the corresponding action button. When one ore multiple
+modules are selected, the action is only applied to those.</p>
+<p>To open the most recent log files of modules right click on the module name and
+select the available log.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/system-start.png"><img alt="../_images/system-start.png" src="../_images/system-start.png" style="width: 18cm;" /></a>
+</figure>
 </section>
 <section id="inventory-panel">
 <span id="scconfig-inventory"></span><h3>Inventory panel<a class="headerlink" href="#inventory-panel" title="Permalink to this heading">¶</a></h3>
-<p>The inventory panel allows to import and synchronize inventory files. It shows
+<p>The inventory panel allows to import, check and synchronize inventory files as
+well as to inspect the content or to rename or remove the files. The panel shows
 a list of inventory XML files located in folder <code class="file docutils literal notranslate"><span class="pre">etc/inventory</span></code>. Only
-SeisComP XML files be used as source for inventory data but various importers
+<a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> files can be used as source for inventory data but various importers
 exist to integrate inventory data from other formats. After the first start
 the list is empty and contains only a README file.</p>
 <figure class="align-center">
-<img alt="../_images/inventory-empty.png" src="../_images/inventory-empty.png" />
+<a class="reference internal image-reference" href="../_images/inventory-empty.png"><img alt="../_images/inventory-empty.png" src="../_images/inventory-empty.png" style="width: 18cm;" /></a>
 </figure>
+<p>Importing station meta data is outlined in the
+<a class="reference internal" href="../base/tutorials/addstation.html#tutorials-addstation"><span class="std std-ref">tutorial on adding a station</span></a>.</p>
 <p>One source of importing inventory information is ArcLink as run at
 <a class="reference external" href="http://www.webdc.eu">http://www.webdc.eu</a>. After downloading the inventory XML file from ArcLink it
 can be imported into SeisComP by pressing the ‘Import’ button in the toolbar
@@ -234,12 +247,30 @@ the import output.</p>
 <figure class="align-center">
 <img alt="../_images/inventory-import-finished.png" src="../_images/inventory-import-finished.png" />
 </figure>
-<p>After closing the popup the new file will show up in the list.</p>
+<p>After closing the popup the imported inventory file will show up in the list of
+files. Selecting a files by right-clicking allows:</p>
+<ul class="simple">
+<li><p>Renaming,</p></li>
+<li><p>Deleting,</p></li>
+<li><p>Inspecting the content of</p></li>
+</ul>
+<p>the file.</p>
 <figure class="align-center">
-<img alt="../_images/inventory-arclink.png" src="../_images/inventory-arclink.png" />
+<a class="reference internal image-reference" href="../_images/inventory-arclink.png"><img alt="../_images/inventory-arclink.png" src="../_images/inventory-arclink.png" style="width: 18cm;" /></a>
 </figure>
-<p>The toolbar support 3 additional actions:</p>
+<p>The toolbar support 4 additional actions:</p>
 <dl>
+<dt><em>Check inventory</em></dt><dd><p>The inventory is checked for issues including inconsistencies wich are reported.
+The tests are based on <a class="reference internal" href="scinv.html#scinv"><span class="std std-ref">scinv</span></a> and listed in the documentation of this
+module. Adjust sensitivity by configuring <a class="reference internal" href="scinv.html#scinv"><span class="std std-ref">scinv</span></a>.</p>
+</dd>
+<dt><em>Sync keys</em></dt><dd><p>This action is part of sync but can be called also standalone. It merges all
+inventory XML files and creates key files in <code class="file docutils literal notranslate"><span class="pre">etc/key/station_*</span></code> if a
+key file does not yet exist. Existing key files are not touched unless the
+station is not part of the inventory anymore.</p>
+<p>As a result, all stations in inventory will have a corresponding key file and
+each key file will have a corresponding station in inventory.</p>
+</dd>
 <dt><em>Test sync</em></dt><dd><p>The inventory XML files are not used directly with SeisComP. They need to
 be synchronized with the database first (see <a class="reference internal" href="global.html#global-stations"><span class="std std-ref">Station meta data</span></a>).
 Synchronization needs to merge all existing XML files and create differences
@@ -256,13 +287,6 @@ database.</p>
 <dt><em>Sync</em></dt><dd><p>Almost identical to <em>Test sync</em> but it does send updates to the database and
 additionally synchronizes key files and resource files.</p>
 </dd>
-<dt><em>Sync keys</em></dt><dd><p>This action is part of sync but can be called also standalone. It merges all
-inventory XML files and creates key files in <code class="file docutils literal notranslate"><span class="pre">etc/key/station_*</span></code> if a
-key file does not yet exist. Existing key files are not touched unless the
-station is not part of the inventory anymore.</p>
-<p>As a result, all stations in inventory will have a corresponding key file and
-each key file will have a corresponding station in inventory.</p>
-</dd>
 </dl>
 <p><em>Sync</em> and <em>Sync keys</em> will cause a reload of the configuration to refresh the
 current binding tree (see <a class="reference internal" href="#scconfig-bindings"><span class="std std-ref">Bindings panel</span></a>).</p>
@@ -271,35 +295,76 @@ current binding tree (see <a class="reference internal" href="#scconfig-bindings
 <span id="scconfig-modules"></span><h3>Modules panel<a class="headerlink" href="#modules-panel" title="Permalink to this heading">¶</a></h3>
 <p>The modules panel allows configuration of all registered modules.</p>
 <figure class="align-center">
-<img alt="../_images/modules-overview.png" src="../_images/modules-overview.png" />
+<a class="reference internal image-reference" href="../_images/modules-overview.png"><img alt="../_images/modules-overview.png" src="../_images/modules-overview.png" style="width: 18cm;" /></a>
 </figure>
 <p>The left/green part shows the list of available modules grouped by defined
 categories and the right/blue part shows the current active module configuration.
 The active configuration corresponds to the selected item in the list. See
-section <a class="reference internal" href="#scconfig-editing"><span class="std std-ref">Editing</span></a> for further information about the content panel.</p>
+section <a class="reference internal" href="#scconfig-editing"><span class="std std-ref">Editing parameters</span></a> for further information about the content panel.</p>
 </section>
 <section id="bindings-panel">
 <span id="scconfig-bindings"></span><h3>Bindings panel<a class="headerlink" href="#bindings-panel" title="Permalink to this heading">¶</a></h3>
-<p>The binding panel configures a station for a module.</p>
+<p>The binding panel configures a station for a module providing station-specific
+configuration such as data acquisition or processing. You may configure station
+bindings or binding profiles. The profiles are typically applied to a set of
+station. Any change in the profile parameters apply to all stations bound to it.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Working with <a class="reference internal" href="#scconfig-bindings-profile"><span class="std std-ref">bindings profiles</span></a> allows to
+maintain a single set of binding parameters for one or multiple stations.
+<a class="reference internal" href="#scconfig-bindings-station"><span class="std std-ref">Station bindings</span></a> are useful if a set of
+binding parameters are applied only to a single station. Otherwise configure
+<a class="reference internal" href="#scconfig-bindings-profile"><span class="std std-ref">binding profiles</span></a>.
+<a class="reference internal" href="#scconfig-bindings-profile"><span class="std std-ref">Profiles</span></a> are therefore preferred over
+<a class="reference internal" href="#scconfig-bindings-station"><span class="std std-ref">station bindings</span></a> unless only one single
+station shall be configured.</p>
+</div>
 <figure class="align-center">
-<img alt="../_images/modules-binding.png" src="../_images/modules-binding.png" />
+<a class="reference internal image-reference" href="../_images/modules-binding.png"><img alt="../_images/modules-binding.png" src="../_images/modules-binding.png" style="width: 18cm;" /></a>
 </figure>
-<p>It is separated into 3 main areas: the station tree (red + orange), the
-binding content (green) and the module tree (blue + magenta).</p>
+<p>The binding panel is separated into 3 main areas:</p>
+<ul class="simple">
+<li><p>the station tree (red + orange),</p></li>
+<li><p>the binding content (green),</p></li>
+<li><p>the module tree (blue + magenta).</p></li>
+</ul>
 <p>The station tree (red) shows a tree of all available networks and their
 stations. Each stations contains nodes of its configured bindings. The lower
 view (orange) represents the content of the currently selected item in the
 station tree.</p>
 <p>The binding content shows the content of a binding and is similar to the
-module configuration content. See section <a class="reference internal" href="#scconfig-editing"><span class="std std-ref">Editing</span></a> for further
+module configuration content. See section <a class="reference internal" href="#scconfig-editing"><span class="std std-ref">Editing parameters</span></a> for further
 information about this panel.</p>
 <p>The module tree contains all modules which can be used along with bindings.
 The upper/blue window contains the modules and all available binding profiles
 for each module and the lower/magenta part shows all binding profiles of the
 currently selected module. This view is used to add new profiles and delete
 existing profiles.</p>
+<section id="profiles">
+<span id="scconfig-bindings-profile"></span><h4>Profiles<a class="headerlink" href="#profiles" title="Permalink to this heading">¶</a></h4>
+<section id="create-a-profile">
+<h5>Create a profile<a class="headerlink" href="#create-a-profile" title="Permalink to this heading">¶</a></h5>
+<p>For creating a binding profile select a module in the module tree (blue area)
+and right-click on the module or select the “add” button in the lower (magenta)
+panel. Provide a descriptive name. Clicking on the name of the profile opens the
+profile allowing to adjust the parameters.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/modules-profiles.png"><img alt="../_images/modules-profiles.png" src="../_images/modules-profiles.png" style="width: 18cm;" /></a>
+</figure>
+</section>
+<section id="create-bindings">
+<h5>Create bindings<a class="headerlink" href="#create-bindings" title="Permalink to this heading">¶</a></h5>
+<p>Assigning a binding profile to one or more stations creates one or more bindings.
+To assign a binding profile to a single station, a single network including all
+stations or all networks drag a profile from the right part (blue or magenta)
+to the target in the left part (red or orange).</p>
+<p>For assigning to a set of stations/networks, select the target first by mouse
+click and then drag to profile onto the selection.</p>
+<p>It is also possible to drag and drop multiple profiles with one action.</p>
+</section>
+</section>
 <section id="station-bindings">
-<h4>Station bindings<a class="headerlink" href="#station-bindings" title="Permalink to this heading">¶</a></h4>
+<span id="scconfig-bindings-station"></span><h4>Station bindings<a class="headerlink" href="#station-bindings" title="Permalink to this heading">¶</a></h4>
 <p>To create an exclusive station binding for a module, it must be opened in the
 binding view (orange box) by either selecting a station in the station tree
 (red) or opening/clicking that station in the binding view (orange). The
@@ -317,19 +382,29 @@ profile will be converted into a station binding and activated for editing.</p>
 <img alt="../_images/modules-bindings-convert.png" src="../_images/modules-bindings-convert.png" />
 </figure>
 </section>
-<section id="profiles">
-<h4>Profiles<a class="headerlink" href="#profiles" title="Permalink to this heading">¶</a></h4>
-<p>To assign a binding profile to a station, a network or a set of stations/networks,
-drag a profile from the right part (blue or magenta) to the left part (red or
-orange). It is also possible to drag and drop multiple profiles with one action.</p>
+<section id="applying-bindings">
+<h4>Applying bindings<a class="headerlink" href="#applying-bindings" title="Permalink to this heading">¶</a></h4>
+<p>The bindings parameters must be additionally written to the database or as for a
+<a class="reference internal" href="../base/glossary.html#term-standalone-module"><span class="xref std std-term">standalone module</span></a> converted to the specific module configuration by
+updating the configuration. You may update configuration for all modules or just
+the specific one. To this end, change to the
+<a class="reference internal" href="#scconfig-system"><span class="std std-ref">System panel</span></a> select the specific module or none and
+press the button “<em>Update configuration</em>”.</p>
+<p>Alternatively, execute the <a class="reference internal" href="seiscomp.html#seiscomp"><span class="std std-ref">seiscomp</span></a> script on the command line or all or
+the specific module:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>update-config
+seiscomp<span class="w"> </span>update-config<span class="w"> </span>module
+</pre></div>
+</div>
 </section>
 </section>
-<section id="editing">
-<span id="scconfig-editing"></span><h3>Editing<a class="headerlink" href="#editing" title="Permalink to this heading">¶</a></h3>
+<section id="editing-parameters">
+<span id="scconfig-editing"></span><h3>Editing parameters<a class="headerlink" href="#editing-parameters" title="Permalink to this heading">¶</a></h3>
 <p>The content panel of a configuration is organized as a tree. Each module/binding
 name is a toplevel item and all namespace are titles of collapsible sections.
-Namespaces are separated by dot in the configuration file, e.g.: scautopick.cfg
-which also reads global.cfg would end up in a tree like this:</p>
+Namespaces are separated by dot in the configuration file, e.g.
+:file:<a href="#id2"><span class="problematic" id="id3">`</span></a>scautopick.cfg which also reads :file:<a href="#id4"><span class="problematic" id="id5">`</span></a>global.cfg would end up in a tree
+like this:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>+<span class="w"> </span>global
 <span class="p">|</span><span class="w">  </span><span class="p">|</span>
 <span class="p">|</span><span class="w">  </span>+--<span class="w"> </span>connection
@@ -353,10 +428,10 @@ which also reads global.cfg would end up in a tree like this:</p>
 </div>
 <p>Figure <a class="reference internal" href="#fig-scconfig-modules-global"><span class="std std-ref">Content panel layout</span></a> describes each item in the content
 panel.</p>
-<figure class="align-center" id="id3">
-<span id="fig-scconfig-modules-global"></span><img alt="../_images/modules-global.png" src="../_images/modules-global.png" />
+<figure class="align-center" id="id7">
+<span id="fig-scconfig-modules-global"></span><a class="reference internal image-reference" href="../_images/modules-global.png"><img alt="../_images/modules-global.png" src="../_images/modules-global.png" style="width: 18cm;" /></a>
 <figcaption>
-<p><span class="caption-text">Content panel layout</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Content panel layout</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <figure class="align-right">
@@ -381,11 +456,19 @@ user configuration it cannot be overriden in the system configuration. The user
 configuration is always of higher priority. scconfig will detect such problems
 and will color the input widget red in such situations.</p>
 <figure class="align-center">
-<img alt="../_images/config-warning.png" src="../_images/config-warning.png" />
+<a class="reference internal image-reference" href="../_images/config-warning.png"><img alt="../_images/config-warning.png" src="../_images/config-warning.png" style="width: 18cm;" /></a>
 </figure>
 <p>The value in the edit widget will show the currently configured value in the
 active configuration file but the tooltip will show the evaluated value, the
 location of the definition and a warning.</p>
+</section>
+<section id="documentation-and-changelog">
+<span id="scconfig-documentation"></span><h3>Documentation and changelog<a class="headerlink" href="#documentation-and-changelog" title="Permalink to this heading">¶</a></h3>
+<p>Access the documentation and the changelog of any installad package from the
+Docs panel.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/documentation.png"><img alt="../_images/documentation.png" src="../_images/documentation.png" style="width: 18cm;" /></a>
+</figure>
 </section>
 </section>
 </section>
@@ -419,11 +502,17 @@ location of the definition and a warning.</p>
 <li><a class="reference internal" href="#inventory-panel">Inventory panel</a></li>
 <li><a class="reference internal" href="#modules-panel">Modules panel</a></li>
 <li><a class="reference internal" href="#bindings-panel">Bindings panel</a><ul>
-<li><a class="reference internal" href="#station-bindings">Station bindings</a></li>
-<li><a class="reference internal" href="#profiles">Profiles</a></li>
+<li><a class="reference internal" href="#profiles">Profiles</a><ul>
+<li><a class="reference internal" href="#create-a-profile">Create a profile</a></li>
+<li><a class="reference internal" href="#create-bindings">Create bindings</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#editing">Editing</a></li>
+<li><a class="reference internal" href="#station-bindings">Station bindings</a></li>
+<li><a class="reference internal" href="#applying-bindings">Applying bindings</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#editing-parameters">Editing parameters</a></li>
+<li><a class="reference internal" href="#documentation-and-changelog">Documentation and changelog</a></li>
 </ul>
 </li>
 </ul>
@@ -433,13 +522,13 @@ location of the definition and a warning.</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="sccnv.html"
-                          title="previous chapter">sccnv</a></p>
+    <p class="topless"><a href="../gui.html"
+                          title="previous chapter">Graphical User Interfaces</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="scdb.html"
-                          title="next chapter">scdb</a></p>
+    <p class="topless"><a href="scesv.html"
+                          title="next chapter">scesv</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -460,7 +549,7 @@ location of the definition and a warning.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

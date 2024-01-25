@@ -24,7 +24,7 @@
         <div class="brand">
           <img class="logo" src="_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -140,6 +140,13 @@
 </li>
       </ul></li>
       <li>
+    magnitudes.$name.MwMapping
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.-name.MwMapping">configuration value</a>
+</li>
+      </ul></li>
+      <li>
     magnitudes.$name.offset
 
       <ul>
@@ -207,6 +214,13 @@
 
       <ul>
         <li><a href="apps/global.html#confval-magnitudes.-name.regionFile">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    magnitudes.aliases
+
+      <ul>
+        <li><a href="apps/global.html#confval-magnitudes.aliases">configuration value</a>
 </li>
       </ul></li>
       <li>
@@ -385,13 +399,6 @@
 </li>
       </ul></li>
       <li>
-    magnitudes.ML.region.$name.logA0
-
-      <ul>
-        <li><a href="apps/global.html#confval-magnitudes.ML.region.-name.logA0">configuration value</a>, <a href="apps/global_ml.html#confval-magnitudes.ML.region.-name.logA0">[1]</a>
-</li>
-      </ul></li>
-      <li>
     magnitudes.MLc.A0.logA0
 
       <ul>
@@ -476,55 +483,6 @@
 </li>
       </ul></li>
       <li>
-    magnitudes.MLc.region.$name.A0.logA0
-
-      <ul>
-        <li><a href="apps/global.html#confval-magnitudes.MLc.region.-name.A0.logA0">configuration value</a>, <a href="apps/global_mlc.html#confval-magnitudes.MLc.region.-name.A0.logA0">[1]</a>
-</li>
-      </ul></li>
-      <li>
-    magnitudes.MLc.region.$name.parametric.c0
-
-      <ul>
-        <li><a href="apps/global.html#confval-magnitudes.MLc.region.-name.parametric.c0">configuration value</a>, <a href="apps/global_mlc.html#confval-magnitudes.MLc.region.-name.parametric.c0">[1]</a>
-</li>
-      </ul></li>
-      <li>
-    magnitudes.MLc.region.$name.parametric.c1
-
-      <ul>
-        <li><a href="apps/global.html#confval-magnitudes.MLc.region.-name.parametric.c1">configuration value</a>, <a href="apps/global_mlc.html#confval-magnitudes.MLc.region.-name.parametric.c1">[1]</a>
-</li>
-      </ul></li>
-      <li>
-    magnitudes.MLc.region.$name.parametric.c2
-
-      <ul>
-        <li><a href="apps/global.html#confval-magnitudes.MLc.region.-name.parametric.c2">configuration value</a>, <a href="apps/global_mlc.html#confval-magnitudes.MLc.region.-name.parametric.c2">[1]</a>
-</li>
-      </ul></li>
-      <li>
-    magnitudes.MLc.region.$name.parametric.c3
-
-      <ul>
-        <li><a href="apps/global.html#confval-magnitudes.MLc.region.-name.parametric.c3">configuration value</a>, <a href="apps/global_mlc.html#confval-magnitudes.MLc.region.-name.parametric.c3">[1]</a>
-</li>
-      </ul></li>
-      <li>
-    magnitudes.MLc.region.$name.parametric.c4
-
-      <ul>
-        <li><a href="apps/global.html#confval-magnitudes.MLc.region.-name.parametric.c4">configuration value</a>, <a href="apps/global_mlc.html#confval-magnitudes.MLc.region.-name.parametric.c4">[1]</a>
-</li>
-      </ul></li>
-      <li>
-    magnitudes.MLc.region.$name.parametric.c5
-
-      <ul>
-        <li><a href="apps/global.html#confval-magnitudes.MLc.region.-name.parametric.c5">configuration value</a>, <a href="apps/global_mlc.html#confval-magnitudes.MLc.region.-name.parametric.c5">[1]</a>
-</li>
-      </ul></li>
-      <li>
     magnitudes.MLh.maxDepth
 
       <ul>
@@ -557,13 +515,6 @@
 
       <ul>
         <li><a href="apps/global.html#confval-magnitudes.MLv.maxDistanceKm">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    magnitudes.MLv.region.$name.logA0
-
-      <ul>
-        <li><a href="apps/global.html#confval-magnitudes.MLv.region.-name.logA0">configuration value</a>, <a href="apps/global_mlv.html#confval-magnitudes.MLv.region.-name.logA0">[1]</a>
 </li>
       </ul></li>
       <li>
@@ -615,8 +566,6 @@
         <li><a href="apps/global.html#confval-magnitudes.MN.region">configuration value</a>, <a href="apps/global_mn.html#confval-magnitudes.MN.region">[1]</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     magnitudes.Ms_20.lowerPeriod
 
@@ -656,6 +605,8 @@
 </li>
       <li><a href="base/api-python.html#seiscomp.datamodel.ConfidenceEllipsoid.majorAxisAzimuth">majorAxisAzimuth() (seiscomp.datamodel.ConfidenceEllipsoid method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="base/api-python.html#seiscomp.datamodel.ConfidenceEllipsoid.majorAxisPlunge">majorAxisPlunge() (seiscomp.datamodel.ConfidenceEllipsoid method)</a>
 </li>
       <li><a href="base/api-python.html#seiscomp.datamodel.ConfidenceEllipsoid.majorAxisRotation">majorAxisRotation() (seiscomp.datamodel.ConfidenceEllipsoid method)</a>
@@ -757,6 +708,13 @@
 
       <ul>
         <li><a href="base/filter-grammar.html#MAX">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    max()
+
+      <ul>
+        <li><a href="base/time-grammar.html#max">built-in function</a>
 </li>
       </ul></li>
       <li><a href="base/api-python.html#seiscomp.datamodel.Datalogger.maxClockDrift">maxClockDrift() (seiscomp.datamodel.Datalogger method)</a>
@@ -862,6 +820,20 @@
 </li>
       </ul></li>
       <li>
+    messaging.bind
+
+      <ul>
+        <li><a href="apps/kernel.html#confval-messaging.bind">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    messaging.enable
+
+      <ul>
+        <li><a href="apps/kernel.html#confval-messaging.enable">configuration value</a>
+</li>
+      </ul></li>
+      <li>
     messaging.groups.config
 
       <ul>
@@ -902,6 +874,13 @@
 
       <ul>
         <li><a href="base/filter-grammar.html#MIN">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    min()
+
+      <ul>
+        <li><a href="base/time-grammar.html#min">built-in function</a>
 </li>
       </ul></li>
       <li><a href="base/api-python.html#seiscomp.datamodel.OriginUncertainty.minHorizontalUncertainty">minHorizontalUncertainty() (seiscomp.datamodel.OriginUncertainty method)</a>
@@ -1107,6 +1086,27 @@
         <li><a href="apps/scm.html#confval-mtextplugin.outputDir">configuration value</a>, <a href="apps/scm_text.html#confval-mtextplugin.outputDir">[1]</a>
 </li>
       </ul></li>
+      <li>
+    mtime.end
+
+      <ul>
+        <li><a href="apps/scardac.html#confval-mtime.end">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    mtime.ignore
+
+      <ul>
+        <li><a href="apps/scardac.html#confval-mtime.ignore">configuration value</a>
+</li>
+      </ul></li>
+      <li>
+    mtime.start
+
+      <ul>
+        <li><a href="apps/scardac.html#confval-mtime.start">configuration value</a>
+</li>
+      </ul></li>
       <li><a href="base/api-python.html#seiscomp.datamodel.Tensor.Mtp">Mtp() (seiscomp.datamodel.Tensor method)</a>
 </li>
       <li><a href="base/api-python.html#seiscomp.datamodel.Tensor.Mtt">Mtt() (seiscomp.datamodel.Tensor method)</a>
@@ -1143,7 +1143,7 @@
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

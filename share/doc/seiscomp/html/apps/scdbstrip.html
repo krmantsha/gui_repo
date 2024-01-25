@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -131,14 +131,20 @@ be cleaned up. Read also the section <a class="reference internal" href="../base
 provides more options for optimizing your database server.</p>
 </li>
 <li><p>Run scdbstrip on smaller batches for the first time:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>scdbstrip<span class="w"> </span>-d<span class="w"> </span>seis:mypass@localhost/seiscomp<span class="w"> </span>--days<span class="w"> </span><span class="m">1000</span>
-$<span class="w"> </span>scdbstrip<span class="w"> </span>-d<span class="w"> </span>seis:mypass@localhost/seiscomp<span class="w"> </span>--days<span class="w"> </span><span class="m">900</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>scdbstrip<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@localhost/seiscomp<span class="w"> </span>--days<span class="w"> </span><span class="m">1000</span>
+$<span class="w"> </span>scdbstrip<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@localhost/seiscomp<span class="w"> </span>--days<span class="w"> </span><span class="m">900</span>
 ...
-$<span class="w"> </span>scdbstrip<span class="w"> </span>-d<span class="w"> </span>seis:mypass@localhost/seiscomp<span class="w"> </span>--days<span class="w"> </span><span class="m">100</span>
+$<span class="w"> </span>scdbstrip<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@localhost/seiscomp<span class="w"> </span>--days<span class="w"> </span><span class="m">100</span>
 </pre></div>
 </div>
 </li>
 </ol>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>In the examples, database connection parameters correspond to default values.
+You may thus replace <code class="docutils literal notranslate"><span class="pre">-d</span> <span class="pre">mysql://sysop:sysop&#64;localhost/seiscomp</span></code> by
+<code class="docutils literal notranslate"><span class="pre">-d</span> <span class="pre">localhost</span></code> or <code class="docutils literal notranslate"><span class="pre">-d</span> <span class="pre">mysql://</span></code>.</p>
+</div>
 </section>
 <section id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
@@ -148,8 +154,33 @@ $<span class="w"> </span>scdbstrip<span class="w"> </span>-d<span class="w"> </s
 </pre></div>
 </div>
 </li>
+<li><p>Remove event and waveform quality parameters newer than 30 days</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdbstrip<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@localhost/seiscomp<span class="w"> </span>--days<span class="w"> </span><span class="m">30</span><span class="w"> </span>-i
+</pre></div>
+</div>
+</li>
 <li><p>Only remove waveform QC parameters older than 30 days but no others</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdbstrip<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@localhost/seiscomp<span class="w"> </span>--days<span class="w"> </span><span class="m">30</span><span class="w"> </span>--qc-only
+</pre></div>
+</div>
+</li>
+<li><p>Remove event and waveform quality parameters before 2000-01-01 12:00:00</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdbstrip<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@localhost/seiscomp<span class="w"> </span>--datetime<span class="w"> </span><span class="s2">&quot;2000-01-01 12:00:00&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Remove event and waveform quality parameters after 2000-01-01 12:00:00</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdbstrip<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@localhost/seiscomp<span class="w"> </span>--datetime<span class="w"> </span><span class="s2">&quot;2000-01-01 12:00:00&quot;</span><span class="w"> </span>-i
+</pre></div>
+</div>
+</li>
+<li><p>Remove event and waveform quality parameters between 2000-01-01 12:00:00 ~ 2000-01-01 14:00:00</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdbstrip<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@localhost/seiscomp<span class="w"> </span>--time-window<span class="w"> </span><span class="s2">&quot;2000-01-01 12:00:00~2000-01-01 14:00:00&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Remove event and waveform quality parameters before 2000-01-01 12:00:00 and after 2000-01-01 14:00:00</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scdbstrip<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@localhost/seiscomp<span class="w"> </span>--time-window<span class="w"> </span><span class="s2">&quot;2000-01-01 12:00:00~2000-01-01 14:00:00&quot;</span><span class="w"> </span>-i
 </pre></div>
 </div>
 </li>
@@ -171,8 +202,10 @@ $<span class="w"> </span>scdbstrip<span class="w"> </span>-d<span class="w"> </s
 <span class="sig-name descname"><span class="pre">database.cleanup.invertMode</span></span><a class="headerlink" href="#confval-database.cleanup.invertMode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 <p>Type: <em>boolean</em></p>
-<p>Delete all parameters after the specified time period,
-not before.</p>
+<p>Invert the selection of the specified time period, that is
+delete all parameters after the specified time period,
+not before. When a date range is specified, then delete all
+parameters before and after the time range, not in between.</p>
 </dd></dl>
 
 <dl class="std confval">
@@ -427,8 +460,17 @@ Overrides ‘eq-only’.</p>
 <dt class="sig sig-object std" id="cmdoption-scdbstrip-datetime">
 <span class="sig-name descname"><span class="pre">--datetime</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scdbstrip-datetime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replaces the days:hours:minutes timespan definition by an
-aribtrary absolute timestamp in UTC. The format is
+arbitrary absolute timestamp in UTC. The format is
 %Y-%m-%d %H:%M:%S.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scdbstrip-t">
+<span id="cmdoption-scdbstrip-time-window"></span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--time-window</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scdbstrip-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete objects in the specified time window.
+Replaces the days:hours:minutes timespan definition by an
+arbitrary absolute time range in UTC. The format is
+startTime~endTime that is %Y-%m-%d %H:%M:%S~%Y-%m-%d %H:%M:%S</p>
 </dd></dl>
 
 <dl class="std option">
@@ -515,7 +557,7 @@ aribtrary absolute timestamp in UTC. The format is
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -80,30 +80,32 @@ There are still some modules that do not use the libraries and are called
 <a class="reference internal" href="slarchive.html#slarchive"><span class="std std-ref">slarchive</span></a>.
 They need wrappers to generate their native configuration when
 <strong class="command">seiscomp update-config</strong> is run.</p>
-<p>Global parameters can be used by many modules. Thus multiple configuration can be avoided.
-The parameters are read from file in the following order:</p>
+<p>Global parameters can be used by many modules. Thus multiple configuration can
+be avoided. The parameters are read from file in the following order:</p>
 <ol class="arabic simple">
 <li><p><code class="file docutils literal notranslate"><span class="pre">&#64;SYSTEMCONFIGDIR&#64;/global.cfg</span></code></p></li>
 <li><p><code class="file docutils literal notranslate"><span class="pre">&#64;CONFIGDIR&#64;/global.cfg</span></code></p></li>
 </ol>
-<p>Parameters from <code class="file docutils literal notranslate"><span class="pre">&#64;CONFIGDIR&#64;</span></code> override parameters from <code class="file docutils literal notranslate"><span class="pre">&#64;SYSTEMCONFIGDIR&#64;</span></code>.</p>
-<p>Most <a class="reference internal" href="../base/glossary.html#term-trunk"><span class="xref std std-term">trunk</span></a> modules read the configuration from the global configuration which can be overridden
-by the module configuration. Read the <a class="reference internal" href="../base/concepts/modules.html#concepts-modules"><span class="std std-ref">concept section on modules</span></a>
-and the <a class="reference internal" href="../base/concepts/configuration.html#concepts-configuration"><span class="std std-ref">concept section on the configuraion</span></a> for
-more details.</p>
-<p>Though it is easy to create the configuration by directly editing the configuration
-files, it is even more convenient to use a configurator.
-SeisComP ships with a graphical configurator and management tool (<a class="reference internal" href="scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a>)
-which makes it easy to maintain
-module configurations and station bindings even for large networks. It has built-in
-functionality to check the state of all registered modules and to start and stop them.</p>
+<p>Parameters from <code class="file docutils literal notranslate"><span class="pre">&#64;CONFIGDIR&#64;</span></code> override parameters from
+<code class="file docutils literal notranslate"><span class="pre">&#64;SYSTEMCONFIGDIR&#64;</span></code>.</p>
+<p>Most <a class="reference internal" href="../base/glossary.html#term-trunk"><span class="xref std std-term">trunk</span></a> modules read the configuration from the global configuration
+which can be overridden by the module configuration. Read the
+<a class="reference internal" href="../base/concepts/modules.html#concepts-modules"><span class="std std-ref">concept section on modules</span></a> and the
+<a class="reference internal" href="../base/concepts/configuration.html#concepts-configuration"><span class="std std-ref">concept section on the configuration</span></a> for more
+details.</p>
+<p>Though it is easy to create the configuration by directly editing the
+configuration files, it is even more convenient to use a graphical configuration
+tool. SeisComP ships with <a class="reference internal" href="scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a>, a graphical configuration and
+management tool which makes it easy to maintain module configurations and
+station bindings even for large networks. It has built-in functionality to check
+the state of all registered modules and to start and stop them.</p>
 <p>The configuration is divided into three parts: <a class="reference internal" href="#global-stations"><span class="std std-ref">stations</span></a>,
 <a class="reference internal" href="#global-modules"><span class="std std-ref">modules</span></a> and <a class="reference internal" href="#global-bindings"><span class="std std-ref">bindings</span></a>.</p>
 <section id="station-meta-data">
 <span id="global-stations"></span><h2>Station meta data<a class="headerlink" href="#station-meta-data" title="Permalink to this heading">¶</a></h2>
-<p>Station meta-data is a fundamental requirement for a seismic processing system and
-for SeisComP. Read the <a class="reference internal" href="../base/concepts/inventory.html#concepts-inventory"><span class="std std-ref">inventory section</span></a> in concepts for
-more details.</p>
+<p>Station meta-data is a fundamental requirement for a seismic processing system
+and for SeisComP. Read the <a class="reference internal" href="../base/concepts/inventory.html#concepts-inventory"><span class="std std-ref">inventory section</span></a> in
+concepts for more details.</p>
 </section>
 <section id="modules">
 <span id="global-modules"></span><h2>Modules<a class="headerlink" href="#modules" title="Permalink to this heading">¶</a></h2>
@@ -145,8 +147,8 @@ plugins shown:</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="scevent.html#scevent"><span class="std std-ref">scevent</span></a></p></td>
 <td><p><a class="reference internal" href="scevent_regioncheck.html#scevent-regioncheck"><span class="std std-ref">RegionCheck</span></a></p></td>
 </tr>
-<tr class="row-even"><td><p><span class="xref std std-ref">kernel</span></p></td>
-<td><p><span class="xref std std-ref">messaging</span></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="kernel.html#kernel"><span class="std std-ref">kernel</span></a></p></td>
+<td><p><a class="reference internal" href="kernel.html#kernel-messaging"><span class="std std-ref">messaging</span></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -260,7 +262,7 @@ its tools. Should not contain spaces.</p>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">&#64;appname&#64;&#64;&#64;&#64;hostname&#64;</span></code></p>
 <p>Type: <em>string</em></p>
 <p>Author name used to set creationInfo.author in data model
-objects. &#64;appname&#64; is replace by the name of the
+objects. &#64;appname&#64; is replaced by the name of the
 respective executable, &#64;hostname&#64; by the name of the computer
 on which it runs.</p>
 </dd></dl>
@@ -439,8 +441,8 @@ number.</p>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">104857600</span></code></p>
 <p>Type: <em>int</em></p>
 <p>Unit: <em>byte</em></p>
-<p>The maximum size of a logfile in byte. The default
-value is 100 megabyte. If a logfile exceeds that
+<p>The maximum size of a log file in byte. The default
+value is 100 megabyte. If a log file exceeds that
 size, then it is rotated. To disable the size limit
 give 0 or a negative value.</p>
 </dd></dl>
@@ -703,19 +705,55 @@ $name is a placeholder for the name to be used.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>amplitudes.*</strong>
-<em>Parameters of amplitude measurements.</em></p>
+<em>Parameters for amplitude measurements.</em></p>
 </div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.iaspei">
+<span class="sig-name descname"><span class="pre">amplitudes.iaspei</span></span><a class="headerlink" href="#confval-amplitudes.iaspei" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Compute ML peak-to-trough and mb amplitudes according to
+IASPEI recommendations.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>amplitudes.ttt.*</strong>
+<em>Travel time table specific parameters to be used for the</em>
+<em>computation of travel times referred to in signal and</em>
+<em>noise time window specifications,</em>
+<em>e.g. “signalBegin”. This can be overridden per</em>
+<em>station in its bindings.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.ttt.interface">
+<span class="sig-name descname"><span class="pre">amplitudes.ttt.interface</span></span><a class="headerlink" href="#confval-amplitudes.ttt.interface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">libtau</span></code></p>
+<p>Type: <em>string</em></p>
+<p><em>No description available</em></p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.ttt.model">
+<span class="sig-name descname"><span class="pre">amplitudes.ttt.model</span></span><a class="headerlink" href="#confval-amplitudes.ttt.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">iasp91</span></code></p>
+<p>Type: <em>string</em></p>
+<p><em>No description available</em></p>
+</dd></dl>
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>amplitudes.WoodAnderson.*</strong>
 <em>Parameters of the Wood-Anderson seismometer response used</em>
-<em>for instrument simulation. The WA parameters can be overridden</em>
-<em>per stream by global bindings.</em></p>
+<em>for instrument simulation. The default values are according</em>
+<em>to Uhrhammer and Collins (1990) and were part of the</em>
+<em>IASPEI Magnitude Working Group recommendations of 2011</em>
+<em>September 9.</em></p>
 </div>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-amplitudes.WoodAnderson.gain">
 <span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.gain</span></span><a class="headerlink" href="#confval-amplitudes.WoodAnderson.gain" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">2800</span></code></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">2080</span></code></p>
 <p>Type: <em>double</em></p>
 <p>The gain of the Wood-Anderson response.</p>
 </dd></dl>
@@ -732,7 +770,7 @@ $name is a placeholder for the name to be used.</p>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-amplitudes.WoodAnderson.h">
 <span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.h</span></span><a class="headerlink" href="#confval-amplitudes.WoodAnderson.h" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.8</span></code></p>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.7</span></code></p>
 <p>Type: <em>double</em></p>
 <p>The damping constant of the Wood-Anderson seismometer.</p>
 </dd></dl>
@@ -740,15 +778,46 @@ $name is a placeholder for the name to be used.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>magnitudes.*</strong>
-<em>Magnitude configurations overriding global bindings.</em>
-<em>Add regionalization by magnitude-type profiles. Profile</em>
-<em>names correspond to magnitude types.</em></p>
+<em>Parameters for computing magnitudes.</em>
+<em>Add magnitude regionalization and mapping to Mw by magnitude-type profiles.</em>
+<em>One profile corresponds to one magnitude type.</em></p>
 </div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-magnitudes.aliases">
+<span class="sig-name descname"><span class="pre">magnitudes.aliases</span></span><a class="headerlink" href="#confval-magnitudes.aliases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:string</em></p>
+<p>Definition of magnitude aliases for deriving new magnitude
+types from existing magnitude and amplitude types. Separate
+multiple entries by comma.</p>
+<p>Format:</p>
+<p>NewType:OriginalMagnitudeType[:OriginalAmplitudeType]</p>
+<p>OriginalAmplitudeType is optional. The default amplitude
+type applies if OriginalAmplitudeType is undefined.</p>
+<p>Examples for deriving magnitude of new type ABC from MLv:</p>
+<p>ABC:MLv:MLv</p>
+<p>ABC:MLv</p>
+<p>Alias magnitudes can be configured like any other magnitude.</p>
+</dd></dl>
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>magnitudes.$name.*</strong>
+<em>Regionalization of magnitude configurations overriding global</em>
+<em>bindings. For parameters which are not set, the values</em>
+<em>defined in bindings apply.</em>
 $name is a placeholder for the name to be used.</p>
 </div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-magnitudes.-name.MwMapping">
+<span class="sig-name descname"><span class="pre">magnitudes.$name.MwMapping</span></span><a class="headerlink" href="#confval-magnitudes.-name.MwMapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:string</em></p>
+<p>Mw magnitude mapping table for estimating Mw from network
+magnitude M. Mw values are given at some M.</p>
+<p>Format: &quot;M0:Mw0, M1:Mw1, …&quot;.</p>
+<p>Between two values of M, Mw values will be linearly
+interpolated but not extrapolated.</p>
+</dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-magnitudes.-name.regionFile">
 <span class="sig-name descname"><span class="pre">magnitudes.$name.regionFile</span></span><a class="headerlink" href="#confval-magnitudes.-name.regionFile" title="Permalink to this definition">¶</a></dt>
@@ -766,15 +835,12 @@ must not be present in the geofeature file.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>magnitudes.$name.region.*</strong>
-<em>Add parameter profiles for regions defined in the</em>
-<em>geofeature file. Profile names must match one polygon</em>
-<em>name. Otherwise, the profile is not considered.</em>
-<em>The special name “world” corresponds to the</em>
-<em>region of the entire planet as a fallback.</em>
-**
-<em>Magnitude-specific parameters, e.g. calibration functions,</em>
-<em>are adjusted in a separate section of  magnitudes with</em>
-<em>the same name.</em></p>
+<em>Add magnitude region profiles for regions defined by</em>
+<em>polygons in the geofeature file of regionFile. Profile</em>
+<em>names must match one polygon name. Otherwise, the</em>
+<em>profile is not considered. The special name</em>
+<em>“world” corresponds to the region of the</em>
+<em>entire planet as a fallback.</em></p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -856,8 +922,7 @@ and receiver/station must be withing the region.</p>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-magnitudes.-name.region.-name.multiplier">
 <span class="sig-name descname"><span class="pre">magnitudes.$name.region.$name.multiplier</span></span><a class="headerlink" href="#confval-magnitudes.-name.region.-name.multiplier" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
-<p>Type: <em>double</em></p>
+<dd><p>Type: <em>double</em></p>
 <p>Linear part of the default station correction
 for this region.</p>
 </dd></dl>
@@ -865,8 +930,7 @@ for this region.</p>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-magnitudes.-name.region.-name.offset">
 <span class="sig-name descname"><span class="pre">magnitudes.$name.region.$name.offset</span></span><a class="headerlink" href="#confval-magnitudes.-name.region.-name.offset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
-<p>Type: <em>double</em></p>
+<dd><p>Type: <em>double</em></p>
 <p>Constant part of the default station correction
 for this region.</p>
 </dd></dl>
@@ -1067,7 +1131,7 @@ origin of the defined region.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>hypo71.*</strong>
-<em>General Hypo71 configuration parameters.</em></p>
+<em>Locator parameters: Hypo71</em></p>
 </div>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-hypo71.logFile">
@@ -2168,6 +2232,15 @@ e.g. &quot;GEOFON:black, USGS:blue&quot;.</p>
 </dd></dl>
 
 <dl class="std confval">
+<dt class="sig sig-object std" id="confval-scheme.colors.spectrogram">
+<span class="sig-name descname"><span class="pre">scheme.colors.spectrogram</span></span><a class="headerlink" href="#confval-scheme.colors.spectrogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>gradient</em></p>
+<p>The color gradient of the spectrogram amplitudes.
+The node values are not important as they will be
+projected onto the desired amplitude range.</p>
+</dd></dl>
+
+<dl class="std confval">
 <dt class="sig sig-object std" id="confval-scheme.colors.map.lines">
 <span class="sig-name descname"><span class="pre">scheme.colors.map.lines</span></span><a class="headerlink" href="#confval-scheme.colors.map.lines" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>color</em></p>
@@ -2215,6 +2288,37 @@ connecting the origin and a station).</p>
 <span class="sig-name descname"><span class="pre">scheme.colors.map.cityNormal</span></span><a class="headerlink" href="#confval-scheme.colors.map.cityNormal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>color</em></p>
 <p>The color of a &quot;normal&quot; city.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>scheme.colors.map.directivity.*</strong>
+<em>Defines the pen of the directivity information</em>
+<em>(backazimuth and slowness) in the map.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-scheme.colors.map.directivity.color">
+<span class="sig-name descname"><span class="pre">scheme.colors.map.directivity.color</span></span><a class="headerlink" href="#confval-scheme.colors.map.directivity.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">FFA000</span></code></p>
+<p>Type: <em>color</em></p>
+<p>The color of the pen.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-scheme.colors.map.directivity.style">
+<span class="sig-name descname"><span class="pre">scheme.colors.map.directivity.style</span></span><a class="headerlink" href="#confval-scheme.colors.map.directivity.style" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">DotLine</span></code></p>
+<p>Type: <em>string</em></p>
+<p>The style of the pen. Supported values are: NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-scheme.colors.map.directivity.width">
+<span class="sig-name descname"><span class="pre">scheme.colors.map.directivity.width</span></span><a class="headerlink" href="#confval-scheme.colors.map.directivity.width" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>px</em></p>
+<p>The width of the pen.</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -3298,7 +3402,7 @@ bottom.</p>
 <p class="admonition-title">Note</p>
 <p><strong>scheme.fonts.base.*</strong>
 <em>The general base font of an application. This overrides</em>
-<em>the default Qt4 application font.</em></p>
+<em>the default Qt application font.</em></p>
 </div>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-scheme.fonts.base.family">
@@ -4555,173 +4659,6 @@ text color in case of an active alert. E.g. &quot;0:00FF00,900:FF0000&quot;.</p>
 </dd></dl>
 
 </section>
-<section id="mlc-extension">
-<span id="global-mlc"></span><h3>MLc extension<a class="headerlink" href="#mlc-extension" title="Permalink to this heading">¶</a></h3>
-<p>Custom magnitude for local events measured on horizontal components</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>magnitudes.MLc.*</strong>
-<em>Regionalized calibration parameters for MLc. The region itself is defined</em>
-<em>by another magnitude-type MLc profile.</em></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>magnitudes.MLc.region.*</strong>
-<em>Add one profile for every region. The profile name</em>
-<em>equals the name of a polygon configured in the BNA file</em>
-<em>of the Magnitude-type profile. The Magnitude-type profile</em>
-<em>and the polygon must exist.</em>
-<em>The special name “world” corresponds to the</em>
-<em>region of the entire planet as a fallback.</em></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>magnitudes.MLc.region.$name.*</strong>
-$name is a placeholder for the name to be used.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>magnitudes.MLc.region.$name.A0.*</strong>
-<em>Parameters for A0, non-parametric magnitude calibration.</em></p>
-</div>
-<dl class="std confval">
-<dt class="sig sig-object std" id="confval-magnitudes.MLc.region.-name.A0.logA0">
-<span class="sig-name descname"><span class="pre">magnitudes.MLc.region.$name.A0.logA0</span></span><a class="headerlink" href="#confval-magnitudes.MLc.region.-name.A0.logA0" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
-<p>Overrides the calibration function log10(A0)
-for computing MLc per region. See logA0
-description in the bindings.</p>
-</dd></dl>
-
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>magnitudes.MLc.region.$name.parametric.*</strong>
-<em>Parameters for parametric magnitude calibration:</em>
-<em>MLc = log10(A) + c3 * log10(r/c5) + c2 * (r + c4) + c1 + c0(station)</em></p>
-</div>
-<dl class="std confval">
-<dt class="sig sig-object std" id="confval-magnitudes.MLc.region.-name.parametric.c0">
-<span class="sig-name descname"><span class="pre">magnitudes.MLc.region.$name.parametric.c0</span></span><a class="headerlink" href="#confval-magnitudes.MLc.region.-name.parametric.c0" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>Overrides the calibration parameter c0
-for computing MLc per region. See c0
-description in the bindings.</p>
-</dd></dl>
-
-<dl class="std confval">
-<dt class="sig sig-object std" id="confval-magnitudes.MLc.region.-name.parametric.c1">
-<span class="sig-name descname"><span class="pre">magnitudes.MLc.region.$name.parametric.c1</span></span><a class="headerlink" href="#confval-magnitudes.MLc.region.-name.parametric.c1" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>Overrides the calibration parameter c1
-for computing MLc per region. See c1
-description in the bindings.</p>
-</dd></dl>
-
-<dl class="std confval">
-<dt class="sig sig-object std" id="confval-magnitudes.MLc.region.-name.parametric.c2">
-<span class="sig-name descname"><span class="pre">magnitudes.MLc.region.$name.parametric.c2</span></span><a class="headerlink" href="#confval-magnitudes.MLc.region.-name.parametric.c2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>Overrides the calibration parameter c2
-for computing MLc per region. See c2
-description in the bindings.</p>
-</dd></dl>
-
-<dl class="std confval">
-<dt class="sig sig-object std" id="confval-magnitudes.MLc.region.-name.parametric.c3">
-<span class="sig-name descname"><span class="pre">magnitudes.MLc.region.$name.parametric.c3</span></span><a class="headerlink" href="#confval-magnitudes.MLc.region.-name.parametric.c3" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>Overrides the calibration parameter c3
-for computing MLc per region. See c3
-description in the bindings.</p>
-</dd></dl>
-
-<dl class="std confval">
-<dt class="sig sig-object std" id="confval-magnitudes.MLc.region.-name.parametric.c4">
-<span class="sig-name descname"><span class="pre">magnitudes.MLc.region.$name.parametric.c4</span></span><a class="headerlink" href="#confval-magnitudes.MLc.region.-name.parametric.c4" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>Overrides the calibration parameter c4
-for computing MLc per region. See c4
-description in the bindings.</p>
-</dd></dl>
-
-<dl class="std confval">
-<dt class="sig sig-object std" id="confval-magnitudes.MLc.region.-name.parametric.c5">
-<span class="sig-name descname"><span class="pre">magnitudes.MLc.region.$name.parametric.c5</span></span><a class="headerlink" href="#confval-magnitudes.MLc.region.-name.parametric.c5" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>double</em></p>
-<p>Overrides the calibration parameter c5
-for computing MLc per region. See c5
-description in the bindings.</p>
-</dd></dl>
-
-</section>
-<section id="mlv-extension">
-<span id="global-mlv"></span><h3>MLv extension<a class="headerlink" href="#mlv-extension" title="Permalink to this heading">¶</a></h3>
-<p>Local (Richter) magnitude measured on the vertical component</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>magnitudes.MLv.*</strong>
-<em>Regional calibration parameters for MLv. The region itself is defined</em>
-<em>by another magnitude-type MLv profile.</em></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>magnitudes.MLv.region.*</strong>
-<em>Add one profile for every region. The profile name</em>
-<em>equals the name of a polygon configured in the BNA file</em>
-<em>of the Magnitude-type profile. The Magnitude-type profile</em>
-<em>and the polygon must exist.</em>
-<em>The special name “world” corresponds to the</em>
-<em>region of the entire planet as a fallback.</em></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>magnitudes.MLv.region.$name.*</strong>
-$name is a placeholder for the name to be used.</p>
-</div>
-<dl class="std confval">
-<dt class="sig sig-object std" id="confval-magnitudes.MLv.region.-name.logA0">
-<span class="sig-name descname"><span class="pre">magnitudes.MLv.region.$name.logA0</span></span><a class="headerlink" href="#confval-magnitudes.MLv.region.-name.logA0" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
-<p>Overrides the calibration function log10(A0)
-for computing MLv per region. See logA0
-description in the bindings.</p>
-</dd></dl>
-
-</section>
-<section id="ml-extension">
-<span id="global-ml"></span><h3>ML extension<a class="headerlink" href="#ml-extension" title="Permalink to this heading">¶</a></h3>
-<p>Standard local (Richter) magnitude</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>magnitudes.ML.*</strong>
-<em>Regionalized calibration parameters for ML. The region itself is defined</em>
-<em>by another magnitude-type ML profile.</em></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>magnitudes.ML.region.*</strong>
-<em>Add one profile for every region. The profile name</em>
-<em>equals the name of a polygon configured in the BNA file</em>
-<em>of the Magnitude-type profile. The Magnitude-type profile</em>
-<em>and the polygon must exist.</em>
-<em>The special name “world” corresponds to the</em>
-<em>region of the entire planet as a fallback.</em></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>magnitudes.ML.region.$name.*</strong>
-$name is a placeholder for the name to be used.</p>
-</div>
-<dl class="std confval">
-<dt class="sig sig-object std" id="confval-magnitudes.ML.region.-name.logA0">
-<span class="sig-name descname"><span class="pre">magnitudes.ML.region.$name.logA0</span></span><a class="headerlink" href="#confval-magnitudes.ML.region.-name.logA0" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <em>string</em></p>
-<p>Overrides the calibration function log10(A0)
-for computing ML per region. See logA0
-description in the bindings.</p>
-</dd></dl>
-
-</section>
 <section id="locsat-extension">
 <span id="global-locsat"></span><h3>LOCSAT extension<a class="headerlink" href="#locsat-extension" title="Permalink to this heading">¶</a></h3>
 <p>Locator in SeisComP for computing source time and hypocenter
@@ -5315,7 +5252,7 @@ this station will be skipped for amplitudes and magnitudes.</p>
 <p>Activate deconvolution for this station. If no responses are
 configured, an error is raised and the data is not processed.
 This flag will be overridden by the type specific flag
-(see Amplitude type profile).</p>
+(see GlobalAmplitudeProfile).</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -5371,7 +5308,7 @@ will be used instead.</p>
 <dt class="sig sig-object std" id="confval-amplitudes.-name.minSNR">
 <span class="sig-name descname"><span class="pre">amplitudes.$name.minSNR</span></span><a class="headerlink" href="#confval-amplitudes.-name.minSNR" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>double</em></p>
-<p>Define the mininum SNR to be reached to compute the
+<p>Define the minimum SNR to be reached to compute the
 amplitudes. This value is amplitude type specific and
 has no global default value.</p>
 </dd></dl>
@@ -5533,7 +5470,7 @@ A value of 0 or lower disables that taper.</p>
 <p><strong>amplitudes.resp.*</strong>
 <em>Several parameters if usage of full responses is enabled.</em>
 <em>The parameters of this group will be overridden by type</em>
-<em>specific settings if given (see Amplitude type profile).</em></p>
+<em>specific settings if given (see GlobalAmplitudeProfile).</em></p>
 </div>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-amplitudes.resp.taper">
@@ -5573,26 +5510,48 @@ A value of 0 or lower disables that taper.</p>
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><strong>amplitudes.WoodAnderson.*</strong>
-<em>Parameters of the Wood-Anderson seismometer response used</em>
-<em>for instrument simulation.</em>
-<em>The default values are according to the version of</em>
-<em>Gutenberg (1935). The newer version by Uhrhammer and</em>
-<em>Collins (1990) is part of the IASPEI Magnitude</em>
-<em>Working Group recommendations of 2011 September 9. This</em>
-<em>version uses gain=2800, T0=0.8 s, h=0.8.</em></p>
+<p><strong>amplitudes.ttt.*</strong>
+<em>Travel time table specific parameters to be used for the</em>
+<em>computation of travel times referred to in signal and</em>
+<em>noise time window specifications,</em>
+<em>e.g. “signalBegin”.</em></p>
 </div>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-0">
-<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.gain</span></span><a class="headerlink" href="#confval-0" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">2800</span></code></p>
+<span class="sig-name descname"><span class="pre">amplitudes.ttt.interface</span></span><a class="headerlink" href="#confval-0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">libtau</span></code></p>
+<p>Type: <em>string</em></p>
+<p><em>No description available</em></p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-1">
+<span class="sig-name descname"><span class="pre">amplitudes.ttt.model</span></span><a class="headerlink" href="#confval-1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">iasp91</span></code></p>
+<p>Type: <em>string</em></p>
+<p><em>No description available</em></p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>amplitudes.WoodAnderson.*</strong>
+<em>Parameters of the Wood-Anderson seismometer response used</em>
+<em>for instrument simulation. The default values are according</em>
+<em>to Uhrhammer and Collins (1990) and were part of the</em>
+<em>IASPEI Magnitude Working Group recommendations of 2011</em>
+<em>September 9.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-2">
+<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.gain</span></span><a class="headerlink" href="#confval-2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">2080</span></code></p>
 <p>Type: <em>double</em></p>
 <p>The gain of the Wood-Anderson response.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-1">
-<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.T0</span></span><a class="headerlink" href="#confval-1" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="confval-3">
+<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.T0</span></span><a class="headerlink" href="#confval-3" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.8</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
@@ -5600,9 +5559,9 @@ A value of 0 or lower disables that taper.</p>
 </dd></dl>
 
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-2">
-<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.h</span></span><a class="headerlink" href="#confval-2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.8</span></code></p>
+<dt class="sig sig-object std" id="confval-4">
+<span class="sig-name descname"><span class="pre">amplitudes.WoodAnderson.h</span></span><a class="headerlink" href="#confval-4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.7</span></code></p>
 <p>Type: <em>double</em></p>
 <p>The damping constant of the Wood-Anderson seismometer.</p>
 </dd></dl>
@@ -5611,7 +5570,7 @@ A value of 0 or lower disables that taper.</p>
 <p class="admonition-title">Note</p>
 <p><strong>magnitudes.*</strong>
 <em>Define magnitude parameters independent of amplitude-type profiles.</em>
-<em>For magnitude correction parameters, e.g, network of station</em>
+<em>For magnitude correction parameters, e.g., network of station</em>
 <em>corrections, create a magnitude type profile.</em></p>
 </div>
 <div class="admonition note">
@@ -5720,7 +5679,7 @@ filter grammar can be used.</p>
 <p><strong>picker.BK.*</strong>
 <em>Bkpicker is an implementation of the Baer/Kradolfer picker</em>
 <em>adapted to SeisComP. It was created by converting Manfred</em>
-<em>Baers from Fortran to C++ and inserting it as a replacement</em>
+<em>Baers from FORTRAN to C++ and inserting it as a replacement</em>
 <em>for the picker algorithm. The picker interface name to be</em>
 <em>used in configuration files, e.g. of scautopick,is</em>
 <em>“BK”.</em></p>
@@ -5764,7 +5723,7 @@ time) of the begin of the signal window used to pick.</p>
 <span class="sig-name descname"><span class="pre">picker.BK.filterType</span></span><a class="headerlink" href="#confval-picker.BK.filterType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">BP</span></code></p>
 <p>Type: <em>string</em></p>
-<p>BP (Bandpass) is currently the only option.</p>
+<p>BP (bandpass) is currently the only option.</p>
 </dd></dl>
 
 <dl class="std confval">
@@ -6159,6 +6118,29 @@ station code and location code.</p>
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
+<p><strong>amplitudes.Ms_20.*</strong>
+<em>Parameters for computing Ms_20 amplitudes.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.Ms_20.minVelocity">
+<span class="sig-name descname"><span class="pre">amplitudes.Ms_20.minVelocity</span></span><a class="headerlink" href="#confval-amplitudes.Ms_20.minVelocity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>km/s</em></p>
+<p>Minimum group velocity used to compute signal time window.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-amplitudes.Ms_20.maxVelocity">
+<span class="sig-name descname"><span class="pre">amplitudes.Ms_20.maxVelocity</span></span><a class="headerlink" href="#confval-amplitudes.Ms_20.maxVelocity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">4</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>km/s</em></p>
+<p>Maximum group velocity used to compute signal time window.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p><strong>magnitudes.Ms_20.*</strong>
 <em>Parameters for computing Ms_20 magnitudes from Ms_20 amplitudes.</em></p>
 </div>
@@ -6289,7 +6271,7 @@ horizontals components:</p>
 <p>Considered distance measure between source and receiver.
 Possible values are</p>
 <p>hypocentral: hypocentral distance</p>
-<p>epicentral: epicentral</p>
+<p>epicentral: epicentral distance</p>
 </dd></dl>
 
 <dl class="std confval">
@@ -6318,7 +6300,7 @@ Negative values deactivate the check.</p>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">80</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Unit: <em>km</em></p>
-<p>The maximum depth up to which magnitudes are computed.</p>
+<p>The maximum source depth up to which magnitudes are computed.</p>
 </dd></dl>
 
 <dl class="std confval">
@@ -6373,8 +6355,8 @@ maximum distance range for computing MLv.</p>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p>
 <p>Type: <em>double</em></p>
 <p>Station correction. This is the calibration value ‘c0’
-applied in the magnitude calibration formula</p>
-<p>MLc = c0(station) + c1 + c2 * (r + c4) + c3 * log(r/c5) + log10(A)</p>
+applied in the
+parametric magnitude calibration formula.</p>
 </dd></dl>
 
 <dl class="std confval">
@@ -6382,9 +6364,8 @@ applied in the magnitude calibration formula</p>
 <span class="sig-name descname"><span class="pre">magnitudes.MLc.parametric.c1</span></span><a class="headerlink" href="#confval-magnitudes.MLc.parametric.c1" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.69</span></code></p>
 <p>Type: <em>double</em></p>
-<p>The calibration value ‘c1’ applied in the magnitude
-calibration formula</p>
-<p>MLc = c0(station) + c1 + c2 * (r + c4) + c3 * log(r/c5) + log10(A)</p>
+<p>The calibration value ‘c1’ applied in the
+parametric magnitude calibration formula.</p>
 </dd></dl>
 
 <dl class="std confval">
@@ -6393,8 +6374,8 @@ calibration formula</p>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.00095</span></code></p>
 <p>Type: <em>double</em></p>
 <p>The calibration value ‘c2’ applied in the
-magnitude calibration formula</p>
-<p>MLc = c0(station) + c1 + c2 * (r + c4) + c3 * log(r/c5) + log10(A)</p>
+magnitude calibration formula
+parametric magnitude calibration formula.</p>
 </dd></dl>
 
 <dl class="std confval">
@@ -6403,8 +6384,7 @@ magnitude calibration formula</p>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">1.11</span></code></p>
 <p>Type: <em>double</em></p>
 <p>The calibration value ‘c3’ applied in the
-magnitude calibration formula</p>
-<p>MLc = c0(station) + c1 + c2 * (r + c4) + c3 * log(r/c5) + log10(A)</p>
+parametric magnitude calibration formula.</p>
 </dd></dl>
 
 <dl class="std confval">
@@ -6413,8 +6393,7 @@ magnitude calibration formula</p>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p>
 <p>Type: <em>double</em></p>
 <p>The calibration value ‘c4’ applied in the
-magnitude calibration formula</p>
-<p>MLc = c0(station) + c1 + c2 * (r + c4) + c3 * log(r/c5) + log10(A)</p>
+parametric magnitude calibration formula.</p>
 </dd></dl>
 
 <dl class="std confval">
@@ -6422,9 +6401,8 @@ magnitude calibration formula</p>
 <span class="sig-name descname"><span class="pre">magnitudes.MLc.parametric.c5</span></span><a class="headerlink" href="#confval-magnitudes.MLc.parametric.c5" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">1.0</span></code></p>
 <p>Type: <em>double</em></p>
-<p>The calibration value ‘c4’ applied in the
-magnitude calibration formula</p>
-<p>MLc = c0(station) + c1 + c2 * (r + c4) + c3 * log(r/c5) + log10(A)</p>
+<p>The calibration value ‘c5’ applied in the
+parametric magnitude calibration formula.</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -6905,9 +6883,6 @@ GUI applications.</p>
 <li><a class="reference internal" href="#stdloc-extension">StdLoc extension</a></li>
 <li><a class="reference internal" href="#locext-extension">LocExt extension</a></li>
 <li><a class="reference internal" href="#gui-extension">GUI extension</a></li>
-<li><a class="reference internal" href="#mlc-extension">MLc extension</a></li>
-<li><a class="reference internal" href="#mlv-extension">MLv extension</a></li>
-<li><a class="reference internal" href="#ml-extension">ML extension</a></li>
 <li><a class="reference internal" href="#locsat-extension">LOCSAT extension</a></li>
 <li><a class="reference internal" href="#fixedhypocenter-extension">FixedHypocenter extension</a></li>
 </ul>
@@ -6957,7 +6932,7 @@ GUI applications.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

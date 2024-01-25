@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -77,20 +77,21 @@
 <p><strong>Waveform archive data availability collector.</strong></p>
 <section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
-<p>scardac scans an <a class="reference internal" href="../base/glossary.html#term-SDS"><span class="xref std std-term">SDS waveform archive</span></a> , e.g.,
-created by <a class="reference internal" href="slarchive.html#slarchive"><span class="std std-ref">slarchive</span></a> or <a class="reference internal" href="scart.html#scart"><span class="std std-ref">scart</span></a> for
-available <a class="reference internal" href="../base/glossary.html#term-miniSeed"><span class="xref std std-term">miniSEED</span></a> data. It will
-collect information about</p>
+<p>scardac scans an <a class="reference internal" href="../base/glossary.html#term-SDS"><span class="xref std std-term">SDS waveform archive</span></a>, e.g.,
+created by <a class="reference internal" href="slarchive.html#slarchive"><span class="std std-ref">slarchive</span></a> or <a class="reference internal" href="scart.html#scart"><span class="std std-ref">scart</span></a> for available
+<a class="reference internal" href="../base/glossary.html#term-miniSeed"><span class="xref std std-term">miniSEED</span></a> data. It will collect information about</p>
 <ul class="simple">
-<li><p>Data extents - the absolute earliest and latest times data is available of a
-particular channel,</p></li>
-<li><p>Data segments - continuous data segments sharing the same quality and sampling
-rate attributes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DataExtents</span></code> – the earliest and latest times data is available
+for a particular channel,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DataAttributeExtents</span></code> – the earliest and latest times data is available
+for a particular channel, quality and sampling rate combination,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DataSegments</span></code> – continuous data segments sharing the same quality and
+sampling rate attributes.</p></li>
 </ul>
 <p>scardac is intended to be executed periodically, e.g., as a cronjob.</p>
-<p>The data availability information is stored in the SeisComP database under the
-root element <a class="reference internal" href="../base/api-python.html#api-datamodel-python"><span class="std std-ref">DataAvailability</span></a>. Access to the data
-availability is provided by the <a class="reference internal" href="fdsnws.html#fdsnws"><span class="std std-ref">fdsnws</span></a> module via the services:</p>
+<p>The availability data information is stored in the SeisComP database under the
+root element <a class="reference internal" href="../base/api-python.html#api-datamodel-python"><span class="std std-ref">DataAvailability</span></a>. Access to the
+availability data is provided by the <a class="reference internal" href="fdsnws.html#fdsnws"><span class="std std-ref">fdsnws</span></a> module via the services:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="fdsnws.html#sec-station"><span class="std std-ref">/fdsnws/station</span></a> (extent information only, see
 <code class="docutils literal notranslate"><span class="pre">matchtimeseries</span></code> and <code class="docutils literal notranslate"><span class="pre">includeavailability</span></code> request parameters).</p></li>
@@ -100,38 +101,116 @@ provided in different formats)</p></li>
 <section id="non-sds-archives">
 <span id="scarcac-non-sds"></span><h3>Non-SDS archives<a class="headerlink" href="#non-sds-archives" title="Permalink to this heading">¶</a></h3>
 <p>scardac can be extended by plugins to scan non-SDS archives. For example the
-<em>daccaps</em> plugin provided by <span id="id2"><em>CAPS</em> [<a class="reference internal" href="../base/references.html#id87" title="CAPS. gempa module. URL: https://docs.gempa.de/caps/current/index.html.">3</a>]</span> allows scanning archives generated
-by a CAPS server. Plugins are added to global module configuration, e.g.:</p>
-<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">plugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">xyz</span>
+<code class="docutils literal notranslate"><span class="pre">daccaps</span></code> plugin provided by <span id="id2"><em>CAPS</em> [<a class="reference internal" href="../base/references.html#id89" title="CAPS. gempa module. URL: https://docs.gempa.de/caps/current/index.html.">3</a>]</span> allows scanning archives generated
+by a CAPS server. Plugins are added to the global module configuration, e.g.:</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">plugins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">${plugins}, daccaps</span>
 </pre></div>
 </div>
 </section>
-<section id="workflow">
-<span id="scarcac-workflow"></span><h3>Workflow<a class="headerlink" href="#workflow" title="Permalink to this heading">¶</a></h3>
-<ol class="arabic simple">
-<li><p>Read existing <code class="docutils literal notranslate"><span class="pre">Extents</span></code> from database</p></li>
-<li><p>Scan the SDS archive for new channel IDs and create new <code class="docutils literal notranslate"><span class="pre">Extents</span></code></p></li>
-<li><p>Subsequently process the <code class="docutils literal notranslate"><span class="pre">Extents</span></code> using <code class="docutils literal notranslate"><span class="pre">threads</span></code> number of parallel
-threads. For each <code class="docutils literal notranslate"><span class="pre">Extent</span></code>:</p>
-<ol class="arabic simple">
-<li><p>Find all available daily data files</p></li>
-<li><p>Sort the file list according date</p></li>
-<li><p>For each data file</p>
+<section id="definitions">
+<span id="scarcac-workflow"></span><h3>Definitions<a class="headerlink" href="#definitions" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>remove <code class="docutils literal notranslate"><span class="pre">DataSegments</span></code> that do longer exists</p></li>
-<li><p>update or create <code class="docutils literal notranslate"><span class="pre">DataSegments</span></code> that changed or are new</p></li>
-<li><p>a segment is split if</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">Record</span></code> – continuous waveform data of same sampling rate and quality bound
+by a start and end time. scardac will only read the record’s meta data and not
+the actual samples.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Chunk</span></code> – container for records, e.g., a <a class="reference internal" href="../base/glossary.html#term-miniSeed"><span class="xref std std-term">miniSEED</span></a> file,
+with the following properties:</p>
 <ul>
-<li><p>the <code class="docutils literal notranslate"><span class="pre">jitter</span></code> (difference between previous records end time and
-current records start time) is exceeded</p></li>
-<li><p>the quality or sampling rate changed</p></li>
+<li><p>overall, theoretical time range of records it may contain</p></li>
+<li><p>contains at least one record, otherwise it must be absent</p></li>
+<li><p>each record of a chunk must fulfill the following conditions:</p>
+<ul>
+<li><p><cite>chunk start &lt;= record start &lt; chunk end</cite></p></li>
+<li><p><cite>chunk start &lt; record end &lt; next chunk end</cite></p></li>
 </ul>
 </li>
-<li><p>merge segment information into <code class="docutils literal notranslate"><span class="pre">DataAttributeExtents</span></code> (<code class="docutils literal notranslate"><span class="pre">Extents</span></code>
-sharing the same quality and sample rate information)</p></li>
-<li><p>merge segment start and end time into overall <code class="docutils literal notranslate"><span class="pre">Extent</span></code></p></li>
+<li><p>chunks do not overlap, end time of current chunk equals start time of
+successive chunk, otherwise a <code class="docutils literal notranslate"><span class="pre">chunk</span> <span class="pre">gap</span></code> is declared</p></li>
+<li><p>records may occur unordered within a chunk or across chunk boundaries,
+resulting in <cite>DataSegments</cite> marked as <code class="docutils literal notranslate"><span class="pre">outOfOrder</span></code></p></li>
 </ul>
 </li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Jitter</span></code> – maximum allowed deviation between the end time of the current
+record and the start time of the next record in multiples of the current’s
+record sampling rate. E.g., assuming a sampling rate of 100Hz and a jitter
+of 0.5 will allow for a maximum end to start time difference of 50ms. If
+exceeded a new <cite>DataSegment</cite> is created.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Mtime</span></code> – time the content of a chunk was last modified. It is used to</p>
+<ul>
+<li><p>decided whether a chunk needs to be read in a secondary application run</p></li>
+<li><p>calculate the <code class="docutils literal notranslate"><span class="pre">updated</span></code> time stamp of a <cite>DataSegment</cite>,
+<cite>DataAttributeExtent</cite> and <cite>DataExtent</cite></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Scan</span> <span class="pre">window</span></code> – time window limiting the synchronization of the archive
+with the database configured via <a class="reference internal" href="#confval-filter.time.start"><code class="xref std std-confval docutils literal notranslate"><span class="pre">filter.time.start</span></code></a> and
+<a class="reference internal" href="#confval-filter.time.end"><code class="xref std std-confval docutils literal notranslate"><span class="pre">filter.time.end</span></code></a> respectively <code class="xref std std-option docutils literal notranslate"><span class="pre">--start</span></code> and <code class="xref std std-option docutils literal notranslate"><span class="pre">--end</span></code>.
+The scan window is useful to</p>
+<ul>
+<li><p>reduce the scan time of larger archives. Depending on the size and storage
+type of the archive it may take some time to just list available chunks and
+their mtime.</p></li>
+<li><p>prevent deletion of availability information even though parts of the
+archive have been deleted or moved to a different location</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Modification</span> <span class="pre">window</span></code> – the mtime of a chunk is compared with this time
+window to decide whether it needs to be read or not. It is configured via
+<a class="reference internal" href="#confval-mtime.start"><code class="xref std std-confval docutils literal notranslate"><span class="pre">mtime.start</span></code></a> and <a class="reference internal" href="#confval-mtime.end"><code class="xref std std-confval docutils literal notranslate"><span class="pre">mtime.end</span></code></a> repectively
+<code class="xref std std-option docutils literal notranslate"><span class="pre">--modified-since</span></code> and <code class="xref std std-option docutils literal notranslate"><span class="pre">--modified-until</span></code>. If no lower bound
+is defined then the <code class="docutils literal notranslate"><span class="pre">lastScan</span></code> time stored in the <cite>DataExtent</cite> is used
+instead.  The mtime check may be disabled using <a class="reference internal" href="#confval-mtime.ignore"><code class="xref std std-confval docutils literal notranslate"><span class="pre">mtime.ignore</span></code></a> or
+<code class="xref std std-option docutils literal notranslate"><span class="pre">--deep-scan</span></code>.
+<strong>Note:</strong> Chunks in front or right after a chunk gap are read in any case
+regardless of the mtime settings.</p></li>
+</ul>
+</section>
+<section id="workflow">
+<h3>Workflow<a class="headerlink" href="#workflow" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic">
+<li><p>Read existing <cite>DataExtents</cite> from database.</p></li>
+<li><p>Collect a list of available stream IDs either by</p>
+<ul class="simple">
+<li><p>scanning the archive for available IDs or</p></li>
+<li><p>reading an ID file defined by <a class="reference internal" href="#confval-nslcFile"><code class="xref std std-confval docutils literal notranslate"><span class="pre">nslcFile</span></code></a>.</p></li>
+</ul>
+</li>
+<li><p>Identify extents to add, update or remove respecting <cite>scan window</cite>,
+<a class="reference internal" href="#confval-filter.nslc.include"><code class="xref std std-confval docutils literal notranslate"><span class="pre">filter.nslc.include</span></code></a> and <a class="reference internal" href="#confval-filter.nslc.exclude"><code class="xref std std-confval docutils literal notranslate"><span class="pre">filter.nslc.exclude</span></code></a>.</p></li>
+<li><p>Subsequently process the <cite>DataExtents</cite> using <a class="reference internal" href="#confval-threads"><code class="xref std std-confval docutils literal notranslate"><span class="pre">threads</span></code></a> number of
+parallel threads. For each <cite>DataExtent</cite>:</p>
+<ol class="arabic">
+<li><p>Collect all available chunks within <cite>scan window</cite>.</p></li>
+<li><p>If the <cite>DataExtent</cite> is new (no database entry yet), store a new and
+empty <cite>DataExtent</cite> to database, else query existing <cite>DataSegments</cite> from
+the database:</p>
+<ul class="simple">
+<li><p>count segments outside <cite>scan window</cite></p></li>
+<li><p>create a database iterator for extents within <cite>scan window</cite></p></li>
+</ul>
+</li>
+<li><p>Create two in-memory segment lists which collect segments to remove and
+segments to add/update</p></li>
+<li><p>For each chunk</p>
+<ul>
+<li><p>determine the <cite>chunk window</cite> and <cite>mtime</cite></p></li>
+<li><p>decide whether the chunk needs to be read depending on the <cite>mtime</cite>
+and a possible <cite>chunk gap</cite>. If necessary, read the chunk and</p>
+<ul class="simple">
+<li><p>create chunk segments by analyzing the chunk records for
+gaps/overlaps defined by <a class="reference internal" href="#confval-jitter"><code class="xref std std-confval docutils literal notranslate"><span class="pre">jitter</span></code></a>, sampling rate or quality
+changes</p></li>
+<li><p>merge chunk segments with database segments and update the in-memory
+segment lists.</p></li>
+</ul>
+<p>If not necessary, advance the database segment iterator to the end
+of the chunk window.</p>
+</li>
+</ul>
+</li>
+<li><p>Remove and then add/update the collected segments.</p></li>
+<li><p>Merge segment information into <cite>DataAttributeExtents</cite></p></li>
+<li><p>Merge <cite>DataAttributeExtents</cite> into overall <cite>DataExtent</cite></p></li>
 </ol>
 </li>
 </ol>
@@ -146,16 +225,16 @@ scardac<span class="w"> </span>--debug
 </pre></div>
 </div>
 </li>
-<li><p>Update the availability of waveform data files existing in the standard
-<a class="reference internal" href="../base/glossary.html#term-SDS"><span class="xref std std-term">SDS</span></a> archive to the seiscomp database and create an XML file using
+<li><p>Synchronize the availability of waveform data files existing in the standard
+<a class="reference internal" href="../base/glossary.html#term-SDS"><span class="xref std std-term">SDS</span></a> archive with the seiscomp database and create an XML file using
 <a class="reference internal" href="scxmldump.html#scxmldump"><span class="std std-ref">scxmldump</span></a>:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scardac<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@localhost/seiscomp<span class="w"> </span>-a<span class="w"> </span><span class="nv">$SEISCOMP_ROOT</span>/var/lib/archive<span class="w"> </span>--debug
 scxmldump<span class="w"> </span>-Yf<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@localhost/seiscomp<span class="w"> </span>-o<span class="w"> </span>availability.xml
 </pre></div>
 </div>
 </li>
-<li><p>Update the availability of waveform data files existing in the standard
-<a class="reference internal" href="../base/glossary.html#term-SDS"><span class="xref std std-term">SDS</span></a> archive to the seiscomp database. Use <a class="reference internal" href="fdsnws.html#fdsnws"><span class="std std-ref">fdsnws</span></a> to fetch a flat file containing a list
+<li><p>Synchronize the availability of waveform data files existing in the standard
+<a class="reference internal" href="../base/glossary.html#term-SDS"><span class="xref std std-term">SDS</span></a> archive with the seiscomp database. Use <a class="reference internal" href="fdsnws.html#fdsnws"><span class="std std-ref">fdsnws</span></a> to fetch a flat file containing a list
 of periods of available data from stations of the CX network sharing the same
 quality and sampling rate attributes:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scardac<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@localhost/seiscomp<span class="w"> </span>-a<span class="w"> </span><span class="nv">$SEISCOMP_ROOT</span>/var/lib/archive
@@ -187,10 +266,14 @@ example.</p>
 <span class="sig-name descname"><span class="pre">archive</span></span><a class="headerlink" href="#confval-archive" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">&#64;SEISCOMP_ROOT&#64;/var/lib/archive</span></code></p>
 <p>Type: <em>string</em></p>
-<p>Path to MiniSeed waveform archive where all data is stored. The SDS archive
-structure is defined as
-YEAR/NET/STA/CHA/NET.STA.LOC.CHA.YEAR.DATEOFYEAR, e.g.
+<p>The URL to the waveform archive where all data is stored.</p>
+<p>Format: [<a class="reference external" href="service://">service://</a>]location[#type]</p>
+<p>&quot;service&quot;: The type of the archive. If not given,
+&quot;sds://&quot; is implied assuming an SDS archive. The SDS
+archive structure is defined as
+YEAR/NET/STA/CHA/NET.STA.LOC.CHA.YEAR.DAYFYEAR, e.g.
 2018/GE/APE/BHZ.D/GE.APE..BHZ.D.2018.125</p>
+<p>Other archive types may be considered by plugins.</p>
 </dd></dl>
 
 <dl class="std confval">
@@ -199,15 +282,6 @@ YEAR/NET/STA/CHA/NET.STA.LOC.CHA.YEAR.DATEOFYEAR, e.g.
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
 <p>Type: <em>int</em></p>
 <p>Number of threads scanning the archive in parallel.</p>
-</dd></dl>
-
-<dl class="std confval">
-<dt class="sig sig-object std" id="confval-batchSize">
-<span class="sig-name descname"><span class="pre">batchSize</span></span><a class="headerlink" href="#confval-batchSize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">100</span></code></p>
-<p>Type: <em>int</em></p>
-<p>Batch size of database transactions used when updating data
-availability segments. Allowed range: [1,1000].</p>
 </dd></dl>
 
 <dl class="std confval">
@@ -226,8 +300,108 @@ records in multiples of sample time.</p>
 <p>Type: <em>int</em></p>
 <p>Maximum number of segments per stream. If the limit is reached
 no more segments are added to the database and the corresponding
-extent is flagged as to fragmented. Use a negative value to
+extent is flagged as too fragmented. Use a negative value to
 disable any limit.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-nslcFile">
+<span class="sig-name descname"><span class="pre">nslcFile</span></span><a class="headerlink" href="#confval-nslcFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Line-based text file of form NET.STA.LOC.CHA defining available
+stream IDs. Depending on the archive type, size and storage
+media used this file may offer a significant performance
+improvement compared to collecting the available streams on each
+startup. Filters defined under <cite>filter.nslc</cite> still apply.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>filter.*</strong>
+<em>Parameters of this section limit the data processing to either</em>
+**
+<em>reduce the scan time of larger archives or to</em>
+**
+<em>prevent deletion of availability information even though parts</em>
+<em>of the archive have been deleted or moved to a different</em>
+<em>location.</em></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>filter.time.*</strong>
+<em>Limit the processing by record time.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-filter.time.start">
+<span class="sig-name descname"><span class="pre">filter.time.start</span></span><a class="headerlink" href="#confval-filter.time.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Start of data availability check given as date string or
+as number of days before now.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-filter.time.end">
+<span class="sig-name descname"><span class="pre">filter.time.end</span></span><a class="headerlink" href="#confval-filter.time.end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>End of data availability check given as date string or
+as number of days before now.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>filter.nslc.*</strong>
+<em>Limit the processing by stream IDs.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-filter.nslc.include">
+<span class="sig-name descname"><span class="pre">filter.nslc.include</span></span><a class="headerlink" href="#confval-filter.nslc.include" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:string</em></p>
+<p>Comma-separated list of stream IDs to process. If
+empty all streams are accepted unless an exclude filter
+is defined. The following wildcards are supported: ‘*’
+and ‘?’.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-filter.nslc.exclude">
+<span class="sig-name descname"><span class="pre">filter.nslc.exclude</span></span><a class="headerlink" href="#confval-filter.nslc.exclude" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:string</em></p>
+<p>Comma-separated list of stream IDs to exclude from
+processing. Excludes take precedence over includes. The
+following wildcards are supported: ‘*’ and ‘?’.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>mtime.*</strong>
+<em>Parameters of this section control the rescan of data chunks.</em>
+<em>By default the last update time of the extent is compared with</em>
+<em>the record file modification time to read only files modified</em>
+<em>since the list run.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-mtime.ignore">
+<span class="sig-name descname"><span class="pre">mtime.ignore</span></span><a class="headerlink" href="#confval-mtime.ignore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>If set to true all data chunks are read independent of their
+mtime.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-mtime.start">
+<span class="sig-name descname"><span class="pre">mtime.start</span></span><a class="headerlink" href="#confval-mtime.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Only read chunks modified after specific date given as date
+string or as number of days before now.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-mtime.end">
+<span class="sig-name descname"><span class="pre">mtime.end</span></span><a class="headerlink" href="#confval-mtime.end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Only read chunks modified before specific date given as date
+string or as number of days before now.</p>
 </dd></dl>
 
 </section>
@@ -358,15 +532,57 @@ Equivalent to --verbosity=4 --console=1 --print-component=1
 </dd></dl>
 
 <dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-scardac-b">
-<span id="cmdoption-scardac-batch-size"></span><span class="sig-name descname"><span class="pre">-b</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--batch-size</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scardac-b" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overrides configuration parameter <code class="xref std std-confval docutils literal notranslate"><span class="pre">batchsize</span></code>.</p>
-</dd></dl>
-
-<dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-scardac-j">
 <span id="cmdoption-scardac-jitter"></span><span class="sig-name descname"><span class="pre">-j</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--jitter</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scardac-j" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-jitter"><code class="xref std std-confval docutils literal notranslate"><span class="pre">jitter</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scardac-nslc">
+<span class="sig-name descname"><span class="pre">--nslc</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scardac-nslc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-nslcFile"><code class="xref std std-confval docutils literal notranslate"><span class="pre">nslcFile</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scardac-start">
+<span class="sig-name descname"><span class="pre">--start</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scardac-start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-filter.time.start"><code class="xref std std-confval docutils literal notranslate"><span class="pre">filter.time.start</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scardac-end">
+<span class="sig-name descname"><span class="pre">--end</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scardac-end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-filter.time.end"><code class="xref std std-confval docutils literal notranslate"><span class="pre">filter.time.end</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scardac-include">
+<span class="sig-name descname"><span class="pre">--include</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scardac-include" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-filter.nslc.include"><code class="xref std std-confval docutils literal notranslate"><span class="pre">filter.nslc.include</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scardac-exclude">
+<span class="sig-name descname"><span class="pre">--exclude</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scardac-exclude" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-filter.nslc.exclude"><code class="xref std std-confval docutils literal notranslate"><span class="pre">filter.nslc.exclude</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scardac-deep-scan">
+<span class="sig-name descname"><span class="pre">--deep-scan</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scardac-deep-scan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-mtime.ignore"><code class="xref std std-confval docutils literal notranslate"><span class="pre">mtime.ignore</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scardac-modified-since">
+<span class="sig-name descname"><span class="pre">--modified-since</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scardac-modified-since" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-mtime.start"><code class="xref std std-confval docutils literal notranslate"><span class="pre">mtime.start</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scardac-modified-until">
+<span class="sig-name descname"><span class="pre">--modified-until</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scardac-modified-until" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-mtime.end"><code class="xref std std-confval docutils literal notranslate"><span class="pre">mtime.end</span></code></a>.</p>
 </dd></dl>
 
 <dl class="std option">
@@ -374,7 +590,7 @@ Equivalent to --verbosity=4 --console=1 --print-component=1
 <span class="sig-name descname"><span class="pre">--generate-test-data</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scardac-generate-test-data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do not scan the archive but generate test data for each
 stream in the inventory. Format:
-days,gaps,gapslen,overlaps,overlaplen. E.g. the following
+days,gaps,gapslen,overlaps,overlaplen. E.g., the following
 parameter list would generate test data for 100 days
 (starting from now()-100) which includes 150 gaps with a
 length of 2.5s followed by 50 overlaps with an overlap of
@@ -408,6 +624,7 @@ length of 2.5s followed by 50 overlaps with an overlap of
 <li><a class="reference internal" href="#">scardac</a><ul>
 <li><a class="reference internal" href="#description">Description</a><ul>
 <li><a class="reference internal" href="#non-sds-archives">Non-SDS archives</a></li>
+<li><a class="reference internal" href="#definitions">Definitions</a></li>
 <li><a class="reference internal" href="#workflow">Workflow</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
 </ul>
@@ -453,7 +670,7 @@ length of 2.5s followed by 50 overlaps with an overlap of
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -85,6 +85,12 @@ messages will be exchanged until the exporting system has produced an event.</p>
 possible server-side filters should be preferred to reduce both the network
 bandwidth consumption as well as the CPU and memory utilization on the local
 machine.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ql2sc does not delete events at the import system although quakelink
+allows the deletion of events. Deleted events are ignored by ql2sc and kept
+in the SeisComP database.</p>
+</div>
 </section>
 <section id="server-side-event-filter">
 <span id="ql2sc-event-filter"></span><h2>Server-Side Event Filter<a class="headerlink" href="#server-side-event-filter" title="Permalink to this heading">¶</a></h2>
@@ -278,7 +284,7 @@ comments the <code class="docutils literal notranslate"><span class="pre">id</sp
 For performance reasons and because of the processing logic of listening <cite>SeisComP</cite>
 modules ql2sc tries to batch as many notifiers as possible into one notifier
 message. A separate notifier message is created if the target message group
-changes between successive notifiers or if the configurable <a class="reference internal" href="scardac.html#confval-batchSize"><code class="xref std std-confval docutils literal notranslate"><span class="pre">batchSize</span></code></a>
+changes between successive notifiers or if the configurable <a class="reference internal" href="#confval-batchSize"><code class="xref std std-confval docutils literal notranslate"><span class="pre">batchSize</span></code></a>
 limit is reached.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -485,6 +491,15 @@ a particular magnitude type.</p>
 </dd></dl>
 
 <dl class="std confval">
+<dt class="sig sig-object std" id="confval-host.-name.syncEventDelay">
+<span class="sig-name descname"><span class="pre">host.$name.syncEventDelay</span></span><a class="headerlink" href="#confval-host.-name.syncEventDelay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>int</em></p>
+<p>Delays the synchronization of event attributes in seconds
+if set to a value greater than zero.</p>
+</dd></dl>
+
+<dl class="std confval">
 <dt class="sig sig-object std" id="confval-host.-name.keepAlive">
 <span class="sig-name descname"><span class="pre">host.$name.keepAlive</span></span><a class="headerlink" href="#confval-host.-name.keepAlive" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
@@ -574,16 +589,16 @@ may be excluded by mapping them to ‘NULL’.</p>
 <dt class="sig sig-object std" id="confval-processing.blacklist.publicIDs">
 <span class="sig-name descname"><span class="pre">processing.blacklist.publicIDs</span></span><a class="headerlink" href="#confval-processing.blacklist.publicIDs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
-<p>Defines a whitelist of publicID prefixes that are
-allowed for processing. Separate items by comma.</p>
+<p>Defines a blacklist of publicID prefixes that are
+not allowed for processing. Separate items by comma.</p>
 </dd></dl>
 
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-processing.whitelist.publicIDs">
 <span class="sig-name descname"><span class="pre">processing.whitelist.publicIDs</span></span><a class="headerlink" href="#confval-processing.whitelist.publicIDs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <em>list:string</em></p>
-<p>Defines a blacklist of publicID prefixes that are
-not allowed for processing. Separate items by comma.</p>
+<p>Defines a whitelist of publicID prefixes that are
+allowed for processing. Separate items by comma.</p>
 </dd></dl>
 
 </section>
@@ -852,7 +867,7 @@ can be queried with &quot;--db-driver-list&quot;.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

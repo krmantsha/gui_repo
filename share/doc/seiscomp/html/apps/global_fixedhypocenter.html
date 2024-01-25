@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -77,7 +77,7 @@
 <p>Locator for re-computing source time with fixed hypocenter</p>
 <section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
-<p>Mining-related events are useful as ground truth events (<span id="id1">Bondár and McLaughlin [<a class="reference internal" href="../base/references.html#id12" title="I. Bondár and K.L. McLaughlin. A new ground truth data set for seismic studies. Seismol. Res. Lett., 3:465 - 472, 2009. doi:10.1785/gssrl.80.3.465.">31</a>]</span>)
+<p>Mining-related events are useful as ground truth events (<span id="id1">Bondár and McLaughlin [<a class="reference internal" href="../base/references.html#id12" title="I. Bondár and K.L. McLaughlin. A new ground truth data set for seismic studies. Seismol. Res. Lett., 3:465 - 472, 2009. doi:10.1785/gssrl.80.3.465.">34</a>]</span>)
 because the epicentre and depth can be constrained by physical inspection.
 Unless a local seismograph network with accurate timing also locates the event,
 and that information is available, the origin time must be estimated in order
@@ -93,11 +93,11 @@ origin time determination.</p>
 the practise of the Comprehensive Test Ban Treaty Organization (CTBTO).</p></li>
 <li><p>Adaptation of a procedure which is compatible with the other locators supported by <cite>SeisComP</cite>.</p></li>
 <li><p>Adaptation of a procedure which can reproduce results of legacy locators currently
-in use, such as GENLOC <span id="id2">Pavlis <em>et al.</em> [<a class="reference internal" href="../base/references.html#id59" title="G.L. Pavlis, F. Vernon, D. Harvey, and D. Quinlan. Lsqr: an algorithm for sparse linear equations and sparse least squares. ACM Transactions on Mathematical Software, 1:43 - 71, 1982. doi:10.1145/355984.355989.">52</a>]</span> and GRL, a
+in use, such as GENLOC <span id="id2">Pavlis <em>et al.</em> [<a class="reference internal" href="../base/references.html#id59" title="G.L. Pavlis, F. Vernon, D. Harvey, and D. Quinlan. Lsqr: an algorithm for sparse linear equations and sparse least squares. ACM Transactions on Mathematical Software, 1:43 - 71, 1982. doi:10.1145/355984.355989.">55</a>]</span> and GRL, a
 grid-based locator developed at the Canadian Hazards Information Service (CHIS).</p></li>
 </ul>
 <p>The implementation of this locator by <a class="reference internal" href="../base/glossary.html#term-gempa-GmbH"><span class="xref std std-term">gempa GmbH</span></a> was initiated and has received
-initial funding from <span id="id3"><em>Natural Resources Canada (NRCAN), Earthquakes Canada</em> [<a class="reference internal" href="../base/references.html#id167" title="Natural Resources Canada (NRCAN), Earthquakes Canada. URL: https://earthquakescanada.nrcan.gc.ca/index-en.php.">16</a>]</span>.</p>
+initial funding from <span id="id3"><em>Natural Resources Canada (NRCAN), Earthquakes Canada</em> [<a class="reference internal" href="../base/references.html#id170" title="Natural Resources Canada (NRCAN), Earthquakes Canada. URL: https://earthquakescanada.nrcan.gc.ca/index-en.php.">17</a>]</span>.</p>
 </section>
 <section id="methodology">
 <h2>Methodology<a class="headerlink" href="#methodology" title="Permalink to this heading">¶</a></h2>
@@ -138,9 +138,9 @@ times, according to the velocity model, associated with the arrivals.</p>
 <div class="math">
 <p><img src="../_images/math/450e7d546e262c19d94b8fdfc9f5d971d36f7a1b.png" alt="\sigma = \sqrt{\frac{\sum_{i=1}^{N}w_i^2 [\tau_i^k - \tau]^2}{\sum_{i=1}^{N}w_i^2}}."/></p>
 </div><p>The methodology for estimating error intervals and ellipses recommended for
-standard processing at the CTBTO (<span id="id4">Lee and Lahr [<a class="reference internal" href="../base/references.html#id51" title="W.H. Lee and J.C. Lahr. Hypo71 (revised): a computer program for determining local earthquake hypocentral parameters, magnitude, and first motion pattern of local earthquakes. US Geol. Survey Open-file Report 75-311, 1975. URL: https://pubs.er.usgs.gov/publication/ofr75311, doi:10.3133/ofr75311.">48</a>]</span>) is that of
-<span id="id5">Jordan and Sverdrup [<a class="reference internal" href="../base/references.html#id41" title="T.H. Jordan and K.A. Sverdrup. Teleseismic location techniques and their application to earthquake clusters in the south-central pacific. Bull. Seismol. Soc. Am., 4:1105 – 1130, 1981. doi:10.1785/BSSA0710041105.">44</a>]</span> and is implemented
-in LOCSAT (<span id="id6">Bratt and Bache [<a class="reference internal" href="../base/references.html#id20" title="S.R. Bratt and T.C. Bache. Locating events with a sparse network of regional arrays. Bull. Seismol. Soc. Am., 78(2):780 - 798, 1988. URL: https://pubs.geoscienceworld.org/ssa/bssa/article-pdf/78/2/780/5334120/bssa0780020780.pdf, doi:10.1785/BSSA0780020780.">38</a>]</span>).
+standard processing at the CTBTO (<span id="id4">Lee and Lahr [<a class="reference internal" href="../base/references.html#id51" title="W.H. Lee and J.C. Lahr. Hypo71 (revised): a computer program for determining local earthquake hypocentral parameters, magnitude, and first motion pattern of local earthquakes. US Geol. Survey Open-file Report 75-311, 1975. URL: https://pubs.er.usgs.gov/publication/ofr75311, doi:10.3133/ofr75311.">51</a>]</span>) is that of
+<span id="id5">Jordan and Sverdrup [<a class="reference internal" href="../base/references.html#id41" title="T.H. Jordan and K.A. Sverdrup. Teleseismic location techniques and their application to earthquake clusters in the south-central pacific. Bull. Seismol. Soc. Am., 4:1105 – 1130, 1981. doi:10.1785/BSSA0710041105.">47</a>]</span> and is implemented
+in LOCSAT (<span id="id6">Bratt and Bache [<a class="reference internal" href="../base/references.html#id20" title="S.R. Bratt and T.C. Bache. Locating events with a sparse network of regional arrays. Bull. Seismol. Soc. Am., 78(2):780 - 798, 1988. URL: https://pubs.geoscienceworld.org/ssa/bssa/article-pdf/78/2/780/5334120/bssa0780020780.pdf, doi:10.1785/BSSA0780020780.">41</a>]</span>).
 Uncertainty is represented by a set of points <img class="math" src="../_images/math/c24babb8b2b84f2c211a040b48c4e2e04bb74871.png" alt="x_e"/> around the final estimate
 <img class="math" src="../_images/math/4d932942be8cf79d3cda089d58de1a45ca6f8597.png" alt="x_f"/> satisfying:</p>
 <div class="math">
@@ -187,7 +187,7 @@ row vector of weights, and the time-time covariance
 <div class="math">
 <p><img src="../_images/math/3a34284a39272ffe88e206a0c9e216e716d08a39.png" alt="c_{tt} = \sum_{i=1}^{N}w_i^2"/></p>
 </div><p>It is recommended that fixed-hypocentre origin time confidence intervals be
-estimated using the method of <span id="id7">Jordan and Sverdrup [<a class="reference internal" href="../base/references.html#id41" title="T.H. Jordan and K.A. Sverdrup. Teleseismic location techniques and their application to earthquake clusters in the south-central pacific. Bull. Seismol. Soc. Am., 4:1105 – 1130, 1981. doi:10.1785/BSSA0710041105.">44</a>]</span> for error ellipsoids,
+estimated using the method of <span id="id7">Jordan and Sverdrup [<a class="reference internal" href="../base/references.html#id41" title="T.H. Jordan and K.A. Sverdrup. Teleseismic location techniques and their application to earthquake clusters in the south-central pacific. Bull. Seismol. Soc. Am., 4:1105 – 1130, 1981. doi:10.1785/BSSA0710041105.">47</a>]</span> for error ellipsoids,
 that is, that the time error bounds be represented using</p>
 <div class="math">
 <p><img src="../_images/math/6d03a1b7af5b2b4b70c5442100e5e890ecc841ae.png" alt="\Delta t_p &amp;= \sqrt{ \frac{\kappa_p^2}{c_{tt}} } \\
@@ -364,7 +364,7 @@ not going to be used or if they are absent.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "GLOBAL" "1" "Jan 18, 2024" "5.5.17" "SeisComP"
+.TH "GLOBAL" "1" "Jan 18, 2024" "6.1.2" "SeisComP"
 .SH NAME
 global \- SeisComP Documentation
 .sp
@@ -41,8 +41,8 @@ There are still some modules that do not use the libraries and are called
 They need wrappers to generate their native configuration when
 \fBseiscomp update\-config\fP is run.
 .sp
-Global parameters can be used by many modules. Thus multiple configuration can be avoided.
-The parameters are read from file in the following order:
+Global parameters can be used by many modules. Thus multiple configuration can
+be avoided. The parameters are read from file in the following order:
 .INDENT 0.0
 .IP 1. 3
 \fB@SYSTEMCONFIGDIR@/global.cfg\fP
@@ -50,27 +50,29 @@ The parameters are read from file in the following order:
 \fB@CONFIGDIR@/global.cfg\fP
 .UNINDENT
 .sp
-Parameters from \fB@CONFIGDIR@\fP override parameters from \fB@SYSTEMCONFIGDIR@\fP\&.
+Parameters from \fB@CONFIGDIR@\fP override parameters from
+\fB@SYSTEMCONFIGDIR@\fP\&.
 .sp
-Most \fI\%trunk\fP modules read the configuration from the global configuration which can be overridden
-by the module configuration. Read the \fI\%concept section on modules\fP
-and the \fI\%concept section on the configuraion\fP for
-more details.
+Most \fI\%trunk\fP modules read the configuration from the global configuration
+which can be overridden by the module configuration. Read the
+\fI\%concept section on modules\fP and the
+\fI\%concept section on the configuration\fP for more
+details.
 .sp
-Though it is easy to create the configuration by directly editing the configuration
-files, it is even more convenient to use a configurator.
-SeisComP ships with a graphical configurator and management tool (\fI\%scconfig\fP)
-which makes it easy to maintain
-module configurations and station bindings even for large networks. It has built\-in
-functionality to check the state of all registered modules and to start and stop them.
+Though it is easy to create the configuration by directly editing the
+configuration files, it is even more convenient to use a graphical configuration
+tool. SeisComP ships with \fI\%scconfig\fP, a graphical configuration and
+management tool which makes it easy to maintain module configurations and
+station bindings even for large networks. It has built\-in functionality to check
+the state of all registered modules and to start and stop them.
 .sp
 The configuration is divided into three parts: \fI\%stations\fP,
 \fI\%modules\fP and \fI\%bindings\fP\&.
 .SH STATION META DATA
 .sp
-Station meta\-data is a fundamental requirement for a seismic processing system and
-for SeisComP. Read the \fI\%inventory section\fP in concepts for
-more details.
+Station meta\-data is a fundamental requirement for a seismic processing system
+and for SeisComP. Read the \fI\%inventory section\fP in
+concepts for more details.
 .SH MODULES
 .sp
 The concepts of \fI\%modules\fP and
@@ -126,9 +128,9 @@ T}	T{
 T}
 _
 T{
-kernel
+\fI\%kernel\fP
 T}	T{
-messaging
+\fI\%messaging\fP
 T}
 _
 .TE
@@ -266,7 +268,7 @@ Default: \fB@appname@@@@hostname@\fP
 Type: \fIstring\fP
 .sp
 Author name used to set creationInfo.author in data model
-objects. @appname@ is replace by the name of the
+objects. @appname@ is replaced by the name of the
 respective executable, @hostname@ by the name of the computer
 on which it runs.
 .UNINDENT
@@ -460,8 +462,8 @@ Type: \fIint\fP
 .sp
 Unit: \fIbyte\fP
 .sp
-The maximum size of a logfile in byte. The default
-value is 100 megabyte. If a logfile exceeds that
+The maximum size of a log file in byte. The default
+value is 100 megabyte. If a log file exceeds that
 size, then it is rotated. To disable the size limit
 give 0 or a negative value.
 .UNINDENT
@@ -747,8 +749,48 @@ The list of supported model names per interface.
 .INDENT 0.0
 .INDENT 3.5
 \fBamplitudes.*\fP
-\fIParameters of amplitude measurements.\fP
+\fIParameters for amplitude measurements.\fP
 .UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.iaspei
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Compute ML peak\-to\-trough and mb amplitudes according to
+IASPEI recommendations.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBamplitudes.ttt.*\fP
+\fITravel time table specific parameters to be used for the\fP
+\fIcomputation of travel times referred to in signal and\fP
+\fInoise time window specifications,\fP
+\fIe.g. \(dqsignalBegin\(dq. This can be overridden per\fP
+\fIstation in its bindings.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.ttt.interface
+Default: \fBlibtau\fP
+.sp
+Type: \fIstring\fP
+.sp
+\fINo description available\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.ttt.model
+Default: \fBiasp91\fP
+.sp
+Type: \fIstring\fP
+.sp
+\fINo description available\fP
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -756,14 +798,16 @@ The list of supported model names per interface.
 .INDENT 3.5
 \fBamplitudes.WoodAnderson.*\fP
 \fIParameters of the Wood\-Anderson seismometer response used\fP
-\fIfor instrument simulation. The WA parameters can be overridden\fP
-\fIper stream by global bindings.\fP
+\fIfor instrument simulation. The default values are according\fP
+\fIto Uhrhammer and Collins (1990) and were part of the\fP
+\fIIASPEI Magnitude Working Group recommendations of 2011\fP
+\fISeptember 9.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
 .B amplitudes.WoodAnderson.gain
-Default: \fB2800\fP
+Default: \fB2080\fP
 .sp
 Type: \fIdouble\fP
 .sp
@@ -783,7 +827,7 @@ The eigenperiod of the Wood\-Anderson seismometer.
 .INDENT 0.0
 .TP
 .B amplitudes.WoodAnderson.h
-Default: \fB0.8\fP
+Default: \fB0.7\fP
 .sp
 Type: \fIdouble\fP
 .sp
@@ -794,18 +838,58 @@ The damping constant of the Wood\-Anderson seismometer.
 .INDENT 0.0
 .INDENT 3.5
 \fBmagnitudes.*\fP
-\fIMagnitude configurations overriding global bindings.\fP
-\fIAdd regionalization by magnitude\-type profiles. Profile\fP
-\fInames correspond to magnitude types.\fP
+\fIParameters for computing magnitudes.\fP
+\fIAdd magnitude regionalization and mapping to Mw by magnitude\-type profiles.\fP
+\fIOne profile corresponds to one magnitude type.\fP
 .UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B magnitudes.aliases
+Type: \fIlist:string\fP
+.sp
+Definition of magnitude aliases for deriving new magnitude
+types from existing magnitude and amplitude types. Separate
+multiple entries by comma.
+.sp
+Format:
+.sp
+NewType:OriginalMagnitudeType[:OriginalAmplitudeType]
+.sp
+OriginalAmplitudeType is optional. The default amplitude
+type applies if OriginalAmplitudeType is undefined.
+.sp
+Examples for deriving magnitude of new type ABC from MLv:
+.sp
+ABC:MLv:MLv
+.sp
+ABC:MLv
+.sp
+Alias magnitudes can be configured like any other magnitude.
 .UNINDENT
 .sp
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
 \fBmagnitudes.$name.*\fP
+\fIRegionalization of magnitude configurations overriding global\fP
+\fIbindings. For parameters which are not set, the values\fP
+\fIdefined in bindings apply.\fP
 $name is a placeholder for the name to be used.
 .UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B magnitudes.$name.MwMapping
+Type: \fIlist:string\fP
+.sp
+Mw magnitude mapping table for estimating Mw from network
+magnitude M. Mw values are given at some M.
+.sp
+Format: \(dqM0:Mw0, M1:Mw1, ...\(dq.
+.sp
+Between two values of M, Mw values will be linearly
+interpolated but not extrapolated.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -826,15 +910,12 @@ must not be present in the geofeature file.
 .INDENT 0.0
 .INDENT 3.5
 \fBmagnitudes.$name.region.*\fP
-\fIAdd parameter profiles for regions defined in the\fP
-\fIgeofeature file. Profile names must match one polygon\fP
-\fIname. Otherwise, the profile is not considered.\fP
-\fIThe special name \(dqworld\(dq corresponds to the\fP
-\fIregion of the entire planet as a fallback.\fP
-**
-\fIMagnitude\-specific parameters, e.g. calibration functions,\fP
-\fIare adjusted in a separate section of  magnitudes with\fP
-\fIthe same name.\fP
+\fIAdd magnitude region profiles for regions defined by\fP
+\fIpolygons in the geofeature file of regionFile. Profile\fP
+\fInames must match one polygon name. Otherwise, the\fP
+\fIprofile is not considered. The special name\fP
+\fI\(dqworld\(dq corresponds to the region of the\fP
+\fIentire planet as a fallback.\fP
 .UNINDENT
 .UNINDENT
 .sp
@@ -929,8 +1010,6 @@ and receiver/station must be withing the region.
 .INDENT 0.0
 .TP
 .B magnitudes.$name.region.$name.multiplier
-Default: \fB1\fP
-.sp
 Type: \fIdouble\fP
 .sp
 Linear part of the default station correction
@@ -939,8 +1018,6 @@ for this region.
 .INDENT 0.0
 .TP
 .B magnitudes.$name.region.$name.offset
-Default: \fB0\fP
-.sp
 Type: \fIdouble\fP
 .sp
 Constant part of the default station correction
@@ -1171,7 +1248,7 @@ The traditional Hypo71PC locator with SeisComP.
 .INDENT 0.0
 .INDENT 3.5
 \fBhypo71.*\fP
-\fIGeneral Hypo71 configuration parameters.\fP
+\fILocator parameters: Hypo71\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -2444,6 +2521,15 @@ e.g. \(dqGEOFON:black, USGS:blue\(dq.
 .UNINDENT
 .INDENT 0.0
 .TP
+.B scheme.colors.spectrogram
+Type: \fIgradient\fP
+.sp
+The color gradient of the spectrogram amplitudes.
+The node values are not important as they will be
+projected onto the desired amplitude range.
+.UNINDENT
+.INDENT 0.0
+.TP
 .B scheme.colors.map.lines
 Type: \fIcolor\fP
 .sp
@@ -2491,6 +2577,44 @@ The color of a capital.
 Type: \fIcolor\fP
 .sp
 The color of a \(dqnormal\(dq city.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBscheme.colors.map.directivity.*\fP
+\fIDefines the pen of the directivity information\fP
+\fI(backazimuth and slowness) in the map.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B scheme.colors.map.directivity.color
+Default: \fBFFA000\fP
+.sp
+Type: \fIcolor\fP
+.sp
+The color of the pen.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B scheme.colors.map.directivity.style
+Default: \fBDotLine\fP
+.sp
+Type: \fIstring\fP
+.sp
+The style of the pen. Supported values are: NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B scheme.colors.map.directivity.width
+Default: \fB1\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIpx\fP
+.sp
+The width of the pen.
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -3743,7 +3867,7 @@ Supported values: \(dqtopline\(dq,\(dqbox\(dq,\(dqbottomline\(dq
 .INDENT 3.5
 \fBscheme.fonts.base.*\fP
 \fIThe general base font of an application. This overrides\fP
-\fIthe default Qt4 application font.\fP
+\fIthe default Qt application font.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -5209,203 +5333,6 @@ Unit: \fIpt\fP
 .sp
 The text size of the time ago label in case of an active alert.
 .UNINDENT
-.SS MLc extension
-.sp
-Custom magnitude for local events measured on horizontal components
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBmagnitudes.MLc.*\fP
-\fIRegionalized calibration parameters for MLc. The region itself is defined\fP
-\fIby another magnitude\-type MLc profile.\fP
-.UNINDENT
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBmagnitudes.MLc.region.*\fP
-\fIAdd one profile for every region. The profile name\fP
-\fIequals the name of a polygon configured in the BNA file\fP
-\fIof the Magnitude\-type profile. The Magnitude\-type profile\fP
-\fIand the polygon must exist.\fP
-\fIThe special name \(dqworld\(dq corresponds to the\fP
-\fIregion of the entire planet as a fallback.\fP
-.UNINDENT
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBmagnitudes.MLc.region.$name.*\fP
-$name is a placeholder for the name to be used.
-.UNINDENT
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBmagnitudes.MLc.region.$name.A0.*\fP
-\fIParameters for A0, non\-parametric magnitude calibration.\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.MLc.region.$name.A0.logA0
-Type: \fIstring\fP
-.sp
-Overrides the calibration function log10(A0)
-for computing MLc per region. See logA0
-description in the bindings.
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBmagnitudes.MLc.region.$name.parametric.*\fP
-\fIParameters for parametric magnitude calibration:\fP
-\fIMLc = log10(A) + c3 * log10(r/c5) + c2 * (r + c4) + c1 + c0(station)\fP
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.MLc.region.$name.parametric.c0
-Type: \fIdouble\fP
-.sp
-Overrides the calibration parameter c0
-for computing MLc per region. See c0
-description in the bindings.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.MLc.region.$name.parametric.c1
-Type: \fIdouble\fP
-.sp
-Overrides the calibration parameter c1
-for computing MLc per region. See c1
-description in the bindings.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.MLc.region.$name.parametric.c2
-Type: \fIdouble\fP
-.sp
-Overrides the calibration parameter c2
-for computing MLc per region. See c2
-description in the bindings.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.MLc.region.$name.parametric.c3
-Type: \fIdouble\fP
-.sp
-Overrides the calibration parameter c3
-for computing MLc per region. See c3
-description in the bindings.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.MLc.region.$name.parametric.c4
-Type: \fIdouble\fP
-.sp
-Overrides the calibration parameter c4
-for computing MLc per region. See c4
-description in the bindings.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.MLc.region.$name.parametric.c5
-Type: \fIdouble\fP
-.sp
-Overrides the calibration parameter c5
-for computing MLc per region. See c5
-description in the bindings.
-.UNINDENT
-.SS MLv extension
-.sp
-Local (Richter) magnitude measured on the vertical component
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBmagnitudes.MLv.*\fP
-\fIRegional calibration parameters for MLv. The region itself is defined\fP
-\fIby another magnitude\-type MLv profile.\fP
-.UNINDENT
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBmagnitudes.MLv.region.*\fP
-\fIAdd one profile for every region. The profile name\fP
-\fIequals the name of a polygon configured in the BNA file\fP
-\fIof the Magnitude\-type profile. The Magnitude\-type profile\fP
-\fIand the polygon must exist.\fP
-\fIThe special name \(dqworld\(dq corresponds to the\fP
-\fIregion of the entire planet as a fallback.\fP
-.UNINDENT
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBmagnitudes.MLv.region.$name.*\fP
-$name is a placeholder for the name to be used.
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.MLv.region.$name.logA0
-Type: \fIstring\fP
-.sp
-Overrides the calibration function log10(A0)
-for computing MLv per region. See logA0
-description in the bindings.
-.UNINDENT
-.SS ML extension
-.sp
-Standard local (Richter) magnitude
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBmagnitudes.ML.*\fP
-\fIRegionalized calibration parameters for ML. The region itself is defined\fP
-\fIby another magnitude\-type ML profile.\fP
-.UNINDENT
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBmagnitudes.ML.region.*\fP
-\fIAdd one profile for every region. The profile name\fP
-\fIequals the name of a polygon configured in the BNA file\fP
-\fIof the Magnitude\-type profile. The Magnitude\-type profile\fP
-\fIand the polygon must exist.\fP
-\fIThe special name \(dqworld\(dq corresponds to the\fP
-\fIregion of the entire planet as a fallback.\fP
-.UNINDENT
-.UNINDENT
-.sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-\fBmagnitudes.ML.region.$name.*\fP
-$name is a placeholder for the name to be used.
-.UNINDENT
-.UNINDENT
-.INDENT 0.0
-.TP
-.B magnitudes.ML.region.$name.logA0
-Type: \fIstring\fP
-.sp
-Overrides the calibration function log10(A0)
-for computing ML per region. See logA0
-description in the bindings.
-.UNINDENT
 .SS LOCSAT extension
 .sp
 Locator in SeisComP for computing source time and hypocenter
@@ -6085,7 +6012,7 @@ Type: \fIboolean\fP
 Activate deconvolution for this station. If no responses are
 configured, an error is raised and the data is not processed.
 This flag will be overridden by the type specific flag
-(see Amplitude type profile).
+(see GlobalAmplitudeProfile).
 .UNINDENT
 .sp
 \fBNOTE:\fP
@@ -6150,7 +6077,7 @@ will be used instead.
 .B amplitudes.$name.minSNR
 Type: \fIdouble\fP
 .sp
-Define the mininum SNR to be reached to compute the
+Define the minimum SNR to be reached to compute the
 amplitudes. This value is amplitude type specific and
 has no global default value.
 .UNINDENT
@@ -6329,7 +6256,7 @@ A value of 0 or lower disables that taper.
 \fBamplitudes.resp.*\fP
 \fISeveral parameters if usage of full responses is enabled.\fP
 \fIThe parameters of this group will be overridden by type\fP
-\fIspecific settings if given (see Amplitude type profile).\fP
+\fIspecific settings if given (see GlobalAmplitudeProfile).\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -6377,20 +6304,47 @@ A value of 0 or lower disables that taper.
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
+\fBamplitudes.ttt.*\fP
+\fITravel time table specific parameters to be used for the\fP
+\fIcomputation of travel times referred to in signal and\fP
+\fInoise time window specifications,\fP
+\fIe.g. \(dqsignalBegin\(dq.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.ttt.interface
+Default: \fBlibtau\fP
+.sp
+Type: \fIstring\fP
+.sp
+\fINo description available\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.ttt.model
+Default: \fBiasp91\fP
+.sp
+Type: \fIstring\fP
+.sp
+\fINo description available\fP
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
 \fBamplitudes.WoodAnderson.*\fP
 \fIParameters of the Wood\-Anderson seismometer response used\fP
-\fIfor instrument simulation.\fP
-\fIThe default values are according to the version of\fP
-\fIGutenberg (1935). The newer version by Uhrhammer and\fP
-\fICollins (1990) is part of the IASPEI Magnitude\fP
-\fIWorking Group recommendations of 2011 September 9. This\fP
-\fIversion uses gain=2800, T0=0.8 s, h=0.8.\fP
+\fIfor instrument simulation. The default values are according\fP
+\fIto Uhrhammer and Collins (1990) and were part of the\fP
+\fIIASPEI Magnitude Working Group recommendations of 2011\fP
+\fISeptember 9.\fP
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
 .TP
 .B amplitudes.WoodAnderson.gain
-Default: \fB2800\fP
+Default: \fB2080\fP
 .sp
 Type: \fIdouble\fP
 .sp
@@ -6410,7 +6364,7 @@ The eigenperiod of the Wood\-Anderson seismometer.
 .INDENT 0.0
 .TP
 .B amplitudes.WoodAnderson.h
-Default: \fB0.8\fP
+Default: \fB0.7\fP
 .sp
 Type: \fIdouble\fP
 .sp
@@ -6422,7 +6376,7 @@ The damping constant of the Wood\-Anderson seismometer.
 .INDENT 3.5
 \fBmagnitudes.*\fP
 \fIDefine magnitude parameters independent of amplitude\-type profiles.\fP
-\fIFor magnitude correction parameters, e.g, network of station\fP
+\fIFor magnitude correction parameters, e.g., network of station\fP
 \fIcorrections, create a magnitude type profile.\fP
 .UNINDENT
 .UNINDENT
@@ -6552,7 +6506,7 @@ Mininum SNR as returned from AIC for accepting picks.
 \fBpicker.BK.*\fP
 \fIBkpicker is an implementation of the Baer/Kradolfer picker\fP
 \fIadapted to SeisComP. It was created by converting Manfred\fP
-\fIBaers from Fortran to C++ and inserting it as a replacement\fP
+\fIBaers from FORTRAN to C++ and inserting it as a replacement\fP
 \fIfor the picker algorithm. The picker interface name to be\fP
 \fIused in configuration files, e.g. of scautopick,is\fP
 \fI\(dqBK\(dq.\fP
@@ -6605,7 +6559,7 @@ Default: \fBBP\fP
 .sp
 Type: \fIstring\fP
 .sp
-BP (Bandpass) is currently the only option.
+BP (bandpass) is currently the only option.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -7079,6 +7033,36 @@ station code and location code.
 \fBNOTE:\fP
 .INDENT 0.0
 .INDENT 3.5
+\fBamplitudes.Ms_20.*\fP
+\fIParameters for computing Ms_20 amplitudes.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.Ms_20.minVelocity
+Default: \fB3\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIkm/s\fP
+.sp
+Minimum group velocity used to compute signal time window.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B amplitudes.Ms_20.maxVelocity
+Default: \fB4\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIkm/s\fP
+.sp
+Maximum group velocity used to compute signal time window.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
 \fBmagnitudes.Ms_20.*\fP
 \fIParameters for computing Ms_20 magnitudes from Ms_20 amplitudes.\fP
 .UNINDENT
@@ -7244,7 +7228,7 @@ Possible values are
 .sp
 hypocentral: hypocentral distance
 .sp
-epicentral: epicentral
+epicentral: epicentral distance
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -7279,7 +7263,7 @@ Type: \fIdouble\fP
 .sp
 Unit: \fIkm\fP
 .sp
-The maximum depth up to which magnitudes are computed.
+The maximum source depth up to which magnitudes are computed.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -7348,9 +7332,8 @@ Default: \fB0.0\fP
 Type: \fIdouble\fP
 .sp
 Station correction. This is the calibration value \(aqc0\(aq
-applied in the magnitude calibration formula
-.sp
-MLc = c0(station) + c1 + c2 * (r + c4) + c3 * log(r/c5) + log10(A)
+applied in the
+parametric magnitude calibration formula.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -7359,10 +7342,8 @@ Default: \fB0.69\fP
 .sp
 Type: \fIdouble\fP
 .sp
-The calibration value \(aqc1\(aq applied in the magnitude
-calibration formula
-.sp
-MLc = c0(station) + c1 + c2 * (r + c4) + c3 * log(r/c5) + log10(A)
+The calibration value \(aqc1\(aq applied in the
+parametric magnitude calibration formula.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -7373,8 +7354,7 @@ Type: \fIdouble\fP
 .sp
 The calibration value \(aqc2\(aq applied in the
 magnitude calibration formula
-.sp
-MLc = c0(station) + c1 + c2 * (r + c4) + c3 * log(r/c5) + log10(A)
+parametric magnitude calibration formula.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -7384,9 +7364,7 @@ Default: \fB1.11\fP
 Type: \fIdouble\fP
 .sp
 The calibration value \(aqc3\(aq applied in the
-magnitude calibration formula
-.sp
-MLc = c0(station) + c1 + c2 * (r + c4) + c3 * log(r/c5) + log10(A)
+parametric magnitude calibration formula.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -7396,9 +7374,7 @@ Default: \fB0.0\fP
 Type: \fIdouble\fP
 .sp
 The calibration value \(aqc4\(aq applied in the
-magnitude calibration formula
-.sp
-MLc = c0(station) + c1 + c2 * (r + c4) + c3 * log(r/c5) + log10(A)
+parametric magnitude calibration formula.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -7407,10 +7383,8 @@ Default: \fB1.0\fP
 .sp
 Type: \fIdouble\fP
 .sp
-The calibration value \(aqc4\(aq applied in the
-magnitude calibration formula
-.sp
-MLc = c0(station) + c1 + c2 * (r + c4) + c3 * log(r/c5) + log10(A)
+The calibration value \(aqc5\(aq applied in the
+parametric magnitude calibration formula.
 .UNINDENT
 .sp
 \fBNOTE:\fP

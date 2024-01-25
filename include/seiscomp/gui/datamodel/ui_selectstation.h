@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'selectstation.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.7
+** Created by: Qt User Interface Compiler version 5.9.7
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,18 +10,18 @@
 #define UI_SELECTSTATION_H
 
 #include <QtCore/QVariant>
-#include <QtGui/QAction>
-#include <QtGui/QApplication>
-#include <QtGui/QButtonGroup>
-#include <QtGui/QDialog>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QHeaderView>
-#include <QtGui/QLabel>
-#include <QtGui/QLineEdit>
-#include <QtGui/QPushButton>
-#include <QtGui/QSpacerItem>
-#include <QtGui/QTableView>
-#include <QtGui/QVBoxLayout>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QTableView>
+#include <QtWidgets/QVBoxLayout>
 
 QT_BEGIN_NAMESPACE
 
@@ -39,7 +39,7 @@ public:
     void setupUi(QDialog *SelectStation)
     {
         if (SelectStation->objectName().isEmpty())
-            SelectStation->setObjectName(QString::fromUtf8("SelectStation"));
+            SelectStation->setObjectName(QStringLiteral("SelectStation"));
         SelectStation->resize(265, 357);
         vboxLayout = new QVBoxLayout(SelectStation);
 #ifndef Q_OS_MAC
@@ -48,19 +48,19 @@ public:
 #ifndef Q_OS_MAC
         vboxLayout->setContentsMargins(9, 9, 9, 9);
 #endif
-        vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
+        vboxLayout->setObjectName(QStringLiteral("vboxLayout"));
         stationListLabel = new QLabel(SelectStation);
-        stationListLabel->setObjectName(QString::fromUtf8("stationListLabel"));
+        stationListLabel->setObjectName(QStringLiteral("stationListLabel"));
 
         vboxLayout->addWidget(stationListLabel);
 
         stationLineEdit = new QLineEdit(SelectStation);
-        stationLineEdit->setObjectName(QString::fromUtf8("stationLineEdit"));
+        stationLineEdit->setObjectName(QStringLiteral("stationLineEdit"));
 
         vboxLayout->addWidget(stationLineEdit);
 
         table = new QTableView(SelectStation);
-        table->setObjectName(QString::fromUtf8("table"));
+        table->setObjectName(QStringLiteral("table"));
         table->setAlternatingRowColors(true);
         table->setSelectionBehavior(QAbstractItemView::SelectRows);
 
@@ -71,13 +71,13 @@ public:
         hboxLayout->setSpacing(6);
 #endif
         hboxLayout->setContentsMargins(0, 0, 0, 0);
-        hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
+        hboxLayout->setObjectName(QStringLiteral("hboxLayout"));
         spacerItem = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         hboxLayout->addItem(spacerItem);
 
         btnAdd = new QPushButton(SelectStation);
-        btnAdd->setObjectName(QString::fromUtf8("btnAdd"));
+        btnAdd->setObjectName(QStringLiteral("btnAdd"));
 
         hboxLayout->addWidget(btnAdd);
 
@@ -93,9 +93,9 @@ public:
 
     void retranslateUi(QDialog *SelectStation)
     {
-        SelectStation->setWindowTitle(QApplication::translate("SelectStation", "Add station(s)", 0, QApplication::UnicodeUTF8));
-        stationListLabel->setText(QApplication::translate("SelectStation", "Station List:", 0, QApplication::UnicodeUTF8));
-        btnAdd->setText(QApplication::translate("SelectStation", "Add", 0, QApplication::UnicodeUTF8));
+        SelectStation->setWindowTitle(QApplication::translate("SelectStation", "Add station(s)", Q_NULLPTR));
+        stationListLabel->setText(QApplication::translate("SelectStation", "Station List:", Q_NULLPTR));
+        btnAdd->setText(QApplication::translate("SelectStation", "Add", Q_NULLPTR));
     } // retranslateUi
 
 };

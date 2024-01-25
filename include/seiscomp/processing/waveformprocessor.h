@@ -62,12 +62,6 @@ class SC_SYSTEM_CLIENT_API WaveformProcessor : public Processor {
 
 		typedef Math::Filtering::InPlaceFilter<double> Filter;
 
-		enum ProcessingHint {
-			Distance,
-			Depth,
-			Time
-		};
-
 		MAKEENUM(
 			SignalUnit,
 			EVALUES(
@@ -149,6 +143,8 @@ class SC_SYSTEM_CLIENT_API WaveformProcessor : public Processor {
 				RayPathOutOfRegions,
 				//! Travel time table lookup failed
 				TravelTimeEstimateFailed,
+				//! Arrival has not been found
+				ArrivalNotFound,
 				//! Configuration error
 				ConfigurationError
 			),
@@ -180,6 +176,7 @@ class SC_SYSTEM_CLIENT_API WaveformProcessor : public Processor {
 				"receiver out of regions",
 				"ray path out of regions",
 				"travel time estimate failed",
+				"arrival not found",
 				"configuration error"
 			)
 		);
@@ -240,6 +237,7 @@ class SC_SYSTEM_CLIENT_API WaveformProcessor : public Processor {
 		//! Sets a operator for all fed records. An operator sits between
 		//! feed and store.
 		void setOperator(WaveformOperator *pipe);
+		WaveformOperator *getOperator() const;
 
 		//! The gain is input unit -> sensor unit
 		Stream &streamConfig(Component c);
@@ -290,17 +288,6 @@ class SC_SYSTEM_CLIENT_API WaveformProcessor : public Processor {
 
 		//! Returns the data's sampling frequency
 		double samplingFrequency() const;
-
-		//! This methods can be called to set a hint for the
-		//! processor even while processing.
-		//! The hint can be used to tune certain processing
-		//! steps. Currently exists a distance and a depth hint.
-		//! Derived classes should reimplement this method to react
-		//! on this hints.
-		//! E.g. an amplitude processor can cut its endtime when
-		//! receiving a distance hint.
-		//! The default implementation does nothing.
-		virtual void setHint(ProcessingHint, double) {}
 
 		void setEnabled(bool e);
 		bool isEnabled() const { return _enabled; }
@@ -420,6 +407,11 @@ class SC_SYSTEM_CLIENT_API WaveformProcessor : public Processor {
 
 		mutable Core::BaseObjectPtr _userData;
 };
+
+
+inline WaveformOperator *WaveformProcessor::getOperator() const {
+	return _operator.get();
+}
 
 
 }

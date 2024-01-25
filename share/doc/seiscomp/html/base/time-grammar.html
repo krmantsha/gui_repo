@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html  lang="en">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Time grammar &#8212; SeisComP Release documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+    <script type="text/javascript" src="../_static/seiscomp.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Software Development Kit" href="sdk.html" />
+    <link rel="prev" title="Filter grammar" href="filter-grammar.html" /> 
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <div class="brand">
+          <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
+           <!-- span class="title">SeisComP Release</span -->
+          <span class="version">6.1.2</span>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <div class="container">
+        <div class="content"><a class="pull-right" id="sidebar-toggle">TOC</a>
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <ul>
+        <li class="right">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">
+            index
+          </a>
+        </li>
+        <li class="right">
+          <a href="sdk.html" title="Software Development Kit"
+             accesskey="N">
+            next
+          </a>
+        </li>
+        <li class="right">
+          <a href="filter-grammar.html" title="Filter grammar"
+             accesskey="P">
+            previous
+          </a>
+        </li>
+        <li class="nav-item nav-item-0">
+          <a href="../index.html">Home</a>
+        </li> 
+      </ul>
+    </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="fitted content" id="anchors-container">
+        <div class="body" role="main">
+          
+  <section id="time-grammar">
+<span id="id1"></span><h1>Time grammar<a class="headerlink" href="#time-grammar" title="Permalink to this heading">¶</a></h1>
+<p><cite>SeisComP</cite> supports the definition of times by <a class="reference internal" href="#sec-time-functions"><span class="std std-ref">functions</span></a>, <a class="reference internal" href="#sec-time-operators"><span class="std std-ref">operators</span></a> and <a class="reference internal" href="#sec-time-variables"><span class="std std-ref">variables</span></a> and the combination of them as well as constant values.
+These expressions can be used to configure parameters defining time windows for
+measuring amplitudes for magnitudes.
+You may use brackets <em>()</em> to apply operations within before operations outside
+of them.</p>
+<p>If the result of the evaluation is unset, e.g. because required information
+are not available, then the processing receives an error and the amplitude will
+not be computed.</p>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+<p>The details of the grammar elements used in the following examples are
+described <a class="reference internal" href="#sec-time-details"><span class="std std-ref">below</span></a>.</p>
+<ul>
+<li><p>Return the end time to measure <a class="reference internal" href="glossary.html#term-magnitude-broadband-body-wave-mB_BB"><span class="xref std std-term">mB amplitudes</span></a>:</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">min(D</span><span class="w"> </span><span class="s">* 11.5, 60)</span>
+</pre></div>
+</div>
+<p>where <a class="reference internal" href="#min" title="min"><code class="xref py py-func docutils literal notranslate"><span class="pre">min()</span></code></a> is a function with two parameters to
+compare, <span class="target" id="index-0"></span><a class="reference internal" href="#envvar-D"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">D</span></code></a> is a variable and ‘*’ and ‘+’ are operators. In this
+example  the minimum time from either epicentral distance in degree times 11.5
+or 60  is returned if an epicentral distance is available. If epicentral
+distance is not available, 60 is returned</p>
+</li>
+<li><p>Return the end time to measure S-wave amplitudes:</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">min(tt(S)</span><span class="w"> </span><span class="s">+ 10, 150)</span>
+</pre></div>
+</div>
+<p>where <a class="reference internal" href="#tt" title="tt"><code class="xref py py-func docutils literal notranslate"><span class="pre">tt()</span></code></a> is a function with one argument  and ‘+’ is an
+operators. In this example the minimum time from either the travel time plus
+10 or 150 is returned.</p>
+</li>
+</ul>
+<p>Similar to the statements above, the time windows for measuring amplitudes can
+be configured, e.g., for overriding default time for <a class="reference internal" href="glossary.html#term-magnitude-local-vertical-MLv"><span class="xref std std-term">MLv amplitudes</span></a>:</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">amplitudes.MLv.noiseBegin</span><span class="o">=</span><span class="s">-10</span>
+<span class="na">amplitudes.MLv.noiseEnd</span><span class="o">=</span><span class="s">-1</span>
+<span class="na">amplitudes.MLv.signalBegin</span><span class="o">=</span><span class="s">-1</span>
+<span class="na">amplitudes.MLv.signalEnd</span><span class="o">=</span><span class="s">tt(S)+10</span>
+</pre></div>
+</div>
+</section>
+<section id="functions-operators-variables">
+<span id="sec-time-details"></span><h2>Functions, Operators, Variables<a class="headerlink" href="#functions-operators-variables" title="Permalink to this heading">¶</a></h2>
+<p>Variables, operators and functions are available. Variables define standard
+values and function provide values based on a parameter given within
+parentheses like <a class="reference internal" href="#tt" title="tt"><code class="xref py py-func docutils literal notranslate"><span class="pre">tt()</span></code></a>. Find below their individual descriptions.</p>
+<section id="functions">
+<span id="sec-time-functions"></span><h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="max">
+<span class="sig-name descname"><span class="pre">max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the maximum of two values. If one value is unset then the other
+value is returned. If both values are unset then the result is unset, too.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arg1</strong> – First value to consider</p></li>
+<li><p><strong>arg2</strong> – Second value to consider</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="min">
+<span class="sig-name descname"><span class="pre">min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the minimum of two values. If one value is unset then the other
+value is returned. If both values are unset then the result is unset, too.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arg1</strong> – First value to consider</p></li>
+<li><p><strong>arg2</strong> – Second value to consider</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tt">
+<span class="sig-name descname"><span class="pre">tt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phase</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the travel-time of the given phase. The result is unset if the
+travel time cannot be computed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>phase</strong> – Phase name available with the define travel-time interface
+and profile.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="arr">
+<span class="sig-name descname"><span class="pre">arr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acceptAll</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts the relative arrival time from the hypocenter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>phase</strong> – Phase name of the arrival. The sensor location of the
+associated pick must match the sensor location of the
+target object.</p></li>
+<li><p><strong>acceptAll</strong> – Whether to accept all arrivals or only manually
+revised arrivals. The default is ‘true’ if not
+given. Allowed is either ‘true’ or ‘false’. If
+‘true’ is given, then either the evaluation mode
+of the origin or the evaluation mode of the pick
+must be ‘manual’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="operators">
+<span id="sec-time-operators"></span><h3>Operators<a class="headerlink" href="#operators" title="Permalink to this heading">¶</a></h3>
+<p>If either of the operands is unset then the result will be also unset.</p>
+<ul class="simple">
+<li><p>+ : addition</p></li>
+<li><p>- : subtraction</p></li>
+<li><p>* : multiplication</p></li>
+<li><p>/ : division</p></li>
+<li><p>^ : power / exponentiation</p></li>
+<li><p>|| : logical OR which returns the first set value if any</p></li>
+<li><p>|. | : absolute value</p></li>
+<li><p>% : modulo</p></li>
+</ul>
+</section>
+<section id="variables">
+<span id="sec-time-variables"></span><h3>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h3>
+<p>Variables can be unset because a required information is not available.</p>
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-D">
+<span class="sig-name descname"><span class="pre">D</span></span><a class="headerlink" href="#envvar-D" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="glossary.html#term-distance-epicentral"><span class="xref std std-term">Epicentral distance</span></a> in degree</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-d-R">
+<span class="sig-name descname"><span class="pre">d,</span> <span class="pre">R</span></span><a class="headerlink" href="#envvar-d-R" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="glossary.html#term-distance-epicentral"><span class="xref std std-term">Epicentral distance</span></a> in kilometer</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-H">
+<span class="sig-name descname"><span class="pre">H</span></span><a class="headerlink" href="#envvar-H" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="glossary.html#term-distance-hypocentral"><span class="xref std std-term">Hypocentral distance</span></a> in degree</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-h">
+<span class="sig-name descname"><span class="pre">h</span></span><a class="headerlink" href="#envvar-h" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="glossary.html#term-distance-hypocentral"><span class="xref std std-term">Hypocentral distance</span></a> in kilometer</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-Z">
+<span class="sig-name descname"><span class="pre">Z</span></span><a class="headerlink" href="#envvar-Z" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="glossary.html#term-origin"><span class="xref std std-term">origin</span></a> depth in kilometer</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+          <div id="anchors-bottom"></div>
+        </div>
+        
+      <div class="sidebar" role="navigation" aria-label="main navigation">
+        <div id="anchors-top"></div>
+        <div id="anchors" class="content">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Time grammar</a><ul>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+<li><a class="reference internal" href="#functions-operators-variables">Functions, Operators, Variables</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a><ul>
+<li><a class="reference internal" href="#max"><code class="docutils literal notranslate"><span class="pre">max()</span></code></a></li>
+<li><a class="reference internal" href="#min"><code class="docutils literal notranslate"><span class="pre">min()</span></code></a></li>
+<li><a class="reference internal" href="#tt"><code class="docutils literal notranslate"><span class="pre">tt()</span></code></a></li>
+<li><a class="reference internal" href="#arr"><code class="docutils literal notranslate"><span class="pre">arr()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#operators">Operators</a></li>
+<li><a class="reference internal" href="#variables">Variables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="filter-grammar.html"
+                          title="previous chapter">Filter grammar</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="sdk.html"
+                          title="next chapter">Software Development Kit</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/base/time-grammar.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <div class="horizontal layout content">
+        <a class="fade-in" href="https://www.gempa.de" target="_blank">
+          <img class="brand" src="../_static/brands/gempa.svg"/>
+        </a>
+        <div class="stretched align-center fitted content">
+          <div>
+		  Version <b>6.1.2</b> Release
+          </div>
+            <div class="copyright">
+              Copyright &copy; gempa GmbH, GFZ Potsdam.
+            </div>
+        </div>
+        <a class="fade-in" href="https://www.gfz-potsdam.de" target="_blank">
+          <img class="brand" src="../_static/brands/gfz.svg"/>
+        </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

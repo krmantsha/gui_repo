@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'eventsummary.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.7
+** Created by: Qt User Interface Compiler version 5.9.7
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,17 +10,17 @@
 #define UI_EVENTSUMMARY_H
 
 #include <QtCore/QVariant>
-#include <QtGui/QAction>
-#include <QtGui/QApplication>
-#include <QtGui/QButtonGroup>
-#include <QtGui/QFrame>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QHeaderView>
-#include <QtGui/QLabel>
-#include <QtGui/QPushButton>
-#include <QtGui/QSpacerItem>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QWidget>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QFrame>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
@@ -104,21 +104,21 @@ public:
     void setupUi(QWidget *EventSummary)
     {
         if (EventSummary->objectName().isEmpty())
-            EventSummary->setObjectName(QString::fromUtf8("EventSummary"));
+            EventSummary->setObjectName(QStringLiteral("EventSummary"));
         EventSummary->resize(412, 762);
         vboxLayout = new QVBoxLayout(EventSummary);
 #ifndef Q_OS_MAC
         vboxLayout->setSpacing(6);
 #endif
         vboxLayout->setContentsMargins(0, 0, 0, 0);
-        vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
+        vboxLayout->setObjectName(QStringLiteral("vboxLayout"));
         originTime = new QLabel(EventSummary);
-        originTime->setObjectName(QString::fromUtf8("originTime"));
+        originTime->setObjectName(QStringLiteral("originTime"));
 
         vboxLayout->addWidget(originTime);
 
         timeAgo = new QLabel(EventSummary);
-        timeAgo->setObjectName(QString::fromUtf8("timeAgo"));
+        timeAgo->setObjectName(QStringLiteral("timeAgo"));
 
         vboxLayout->addWidget(timeAgo);
 
@@ -127,9 +127,9 @@ public:
         hboxLayout->setSpacing(6);
 #endif
         hboxLayout->setContentsMargins(0, 0, 0, 0);
-        hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
+        hboxLayout->setObjectName(QStringLiteral("hboxLayout"));
         magnitudeText = new QLabel(EventSummary);
-        magnitudeText->setObjectName(QString::fromUtf8("magnitudeText"));
+        magnitudeText->setObjectName(QStringLiteral("magnitudeText"));
         QSizePolicy sizePolicy(static_cast<QSizePolicy::Policy>(4), static_cast<QSizePolicy::Policy>(5));
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -139,7 +139,7 @@ public:
         hboxLayout->addWidget(magnitudeText);
 
         magnitude = new QLabel(EventSummary);
-        magnitude->setObjectName(QString::fromUtf8("magnitude"));
+        magnitude->setObjectName(QStringLiteral("magnitude"));
 
         hboxLayout->addWidget(magnitude);
 
@@ -147,7 +147,7 @@ public:
         vboxLayout->addLayout(hboxLayout);
 
         region = new QLabel(EventSummary);
-        region->setObjectName(QString::fromUtf8("region"));
+        region->setObjectName(QStringLiteral("region"));
         QSizePolicy sizePolicy1(static_cast<QSizePolicy::Policy>(13), static_cast<QSizePolicy::Policy>(5));
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
@@ -157,7 +157,7 @@ public:
         vboxLayout->addWidget(region);
 
         nearestCity = new QLabel(EventSummary);
-        nearestCity->setObjectName(QString::fromUtf8("nearestCity"));
+        nearestCity->setObjectName(QStringLiteral("nearestCity"));
 
         vboxLayout->addWidget(nearestCity);
 
@@ -166,16 +166,16 @@ public:
         hboxLayout1->setSpacing(6);
 #endif
         hboxLayout1->setContentsMargins(0, 0, 0, 0);
-        hboxLayout1->setObjectName(QString::fromUtf8("hboxLayout1"));
+        hboxLayout1->setObjectName(QStringLiteral("hboxLayout1"));
         depthText = new QLabel(EventSummary);
-        depthText->setObjectName(QString::fromUtf8("depthText"));
+        depthText->setObjectName(QStringLiteral("depthText"));
         sizePolicy.setHeightForWidth(depthText->sizePolicy().hasHeightForWidth());
         depthText->setSizePolicy(sizePolicy);
 
         hboxLayout1->addWidget(depthText);
 
         depth = new QLabel(EventSummary);
-        depth->setObjectName(QString::fromUtf8("depth"));
+        depth->setObjectName(QStringLiteral("depth"));
 
         hboxLayout1->addWidget(depth);
 
@@ -187,9 +187,9 @@ public:
         hboxLayout2->setSpacing(6);
 #endif
         hboxLayout2->setContentsMargins(0, 0, 0, 0);
-        hboxLayout2->setObjectName(QString::fromUtf8("hboxLayout2"));
+        hboxLayout2->setObjectName(QStringLiteral("hboxLayout2"));
         latitude = new QLabel(EventSummary);
-        latitude->setObjectName(QString::fromUtf8("latitude"));
+        latitude->setObjectName(QStringLiteral("latitude"));
 
         hboxLayout2->addWidget(latitude);
 
@@ -198,7 +198,7 @@ public:
         hboxLayout2->addItem(spacerItem);
 
         longitude = new QLabel(EventSummary);
-        longitude->setObjectName(QString::fromUtf8("longitude"));
+        longitude->setObjectName(QStringLiteral("longitude"));
 
         hboxLayout2->addWidget(longitude);
 
@@ -210,14 +210,14 @@ public:
         vboxLayout->addLayout(hboxLayout2);
 
         type = new QLabel(EventSummary);
-        type->setObjectName(QString::fromUtf8("type"));
+        type->setObjectName(QStringLiteral("type"));
         sizePolicy1.setHeightForWidth(type->sizePolicy().hasHeightForWidth());
         type->setSizePolicy(sizePolicy1);
 
         vboxLayout->addWidget(type);
 
         map = new QFrame(EventSummary);
-        map->setObjectName(QString::fromUtf8("map"));
+        map->setObjectName(QStringLiteral("map"));
         QSizePolicy sizePolicy2(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5));
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
@@ -229,7 +229,7 @@ public:
         vboxLayout->addWidget(map);
 
         labelOpComment = new QLabel(EventSummary);
-        labelOpComment->setObjectName(QString::fromUtf8("labelOpComment"));
+        labelOpComment->setObjectName(QStringLiteral("labelOpComment"));
         sizePolicy1.setHeightForWidth(labelOpComment->sizePolicy().hasHeightForWidth());
         labelOpComment->setSizePolicy(sizePolicy1);
         labelOpComment->setWordWrap(true);
@@ -237,28 +237,28 @@ public:
         vboxLayout->addWidget(labelOpComment);
 
         labelOpCommentSeparator = new QFrame(EventSummary);
-        labelOpCommentSeparator->setObjectName(QString::fromUtf8("labelOpCommentSeparator"));
+        labelOpCommentSeparator->setObjectName(QStringLiteral("labelOpCommentSeparator"));
         labelOpCommentSeparator->setFrameShape(QFrame::HLine);
         labelOpCommentSeparator->setFrameShadow(QFrame::Sunken);
 
         vboxLayout->addWidget(labelOpCommentSeparator);
 
         magnitudes = new QFrame(EventSummary);
-        magnitudes->setObjectName(QString::fromUtf8("magnitudes"));
+        magnitudes->setObjectName(QStringLiteral("magnitudes"));
         magnitudes->setFrameShape(QFrame::NoFrame);
         magnitudes->setFrameShadow(QFrame::Plain);
 
         vboxLayout->addWidget(magnitudes);
 
         separator1 = new QFrame(EventSummary);
-        separator1->setObjectName(QString::fromUtf8("separator1"));
+        separator1->setObjectName(QStringLiteral("separator1"));
         separator1->setFrameShape(QFrame::HLine);
         separator1->setFrameShadow(QFrame::Sunken);
 
         vboxLayout->addWidget(separator1);
 
         thisLocationText = new QLabel(EventSummary);
-        thisLocationText->setObjectName(QString::fromUtf8("thisLocationText"));
+        thisLocationText->setObjectName(QStringLiteral("thisLocationText"));
 
         vboxLayout->addWidget(thisLocationText);
 
@@ -267,14 +267,14 @@ public:
         hboxLayout3->setSpacing(6);
 #endif
         hboxLayout3->setContentsMargins(0, 0, 0, 0);
-        hboxLayout3->setObjectName(QString::fromUtf8("hboxLayout3"));
+        hboxLayout3->setObjectName(QStringLiteral("hboxLayout3"));
         phaseCountText = new QLabel(EventSummary);
-        phaseCountText->setObjectName(QString::fromUtf8("phaseCountText"));
+        phaseCountText->setObjectName(QStringLiteral("phaseCountText"));
 
         hboxLayout3->addWidget(phaseCountText);
 
         phaseCount = new QLabel(EventSummary);
-        phaseCount->setObjectName(QString::fromUtf8("phaseCount"));
+        phaseCount->setObjectName(QStringLiteral("phaseCount"));
 
         hboxLayout3->addWidget(phaseCount);
 
@@ -286,14 +286,14 @@ public:
         hboxLayout4->setSpacing(6);
 #endif
         hboxLayout4->setContentsMargins(0, 0, 0, 0);
-        hboxLayout4->setObjectName(QString::fromUtf8("hboxLayout4"));
+        hboxLayout4->setObjectName(QStringLiteral("hboxLayout4"));
         azimuthalGapText = new QLabel(EventSummary);
-        azimuthalGapText->setObjectName(QString::fromUtf8("azimuthalGapText"));
+        azimuthalGapText->setObjectName(QStringLiteral("azimuthalGapText"));
 
         hboxLayout4->addWidget(azimuthalGapText);
 
         azimuthalGap = new QLabel(EventSummary);
-        azimuthalGap->setObjectName(QString::fromUtf8("azimuthalGap"));
+        azimuthalGap->setObjectName(QStringLiteral("azimuthalGap"));
 
         hboxLayout4->addWidget(azimuthalGap);
 
@@ -305,14 +305,14 @@ public:
         hboxLayout5->setSpacing(6);
 #endif
         hboxLayout5->setContentsMargins(0, 0, 0, 0);
-        hboxLayout5->setObjectName(QString::fromUtf8("hboxLayout5"));
+        hboxLayout5->setObjectName(QStringLiteral("hboxLayout5"));
         rmsText = new QLabel(EventSummary);
-        rmsText->setObjectName(QString::fromUtf8("rmsText"));
+        rmsText->setObjectName(QStringLiteral("rmsText"));
 
         hboxLayout5->addWidget(rmsText);
 
         rms = new QLabel(EventSummary);
-        rms->setObjectName(QString::fromUtf8("rms"));
+        rms->setObjectName(QStringLiteral("rms"));
 
         hboxLayout5->addWidget(rms);
 
@@ -324,14 +324,14 @@ public:
         hboxLayout6->setSpacing(6);
 #endif
         hboxLayout6->setContentsMargins(0, 0, 0, 0);
-        hboxLayout6->setObjectName(QString::fromUtf8("hboxLayout6"));
+        hboxLayout6->setObjectName(QStringLiteral("hboxLayout6"));
         minimumDistanceText = new QLabel(EventSummary);
-        minimumDistanceText->setObjectName(QString::fromUtf8("minimumDistanceText"));
+        minimumDistanceText->setObjectName(QStringLiteral("minimumDistanceText"));
 
         hboxLayout6->addWidget(minimumDistanceText);
 
         minimumDistance = new QLabel(EventSummary);
-        minimumDistance->setObjectName(QString::fromUtf8("minimumDistance"));
+        minimumDistance->setObjectName(QStringLiteral("minimumDistance"));
 
         hboxLayout6->addWidget(minimumDistance);
 
@@ -343,14 +343,14 @@ public:
         hboxLayout7->setSpacing(6);
 #endif
         hboxLayout7->setContentsMargins(0, 0, 0, 0);
-        hboxLayout7->setObjectName(QString::fromUtf8("hboxLayout7"));
+        hboxLayout7->setObjectName(QStringLiteral("hboxLayout7"));
         maximumDistanceText = new QLabel(EventSummary);
-        maximumDistanceText->setObjectName(QString::fromUtf8("maximumDistanceText"));
+        maximumDistanceText->setObjectName(QStringLiteral("maximumDistanceText"));
 
         hboxLayout7->addWidget(maximumDistanceText);
 
         maximumDistance = new QLabel(EventSummary);
-        maximumDistance->setObjectName(QString::fromUtf8("maximumDistance"));
+        maximumDistance->setObjectName(QStringLiteral("maximumDistance"));
 
         hboxLayout7->addWidget(maximumDistance);
 
@@ -358,7 +358,7 @@ public:
         vboxLayout->addLayout(hboxLayout7);
 
         separator2 = new QFrame(EventSummary);
-        separator2->setObjectName(QString::fromUtf8("separator2"));
+        separator2->setObjectName(QStringLiteral("separator2"));
         separator2->setFrameShape(QFrame::HLine);
         separator2->setFrameShadow(QFrame::Sunken);
 
@@ -369,14 +369,14 @@ public:
         hboxLayout8->setSpacing(6);
 #endif
         hboxLayout8->setContentsMargins(0, 0, 0, 0);
-        hboxLayout8->setObjectName(QString::fromUtf8("hboxLayout8"));
+        hboxLayout8->setObjectName(QStringLiteral("hboxLayout8"));
         firstLocationText = new QLabel(EventSummary);
-        firstLocationText->setObjectName(QString::fromUtf8("firstLocationText"));
+        firstLocationText->setObjectName(QStringLiteral("firstLocationText"));
 
         hboxLayout8->addWidget(firstLocationText);
 
         firstLocation = new QLabel(EventSummary);
-        firstLocation->setObjectName(QString::fromUtf8("firstLocation"));
+        firstLocation->setObjectName(QStringLiteral("firstLocation"));
 
         hboxLayout8->addWidget(firstLocation);
 
@@ -388,14 +388,14 @@ public:
         hboxLayout9->setSpacing(6);
 #endif
         hboxLayout9->setContentsMargins(0, 0, 0, 0);
-        hboxLayout9->setObjectName(QString::fromUtf8("hboxLayout9"));
+        hboxLayout9->setObjectName(QStringLiteral("hboxLayout9"));
         eventIDText = new QLabel(EventSummary);
-        eventIDText->setObjectName(QString::fromUtf8("eventIDText"));
+        eventIDText->setObjectName(QStringLiteral("eventIDText"));
 
         hboxLayout9->addWidget(eventIDText);
 
         eventID = new QLabel(EventSummary);
-        eventID->setObjectName(QString::fromUtf8("eventID"));
+        eventID->setObjectName(QStringLiteral("eventID"));
         sizePolicy1.setHeightForWidth(eventID->sizePolicy().hasHeightForWidth());
         eventID->setSizePolicy(sizePolicy1);
 
@@ -409,14 +409,14 @@ public:
         hboxLayout10->setSpacing(6);
 #endif
         hboxLayout10->setContentsMargins(0, 0, 0, 0);
-        hboxLayout10->setObjectName(QString::fromUtf8("hboxLayout10"));
+        hboxLayout10->setObjectName(QStringLiteral("hboxLayout10"));
         originIDText = new QLabel(EventSummary);
-        originIDText->setObjectName(QString::fromUtf8("originIDText"));
+        originIDText->setObjectName(QStringLiteral("originIDText"));
 
         hboxLayout10->addWidget(originIDText);
 
         originID = new QLabel(EventSummary);
-        originID->setObjectName(QString::fromUtf8("originID"));
+        originID->setObjectName(QStringLiteral("originID"));
         sizePolicy1.setHeightForWidth(originID->sizePolicy().hasHeightForWidth());
         originID->setSizePolicy(sizePolicy1);
 
@@ -430,14 +430,14 @@ public:
         hboxLayout11->setSpacing(6);
 #endif
         hboxLayout11->setContentsMargins(0, 0, 0, 0);
-        hboxLayout11->setObjectName(QString::fromUtf8("hboxLayout11"));
+        hboxLayout11->setObjectName(QStringLiteral("hboxLayout11"));
         originIDText_2 = new QLabel(EventSummary);
-        originIDText_2->setObjectName(QString::fromUtf8("originIDText_2"));
+        originIDText_2->setObjectName(QStringLiteral("originIDText_2"));
 
         hboxLayout11->addWidget(originIDText_2);
 
         agencyID = new QLabel(EventSummary);
-        agencyID->setObjectName(QString::fromUtf8("agencyID"));
+        agencyID->setObjectName(QStringLiteral("agencyID"));
         sizePolicy1.setHeightForWidth(agencyID->sizePolicy().hasHeightForWidth());
         agencyID->setSizePolicy(sizePolicy1);
 
@@ -451,14 +451,14 @@ public:
         hboxLayout12->setSpacing(6);
 #endif
         hboxLayout12->setContentsMargins(0, 0, 0, 0);
-        hboxLayout12->setObjectName(QString::fromUtf8("hboxLayout12"));
+        hboxLayout12->setObjectName(QStringLiteral("hboxLayout12"));
         state = new QLabel(EventSummary);
-        state->setObjectName(QString::fromUtf8("state"));
+        state->setObjectName(QStringLiteral("state"));
 
         hboxLayout12->addWidget(state);
 
         mode = new QLabel(EventSummary);
-        mode->setObjectName(QString::fromUtf8("mode"));
+        mode->setObjectName(QStringLiteral("mode"));
         sizePolicy1.setHeightForWidth(mode->sizePolicy().hasHeightForWidth());
         mode->setSizePolicy(sizePolicy1);
 
@@ -468,7 +468,7 @@ public:
         vboxLayout->addLayout(hboxLayout12);
 
         focalMechanism = new QFrame(EventSummary);
-        focalMechanism->setObjectName(QString::fromUtf8("focalMechanism"));
+        focalMechanism->setObjectName(QStringLiteral("focalMechanism"));
         QSizePolicy sizePolicy3(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(1));
         sizePolicy3.setHorizontalStretch(0);
         sizePolicy3.setVerticalStretch(0);
@@ -482,9 +482,9 @@ public:
         vboxLayout1->setSpacing(6);
 #endif
         vboxLayout1->setContentsMargins(0, 0, 0, 0);
-        vboxLayout1->setObjectName(QString::fromUtf8("vboxLayout1"));
+        vboxLayout1->setObjectName(QStringLiteral("vboxLayout1"));
         separator3 = new QFrame(focalMechanism);
-        separator3->setObjectName(QString::fromUtf8("separator3"));
+        separator3->setObjectName(QStringLiteral("separator3"));
         separator3->setFrameShape(QFrame::HLine);
         separator3->setFrameShadow(QFrame::Sunken);
 
@@ -495,23 +495,23 @@ public:
         hboxLayout13->setSpacing(6);
 #endif
         hboxLayout13->setContentsMargins(0, 0, 0, 0);
-        hboxLayout13->setObjectName(QString::fromUtf8("hboxLayout13"));
+        hboxLayout13->setObjectName(QStringLiteral("hboxLayout13"));
         vboxLayout2 = new QVBoxLayout();
         vboxLayout2->setSpacing(0);
 #ifndef Q_OS_MAC
         vboxLayout2->setContentsMargins(0, 0, 0, 0);
 #endif
-        vboxLayout2->setObjectName(QString::fromUtf8("vboxLayout2"));
+        vboxLayout2->setObjectName(QStringLiteral("vboxLayout2"));
         frame = new QFrame(focalMechanism);
-        frame->setObjectName(QString::fromUtf8("frame"));
+        frame->setObjectName(QStringLiteral("frame"));
         frame->setFrameShape(QFrame::NoFrame);
         frame->setFrameShadow(QFrame::Raised);
         hboxLayout14 = new QHBoxLayout(frame);
         hboxLayout14->setSpacing(0);
         hboxLayout14->setContentsMargins(0, 0, 0, 0);
-        hboxLayout14->setObjectName(QString::fromUtf8("hboxLayout14"));
+        hboxLayout14->setObjectName(QStringLiteral("hboxLayout14"));
         momentTensor = new QLabel(frame);
-        momentTensor->setObjectName(QString::fromUtf8("momentTensor"));
+        momentTensor->setObjectName(QStringLiteral("momentTensor"));
         momentTensor->setEnabled(true);
         QSizePolicy sizePolicy4(static_cast<QSizePolicy::Policy>(0), static_cast<QSizePolicy::Policy>(0));
         sizePolicy4.setHorizontalStretch(0);
@@ -526,7 +526,7 @@ public:
         hboxLayout14->addWidget(momentTensor);
 
         label = new QLabel(frame);
-        label->setObjectName(QString::fromUtf8("label"));
+        label->setObjectName(QStringLiteral("label"));
 
         hboxLayout14->addWidget(label);
 
@@ -543,7 +543,7 @@ public:
         vboxLayout3 = new QVBoxLayout();
         vboxLayout3->setSpacing(0);
         vboxLayout3->setContentsMargins(0, 0, 0, 0);
-        vboxLayout3->setObjectName(QString::fromUtf8("vboxLayout3"));
+        vboxLayout3->setObjectName(QStringLiteral("vboxLayout3"));
         vboxLayout4 = new QVBoxLayout();
 #ifndef Q_OS_MAC
         vboxLayout4->setSpacing(6);
@@ -551,9 +551,9 @@ public:
 #ifndef Q_OS_MAC
         vboxLayout4->setContentsMargins(0, 0, 0, 0);
 #endif
-        vboxLayout4->setObjectName(QString::fromUtf8("vboxLayout4"));
+        vboxLayout4->setObjectName(QStringLiteral("vboxLayout4"));
         mw = new QLabel(focalMechanism);
-        mw->setObjectName(QString::fromUtf8("mw"));
+        mw->setObjectName(QStringLiteral("mw"));
         QSizePolicy sizePolicy5(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(0));
         sizePolicy5.setHorizontalStretch(0);
         sizePolicy5.setVerticalStretch(0);
@@ -563,7 +563,7 @@ public:
         vboxLayout4->addWidget(mw);
 
         fmDepth = new QLabel(focalMechanism);
-        fmDepth->setObjectName(QString::fromUtf8("fmDepth"));
+        fmDepth->setObjectName(QStringLiteral("fmDepth"));
         sizePolicy5.setHeightForWidth(fmDepth->sizePolicy().hasHeightForWidth());
         fmDepth->setSizePolicy(sizePolicy5);
 
@@ -594,13 +594,13 @@ public:
         hboxLayout15->setSpacing(6);
 #endif
         hboxLayout15->setContentsMargins(0, 0, 0, 0);
-        hboxLayout15->setObjectName(QString::fromUtf8("hboxLayout15"));
+        hboxLayout15->setObjectName(QStringLiteral("hboxLayout15"));
         spacerItem5 = new QSpacerItem(10, 1, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         hboxLayout15->addItem(spacerItem5);
 
         exportButton = new QPushButton(EventSummary);
-        exportButton->setObjectName(QString::fromUtf8("exportButton"));
+        exportButton->setObjectName(QStringLiteral("exportButton"));
         exportButton->setIconSize(QSize(46, 32));
 
         hboxLayout15->addWidget(exportButton);
@@ -616,46 +616,46 @@ public:
 
     void retranslateUi(QWidget *EventSummary)
     {
-        EventSummary->setWindowTitle(QApplication::translate("EventSummary", "Form", 0, QApplication::UnicodeUTF8));
-        originTime->setText(QApplication::translate("EventSummary", "1970/01/01 - 00:00:00", 0, QApplication::UnicodeUTF8));
-        timeAgo->setText(QApplication::translate("EventSummary", "-", 0, QApplication::UnicodeUTF8));
-        magnitudeText->setText(QApplication::translate("EventSummary", "M", 0, QApplication::UnicodeUTF8));
-        magnitude->setText(QApplication::translate("EventSummary", "-", 0, QApplication::UnicodeUTF8));
-        region->setText(QApplication::translate("EventSummary", "...", 0, QApplication::UnicodeUTF8));
-        nearestCity->setText(QApplication::translate("EventSummary", "200 km SW of City XYZ", 0, QApplication::UnicodeUTF8));
-        depthText->setText(QApplication::translate("EventSummary", "Depth", 0, QApplication::UnicodeUTF8));
-        depth->setText(QApplication::translate("EventSummary", "-", 0, QApplication::UnicodeUTF8));
-        latitude->setText(QApplication::translate("EventSummary", "-", 0, QApplication::UnicodeUTF8));
-        longitude->setText(QApplication::translate("EventSummary", "-", 0, QApplication::UnicodeUTF8));
+        EventSummary->setWindowTitle(QApplication::translate("EventSummary", "Form", Q_NULLPTR));
+        originTime->setText(QApplication::translate("EventSummary", "1970/01/01 - 00:00:00", Q_NULLPTR));
+        timeAgo->setText(QApplication::translate("EventSummary", "-", Q_NULLPTR));
+        magnitudeText->setText(QApplication::translate("EventSummary", "M", Q_NULLPTR));
+        magnitude->setText(QApplication::translate("EventSummary", "-", Q_NULLPTR));
+        region->setText(QApplication::translate("EventSummary", "...", Q_NULLPTR));
+        nearestCity->setText(QApplication::translate("EventSummary", "200 km SW of City XYZ", Q_NULLPTR));
+        depthText->setText(QApplication::translate("EventSummary", "Depth", Q_NULLPTR));
+        depth->setText(QApplication::translate("EventSummary", "-", Q_NULLPTR));
+        latitude->setText(QApplication::translate("EventSummary", "-", Q_NULLPTR));
+        longitude->setText(QApplication::translate("EventSummary", "-", Q_NULLPTR));
         type->setText(QString());
         labelOpComment->setText(QString());
-        thisLocationText->setText(QApplication::translate("EventSummary", "Location:", 0, QApplication::UnicodeUTF8));
-        phaseCountText->setText(QApplication::translate("EventSummary", "Phases:", 0, QApplication::UnicodeUTF8));
-        phaseCount->setText(QApplication::translate("EventSummary", "-", 0, QApplication::UnicodeUTF8));
-        azimuthalGapText->setText(QApplication::translate("EventSummary", "Az. Gap:", 0, QApplication::UnicodeUTF8));
-        azimuthalGap->setText(QApplication::translate("EventSummary", "-", 0, QApplication::UnicodeUTF8));
-        rmsText->setText(QApplication::translate("EventSummary", "RMS Res.:", 0, QApplication::UnicodeUTF8));
-        rms->setText(QApplication::translate("EventSummary", "-", 0, QApplication::UnicodeUTF8));
-        minimumDistanceText->setText(QApplication::translate("EventSummary", "Min. Dist.:", 0, QApplication::UnicodeUTF8));
-        minimumDistance->setText(QApplication::translate("EventSummary", "-", 0, QApplication::UnicodeUTF8));
-        maximumDistanceText->setText(QApplication::translate("EventSummary", "Max. Dist.:", 0, QApplication::UnicodeUTF8));
-        maximumDistance->setText(QApplication::translate("EventSummary", "-", 0, QApplication::UnicodeUTF8));
-        firstLocationText->setText(QApplication::translate("EventSummary", "First Location:", 0, QApplication::UnicodeUTF8));
-        firstLocation->setText(QApplication::translate("EventSummary", "-", 0, QApplication::UnicodeUTF8));
-        eventIDText->setText(QApplication::translate("EventSummary", "Event ID:", 0, QApplication::UnicodeUTF8));
-        eventID->setText(QApplication::translate("EventSummary", "-", 0, QApplication::UnicodeUTF8));
-        originIDText->setText(QApplication::translate("EventSummary", "Origin ID:", 0, QApplication::UnicodeUTF8));
-        originID->setText(QApplication::translate("EventSummary", "-", 0, QApplication::UnicodeUTF8));
-        originIDText_2->setText(QApplication::translate("EventSummary", "Agency ID:", 0, QApplication::UnicodeUTF8));
-        agencyID->setText(QApplication::translate("EventSummary", "-", 0, QApplication::UnicodeUTF8));
-        state->setText(QApplication::translate("EventSummary", "-", 0, QApplication::UnicodeUTF8));
-        mode->setText(QApplication::translate("EventSummary", "-", 0, QApplication::UnicodeUTF8));
+        thisLocationText->setText(QApplication::translate("EventSummary", "Location:", Q_NULLPTR));
+        phaseCountText->setText(QApplication::translate("EventSummary", "Phases:", Q_NULLPTR));
+        phaseCount->setText(QApplication::translate("EventSummary", "-", Q_NULLPTR));
+        azimuthalGapText->setText(QApplication::translate("EventSummary", "Az. Gap:", Q_NULLPTR));
+        azimuthalGap->setText(QApplication::translate("EventSummary", "-", Q_NULLPTR));
+        rmsText->setText(QApplication::translate("EventSummary", "RMS Res.:", Q_NULLPTR));
+        rms->setText(QApplication::translate("EventSummary", "-", Q_NULLPTR));
+        minimumDistanceText->setText(QApplication::translate("EventSummary", "Min. Dist.:", Q_NULLPTR));
+        minimumDistance->setText(QApplication::translate("EventSummary", "-", Q_NULLPTR));
+        maximumDistanceText->setText(QApplication::translate("EventSummary", "Max. Dist.:", Q_NULLPTR));
+        maximumDistance->setText(QApplication::translate("EventSummary", "-", Q_NULLPTR));
+        firstLocationText->setText(QApplication::translate("EventSummary", "First Location:", Q_NULLPTR));
+        firstLocation->setText(QApplication::translate("EventSummary", "-", Q_NULLPTR));
+        eventIDText->setText(QApplication::translate("EventSummary", "Event ID:", Q_NULLPTR));
+        eventID->setText(QApplication::translate("EventSummary", "-", Q_NULLPTR));
+        originIDText->setText(QApplication::translate("EventSummary", "Origin ID:", Q_NULLPTR));
+        originID->setText(QApplication::translate("EventSummary", "-", Q_NULLPTR));
+        originIDText_2->setText(QApplication::translate("EventSummary", "Agency ID:", Q_NULLPTR));
+        agencyID->setText(QApplication::translate("EventSummary", "-", Q_NULLPTR));
+        state->setText(QApplication::translate("EventSummary", "-", Q_NULLPTR));
+        mode->setText(QApplication::translate("EventSummary", "-", Q_NULLPTR));
         momentTensor->setText(QString());
         label->setText(QString());
-        mw->setText(QApplication::translate("EventSummary", "-", 0, QApplication::UnicodeUTF8));
-        fmDepth->setText(QApplication::translate("EventSummary", "-", 0, QApplication::UnicodeUTF8));
+        mw->setText(QApplication::translate("EventSummary", "-", Q_NULLPTR));
+        fmDepth->setText(QApplication::translate("EventSummary", "-", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        exportButton->setToolTip(QApplication::translate("EventSummary", "Run configured script with current event", 0, QApplication::UnicodeUTF8));
+        exportButton->setToolTip(QApplication::translate("EventSummary", "Run configured script with current event", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         exportButton->setText(QString());
     } // retranslateUi

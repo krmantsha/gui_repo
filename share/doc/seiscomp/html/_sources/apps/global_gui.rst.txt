@@ -25,7 +25,7 @@ Styling
 
 To adjust the look-and-feel to the host desktop system and the personal taste
 several styling options are available. Since all GUI applications are using the
-Qt4 or QT5 library, the tool "qtconfig-qt4" can used to adjust the widget theme and the
+Qt library, the tool "qtconfig" can used to adjust the widget theme and the
 colors. If KDE is used as desktop system, the same style is used since KDE
 bases on Qt as well.
 
@@ -431,7 +431,7 @@ Layer configuration
 ~~~~~~~~~~~~~~~~~~~
 
 Layers may be grouped into categories and form a hierarchy. The categories of the
-geo feature data are derived from the feature directory structure, i.e. the names
+geo feature data are derived from the feature directory structure, i.e., the names
 of the directories below the feature directory, e.g., :file:`@DATADIR@/spatial/vector`.
 Feature data directly located within the feature directory have no special category.
 The FEP data set is assigned to the fep category.
@@ -588,8 +588,10 @@ Available map layer configuration parameters for each category are:
    Type: *string*
 
    The area in the map where the legend will be displayed.
-   Valid values are *topleft*, *topright*, *bottomleft* and
-   *bottomright*.
+   Valid values are
+   *topleft*, *topcenter*, *topright*,
+   *centerleft*, *center*, *centerright*,
+   *bottomleft*, *bottomcenter* and *bottomright*.
 
    Default is ``topleft``.
 
@@ -619,18 +621,19 @@ Available map layer configuration parameters for each category are:
 
    Type: *int*
 
-   Sets the roughness of a polyline or polygon while zooming. The roughness
-   is somehow defined in pixels and removes successive vertices if the distance
-   in pixel is less than roughness. The higher the value the less vertices
-   a rendered polyline or polygon will finally have and the faster the rendering.
-   If set to 0 then the feature is disabled.
+   Sets the roughness of a polyline or polygon in pixels. The higher the value
+   the less vertices are rendered. A vertex is skipped if its pixel distance to
+   the previous vertex is less than roughness. In any case the first and last
+   vertex of a feature or subfeaure is drawn.
+
    Default is ``3``.
 
 .. confval:: symbol.size
 
    Type: *int*
 
-   In case of single points, this specifies the size of the symbol in pixels.
+   The size of a symbol in pixels. Requires either :confval:`symbol.shape` or
+   :confval:`symbol.icon` to be configured.
 
    Default is ``8``.
 
@@ -638,18 +641,20 @@ Available map layer configuration parameters for each category are:
 
    Type: *string*
 
-   In case of single points, this specifies the shape of the symbol. Valid
-   values are *circle* and *square*.
-
-   Default is ``circle``.
+   Instead of drawing points, lines or polygons, the given shape is rendered
+   for each vertex of a feature. Supported values are *circle*, *triangle*,
+   *square*, *diamond* and *none*. The shape is scaled to
+   :confval:`symbol.size`.
 
 .. confval:: symbol.icon
 
    Type: *string*
 
-   In case of single points this specifies the path to an image used as
-   icon to represent the map location. The image is scaled to :confval:`symbol.size`
-   if it is larger than zero otherwise the origin size is being used.
+   Instead of drawing points, lines or polygons, the given icon is rendered for
+   each vertex of a feature. If the string starts on a ``/`` it is interpreted as
+   an absolute path else it is resolved relative to the directory containing the
+   vector data. The image is scaled to :confval:`symbol.size` if ``size`` is
+   larger than zero otherwise the original image size is used.
 
 .. confval:: symbol.icon.hotspot.x
 
@@ -669,6 +674,26 @@ Available map layer configuration parameters for each category are:
    starting at top.
 
    Default is ``0``.
+
+.. confval:: symbol.name.alignment
+
+   Type: *string*
+
+   Alignment of the symbols name used in combination with :confval:`drawName`,
+   :confval:`symbol.size` and :confval:`symbol.name.margin`. Valid values are
+   *topleft*, *topcenter*, *topright*,
+   *centerleft*, *center*, *centerright*,
+   *bottomleft*, *bottomcenter* and *bottomright*.
+
+   Default is ``topcenter``.
+
+.. confval:: symbol.name.margin
+
+   Type: *int*
+
+   Margin in pixel between symbol and its name.
+
+   Default is ``3``.
 
 .. confval:: debug
 
@@ -1185,6 +1210,15 @@ Module Configuration
    e.g. \"GEOFON:black, USGS:blue\".
 
 
+.. confval:: scheme.colors.spectrogram
+
+   Type: *gradient*
+
+   The color gradient of the spectrogram amplitudes.
+   The node values are not important as they will be
+   projected onto the desired amplitude range.
+
+
 .. confval:: scheme.colors.map.lines
 
    Type: *color*
@@ -1233,6 +1267,42 @@ Module Configuration
    Type: *color*
 
    The color of a \"normal\" city.
+
+
+.. note::
+   **scheme.colors.map.directivity.\***
+   *Defines the pen of the directivity information*
+   *(backazimuth and slowness) in the map.*
+
+
+
+.. confval:: scheme.colors.map.directivity.color
+
+   Default: ``FFA000``
+
+   Type: *color*
+
+   The color of the pen.
+
+
+.. confval:: scheme.colors.map.directivity.style
+
+   Default: ``DotLine``
+
+   Type: *string*
+
+   The style of the pen. Supported values are: NoPen, SolidLine, DashLine, DotLine, DashDotLine, DashDotDotLine.
+
+
+.. confval:: scheme.colors.map.directivity.width
+
+   Default: ``1``
+
+   Type: *double*
+
+   Unit: *px*
+
+   The width of the pen.
 
 
 .. note::
@@ -2402,7 +2472,7 @@ Module Configuration
 .. note::
    **scheme.fonts.base.\***
    *The general base font of an application. This overrides*
-   *the default Qt4 application font.*
+   *the default Qt application font.*
 
 
 

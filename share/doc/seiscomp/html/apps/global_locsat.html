@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -87,7 +87,7 @@ source time and hypocenter coordinates from phase picks considering:</p>
 <li><p>Phase-specfic travel-time tables.</p></li>
 </ul>
 <p>The LOCSAT <a class="reference internal" href="#locsat-li"><span class="std std-ref">locator interface</span></a> implements a wrapper for the
-LocSAT locator by <span id="id1">Bratt and Nagy [<a class="reference internal" href="../base/references.html#id21" title="S.R. Bratt and W. Nagy. The LocSAT Program. Science Applications International Corporation (SAIC), San Diego, 1991.">39</a>]</span> (according to the README file shipped
+LocSAT locator by <span id="id1">Bratt and Nagy [<a class="reference internal" href="../base/references.html#id21" title="S.R. Bratt and W. Nagy. The LocSAT Program. Science Applications International Corporation (SAIC), San Diego, 1991.">42</a>]</span> (according to the README file shipped
 with the LocSAT distribution) referred to as <strong>LOCSAT</strong> in <cite>SeisComP</cite>. The LOCSAT
 <a class="reference internal" href="#locsat-tti"><span class="std std-ref">travel-time interface</span></a> provides travel time for specfic
 phases, epicentral distance, soure depth and station elevation.</p>
@@ -165,7 +165,7 @@ elevations. At least checking the code:</p>
 <p>However, the <cite>SeisComP</cite> wrapper adds this feature. It allows to define a
 <code class="file docutils literal notranslate"><span class="pre">.stacor</span></code> file which defines emperic corrections of observed travel times.
 The corrections are provided in seconds and <strong>subtracted</strong> (not added) from
-the observation time to be compatible with the NonLinLoc <span id="id2">[<a class="reference internal" href="../base/references.html#id165" title="A. Lomax. The NonLinLoc Software Guide. Manual. URL: http://alomax.free.fr/nlloc/.">49</a>]</span>
+the observation time to be compatible with the NonLinLoc <span id="id2">[<a class="reference internal" href="../base/references.html#id168" title="A. Lomax. The NonLinLoc Software Guide. Manual. URL: http://alomax.free.fr/nlloc/.">52</a>]</span>
 station correction definitions.</p>
 <p>Each LOCSAT profile (travel time table) can have one associated station
 correction file. E.g. for adding station corrections to the iasp91 tables, the
@@ -201,7 +201,7 @@ default profile. However, LOCSAT can be used optionally in other modules such as
 <ol class="arabic">
 <li><p>Generate your travel-time tables from a custom Earth model, depth and
 distance intervals. Use the same format as the defaults as the <em>iasp91</em>
-tables. Tools such as <span id="id3"></span> allow the generation.</p></li>
+tables. Tools such as <span id="id3"><em>TauP</em> [<a class="reference internal" href="../base/references.html#id271" title="TauP. Toolkit for seismic travel times. URL: https://www.seis.sc.edu/taup/.">25</a>]</span> allow the generation.</p></li>
 <li><p>Add your custom travel-time tables along with station corrections to
 <code class="file docutils literal notranslate"><span class="pre">&#64;DATADIR&#64;/locsat/tables/</span></code></p></li>
 <li><p>Add your available custom LOCSAT travel-time tables in global configuration,
@@ -416,7 +416,7 @@ controlled with      this parameter.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

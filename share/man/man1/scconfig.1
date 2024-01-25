@@ -27,51 +27,54 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "SCCONFIG" "1" "Jan 18, 2024" "5.5.17" "SeisComP"
+.TH "SCCONFIG" "1" "Jan 18, 2024" "6.1.2" "SeisComP"
 .SH NAME
 scconfig \- SeisComP Documentation
 .sp
-\fBConfiguration and system managment frontend.\fP
+\fBConfiguration and system management frontend.\fP
 .SH DESCRIPTION
 .sp
-scconfig is a graphical user interface which allows to configure all SeisComP
-modules for which descriptions are provided.
+scconfig is a graphical user interface which allows to
+.INDENT 0.0
+.IP \(bu 2
+Retrieve \fI\%information\fP about the installed \fISeisComP\fP
+system,
+.IP \(bu 2
+\fI\%Control modules\fP (start/stop/check/enable/disable) and
+access logging file,
+.IP \(bu 2
+\fI\%Import, check, synchronize and remove\fP station meta
+data/inventory,
+.IP \(bu 2
+Configure the \fI\%module configuration\fP and
+\fI\%bindings\fP all SeisComP modules for which descriptions
+are provided,
+.IP \(bu 2
+Access the \fI\%documentation and the changelog\fP\&.
+.UNINDENT
 .sp
 The modules are usually programs part of the SeisComP system and have two
 distinct types of configuration:
 .INDENT 0.0
-.IP 1. 3
-Modules configuration, or just program configuration (like the \fBscautopick.cfg\fP file).
-.IP 2. 3
-Station bindings, that are set of parameters to configure how the module will treat a certain station. I.e. Station specific configurations per module.
+.IP \(bu 2
+\fI\%Modules configuration\fP, or just program
+configuration stored in file like \fBscautopick.cfg\fP\&.
+.IP \(bu 2
+\fI\%Bindings\fP, that are set of parameters to configure
+how the module will treat a certain station. I.e. station\-specific
+configurations per module. Bindings can be configured using profiles, or
+directly per station. A profile is a named set of parameters for a certain
+module that can be attributed for more than one station. Using profiles makes
+it easiear to maintain large number of station configuration. When two stations
+are configured by the same profile, both will have the same parameter set for
+a certain module.
 .UNINDENT
-.sp
-The bindings configuration can be done using profiles, or directly per station.
-.sp
-A profile is a named set of parameters for a certain module that can be
-attributed for more than one station. Using profiles makes it easiear to
-maintain large number of station configuration. When two stations are configured
-by the same profile, both will have the same parameter set for a certain module.
 .sp
 scconfig does not know anything about the SeisComP database, the only thing it
-can do is actually read and write the content of files from \fBetc/\fP and
-\fB~/.seiscomp\fP folder and allow you to manage this information in organized
-and friendly manner. Also, it relies on other application (like the proper
-\fBseiscomp\fP command) to complete the system configuration. The main
-tasks that it can handle today are:
-.INDENT 0.0
-.IP \(bu 2
-start/stop/check all registered modules
-.IP \(bu 2
-import station metadata from various sources
-.IP \(bu 2
-configure modules
-.IP \(bu 2
-configure module bindings
-.UNINDENT
-.sp
-In the future, it could accumulate more tasks like inventory editor and even
-more advanced system monitoring and log inspection.
+can do is to actually read and write the content of files from \fBetc/\fP and
+\fB~/.seiscomp\fP folder. It allows you to manage this information in an
+organized and friendly manner. Also, it relies on other applications like the
+proper \fI\%seiscomp\fP tool to complete the system configuration.
 .SS First start
 .sp
 If scconfig is started for the first time it will ask the user to setup
@@ -82,8 +85,8 @@ its new installation.
 .UNINDENT
 .UNINDENT
 .sp
-If done already with the \fI\%command line interface\fP
-this step can be skipped. If the setup has been run already is indicated by
+If done already with the \fI\%command line interface\fP,
+this step can be skipped. If the setup has been run already, is indicated by
 the presence of the file \fBvar/run/seiscomp.init\fP\&.
 .sp
 If pressing yes, the setup wizard will be started and will configure exactly
@@ -131,20 +134,20 @@ green: title and description of current panel
 blue: the content and interactive screen of the current panel
 .UNINDENT
 .sp
-The main menu contains two entries: File and Edit\&.
+The Main menu contains two entries: File and Edit\&.
 .sp
 The file menu allows to run the setup wizard (Wizard), to reload
 the configuration (Reload), to save the
 configuration (Save) and to close the configuration (Quit).
 .sp
-The edit menu allows to switch the current configuration mode. Pressing the
+The Edit menu allows to switch the current configuration mode. Pressing the
 switch button in the upper left corner (red box) is a shortcut for this operation.
 .SS Information panel
 .sp
-This panel shows information about the SeisComP environment
-(see figure \fI\%main window\fP). All variables (except PATH) can
-be used as placeholders in most of the configuration parameters which define
-directories or files, e.g.:
+This panel shows information about the \fISeisComP\fP environment
+(see figure \fI\%main window\fP). All variables
+(except PATH) can be used as placeholders in most of the configuration
+parameters which define directories or files, e.g.:
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -211,11 +214,24 @@ Calls \fBseiscomp update\-config\fP\&. This is important after the
 module configuration or bindings have changed and before restarting the
 affected modules.
 .UNINDENT
+.sp
+For applying an action to all modules deselect any modules selection pressing
+\fBESC\fP and press the corresponding action button. When one ore multiple
+modules are selected, the action is only applied to those.
+.sp
+To open the most recent log files of modules right click on the module name and
+select the available log.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+.UNINDENT
+.UNINDENT
 .SS Inventory panel
 .sp
-The inventory panel allows to import and synchronize inventory files. It shows
+The inventory panel allows to import, check and synchronize inventory files as
+well as to inspect the content or to rename or remove the files. The panel shows
 a list of inventory XML files located in folder \fBetc/inventory\fP\&. Only
-SeisComP XML files be used as source for inventory data but various importers
+\fI\%SCML\fP files can be used as source for inventory data but various importers
 exist to integrate inventory data from other formats. After the first start
 the list is empty and contains only a README file.
 .INDENT 0.0
@@ -223,6 +239,9 @@ the list is empty and contains only a README file.
 [image]
 .UNINDENT
 .UNINDENT
+.sp
+Importing station meta data is outlined in the
+\fI\%tutorial on adding a station\fP\&.
 .sp
 One source of importing inventory information is ArcLink as run at
 \fI\%http://www.webdc.eu\fP\&. After downloading the inventory XML file from ArcLink it
@@ -252,15 +271,40 @@ the import output.
 .UNINDENT
 .UNINDENT
 .sp
-After closing the popup the new file will show up in the list.
+After closing the popup the imported inventory file will show up in the list of
+files. Selecting a files by right\-clicking allows:
+.INDENT 0.0
+.IP \(bu 2
+Renaming,
+.IP \(bu 2
+Deleting,
+.IP \(bu 2
+Inspecting the content of
+.UNINDENT
+.sp
+the file.
 .INDENT 0.0
 .INDENT 2.5
 [image]
 .UNINDENT
 .UNINDENT
 .sp
-The toolbar support 3 additional actions:
+The toolbar support 4 additional actions:
 .INDENT 0.0
+.TP
+.B \fICheck inventory\fP
+The inventory is checked for issues including inconsistencies wich are reported.
+The tests are based on \fI\%scinv\fP and listed in the documentation of this
+module. Adjust sensitivity by configuring \fI\%scinv\fP\&.
+.TP
+.B \fISync keys\fP
+This action is part of sync but can be called also standalone. It merges all
+inventory XML files and creates key files in \fBetc/key/station_*\fP if a
+key file does not yet exist. Existing key files are not touched unless the
+station is not part of the inventory anymore.
+.sp
+As a result, all stations in inventory will have a corresponding key file and
+each key file will have a corresponding station in inventory.
 .TP
 .B \fITest sync\fP
 The inventory XML files are not used directly with SeisComP. They need to
@@ -281,15 +325,6 @@ database.
 .B \fISync\fP
 Almost identical to \fITest sync\fP but it does send updates to the database and
 additionally synchronizes key files and resource files.
-.TP
-.B \fISync keys\fP
-This action is part of sync but can be called also standalone. It merges all
-inventory XML files and creates key files in \fBetc/key/station_*\fP if a
-key file does not yet exist. Existing key files are not touched unless the
-station is not part of the inventory anymore.
-.sp
-As a result, all stations in inventory will have a corresponding key file and
-each key file will have a corresponding station in inventory.
 .UNINDENT
 .sp
 \fISync\fP and \fISync keys\fP will cause a reload of the configuration to refresh the
@@ -306,18 +341,42 @@ The modules panel allows configuration of all registered modules.
 The left/green part shows the list of available modules grouped by defined
 categories and the right/blue part shows the current active module configuration.
 The active configuration corresponds to the selected item in the list. See
-section \fI\%Editing\fP for further information about the content panel.
+section \fI\%Editing parameters\fP for further information about the content panel.
 .SS Bindings panel
 .sp
-The binding panel configures a station for a module.
+The binding panel configures a station for a module providing station\-specific
+configuration such as data acquisition or processing. You may configure station
+bindings or binding profiles. The profiles are typically applied to a set of
+station. Any change in the profile parameters apply to all stations bound to it.
+.sp
+\fBHINT:\fP
+.INDENT 0.0
+.INDENT 3.5
+Working with \fI\%bindings profiles\fP allows to
+maintain a single set of binding parameters for one or multiple stations.
+\fI\%Station bindings\fP are useful if a set of
+binding parameters are applied only to a single station. Otherwise configure
+\fI\%binding profiles\fP\&.
+\fI\%Profiles\fP are therefore preferred over
+\fI\%station bindings\fP unless only one single
+station shall be configured.
+.UNINDENT
+.UNINDENT
 .INDENT 0.0
 .INDENT 2.5
 [image]
 .UNINDENT
 .UNINDENT
 .sp
-It is separated into 3 main areas: the station tree (red + orange), the
-binding content (green) and the module tree (blue + magenta).
+The binding panel is separated into 3 main areas:
+.INDENT 0.0
+.IP \(bu 2
+the station tree (red + orange),
+.IP \(bu 2
+the binding content (green),
+.IP \(bu 2
+the module tree (blue + magenta).
+.UNINDENT
 .sp
 The station tree (red) shows a tree of all available networks and their
 stations. Each stations contains nodes of its configured bindings. The lower
@@ -325,7 +384,7 @@ view (orange) represents the content of the currently selected item in the
 station tree.
 .sp
 The binding content shows the content of a binding and is similar to the
-module configuration content. See section \fI\%Editing\fP for further
+module configuration content. See section \fI\%Editing parameters\fP for further
 information about this panel.
 .sp
 The module tree contains all modules which can be used along with bindings.
@@ -333,6 +392,29 @@ The upper/blue window contains the modules and all available binding profiles
 for each module and the lower/magenta part shows all binding profiles of the
 currently selected module. This view is used to add new profiles and delete
 existing profiles.
+.SS Profiles
+.SS Create a profile
+.sp
+For creating a binding profile select a module in the module tree (blue area)
+and right\-click on the module or select the \(dqadd\(dq button in the lower (magenta)
+panel. Provide a descriptive name. Clicking on the name of the profile opens the
+profile allowing to adjust the parameters.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+.UNINDENT
+.UNINDENT
+.SS Create bindings
+.sp
+Assigning a binding profile to one or more stations creates one or more bindings.
+To assign a binding profile to a single station, a single network including all
+stations or all networks drag a profile from the right part (blue or magenta)
+to the target in the left part (red or orange).
+.sp
+For assigning to a set of stations/networks, select the target first by mouse
+click and then drag to profile onto the selection.
+.sp
+It is also possible to drag and drop multiple profiles with one action.
 .SS Station bindings
 .sp
 To create an exclusive station binding for a module, it must be opened in the
@@ -357,17 +439,43 @@ profile will be converted into a station binding and activated for editing.
 [image]
 .UNINDENT
 .UNINDENT
-.SS Profiles
+.SS Applying bindings
 .sp
-To assign a binding profile to a station, a network or a set of stations/networks,
-drag a profile from the right part (blue or magenta) to the left part (red or
-orange). It is also possible to drag and drop multiple profiles with one action.
-.SS Editing
+The bindings parameters must be additionally written to the database or as for a
+\fI\%standalone module\fP converted to the specific module configuration by
+updating the configuration. You may update configuration for all modules or just
+the specific one. To this end, change to the
+\fI\%System panel\fP select the specific module or none and
+press the button \(dq\fIUpdate configuration\fP\(dq.
+.sp
+Alternatively, execute the \fI\%seiscomp\fP script on the command line or all or
+the specific module:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp update\-config
+seiscomp update\-config module
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Editing parameters
 .sp
 The content panel of a configuration is organized as a tree. Each module/binding
 name is a toplevel item and all namespace are titles of collapsible sections.
-Namespaces are separated by dot in the configuration file, e.g.: scautopick.cfg
-which also reads global.cfg would end up in a tree like this:
+Namespaces are separated by dot in the configuration file, e.g.
+:file:
+.nf
+\(ga
+.fi
+scautopick.cfg which also reads :file:
+.nf
+\(ga
+.fi
+global.cfg would end up in a tree
+like this:
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -440,6 +548,15 @@ and will color the input widget red in such situations.
 The value in the edit widget will show the currently configured value in the
 active configuration file but the tooltip will show the evaluated value, the
 location of the definition and a warning.
+.SS Documentation and changelog
+.sp
+Access the documentation and the changelog of any installad package from the
+Docs panel.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+.UNINDENT
+.UNINDENT
 .SH AUTHOR
 gempa GmbH, GFZ Potsdam
 .SH COPYRIGHT

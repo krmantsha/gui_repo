@@ -110,7 +110,8 @@ struct SC_SYSTEM_CLIENT_API Notification {
 		Reconnect,
 		Close,
 		Timeout,
-		AcquisitionFinished
+		AcquisitionFinished,
+		StateOfHealth
 	};
 
 	Notification() : object(nullptr), type(Object) {}
@@ -147,6 +148,8 @@ class SC_SYSTEM_CLIENT_API Application : public System::Application {
 		enum ClientStage {
 			MESSAGING = System::Application::ST_QUANTITY,
 			DATABASE  = System::Application::ST_QUANTITY + 1,
+			CONFIGMODULE = System::Application::ST_QUANTITY + 2,
+			INVENTORY = System::Application::ST_QUANTITY + 3,
 			CST_QUANTITY
 		};
 
@@ -202,12 +205,14 @@ class SC_SYSTEM_CLIENT_API Application : public System::Application {
 		//! Returns the application's database interface
 		IO::DatabaseInterface *database() const;
 
+		void setDatabaseURI(const std::string &uri);
 		//! Returns the application's database URI
 		const std::string &databaseURI() const;
 
 		//! Returns the application's database query interface
 		DataModel::DatabaseQuery *query() const;
 
+		void setRecordStreamURL(const std::string &url);
 		//! Returns the configures recordstream URL to be used by
 		//! RecordStream::Open()
 		const std::string &recordStreamURL() const;
@@ -530,6 +535,8 @@ class SC_SYSTEM_CLIENT_API Application : public System::Application {
 		 */
 		bool readMessages();
 
+		void stateOfHealth();
+
 		/**
 		 * This method gets called when a previously started timer timeout's.
 		 * The timer has to be started by enableTimer(timeout).
@@ -611,6 +618,7 @@ class SC_SYSTEM_CLIENT_API Application : public System::Application {
 		bool processEvent();
 
 		void timeout();
+		void stateOfHealthTimeout();
 
 		void monitorLog(const Core::Time &timestamp, std::ostream &os);
 
@@ -655,6 +663,12 @@ class SC_SYSTEM_CLIENT_API Application : public System::Application {
 			Util::StringFirewall networkTypeFirewall;
 			Util::StringFirewall stationTypeFirewall;
 
+			struct SOH {
+				void accept(SettingsLinker &linker);
+
+				int              interval{60};
+			}                    soh;
+
 			struct Database {
 				void accept(SettingsLinker &linker);
 
@@ -672,10 +686,10 @@ class SC_SYSTEM_CLIENT_API Application : public System::Application {
 			struct Inventory {
 				void accept(SettingsLinker &linker);
 
-				StringVector netTypeWhitelist;
-				StringVector netTypeBlacklist;
-				StringVector staTypeWhitelist;
-				StringVector staTypeBlacklist;
+				StringVector netTypeAllowlist;
+				StringVector netTypeBlocklist;
+				StringVector staTypeAllowlist;
+				StringVector staTypeBlocklist;
 			}                    inventory;
 
 			// Messaging
@@ -719,9 +733,11 @@ class SC_SYSTEM_CLIENT_API Application : public System::Application {
 			struct Processing {
 				void accept(SettingsLinker &linker);
 
-				StringVector         agencyWhitelist;
-				StringVector         agencyBlacklist;
+				StringVector         agencyAllowlist;
+				StringVector         agencyBlocklist;
 				Util::StringFirewall firewall;
+				StringVector         magnitudeAliases;
+
 			}                    processing;
 
 			struct Cities {
@@ -745,6 +761,8 @@ class SC_SYSTEM_CLIENT_API Application : public System::Application {
 		ConnectionPtr                _connection;
 		IO::DatabaseInterfacePtr     _database;
 		Util::Timer                  _userTimer;
+		Util::Timer                  _sohTimer;
+		Core::Time                   _sohLastUpdate;
 
 		std::mutex                   _objectLogMutex;
 };

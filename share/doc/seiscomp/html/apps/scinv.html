@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -88,7 +88,7 @@ inventory from <code class="file docutils literal notranslate"><span class="pre"
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>Inventory files in <a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> format may be generated or modified by
-<span id="id2"><em>SMP</em> [<a class="reference internal" href="../base/references.html#id262" title="SMP. Station Management Portal by gempa GmbH. URL: https://smp.gempa.de/.">21</a>]</span> or <a class="reference internal" href="invextr.html#invextr"><span class="std std-ref">invextr</span></a>. For conversion from FDSN station XML and
+<span id="id2"><em>SMP</em> [<a class="reference internal" href="../base/references.html#id265" title="SMP. Station Management Portal by gempa GmbH. URL: https://smp.gempa.de/.">22</a>]</span> or <a class="reference internal" href="invextr.html#invextr"><span class="std std-ref">invextr</span></a>. For conversion from FDSN station XML and
 dataless SEED volume to <a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> use <a class="reference internal" href="fdsnxml2inv.html#fdsnxml2inv"><span class="std std-ref">fdsnxml2inv</span></a> and
 <a class="reference internal" href="dlsv2inv.html#dlsv2inv"><span class="std std-ref">dlsv2inv</span></a>, respectively.</p>
 </div>
@@ -275,260 +275,8 @@ results.</p>
 <ul class="simple">
 <li><p>This test matrix may be incomplete. Consider adding more tests and results.</p></li>
 <li><p>Please report inventory issues not caught by tests to the SeisComP
-development team, e.g. on <span id="id3"><em>SeisComP on GitHub</em> [<a class="reference internal" href="../base/references.html#id252" title="Seiscomp on github. URL: https://github.com/SeisComP.">1</a>]</span>.</p></li>
+development team, e.g. on <span id="id3"><em>SeisComP on GitHub</em> [<a class="reference internal" href="../base/references.html#id255" title="Seiscomp on github. URL: https://github.com/SeisComP.">1</a>]</span>.</p></li>
 </ul>
-<table class="docutils align-left">
-<colgroup>
-<col style="width: 9.1%" />
-<col style="width: 27.3%" />
-<col style="width: 4.5%" />
-<col style="width: 59.1%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Object</p></th>
-<th class="head"><p>Check description</p></th>
-<th class="head"><p>Alert</p></th>
-<th class="head"><p>Comments</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>network</p></td>
-<td><p>start time after end time</p></td>
-<td><p>!</p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td><p>network without station</p></td>
-<td><p>W</p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td></td>
-<td><p>empty start time</p></td>
-<td></td>
-<td><p>handled by SeisComP inventory reader: network is ignored</p></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td><p>empty station</p></td>
-<td><p>W</p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td></td>
-<td><p>empty code</p></td>
-<td><p>W</p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>station</p></td>
-<td><p>start time after end time</p></td>
-<td><p>!</p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td><p>empty or no start time</p></td>
-<td><p>W</p></td>
-<td><p>station is ignored</p></td>
-</tr>
-<tr class="row-even"><td></td>
-<td><p>start time after end time</p></td>
-<td><p>!</p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td><p>empty code</p></td>
-<td><p>W</p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td></td>
-<td><p>empty latitude</p></td>
-<td><p>W</p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td><p>empty longitude</p></td>
-<td><p>W</p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td></td>
-<td><p>empty elevation</p></td>
-<td><p>W</p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td><p>elevation &gt;   8900</p></td>
-<td><p>!</p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td></td>
-<td><p>elevation &lt; -12000</p></td>
-<td><p>!</p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td><p>has no sensor location</p></td>
-<td><p>W</p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>sensorLocation</p></td>
-<td><p>coordinates far away from station</p></td>
-<td><p>W</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">--distance</span></code> overrides default threshold (10 km)</p></td>
-</tr>
-<tr class="row-even"><td></td>
-<td><p>elevation far away from station</p></td>
-<td><p>W</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">--max-elevation-difference</span></code> overrides default threshold (500 m)</p></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td><p>epoch outside network epochs</p></td>
-<td><p>C</p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td></td>
-<td><p>epoch outside station epochs</p></td>
-<td><p>C</p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td><p>empty or no start time</p></td>
-<td><p>W</p></td>
-<td><p>sensorLocation is ignored</p></td>
-</tr>
-<tr class="row-even"><td></td>
-<td><p>empty latitude</p></td>
-<td><p>W</p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td><p>empty longitude</p></td>
-<td><p>W</p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td></td>
-<td><p>elevation &gt;   8900</p></td>
-<td><p>!</p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td><p>elevation &lt; -12000</p></td>
-<td><p>!</p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td></td>
-<td><p>empty or no elevation</p></td>
-<td><p>W</p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td><p>has no channel/stream</p></td>
-<td><p>W</p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>stream</p></td>
-<td><p>empty or no start time</p></td>
-<td></td>
-<td><p>handled by SeisComP inventory reader: stream is ignored</p></td>
-</tr>
-<tr class="row-even"><td></td>
-<td><p>empty azimuth</p></td>
-<td><p>C</p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td><p>epoch outside sensorLocation</p></td>
-<td><p>C</p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td></td>
-<td><p>epoch outside station</p></td>
-<td><p>C</p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td><p>epoch outside network</p></td>
-<td><p>C</p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td></td>
-<td><p>start time after end time</p></td>
-<td><p>C</p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td><p>missing gain value</p></td>
-<td><p>W</p></td>
-<td><p>empty value is handled by SeisComP inventory reader</p></td>
-</tr>
-<tr class="row-even"><td></td>
-<td><p>gain value = 0</p></td>
-<td><p>W</p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td><p>missing gain unit</p></td>
-<td><p>W</p></td>
-<td><p>empty value is handled by SeisComP inventory reader</p></td>
-</tr>
-<tr class="row-even"><td></td>
-<td><p>missing gain frequency</p></td>
-<td></td>
-<td><p>empty value is handled by SeisComP inventory reader</p></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td><p>missing sampling rate</p></td>
-<td></td>
-<td><p>empty value is handled by SeisComP inventory reader</p></td>
-</tr>
-<tr class="row-even"><td></td>
-<td><p>missing depth</p></td>
-<td><p>W</p></td>
-<td><p>empty value is handled by SeisComP inventory reader</p></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td><p>missing azimuth</p></td>
-<td></td>
-<td><p>empty value is handled by SeisComP inventory reader</p></td>
-</tr>
-<tr class="row-even"><td></td>
-<td><p>missing dip</p></td>
-<td></td>
-<td><p>empty value is handled by SeisComP inventory reader</p></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td><p>empty sensor ID</p></td>
-<td><p>I</p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td></td>
-<td><p>large depth</p></td>
-<td><p>W</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">--max-sensor-depth</span></code> overrides default threshold (500 m)</p></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>sensor</p></td>
-<td><p>referenced sensor not available</p></td>
-<td><p>R</p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
 </section>
 </section>
 <section id="module-configuration">
@@ -1036,7 +784,7 @@ operations and conflicts.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

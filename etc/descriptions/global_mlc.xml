@@ -6,89 +6,94 @@
 		Custom magnitude for local events measured on horizontal components
 		</description>
 		<configuration>
-			<description>
-			Custom magnitude for local events measured on horizontal components
-			</description>
-			<group name="magnitudes">
-				<group name="MLc">
-					<description>
-					Regionalized calibration parameters for MLc. The region itself is defined
-					by another magnitude-type MLc profile.
-					</description>
-					<group name="region">
+			<extend-struct type="GlobalMagnitudeProfile" match-name="MLc">
+				<extend-struct type="GlobalMagnitudeRegionProfile">
+					<parameter name="distMode" type="string">
 						<description>
-						Add one profile for every region. The profile name
-						equals the name of a polygon configured in the BNA file
-						of the Magnitude-type profile. The Magnitude-type profile
-						and the polygon must exist.
-						The special name &quot;world&quot; corresponds to the
-						region of the entire planet as a fallback.
+						Considered distance measure between source and receiver.
+						Possible values are
+
+						hypocentral: hypocentral distance
+
+						epicentral: epicentral distance
 						</description>
-						<struct type="MLc region profile">
-							<group name="A0">
-								<description>
-								Parameters for A0, non-parametric magnitude calibration.
-								</description>
-								<parameter name="logA0" type="string">
-									<description>
-									Overrides the calibration function log10(A0)
-									for computing MLc per region. See logA0
-									description in the bindings.
-									</description>
-								</parameter>
-							</group>
-							<group name="parametric">
-								<description>
-								Parameters for parametric magnitude calibration:
-								MLc = log10(A) + c3 * log10(r/c5) + c2 * (r + c4) + c1 + c0(station)
-								</description>
-								<parameter name="c0" type="double">
-									<description>
-									Overrides the calibration parameter c0
-									for computing MLc per region. See c0
-									description in the bindings.
-									</description>
-								</parameter>
-								<parameter name="c1" type="double">
-									<description>
-									Overrides the calibration parameter c1
-									for computing MLc per region. See c1
-									description in the bindings.
-									</description>
-								</parameter>
-								<parameter name="c2" type="double">
-									<description>
-									Overrides the calibration parameter c2
-									for computing MLc per region. See c2
-									description in the bindings.
-									</description>
-								</parameter>
-								<parameter name="c3" type="double">
-									<description>
-									Overrides the calibration parameter c3
-									for computing MLc per region. See c3
-									description in the bindings.
-									</description>
-								</parameter>
-								<parameter name="c4" type="double">
-									<description>
-									Overrides the calibration parameter c4
-									for computing MLc per region. See c4
-									description in the bindings.
-									</description>
-								</parameter>
-								<parameter name="c5" type="double">
-									<description>
-									Overrides the calibration parameter c5
-									for computing MLc per region. See c5
-									description in the bindings.
-									</description>
-								</parameter>
-							</group>
-						</struct>
+					</parameter>
+					<parameter name="calibrationType" type="string" unit="">
+						<description>
+						Type of magnitude calibration formula to be considered.
+						The calibration parameters are considered accordingly.
+						Currently supported are
+
+						&quot;parametric&quot;: consider parameters of parametric
+						configuration in parametric section
+
+						&quot;A0&quot;: consider parameters of non-parametric
+						configuration in A0 section.
+						</description>
+					</parameter>
+					<group name="A0">
+						<description>
+						Parameters for A0, non-parametric magnitude calibration.
+						</description>
+						<parameter name="logA0" type="string">
+							<description>
+							Overrides the calibration function log10(A0)
+							for computing MLc per region. See logA0
+							description in the bindings.
+							</description>
+						</parameter>
 					</group>
-				</group>
-			</group>
+
+					<group name="parametric">
+						<description>
+						Parameters for parametric magnitude calibration:
+						MLc = log10(A) + c3 * log10(r/c5) + c2 * (r + c4) + c1 + c0(station)
+						</description>
+						<parameter name="c0" type="double">
+							<description>
+							Overrides the calibration parameter c0
+							for computing MLc per region. See c0
+							description in the bindings.
+							</description>
+						</parameter>
+						<parameter name="c1" type="double">
+							<description>
+							Overrides the calibration parameter c1
+							for computing MLc per region. See c1
+							description in the bindings.
+							</description>
+						</parameter>
+						<parameter name="c2" type="double">
+							<description>
+							Overrides the calibration parameter c2
+							for computing MLc per region. See c2
+							description in the bindings.
+							</description>
+						</parameter>
+						<parameter name="c3" type="double">
+							<description>
+							Overrides the calibration parameter c3
+							for computing MLc per region. See c3
+							description in the bindings.
+							</description>
+						</parameter>
+						<parameter name="c4" type="double">
+							<description>
+							Overrides the calibration parameter c4
+							for computing MLc per region. See c4
+							description in the bindings.
+							</description>
+						</parameter>
+						<parameter name="c5" type="double">
+							<description>
+							Overrides the calibration parameter c5
+							for computing MLc per region. See c5
+							description in the bindings.
+							</description>
+						</parameter>
+					</group>
+				</extend-struct>
+			</extend-struct>
 		</configuration>
 	</plugin>
 	<binding name="MLc" module="global">
@@ -173,7 +178,7 @@
 
 						hypocentral: hypocentral distance
 
-						epicentral: epicentral
+						epicentral: epicentral distance
 						</description>
 					</parameter>
 					<parameter name="minDist" type="double" default="-1.0" unit="deg">
@@ -190,7 +195,7 @@
 					</parameter>
 					<parameter name="maxDepth" type="double" default="80" unit="km">
 						<description>
-						The maximum depth up to which magnitudes are computed.
+						The maximum source depth up to which magnitudes are computed.
 						</description>
 					</parameter>
 					<parameter name="calibrationType" type="string" default="&quot;parametric&quot;" unit="">
@@ -234,55 +239,45 @@
 						<description>
 						Parameters for parametric magnitude calibration:
 						MLc = log10(A) + c3 * log10(r/c5) + c2 * (r + c4) + c1 + c0(station)
-						
+
 						Considered if magnitude.MLc.calibrationType = "parametric".
 						</description>
 						<parameter name="c0" type="double" default="0.0">
 							<description>
 							Station correction. This is the calibration value 'c0'
-							applied in the magnitude calibration formula
-
-							MLc = c0(station) + c1 + c2 * (r + c4) + c3 * log(r/c5) + log10(A)
+							applied in the
+							parametric magnitude calibration formula.
 							</description>
 						</parameter>
 						<parameter name="c1" type="double" default="0.69">
 							<description>
-							The calibration value 'c1' applied in the magnitude
-							calibration formula
-
-							MLc = c0(station) + c1 + c2 * (r + c4) + c3 * log(r/c5) + log10(A)
+							The calibration value 'c1' applied in the
+							parametric magnitude calibration formula.
 							</description>
 						</parameter>
 						<parameter name="c2" type="double"  default="0.00095">
 							<description>
 							The calibration value 'c2' applied in the
 							magnitude calibration formula
-
-							MLc = c0(station) + c1 + c2 * (r + c4) + c3 * log(r/c5) + log10(A)
+							parametric magnitude calibration formula.
 							</description>
 						</parameter>
 						<parameter name="c3" type="double" default="1.11">
 							<description>
 							The calibration value 'c3' applied in the
-							magnitude calibration formula
-
-							MLc = c0(station) + c1 + c2 * (r + c4) + c3 * log(r/c5) + log10(A)
+							parametric magnitude calibration formula.
 							</description>
 						</parameter>
 						<parameter name="c4" type="double" default="0.0">
 							<description>
 							The calibration value 'c4' applied in the
-							magnitude calibration formula
-
-							MLc = c0(station) + c1 + c2 * (r + c4) + c3 * log(r/c5) + log10(A)
+							parametric magnitude calibration formula.
 							</description>
 						</parameter>
 						<parameter name="c5" type="double" default="1.0">
 							<description>
-							The calibration value 'c4' applied in the
-							magnitude calibration formula
-
-							MLc = c0(station) + c1 + c2 * (r + c4) + c3 * log(r/c5) + log10(A)
+							The calibration value 'c5' applied in the
+							parametric magnitude calibration formula.
 							</description>
 						</parameter>
 					</group>

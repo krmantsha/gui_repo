@@ -14,8 +14,8 @@ Southern California by :cite:t:`richter-1935`.
 
 General (default) conditions apply:
 
-* Amplitude unit in SeisComP: **millimeter** (mm) by Wood-Anderson simulation.
-* Time window, configurable: 150 s by :ref:`scautopick` or distance dependent.
+* Amplitude unit in SeisComP: **millimeter** (mm) by simulation of a :term:`Wood-Anderson seismometer`.
+* Time window, configurable: 150 s by :ref:`scautopick` or distance dependent, configurable.
 * Distance type: epicentral distance.
 * Distance range: 0 - 8 deg,  maximum is configurable:
   :confval:`magnitudes.ML.maxDistanceKm`,
@@ -47,7 +47,9 @@ is the empirical calibration function, which in turn is a function
 of the epicentral distance (:cite:t:`richter-1935`). This calibration
 function and distance range can be configured globally or per station using
 global bindings or the global module configuration variable
-module.trunk.global.magnitudes.ML.logA0 in :file:`global.cfg`, e.g. ::
+module.trunk.global.magnitudes.ML.logA0 in :file:`global.cfg`, e.g.
+
+.. code-block:: params
 
    module.trunk.global.magnitudes.ML.logA0 = "0:-1.3,60:-2.8,100:-3.0,400:-4.5,1000:-5.85"
    module.trunk.global.magnitudes.ML.maxDistanceKm = "-1"
@@ -98,43 +100,3 @@ line per parameter can be added to the global module configuration
 
 Add ML to the list of computed amplitudes and magnitudes in the configuration of
 :ref:`scamp` and :ref:`scmag` and in :ref:`scesv` or :ref:`scolv` for visibility.
-
-.. _global_ml_configuration:
-
-Module Configuration
-====================
-
-
-.. note::
-   **magnitudes.ML.\***
-   *Regionalized calibration parameters for ML. The region itself is defined*
-   *by another magnitude-type ML profile.*
-
-
-
-.. note::
-   **magnitudes.ML.region.\***
-   *Add one profile for every region. The profile name*
-   *equals the name of a polygon configured in the BNA file*
-   *of the Magnitude-type profile. The Magnitude-type profile*
-   *and the polygon must exist.*
-   *The special name "world" corresponds to the*
-   *region of the entire planet as a fallback.*
-
-
-
-.. note::
-
-   **magnitudes.ML.region.$name.\***
-   $name is a placeholder for the name to be used.
-
-
-.. confval:: magnitudes.ML.region.$name.logA0
-
-   Type: *string*
-
-   Overrides the calibration function log10\(A0\)
-   for computing ML per region. See logA0
-   description in the bindings.
-
-

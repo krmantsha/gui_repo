@@ -653,6 +653,9 @@ class SchemaParameters(seiscomp.core.BaseObject):
     def add(self, *args):
         return _system.SchemaParameters_add(self, *args)
 
+    def isEmpty(self):
+        return _system.SchemaParameters_isEmpty(self)
+
     def accept(self, arg2):
         return _system.SchemaParameters_accept(self, arg2)
 
@@ -757,6 +760,7 @@ class SchemaStructure(SchemaParameters):
     def serialize(self, ar):
         return _system.SchemaStructure_serialize(self, ar)
     type = property(_system.SchemaStructure_type_get, _system.SchemaStructure_type_set)
+    title = property(_system.SchemaStructure_title_get, _system.SchemaStructure_title_set)
     link = property(_system.SchemaStructure_link_get, _system.SchemaStructure_link_set)
     description = property(_system.SchemaStructure_description_get, _system.SchemaStructure_description_set)
     __swig_destroy__ = _system.delete_SchemaStructure
@@ -1039,6 +1043,105 @@ def SchemaModule_Cast(*args):
 
 def SchemaModule_ConstCast(*args):
     return _system.SchemaModule_ConstCast(*args)
+
+class SchemaPluginParameters(SchemaParameters):
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    @staticmethod
+    def ClassName():
+        return _system.SchemaPluginParameters_ClassName()
+
+    @staticmethod
+    def TypeInfo():
+        return _system.SchemaPluginParameters_TypeInfo()
+
+    def className(self):
+        return _system.SchemaPluginParameters_className(self)
+
+    def typeInfo(self):
+        return _system.SchemaPluginParameters_typeInfo(self)
+
+    @staticmethod
+    def Cast(*args):
+        return _system.SchemaPluginParameters_Cast(*args)
+
+    @staticmethod
+    def ConstCast(*args):
+        return _system.SchemaPluginParameters_ConstCast(*args)
+
+    def serialize(self, ar):
+        return _system.SchemaPluginParameters_serialize(self, ar)
+    structExtents = property(_system.SchemaPluginParameters_structExtents_get, _system.SchemaPluginParameters_structExtents_set)
+
+    def __init__(self):
+        _system.SchemaPluginParameters_swiginit(self, _system.new_SchemaPluginParameters())
+    __swig_destroy__ = _system.delete_SchemaPluginParameters
+
+# Register SchemaPluginParameters in _system:
+_system.SchemaPluginParameters_swigregister(SchemaPluginParameters)
+
+def SchemaPluginParameters_ClassName():
+    return _system.SchemaPluginParameters_ClassName()
+
+def SchemaPluginParameters_TypeInfo():
+    return _system.SchemaPluginParameters_TypeInfo()
+
+def SchemaPluginParameters_Cast(*args):
+    return _system.SchemaPluginParameters_Cast(*args)
+
+def SchemaPluginParameters_ConstCast(*args):
+    return _system.SchemaPluginParameters_ConstCast(*args)
+
+class SchemaStructExtent(SchemaPluginParameters):
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    @staticmethod
+    def ClassName():
+        return _system.SchemaStructExtent_ClassName()
+
+    @staticmethod
+    def TypeInfo():
+        return _system.SchemaStructExtent_TypeInfo()
+
+    def className(self):
+        return _system.SchemaStructExtent_className(self)
+
+    def typeInfo(self):
+        return _system.SchemaStructExtent_typeInfo(self)
+
+    @staticmethod
+    def Cast(*args):
+        return _system.SchemaStructExtent_Cast(*args)
+
+    @staticmethod
+    def ConstCast(*args):
+        return _system.SchemaStructExtent_ConstCast(*args)
+
+    def serialize(self, ar):
+        return _system.SchemaStructExtent_serialize(self, ar)
+    type = property(_system.SchemaStructExtent_type_get, _system.SchemaStructExtent_type_set)
+    matchName = property(_system.SchemaStructExtent_matchName_get, _system.SchemaStructExtent_matchName_set)
+
+    def __init__(self):
+        _system.SchemaStructExtent_swiginit(self, _system.new_SchemaStructExtent())
+    __swig_destroy__ = _system.delete_SchemaStructExtent
+
+# Register SchemaStructExtent in _system:
+_system.SchemaStructExtent_swigregister(SchemaStructExtent)
+
+def SchemaStructExtent_ClassName():
+    return _system.SchemaStructExtent_ClassName()
+
+def SchemaStructExtent_TypeInfo():
+    return _system.SchemaStructExtent_TypeInfo()
+
+def SchemaStructExtent_Cast(*args):
+    return _system.SchemaStructExtent_Cast(*args)
+
+def SchemaStructExtent_ConstCast(*args):
+    return _system.SchemaStructExtent_ConstCast(*args)
 
 class SchemaPlugin(seiscomp.core.BaseObject):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
@@ -1408,6 +1511,7 @@ class Structure(Container):
     def dump(self, os):
         return _system.Structure_dump(self, os)
     definition = property(_system.Structure_definition_get, _system.Structure_definition_set)
+    extensions = property(_system.Structure_extensions_get, _system.Structure_extensions_set)
     name = property(_system.Structure_name_get, _system.Structure_name_set)
     __swig_destroy__ = _system.delete_Structure
 
@@ -1449,7 +1553,6 @@ class Group(Container):
 
     def dump(self, os):
         return _system.Group_dump(self, os)
-    parent = property(_system.Group_parent_get, _system.Group_parent_set)
     definition = property(_system.Group_definition_get, _system.Group_definition_set)
     __swig_destroy__ = _system.delete_Group
 
@@ -1491,7 +1594,6 @@ class Section(Container):
 
     def dump(self, os):
         return _system.Section_dump(self, os)
-    parent = property(_system.Section_parent_get, _system.Section_parent_set)
     name = property(_system.Section_name_get, _system.Section_name_set)
     description = property(_system.Section_description_get, _system.Section_description_set)
     __swig_destroy__ = _system.delete_Section

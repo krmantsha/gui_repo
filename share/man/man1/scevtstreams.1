@@ -27,11 +27,11 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "SCEVTSTREAMS" "1" "Jan 18, 2024" "5.5.17" "SeisComP"
+.TH "SCEVTSTREAMS" "1" "Jan 18, 2024" "6.1.2" "SeisComP"
 .SH NAME
 scevtstreams \- SeisComP Documentation
 .sp
-\fBExtract stream information and time windows from an event.\fP
+\fBExtract stream information with time windows from picks of an event.\fP
 .SH DESCRIPTION
 .sp
 scevtstreams reads all picks of an event and determines the time window between
@@ -39,10 +39,9 @@ the first pick and the last pick. In addition a symmetric or an asymmetric time
 margin is added to this
 time window. It writes the streams that are picked including the determined
 time window for the event to stdout. This tool gives appropriate input
-information for \fI\%scart\fP, \fI\%fdsnws\fP and
-\fI\%caps\fP
-(Common Acquisition Protocol Server by gempa GmbH) to dump waveforms from archives
-based on event data.
+information for \fI\%scart\fP, \fI\%fdsnws\fP and \fIcapstool\fP [\fI\%27\fP] for
+\fICAPS\fP [\fI\%3\fP] server (Common Acquisition Protocol Server by gempa GmbH) to dump
+waveforms from archives based on event data.
 .SH OUTPUT FORMAT
 .sp
 The generated list contains start and end time as well as stream information.
@@ -53,7 +52,7 @@ Generic:
 .sp
 .nf
 .ft C
-starttime;endtime;streamID
+starttime;endtime;stream
 .ft P
 .fi
 .UNINDENT
@@ -98,7 +97,8 @@ scevtstreams \-E gfz2012abcd \-i event.xml \-m 120,500
 .UNINDENT
 .UNINDENT
 .IP 3. 3
-Create a playback of an event with a time window of 5 minutes data and sort the records by end time:
+Create a playback of an event with a time window of 5 minutes data and
+sort the records by end time:
 .INDENT 3.0
 .INDENT 3.5
 .sp
@@ -111,7 +111,8 @@ scart \-dsvE \-\-list \- ~/seiscomp/acquisition/archive > gfz2012abcd\-sorted.ms
 .UNINDENT
 .UNINDENT
 .IP 4. 3
-Download waveforms from Arclink and import into local archive. Include all stations from the contributing networks:
+Download waveforms from Arclink and import into local archive. Include
+all stations from the contributing networks:
 .INDENT 3.0
 .INDENT 3.5
 .sp
@@ -291,27 +292,42 @@ Do not use the database at all
 .INDENT 0.0
 .TP
 .B \-i, \-\-input arg
-Input XML file name. Override reading from database.
+Input XML file name. Reads event from the XML file instead of
+database. Use \(aq\-\(aq to read from stdin.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-f, \-\-format arg
-Input format to use (xml [default], zxml (zipped xml), binary).
-Only relevant with \-\-input.
+Input format to use (xml [default], zxml (zipped xml),
+binary). Only relevant with \-i.
 .UNINDENT
 .SS Dump
 .INDENT 0.0
 .TP
 .B \-E, \-\-event arg
-Specifies the event id.
+The ID of the event to consider.
 .UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-net\-sta arg
+Filter read picks by network code or network and station
+code. Format: NET or NET.STA
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-nslc arg
+Stream list file to be used for filtering read picks by
+stream code. \(aq\-\-net\-sta\(aq will be ignored. One line per
+stream. Line format: NET.STA.LOC.CHA.
+.UNINDENT
+.SS Output
 .INDENT 0.0
 .TP
 .B \-m, \-\-margin arg
 Time margin around the picked time window, default is 300.
-Added before the first and after the last pick, respectively.
-Use 2 comma\-separted values (before,after) for asymmetric
-margins. Example: 120,300.
+Added before the first and after the last pick,
+respectively. Use 2 comma\-separted values (before,after)
+for asymmetric margins. Example: 120,300.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -341,9 +357,9 @@ stations with picks are dumped.
 .TP
 .B \-\-all\-networks
 Dump all networks. If unused, just networks with picks are
-dumped. This option implies all\-stations, all\-locations,
-all\-streams, all\-components and will only provide the time
-window.
+dumped. This option implies \-\-all\-stations, \-\-all\-locations,
+\-\-all\-streams, \-\-all\-components and will only provide the
+time window.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -354,20 +370,14 @@ should be used).
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-net\-sta arg
-Filter streams by network code or network and station code.
-Format: NET or NET.STA
-.UNINDENT
-.INDENT 0.0
-.TP
 .B \-\-caps
 Dump in capstool format (Common Acquisition Protocol Server
-by gempa GmbH)
+by gempa GmbH).
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-fdsnws flag
-Dump in FDSN dataselect webservice POST format
+Dump in FDSN dataselect webservice POST format.
 .UNINDENT
 .SH AUTHOR
 gempa GmbH, GFZ Potsdam

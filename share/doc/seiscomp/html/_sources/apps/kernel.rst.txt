@@ -1,0 +1,80 @@
+.. highlight:: rst
+
+.. _kernel:
+
+######
+kernel
+######
+
+**SeisComP kernel.**
+
+
+Description
+===========
+
+The kernel is the basic configuration for the :command:`seiscomp` tool.
+It contains configuration parameters for all init scripts in :file:`etc/init`. Each init script can, but does not
+need to, read the kernel parameters and configure itself accordingly. Kernel parameters are not mandatory but
+should be taken as (serious) hints. If for example syslog is enabled in the kernel then all init scripts should
+configure syslog as logging backend for the programs they start. But if a program does not support syslog it can
+also be started without logging to syslog.
+
+
+.. _kernel_configuration:
+
+Module Configuration
+====================
+
+
+.. note::
+
+   kernel is a :term:`standalone module` and does not inherit :ref:`global options <global-configuration>`.
+
+
+| :file:`etc/defaults/kernel.cfg`
+| :file:`etc/kernel.cfg`
+| :file:`~/.seiscomp/kernel.cfg`
+
+
+
+.. confval:: syslog
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Sends all logging output to the syslog backend which logs
+   usually to \/var\/log\/messages.
+
+
+.. _kernel/messaging:
+
+
+messaging extension
+-------------------
+
+SeisComP messaging component that enables communication of modules over the network.
+
+
+.. confval:: messaging.enable
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   Enables\/disables local messaging \(scmaster\).
+   The messaging component is an integral component
+   of all modules \(except e.g. acquisition modules\).
+   If you are not sure what to do, enable it.
+
+
+.. confval:: messaging.bind
+
+   Type: *string*
+
+   Defines the messaging unencrypted bind address. If
+   left empty then the configuration file \(see scmaster\)
+   will be used instead. Use this to override the
+   unencrypted bind address. The format is
+   \"[ip:]port\".
+

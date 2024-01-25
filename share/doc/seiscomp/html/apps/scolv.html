@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -146,8 +146,8 @@ are received from the <a class="reference internal" href="../base/concepts/messa
 <em>updated in real time</em>. New or updated
 parameters can be commited to the messaging. Simply start scolv without any argument
 or connect to a specific host providing the messaging, e.g.:</p>
-<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>scolv
-scolv -H [host]
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scolv
+scolv<span class="w"> </span>-H<span class="w"> </span><span class="o">[</span>host<span class="o">]</span>
 </pre></div>
 </div>
 </li>
@@ -158,9 +158,9 @@ Execute scolv with the command-line option
 <code class="docutils literal notranslate"><span class="pre">--offline</span></code> and optionally provide the database or inventory and bindings
 parameters in <a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> format to fetch event parameters as well as inventory
 and bindings configuration parameters. Examples:</p>
-<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>scolv --offline
-scolv --offline -d [database]
-scolv --offline --inventory-db [inventory] --config-db [config]
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scolv<span class="w"> </span>--offline
+scolv<span class="w"> </span>--offline<span class="w"> </span>-d<span class="w"> </span><span class="o">[</span>database<span class="o">]</span>
+scolv<span class="w"> </span>--offline<span class="w"> </span>--inventory-db<span class="w"> </span><span class="o">[</span>inventory<span class="o">]</span><span class="w"> </span>--config-db<span class="w"> </span><span class="o">[</span>config<span class="o">]</span>
 </pre></div>
 </div>
 <p>Select one XML file in the <cite>File</cite> menu to read event parameters.
@@ -237,8 +237,8 @@ travel-time residual vs azimuth, <strong>3</strong>) azimuth vs distance in pola
 <p>The move out plot uses the reduced travel time with a default reduction velocity
 of 6km/s. This value is configurable by <a class="reference internal" href="#confval-olv.Pvel"><code class="xref std std-confval docutils literal notranslate"><span class="pre">olv.Pvel</span></code></a>, either in the configuration file
 (<code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code>) or in the <a class="reference internal" href="#scolv-settings"><span class="std std-ref">settings window</span></a>, e.g.:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reduction velocity used for move out plot</span>
-olv.Pvel<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span>.0
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reduction velocity used for move out plot</span>
+<span class="na">olv.Pvel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">6.0</span>
 </pre></div>
 </div>
 <p>The diagrams in the scolv Location tab present observations (e.g. arrival residuals). Each plot
@@ -290,8 +290,8 @@ Available column identifiers are:</p>
 </ul>
 <p>The columns printed bold are shown initially. The initial column
 list can be changed in <code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code> by adjusting <a class="reference internal" href="#confval-olv.arrivalTable.visibleColumns"><code class="xref std std-confval docutils literal notranslate"><span class="pre">olv.arrivalTable.visibleColumns</span></code></a>:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>olv.arrivalTable.visibleColumns<span class="w"> </span><span class="o">=</span><span class="w"> </span>Used,<span class="w"> </span>Status,<span class="w"> </span>Weight,<span class="w"> </span>Phase,<span class="w"> </span>Net,<span class="w"> </span>Sta,<span class="se">\</span>
-<span class="w">                                  </span>Loc/Cha,<span class="w"> </span>Res,<span class="w"> </span>Dis,<span class="w"> </span>Az,<span class="w"> </span>Time,<span class="w"> </span>+/-
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">olv.arrivalTable.visibleColumns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Used, Status, Weight, Phase, Net, Sta,</span><span class="se">\</span>
+<span class="w">                                  </span><span class="s">Loc/Cha, Res, Dis, Az, Time, +/-</span>
 </pre></div>
 </div>
 <p>The user can also interactively select what columns are be visible or hidden
@@ -455,8 +455,8 @@ Unassociated picks can be shown/hidden using <kbd class="kbd docutils literal no
 <p>Up to 9 phase types can be configured for selection by
 <a class="reference internal" href="#sec-scolv-hotkeys"><span class="std std-ref">hot keys</span></a>. This list of favourite phases can be customized
 by <a class="reference internal" href="#confval-picker.phases.favourites"><code class="xref std std-confval docutils literal notranslate"><span class="pre">picker.phases.favourites</span></code></a>, e.g. (<code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code>):</p>
-<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span># Define a list of favourite phases for quick access
-picker.phases.favourites = Pn, P, Pg, PmP, P1, Pg, Sg, S, Sn, SmS
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a list of favourite phases for quick access</span>
+<span class="na">picker.phases.favourites</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Pn, P, Pg, PmP, P1, Pg, Sg, S, Sn, SmS</span>
 </pre></div>
 </div>
 <p>The list of favourites is used to assign shortcuts to. <kbd class="kbd docutils literal notranslate">1</kbd> is assigned
@@ -469,14 +469,14 @@ other defined phases can be activated from the <em>Picking</em> menu.</p>
 <p>The phases can be also grouped to reflect e.g. regional
 and teleseismic profiles. In group not hot keys are available.
 An example configuration looks like this (<code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code>):</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define two phase groups: regional and teleseismic</span>
-picker.phases.groups<span class="w"> </span><span class="o">=</span><span class="w"> </span>regional,<span class="w"> </span>teleseismic
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define two phase groups: regional and teleseismic</span>
+<span class="na">picker.phases.groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">regional, teleseismic</span>
 
 <span class="c1"># Define all phases of group &quot;regional&quot;</span>
-picker.phases.groups.regional<span class="w"> </span><span class="o">=</span><span class="w"> </span>Pn,<span class="w"> </span>P,<span class="w"> </span>Pg,<span class="w"> </span>PmP,<span class="w"> </span>P1,<span class="w"> </span>Sg,<span class="w"> </span>S,<span class="w"> </span>Sn,<span class="w"> </span>SmS
+<span class="na">picker.phases.groups.regional</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Pn, P, Pg, PmP, P1, Sg, S, Sn, SmS</span>
 
 <span class="c1"># Define all phases of group &quot;teleseismic&quot;</span>
-picker.phases.groups.teleseismic<span class="w"> </span><span class="o">=</span><span class="w"> </span>pP,<span class="w"> </span>sP,<span class="w"> </span>sS,<span class="w"> </span>PKP,<span class="w"> </span>PKP
+<span class="na">picker.phases.groups.teleseismic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">pP, sP, sS, PKP, PKP</span>
 </pre></div>
 </div>
 <figure class="align-center" id="id16">
@@ -522,7 +522,7 @@ among a predefined set of uncertainties is a lot faster. The way, pick uncertain
 are used depends on the applied locator routine and its configuration.
 To set the uncertainty of a pick more easily a list of predefined uncertainties can be
 defined using <a class="reference internal" href="#confval-picker.uncertainties"><code class="xref std std-confval docutils literal notranslate"><span class="pre">picker.uncertainties</span></code></a>, e.g.:</p>
-<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>picker.uncertainties = 0.05, 0.1, 0.2, &quot;(0.1,0.2)&quot;, &quot;(0.05,0.02)&quot;
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">picker.uncertainties</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0.05, 0.1, 0.2, &quot;(0.1,0.2)&quot;, &quot;(0.05,0.02)&quot;</span>
 </pre></div>
 </div>
 <p>where single values define symmetric and pairs of values define asymmetric uncertainties.
@@ -531,21 +531,21 @@ The pre-defined uncertainties can be selected during picking using
 <kbd class="kbd docutils literal notranslate">1</kbd> or <kbd class="kbd docutils literal notranslate">2</kbd> for the 1st or the 2nd value defined in <a class="reference internal" href="#confval-picker.uncertainties"><code class="xref std std-confval docutils literal notranslate"><span class="pre">picker.uncertainties</span></code></a>.
 Later, the uncertainties can be adjusted manually.
 As for phase types, uncertainty profiles can be additionally configured (<code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code>):</p>
-<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span># Define available pick uncertainty profiles. Single values
-# are symmetric uncertainties whereas tuples are asymmetric
-# uncertainties: (left,right). Uncertainty values are given
-# in seconds.
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define available pick uncertainty profiles. Single values</span>
+<span class="c1"># are symmetric uncertainties whereas tuples are asymmetric</span>
+<span class="c1"># uncertainties: (left,right). Uncertainty values are given</span>
+<span class="c1"># in seconds.</span>
 
-# Define an uncertainty profile for local events
-picker.uncertainties.profile.local = 0.05, 0.1, 0.2, 0.3, &quot;(0.1,0.2)&quot;
+<span class="c1"># Define an uncertainty profile for local events</span>
+<span class="na">picker.uncertainties.profile.local</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0.05, 0.1, 0.2, 0.3, &quot;(0.1,0.2)&quot;</span>
 
-# Define an uncertainty profile for teleseismic events
-picker.uncertainties.profile.teleseismic = 0.5, 1, 2, 3, &quot;(1,2)&quot;
+<span class="c1"># Define an uncertainty profile for teleseismic events</span>
+<span class="na">picker.uncertainties.profile.teleseismic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0.5, 1, 2, 3, &quot;(1,2)&quot;</span>
 
-# Define the list of uncertainty sets that are active in scolv.
-# This first set in the list is used by default. The other sets
-# can be activated in the settings dialog (scolv: F3)
-picker.uncertainties.preferred = local, teleseismic
+<span class="c1"># Define the list of uncertainty sets that are active in scolv.</span>
+<span class="c1"># This first set in the list is used by default. The other sets</span>
+<span class="c1"># can be activated in the settings dialog (scolv: F3)</span>
+<span class="na">picker.uncertainties.preferred</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">local, teleseismic</span>
 </pre></div>
 </div>
 <p>If an uncertainty is selected, the active pick is copied into a manual pick
@@ -597,16 +597,15 @@ to the right or from the the tool box.</p>
 <li><p><a class="reference internal" href="global_locsat.html#global-locsat"><span class="std std-ref">FixedHypocenter</span></a>.</p></li>
 </ul>
 <p>Additional locator routines are available by <a class="reference internal" href="../base/concepts/plugins.html#concepts-plugins"><span class="std std-ref">SeisComP plugins</span></a> which
-provide their own specific global configuration, e.g.</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="global_hypo71.html#global-hypo71"><span class="std std-ref">Hypo71</span></a>,</p></li>
-<li><p><a class="reference internal" href="global_nonlinloc.html#global-nonlinloc"><span class="std std-ref">NonLinLoc</span></a>,</p></li>
-<li><p>iLoc (currently only on when <a class="reference internal" href="../base/build.html#build"><span class="std std-ref">building SeisComP from source</span></a>).</p></li>
-</ul>
-<p>Any other custom locator can be intergrated through configuration of
-<a class="reference internal" href="global_locext.html#global-locext"><span class="std std-ref">LocExt</span></a>.</p>
+provide their own specific global configuration. Read the
+<a class="reference internal" href="../base/concepts/locators.html#concepts-locators"><span class="std std-ref">concepts section on locators</span></a> for an introduction.</p>
 <p>Pressing <em>Relocate</em> creates a new origin and updates the arrival table and the
 parameters displayed in the Location tab.</p>
+<p>Undoing and redoing actions is availalbe by buttons and
+<a class="reference internal" href="#sec-scolv-hotkeys"><span class="std std-ref">hot keys</span></a>.</p>
+<figure class="align-center">
+<img alt="../_images/tab_previous-next.png" src="../_images/tab_previous-next.png" />
+</figure>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>You need to create a new origin for <a class="reference internal" href="#scolv-sec-magnitudes"><span class="std std-ref">computing magnitudes</span></a>.</p>
@@ -619,19 +618,29 @@ and new magnitudes can be calculated by using the
 “Compute Magnitudes” button. The advantage of calculating the magnitudes before
 committing the new origin, is the possibility to check the resulting magnitudes
 before they are computed manually by <a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a>.</p>
+<p><a class="reference internal" href="#fig-scolv-location-amp-status"><span class="std std-ref">An amplitudes status window</span></a> will pop up showing the progress
+information of measurements. The amplitudes are either measured or fetched from
+database if the pick is unchanged and the amplitude is already in the system.
+For new manual picks, waveforms are requested to measured the amplitudes. The
+popup window contains information about the progress, limitations and possible
+errors.</p>
 <figure class="align-center" id="id18">
-<span id="fig-scolv-location-mag-status"></span><img alt="../_images/tab_location_mag_status.png" src="../_images/tab_location_mag_status.png" />
+<span id="fig-scolv-location-amp-status"></span><img alt="../_images/tab_location_amp_status.png" src="../_images/tab_location_amp_status.png" />
 <figcaption>
-<p><span class="caption-text">Compute magnitudes status window</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Measure amplitudes status window.</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-<p><a class="reference internal" href="#fig-scolv-location-mag-status"><span class="std std-ref">A window</span></a> will pop up showing the progress
-information of computation. The amplitudes are either fetched from database if
-the pick is unchanged and already in the system. For new manual picks,
-waveforms are requested to compute the amplitudes. The popup window contains
-information about the progress and possible errors. After closing this windows
-all available magnitudes are shown and can be interactively re-processed
-in the <a class="reference internal" href="#scolv-sec-magnitude-tab"><span class="std std-ref">magnitudes tab</span></a>.</p>
+<p>After closing the amplitude status window magnitudes are computed and
+possible limitations are shown, if applicable, in the magnitudes status window.
+Confirm this window in order to proceed.</p>
+<figure class="align-center" id="id19">
+<span id="fig-scolv-location-mag-status"></span><img alt="../_images/tab_location_mag_status.png" src="../_images/tab_location_mag_status.png" />
+<figcaption>
+<p><span class="caption-text">Compute magnitudes status window.</span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>All available magnitudes are then shown and can be interactively re-processed in
+the <a class="reference internal" href="#scolv-sec-magnitude-tab"><span class="std std-ref">Magnitudes tab</span></a>.</p>
 </section>
 <section id="commit-a-solution">
 <span id="scolv-sec-commit"></span><h3>Commit a solution<a class="headerlink" href="#commit-a-solution" title="Permalink to this heading">¶</a></h3>
@@ -642,27 +651,40 @@ to the processing system and let it decide what origin becomes preferred.</p>
 <li><p>Select an event</p></li>
 <li><p>Review solution</p></li>
 <li><p>Commit solution</p></li>
-<li><p>Change to event tab</p></li>
-<li><p>Set this solution preferred</p></li>
-<li><p>Set event type</p></li>
-<li><p>Change to events tab</p></li>
+<li><p><em>Optional:</em> Change to Event tab for setting</p>
+<ul class="simple">
+<li><p>This solution preferred</p></li>
+<li><p>Event type</p></li>
+<li><p>Event certainty</p></li>
+<li><p>Preferred magnitude</p></li>
+<li><p>Preferred focal mechanism</p></li>
+</ul>
+</li>
+<li><p>Change to Events tab</p></li>
 <li><p>Goto 1.</p></li>
 </ol>
-<p>This may be replaced by</p>
-<ol class="arabic simple">
-<li><p>Select an event</p></li>
-<li><p>Review solution</p></li>
-<li><p>Commit solution</p></li>
-<li><p>Change to events tab</p></li>
-<li><p>Goto 1.</p></li>
-</ol>
-<p>An additional commit mode was added which allows to set certain parameters and
-options along with the location and its magnitudes.</p>
+<p>Instead of selecting events from the Events tab, the previous or the next event
+can be conveniently selected from the edit buttons above the Location tab.</p>
+<figure class="align-center">
+<img alt="../_images/tab_previous-next.png" src="../_images/tab_previous-next.png" />
+</figure>
+<section id="additional-options">
+<span id="scolv-sec-commit-additional"></span><h4>Additional options<a class="headerlink" href="#additional-options" title="Permalink to this heading">¶</a></h4>
+<p>Instead of optionally setting parameters in the Event tab an additional commit
+mode allows to directly set certain parameters such as</p>
+<ul class="simple">
+<li><p>Event type</p></li>
+<li><p>Ovent certainty</p></li>
+<li><p>Origin</p></li>
+<li><p>Event comment</p></li>
+</ul>
+<p>and to choose options along with the location and its magnitudes. After pressing
+and holding the Commit button down for a little while, a menu pops up which
+allows to select <em>With additional options</em>.</p>
 <figure class="align-center">
 <img alt="../_images/commit-options.png" src="../_images/commit-options.png" />
 </figure>
-<p>After pressing and holding the Commit button down for a little while, a menu
-pops up which allows to select <em>With additional options</em>. Selecting this entry
+<p>Selecting this entry
 brings up another window where the different options can be set.</p>
 <figure class="align-center">
 <img alt="../_images/commit-options2.png" src="../_images/commit-options2.png" />
@@ -674,10 +696,16 @@ event list is activated after pressing OK to select another event quickly.</p>
 <dt><em>Earthquake name</em></dt><dd><p>Contains the event description <em>earthquake name</em>. If this field is empty, the
 description will be removed from the event otherwise it will be added.</p>
 </dd>
-<dt><em>Comment</em></dt><dd><p>contains an optional event comment added as comment with ID <em>Operator</em>.</p>
+<dt><em>Comment</em></dt><dd><p>Contains an optional event comment added as comment with ID <em>Operator</em>. The
+comment text can be visualized in event lists
+(<a class="reference internal" href="#scolv-events-tab"><span class="std std-ref">Events tab</span></a>) by configuration of the global parameters
+<a class="reference internal" href="global_gui.html#confval-eventlist.customColumn.eventCommentID"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventlist.customColumn.eventCommentID</span></code></a> or <code class="xref std std-confval docutils literal notranslate"><span class="pre">eventlist.scripts.*</span></code>.</p>
 </dd>
 </dl>
-<p id="sec-scolv-custom-commit">As a shortcut for committing with additional options,
+</section>
+<section id="custom-commits">
+<span id="sec-scolv-custom-commit"></span><h4>Custom commits<a class="headerlink" href="#custom-commits" title="Permalink to this heading">¶</a></h4>
+<p>As a shortcut for committing with additional options,
 <a class="reference internal" href="#fig-scolv-custom-commit"><span class="std std-ref">custom commit buttons</span></a> can be added by
 configuration: Add, enable and configure a custom commit profile in
 <code class="xref std std-confval docutils literal notranslate"><span class="pre">olv.customCommits</span></code>.
@@ -691,22 +719,23 @@ With custom commit buttons origin and event paramters can be set, e.g.:</p>
 can also be set in the <a class="reference internal" href="#scolv-sec-magnitude-summary"><span class="std std-ref">magnitude tab</span></a>.</p></li>
 <li><p>Event comments</p></li>
 </ul>
-<figure class="align-center" id="id19">
+<figure class="align-center" id="id20">
 <span id="fig-scolv-custom-commit"></span><a class="reference internal image-reference" href="../_images/commit-custom.png"><img alt="../_images/commit-custom.png" src="../_images/commit-custom.png" style="width: 16cm;" /></a>
 <figcaption>
-<p><span class="caption-text">Custom commit buttons in the Location tab for configured actions and with specific label and color.</span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Custom commit buttons in the Location tab for configured actions and with specific label and color.</span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
+</section>
 </section>
 </section>
 <section id="magnitudes-tab">
 <span id="scolv-sec-magnitude-tab"></span><h2>Magnitudes Tab<a class="headerlink" href="#magnitudes-tab" title="Permalink to this heading">¶</a></h2>
 <p>The Magnitude tab shows all available magnitude information for the current
 origin. They can be recomputed after creating a new origin, e.g. by relocating.</p>
-<figure class="align-center" id="id20">
+<figure class="align-center" id="id21">
 <span id="fig-scolv-magnitudes"></span><a class="reference internal image-reference" href="../_images/tab_magnitudes.png"><img alt="../_images/tab_magnitudes.png" src="../_images/tab_magnitudes.png" style="width: 16cm;" /></a>
 <figcaption>
-<p><span class="caption-text">Magnitudes tab of scolv.</span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Magnitudes tab of scolv.</span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
 <div class="legend">
 <p>(<strong>Map</strong>) Map with residual and status of the station magnitude, filled
 circles show stations which delivered a magnitude, empty circles represent
@@ -792,12 +821,12 @@ determined amplitude) or green (manually determined amplitude) marker.
 This display is similar to the Picker.</p>
 <p>The toolbar contains two lines of settings. The first line is similar to the
 Picker, the second line is amplitude picker specific.</p>
-<figure class="align-center" id="id21">
+<figure class="align-center" id="id22">
 <img alt="../_images/magnitudes-toolbar.png" src="../_images/magnitudes-toolbar.png" />
 <figcaption>
 <p><span class="caption-text">Second toolbar line: filter selection, filter toggle, min SNR editor,
 amplitude measurement type selector, amplitude combiner selector,
-(re)calculate amplitudes, apply amplitudes.</span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
+(re)calculate amplitudes, apply amplitudes.</span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>A station trace is divided into three areas:</p>
@@ -857,9 +886,9 @@ made. Recalculation has to be activated manually (see below).</p>
 amplitude processor. Be warned that wrongly applied filters screw up the results.
 The available filters can be defined in the settings dialog of scolv or in the
 configuration file similar to the manual picker filters (<code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code>):</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># List of filters available in the picker. Format:</span>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># List of filters available in the picker. Format:</span>
 <span class="c1"># &quot;name1;filter-definition1&quot;, &quot;name2;filter-definition2&quot;</span>
-amplitudePicker.filters<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;4 pole HP @2s;BW_HP(4,0.5)&quot;</span>
+<span class="na">amplitudePicker.filters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;4 pole HP @2s;BW_HP(4,0.5)&quot;</span>
 </pre></div>
 </div>
 <p>The new filter selection is applied immediately to the waveforms while the amplitudes are not recalculated
@@ -913,16 +942,16 @@ settings: <em>Mean</em>, <em>Median</em> or <em>Trimmed mean</em>.</p>
 </section>
 </section>
 <section id="event-tab">
-<h2>Event Tab<a class="headerlink" href="#event-tab" title="Permalink to this heading">¶</a></h2>
+<span id="scolv-sec-event-tab"></span><h2>Event Tab<a class="headerlink" href="#event-tab" title="Permalink to this heading">¶</a></h2>
 <p>The Event tab gives all information of associated origins and magnitude of the
 actual event. Here the selection of the preferred origin and preferred magnitude
 can be influenced independent from <a class="reference internal" href="scevent.html#scevent"><span class="std std-ref">scevent</span></a>. The messaging between
 scevent and scolv about the selected origins and magnitudes can be viewed in
 a window that has to be opened by pulling the left side frame to the right.</p>
-<figure class="align-center" id="id22">
+<figure class="align-center" id="id23">
 <span id="fig-scolv-event"></span><a class="reference internal image-reference" href="../_images/tab_event.png"><img alt="../_images/tab_event.png" src="../_images/tab_event.png" style="width: 16cm;" /></a>
 <figcaption>
-<p><span class="caption-text">Event tab of scolv.</span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Event tab of scolv.</span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <ul class="simple">
@@ -987,10 +1016,10 @@ the total number of loaded events. The numbers can be different because events
 can be <a class="reference internal" href="#scolv-events-filtering"><span class="std std-ref">hidden from the list by filtering</span></a>.</p>
 <p>When starting scolv with the option <strong>–offline</strong>, events can also be loaded from an XML
 file using the File menu in the main window.</p>
-<figure class="align-center" id="id23">
+<figure class="align-center" id="id24">
 <span id="fig-scolv-events"></span><a class="reference internal image-reference" href="../_images/tab_events.png"><img alt="../_images/tab_events.png" src="../_images/tab_events.png" style="width: 16cm;" /></a>
 <figcaption>
-<p><span class="caption-text">scolv Events tab with the list of events and the filter window.</span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">scolv Events tab with the list of events and the filter window.</span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Information about origin time, preferred (“best”) magnitude, preferred magnitude
@@ -1035,18 +1064,17 @@ by multiple agencies, e.g. “C+”.</p></li>
 <li><p><strong>Region</strong> : region name</p></li>
 <li><p><strong>ID</strong> : ID of the show element, e.g. event or origin</p></li>
 </ul>
-<p>The bold identifiers are visible initially.
+<p>The bold identifiers are visible initially by default.
 To show or hide columns interactively click with the right mouse button on the
 table header and check or uncheck the corresponding column.</p>
 <p>Sorting and re-ordering is available by clicking on the header of the columns and
 by dragging the header fields, respectively. Right-click on cells to copy individual
 cells values or entire rows.</p>
-<p>This list can also be customized
-with <a class="reference internal" href="global_gui.html#confval-eventlist.visibleColumns"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventlist.visibleColumns</span></code></a> in the global configuration
-(<code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code> or <code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code>):</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove Type and Author from column list that is initially active</span>
-eventlist.visibleColumns<span class="w"> </span><span class="o">=</span><span class="w"> </span>OT<span class="o">(</span>GMT<span class="o">)</span>,<span class="w"> </span>Type,<span class="w"> </span>M,<span class="w"> </span>MType<span class="w"> </span>Phases,<span class="w"> </span>RMS,<span class="w"> </span>Lat,<span class="w"> </span>Lon,<span class="se">\</span>
-<span class="w">                           </span>Depth,<span class="w"> </span>DType,<span class="w"> </span>Stat,<span class="w"> </span>FM,<span class="w"> </span>Author,<span class="w"> </span>Agency,<span class="w"> </span>Region,<span class="w"> </span>ID
+<p>The initial list can configured with the global module parameter
+<a class="reference internal" href="global_gui.html#confval-eventlist.visibleColumns"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventlist.visibleColumns</span></code></a> in <code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code> or <code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code>,
+e.g.:</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove Type and Author from column list that is initially active</span>
+<span class="na">eventlist.visibleColumns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Type, M, MType Phases, RMS, Lat, Lon, Depth, DType, Stat, FM, Author, Agency, Region, ID</span>
 </pre></div>
 </div>
 </section>
@@ -1054,6 +1082,7 @@ eventlist.visibleColumns<span class="w"> </span><span class="o">=</span><span cl
 <span id="scolv-events-filtering"></span><h3>Event filtering<a class="headerlink" href="#event-filtering" title="Permalink to this heading">¶</a></h3>
 <p>Database request filters can be applied interactively or automatically by</p>
 <ul>
+<li><p><strong>Time:</strong> Select a time period or a number of days before current time.</p></li>
 <li><p><strong>Interactive custom request filters</strong>: You may set and adjust a custom request
 filter** in the filter parameter window which opens when pressing the Filter
 button. Press <em>Read</em> to reload the events list based on the filter parameters.
@@ -1061,72 +1090,79 @@ button. Press <em>Read</em> to reload the events list based on the filter parame
 database request for loading events. It does not update the current list.</strong>
 Use the <a class="reference internal" href="global.html#global"><span class="std std-ref">Global parameters</span></a> for presetting the values (<code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code> or
 <code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code>), e.g.:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>eventlist.filter.database.minlat<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">51</span>.0
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">eventlist.filter.database.minlat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">51.0</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Preset filters</strong> based on</p>
-<ul>
-<li><p><strong>Event type:</strong> Activate by check box <em>Hide other/fake events</em>. If checked, all
-events with the configured types are hidden from the list. The default event types
+</ul>
+<p>Event lists already loaded from from the database can be filtered by</p>
+<ul class="simple">
+<li><p><strong>Event type:</strong> Activate by check box <em>Hide other/fake events</em>. If checked, all</p></li>
+</ul>
+<p>events with the configured types are hidden from the list. The default event types
 to hide are <em>not existing</em> and <em>other</em> are hidden. If unchecked, the filtering
 is inactive and the events are shown. <strong>Pressing the Hide button only affects
 the currently loaded list.</strong> Configure the event types used for this filter as well
 as the label text for the checkbox.
 Use the <a class="reference internal" href="global.html#global"><span class="std std-ref">Global parameters</span></a> for presetting the values s (<code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code> or <code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code>):</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the event types to be filtered</span>
-eventlist.filter.types.blacklist<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;not existing&quot;</span>,<span class="w"> </span><span class="s2">&quot;other&quot;</span>,<span class="se">\</span>
-<span class="w">                                   </span><span class="s2">&quot;outside of network interest&quot;</span>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the event types to be filtered</span>
+<span class="na">eventlist.filter.types.blacklist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;not existing&quot;, &quot;other&quot;,</span><span class="se">\</span>
+<span class="w">                                   </span><span class="s">&quot;outside of network interest&quot;</span>
 
 <span class="c1"># Define the label of the button to filter the events</span>
-eventlist.filter.types.label<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Hide fake events&quot;</span>
+<span class="na">eventlist.filter.types.label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hide fake events&quot;</span>
 
 <span class="c1"># Define the default behavior</span>
-eventlist.filter.types.enabled<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span>
+<span class="na">eventlist.filter.types.enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span>
 </pre></div>
 </div>
-</li>
+<ul>
 <li><p><strong>Agency</strong>: Activate by check boxes <em>Show only own origin</em> and/or “Show only
 latest/preferred origin per agency”. The button <em>Show only own events</em>
 will hide all events where the preferred origins agencyID is not the configured
 <a class="reference internal" href="global.html#confval-agencyID"><code class="xref std std-confval docutils literal notranslate"><span class="pre">agencyID</span></code></a> of scolv. This is the default behavior which can be customized
 (<code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code> or <code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code>):</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set the preferred agencyIDs to GFZ and EMSC</span>
-eventlist.filter.agencies.whitelist<span class="w"> </span><span class="o">=</span><span class="w"> </span>GFZ,<span class="w"> </span>EMSC
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set the preferred agencyIDs to GFZ and EMSC</span>
+<span class="na">eventlist.filter.agencies.whitelist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">GFZ, EMSC</span>
 
 <span class="c1"># Set type to &#39;origins&#39; which means that an event will pass the filter if</span>
 <span class="c1"># at least one origin is from a preferred agency defined with the whitelist</span>
 <span class="c1"># above. The default type is &#39;events&#39; which checks only the events preferred</span>
 <span class="c1"># origin.</span>
-eventlist.filter.agencies.type<span class="w"> </span><span class="o">=</span><span class="w"> </span>origins
+<span class="na">eventlist.filter.agencies.type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">origins</span>
 
 <span class="c1"># Defines the text of the option &quot;Show only own events&quot;.</span>
-eventlist.filter.agencies.label<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Show only own events&quot;</span>
+<span class="na">eventlist.filter.agencies.label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Show only own events&quot;</span>
 
 <span class="c1"># Enable this filter initially. If this option is not used, the filter</span>
 <span class="c1"># is disabled by default.</span>
-eventlist.filter.agencies.enabled<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span>
+<span class="na">eventlist.filter.agencies.enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span>
 </pre></div>
 </div>
 </li>
 <li><p><strong>Source region:</strong> Select a source region, activate “Hide events” and choose to
 hide events inside or outside the region.
 <strong>Pressing the Hide button only affects the currently loaded list.</strong>
-Pre-defined regions can be configured in the global configuration
-(<code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code>, <code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code>):</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configured a list of regions that can be used as filter of the result set.</span>
-eventlist.filter.regions.profiles<span class="w"> </span><span class="o">=</span><span class="w"> </span>chile
+Pre-defined regions can be configured in the global configuration per bounding
+box or region defined by a BNA or GeoJSON polygon
+(<code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code>, <code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code>):</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configured a list of regions that can be used as filter of the result set.</span>
+<span class="na">eventlist.filter.regions.profiles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">chile</span>
 
 <span class="c1"># Defines the name of the region that shows up in the listbox.</span>
-eventlist.filter.regions.region.chile.name<span class="w"> </span><span class="o">=</span><span class="w"> </span>Chile
+<span class="na">eventlist.filter.regions.region.chile.name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Chile</span>
 
 <span class="c1"># Defines a rectangular region with a list of 4 values: latmin, lonmin, latmax,</span>
 <span class="c1"># lonmax.</span>
-eventlist.filter.regions.region.chile.rect<span class="w"> </span><span class="o">=</span><span class="w"> </span>-40,<span class="w"> </span>-80,<span class="w"> </span>-10,<span class="w"> </span>-60
+<span class="c1"># eventlist.filter.regions.region.chile.rect = -40, -80, -10, -60</span>
+
+<span class="c1"># Defines the name of the polygon for the region check. If defined then the</span>
+<span class="c1"># rect region has no effect. The configured polygon name is being search for in</span>
+<span class="c1"># the global FEP regions and the spatial vector layer. The first polygon found</span>
+<span class="c1"># with the given name will be taken.</span>
+<span class="na">eventlist.filter.regions.region.chile.poly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">chile</span>
 </pre></div>
 </div>
-</li>
-</ul>
 </li>
 </ul>
 </section>
@@ -1152,14 +1188,14 @@ or processed further.</p></li>
 <h4>Location tab<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h4>
 <p>To add an origin comment value to the information panel of the Location tab,
 configure display paramters in scolv. Example (<code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code>):</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the comment id to be used</span>
-display.origin.comment.id<span class="w"> </span><span class="o">=</span><span class="w"> </span>SED.quality
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the comment id to be used</span>
+<span class="na">display.origin.comment.id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">SED.quality</span>
 
 <span class="c1"># Define the default display value if no comment is available</span>
-display.origin.comment.default<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;-&quot;</span>
+<span class="na">display.origin.comment.default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;-&quot;</span>
 
 <span class="c1"># Define the label text in the information panel for this value</span>
-display.origin.comment.label<span class="w"> </span><span class="o">=</span><span class="w"> </span>Quality
+<span class="na">display.origin.comment.label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Quality</span>
 </pre></div>
 </div>
 </section>
@@ -1168,23 +1204,23 @@ display.origin.comment.label<span class="w"> </span><span class="o">=</span><spa
 <p>To add a custom column to the <strong>origin list of the Event tab</strong> showing an origin
 comment value, configure eventedit parameters in scolv or global. Example
 (<code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code> or <code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code>):</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the default value if no comment is present</span>
-eventedit.origin.customColumn.default<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;-&quot;</span>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the default value if no comment is present</span>
+<span class="na">eventedit.origin.customColumn.default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;-&quot;</span>
 
 <span class="c1"># Define the comment id to be used</span>
-eventedit.origin.customColumn.originCommentID<span class="w"> </span><span class="o">=</span><span class="w"> </span>SED.quality
+<span class="na">eventedit.origin.customColumn.originCommentID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">SED.quality</span>
 
 <span class="c1"># Define the column header label</span>
-eventedit.origin.customColumn.name<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Qual&quot;</span>
+<span class="na">eventedit.origin.customColumn.name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Qual&quot;</span>
 
 <span class="c1"># Define the column position in the table</span>
-eventedit.origin.customColumn.pos<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span>
+<span class="na">eventedit.origin.customColumn.pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">4</span>
 
 <span class="c1"># Allows to map comment values (strings) to colors. In this case the</span>
 <span class="c1"># comment will have A,B,C or D which is mapped to green, yellow, orange and</span>
 <span class="c1"># red</span>
-eventedit.origin.customColumn.colors<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;A:00FF00&quot;</span>,<span class="s2">&quot;B:rgb(64,192,0)&quot;</span>,<span class="se">\</span>
-<span class="w">                                        </span><span class="s2">&quot;C:rgb(192,64,0)&quot;</span>,<span class="s2">&quot;D:FF0000&quot;</span>
+<span class="na">eventedit.origin.customColumn.colors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;A:00FF00&quot;,&quot;B:rgb(64,192,0)&quot;,</span><span class="se">\</span>
+<span class="w">                                        </span><span class="s">&quot;C:rgb(192,64,0)&quot;,&quot;D:FF0000&quot;</span>
 </pre></div>
 </div>
 </section>
@@ -1193,27 +1229,38 @@ eventedit.origin.customColumn.colors<span class="w"> </span><span class="o">=</s
 <p>To add a custom column to the <strong>event list of the Events tab</strong> using a comment
 value, configure eventlist parameters in scolv or global. Example
 (<code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code> or <code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code>):</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the default value if no comment is present</span>
-eventlist.customColumn.default<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;-&quot;</span>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the default value if no comment is present</span>
+<span class="na">eventlist.customColumn.default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;-&quot;</span>
 
 <span class="c1"># Define the comment id to be used</span>
-eventlist.customColumn.originCommentID<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;SED.quality&quot;</span>
+<span class="na">eventlist.customColumn.originCommentID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;SED.quality&quot;</span>
 
 <span class="c1"># Define the column header label</span>
-eventlist.customColumn.name<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Qual&quot;</span>
+<span class="na">eventlist.customColumn.name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Qual&quot;</span>
 
 <span class="c1"># Define the column position in the table</span>
-eventlist.customColumn.pos<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span>
+<span class="na">eventlist.customColumn.pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">5</span>
 
 <span class="c1"># Allows to map comment values (strings) to colors. In this case the</span>
 <span class="c1"># comment will have A,B,C or D which is mapped to green, yellow, orange and</span>
 <span class="c1"># red</span>
-eventlist.customColumn.colors<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;A:00FF00&quot;</span>,<span class="s2">&quot;B:rgb(64,192,0)&quot;</span>,<span class="se">\</span>
-<span class="w">                                </span><span class="s2">&quot;C:rgb(192,64,0)&quot;</span>,<span class="s2">&quot;D:FF0000&quot;</span>
+<span class="na">eventlist.customColumn.colors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;A:00FF00&quot;,&quot;B:rgb(64,192,0)&quot;,</span><span class="se">\</span>
+<span class="w">                                </span><span class="s">&quot;C:rgb(192,64,0)&quot;,&quot;D:FF0000&quot;</span>
 </pre></div>
 </div>
 <p>The last three examples are used to show the <em>SED.quality</em> comment value which
 is set by the <a class="reference internal" href="global_nonlinloc.html#global-nonlinloc"><span class="std std-ref">NonLinLoc locator plugin</span></a>.</p>
+<p>In order to show event comments, e.g.,
+<a class="reference internal" href="#scolv-sec-commit-additional"><span class="std std-ref">set during committing</span></a> replace
+<a class="reference internal" href="global_gui.html#confval-eventlist.customColumn.originCommentID"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventlist.customColumn.originCommentID</span></code></a> by
+<a class="reference internal" href="global_gui.html#confval-eventlist.customColumn.eventCommentID"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventlist.customColumn.eventCommentID</span></code></a>:</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the comment id to be used</span>
+<span class="na">eventlist.customColumn.eventCommentID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Operator&quot;</span>
+
+<span class="c1"># Define the column header label</span>
+<span class="na">eventlist.customColumn.name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Operator&quot;</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="external-scripts">
@@ -1231,13 +1278,18 @@ The information may include parameters derived from origins.</p></li>
 buttons to the <strong>Location tab</strong>.
 When pressing the custom buttons, user-defined external scripts are executed.
 Configuration (<code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code>):</p>
+<ul>
+<li><p>Button in Summary window. Configure: <a class="reference internal" href="#confval-scripts.export"><code class="xref std std-confval docutils literal notranslate"><span class="pre">scripts.export</span></code></a> and read
+<a class="reference internal" href="#confval-scripts.export"><code class="xref std std-confval docutils literal notranslate"><span class="pre">scripts.export</span></code></a> for the description of the parameters passed to the
+script.</p></li>
+<li><p>Up to 2 buttons in Location tab. Configure:</p>
 <ul class="simple">
-<li><p>Button in Summary window: <a class="reference internal" href="#confval-scripts.export"><code class="xref std std-confval docutils literal notranslate"><span class="pre">scripts.export</span></code></a>. Read <a class="reference internal" href="#confval-scripts.export"><code class="xref std std-confval docutils literal notranslate"><span class="pre">scripts.export</span></code></a>
-for the description of the parameters passed to the script.</p></li>
-<li><p>Up to 2 buttons in Location tab: <a class="reference internal" href="#confval-button0"><code class="xref std std-confval docutils literal notranslate"><span class="pre">button0</span></code></a>, <a class="reference internal" href="#confval-scripts.script0"><code class="xref std std-confval docutils literal notranslate"><span class="pre">scripts.script0</span></code></a>,
-<a class="reference internal" href="#confval-button1"><code class="xref std std-confval docutils literal notranslate"><span class="pre">button1</span></code></a>,  <a class="reference internal" href="#confval-scripts.script1"><code class="xref std std-confval docutils literal notranslate"><span class="pre">scripts.script1</span></code></a> Read <a class="reference internal" href="#confval-scripts.script0"><code class="xref std std-confval docutils literal notranslate"><span class="pre">scripts.script0</span></code></a>
-and <a class="reference internal" href="#confval-scripts.script1"><code class="xref std std-confval docutils literal notranslate"><span class="pre">scripts.script1</span></code></a> for the description of the parameters passed to
-the scripts.</p></li>
+<li><p>button1: <a class="reference internal" href="#confval-button0"><code class="xref std std-confval docutils literal notranslate"><span class="pre">button0</span></code></a>, <a class="reference internal" href="#confval-scripts.script0"><code class="xref std std-confval docutils literal notranslate"><span class="pre">scripts.script0</span></code></a>,</p></li>
+<li><p>button2: <a class="reference internal" href="#confval-button1"><code class="xref std std-confval docutils literal notranslate"><span class="pre">button1</span></code></a>,  <a class="reference internal" href="#confval-scripts.script1"><code class="xref std std-confval docutils literal notranslate"><span class="pre">scripts.script1</span></code></a>.</p></li>
+</ul>
+<p>Read <a class="reference internal" href="#confval-scripts.script0"><code class="xref std std-confval docutils literal notranslate"><span class="pre">scripts.script0</span></code></a> and <a class="reference internal" href="#confval-scripts.script1"><code class="xref std std-confval docutils literal notranslate"><span class="pre">scripts.script1</span></code></a> for the
+description of the parameters passed to the scripts.</p>
+</li>
 </ul>
 </section>
 <section id="custom-information-in-tabs">
@@ -1313,15 +1365,15 @@ The slower the database access, the longer it takes to display the results.</p>
 <p>To add the output of an external custom script to the information panel of the Location tab,
 configure display parameters in scolv. An example script is given
 <a class="reference internal" href="#sec-scolv-example-script"><span class="std std-ref">above</span></a>. Configuration example (<code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code>):</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the available add-ons to be used</span>
-display.origin.addons<span class="w"> </span><span class="o">=</span><span class="w"> </span>qual,<span class="w"> </span>qual2
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the available add-ons to be used</span>
+<span class="na">display.origin.addons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">qual, qual2</span>
 
 <span class="c1"># Configure each add-on</span>
-display.origin.addon.qual1.label<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Qual1&quot;</span>
-display.origin.addon.qual1.script<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;@DATADIR@/scripts/scolv/script1&quot;</span>
+<span class="na">display.origin.addon.qual1.label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Qual1&quot;</span>
+<span class="na">display.origin.addon.qual1.script</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;@DATADIR@/scripts/scolv/script1&quot;</span>
 
-display.origin.addon.qual2.label<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Qual2&quot;</span>
-display.origin.addon.qual2.script<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;@DATADIR@/scripts/scolv/script2&quot;</span>
+<span class="na">display.origin.addon.qual2.label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Qual2&quot;</span>
+<span class="na">display.origin.addon.qual2.script</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;@DATADIR@/scripts/scolv/script2&quot;</span>
 </pre></div>
 </div>
 </section>
@@ -1331,15 +1383,15 @@ display.origin.addon.qual2.script<span class="w"> </span><span class="o">=</span
 configure the eventedit parameters in <code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code> or <code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code>.
 An example script is given <a class="reference internal" href="#sec-scolv-example-script"><span class="std std-ref">above</span></a>.
 Configuration example:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>eventedit.scripts.columns<span class="w"> </span><span class="o">=</span><span class="w"> </span>qual1,<span class="w"> </span>qual2
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">eventedit.scripts.columns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">qual1, qual2</span>
 
-eventedit.scripts.column.qual1.label<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Qual1&quot;</span>
-eventedit.scripts.column.qual1.pos<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">8</span>
-eventedit.scripts.column.qual1.script<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;@DATADIR@/scripts/scolv/script1&quot;</span>
+<span class="na">eventedit.scripts.column.qual1.label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Qual1&quot;</span>
+<span class="na">eventedit.scripts.column.qual1.pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">8</span>
+<span class="na">eventedit.scripts.column.qual1.script</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;@DATADIR@/scripts/scolv/script1&quot;</span>
 
-eventedit.scripts.column.qual2.label<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Qual2&quot;</span>
-eventedit.scripts.column.qual2.pos<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">9</span>
-eventedit.scripts.column.qual2.script<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;@DATADIR@/scripts/scolv/script2&quot;</span>
+<span class="na">eventedit.scripts.column.qual2.label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Qual2&quot;</span>
+<span class="na">eventedit.scripts.column.qual2.pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">9</span>
+<span class="na">eventedit.scripts.column.qual2.script</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;@DATADIR@/scripts/scolv/script2&quot;</span>
 </pre></div>
 </div>
 </section>
@@ -1352,17 +1404,17 @@ script (stdout) in a custom column.</p>
 configure the eventlist parameters in <code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code> or <code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code>.
 An example script is given <a class="reference internal" href="#sec-scolv-example-script"><span class="std std-ref">above</span></a>.
 Configuration example for passing origin or event objects:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>eventlist.scripts.columns<span class="w"> </span><span class="o">=</span><span class="w"> </span>qual1,<span class="w"> </span>qual2
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">eventlist.scripts.columns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">qual1, qual2</span>
 
-eventlist.scripts.column.qual1.label<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Qual1&quot;</span>
-eventlist.scripts.column.qual1.pos<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span>
-eventlist.scripts.column.qual1.script<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;@DATADIR@/scripts/scolv/script1&quot;</span>
-eventlist.scripts.column.qual1.types<span class="w"> </span><span class="o">=</span><span class="w"> </span>Origin
+<span class="na">eventlist.scripts.column.qual1.label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Qual1&quot;</span>
+<span class="na">eventlist.scripts.column.qual1.pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">5</span>
+<span class="na">eventlist.scripts.column.qual1.script</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;@DATADIR@/scripts/scolv/script1&quot;</span>
+<span class="na">eventlist.scripts.column.qual1.types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Origin</span>
 
-eventlist.scripts.column.qual2.label<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Qual2&quot;</span>
-eventlist.scripts.column.qual2.pos<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span>
-eventlist.scripts.column.qual2.script<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;@DATADIR@/scripts/scolv/script2&quot;</span>
-eventlist.scripts.column.qual2.types<span class="w"> </span><span class="o">=</span><span class="w"> </span>Event
+<span class="na">eventlist.scripts.column.qual2.label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Qual2&quot;</span>
+<span class="na">eventlist.scripts.column.qual2.pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">6</span>
+<span class="na">eventlist.scripts.column.qual2.script</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;@DATADIR@/scripts/scolv/script2&quot;</span>
+<span class="na">eventlist.scripts.column.qual2.types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Event</span>
 </pre></div>
 </div>
 <p>Adding external scripts to the event list is the most expensive part. Whenever
@@ -1390,10 +1442,10 @@ priority over configurations in <code class="file docutils literal notranslate">
 <section id="global">
 <h3>Global<a class="headerlink" href="#global" title="Permalink to this heading">¶</a></h3>
 <p>This section contains settings for all the main tabs and <em>all</em> waveform windows.</p>
-<figure class="align-center" id="id24">
+<figure class="align-center" id="id25">
 <img alt="../_images/settings-global.png" src="../_images/settings-global.png" />
 <figcaption>
-<p><span class="caption-text">Global settings</span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Global settings</span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <dl class="simple">
@@ -1421,10 +1473,10 @@ shown. Once data arrives the trace becomes visible.</p>
 <section id="picker">
 <h3>Picker<a class="headerlink" href="#picker" title="Permalink to this heading">¶</a></h3>
 <p>This section contains settings for the picker window.</p>
-<figure class="align-center" id="id25">
+<figure class="align-center" id="id26">
 <img alt="../_images/settings-picker.png" src="../_images/settings-picker.png" />
 <figcaption>
-<p><span class="caption-text">Waveform picker settings</span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Waveform picker settings</span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <dl class="simple">
@@ -1443,10 +1495,10 @@ the manual review is confirmed.</p>
 <section id="magnitude-review">
 <h3>Magnitude review<a class="headerlink" href="#magnitude-review" title="Permalink to this heading">¶</a></h3>
 <p>This section contains settings for the magnitude waveform review window.</p>
-<figure class="align-center" id="id26">
+<figure class="align-center" id="id27">
 <img alt="../_images/settings-amplitude.png" src="../_images/settings-amplitude.png" />
 <figcaption>
-<p><span class="caption-text">Amplitude/magnitude review settings</span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Amplitude/magnitude review settings</span><a class="headerlink" href="#id27" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <dl>
@@ -1464,19 +1516,19 @@ shifted.</p>
 <h3>Units and precisions<a class="headerlink" href="#units-and-precisions" title="Permalink to this heading">¶</a></h3>
 <p>Local network users prefer the distance unit in kilometers while others prefer degrees.
 scolv (as any other GUI) can be configured to show either the one or the other.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># If true, show distances in km. Use degree otherwise.</span>
-scheme.unit.distanceInKM<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># If true, show distances in km. Use degree otherwise.</span>
+<span class="na">scheme.unit.distanceInKM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span>
 </pre></div>
 </div>
 <p>Furthermore the precision of various values can be configured:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Precision of depth values.</span>
-scheme.precision.depth<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># Precision of depth values.</span>
+<span class="na">scheme.precision.depth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0</span>
 <span class="c1"># Precision of latitude/longitude values.</span>
-scheme.precision.location<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span>
+<span class="na">scheme.precision.location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">2</span>
 <span class="c1"># Precision of magnitude values.</span>
-scheme.precision.magnitude<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span>
+<span class="na">scheme.precision.magnitude</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">2</span>
 <span class="c1"># Precision of pick times (fractions of seconds).</span>
-scheme.precision.pickTime<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>
+<span class="na">scheme.precision.pickTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -1747,35 +1799,59 @@ same as ticking the option “Load all picks”.</p></td>
 <tr class="row-odd"><td><p><strong>Amplitude picker</strong></p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>F5</p></td>
+<tr class="row-even"><td><p><em>Zoom trace</em></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Ctrl+Down</p></td>
+<td><p>Scale amplitudes down</p></td>
+</tr>
+<tr class="row-even"><td><p>Ctrl+Up</p></td>
+<td><p>Scale amplitudes up</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ctrl+Right</p></td>
+<td><p>Decrease visible time span (zoom in)</p></td>
+</tr>
+<tr class="row-even"><td><p>Ctrl+Left</p></td>
+<td><p>Increase visible time span (zoom out)</p></td>
+</tr>
+<tr class="row-odd"><td><p>W</p></td>
+<td><p>Reset zoom window to the length of the picking overview</p></td>
+</tr>
+<tr class="row-even"><td><p><em>Trace overview</em></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>F5</p></td>
 <td><p>Compute network magnitudes and return to Magnitudes tab</p></td>
 </tr>
-<tr class="row-odd"><td><p>1</p></td>
+<tr class="row-even"><td><p>1</p></td>
 <td><p>Pick amplitudes manually</p></td>
 </tr>
-<tr class="row-even"><td><p>ESC</p></td>
+<tr class="row-odd"><td><p>ESC</p></td>
 <td><p>Leave picking mode</p></td>
 </tr>
-<tr class="row-odd"><td><p>F</p></td>
+<tr class="row-even"><td><p>F</p></td>
 <td><p>Toggle filter</p></td>
 </tr>
-<tr class="row-even"><td><p>Shift+N</p></td>
+<tr class="row-odd"><td><p>Shift+N</p></td>
 <td><p>Default view</p></td>
 </tr>
-<tr class="row-odd"><td><p>Left</p></td>
+<tr class="row-even"><td><p>Left</p></td>
 <td><p>Move trace view to left (fine)</p></td>
 </tr>
-<tr class="row-even"><td><p>Right</p></td>
+<tr class="row-odd"><td><p>Right</p></td>
 <td><p>Move trace view to right (fine)</p></td>
 </tr>
-<tr class="row-odd"><td><p>Shift+Left</p></td>
+<tr class="row-even"><td><p>Shift+Left</p></td>
 <td><p>Move trace view to left (rough)</p></td>
 </tr>
-<tr class="row-even"><td><p>Shift+Right</p></td>
+<tr class="row-odd"><td><p>Shift+Right</p></td>
 <td><p>Move trace view to left (rough)</p></td>
 </tr>
-<tr class="row-odd"><td><p>R</p></td>
+<tr class="row-even"><td><p>R</p></td>
 <td><p>Recompute amplitude of selected station</p></td>
+</tr>
+<tr class="row-odd"><td><p>Shift+W</p></td>
+<td><p>Reset all noise and signal time windows as configured</p></td>
 </tr>
 <tr class="row-even"><td><p>X</p></td>
 <td><p>Deactivate selected pick or station</p></td>
@@ -1844,10 +1920,13 @@ same as ticking the option “Load all picks”.</p></td>
 <span class="sig-name descname"><span class="pre">magnitudes</span></span><a class="headerlink" href="#confval-magnitudes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">MLv,mb,mB,Mwp</span></code></p>
 <p>Type: <em>list:string</em></p>
-<p>List of magnitude types to be calculated when
-computing magnitudes. This list can be altered interactively so
-this reflects only the default unless computeMagnitudesSilently
-is set to true.</p>
+<p>List of magnitude types to be calculated when computing
+magnitudes. This list can be altered interactively so it
+reflects only the default unless computeMagnitudesSilently
+is set to true. The configured types should include all
+types which are also computed by scmag in order to allow
+their processing in scolv. Otherwise scmag may add
+magnitudes to origins without interaction in scolv.</p>
 </dd></dl>
 
 <dl class="std confval">
@@ -2062,8 +2141,7 @@ hidden in the picker.</p>
 <dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
 <p>Type: <em>boolean</em></p>
 <p>Adds an icon to the system tray and displays a message
-when a new event was received. Note that this feature
-requires libQt4 version 4.3 or higher.</p>
+when a new event was received.</p>
 </dd></dl>
 
 <dl class="std confval">
@@ -2598,8 +2676,7 @@ side of the trace window.</p>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-picker.repickerStart">
 <span class="sig-name descname"><span class="pre">picker.repickerStart</span></span><a class="headerlink" href="#confval-picker.repickerStart" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">-10</span></code></p>
-<p>Type: <em>double</em></p>
+<dd><p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
 <p>Start of the re-picker time window relative the cursor position on the trace.</p>
 </dd></dl>
@@ -2607,8 +2684,7 @@ side of the trace window.</p>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-picker.repickerEnd">
 <span class="sig-name descname"><span class="pre">picker.repickerEnd</span></span><a class="headerlink" href="#confval-picker.repickerEnd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">30</span></code></p>
-<p>Type: <em>double</em></p>
+<dd><p>Type: <em>double</em></p>
 <p>Unit: <em>s</em></p>
 <p>End of the re-picker time window relative the cursor position on the trace.</p>
 </dd></dl>
@@ -2883,7 +2959,9 @@ amplitude time window.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>display.origin.*</strong>
-<em>Origin information</em></p>
+<em>Origin information to show. Event comments can be</em>
+<em>processed by addons or shown in the event list as</em>
+<em>configured by global parameters.</em></p>
 </div>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-display.origin.addons">
@@ -2898,7 +2976,7 @@ provides an example script.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>display.origin.comment.*</strong>
-<em>Display origin comments.</em></p>
+<em>Origin comment value to be shown based on its comment ID.</em></p>
 </div>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-display.origin.comment.id">
@@ -3292,7 +3370,11 @@ GUI applications.</p>
 </li>
 <li><a class="reference internal" href="#relocate-events">Relocate events</a></li>
 <li><a class="reference internal" href="#compute-magnitudes">Compute magnitudes</a></li>
-<li><a class="reference internal" href="#commit-a-solution">Commit a solution</a></li>
+<li><a class="reference internal" href="#commit-a-solution">Commit a solution</a><ul>
+<li><a class="reference internal" href="#additional-options">Additional options</a></li>
+<li><a class="reference internal" href="#custom-commits">Custom commits</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#magnitudes-tab">Magnitudes Tab</a><ul>
@@ -3396,7 +3478,7 @@ GUI applications.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

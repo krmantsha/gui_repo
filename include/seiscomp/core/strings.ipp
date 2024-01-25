@@ -36,7 +36,7 @@ namespace Core {
 template <typename T>
 inline std::string toString(const T &v) {
 	std::ostringstream os;
-	os << Number<T>(v);
+	os << v;
 	return os.str();
 }
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -45,11 +45,23 @@ inline std::string toString(const T &v) {
 
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-template <typename T>
-std::ostream &operator<<(std::ostream &ostream, Number<T> n) {
-	ostream.precision(10);
-	ostream << n.ref;
-	return ostream;
+template <>
+inline std::string toString(const float &v) {
+	std::ostringstream os;
+	os << number(v);
+	return os.str();
+}
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+template <>
+inline std::string toString(const double &v) {
+	std::ostringstream os;
+	os << number(v);
+	return os.str();
 }
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -60,7 +72,7 @@ std::ostream &operator<<(std::ostream &ostream, Number<T> n) {
 template <typename T>
 inline std::string toString(const std::complex<T>& v) {
 	std::ostringstream os;
-	os << "(" << toString(v.real()) << "," << toString(v.imag()) << ")";
+	os << "(" << number(v.real()) << "," << number(v.imag()) << ")";
 	return os.str();
 }
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -388,10 +400,12 @@ inline std::string join(const CONT &tokens, const char *separator) {
 	std::string s;
 	bool first = true;
 	for ( auto &&item : tokens ) {
-		if ( !first )
+		if ( !first ) {
 			s += separator;
-		else
+		}
+		else {
 			first = false;
+		}
 		s += item;
 	}
 	return s;
@@ -405,6 +419,16 @@ inline std::string join(const CONT &tokens, const char *separator) {
 template <class CONT>
 std::string join(const CONT &tokens, const std::string &separator) {
 	return join(tokens, separator.c_str());
+}
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+template <typename S, typename... Args>
+inline std::string stringify(const S &format, Args &&...args) {
+	return fmt::vsprintf(format, fmt::make_printf_args(args...));
 }
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 

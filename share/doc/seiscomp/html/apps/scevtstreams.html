@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -74,7 +74,7 @@
           
   <section id="scevtstreams">
 <span id="id1"></span><h1>scevtstreams<a class="headerlink" href="#scevtstreams" title="Permalink to this heading">¶</a></h1>
-<p><strong>Extract stream information and time windows from an event.</strong></p>
+<p><strong>Extract stream information with time windows from picks of an event.</strong></p>
 <section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
 <p>scevtstreams reads all picks of an event and determines the time window between
@@ -82,20 +82,19 @@ the first pick and the last pick. In addition a symmetric or an asymmetric time
 margin is added to this
 time window. It writes the streams that are picked including the determined
 time window for the event to stdout. This tool gives appropriate input
-information for <a class="reference internal" href="scart.html#scart"><span class="std std-ref">scart</span></a>, <a class="reference internal" href="fdsnws.html#fdsnws"><span class="std std-ref">fdsnws</span></a> and
-<a class="reference external" href="https://docs.gempa.de/caps/current/apps/capstool.html">caps</a>
-(Common Acquisition Protocol Server by gempa GmbH) to dump waveforms from archives
-based on event data.</p>
+information for <a class="reference internal" href="scart.html#scart"><span class="std std-ref">scart</span></a>, <a class="reference internal" href="fdsnws.html#fdsnws"><span class="std std-ref">fdsnws</span></a> and <span id="id2"><em>capstool</em> [<a class="reference internal" href="../base/references.html#id92" title="capstool. gempa plugin. URL: https://docs.gempa.de/caps/current/apps/capstool.html.">27</a>]</span> for
+<span id="id3"><em>CAPS</em> [<a class="reference internal" href="../base/references.html#id89" title="CAPS. gempa module. URL: https://docs.gempa.de/caps/current/index.html.">3</a>]</span> server (Common Acquisition Protocol Server by gempa GmbH) to dump
+waveforms from archives based on event data.</p>
 </section>
 <section id="output-format">
 <h2>Output Format<a class="headerlink" href="#output-format" title="Permalink to this heading">¶</a></h2>
 <p>The generated list contains start and end time as well as stream information.</p>
 <p>Generic:</p>
-<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>starttime;endtime;streamID
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">starttime;endtime;stream</span>
 </pre></div>
 </div>
 <p>Example:</p>
-<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>2019-07-17 02:00:00;2019-07-17 02:10:00;GR.CLL..BHZ
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">2019-07-17</span><span class="w"> </span><span class="s">02:00:00;2019-07-17 02:10:00;GR.CLL..BHZ</span>
 </pre></div>
 </div>
 </section>
@@ -113,13 +112,15 @@ starts 120 s before the first pick and ends 500 s after the last pick:</p>
 </pre></div>
 </div>
 </li>
-<li><p>Create a playback of an event with a time window of 5 minutes data and sort the records by end time:</p>
+<li><p>Create a playback of an event with a time window of 5 minutes data and
+sort the records by end time:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scevtstreams<span class="w"> </span>-E<span class="w"> </span>gfz2012abcd<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@localhost/seiscomp<span class="w"> </span>-m<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="p">|</span><span class="se">\</span>
 scart<span class="w"> </span>-dsvE<span class="w"> </span>--list<span class="w"> </span>-<span class="w"> </span>~/seiscomp/acquisition/archive<span class="w"> </span>&gt;<span class="w"> </span>gfz2012abcd-sorted.mseed
 </pre></div>
 </div>
 </li>
-<li><p>Download waveforms from Arclink and import into local archive. Include all stations from the contributing networks:</p>
+<li><p>Download waveforms from Arclink and import into local archive. Include
+all stations from the contributing networks:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scevtstreams<span class="w"> </span>-E<span class="w"> </span>gfz2012abcd<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@localhost/seiscomp<span class="w"> </span>-m<span class="w"> </span><span class="m">300</span><span class="w"> </span>-R<span class="w"> </span>--all-stations<span class="w"> </span><span class="p">|</span><span class="se">\</span>
 scart<span class="w"> </span>--list<span class="w"> </span>-<span class="w"> </span>./my-archive
 </pre></div>
@@ -316,14 +317,15 @@ can be queried with &quot;--db-driver-list&quot;.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-scevtstreams-i">
 <span id="cmdoption-scevtstreams-input"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--input</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevtstreams-i" title="Permalink to this definition">¶</a></dt>
-<dd><p>Input XML file name. Override reading from database.</p>
+<dd><p>Input XML file name. Reads event from the XML file instead of
+database. Use ‘-’ to read from stdin.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-scevtstreams-f">
 <span id="cmdoption-scevtstreams-format"></span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--format</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevtstreams-f" title="Permalink to this definition">¶</a></dt>
-<dd><p>Input format to use (xml [default], zxml (zipped xml), binary).
-Only relevant with --input.</p>
+<dd><p>Input format to use (xml [default], zxml (zipped xml),
+binary). Only relevant with -i.</p>
 </dd></dl>
 
 </section>
@@ -332,16 +334,34 @@ Only relevant with --input.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-scevtstreams-E">
 <span id="cmdoption-scevtstreams-event"></span><span class="sig-name descname"><span class="pre">-E</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--event</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevtstreams-E" title="Permalink to this definition">¶</a></dt>
-<dd><p>Specifies the event id.</p>
+<dd><p>The ID of the event to consider.</p>
 </dd></dl>
 
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevtstreams-net-sta">
+<span class="sig-name descname"><span class="pre">--net-sta</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevtstreams-net-sta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter read picks by network code or network and station
+code. Format: NET or NET.STA</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevtstreams-nslc">
+<span class="sig-name descname"><span class="pre">--nslc</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevtstreams-nslc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stream list file to be used for filtering read picks by
+stream code. ‘--net-sta’ will be ignored. One line per
+stream. Line format: NET.STA.LOC.CHA.</p>
+</dd></dl>
+
+</section>
+<section id="output">
+<h3>Output<a class="headerlink" href="#output" title="Permalink to this heading">¶</a></h3>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-scevtstreams-m">
 <span id="cmdoption-scevtstreams-margin"></span><span class="sig-name descname"><span class="pre">-m</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--margin</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevtstreams-m" title="Permalink to this definition">¶</a></dt>
 <dd><p>Time margin around the picked time window, default is 300.
-Added before the first and after the last pick, respectively.
-Use 2 comma-separted values (before,after) for asymmetric
-margins. Example: 120,300.</p>
+Added before the first and after the last pick,
+respectively. Use 2 comma-separted values (before,after)
+for asymmetric margins. Example: 120,300.</p>
 </dd></dl>
 
 <dl class="std option">
@@ -376,9 +396,9 @@ stations with picks are dumped.</p>
 <dt class="sig sig-object std" id="cmdoption-scevtstreams-all-networks">
 <span class="sig-name descname"><span class="pre">--all-networks</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scevtstreams-all-networks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dump all networks. If unused, just networks with picks are
-dumped. This option implies all-stations, all-locations,
-all-streams, all-components and will only provide the time
-window.</p>
+dumped. This option implies --all-stations, --all-locations,
+--all-streams, --all-components and will only provide the
+time window.</p>
 </dd></dl>
 
 <dl class="std option">
@@ -390,23 +410,16 @@ should be used).</p>
 </dd></dl>
 
 <dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-scevtstreams-net-sta">
-<span class="sig-name descname"><span class="pre">--net-sta</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevtstreams-net-sta" title="Permalink to this definition">¶</a></dt>
-<dd><p>Filter streams by network code or network and station code.
-Format: NET or NET.STA</p>
-</dd></dl>
-
-<dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-scevtstreams-caps">
 <span class="sig-name descname"><span class="pre">--caps</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scevtstreams-caps" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dump in capstool format (Common Acquisition Protocol Server
-by gempa GmbH)</p>
+by gempa GmbH).</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-scevtstreams-fdsnws">
 <span class="sig-name descname"><span class="pre">--fdsnws</span></span><span class="sig-prename descclassname"> <span class="pre">flag</span></span><a class="headerlink" href="#cmdoption-scevtstreams-fdsnws" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dump in FDSN dataselect webservice POST format</p>
+<dd><p>Dump in FDSN dataselect webservice POST format.</p>
 </dd></dl>
 
 </section>
@@ -444,6 +457,7 @@ by gempa GmbH)</p>
 <li><a class="reference internal" href="#database">Database</a></li>
 <li><a class="reference internal" href="#input">Input</a></li>
 <li><a class="reference internal" href="#dump">Dump</a></li>
+<li><a class="reference internal" href="#output">Output</a></li>
 </ul>
 </li>
 </ul>
@@ -480,7 +494,7 @@ by gempa GmbH)</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

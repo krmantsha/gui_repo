@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">5.5.17</span>
+          <span class="version">6.1.2</span>
         </div>
       </div>
     </div>
@@ -129,7 +129,7 @@ The issue is resolved in this release and both, <a class="reference internal" hr
 </div>
 <p>The full procedure to create the seiscomp database:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>user@host:~$<span class="w"> </span>sudo<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
-<span class="w">     </span>CREATE<span class="w"> </span>DATABASE<span class="w"> </span>seiscomp<span class="w"> </span>CHARACTER<span class="w"> </span>SET<span class="w"> </span>utf8<span class="w"> </span>COLLATE<span class="w"> </span>utf8_bin<span class="p">;</span>
+<span class="w">     </span>CREATE<span class="w"> </span>DATABASE<span class="w"> </span>seiscomp<span class="w"> </span>CHARACTER<span class="w"> </span>SET<span class="w"> </span>utf8mb4<span class="p">;</span>
 <span class="w">     </span>grant<span class="w"> </span>usage<span class="w"> </span>on<span class="w"> </span>seiscomp.*<span class="w"> </span>to<span class="w"> </span>sysop@localhost<span class="w"> </span>identified<span class="w"> </span>by<span class="w"> </span><span class="s1">&#39;sysop&#39;</span><span class="p">;</span>
 <span class="w">     </span>grant<span class="w"> </span>all<span class="w"> </span>privileges<span class="w"> </span>on<span class="w"> </span>seiscomp.*<span class="w"> </span>to<span class="w"> </span>sysop@localhost<span class="p">;</span>
 <span class="w">     </span>grant<span class="w"> </span>usage<span class="w"> </span>on<span class="w"> </span>seiscomp.*<span class="w"> </span>to<span class="w"> </span>sysop@<span class="s1">&#39;%&#39;</span><span class="w"> </span>identified<span class="w"> </span>by<span class="w"> </span><span class="s1">&#39;sysop&#39;</span><span class="p">;</span>
@@ -139,6 +139,13 @@ The issue is resolved in this release and both, <a class="reference internal" hr
 
 user@host:~$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>sysop<span class="w"> </span>-p<span class="w"> </span>seiscomp<span class="w"> </span>&lt;<span class="w"> </span>~/seiscomp/share/db/mysql.sql
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If character set ‘utf8mb4’ is not supported by your specific database server
+version then use the old ‘utf8’ format. For historical reasons, SeisComP
+would use then the ‘utf8_bin’ collation. The full statement looks as
+follows: <code class="code docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">DATABASE</span> <span class="pre">seiscomp</span> <span class="pre">CHARACTER</span> <span class="pre">SET</span> <span class="pre">utf8</span> <span class="pre">COLLATE</span> <span class="pre">utf8_bin</span></code>.</p>
 </div>
 </section>
 <section id="postgresql">
@@ -517,7 +524,7 @@ If everything is working, the analysis tools can be started, e.g. MapView.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>5.5.17</b> Release
+		  Version <b>6.1.2</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

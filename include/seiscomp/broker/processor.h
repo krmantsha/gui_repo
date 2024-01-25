@@ -65,7 +65,7 @@ class SC_BROKER_API Processor : public Core::BaseObject {
 		 *        the local client heap.
 		 * @param queue The queue the processor was attached to.
 		 */
-		virtual void attach(Queue *queue);
+		virtual bool attach(Queue *queue);
 
 		/**
 		 * @brief Shuts down the processor.
@@ -80,12 +80,19 @@ class SC_BROKER_API Processor : public Core::BaseObject {
 		 */
 		virtual void getInfo(const Core::Time &timestamp, std::ostream &os) = 0;
 
+		Queue *queue() const;
+
 
 	private:
 		Queue *_queue;
 
 	friend class Queue;
 };
+
+
+inline Queue *Processor::queue() const {
+	return _queue;
+}
 
 
 }

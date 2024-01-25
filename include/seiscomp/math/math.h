@@ -63,11 +63,6 @@ template <typename T>
 #endif
 
 
-/** Rounds the given double value*/
-SC_SYSTEM_CORE_API double round(double val);
-
-
-
 } // namespace Math
 } // namespace Seiscomp
 
