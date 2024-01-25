@@ -4,7 +4,14 @@ All notable changes to the gempa utils library will be documented in this file.
 Please note that we have changed the date format from year-month-day
 to year.dayofyear to be in sync with other changelogs.
 
-## 2023.272
+## 2024.004 4.1.1
+
+### Fixed
+
+-   File copy function. With the previous version cross device copy could fail
+    under certain circumstances.
+
+## 2023.272 4.1.0
 
 ### Added
 

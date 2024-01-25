@@ -95,6 +95,7 @@ Module Configuration
 
 
 
+
 .. confval:: agencyID
 
    Default: ``GFZ``
@@ -438,13 +439,13 @@ Module Configuration
 
 
 .. note::
+
    **database.\***
    *Define the database connection. If no database is configured*
    *(which is the default) and a messaging connection is available,*
    *the application will receive the parameters after the connection*
    *is established. Override these values only if you know what you*
    *are doing.*
-
 
 
 .. confval:: database.inventory
@@ -578,13 +579,13 @@ Module Configuration
 
 
 .. note::
+
    **ttt.\***
    *Travel time table related configuration. Travel time tables can*
    *be added via plugins. Built-in interfaces are LOCSAT, libtau and*
    *homogeneous.*
    *For each loaded interface a list of supported models must be*
    *provided.*
-
 
 
 .. note::
@@ -601,17 +602,17 @@ Module Configuration
 
 
 .. note::
+
    **amplitudes.\***
    *Parameters of amplitude measurements.*
 
 
-
 .. note::
+
    **amplitudes.WoodAnderson.\***
    *Parameters of the Wood-Anderson seismometer response used*
    *for instrument simulation. The WA parameters can be overridden*
    *per stream by global bindings.*
-
 
 
 .. confval:: amplitudes.WoodAnderson.gain
@@ -644,11 +645,11 @@ Module Configuration
 
 
 .. note::
+
    **magnitudes.\***
    *Magnitude configurations overriding global bindings.*
    *Add regionalization by magnitude-type profiles. Profile*
    *names correspond to magnitude types.*
-
 
 
 .. note::
@@ -672,17 +673,18 @@ Module Configuration
 
 
 .. note::
+
    **magnitudes.$name.region.\***
    *Add parameter profiles for regions defined in the*
    *geofeature file. Profile names must match one polygon*
    *name. Otherwise, the profile is not considered.*
    *The special name "world" corresponds to the*
    *region of the entire planet as a fallback.*
-   **
+
+
    *Magnitude-specific parameters, e.g. calibration functions,*
    *are adjusted in a separate section of  magnitudes with*
    *the same name.*
-
 
 
 .. note::
@@ -818,12 +820,12 @@ Bindings Parameters
 
 
 .. note::
+
    **amplitudes.\***
    *Define general parameters for amplitudes of a certain type.*
    *Create amplitude type profiles to define the time windows,*
    *minimum signal-to-noise ratio, amplitude thresholds and*
    *restitution for measuring amplitudes of a certain type.*
-
 
 
 .. confval:: amplitudes.saturationThreshold
@@ -1062,9 +1064,9 @@ Bindings Parameters
 
 
 .. note::
+
    **amplitudes.$name.resp.\***
    *Several parameters if usage of full responses is enabled.*
-
 
 
 .. confval:: amplitudes.$name.resp.taper
@@ -1105,11 +1107,11 @@ Bindings Parameters
 
 
 .. note::
+
    **amplitudes.resp.\***
    *Several parameters if usage of full responses is enabled.*
    *The parameters of this group will be overridden by type*
    *specific settings if given (see Amplitude type profile).*
-
 
 
 .. confval:: amplitudes.resp.taper
@@ -1154,6 +1156,7 @@ Bindings Parameters
 
 
 .. note::
+
    **amplitudes.WoodAnderson.\***
    *Parameters of the Wood-Anderson seismometer response used*
    *for instrument simulation.*
@@ -1162,7 +1165,6 @@ Bindings Parameters
    *Collins (1990) is part of the IASPEI Magnitude*
    *Working Group recommendations of 2011 September 9. This*
    *version uses gain=2800, T0=0.8 s, h=0.8.*
-
 
 
 .. confval:: amplitudes.WoodAnderson.gain
@@ -1195,11 +1197,11 @@ Bindings Parameters
 
 
 .. note::
+
    **magnitudes.\***
    *Define magnitude parameters independent of amplitude-type profiles.*
    *For magnitude correction parameters, e.g, network of station*
    *corrections, create a magnitude type profile.*
-
 
 
 .. note::
@@ -1242,20 +1244,20 @@ Bindings Parameters
 
 
 .. note::
+
    **picker.\***
    *Parameters controlling the second-stage picker for re-picking P*
    *phases after an initial detection.*
 
 
-
 .. note::
+
    **picker.AIC.\***
    *AIC picker is an implementation using the simple non-AR*
    *algorithm of Maeda (1985),*
    *see paper of Zhang et al. (2003) in BSSA. The picker*
    *interface name to be used in configuration files, e.g. of*
    *scautopick, is "AIC".*
-
 
 
 .. confval:: picker.AIC.noiseBegin
@@ -1316,6 +1318,7 @@ Bindings Parameters
 
 
 .. note::
+
    **picker.BK.\***
    *Bkpicker is an implementation of the Baer/Kradolfer picker*
    *adapted to SeisComP. It was created by converting Manfred*
@@ -1323,7 +1326,6 @@ Bindings Parameters
    *for the picker algorithm. The picker interface name to be*
    *used in configuration files, e.g. of scautopick,is*
    *"BK".*
-
 
 
 .. confval:: picker.BK.noiseBegin
@@ -1425,13 +1427,14 @@ Bindings Parameters
 
 
 .. note::
+
    **spicker.\***
    *Parameters controlling the secondary picker. Example: for picking S*
    *phases.*
 
 
-
 .. note::
+
    **spicker.L2.\***
    *L2 is an algorithm to pick S-phases based on existing*
    *P-phases. It works by creating the L2 norm of the two filtered*
@@ -1440,7 +1443,6 @@ Bindings Parameters
    *around the detected pick time to refine the detection.*
    *The picker name to be used in configuration files is*
    *"S-L2".*
-
 
 
 .. confval:: spicker.L2.noiseBegin
@@ -1546,11 +1548,11 @@ Bindings Parameters
 
 
 .. note::
+
    **spicker.V.\***
    *This S-picker works similarly to L2 but it only uses the*
    *vertical component to pick S-phases. The picker name to be*
    *used in configuration files is "S-V".*
-
 
 
 .. confval:: spicker.V.noiseBegin
@@ -1675,12 +1677,12 @@ Bindings Parameters
 
 
 .. note::
+
    **amplitudes.\***
    *Define general parameters for amplitudes of a certain type.*
    *Create amplitude type profiles to define the time windows,*
    *minimum signal-to-noise ratio, amplitude thresholds and*
    *restitution for measuring amplitudes of a certain type.*
-
 
 
 .. confval:: amplitudes.saturationThreshold
@@ -1919,9 +1921,9 @@ Bindings Parameters
 
 
 .. note::
+
    **amplitudes.$name.resp.\***
    *Several parameters if usage of full responses is enabled.*
-
 
 
 .. confval:: amplitudes.$name.resp.taper
@@ -1962,11 +1964,11 @@ Bindings Parameters
 
 
 .. note::
+
    **amplitudes.resp.\***
    *Several parameters if usage of full responses is enabled.*
    *The parameters of this group will be overridden by type*
    *specific settings if given (see Amplitude type profile).*
-
 
 
 .. confval:: amplitudes.resp.taper
@@ -2011,6 +2013,7 @@ Bindings Parameters
 
 
 .. note::
+
    **amplitudes.WoodAnderson.\***
    *Parameters of the Wood-Anderson seismometer response used*
    *for instrument simulation.*
@@ -2019,7 +2022,6 @@ Bindings Parameters
    *Collins (1990) is part of the IASPEI Magnitude*
    *Working Group recommendations of 2011 September 9. This*
    *version uses gain=2800, T0=0.8 s, h=0.8.*
-
 
 
 .. confval:: amplitudes.WoodAnderson.gain
@@ -2052,11 +2054,11 @@ Bindings Parameters
 
 
 .. note::
+
    **magnitudes.\***
    *Define magnitude parameters independent of amplitude-type profiles.*
    *For magnitude correction parameters, e.g, network of station*
    *corrections, create a magnitude type profile.*
-
 
 
 .. note::
@@ -2099,20 +2101,20 @@ Bindings Parameters
 
 
 .. note::
+
    **picker.\***
    *Parameters controlling the second-stage picker for re-picking P*
    *phases after an initial detection.*
 
 
-
 .. note::
+
    **picker.AIC.\***
    *AIC picker is an implementation using the simple non-AR*
    *algorithm of Maeda (1985),*
    *see paper of Zhang et al. (2003) in BSSA. The picker*
    *interface name to be used in configuration files, e.g. of*
    *scautopick, is "AIC".*
-
 
 
 .. confval:: picker.AIC.noiseBegin
@@ -2173,6 +2175,7 @@ Bindings Parameters
 
 
 .. note::
+
    **picker.BK.\***
    *Bkpicker is an implementation of the Baer/Kradolfer picker*
    *adapted to SeisComP. It was created by converting Manfred*
@@ -2180,7 +2183,6 @@ Bindings Parameters
    *for the picker algorithm. The picker interface name to be*
    *used in configuration files, e.g. of scautopick,is*
    *"BK".*
-
 
 
 .. confval:: picker.BK.noiseBegin
@@ -2282,13 +2284,14 @@ Bindings Parameters
 
 
 .. note::
+
    **spicker.\***
    *Parameters controlling the secondary picker. Example: for picking S*
    *phases.*
 
 
-
 .. note::
+
    **spicker.L2.\***
    *L2 is an algorithm to pick S-phases based on existing*
    *P-phases. It works by creating the L2 norm of the two filtered*
@@ -2297,7 +2300,6 @@ Bindings Parameters
    *around the detected pick time to refine the detection.*
    *The picker name to be used in configuration files is*
    *"S-L2".*
-
 
 
 .. confval:: spicker.L2.noiseBegin
@@ -2403,11 +2405,11 @@ Bindings Parameters
 
 
 .. note::
+
    **spicker.V.\***
    *This S-picker works similarly to L2 but it only uses the*
    *vertical component to pick S-phases. The picker name to be*
    *used in configuration files is "S-V".*
-
 
 
 .. confval:: spicker.V.noiseBegin
@@ -2509,6 +2511,7 @@ Bindings Parameters
    Type: *double*
 
    Define the mininum SNR as returned from AIC.
+
 
 
 
@@ -2635,17 +2638,21 @@ Messaging
 
    Overrides configuration parameter :confval:`connection.username`.
 
+
 .. option:: -H, --host arg
 
    Overrides configuration parameter :confval:`connection.server`.
+
 
 .. option:: -t, --timeout arg
 
    Overrides configuration parameter :confval:`connection.timeout`.
 
+
 .. option:: -g, --primary-group arg
 
    Overrides configuration parameter :confval:`connection.primaryGroup`.
+
 
 .. option:: -S, --subscribe-group arg
 
@@ -2656,7 +2663,12 @@ Messaging
 
    Overrides configuration parameter :confval:`connection.contentType`.
 
+   Default: ``binary``
+
+
 .. option:: --start-stop-msg arg
+
+   Default: ``0``
 
    Set sending of a start and a stop message.
 
@@ -2736,4 +2748,5 @@ User interface
 
    Use non\-interactive presentation mode. This only works with
    GUI applications.
+
 

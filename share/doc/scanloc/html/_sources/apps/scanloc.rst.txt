@@ -1118,10 +1118,10 @@ scanloc inherits :ref:`global options<global-configuration>`.
 
 
 .. note::
+
    **buffer.\***
    *Define buffering of picks and origins. scanloc only treats picks*
    *and origins kept in the buffer.*
-
 
 
 .. confval:: buffer.pickKeep
@@ -1211,10 +1211,10 @@ scanloc inherits :ref:`global options<global-configuration>`.
 
 
 .. note::
+
    **clusterSearch.\***
    *Parameters controlling the cluster search based on phase*
    *picks of configured phase type.*
-
 
 
 .. confval:: clusterSearch.phaseType
@@ -1351,10 +1351,10 @@ scanloc inherits :ref:`global options<global-configuration>`.
 
 
 .. note::
+
    **association.\***
    *Parameters controlling the association of P and S phases to cluster*
    *origins or external origins.*
-
 
 
 .. confval:: association.minPhase
@@ -1488,10 +1488,10 @@ scanloc inherits :ref:`global options<global-configuration>`.
 
 
 .. note::
+
    **association.zeroWeight.\***
    *zeroWeight profiles containing the parameters for associating*
    *phases with zero weight to origins.*
-
 
 
 .. note::
@@ -1540,10 +1540,10 @@ scanloc inherits :ref:`global options<global-configuration>`.
 
 
 .. note::
+
    **locator.\***
    *Parameters controlling the locator for locating scanloc*
    *origins.*
-
 
 
 .. confval:: locator.type
@@ -1580,10 +1580,10 @@ scanloc inherits :ref:`global options<global-configuration>`.
 
 
 .. note::
+
    **eventAssociation.\***
    *Parameters controlling the association of interal scanloc origins*
    *to internal scanloc events.*
-
 
 
 .. confval:: eventAssociation.compareAllArrivalTimes
@@ -1651,12 +1651,12 @@ scanloc inherits :ref:`global options<global-configuration>`.
 
 
 .. note::
+
    **score.weights.\***
    *Weight factors controlling the scoring of internal origins*
    *based on the following components:*
    *used P-phase (p), unused P-phase (p0), used S-phase (s),*
    *unused S-phase (s0), depth and residual.*
-
 
 
 .. confval:: score.weights.p
@@ -1727,10 +1727,10 @@ scanloc inherits :ref:`global options<global-configuration>`.
 
 
 .. note::
+
    **publication.\***
    *Parameters controlling the publication of internal scanloc*
    *events as new origins to the messaging system.*
-
 
 
 .. confval:: publication.intervalTimeSlope
@@ -1785,11 +1785,11 @@ scanloc inherits :ref:`global options<global-configuration>`.
 
 
 
+
 Command-Line Options
 ====================
 
 :program:`scanloc [options]`
-
 
 Generic
 -------
@@ -1884,17 +1884,21 @@ Messaging
 
    Overrides configuration parameter :confval:`connection.username`.
 
+
 .. option:: -H, --host arg
 
    Overrides configuration parameter :confval:`connection.server`.
+
 
 .. option:: -t, --timeout arg
 
    Overrides configuration parameter :confval:`connection.timeout`.
 
+
 .. option:: -g, --primary-group arg
 
    Overrides configuration parameter :confval:`connection.primaryGroup`.
+
 
 .. option:: -S, --subscribe-group arg
 
@@ -1902,6 +1906,8 @@ Messaging
    This option can be given more than once.
 
 .. option:: --start-stop-msg arg
+
+   Default: ``0``
 
    Set sending of a start and a stop message.
 
@@ -1941,9 +1947,11 @@ Input
 
    Overrides configuration parameter :confval:`pickKeep`.
 
+
 .. option:: --origin-keep arg
 
    Overrides configuration parameter :confval:`originKeep`.
+
 
 .. option:: --allow-rejected-picks
 
@@ -1991,11 +1999,13 @@ Locator
 .. option:: --locator-type arg
 
    Overrides configuration parameter :confval:`locator.type`.
+
    The locator type to use. Default: LOCSAT.
 
 .. option:: --locator-profile arg
 
    Overrides configuration parameter :confval:`locator.profile`.
+
    The locator profile to use. Default: iasp91.
 
 .. option:: --locator-list
@@ -2020,4 +2030,5 @@ Output
 
    File name to output detailed cluster search information.
    Useful for tuning.
+
 

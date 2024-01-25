@@ -17,10 +17,10 @@
 						Separate multiple names by comma.
 						</description>
 					</parameter>
-					<parameter name="mode" type="string" default="poly">
+					<parameter name="mode" type="string" default="poly" values="grid, line, poly">
 						<description>
-						Render mode of the mapmultigrid plugin. Modes are: grid,
-						line, poly. May be overridden per grid profile.
+						Render mode of the mapmultigrid plugin. May be
+						overridden per grid profile.
 						</description>
 					</parameter>
 					<group name="profiles">
@@ -30,12 +30,16 @@
 						for using them.
 						</description>
 						<struct type="grid profile" link="profiles">
-							<parameter type="string" name="watch">
+							<parameter type="list:string" name="watch">
 								<description>
-								Absolute filename to track for changes with inotify. Supported
+								List of filenames to be monitored for changes with inotify. Supported
 								file formats are: Surfer 6 (binary grids) and GeoTIFF. The GeoTIFF
 								support is experimental and not all GeoTIFF datatypes are supported.
-								The file extension must be tif for GeoTIFF files.
+								The file extension must be TIFF for GeoTIFF files.
+								Separate multiple files by comma.
+
+								The corresponding directory must exist prior to
+								opening maps.
 								</description>
 							</parameter>
 							<parameter type="string" name="title" default="">
@@ -43,10 +47,14 @@
 								The title of the legend.
 								</description>
 							</parameter>
-							<parameter type="string" name="legendArea" default="bottomright">
+							<parameter type="string" name="legendArea" default="bottomright" values="topleft,topright,bottomright,bottomleft">
 								<description>
-								Sets the location of grid legend. Use either:
-								topleft, topright, bottomright or bottomleft.
+								Sets the location of grid legend.
+								</description>
+							</parameter>
+							<parameter type="boolean" name="legendVisible" default="true">
+								<description>
+								Show the legend for this profile.
 								</description>
 							</parameter>
 							<parameter type="boolean" name="discrete" default="true">
@@ -54,10 +62,9 @@
 								Use a discrete gradient is for rendering in grid mode.
 								</description>
 							</parameter>
-							<parameter name="mode" type="string">
+							<parameter name="mode" type="string" values="grid, line, poly" default="grid">
 								<description>
-								Render mode of the grid profile. Modes are: grid, line, poly. Default
-								is the global render mode.
+								Render mode of the grid profile.
 								</description>
 							</parameter>
 							<parameter type="boolean" name="visible" default="true">
@@ -65,22 +72,11 @@
 								Make this item visible at startup.
 								</description>
 							</parameter>
-							<parameter type="string" name="composition" default="src-over">
+							<parameter type="string" name="composition" default="src-over" values="src-over, dst-over, clear, src, dst, src-in, dst-in, src-out, dst-out, src-atop, dst-atop, xor, plus, muliply, screen, darken,lighten, color-dodge, color-burn, hard-light,soft-light, difference, exclusion, src-or-dst,src-and-dst, src-xor-dst, not-src-and-not-dst,not-src-or-not-dst, not-src-xor-dst, not-src,not-src-and-dst, src-and-not-dst">
 								<description>
 								Sets the composition mode. Specifies how the pixels
-								of the grid(the source) are merged with the pixels
-								of the map(the destination).
-
-								Available:
-
-								src-over, dst-over, clear, src, dst, src-in, dst-in,
-								src-out, dst-out, src-atop, dst-atop, xor, plus,
-								muliply, screen, darken,
-								lighten, color-dodge, color-burn, hard-light,
-								soft-light, difference, exclusion, src-or-dst,
-								src-and-dst, src-xor-dst, not-src-and-not-dst,
-								not-src-or-not-dst, not-src-xor-dst, not-src,
-								not-src-and-dst and src-and-not-dst
+								of the grid (the source) are merged with the pixels
+								of the map (the destination).
 
 								See the QT documentation: https://doc.qt.io/archives/qt-4.8/qpainter.html#CompositionMode-enum
 								for the modes.
@@ -94,7 +90,8 @@
 							</parameter>
 							<parameter type="gradient" name="stops">
 								<description>
-								Gradient used for rendering the grid.
+								Gradient used for rendering the grid. Overridden
+								by configuration of gradients parameters.
 
 								Example (value:color:style):
 
@@ -107,63 +104,97 @@
 							<parameter type="string" name="style">
 								<description>
 								Name of defined style profile(s) to be
-								considered. Can be ommitted if styles are named
+								considered. Can be omitted if styles are named
 								in 'stops'.
 								</description>
 							</parameter>
+
+							<group name="gradient">
+							<description>
+							Configuring a gradient overrides stops.
+							</description>
+								<parameter type="string" name="name" default="" values="Default,Spectrum,Circle,BlackBody,Inferno,Plasma,BlackWhite,WhiteBlack,BuPu,Blues,PuRd,RdYlBu,Parula,Viridis">
+									<description>
+									Name of the standard built-in gradient.
+									Read the documentation of color gradients
+									for the details.
+									</description>
+								</parameter>
+								<parameter type="double" name="min">
+									<description>
+									Minimum value of the target value range.
+									</description>
+								</parameter>
+								<parameter type="double" name="max">
+									<description>
+									Maximum value of the target value range.
+									</description>
+								</parameter>
+								<parameter type="integer" name="alpha" default="50" range="[0:255]">
+									<description>
+									Transparency. Overrides the alpha value of
+									the gradient.
+									</description>
+								</parameter>
+								<parameter type="integer" name="nodes" default="-1">
+									<description>
+									Number of nodes at which to define the color
+									gradient. The respective values will be
+									shown in legends.
+
+									&lt; 2: Use nodes originally defined by gradient.
+									</description>
+								</parameter>
+							</group>
 						</struct>
 					</group>
 					<group name="styles">
 						<description>
 							Define style profiles used by the grid profiles.
 						</description>
-					<struct type="style profile">
-						<group name ="brush">
-							<description>
-							Brushes are used to fill a polygon. They have two
-							attributes: color and pattern.
-							</description>
-							<parameter type="string" name="color" default="000000FF">
+						<struct type="style profile">
+							<group name ="brush">
 								<description>
-								The brush color following the color definition
-								in SeisComP: color-code name, rgb or
-								hexadecimal representation.
+								Brushes are used to fill a polygon. They have two
+								attributes: color and pattern.
 								</description>
-							</parameter>
-							<parameter type="string" name="pattern" default="solid">
+								<parameter type="string" name="color" default="000000FF">
+									<description>
+									The brush color following the color definition
+									in SeisComP: color-code name, rgb or
+									hexadecimal representation.
+									</description>
+								</parameter>
+								<parameter type="string" name="pattern" default="solid" values="solid,dense1,dense2,dense3,dense4,dense5,dense6, dense7,nobrush,horizontal,vertical,cross,bdiag,fdiag,diagcross">
+									<description>
+									The brush pattern.
+									</description>
+								</parameter>
+							</group>
+							<group name ="pen">
 								<description>
-								The brush pattern. Availble:
-								solid, dense1, dense2, dense3, dense4,
-								dense5, dense6, dense7, nobrush, horizontal,
-								vertical, cross, bdiag, fdiag, diagcross.
+								Pens are used to draw lines with three
+								attributes: color, style and width.
 								</description>
-							</parameter>
-						</group>
-						<group name ="pen">
-							<description>
-							Pens are used to draw lines with three
-							attributes: color, style and width.
-							</description>
-							<parameter type="string" name="color" default="000000FF">
-								<description>
-								The pen color following the color definition
-								in SeisComP: color-code name, rgb or
-								hexadecimal representation.
-								</description>
-							</parameter>
-							<parameter type="string" name="style" default="solidline">
-								<description>
-								The pen style. Available: nopen, solidline,
-								dotline, dashline, dashdotline, dashdotdotline.
-								</description>
-							</parameter>
-							<parameter type="double" name="width" default="1.0" unit="px">
-								<description>
-								The pen width. A double value.
-								</description>
-							</parameter>
-						</group>
-					</struct>
+								<parameter type="string" name="color" default="000000FF">
+									<description>
+									The pen color following the color definition
+									in SeisComP: color-code name, rgb or
+									hexadecimal representation.
+									</description>
+								</parameter>
+								<parameter type="string" name="style" default="solidline" values="nopen, solidline, dotline, dashline, dashdotline, dashdotdotline">
+									<description>
+									The pen style.
+									</description>
+								</parameter>
+								<parameter type="double" name="width" default="1.0" unit="px">
+									<description>
+									The pen width.
+									</description>
+								</parameter>
+							</group>
+						</struct>
 					</group>
 				</group>
 			</group>
