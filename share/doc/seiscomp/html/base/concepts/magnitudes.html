@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">6.1.2</span>
+          <span class="version">6.1.1</span>
         </div>
       </div>
     </div>
@@ -88,13 +88,13 @@ on the magnitude type, fixed or distance-dependent time windows apply.</p></li>
 <h3>Instrument simulation<a class="headerlink" href="#instrument-simulation" title="Permalink to this heading">¶</a></h3>
 <p>Amplitude measurements for some magnitude types require or allow the simulation
 of instruments such as <a class="reference internal" href="../filter-grammar.html#WA" title="WA"><code class="xref py py-func docutils literal notranslate"><span class="pre">Wood-Anderson</span> <span class="pre">torsion</span> <span class="pre">seismometers</span></code></a>
-(<span id="id1">Richter [<a class="reference internal" href="../references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">57</a>], Uhrhammer and Collins [<a class="reference internal" href="../references.html#id79" title="R.A. Uhrhammer and E.R. Collins. Synthesis of Wood-Anderson seismograms from broadband digital records. Bull. Seismol. Soc. Am., 80(3):702–716, 1990. doi:10.1785/BSSA0800030702.">63</a>]</span>), <a class="reference internal" href="../filter-grammar.html#WWSSN_SP" title="WWSSN_SP"><code class="xref py py-func docutils literal notranslate"><span class="pre">WWSSN_SP()</span></code></a> or <a class="reference internal" href="../filter-grammar.html#WWSSN_LP" title="WWSSN_LP"><code class="xref py py-func docutils literal notranslate"><span class="pre">WWSSN_LP()</span></code></a>.
+(<span id="id1">Richter [<a class="reference internal" href="../references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">56</a>], Uhrhammer and Collins [<a class="reference internal" href="../references.html#id78" title="R.A. Uhrhammer and E.R. Collins. Synthesis of Wood-Anderson seismograms from broadband digital records. Bull. Seismol. Soc. Am., 80(3):702–716, 1990. doi:10.1785/BSSA0800030702.">62</a>]</span>), <a class="reference internal" href="../filter-grammar.html#WWSSN_SP" title="WWSSN_SP"><code class="xref py py-func docutils literal notranslate"><span class="pre">WWSSN_SP()</span></code></a> or <a class="reference internal" href="../filter-grammar.html#WWSSN_LP" title="WWSSN_LP"><code class="xref py py-func docutils literal notranslate"><span class="pre">WWSSN_LP()</span></code></a>.
 The calibration parameters describing the Wood-Anderson seismometer are
 configurable in global bindings or global module configuration:
 <a class="reference internal" href="../../apps/global.html#confval-2"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.WoodAnderson.gain</span></code></a>, <a class="reference internal" href="../../apps/global.html#confval-3"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.WoodAnderson.T0</span></code></a>,
 <a class="reference internal" href="../../apps/global.html#confval-4"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.WoodAnderson.h</span></code></a>. Specifically, the difference in magnitude
 due to configuration using original values listed in
-<span id="id2">Richter [<a class="reference internal" href="../references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">57</a>]</span> and updated ones given in <span id="id3">Uhrhammer and Collins [<a class="reference internal" href="../references.html#id79" title="R.A. Uhrhammer and E.R. Collins. Synthesis of Wood-Anderson seismograms from broadband digital records. Bull. Seismol. Soc. Am., 80(3):702–716, 1990. doi:10.1785/BSSA0800030702.">63</a>]</span>
+<span id="id2">Richter [<a class="reference internal" href="../references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">56</a>]</span> and updated ones given in <span id="id3">Uhrhammer and Collins [<a class="reference internal" href="../references.html#id78" title="R.A. Uhrhammer and E.R. Collins. Synthesis of Wood-Anderson seismograms from broadband digital records. Bull. Seismol. Soc. Am., 80(3):702–716, 1990. doi:10.1785/BSSA0800030702.">62</a>]</span>
 result in a constant offset of 0.13 in those magnitudes which apply
 Wood-Anderson simulation, e.g. <a class="reference internal" href="../glossary.html#term-magnitude-local-ML"><span class="xref std std-term">ML</span></a>,
 <a class="reference internal" href="../glossary.html#term-magnitude-local-vertical-MLv"><span class="xref std std-term">MLv</span></a>, <a class="reference internal" href="../glossary.html#term-magnitude-local-custom-MLc"><span class="xref std std-term">MLc</span></a>.</p>
@@ -271,7 +271,7 @@ usually referred to as <em>M</em>. The name is configurable.</p>
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>6.1.2</b> Release
+		  Version <b>6.1.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

@@ -46,7 +46,7 @@ namespace Core {
 /******************************************************************************
  API Changelog
  ******************************************************************************
- "16.1.0"   0x100100
+ "16.1.0"   0x101000
    - Added Seiscomp::DataModel::numberOfComponents
 
  "16.0.0"   0x100000
@@ -112,7 +112,6 @@ namespace Core {
 
  "15.3.0"   0x0F0300
    - Added Seiscomp::Client::ThreadedQueue::isClosed
-   - Added Seiscomp::Client::ThreadedQueue::reset
 
  "15.2.0"   0x0F0200
    - Added Seiscomp::Wired::peerCertificate

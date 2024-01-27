@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">6.1.2</span>
+          <span class="version">6.1.1</span>
         </div>
       </div>
     </div>
@@ -78,7 +78,7 @@
 <section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
 <p>ML is the standard local (Richter) magnitude originally designed for
-Southern California by <span id="id1">Richter [<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">57</a>]</span>.</p>
+Southern California by <span id="id1">Richter [<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">56</a>]</span>.</p>
 <p>General (default) conditions apply:</p>
 <ul class="simple">
 <li><p>Amplitude unit in SeisComP: <strong>millimeter</strong> (mm) by simulation of a <a class="reference internal" href="../base/glossary.html#term-Wood-Anderson-seismometer"><span class="xref std std-term">Wood-Anderson seismometer</span></a>.</p></li>
@@ -104,7 +104,7 @@ amplitudes are configurable in the global bindings.</p>
 <p><img src="../_images/math/2ac00af8e0cff8bc51992386e723083d633de181.png" alt="ML = \log10(A) - \log10(A0)"/></p>
 </div><p><em>A</em> is the measured ML Wood-Anderson amplitude in millimeters. The second term
 is the empirical calibration function, which in turn is a function
-of the epicentral distance (<span id="id2">Richter [<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">57</a>]</span>). This calibration
+of the epicentral distance (<span id="id2">Richter [<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">56</a>]</span>). This calibration
 function and distance range can be configured globally or per station using
 global bindings or the global module configuration variable
 module.trunk.global.magnitudes.ML.logA0 in <code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code>, e.g.</p>
@@ -126,7 +126,7 @@ distance of 80 km the <em>log10(A0)</em> value would be</p>
 <div class="math">
 <p><img src="../_images/math/d201277e64aa494949afae6e3509d37320084dc7.png" alt="ML &amp;= \log10(A) - (-2.9) \\
    &amp;= \log10(A) + 2.9"/></p>
-</div><p>which is according to the original Richter formula <span id="id3">[<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">57</a>]</span> if the
+</div><p>which is according to the original Richter formula <span id="id3">[<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">56</a>]</span> if the
 amplitude is measured in millimeters.</p>
 <p>Several distance-value pairs can be configured for different ranges of
 epicenter distance.</p>
@@ -211,7 +211,7 @@ line per parameter can be added to the global module configuration
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>6.1.2</b> Release
+		  Version <b>6.1.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.

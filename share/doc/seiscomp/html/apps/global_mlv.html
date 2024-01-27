@@ -26,7 +26,7 @@
         <div class="brand">
           <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
            <!-- span class="title">SeisComP Release</span -->
-          <span class="version">6.1.2</span>
+          <span class="version">6.1.1</span>
         </div>
       </div>
     </div>
@@ -77,7 +77,7 @@
 <p>Local (Richter) magnitude measured on the vertical component</p>
 <section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
-<p>MLv is the local (Richter) magnitude (<span id="id1">Richter [<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">57</a>]</span>) computed from amplitudes measured on the
+<p>MLv is the local (Richter) magnitude (<span id="id1">Richter [<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">56</a>]</span>) computed from amplitudes measured on the
 vertical component.</p>
 <p>General (default) conditions apply:</p>
 <ul class="simple">
@@ -102,7 +102,7 @@ for measuring amplitudes are configurable in the global bindings.</p>
 <p><img src="../_images/math/f73f0c80f57e4c0aa9f75af47267f7aa55522b40.png" alt="MLv = \log10(A) - \log10(A0)"/></p>
 </div><p>A is the MLv Wood-Anderson amplitude in millimeters. The second term
 is the empirical calibration function, which in turn is a function
-of the epicentral distance (see <span id="id2">Richter [<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">57</a>]</span>). This calibration
+of the epicentral distance (see <span id="id2">Richter [<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">56</a>]</span>). This calibration
 function can be configured globally or per station using global
 bindings or the global module configuration variable
 module.trunk.global.magnitudes.MLv.logA0 in <code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code>, e.g.</p>
@@ -123,7 +123,7 @@ distance of 80 km the <em>log10(A0)</em> value would be</p>
 <div class="math">
 <p><img src="../_images/math/e43775c444e67a786957a45f52e1b6a4b4d757a8.png" alt="MLv &amp;= \log10(A) - (-2.9) \\
     &amp;= \log10(A) + 2.9"/></p>
-</div><p>which is according to the original Richter formula <span id="id3">[<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">57</a>]</span> if the
+</div><p>which is according to the original Richter formula <span id="id3">[<a class="reference internal" href="../base/references.html#id61" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">56</a>]</span> if the
 amplitude is measured in millimeters.</p>
 </section>
 <section id="network-magnitude">
@@ -223,7 +223,7 @@ default MLv is computed by <a class="reference internal" href="scautopick.html#s
         </a>
         <div class="stretched align-center fitted content">
           <div>
-		  Version <b>6.1.2</b> Release
+		  Version <b>6.1.1</b> Release
           </div>
             <div class="copyright">
               Copyright &copy; gempa GmbH, GFZ Potsdam.
