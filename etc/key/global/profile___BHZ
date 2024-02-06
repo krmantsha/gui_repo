@@ -5,6 +5,20 @@
 # expressions!
 detecStream = BHZ
 
+# The gain of the Wood-Anderson response.
+amplitudes.WoodAnderson.gain = 2080
+
+# The damping constant of the Wood-Anderson seismometer.
+amplitudes.WoodAnderson.h = 0.7
+
+# This parameter allows to set how the amplitude is measured. Either by finding
+# the absolute maximum of the demeaned trace (AbsMax), the difference of
+# maximum and minimum of the signal window (MinMax) or the maximum peak-trough
+# of one cycle (PeakTrough).
+# Note that if absMax is already explicitly configured, this parameter has no
+# effect.
+amplitudes.MLv.measureType = AbsMax
+
 # The calibration function log10(A0).
 # Format: any list of distance-value pairs separated by comma. Values within
 # pairs are separated by colon.
@@ -45,17 +59,3 @@ spicker.AIC.minSNR = 3
 # Minimum number of hits for a particular pick time when the running AIC is
 # computed for accepting a detection.
 spicker.AIC.minCnt = 4
-
-# This parameter allows to set how the amplitude is measured. Either by finding
-# the absolute maximum of the demeaned trace (AbsMax), the difference of
-# maximum and minimum of the signal window (MinMax) or the maximum peak-trough
-# of one cycle (PeakTrough).
-# Note that if absMax is already explicitly configured, this parameter has no
-# effect.
-amplitudes.MLv.measureType = AbsMax
-
-# The gain of the Wood-Anderson response.
-amplitudes.WoodAnderson.gain = 2080
-
-# The damping constant of the Wood-Anderson seismometer.
-amplitudes.WoodAnderson.h = 0.7

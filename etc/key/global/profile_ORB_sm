@@ -5,6 +5,43 @@
 # expressions!
 detecStream = HNZ
 
+# Define the saturation threshold for the optional saturation check. By
+# default, the saturation check is disabled but giving a value above 0 will
+# enable it. Waveforms that are saturated are not used for amplitude
+# calculations.
+# This value can either be an absolute value of counts such as "100000" counts
+# or a relative value (optionally in percent) with respect to the number of
+# effective bits, e.g. "0.8@23" or "80%@23". The first version uses 1**23 * 0.8
+# whereas the latter uses 1**23 * 80/100.
+# The boolean value "false" explicitly disables the check.
+amplitudes.saturationThreshold = false
+
+# Activate deconvolution for this station. If no responses are configured, an
+# error is raised and the data is not processed. This flag will be overridden
+# by the type specific flag (see GlobalAmplitudeProfile).
+amplitudes.enableResponses = true
+
+# The minimum frequency of the considered spectrum.
+# After data is converted into the frequency domain that minimum frequency
+# defines the end of the left-side cosine taper applied to the spectrum. The
+# taper applies from 0 Hz to {minFreq} Hz. A value of 0 or lower disables that
+# taper.
+amplitudes.resp.minFreq = 0.1
+
+# The gain of the Wood-Anderson response.
+amplitudes.WoodAnderson.gain = 2080
+
+# The damping constant of the Wood-Anderson seismometer.
+amplitudes.WoodAnderson.h = 0.7
+
+# This parameter allows to set how the amplitude is measured. Either by finding
+# the absolute maximum of the demeaned trace (AbsMax), the difference of
+# maximum and minimum of the signal window (MinMax) or the maximum peak-trough
+# of one cycle (PeakTrough).
+# Note that if absMax is already explicitly configured, this parameter has no
+# effect.
+amplitudes.MLv.measureType = AbsMax
+
 # The calibration function log10(A0).
 # Format: any list of distance-value pairs separated by comma. Values within
 # pairs are separated by colon.
@@ -45,40 +82,3 @@ spicker.AIC.minSNR = 3
 # Minimum number of hits for a particular pick time when the running AIC is
 # computed for accepting a detection.
 spicker.AIC.minCnt = 4
-
-# Define the saturation threshold for the optional saturation check. By
-# default, the saturation check is disabled but giving a value above 0 will
-# enable it. Waveforms that are saturated are not used for amplitude
-# calculations.
-# This value can either be an absolute value of counts such as "100000" counts
-# or a relative value (optionally in percent) with respect to the number of
-# effective bits, e.g. "0.8@23" or "80%@23". The first version uses 1**23 * 0.8
-# whereas the latter uses 1**23 * 80/100.
-# The boolean value "false" explicitly disables the check.
-amplitudes.saturationThreshold = false
-
-# Activate deconvolution for this station. If no responses are configured, an
-# error is raised and the data is not processed. This flag will be overridden
-# by the type specific flag (see Amplitude type profile).
-amplitudes.enableResponses = true
-
-# This parameter allows to set how the amplitude is measured. Either by finding
-# the absolute maximum of the demeaned trace (AbsMax), the difference of
-# maximum and minimum of the signal window (MinMax) or the maximum peak-trough
-# of one cycle (PeakTrough).
-# Note that if absMax is already explicitly configured, this parameter has no
-# effect.
-amplitudes.MLv.measureType = AbsMax
-
-# The minimum frequency of the considered spectrum.
-# After data is converted into the frequency domain that minimum frequency
-# defines the end of the left-side cosine taper applied to the spectrum. The
-# taper applies from 0 Hz to {minFreq} Hz. A value of 0 or lower disables that
-# taper.
-amplitudes.resp.minFreq = 0.1
-
-# The gain of the Wood-Anderson response.
-amplitudes.WoodAnderson.gain = 2080
-
-# The damping constant of the Wood-Anderson seismometer.
-amplitudes.WoodAnderson.h = 0.7
