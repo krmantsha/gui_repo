@@ -9,20 +9,6 @@ detecLocid = 00
 # expressions!
 detecStream = BHZ
 
-# The gain of the Wood-Anderson response.
-amplitudes.WoodAnderson.gain = 2080
-
-# The damping constant of the Wood-Anderson seismometer.
-amplitudes.WoodAnderson.h = 0.7
-
-# This parameter allows to set how the amplitude is measured. Either by finding
-# the absolute maximum of the demeaned trace (AbsMax), the difference of
-# maximum and minimum of the signal window (MinMax) or the maximum peak-trough
-# of one cycle (PeakTrough).
-# Note that if absMax is already explicitly configured, this parameter has no
-# effect.
-amplitudes.MLv.measureType = AbsMax
-
 # The calibration function log10(A0).
 # Format: any list of distance-value pairs separated by comma. Values within
 # pairs are separated by colon.
@@ -33,6 +19,20 @@ amplitudes.MLv.measureType = AbsMax
 # Note: The first and last distance samples limit the maximum distance range
 # for computing MLv.
 magnitudes.MLv.logA0 = "0:-0.64,5:-1.45,10:-1.79,15:-2.00,20:-2.15,25:-2.26,30:-2.36,35:-2.44,40:-2.50,45:-2.57,50:-2.62,60:-2.72,70:-2.80,80:-2.88,90:-2.94,100:-3.00,120:-3.10,140:-3.19,160:-3.27,180:-3.34,200:-3.41,220:-3.47,240:-3.53,260:-3.58,280:-3.63,300:-3.67,350:-3.78,400:-3.88,450:-3.97,500:-4.06,550:-4.13,600:-4.21,650:-4.28,700:-4.35,750:-4.41,800:-4.48,900:-4.60,1000:-4.72"
+
+# This parameter allows to set how the amplitude is measured. Either by finding
+# the absolute maximum of the demeaned trace (AbsMax), the difference of
+# maximum and minimum of the signal window (MinMax) or the maximum peak-trough
+# of one cycle (PeakTrough).
+# Note that if absMax is already explicitly configured, this parameter has no
+# effect.
+amplitudes.MLv.measureType = AbsMax
+
+# The gain of the Wood-Anderson response.
+amplitudes.WoodAnderson.gain = 2080
+
+# The damping constant of the Wood-Anderson seismometer.
+amplitudes.WoodAnderson.h = 0.7
 
 # Start time of the signal processing relative to the triggering P pick. This
 # adds a margin to the actual processing and is useful to initialize the filter
